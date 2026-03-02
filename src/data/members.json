@@ -15,7 +15,7 @@
       "name": "S Moonwara Anjum Monisha",
       "role": "PhD Student",
       "photo": "/assets/people/monisha.jpg",
-      "bio": "Designing and studying interactive, AI-assisted systems to support students' learning and assessment in introductory computer science, with a focus on database concepts. Working at the intersection of Computing Education Research, Human-Computer Interaction, and AI.",
+      "bio": "AI-assisted learning and assessment for introductory CS, focusing on databases.",
       "website": null,
       "email": null
     }
@@ -27,7 +27,7 @@
       "name": "Ben Mazurek",
       "role": "Undergraduate Researcher",
       "photo": "/assets/people/ben.jpg",
-      "bio": "Works on development and testing of code generation based autograding question frameworks.",
+      "bio": "Code generation-based autograding frameworks.",
       "website": null,
       "email": null
     },
@@ -36,7 +36,7 @@
       "name": "Vanshika Punekar",
       "role": "Undergraduate Researcher",
       "photo": "/assets/people/vanshika.jpg",
-      "bio": "Develops PrairieLearn assessment tools using EiPLGrader to improve algorithm comprehension and grading efficiency.",
+      "bio": "PrairieLearn assessment tools for algorithm comprehension.",
       "website": "https://www.linkedin.com/in/vanshika-punekar/",
       "email": null
     }
@@ -47,7 +47,7 @@
       "name": "Paul Denny",
       "role": "Professor",
       "photo": "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=KS4THtEAAAAJ&citpid=2",
-      "bio": "Co-recipient of the Llama Impact Grant. Research focuses on computing education and AI in education.",
+      "bio": "Computing education and AI in education.",
       "website": null,
       "email": "paul@cs.auckland.ac.nz",
       "institution": "University of Auckland"
@@ -57,7 +57,7 @@
       "name": "Kaitlin Riegel",
       "role": "Postdoctoral Fellow",
       "photo": "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=j0DgjIkAAAAJ&citpid=2",
-      "bio": "Co-supervising research on computing education assessment and pedagogical approaches.",
+      "bio": "Computing education assessment and pedagogy.",
       "website": null,
       "email": null,
       "institution": "University of Auckland"
@@ -67,7 +67,7 @@
       "name": "Zihan Wu",
       "role": "Assistant Professor",
       "photo": "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=dbLIyawAAAAJ&citpid=2",
-      "bio": "Research at the intersection of HCI and Computing Education, creating engaging and effective educational tools for computing.",
+      "bio": "HCI and educational tools for computing.",
       "website": null,
       "email": null,
       "institution": "University of Maine"
@@ -77,7 +77,7 @@
       "name": "Minsun Kim",
       "role": "Researcher",
       "photo": "/assets/people/minsun.jpg",
-      "bio": "Researcher and designer specializing in AI-driven educational technologies. Develops large language model applications that foster personalized learning environments and reimagine the role of teachers in AI-enhanced classrooms.",
+      "bio": "AI-driven educational technologies and LLM applications.",
       "website": "https://min-sunnying.github.io",
       "email": null,
       "institution": "KAIST"
@@ -87,10 +87,30 @@
       "name": "Fariha Anjum Shifa",
       "role": "Researcher",
       "photo": "/assets/people/fariha.jpg",
-      "bio": "Studies how non-native novice programmers can overcome language barriers when learning to code. Using translanguaging theory, her research explores how students draw on all their semiotic and linguistic resources to make sense of programming concepts.",
+      "bio": "Language barriers and translanguaging in learning to code.",
       "website": "https://farihanjum.github.io/",
       "email": null,
       "institution": "University of Dhaka"
+    },
+    {
+      "id": "seth",
+      "name": "Seth Poulsen",
+      "role": "Assistant Professor",
+      "photo": "https://sethpoulsen.github.io/images/DSC_0197.jpg",
+      "bio": "Software tools for CS education, including Proof Blocks.",
+      "website": "https://sethpoulsen.github.io/",
+      "email": null,
+      "institution": "Utah State University"
+    },
+    {
+      "id": "max",
+      "name": "Max Fowler",
+      "role": "Teaching Assistant Professor",
+      "photo": "https://ws.engr.illinois.edu/directory/viewphoto.aspx?photo=20868&s=300",
+      "bio": "Computer-based assessment, isomorphism, and EiPE.",
+      "website": null,
+      "email": null,
+      "institution": "University of Illinois"
     }
   ]
 }

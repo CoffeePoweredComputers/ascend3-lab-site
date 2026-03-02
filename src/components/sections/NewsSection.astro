@@ -1,9 +1,11 @@
 ---
 /**
- * NewsSection — Timeline of publications, talks, grants, announcements
+ * NewsSection — Filter chips + compact scrollable list of news items
  */
 import SectionHeading from '../SectionHeading.astro';
 import newsData from '../../data/news.json';
+
+const types = ['all', 'publication', 'talk', 'grant', 'general'] as const;
 ---
 
 <section id="news" class="section">
@@ -13,38 +15,125 @@ import newsData from '../../data/news.json';
       subtitle="Publications, talks, grants, and lab announcements."
     />
 
-    <!-- Timeline -->
-    <div class="relative">
-      <!-- Timeline line -->
-      <div class="absolute left-[7.5rem] top-0 bottom-0 w-px bg-border hidden md:block" aria-hidden="true"></div>
+    <!-- Filter chips -->
+    <div role="group" aria-label="Filter by type" class="flex flex-wrap gap-2 mb-4">
+      {types.map((type) => (
+        <button
+          class:list={['news-filter-chip', `news-filter-chip--${type}`]}
+          aria-pressed={type === 'all' ? 'true' : 'false'}
+          data-filter={type}
+        >
+          {type === 'all' ? 'All' : type}
+        </button>
+      ))}
+    </div>
 
-      <div class="space-y-6">
-        {newsData.map((item) => (
-          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
-            <!-- Date -->
+    <!-- Scrollable news list -->
+    <div
+      class="news-scroll-container"
+      role="region"
+      aria-label="News items"
+      tabindex="0"
+    >
+      {newsData.map((item, i) => (
+        <div class="news-item" data-type={item.type}>
+          <button
+            class="news-row"
+            aria-expanded="false"
+            aria-controls={`news-detail-${i}`}
+          >
             <time
               datetime={item.date}
-              class="font-mono text-sm text-text-muted shrink-0 md:w-28 md:text-right pt-0.5"
+              class="news-row-date"
             >
               {new Date(item.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
             </time>
-
-            <!-- Timeline dot -->
-            <div class="absolute left-[7.4rem] top-2 w-2.5 h-2.5 rounded-full bg-primary border-2 border-surface-base hidden md:block" aria-hidden="true"></div>
-
-            <!-- Content -->
-            <div class="flex-1 card p-5 md:ml-4">
-              <div class="flex items-center gap-2 mb-2">
-                <span class:list={['badge', `badge-${item.type}`]}>
-                  {item.type}
-                </span>
-                <h3 class="font-heading font-semibold text-text">{item.title}</h3>
+            <span class:list={['badge', `badge-${item.type}`, 'news-row-badge']}>
+              {item.type}
+            </span>
+            <span class="news-row-title">{item.title}</span>
+            <span class="news-row-chevron" aria-hidden="true">&#x25B8;</span>
+          </button>
+          <div id={`news-detail-${i}`} class="news-detail">
+            <p class="text-text-muted text-sm leading-relaxed">{item.description}</p>
+            {item.links && item.links.length > 0 && (
+              <div class="flex flex-wrap gap-3 mt-2">
+                {item.links.map((link: { text: string; url: string }) => (
+                  <a
+                    href={link.url}
+                    class="font-mono text-xs text-primary hover:text-secondary no-underline transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.text} <span aria-hidden="true">&uarr;</span>
+                  </a>
+                ))}
               </div>
-              <p class="text-text-muted text-sm leading-relaxed">{item.description}</p>
-            </div>
+            )}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   </div>
 </section>
+
+<script>
+  function initNews() {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.news-filter-chip');
+    const newsItems = document.querySelectorAll<HTMLElement>('.news-item');
+    const rowButtons = document.querySelectorAll<HTMLButtonElement>('.news-row');
+
+    // Filter logic
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter!;
+
+        // Update pressed state
+        filterButtons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+
+        // Collapse all expanded rows
+        rowButtons.forEach((rb) => {
+          rb.setAttribute('aria-expanded', 'false');
+          const detailId = rb.getAttribute('aria-controls');
+          if (detailId) {
+            const detail = document.getElementById(detailId);
+            if (detail) detail.hidden = true;
+          }
+        });
+
+        // Show/hide items
+        newsItems.forEach((item) => {
+          if (filter === 'all' || item.dataset.type === filter) {
+            item.hidden = false;
+          } else {
+            item.hidden = true;
+          }
+        });
+      });
+    });
+
+    // Expand/collapse logic
+    rowButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const detailId = btn.getAttribute('aria-controls');
+        if (!detailId) return;
+        const detail = document.getElementById(detailId);
+        if (!detail) return;
+
+        btn.setAttribute('aria-expanded', String(!expanded));
+        detail.hidden = expanded;
+      });
+    });
+
+    // Initialize all detail panels as hidden
+    document.querySelectorAll<HTMLElement>('.news-detail').forEach((d) => {
+      d.hidden = true;
+    });
+  }
+
+  // Run on initial load and on Astro page transitions
+  initNews();
+  document.addEventListener('astro:after-swap', initNews);
+</script>

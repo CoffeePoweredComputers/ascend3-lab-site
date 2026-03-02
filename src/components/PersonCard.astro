@@ -1,8 +1,8 @@
 ---
 /**
- * PersonCard — Lab member profile card
+ * PersonCard — Compact lab member profile card
  *
- * Card with primary border on hover.
+ * Static bio line, name links to website when available.
  * Collaborators use secondary accent.
  */
 
@@ -12,17 +12,16 @@ interface Props {
   photo?: string;
   bio?: string;
   website?: string;
-  email?: string;
   institution?: string;
   isCollaborator?: boolean;
 }
 
-const { name, role, photo, bio, website, email, institution, isCollaborator = false } = Astro.props;
+const { name, role, photo, bio, website, institution, isCollaborator = false } = Astro.props;
 const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
 ---
 
 <div class:list={[
-  'card p-5 flex flex-col items-center text-center',
+  'card p-3 flex flex-col items-center text-center',
   isCollaborator ? 'hover:border-secondary hover:shadow-[0_4px_24px_rgba(22,101,52,0.08)]' : ''
 ]}>
   <!-- Photo -->
@@ -31,14 +30,14 @@ const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
       src={photo}
       alt={`Photo of ${name}`}
       class:list={[
-        'w-24 h-24 rounded-full object-cover mb-4 ring-2 ring-offset-2 ring-offset-surface-base',
+        'w-14 h-14 rounded-full object-cover mb-3 ring-1 ring-offset-1 ring-offset-surface-base',
         isCollaborator ? 'ring-secondary/50' : 'ring-primary/50'
       ]}
       loading="lazy"
     />
   ) : (
     <div class:list={[
-      'w-24 h-24 rounded-full mb-4 flex items-center justify-center font-heading font-bold text-xl ring-2 ring-offset-2 ring-offset-surface-base',
+      'w-14 h-14 rounded-full mb-3 flex items-center justify-center font-heading font-bold text-base ring-1 ring-offset-1 ring-offset-surface-base',
       isCollaborator
         ? 'bg-secondary/10 text-secondary ring-secondary/50'
         : 'bg-primary/10 text-primary ring-primary/50'
@@ -47,8 +46,20 @@ const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
     </div>
   )}
 
-  <!-- Name -->
-  <h3 class="font-heading font-semibold text-text text-lg">{name}</h3>
+  <!-- Name (links to website when available) -->
+  <h3 class="font-heading font-semibold text-text text-base">
+    {website ? (
+      <a
+        href={website}
+        class="no-underline text-text hover:text-primary transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {name} <span class="text-text-muted text-xs" aria-hidden="true">↗</span>
+        <span class="sr-only">(opens in new tab)</span>
+      </a>
+    ) : name}
+  </h3>
 
   <!-- Role -->
   <p class:list={[
@@ -65,29 +76,7 @@ const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
 
   <!-- Bio -->
   {bio && (
-    <p class="text-text-muted text-sm mt-3 leading-relaxed">{bio}</p>
+    <p class="text-text-muted text-sm mt-2 leading-relaxed">{bio}</p>
   )}
 
-  <!-- Links -->
-  <div class="flex gap-3 mt-4">
-    {website && (
-      <a
-        href={website}
-        class="text-text-muted hover:text-primary no-underline text-sm font-mono transition-colors"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        website <span aria-hidden="true">↗</span>
-        <span class="sr-only">(opens in new tab)</span>
-      </a>
-    )}
-    {email && (
-      <a
-        href={`mailto:${email}`}
-        class="text-text-muted hover:text-primary no-underline text-sm font-mono transition-colors"
-      >
-        email
-      </a>
-    )}
-  </div>
 </div>

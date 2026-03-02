@@ -1,14 +1,116 @@
 [
   {
-    "date": "2026-01-15",
-    "type": "grant",
-    "title": "Llama Impact Grant Awarded",
-    "description": "The ASCEND Lab, in collaboration with the University of Auckland, has been awarded a Llama Impact Grant to support research on AI in computing education."
+    "date": "2026-02-01",
+    "type": "talk",
+    "title": "India Research Trip",
+    "description": "Wrote a Medium article about a recent research trip to India, giving a series of talks on our Programming in Plain Language work across several universities.",
+    "links": []
   },
   {
-    "date": "2025-09-01",
+    "date": "2026-01-15",
+    "type": "general",
+    "title": "Engineering Education Affiliate Faculty",
+    "description": "David has been appointed as an affiliate faculty member of the Department of Engineering Education at Virginia Tech.",
+    "links": [
+      { "text": "Department of Engineering Education", "url": "https://enge.vt.edu/" }
+    ]
+  },
+  {
+    "date": "2025-09-12",
+    "type": "general",
+    "title": "CHCI Affiliate Faculty",
+    "description": "David has been appointed as an affiliate faculty member of the Center for Human-Computer Interaction (CHCI) at Virginia Tech.",
+    "links": [
+      { "text": "CHCI", "url": "https://hci.icat.vt.edu/" }
+    ]
+  },
+  {
+    "date": "2025-08-01",
+    "type": "general",
+    "title": "Officially at Virginia Tech",
+    "description": "David has officially started his position as Assistant Professor in the Department of Computer Science at Virginia Tech.",
+    "links": []
+  },
+  {
+    "date": "2025-06-30",
     "type": "publication",
-    "title": "Lab Website Launched",
-    "description": "The ASCEND Lab website is now live, providing information about our research, team, and how to join."
+    "title": "Two Papers at ITiCSE 2025",
+    "description": "Presented two papers at ITiCSE 2025 in the Netherlands. One was nominated for the conference's Best Paper Award.",
+    "links": [
+      { "text": "ReDefining Code Comprehension", "url": "https://arxiv.org/pdf/2503.12207" },
+      { "text": "Counting the Trees in the Forest", "url": "https://arxiv.org/pdf/2503.12216" }
+    ]
+  },
+  {
+    "date": "2025-04-30",
+    "type": "grant",
+    "title": "Llama Impact Grant Awarded",
+    "description": "David and collaborator Paul Denny have been awarded a Llama Impact Grant to pursue work on EiPL questions and Prompt problems.",
+    "links": [
+      { "text": "press release", "url": "https://about.fb.com/news/2025/04/llama-impact-grant-recipients/" }
+    ]
+  },
+  {
+    "date": "2025-04-16",
+    "type": "general",
+    "title": "ACM TOCE Associate Editor",
+    "description": "David has joined ACM Transactions on Computing Education as an Associate Editor.",
+    "links": [
+      { "text": "ACM TOCE", "url": "https://dl.acm.org/journal/toce" }
+    ]
+  },
+  {
+    "date": "2025-04-09",
+    "type": "general",
+    "title": "Dissertation Defended",
+    "description": "David successfully defended his dissertation \"Discovering, Auto-generating, and Evaluating Distractors in Parsons Problems in CS1\".",
+    "links": []
+  },
+  {
+    "date": "2025-03-13",
+    "type": "general",
+    "title": "Virginia Tech Position Accepted",
+    "description": "David has accepted a tenure-track Assistant Professor position at Virginia Tech in the Department of Computer Science starting Fall 2025.",
+    "links": []
+  },
+  {
+    "date": "2025-03-01",
+    "type": "publication",
+    "title": "Two Papers Accepted to ITiCSE 2025",
+    "description": "Two papers on EiPL questions accepted to ITiCSE 2025: \"ReDefining Code Comprehension\" and \"Counting the Trees in the Forest\". Pre-prints available on arXiv.",
+    "links": [
+      { "text": "ReDefining Code Comprehension", "url": "https://arxiv.org/pdf/2503.12207" },
+      { "text": "Counting the Trees in the Forest", "url": "https://arxiv.org/pdf/2503.12216" }
+    ]
+  },
+  {
+    "date": "2024-10-02",
+    "type": "publication",
+    "title": "Paper Accepted to SIGCSE 2025",
+    "description": "Our paper \"Exploring Student Reactions to LLM-Generated Feedback on Explain in Plain English Problems\" was accepted to ACM SIGCSE 2025.",
+    "links": []
+  },
+  {
+    "date": "2024-10-01",
+    "type": "talk",
+    "title": "University of Toronto Talks",
+    "description": "Visited University of Toronto St. George and Mississauga to give a talk on \"Explain in Plain Language Questions\".",
+    "links": []
+  },
+  {
+    "date": "2024-10-01",
+    "type": "publication",
+    "title": "Paper Accepted to COMPUTE 2025",
+    "description": "Our paper \"Explain in Plain Language Question with Indic Languages\" was accepted to COMPUTE 2025 and is available on arXiv.",
+    "links": [
+      { "text": "arXiv", "url": "https://arxiv.org/abs/2409.20297" }
+    ]
+  },
+  {
+    "date": "2024-09-23",
+    "type": "talk",
+    "title": "Dagstuhl Seminar Invitation",
+    "description": "Invited to Dagstuhl Seminar 25311 on \"Generative AI is Programming Education\".",
+    "links": []
   }
 ]
