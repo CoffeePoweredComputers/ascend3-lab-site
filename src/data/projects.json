@@ -1,30 +1,18 @@
 [
   {
-    "title": "LLM-Based Autograding Framework",
+    "title": "EiPLGrader",
     "description": "A code generation-based autograding question framework that leverages large language models to automatically generate and evaluate programming assessments.",
     "status": "active",
     "tags": ["LLM", "Assessment", "Python"],
+    "logo": null,
     "links": {}
   },
   {
-    "title": "AI-Enhanced Classroom Tools",
-    "description": "Developing LLM applications that foster personalized learning environments and reimagine the role of teachers in AI-enhanced classrooms.",
+    "title": "Purplex.org",
+    "description": "Coming soon.",
     "status": "active",
-    "tags": ["AI", "EdTech", "HCI"],
-    "links": {}
-  },
-  {
-    "title": "Interactive Database Learning System",
-    "description": "An AI-assisted system to support students' learning and assessment in introductory database concepts, focusing on effective scaffolding and feedback.",
-    "status": "active",
-    "tags": ["Databases", "AI", "Scaffolding"],
-    "links": {}
-  },
-  {
-    "title": "Translanguaging in CS Education",
-    "description": "Research into how non-native novice programmers can overcome language barriers when learning to code, exploring semiotic and linguistic resources.",
-    "status": "active",
-    "tags": ["Equity", "Linguistics", "CS Education"],
+    "tags": [],
+    "logo": null,
     "links": {}
   }
 ]

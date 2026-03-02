@@ -17,7 +17,12 @@ import projectsData from '../../data/projects.json';
       {projectsData.map((project) => (
         <div class="card p-6">
           <div class="flex items-start justify-between gap-4 mb-3">
-            <h3 class="font-heading font-semibold text-lg text-text">{project.title}</h3>
+            <div class="flex items-center gap-3">
+              {project.logo && (
+                <img src={project.logo} alt="" class="w-10 h-10 object-contain shrink-0" />
+              )}
+              <h3 class="font-heading font-semibold text-lg text-text">{project.title}</h3>
+            </div>
             <span class:list={['badge shrink-0', project.status === 'active' ? 'badge-active' : 'badge-completed']}>
               {project.status}
             </span>

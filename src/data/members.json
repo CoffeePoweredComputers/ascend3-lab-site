@@ -20,26 +20,7 @@
       "email": null
     }
   ],
-  "masters": [
-    {
-      "id": "minsun",
-      "name": "Minsun Kim",
-      "role": "Master's Student",
-      "photo": "/assets/people/minsun.jpg",
-      "bio": "Researcher and designer specializing in AI-driven educational technologies. Develops large language model applications that foster personalized learning environments and reimagine the role of teachers in AI-enhanced classrooms.",
-      "website": "https://min-sunnying.github.io",
-      "email": null
-    },
-    {
-      "id": "fariha",
-      "name": "Fariha Anjum Shifa",
-      "role": "Master's Student",
-      "photo": "/assets/people/fariha.jpg",
-      "bio": "Studies how non-native novice programmers can overcome language barriers when learning to code. Using translanguaging theory, her research explores how students draw on all their semiotic and linguistic resources to make sense of programming concepts.",
-      "website": "https://farihanjum.github.io/",
-      "email": null
-    }
-  ],
+  "masters": [],
   "undergrad": [
     {
       "id": "ben",
@@ -48,6 +29,15 @@
       "photo": "/assets/people/ben.jpg",
       "bio": "Works on development and testing of code generation based autograding question frameworks.",
       "website": null,
+      "email": null
+    },
+    {
+      "id": "vanshika",
+      "name": "Vanshika Punekar",
+      "role": "Undergraduate Researcher",
+      "photo": "/assets/people/vanshika.jpg",
+      "bio": "Develops PrairieLearn assessment tools using EiPLGrader to improve algorithm comprehension and grading efficiency.",
+      "website": "https://www.linkedin.com/in/vanshika-punekar/",
       "email": null
     }
   ],
@@ -81,6 +71,26 @@
       "website": null,
       "email": null,
       "institution": "University of Maine"
+    },
+    {
+      "id": "minsun",
+      "name": "Minsun Kim",
+      "role": "Researcher",
+      "photo": "/assets/people/minsun.jpg",
+      "bio": "Researcher and designer specializing in AI-driven educational technologies. Develops large language model applications that foster personalized learning environments and reimagine the role of teachers in AI-enhanced classrooms.",
+      "website": "https://min-sunnying.github.io",
+      "email": null,
+      "institution": "KAIST"
+    },
+    {
+      "id": "fariha",
+      "name": "Fariha Anjum Shifa",
+      "role": "Researcher",
+      "photo": "/assets/people/fariha.jpg",
+      "bio": "Studies how non-native novice programmers can overcome language barriers when learning to code. Using translanguaging theory, her research explores how students draw on all their semiotic and linguistic resources to make sense of programming concepts.",
+      "website": "https://farihanjum.github.io/",
+      "email": null,
+      "institution": "University of Dhaka"
     }
   ]
 }

@@ -428,13 +428,13 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
 
     setActiveWaypoint(currentIndex);
 
-    // Trail fill progress
+    // Trail fill progress — use raw scrollY so fill aligns exactly with waypoints
     let progress = 0;
     if (currentIndex < NUM_SECTIONS - 1) {
       const start = sectionTops[currentIndex];
       const end = sectionTops[currentIndex + 1];
       const span = end - start;
-      const frac = span > 0 ? Math.min(Math.max((triggerY - start) / span, 0), 1) : 0;
+      const frac = span > 0 ? Math.min(Math.max((scrollY - start) / span, 0), 1) : 0;
       progress = (currentIndex + frac) / (NUM_SECTIONS - 1);
     } else {
       progress = 1;

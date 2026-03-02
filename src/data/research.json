@@ -4,14 +4,14 @@
     "icon": "brain",
     "description": "Designing and building configurable AI-powered interfaces that support personalized learning in computing education. This work explores how large language model applications can foster adaptive learning environments and reimagine the role of teachers in AI-enhanced classrooms.",
     "keywords": ["LLM", "Configurable Interfaces", "Personalized Learning", "AI-Enhanced Classrooms"],
-    "researchers": ["minsun", "zwu"]
+    "researchers": ["dhsmith", "minsun", "zwu"]
   },
   {
     "title": "Automated Assessment",
     "icon": "check",
     "description": "Developing and evaluating automated grading systems for programming assignments, including code generation-based autograding frameworks. Our goal is to provide students with timely, actionable feedback while reducing instructor workload.",
     "keywords": ["Autograding", "Code Analysis", "Feedback Systems", "Formative Assessment"],
-    "researchers": ["dhsmith", "ben", "monisha", "pdenny", "kriegel"]
+    "researchers": ["dhsmith", "ben", "vanshika", "monisha", "pdenny", "kriegel"]
   },
   {
     "title": "Effective and Fair Randomized Computer Based Assessment",
@@ -25,13 +25,13 @@
     "icon": "database",
     "description": "Designing and studying interactive, AI-assisted systems to support students' learning and assessment of database concepts in introductory computer science. This work sits at the intersection of computing education research, human-computer interaction, and AI.",
     "keywords": ["Database Concepts", "Interactive Learning", "AI-Assisted Systems", "Introductory CS"],
-    "researchers": ["monisha"]
+    "researchers": ["dhsmith", "monisha"]
   },
   {
     "title": "Multilingual Computing Education",
     "icon": "globe",
     "description": "Investigating how language diversity impacts learning to code. Using translanguaging theory, we explore how non-native English speakers draw on their full linguistic repertoire to make sense of programming concepts and technical vocabulary.",
     "keywords": ["Translanguaging", "Language Barriers", "Equity", "Inclusive Education"],
-    "researchers": ["fariha"]
+    "researchers": ["dhsmith", "fariha"]
   }
 ]
