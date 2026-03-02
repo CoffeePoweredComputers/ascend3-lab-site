@@ -1,0 +1,111 @@
+---
+/**
+ * Footer — Dark granite three-column layout
+ * Logo + name, quick links, contact
+ */
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-surface-dark text-white py-12 mt-auto">
+  <div class="container">
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- About -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="/assets/ascend-logo.svg" alt="ASCEND Lab" class="h-10 w-auto brightness-0 invert" />
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed">
+          Advancing Support in Computing Education for Novice Developers,
+          Data Scientists, and Designers.
+        </p>
+        <p class="text-slate-400 text-sm mt-2">
+          Virginia Tech · Department of Computer Science
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h2 class="text-sm font-heading font-semibold mb-4 text-slate-400 uppercase tracking-wider">
+          Navigation
+        </h2>
+        <ul class="space-y-2 text-sm" role="list">
+          <li>
+            <a href="#people" class="text-slate-400 hover:text-blue-400 no-underline transition-colors">
+              People
+            </a>
+          </li>
+          <li>
+            <a href="#research" class="text-slate-400 hover:text-blue-400 no-underline transition-colors">
+              Research
+            </a>
+          </li>
+          <li>
+            <a href="#projects" class="text-slate-400 hover:text-blue-400 no-underline transition-colors">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="#news" class="text-slate-400 hover:text-blue-400 no-underline transition-colors">
+              News
+            </a>
+          </li>
+          <li>
+            <a href="#join" class="text-slate-400 hover:text-blue-400 no-underline transition-colors">
+              Join the Lab
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h2 class="text-sm font-heading font-semibold mb-4 text-slate-400 uppercase tracking-wider">
+          Contact
+        </h2>
+        <ul class="space-y-2 text-sm" role="list">
+          <li>
+            <a
+              href="mailto:dhsmith4@vt.edu"
+              class="text-slate-400 hover:text-blue-400 no-underline transition-colors"
+            >
+              dhsmith4@vt.edu
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://cs.vt.edu"
+              class="text-slate-400 hover:text-blue-400 no-underline transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              VT Computer Science <span aria-hidden="true">↗</span>
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://scholar.google.com/citations?user=hpe-z9YAAAAJ"
+              class="text-slate-400 hover:text-blue-400 no-underline transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Scholar <span aria-hidden="true">↗</span>
+              <span class="sr-only">(opens in new tab)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="my-8 border-slate-700" />
+
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+      <p>
+        &copy; {currentYear} ASCEND Lab, Virginia Tech
+      </p>
+      <p class="text-xs text-slate-500">
+        Built with Astro + Tailwind CSS
+      </p>
+    </div>
+  </div>
+</footer>

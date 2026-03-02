@@ -1,0 +1,519 @@
+---
+/**
+ * Navigation — Fixed left sidebar with trail-marker navigation
+ *
+ * The navigation IS the trail: each link is a waypoint on a hiking path
+ * from Base Camp (0m) to Summit (2400m). A dashed vertical line connects
+ * all markers, and a solid gradient fill grows as the user scrolls.
+ *
+ * Single-page version: all links are anchors, active state is driven
+ * by scroll position via client-side JS.
+ *
+ * Features:
+ * - Inline SVG logo (no network stutter)
+ * - Vertical trail line with waypoint markers (percentage-based, stretches to fill)
+ * - Scroll-progress fills trail line (green → blue → light blue)
+ * - Active marker pulses with ring animation
+ * - Collapses to top hamburger on mobile
+ */
+
+const navLinks = [
+  { href: '#home', label: 'Home', elevation: 420, id: 'home' },
+  { href: '#people', label: 'People', elevation: 840, id: 'people' },
+  { href: '#research', label: 'Research', elevation: 1260, id: 'research' },
+  { href: '#projects', label: 'Projects', elevation: 1680, id: 'projects' },
+  { href: '#news', label: 'News', elevation: 2100, id: 'news' },
+  { href: '#join', label: 'Join', elevation: 2400, id: 'join' },
+];
+
+/* ── Trail geometry constants ── */
+const TRAIL_WIDTH = 176;
+const LEFT_X_DEFAULT = 15;
+const RIGHT_X_DEFAULT = 160;
+
+// Waypoint Y as percentages of the trail container height (5% to 95%)
+const waypointPcts = navLinks.map((_link, i) => 5 + (i / (navLinks.length - 1)) * 90);
+
+interface Waypoint {
+  href: string;
+  label: string;
+  elevation: number;
+  id: string;
+  x: number;
+  pct: number;
+  side: 'left' | 'right';
+}
+
+const waypoints: Waypoint[] = navLinks.map((link, i) => ({
+  href: link.href,
+  label: link.label,
+  elevation: link.elevation,
+  id: link.id,
+  x: i % 2 === 0 ? LEFT_X_DEFAULT : RIGHT_X_DEFAULT,
+  pct: waypointPcts[i],
+  side: i % 2 === 0 ? 'left' as const : 'right' as const,
+}));
+
+
+/* Inline SVG logo — inner content only (wrapped in <svg> elements below with different classes) */
+const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" style="color-interpolation-filters:sRGB"><feColorMatrix result="color2" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0.21 0.72 0.07 1 0"/></filter><path id="a" d="M939.08 362.476h1363.135v453.445H939.08z"/></defs><path d="M79.026 131.622h14.115a2.283 2.283 121.312 0 0 2.027-3.333L64.563 69.183a6.83 6.83 31.312 0 0-6.065-3.69 8.56 8.56 150.78 0 0-7.278 4.072L39.862 87.98A11.55 11.55 135.28 0 1 36 91.804l-.73.441a25.3 25.3 133.708 0 0-9.158 9.58l-14.433 26.561a2.254 2.254 59.14 0 0 1.99 3.33l22.426-.094h12.049zm-11.975-28.996-8.63-8.598a2.96 2.96 24.826 0 0-1.84-.852l-6.734-.56a1.616 1.616 62.067 0 1-1.274-2.403l8.98-15.95a1.498 1.498 1.582 0 1 2.648.073l9.932 20.17a.41.41 138.309 0 1-.59.526l-2.639-1.703a.59.59 144.689 0 0-.893.633l1.95 8.154a.542.542 150.72 0 1-.91.51" aria-label="A" style="font-weight:700;font-size:333.333px;white-space:pre;fill:#000;stroke-width:.308937" transform="translate(-14.694 -84.377)scale(1.28831)"/><text xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:400px;font-family:&quot;Adwaita Mono&quot;;-inkscape-font-specification:&quot;Adwaita Mono, Bold&quot;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#a);display:inline;fill:#241c1c" transform="matrix(.16315 0 0 .17803 -41.599 -43.389)"><tspan x="939.08" y="721.277"><tspan style="fill:#1a1a1a">scend</tspan></tspan></text><text xml:space="preserve" x="658.796" y="173.405" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:39.3323px;font-family:sans-serif;-inkscape-font-specification:&quot;sans-serif, Bold&quot;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;direction:ltr;fill:#1a1a1a;stroke-width:.10727" transform="matrix(1.01803 0 0 .9823 -363.919 -136.217)"><tspan x="658.796" y="173.405" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:39.3323px;font-family:sans-serif;-inkscape-font-specification:&quot;sans-serif, Bold&quot;;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:.10727">3</tspan></text><path d="M52.665 79.12s-.131.246-.134.358.032.175.09.277.198.21.267.313a1.4 1.4 0 0 1 .224.58c.02.134.015.37.026.518s.007.24.036.367c.03.126.093.254.143.384s.06.224.16.393c.1.168.322.502.474.58.152.079.06.084.277.018s.563-.481.858-.66c.294-.18.528-.328.893-.42.365-.093.97-.094 1.268-.072.3.022.37.14.519.107.148-.034.215.078.303-.232.089-.31-.367-.973-.55-1.455s-.506-1.106-.548-1.44.044-.371.053-.473.009-.134.009-.134z" style="fill:#039;fill-opacity:1;stroke-width:.264583" transform="matrix(3.5007 1.14755 -1.20048 4.24111 -76.168 -336.147)"/><path d="M57.953 77.77s-.108.258-.1.37c.009.111.05.17.116.267.067.096.218.19.296.285a1.4 1.4 0 0 1 .278.557c.033.131.051.367.076.513s.03.238.07.361c.042.123.117.245.18.369s.082.218.197.376c.116.158.368.47.527.533s.068.077.277-.01c.21-.086.515-.532.79-.739.277-.207.496-.376.85-.503s.956-.186 1.256-.192.381.105.526.057c.144-.048.221.058.28-.26.058-.318-.459-.933-.687-1.396s-.61-1.052-.683-1.38.009-.375.008-.477-.004-.134-.004-.134z" style="fill:#c00;fill-opacity:1;stroke-width:.264583" transform="matrix(3.5007 1.14755 -1.20048 4.24111 -76.168 -336.147)"/><path d="M68.68 73.607s-.081.266-.061.377c.019.11.065.165.142.254.076.088.236.166.324.253a1.4 1.4 0 0 1 .333.526c.046.127.088.36.128.502s.054.234.107.352c.054.119.14.232.216.349s.104.208.235.354c.13.145.414.429.578.476.165.047.076.07.275-.037.2-.108.458-.583.711-.817s.454-.425.793-.587c.34-.162.932-.283 1.23-.32s.39.066.529.003c.138-.062.226.035.252-.287s-.552-.882-.826-1.319c-.275-.436-.714-.984-.82-1.303-.107-.318-.03-.373-.041-.474s-.018-.133-.018-.133z" style="fill:#063;fill-opacity:1;stroke-width:.264583" transform="matrix(3.5007 1.14755 -1.20048 4.24111 -76.168 -336.147)"/><path d="M63.218 76.016s-.08.266-.06.377c.019.11.065.165.141.253.076.09.236.167.324.254a1.4 1.4 0 0 1 .334.526c.046.127.088.36.128.502s.053.234.107.352c.053.119.14.232.215.349.076.117.104.208.235.354.131.145.414.429.579.476s.075.07.275-.037.457-.583.71-.817c.254-.234.454-.425.794-.587s.932-.283 1.23-.32.39.066.528.003c.139-.062.227.035.253-.287s-.552-.882-.827-1.319-.713-.984-.82-1.303-.03-.373-.04-.474c-.012-.101-.018-.133-.018-.133z" style="fill:#f9f9f9;stroke-width:.264583" transform="matrix(3.5007 1.14755 -1.20048 4.24111 -76.168 -336.147)"/><path d="M51.443 79.304s.834-.176 1.25-.268c.65-.145 1.302-.283 1.948-.447a73 73 0 0 0 3.725-1.036 71 71 0 0 0 4.073-1.403c1.546-.586 3.055-1.268 4.582-1.902 1.188-.494 2.393-.95 3.564-1.483a72 72 0 0 0 2.285-1.135l.07.216s-3.419 1.617-5.15 2.375c-1.545.676-3.092 1.35-4.672 1.938-.312.116-.632.206-.947.313-1.436.486-2.854 1.027-4.297 1.492q-.625.202-1.26.375c-1.452.392-2.919.727-4.385 1.063-.261.06-.786.17-.786.17z" style="fill:#fff;stroke-width:.264583" transform="matrix(3.5007 1.14755 -1.20048 4.24111 -76.168 -336.147)"/><g style="fill:#fff"><path d="m328.854 196.32-2.314-1.766.075-1.154.075-1.154 2.514-.898c1.382-.494 2.73-.967 2.993-1.052.415-.133.47-.02.397.835-.082.971-.12 1.003-2.001 1.674-1.055.377-1.919.768-1.919.87 0 .103.695.721 1.545 1.375 1.392 1.071 1.532 1.268 1.424 2.003-.065.448-.199.864-.296.924-.098.06-1.22-.685-2.492-1.657M337.939 198.485c.006-1.103.196-1.263 2.305-1.948 2.163-.702 2.163-.713.009-2.294-1.23-.902-1.306-1.025-1.167-1.882.082-.503.202-.97.268-1.035.065-.065 1.204.739 2.53 1.786 2.394 1.891 2.41 1.912 2.239 2.864-.095.527-.218 1.039-.273 1.137-.055.097-1.26.561-2.677 1.03-1.418.47-2.726.909-2.908.976-.216.08-.33-.14-.327-.634zM332.068 199.8c-.368-.098-.078-.825 1.702-4.27 3.347-6.476 3.204-6.257 4.137-6.35.481-.05.821.04.821.214 0 .164-1.2 2.612-2.667 5.44-2.689 5.184-2.773 5.288-3.993 4.965" style="fill:#fff" transform="matrix(.71368 -.1802 .19083 .9259 -234.594 -52.049)"/></g><path d="M447.901 202.247c-.145-.6-.244-.696-.76-.733-.445-.032-.635-.152-.753-.475-.148-.402-.201-.421-.773-.272-.338.088-.725.088-.86 0-.417-.27-.158-.715.52-.89.353-.093.61-.26.569-.371-.044-.12-.329-.137-.704-.039-.703.183-.988.027-.876-.481.044-.204.33-.385.71-.45.4-.07.582-.19.492-.327s-.302-.173-.576-.098c-.601.166-.982.054-1.039-.304-.032-.205.202-.368.718-.5.92-.237.696-.635-.264-.469-.523.09-.65.058-.743-.191-.18-.482-.096-.58.642-.747.59-.134.702-.242.733-.702.028-.406.151-.575.485-.667.428-.118.44-.153.27-.767-.163-.592-.147-.663.205-.88.412-.254.444-.22.839.877.203.564.463.31.324-.316-.065-.29-.037-.649.06-.796.29-.432.709-.199.831.462.063.338.175.627.25.643.324.07.415-.195.26-.758-.3-1.087.461-1.252.825-.179.277.82.676.713.446-.119-.19-.692-.034-.97.485-.858.204.045.393.324.46.68.093.507.196.605.643.614.38.008.61.145.806.48.257.439.31.457.801.274.29-.108.638-.124.775-.035.418.27.16.715-.518.891-.354.092-.61.259-.57.37.043.12.344.133.735.031.621-.162.673-.148.844.232.195.429.175.447-.85.797-.572.196-.312.453.324.32.296-.062.66-.032.811.065.442.286.207.697-.465.813-.725.125-.934.5-.247.442.854-.071 1.223.055 1.218.417-.003.248-.195.38-.64.443-.513.072-.66.197-.758.642-.066.304-.297.676-.513.826-.321.225-.37.368-.275.798.17.763.049 1.079-.379.986-.226-.05-.446-.335-.551-.715-.096-.348-.268-.6-.381-.562-.123.042-.139.314-.04.674.22.797.17.95-.317.968-.314.011-.453-.155-.61-.727-.121-.446-.273-.67-.38-.562-.098.1-.1.462-.006.805.161.583.146.631-.24.737-.567.156-.568.155-.697-.536-.062-.337-.23-.638-.374-.67-.207-.045-.224.093-.082.68.155.64.136.752-.14.85-.475.168-.52.129-.7-.62z" style="fill:#fff;stroke-width:.730913" transform="rotate(-1.887 -3867.566 11175.944)"/><path d="M449.947 199.826c1.306-.317 2.444-.62 2.531-.674.144-.09-.892-4.422-1.162-4.86-.105-.171-5.216.966-5.26 1.17-.054.244 1.24 4.879 1.37 4.907.081.017 1.216-.227 2.521-.543" style="fill:#063;fill-opacity:1;stroke-width:.730913" transform="rotate(-1.887 -3867.566 11175.944)"/><path d="M425.06 207.476c-1.789-.188-1.78-.179-2.118-2.447-.165-1.118-.264-2.041-.218-2.052.045-.01 1.04.244 2.208.566l2.126.587 1.604-1.331c.883-.733 1.733-1.446 1.89-1.587.257-.23.315-.054.592 1.812l.307 2.067-.783.64c-.929.76-4.477 1.864-5.607 1.745m7.516-5.213a21 21 0 0 0-.175-1.962c-.078-.532-.057-.988.046-1.013.108-.026.255.478.346 1.186.088.677.263 1.536.389 1.91.198.59.176.692-.172.776-.364.088-.404.005-.434-.897m-9.443.005c-3.289-.902-3.668-1.06-3.35-1.404.198-.212 1.625-1.444 3.173-2.737l2.813-2.35 3.792 1.035c3.735 1.02 3.784 1.043 3.248 1.486-.3.247-1.72 1.467-3.157 2.71s-2.658 2.264-2.712 2.269c-.055.004-1.768-.45-3.807-1.009" style="fill:#000;stroke-width:.825144" transform="translate(-363.919 -136.217)"/><g style="filter:url(#b)" transform="translate(-39.08 35.122)scale(.09752)"><path d="M635.113 364.632c4.731-2.658 10.178-7.482 12.848-11.378 1.812-2.646 3.555-6.344 4.33-9.19.545-2.004.61-2.812.597-7.408-.013-4.714-.075-5.382-.709-7.726-.86-3.178-2.062-6.207-4.728-11.91-3.61-7.723-4.55-11.188-4.541-16.745.007-4.552 1.045-8.506 2.859-10.883l.653-.857c-15.316 1.119-32.38 7.611-44.716 17.264-3.526 3.018-7.305 8.333-10.817 15.218-1.206 2.364.162 6.396 3.055 9.007 13.138 11.856 26.271 23.719 39.512 35.46.073.003.819-.38 1.657-.852zM629.423 369.62c.436-.478.772-.86 1.022-1.166.451-.554.061-1.6-.506-2.111a49090 49090 0 0 0-21.123-19.016l-21.14-19.022a.93.93 177.237 0 0-1.309.063l-1.282 1.4c-1.333 1.454-3.91 4.34-4.186 4.622-.901.92 44.18 39.825 44.328 39.838.098.008 3.169-3.482 4.196-4.608" style="fill:#000"/><path d="M573.085 402.609c7.027-2.32 13.29-8.198 16.475-15.464.383-.873 1.251-3.433 1.93-5.688 1.9-6.322 3.156-8.22 6.443-9.748 3.72-1.728 8.919-.26 15.986 4.515 3.128 2.113 5.293 2.564 7.462 1.553 1.001-.467 4.07-3.327 3.82-3.56-.064-.061-10.051-9.057-22.194-19.993l-22.077-19.882-1.011 1.134c-1.485 1.665-2.062 2.898-2.062 4.4 0 1.788.895 3.356 3.968 6.952 3.557 4.16 4.654 5.66 5.688 7.78 2.629 5.39 2.22 10.622-1.094 13.983-1.224 1.242-1.72 1.514-8.891 4.882-8.196 3.849-13.017 9.473-15.066 17.576-.42 1.663-.515 2.73-.435 4.93.09 2.5.186 2.962.874 4.216 1.321 2.406 3.196 3.302 6.489 3.1 1.091-.067 2.754-.376 3.695-.686" style="fill:#000"/><path d="M572.398 394.927c-.456-.132-1.26-.717-1.786-1.3-.849-.94-.957-1.22-.957-2.475 0-3.258 3.142-5.135 5.925-3.54 3.045 1.746 2.517 6.167-.872 7.302-1.024.343-1.17.344-2.31.013" style="fill:#000"/></g>`;
+---
+
+<!-- ═══ DESKTOP SIDEBAR ═══ -->
+<aside
+  class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[340px] z-40 flex-col"
+  aria-label="Sidebar navigation"
+>
+  <!-- Frosted glass background -->
+  <div class="absolute inset-0 bg-white/60 dark:bg-surface-base/60 backdrop-blur-xl border-r border-border/50"></div>
+
+  <!-- Animated topo lines background -->
+  <div class="absolute inset-0 topo-sidebar opacity-30 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative z-10 flex flex-col h-full px-6 py-6">
+
+    <!-- ═══ Section 1: Logo (fixed size) ═══ -->
+    <div class="shrink-0 mb-6">
+      <a
+        href="#home"
+        id="nav-logo"
+        class="block no-underline group"
+        aria-label="ASCEND Lab - Home"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xml:space="preserve"
+          viewBox="0 0 327.416 85.588"
+          class="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02] dark:hidden"
+          set:html={logoSvgContent}
+        />
+        <img
+          src="/assets/ascend-logo-dark.svg"
+          alt=""
+          class="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02] hidden dark:block"
+        />
+      </a>
+    </div>
+
+    <!-- ═══ Section 2: Trail nav (fills remaining space) ═══ -->
+    <nav aria-label="Main navigation" class="flex-1 min-h-0">
+      <div class="relative h-full mx-auto" style={`width: ${TRAIL_WIDTH}px;`} data-trail-container>
+        <!-- SVG winding trail path (viewBox set by JS) -->
+        <svg
+          data-trail-svg
+          class="absolute inset-0 w-full h-full"
+          fill="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="trail-gradient" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#166534" />
+              <stop offset="50%" stop-color="#2563EB" />
+              <stop offset="100%" stop-color="#93C5FD" />
+            </linearGradient>
+          </defs>
+          <path
+            data-trail-dashed
+            stroke="var(--color-border)"
+            stroke-width="2"
+            stroke-dasharray="6 4"
+            stroke-linecap="round"
+            fill="none"
+          />
+          <path
+            data-trail-path
+            stroke="url(#trail-gradient)"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            fill="none"
+          />
+        </svg>
+
+        <!-- Waypoints (positioned via top %) -->
+        {waypoints.map((wp) => (
+          <a
+            href={wp.href}
+            data-waypoint={wp.id}
+            class:list={[
+              'trail-waypoint group absolute no-underline z-10',
+              wp.side === 'left' ? 'trail-badge-left' : 'trail-badge-right',
+            ]}
+            style={`top: ${wp.pct}%; --wp-x: ${wp.x}px;`}
+          >
+            <span class="trail-badge" style={`--char-count:${wp.label.length}`}>
+              <span class="trail-prompt" aria-hidden="true">&gt;&nbsp;</span>
+              {wp.label.split('').map((char, i) => (
+                <span class="trail-char" style={`--char-i:${i}`}>{char}</span>
+              ))}
+              <span class="trail-cursor" aria-hidden="true">_</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    <!-- ═══ Section 3: Footer (fixed size) ═══ -->
+    <div class="shrink-0 pt-4 border-t border-border/50 flex items-center justify-between">
+      <p class="text-[11px] text-text-muted/60 leading-relaxed">
+        Virginia Tech<br/>Dept. of Computer Science
+      </p>
+      <button
+        type="button"
+        id="theme-toggle"
+        class="theme-toggle p-2 rounded-md text-text-muted hover:text-text hover:bg-surface"
+        aria-label="Toggle dark mode"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.75em" height="1.75em" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic" viewBox="0 0 32 32">
+          <clipPath id="theme-toggle__cutout-d"><path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" /></clipPath>
+          <g clip-path="url(#theme-toggle__cutout-d)">
+            <circle cx="16" cy="16" r="9.34" />
+            <g stroke="currentColor" stroke-width="1.5">
+              <path d="M16 5.5v-4" /><path d="M16 30.5v-4" />
+              <path d="M1.5 16h4" /><path d="M26.5 16h4" />
+              <path d="m23.4 8.6 2.8-2.8" /><path d="m5.7 26.3 2.9-2.9" />
+              <path d="m5.8 5.8 2.8 2.8" /><path d="m23.4 23.4 2.9 2.9" />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</aside>
+
+<!-- ═══ MOBILE TOP BAR ═══ -->
+<header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-surface-base/70 backdrop-blur-xl border-b border-border/50">
+  <div class="flex items-center justify-between px-4 py-3">
+    <a href="#home" class="no-underline" aria-label="ASCEND Lab - Home">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xml:space="preserve"
+        viewBox="0 0 327.416 85.588"
+        class="h-9 w-auto dark:hidden"
+        set:html={logoSvgContent}
+      />
+      <img
+        src="/assets/ascend-logo-dark.svg"
+        alt=""
+        class="h-9 w-auto hidden dark:block"
+      />
+    </a>
+    <div class="flex items-center gap-1">
+      <button
+        type="button"
+        id="theme-toggle-mobile"
+        class="theme-toggle p-2 rounded-md text-text-muted hover:text-text hover:bg-surface"
+        aria-label="Toggle dark mode"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.75em" height="1.75em" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic" viewBox="0 0 32 32">
+          <clipPath id="theme-toggle__cutout-m"><path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" /></clipPath>
+          <g clip-path="url(#theme-toggle__cutout-m)">
+            <circle cx="16" cy="16" r="9.34" />
+            <g stroke="currentColor" stroke-width="1.5">
+              <path d="M16 5.5v-4" /><path d="M16 30.5v-4" />
+              <path d="M1.5 16h4" /><path d="M26.5 16h4" />
+              <path d="m23.4 8.6 2.8-2.8" /><path d="m5.7 26.3 2.9-2.9" />
+              <path d="m5.8 5.8 2.8 2.8" /><path d="m23.4 23.4 2.9 2.9" />
+            </g>
+          </g>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="p-2 rounded-md text-text-muted hover:text-text hover:bg-surface transition-colors"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open navigation menu"
+        id="mobile-menu-button"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" class="menu-icon"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class="close-icon hidden"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile dropdown -->
+  <div id="mobile-menu" class="hidden pb-4 px-4" aria-label="Mobile navigation">
+    <ul class="flex flex-col gap-1" role="list">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            data-mobile-link={link.id}
+            class="flex items-center gap-3 py-3 px-4 rounded-lg font-body font-medium text-sm no-underline transition-colors text-text-muted hover:text-text hover:bg-surface"
+          >
+            <span class="w-2 h-2 rounded-full flex-shrink-0 border border-text-muted/30" aria-hidden="true"></span>
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+
+<script>
+  // ── Constants ──
+  const SECTION_IDS = ['home', 'people', 'research', 'projects', 'news', 'join'];
+  const NUM_SECTIONS = SECTION_IDS.length;
+  const TRAIL_WIDTH = 176;
+  const WP_PCTS = SECTION_IDS.map((_id, i) => (5 + (i / (NUM_SECTIONS - 1)) * 90) / 100);
+
+  // ── Randomize trail geometry per page load ──
+  function randBetween(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Alternate sides: even indices → left half (8–75), odd → right half (100–168)
+  const WAYPOINT_XS = SECTION_IDS.map((_id, i) =>
+    i % 2 === 0 ? randBetween(8, 75) : randBetween(100, 168)
+  );
+
+  // ── DOM refs ──
+  const trailContainer = document.querySelector('[data-trail-container]') as HTMLElement | null;
+  const trailSvg = document.querySelector('[data-trail-svg]') as SVGSVGElement | null;
+  const dashedPath = document.querySelector('[data-trail-dashed]') as SVGPathElement | null;
+  const solidPath = document.querySelector('[data-trail-path]') as SVGPathElement | null;
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = menuButton?.querySelector('.menu-icon');
+  const closeIcon = menuButton?.querySelector('.close-icon');
+  const waypointEls = SECTION_IDS.map(id => document.querySelector(`[data-waypoint="${id}"]`));
+  const mobileLinkEls = SECTION_IDS.map(id => document.querySelector(`[data-mobile-link="${id}"]`));
+
+  // ── State ──
+  let sectionTops: number[] = [];
+  let activeIndex = -1;
+  let pathLength = 0;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Apply randomized X positions to waypoint elements ──
+  let xApplied = false;
+  function applyWaypointPositions() {
+    if (xApplied) return;
+    for (let i = 0; i < NUM_SECTIONS; i++) {
+      const el = waypointEls[i] as HTMLElement | null;
+      if (el) el.style.setProperty('--wp-x', `${WAYPOINT_XS[i]}px`);
+    }
+    xApplied = true;
+  }
+
+  // ── Draw trail SVG through actual rendered waypoint positions ──
+  function drawTrail() {
+    if (!trailContainer || !trailSvg || !dashedPath || !solidPath) return;
+    applyWaypointPositions();
+    const h = trailContainer.clientHeight;
+    if (h < 10) return;
+
+    // Read each waypoint's actual center Y from the DOM
+    const containerRect = trailContainer.getBoundingClientRect();
+    const points: { x: number; y: number }[] = [];
+
+    for (let i = 0; i < NUM_SECTIONS; i++) {
+      const el = waypointEls[i];
+      const x = WAYPOINT_XS[i];
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        // Anchor at bottom edge where the arrow tip points to the trail
+        const anchorY = rect.bottom - containerRect.top;
+        points.push({ x, y: anchorY });
+      } else {
+        // Fallback to computed percentage
+        points.push({ x, y: WP_PCTS[i] * h });
+      }
+    }
+
+    // Build cubic bezier S-curve path — control points share X with their
+    // endpoint so tangents are vertical at each waypoint (no kinks)
+    let d = `M ${points[0].x},${points[0].y}`;
+    for (let i = 1; i < points.length; i++) {
+      const midY = (points[i - 1].y + points[i].y) / 2;
+      d += ` C ${points[i - 1].x},${midY} ${points[i].x},${midY} ${points[i].x},${points[i].y}`;
+    }
+
+    // Update SVG viewBox and paths
+    trailSvg.setAttribute('viewBox', `0 0 ${TRAIL_WIDTH} ${h}`);
+    trailSvg.setAttribute('preserveAspectRatio', 'none');
+
+    // Update gradient to use actual pixel coords
+    const gradient = trailSvg.querySelector('#trail-gradient');
+    if (gradient) {
+      gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
+      gradient.setAttribute('y1', String(h));
+      gradient.setAttribute('y2', '0');
+    }
+
+    dashedPath.setAttribute('d', d);
+    solidPath.setAttribute('d', d);
+
+    // Recalculate path length for stroke animation
+    pathLength = solidPath.getTotalLength();
+    solidPath.style.strokeDasharray = String(pathLength);
+    solidPath.style.strokeDashoffset = String(pathLength);
+    if (!prefersReducedMotion) {
+      solidPath.style.transition = 'stroke-dashoffset 0.3s ease-out';
+    }
+  }
+
+  // ── Cache section positions ──
+  function cacheSectionPositions() {
+    sectionTops = SECTION_IDS.map(id => {
+      const el = document.getElementById(id);
+      if (!el) return 0;
+      return el.getBoundingClientRect().top + window.scrollY;
+    });
+  }
+
+  // ── Active waypoint styling ──
+  function setActiveWaypoint(index: number) {
+    if (index === activeIndex) return;
+
+    // Deactivate previous
+    if (activeIndex >= 0) {
+      const prevWp = waypointEls[activeIndex];
+      const prevMobile = mobileLinkEls[activeIndex];
+      if (prevWp) {
+        prevWp.classList.remove('z-20');
+        prevWp.classList.add('z-10');
+        prevWp.removeAttribute('aria-current');
+      }
+      if (prevMobile) {
+        prevMobile.classList.remove('text-primary', 'bg-primary/10', 'border-l-2', 'border-primary');
+        prevMobile.classList.add('text-text-muted');
+        prevMobile.removeAttribute('aria-current');
+        const dot = prevMobile.querySelector('span');
+        if (dot) {
+          dot.classList.remove('bg-primary');
+          dot.classList.add('border', 'border-text-muted/30');
+        }
+      }
+    }
+
+    // Activate current
+    const wp = waypointEls[index];
+    const mobile = mobileLinkEls[index];
+    if (wp) {
+      wp.classList.remove('z-10');
+      wp.classList.add('z-20');
+      wp.setAttribute('aria-current', 'true');
+    }
+    if (mobile) {
+      mobile.classList.remove('text-text-muted');
+      mobile.classList.add('text-primary', 'bg-primary/10', 'border-l-2', 'border-primary');
+      mobile.setAttribute('aria-current', 'true');
+      const dot = mobile.querySelector('span');
+      if (dot) {
+        dot.classList.remove('border', 'border-text-muted/30');
+        dot.classList.add('bg-primary');
+      }
+    }
+
+    activeIndex = index;
+  }
+
+  // ── Scroll handler ──
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const triggerY = scrollY + window.innerHeight * 0.4;
+
+    let currentIndex = 0;
+    for (let i = NUM_SECTIONS - 1; i >= 0; i--) {
+      if (triggerY >= sectionTops[i]) {
+        currentIndex = i;
+        break;
+      }
+    }
+
+    setActiveWaypoint(currentIndex);
+
+    // Trail fill progress
+    let progress = 0;
+    if (currentIndex < NUM_SECTIONS - 1) {
+      const start = sectionTops[currentIndex];
+      const end = sectionTops[currentIndex + 1];
+      const span = end - start;
+      const frac = span > 0 ? Math.min(Math.max((triggerY - start) / span, 0), 1) : 0;
+      progress = (currentIndex + frac) / (NUM_SECTIONS - 1);
+    } else {
+      progress = 1;
+    }
+
+    if (solidPath && pathLength > 0) {
+      solidPath.style.strokeDashoffset = String(pathLength * (1 - progress));
+    }
+
+  }
+
+  // ── Mobile menu ──
+  function toggleMobileMenu() {
+    const isExpanded = menuButton!.getAttribute('aria-expanded') === 'true';
+    menuButton!.setAttribute('aria-expanded', String(!isExpanded));
+    menuButton!.setAttribute('aria-label', isExpanded ? 'Open navigation menu' : 'Close navigation menu');
+    mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  }
+
+  menuButton?.addEventListener('click', toggleMobileMenu);
+
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (!mobileMenu.classList.contains('hidden')) toggleMobileMenu();
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+      toggleMobileMenu();
+    }
+  });
+
+  // ── Dark mode ──
+  const toggleButtons = document.querySelectorAll<HTMLElement>('.theme-toggle');
+
+  // Set initial toggled state if page loads in dark mode
+  if (document.documentElement.classList.contains('dark')) {
+    toggleButtons.forEach(btn => btn.classList.add('theme-toggle--toggled'));
+  }
+
+  function toggleTheme() {
+    const goingDark = !document.documentElement.classList.contains('dark');
+
+    if (!prefersReducedMotion) {
+      document.documentElement.classList.add('theme-transitioning');
+      void document.documentElement.offsetHeight;
+    }
+
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+    toggleButtons.forEach(btn => btn.classList.toggle('theme-toggle--toggled'));
+
+    if (!prefersReducedMotion) {
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transitioning');
+      }, 650);
+    }
+  }
+  document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+  document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+
+  // ── Initialize ──
+  function refresh() {
+    drawTrail();
+    cacheSectionPositions();
+    onScroll();
+  }
+
+  // Use RAF to ensure layout is settled before first draw
+  requestAnimationFrame(refresh);
+
+  // Redraw on resize and if the trail container changes size (font load, etc.)
+  window.addEventListener('resize', refresh);
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  if (trailContainer) {
+    new ResizeObserver(refresh).observe(trailContainer);
+  }
+</script>

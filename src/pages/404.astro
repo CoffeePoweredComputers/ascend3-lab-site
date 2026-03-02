@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalBlock from '../components/TerminalBlock.astro';
+---
+
+<BaseLayout title="404 — Not Found" description="Page not found.">
+  <section class="section min-h-[60vh] flex items-center">
+    <div class="container max-w-2xl">
+      <TerminalBlock title="ascend@vt — error">
+        <p class="text-amber-400"><span class="text-slate-400">$</span> cd /requested/page</p>
+        <p class="text-amber-400">bash: cd: /requested/page: No such file or directory</p>
+        <p class="text-slate-400 mt-4"><span class="text-slate-400">$</span> echo $?</p>
+        <p class="text-slate-300">404</p>
+        <p class="text-slate-400 mt-4"><span class="text-slate-400">$</span> find / -name "what-you-need" -type f</p>
+        <p class="text-slate-300 mt-2">Perhaps try one of these:</p>
+        <nav class="mt-2 space-y-1" aria-label="Page suggestions">
+          <p><a href="/" class="text-blue-400 hover:text-emerald-400 no-underline transition-colors">  → /home</a> — Start here</p>
+          <p><a href="/#people" class="text-blue-400 hover:text-emerald-400 no-underline transition-colors">  → /people</a> — Meet the team</p>
+          <p><a href="/#research" class="text-blue-400 hover:text-emerald-400 no-underline transition-colors">  → /research</a> — What we study</p>
+          <p><a href="/#projects" class="text-blue-400 hover:text-emerald-400 no-underline transition-colors">  → /projects</a> — What we build</p>
+          <p><a href="/#join" class="text-blue-400 hover:text-emerald-400 no-underline transition-colors">  → /join</a> — Work with us</p>
+        </nav>
+        <p class="text-slate-400 mt-4"><span class="text-slate-400">$</span> <span class="text-blue-400">_</span></p>
+      </TerminalBlock>
+    </div>
+  </section>
+</BaseLayout>

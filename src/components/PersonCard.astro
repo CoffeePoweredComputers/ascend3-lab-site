@@ -1,0 +1,93 @@
+---
+/**
+ * PersonCard — Lab member profile card
+ *
+ * Card with primary border on hover.
+ * Collaborators use secondary accent.
+ */
+
+interface Props {
+  name: string;
+  role: string;
+  photo?: string;
+  bio?: string;
+  website?: string;
+  email?: string;
+  institution?: string;
+  isCollaborator?: boolean;
+}
+
+const { name, role, photo, bio, website, email, institution, isCollaborator = false } = Astro.props;
+const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
+---
+
+<div class:list={[
+  'card p-5 flex flex-col items-center text-center',
+  isCollaborator ? 'hover:border-secondary hover:shadow-[0_4px_24px_rgba(22,101,52,0.08)]' : ''
+]}>
+  <!-- Photo -->
+  {photo ? (
+    <img
+      src={photo}
+      alt={`Photo of ${name}`}
+      class:list={[
+        'w-24 h-24 rounded-full object-cover mb-4 ring-2 ring-offset-2 ring-offset-surface-base',
+        isCollaborator ? 'ring-secondary/50' : 'ring-primary/50'
+      ]}
+      loading="lazy"
+    />
+  ) : (
+    <div class:list={[
+      'w-24 h-24 rounded-full mb-4 flex items-center justify-center font-heading font-bold text-xl ring-2 ring-offset-2 ring-offset-surface-base',
+      isCollaborator
+        ? 'bg-secondary/10 text-secondary ring-secondary/50'
+        : 'bg-primary/10 text-primary ring-primary/50'
+    ]}>
+      {initials}
+    </div>
+  )}
+
+  <!-- Name -->
+  <h3 class="font-heading font-semibold text-text text-lg">{name}</h3>
+
+  <!-- Role -->
+  <p class:list={[
+    'font-mono text-xs mt-1',
+    isCollaborator ? 'text-secondary' : 'text-primary'
+  ]}>
+    {role}
+  </p>
+
+  <!-- Institution (for collaborators) -->
+  {institution && (
+    <p class="text-text-muted text-xs mt-0.5">{institution}</p>
+  )}
+
+  <!-- Bio -->
+  {bio && (
+    <p class="text-text-muted text-sm mt-3 leading-relaxed">{bio}</p>
+  )}
+
+  <!-- Links -->
+  <div class="flex gap-3 mt-4">
+    {website && (
+      <a
+        href={website}
+        class="text-text-muted hover:text-primary no-underline text-sm font-mono transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        website <span aria-hidden="true">↗</span>
+        <span class="sr-only">(opens in new tab)</span>
+      </a>
+    )}
+    {email && (
+      <a
+        href={`mailto:${email}`}
+        class="text-text-muted hover:text-primary no-underline text-sm font-mono transition-colors"
+      >
+        email
+      </a>
+    )}
+  </div>
+</div>

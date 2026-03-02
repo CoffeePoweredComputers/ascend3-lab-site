@@ -1,0 +1,50 @@
+---
+/**
+ * NewsSection — Timeline of publications, talks, grants, announcements
+ */
+import SectionHeading from '../SectionHeading.astro';
+import newsData from '../../data/news.json';
+---
+
+<section id="news" class="section">
+  <div class="container max-w-3xl">
+    <SectionHeading
+      title="News"
+      subtitle="Publications, talks, grants, and lab announcements."
+    />
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Timeline line -->
+      <div class="absolute left-[7.5rem] top-0 bottom-0 w-px bg-border hidden md:block" aria-hidden="true"></div>
+
+      <div class="space-y-6">
+        {newsData.map((item) => (
+          <div class="flex flex-col md:flex-row gap-4 md:gap-8 relative">
+            <!-- Date -->
+            <time
+              datetime={item.date}
+              class="font-mono text-sm text-text-muted shrink-0 md:w-28 md:text-right pt-0.5"
+            >
+              {new Date(item.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+            </time>
+
+            <!-- Timeline dot -->
+            <div class="absolute left-[7.4rem] top-2 w-2.5 h-2.5 rounded-full bg-primary border-2 border-surface-base hidden md:block" aria-hidden="true"></div>
+
+            <!-- Content -->
+            <div class="flex-1 card p-5 md:ml-4">
+              <div class="flex items-center gap-2 mb-2">
+                <span class:list={['badge', `badge-${item.type}`]}>
+                  {item.type}
+                </span>
+                <h3 class="font-heading font-semibold text-text">{item.title}</h3>
+              </div>
+              <p class="text-text-muted text-sm leading-relaxed">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

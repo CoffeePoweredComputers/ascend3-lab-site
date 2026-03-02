@@ -1,0 +1,438 @@
+---
+/**
+ * HeroSection — Full-viewport hero with fog-reveal animation
+ *
+ * Light mode: layered fog overlays the logo, then lifts and fades on scroll to reveal it.
+ * Dark mode: parallax mountain ridges with bright star constellation; logo stays stable.
+ * Both modes share a constellation canvas overlay and topo contour background.
+ */
+---
+
+<div class="hero-sticky-wrapper h-[100svh]">
+  <section id="home" class="sticky top-0 h-[100svh] z-0 overflow-hidden">
+
+    <!-- Background: topo contours (both modes) -->
+    <div class="topo-bg absolute inset-0 transition-opacity duration-700" data-hero-topo></div>
+
+    <!-- LIGHT MODE: full-viewport fog layers that lift to reveal logo -->
+    <div class="absolute inset-0 z-[5] opacity-100 dark:opacity-0 transition-opacity duration-600 ease-in-out pointer-events-none overflow-hidden" data-hero-clouds>
+      <!-- Far fog — faint full-screen wash, barely moves -->
+      <svg
+        class="cloud-far absolute -inset-x-[15%] inset-y-0 w-[130%] h-full will-change-transform"
+        viewBox="-200 0 1600 800"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M-200 800 L-200 45 Q-100 25 0 40 Q80 20 160 35 Q260 10 360 30 Q440 5 540 25 Q640 0 740 20 Q840 8 940 28 Q1040 12 1120 32 Q1250 18 1400 40 L1400 800 Z"
+          fill="#94A3B8"
+          fill-opacity="0.25"
+        />
+      </svg>
+      <!-- Mid fog — center haze, moderate parallax -->
+      <svg
+        class="cloud-mid absolute -inset-x-[15%] inset-y-0 w-[130%] h-full will-change-transform"
+        viewBox="-200 0 1600 800"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M-200 800 L-200 90 Q-80 55 0 80 Q100 60 200 85 Q320 45 440 72 Q560 38 680 65 Q780 42 880 68 Q980 50 1080 75 Q1200 52 1400 78 L1400 800 Z"
+          fill="#CBD5E1"
+          fill-opacity="0.35"
+        />
+      </svg>
+      <!-- Near fog — dense foreground, peels away first -->
+      <svg
+        class="cloud-near absolute -inset-x-[15%] inset-y-0 w-[130%] h-full will-change-transform"
+        viewBox="-200 0 1600 800"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M-200 800 L-200 150 Q-70 115 0 140 Q90 120 180 145 Q290 100 400 130 Q510 90 620 122 Q730 85 840 118 Q940 95 1040 125 Q1180 100 1400 130 L1400 800 Z"
+          fill="#FFFFFF"
+          fill-opacity="1"
+        />
+      </svg>
+    </div>
+
+    <!-- DARK MODE: SVG mountain ridges (3 parallax layers) -->
+    <div class="absolute inset-x-0 bottom-0 hidden dark:block pointer-events-none" data-hero-ridges>
+      <!-- Far ridge — barely moves (0.15x) -->
+      <svg
+        class="ridge-far absolute inset-x-0 bottom-0 w-full will-change-transform"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        style="height: 120px;"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 120 L0 70 Q100 40 200 55 Q350 30 450 50 Q550 20 700 45 Q850 15 950 35 Q1050 25 1100 40 L1200 30 L1200 120 Z"
+          fill="#60A5FA"
+          fill-opacity="0.10"
+        />
+      </svg>
+      <!-- Mid ridge — moderate parallax (0.4x) -->
+      <svg
+        class="ridge-mid absolute inset-x-0 bottom-0 w-full will-change-transform"
+        viewBox="0 0 1200 90"
+        preserveAspectRatio="none"
+        style="height: 90px;"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 90 L0 50 Q80 30 180 45 Q300 20 420 40 Q540 15 660 35 Q780 10 900 30 Q1020 20 1100 35 L1200 25 L1200 90 Z"
+          fill="#4ADE80"
+          fill-opacity="0.15"
+        />
+      </svg>
+      <!-- Near ridge — foreground peels away (0.7x) -->
+      <svg
+        class="ridge-near absolute inset-x-0 bottom-0 w-full will-change-transform"
+        viewBox="0 0 1200 60"
+        preserveAspectRatio="none"
+        style="height: 60px;"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 60 L0 35 L100 20 L200 30 L350 8 L500 25 L600 15 L750 5 L900 18 L1000 10 L1100 22 L1200 15 L1200 60 Z"
+          fill="#334155"
+          fill-opacity="0.50"
+        />
+      </svg>
+    </div>
+
+    <!-- Constellation overlay (both modes) -->
+    <canvas class="absolute inset-0 w-full h-full pointer-events-none" data-constellation aria-hidden="true"></canvas>
+
+    <!-- Content -->
+    <div class="relative z-10 flex items-center justify-center h-full" data-hero-content>
+      <div class="container text-center">
+        <img
+          src="/assets/ascend-logo.svg"
+          alt="ASCEND Lab"
+          class="mx-auto h-28 md:h-40 w-auto mb-4 dark:hidden"
+        />
+        <img
+          src="/assets/ascend-logo-dark.svg"
+          alt="ASCEND Lab"
+          class="mx-auto h-28 md:h-40 w-auto mb-4 hidden dark:block"
+        />
+        <h1 class="font-heading text-sm md:text-base font-medium text-text-muted max-w-lg mx-auto">
+          <span data-typewriter aria-hidden="true"></span><span class="typewriter-cursor" aria-hidden="true">|</span>
+          <span class="sr-only">Computing education research at Virginia Tech</span>
+        </h1>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Mountain ridgeline divider -->
+<div class="ridge-divider relative z-10" aria-hidden="true"></div>
+
+<script>
+  // ── Constellation + Scroll Animation ──────────────────────────
+  (function heroInit() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-constellation]');
+    const topoBg = document.querySelector<HTMLElement>('[data-hero-topo]');
+    const cloudFar = document.querySelector<SVGElement>('.cloud-far');
+    const cloudMid = document.querySelector<SVGElement>('.cloud-mid');
+    const cloudNear = document.querySelector<SVGElement>('.cloud-near');
+    const ridgeFar = document.querySelector<SVGElement>('.ridge-far');
+    const ridgeMid = document.querySelector<SVGElement>('.ridge-mid');
+    const ridgeNear = document.querySelector<SVGElement>('.ridge-near');
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // ── Configuration ───────────────────────────────────────────
+    const isMobile = window.innerWidth < 1024;
+    const DOT_COUNT = isMobile ? 15 : 25;
+    const CONNECTION_DISTANCE = 0.15; // fraction of canvas diagonal
+    const SHOW_LINES = !isMobile;
+
+    interface Dot {
+      x: number; // 0-1 fraction
+      y: number;
+      vx: number;
+      vy: number;
+      fallSpeed: number; // random 0.5-2.0 for scroll dissolve
+      phase: number; // for pulse
+    }
+
+    // ── Generate dots ───────────────────────────────────────────
+    const dots: Dot[] = [];
+    for (let i = 0; i < DOT_COUNT; i++) {
+      dots.push({
+        x: Math.random(),
+        y: Math.random(),
+        vx: (Math.random() - 0.5) * 0.0003,
+        vy: (Math.random() - 0.5) * 0.0003,
+        fallSpeed: 0.5 + Math.random() * 1.5,
+        phase: Math.random() * Math.PI * 2,
+      });
+    }
+
+    // ── Canvas sizing ───────────────────────────────────────────
+    function resizeCanvas() {
+      if (!canvas) return;
+      const rect = canvas.parentElement!.getBoundingClientRect();
+      canvas.width = rect.width * devicePixelRatio;
+      canvas.height = rect.height * devicePixelRatio;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // ── Scroll state ────────────────────────────────────────────
+    let scrollProgress = 0;
+
+    // ── Draw constellation ──────────────────────────────────────
+    let animId: number;
+    const startTime = performance.now();
+
+    function drawConstellation(time: number) {
+      if (!ctx || !canvas) return;
+      const w = canvas.width;
+      const h = canvas.height;
+      const elapsed = (time - startTime) / 1000;
+
+      ctx.clearRect(0, 0, w, h);
+
+      const isDark = document.documentElement.classList.contains('dark');
+
+      // No constellation in light mode
+      if (!isDark) {
+        animId = requestAnimationFrame(drawConstellation);
+        return;
+      }
+
+      // Dot dissolve on scroll: opacity fades 0→70% scroll
+      const dotOpacityBase = scrollProgress < 0.7
+        ? 1 - (scrollProgress / 0.7)
+        : 0;
+
+      // Connection line fade: 0→20% scroll
+      const lineOpacity = SHOW_LINES && scrollProgress < 0.2
+        ? 1 - (scrollProgress / 0.2)
+        : 0;
+
+      if (dotOpacityBase <= 0) {
+        animId = requestAnimationFrame(drawConstellation);
+        return;
+      }
+
+      // Update dot positions (gentle drift)
+      if (!prefersReducedMotion) {
+        for (const dot of dots) {
+          dot.x += dot.vx;
+          dot.y += dot.vy;
+          // Wrap around edges
+          if (dot.x < 0) dot.x = 1;
+          if (dot.x > 1) dot.x = 0;
+          if (dot.y < 0) dot.y = 1;
+          if (dot.y > 1) dot.y = 0;
+        }
+      }
+
+      // Compute pixel positions with scroll-driven fall
+      const positions = dots.map(dot => {
+        const fallOffset = prefersReducedMotion ? 0 : scrollProgress * dot.fallSpeed * 0.3;
+        return {
+          px: dot.x * w,
+          py: (dot.y + fallOffset) * h,
+        };
+      });
+
+      // Draw connection lines
+      if (lineOpacity > 0) {
+        const diagSq = w * w + h * h;
+        const maxDistSq = (CONNECTION_DISTANCE * CONNECTION_DISTANCE) * diagSq;
+
+        for (let i = 0; i < positions.length; i++) {
+          for (let j = i + 1; j < positions.length; j++) {
+            const dx = positions[i].px - positions[j].px;
+            const dy = positions[i].py - positions[j].py;
+            const distSq = dx * dx + dy * dy;
+            if (distSq < maxDistSq) {
+              const proximity = 1 - distSq / maxDistSq;
+              const alpha = proximity * lineOpacity * (isDark ? 0.25 : 0.04);
+              ctx.strokeStyle = isDark
+                ? `rgba(96, 165, 250, ${alpha})`
+                : `rgba(37, 99, 235, ${alpha})`;
+              ctx.lineWidth = devicePixelRatio;
+              ctx.beginPath();
+              ctx.moveTo(positions[i].px, positions[i].py);
+              ctx.lineTo(positions[j].px, positions[j].py);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      // Draw dots
+      for (let i = 0; i < dots.length; i++) {
+        const dot = dots[i];
+        const pos = positions[i];
+
+        // Pulse radius
+        const pulse = prefersReducedMotion ? 1 : 1 + 0.3 * Math.sin(elapsed * 1.5 + dot.phase);
+        const baseRadius = isDark ? 2.5 : 1.2;
+        const radius = baseRadius * pulse * devicePixelRatio;
+
+        const dotAlpha = dotOpacityBase * (isDark ? 0.7 : 0.1);
+
+        if (isDark) {
+          // Star glow effect
+          ctx.shadowBlur = 6 * devicePixelRatio;
+          ctx.shadowColor = `rgba(96, 165, 250, ${dotAlpha * 0.5})`;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.fillStyle = isDark
+          ? `rgba(96, 165, 250, ${dotAlpha})`
+          : `rgba(37, 99, 235, ${dotAlpha})`;
+        ctx.beginPath();
+        ctx.arc(pos.px, pos.py, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Reset shadow
+      ctx.shadowBlur = 0;
+
+      animId = requestAnimationFrame(drawConstellation);
+    }
+
+    animId = requestAnimationFrame(drawConstellation);
+
+    // ── Scroll handler ──────────────────────────────────────────
+    function onHeroScroll() {
+      const scrollY = window.scrollY;
+      const heroH = window.innerHeight;
+      scrollProgress = Math.min(scrollY / heroH, 1);
+
+      // Skip transforms if hero is off-screen
+      if (scrollProgress >= 1) return;
+
+      const isDark = document.documentElement.classList.contains('dark');
+
+      if (prefersReducedMotion) {
+        // Fog fades uniformly, no parallax, logo stays stable
+        if (!isDark) {
+          const fogOp = Math.max(0, 1 - scrollProgress / 0.5);
+          if (cloudNear) cloudNear.style.opacity = String(fogOp);
+          if (cloudMid)  cloudMid.style.opacity  = String(fogOp);
+          if (cloudFar)  cloudFar.style.opacity  = String(fogOp);
+        }
+        return;
+      }
+
+      // Topo contours sharpen on scroll
+      if (topoBg) {
+        topoBg.style.opacity = String(0.4 + scrollProgress * 0.6);
+      }
+
+      if (!isDark) {
+        // Light mode: fog fade (transforms handled by drift loop)
+        const nearOp = Math.max(0, 1 - scrollProgress / 0.4);
+        const midOp  = Math.max(0, 1 - scrollProgress / 0.55);
+        const farOp  = Math.max(0, 1 - scrollProgress / 0.7);
+
+        if (cloudNear) cloudNear.style.opacity = String(nearOp);
+        if (cloudMid)  cloudMid.style.opacity  = String(midOp);
+        if (cloudFar)  cloudFar.style.opacity  = String(farOp);
+      }
+
+      // On mobile (no drift loop), still apply scroll parallax
+      if (isMobile) {
+        if (isDark) {
+          if (ridgeFar) ridgeFar.style.transform = `translateY(${-scrollY * 0.15}px)`;
+          if (ridgeMid) ridgeMid.style.transform = `translateY(${-scrollY * 0.4}px)`;
+          if (ridgeNear) ridgeNear.style.transform = `translateY(${-scrollY * 0.7}px)`;
+        } else {
+          if (cloudFar)  cloudFar.style.transform  = `translateY(${-scrollY * 0.15}px)`;
+          if (cloudMid)  cloudMid.style.transform  = `translateY(${-scrollY * 0.4}px)`;
+          if (cloudNear) cloudNear.style.transform = `translateY(${-scrollY * 0.7}px)`;
+        }
+      }
+    }
+
+    window.addEventListener('scroll', onHeroScroll, { passive: true });
+
+    // Initial call in case page loads scrolled
+    onHeroScroll();
+
+    // ── Ambient cloud/ridge drift ────────────────────────────────
+    // Slow horizontal sway independent of scroll. Combines with
+    // scroll parallax Y offset so both effects coexist.
+    if (!prefersReducedMotion && !isMobile) {
+      const driftStart = performance.now();
+      function animateDrift(now: number) {
+        const t = (now - driftStart) / 1000; // seconds
+        const scrollY = window.scrollY;
+        const isDark = document.documentElement.classList.contains('dark');
+
+        if (isDark) {
+          // Dark mode: ridges sway
+          const farDx  = Math.sin(t * 0.15) * 25;
+          const midDx  = Math.sin(t * 0.22 + 1) * 40;
+          const nearDx = Math.sin(t * 0.3 + 2) * 55;
+          if (ridgeFar)  ridgeFar.style.transform  = `translate(${farDx}px, ${-scrollY * 0.15}px)`;
+          if (ridgeMid)  ridgeMid.style.transform  = `translate(${midDx}px, ${-scrollY * 0.4}px)`;
+          if (ridgeNear) ridgeNear.style.transform = `translate(${nearDx}px, ${-scrollY * 0.7}px)`;
+        } else {
+          // Light mode: clouds drift
+          const farDx  = Math.sin(t * 0.12) * 30;
+          const midDx  = Math.sin(t * 0.18 + 1.5) * 50;
+          const nearDx = Math.sin(t * 0.25 + 3) * 65;
+          if (cloudFar)  cloudFar.style.transform  = `translate(${farDx}px, ${-scrollY * 0.15}px)`;
+          if (cloudMid)  cloudMid.style.transform  = `translate(${midDx}px, ${-scrollY * 0.4}px)`;
+          if (cloudNear) cloudNear.style.transform = `translate(${nearDx}px, ${-scrollY * 0.7}px)`;
+        }
+
+        requestAnimationFrame(animateDrift);
+      }
+      requestAnimationFrame(animateDrift);
+    }
+
+    // Cleanup on navigation (Astro view transitions)
+    document.addEventListener('astro:before-swap', () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('scroll', onHeroScroll);
+      window.removeEventListener('resize', resizeCanvas);
+    }, { once: true });
+  })();
+
+  // ── Typewriter ───────────────────────────────────────────────
+  (function typewriterInit() {
+    const el = document.querySelector<HTMLSpanElement>('[data-typewriter]');
+    if (!el) return;
+
+    const text = 'Computing education research at Virginia Tech';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      el.textContent = text;
+      return;
+    }
+
+    let i = 0;
+    const delay = 55;
+
+    function type() {
+      if (i < text.length) {
+        el!.textContent += text[i];
+        i++;
+        setTimeout(type, delay);
+      }
+    }
+
+    setTimeout(type, 400);
+  })();
+</script>

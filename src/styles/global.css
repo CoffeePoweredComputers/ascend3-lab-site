@@ -1,0 +1,536 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================================
+   Self-Hosted Fonts
+   ============================================ */
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   ASCEND Design System — Summit Alpine Theme
+   Clean, light, outdoorsy
+   ============================================ */
+
+@theme {
+  /* Surfaces */
+  --color-surface-base: #FFFFFF;
+  --color-surface: #F1F5F9;
+  --color-surface-alt: #E2E8F0;
+  --color-surface-dark: #1E293B;
+
+  /* Accents */
+  --color-primary: #2563EB;
+  --color-primary-light: #2563EB15;
+  --color-secondary: #166534;
+  --color-accent: #D97706;
+
+  /* Text */
+  --color-text: #0F172A;
+  --color-text-muted: #64748B;
+
+  /* Borders */
+  --color-border: #E2E8F0;
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+  --spacing-card: 1.5rem;
+
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
+/* ============================================
+   Dark Mode Overrides
+   ============================================ */
+
+.dark {
+  color-scheme: dark;
+  --color-surface-base: #0F172A;
+  --color-surface: #1E293B;
+  --color-surface-alt: #334155;
+  --color-surface-dark: #020617;
+  --color-primary: #60A5FA;
+  --color-primary-light: #60A5FA15;
+  --color-secondary: #4ADE80;
+  --color-accent: #FBBF24;
+  --color-text: #F1F5F9;
+  --color-text-muted: #94A3B8;
+  --color-border: #334155;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-surface-base);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+/* ============================================
+   Accessibility: Focus Styles
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  z-index: 100;
+  border-radius: var(--radius-sm);
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* ============================================
+   Content Links
+   ============================================ */
+
+a:not(nav a):not(header a):not(aside a):not(footer a):not(.no-underline) {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-primary);
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+a:not(nav a):not(header a):not(aside a):not(footer a):not(.no-underline):hover {
+  color: var(--color-secondary);
+  text-decoration-color: var(--color-secondary);
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section {
+  padding-block: var(--spacing-section);
+}
+
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
+@media (min-width: 1024px) {
+  section[id] {
+    scroll-margin-top: 2rem;
+  }
+}
+
+/* Sections after hero slide over the sticky hero */
+section[id]:not(#home) {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-surface-base);
+}
+
+/* Topographic contour background pattern */
+.topo-bg {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M20 200 Q100 150 200 180 Q300 210 380 160' fill='none' stroke='%232563EB' stroke-opacity='0.06' stroke-width='1'/%3E%3Cpath d='M20 240 Q120 190 200 220 Q280 250 380 200' fill='none' stroke='%232563EB' stroke-opacity='0.04' stroke-width='1'/%3E%3Cpath d='M20 280 Q140 230 200 260 Q260 290 380 240' fill='none' stroke='%232563EB' stroke-opacity='0.03' stroke-width='1'/%3E%3Cpath d='M20 160 Q80 110 200 140 Q320 170 380 120' fill='none' stroke='%232563EB' stroke-opacity='0.05' stroke-width='1'/%3E%3Cpath d='M20 120 Q60 70 200 100 Q340 130 380 80' fill='none' stroke='%232563EB' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* Sidebar animated topo — slow drift */
+.topo-sidebar {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600'%3E%3Cpath d='M-20 100 Q60 60 150 80 Q240 100 320 70' fill='none' stroke='%232563EB' stroke-opacity='0.12' stroke-width='0.8'/%3E%3Cpath d='M-20 180 Q80 140 150 160 Q220 180 320 140' fill='none' stroke='%232563EB' stroke-opacity='0.08' stroke-width='0.8'/%3E%3Cpath d='M-20 260 Q70 220 150 240 Q230 260 320 230' fill='none' stroke='%232563EB' stroke-opacity='0.06' stroke-width='0.8'/%3E%3Cpath d='M-20 340 Q90 300 150 320 Q210 340 320 300' fill='none' stroke='%232563EB' stroke-opacity='0.1' stroke-width='0.8'/%3E%3Cpath d='M-20 420 Q50 380 150 400 Q250 420 320 390' fill='none' stroke='%232563EB' stroke-opacity='0.07' stroke-width='0.8'/%3E%3Cpath d='M-20 500 Q80 460 150 480 Q220 500 320 460' fill='none' stroke='%232563EB' stroke-opacity='0.05' stroke-width='0.8'/%3E%3C/svg%3E");
+  background-size: 340px 600px;
+  animation: topo-drift 30s ease-in-out infinite alternate;
+}
+
+@keyframes topo-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px -60px; }
+}
+
+/* ============================================
+   Trail Navigation
+   ============================================ */
+
+/* Waypoint link — X position driven by per-waypoint CSS custom property */
+.trail-waypoint {
+  left: var(--wp-x);
+}
+
+/* Waypoint positioning — badge anchored by arrow tip */
+.trail-badge-left {
+  transform: translate(-8px, -100%);
+}
+
+.trail-badge-right {
+  transform: translate(calc(-100% + 8px), -100%);
+}
+
+/* Terminal cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* ── Trail Badge ── */
+.trail-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: rgba(219, 234, 254, 0.55);
+  backdrop-filter: blur(8px);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  position: relative;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* Arrow — shared base */
+.trail-badge::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--color-border);
+  transition: border-top-color 0.2s;
+}
+
+/* Arrow position: left waypoints → bottom-left */
+.trail-badge-left .trail-badge::after {
+  left: 10px;
+}
+
+/* Arrow position: right waypoints → bottom-right */
+.trail-badge-right .trail-badge::after {
+  right: 10px;
+}
+
+/* Dark mode frosted fill */
+.dark .trail-badge {
+  background: rgba(37, 99, 235, 0.15);
+}
+
+/* Active state */
+[aria-current="true"] .trail-badge {
+  background: var(--color-primary);
+  backdrop-filter: none;
+  border-color: var(--color-primary);
+  color: white;
+}
+
+[aria-current="true"] .trail-badge::after {
+  border-top-color: var(--color-primary);
+}
+
+/* Prompt > and cursor _ : hidden when inactive */
+.trail-prompt,
+.trail-cursor {
+  opacity: 0;
+  transition: opacity 0s;
+}
+
+[aria-current="true"] .trail-prompt {
+  opacity: 1;
+}
+
+[aria-current="true"] .trail-cursor {
+  opacity: 1;
+  animation: cursor-blink 1s step-end infinite;
+  animation-delay: calc(var(--char-count) * 40ms);
+  transition-delay: calc(var(--char-count) * 40ms);
+}
+
+/* Per-char typewriter */
+.trail-char {
+  display: inline-block;
+}
+
+@keyframes char-type-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+}
+
+[aria-current="true"] .trail-char {
+  animation: char-type-in 0.12s ease-out backwards;
+  animation-delay: calc(var(--char-i) * 40ms);
+}
+
+/* Hover */
+.trail-waypoint:hover .trail-badge {
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+/* Active glow pulse */
+@keyframes badge-ping {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+  70%  { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+  100% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
+}
+
+[aria-current="true"] .trail-badge {
+  animation: badge-ping 1.5s ease-out infinite;
+}
+
+/* ============================================
+   Animated Sun/Moon Toggle (classic from toggles.dev)
+   ============================================ */
+
+.theme-toggle {
+  --theme-toggle__classic--duration: 500ms;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.theme-toggle__classic path {
+  transition-timing-function: cubic-bezier(0, 0, 0.15, 1.25);
+  transform-origin: center;
+  transition-duration: calc(var(--theme-toggle__classic--duration) * 0.8);
+}
+
+.theme-toggle__classic g path {
+  transition-property: opacity, transform, stroke;
+  transition-delay: calc(var(--theme-toggle__classic--duration) * 0.2);
+}
+
+.theme-toggle__classic :first-child path {
+  transition-property: transform, d;
+}
+
+.theme-toggle--toggled:not(label).theme-toggle .theme-toggle__classic g path {
+  transform: scale(0.5) rotate(45deg);
+  opacity: 0;
+  stroke: #F1F5F9;
+  transition-delay: 0s;
+}
+
+.theme-toggle--toggled:not(label).theme-toggle .theme-toggle__classic :first-child path {
+  d: path("M-12 5h30a1 1 0 0 0 9 13v24h-39Z");
+  transition-delay: calc(var(--theme-toggle__classic--duration) * 0.2);
+}
+
+@supports not (d: path("")) {
+  .theme-toggle--toggled:not(label).theme-toggle .theme-toggle__classic :first-child path {
+    transform: translate3d(-12px, 10px, 0);
+  }
+}
+
+/* Moon is white in dark mode */
+.theme-toggle--toggled .theme-toggle__classic {
+  color: #F1F5F9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle:not(.theme-toggle--force-motion) * {
+    transition: none !important;
+  }
+}
+
+/* ============================================
+   Theme Transition — Color Fade
+   ============================================ */
+
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease, fill 0.6s ease, stroke 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease !important;
+}
+
+/* Preserve toggle's own animation during theme transition */
+.theme-transitioning .theme-toggle__classic path {
+  transition-timing-function: cubic-bezier(0, 0, 0.15, 1.25) !important;
+  transform-origin: center !important;
+  transition-duration: calc(var(--theme-toggle__classic--duration) * 0.8) !important;
+}
+
+.theme-transitioning .theme-toggle__classic g path {
+  transition-property: opacity, transform, stroke !important;
+  transition-delay: calc(var(--theme-toggle__classic--duration) * 0.2) !important;
+}
+
+.theme-transitioning .theme-toggle__classic :first-child path {
+  transition-property: transform, d !important;
+  transition-delay: 0s !important;
+}
+
+/* ============================================
+   Card Base
+   ============================================ */
+
+.card {
+  background-color: var(--color-surface-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
+}
+
+/* ============================================
+   Badge Styles
+   ============================================ */
+
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+}
+
+.badge-active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.badge-completed {
+  background-color: rgba(22, 101, 52, 0.1);
+  color: var(--color-secondary);
+  border: 1px solid rgba(22, 101, 52, 0.3);
+}
+
+.badge-publication {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.badge-talk {
+  background-color: rgba(22, 101, 52, 0.1);
+  color: var(--color-secondary);
+}
+
+.badge-grant {
+  background-color: rgba(217, 119, 6, 0.1);
+  color: var(--color-accent);
+}
+
+/* ============================================
+   Mountain Ridgeline Section Divider
+   ============================================ */
+
+.ridge-divider {
+  width: 100%;
+  height: 60px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 60 L0 35 L100 20 L200 30 L350 8 L500 25 L600 15 L750 5 L900 18 L1000 10 L1100 22 L1200 15 L1200 60 Z' fill='%23F1F5F9'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.dark .ridge-divider {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0 60 L0 35 L100 20 L200 30 L350 8 L500 25 L600 15 L750 5 L900 18 L1000 10 L1100 22 L1200 15 L1200 60 Z' fill='%231E293B'/%3E%3C/svg%3E");
+}
+
+/* ============================================
+   Reduced Motion Support
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   Touch Targets (WCAG 2.5.5)
+   ============================================ */
+
+@media (pointer: coarse) {
+  a,
+  button,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  nav a {
+    padding-block: 0.75rem;
+  }
+}

@@ -1,0 +1,166 @@
+---
+/**
+ * PeopleSection — Lab members and collaborators
+ */
+import SectionHeading from '../SectionHeading.astro';
+import PersonCard from '../PersonCard.astro';
+import { getGroup } from '../../lib/members';
+
+const pi = getGroup('pi')[0];
+const phd = getGroup('phd');
+const masters = getGroup('masters');
+const undergrad = getGroup('undergrad');
+const collaborators = getGroup('collaborators');
+---
+
+<section id="people" class="section">
+  <div class="container">
+    <SectionHeading
+      title="People"
+      subtitle="The team behind ASCEND — researchers, educators, and builders."
+    />
+
+    <!-- PI: Featured full-width card -->
+    <div class="mb-16">
+      <h3 id="pi-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-6 font-semibold">
+        Principal Investigator
+      </h3>
+      <div class="card p-6 md:p-8">
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start">
+          {pi.photo ? (
+            <img
+              src={pi.photo}
+              alt={`Photo of ${pi.name}`}
+              class="w-32 h-32 rounded-full object-cover ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0"
+            />
+          ) : (
+            <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center font-heading font-bold text-3xl text-primary ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0">
+              DS
+            </div>
+          )}
+          <div class="text-center md:text-left">
+            <h4 class="font-heading font-bold text-2xl text-text">{pi.name}</h4>
+            <p class="font-mono text-sm text-primary mt-1">{pi.role}</p>
+            <p class="text-text-muted text-sm mt-1">{pi.institution}</p>
+            <p class="text-text-muted mt-4 leading-relaxed">{pi.bio}</p>
+            <div class="flex gap-4 mt-4 justify-center md:justify-start">
+              {pi.website && (
+                <a
+                  href={pi.website}
+                  class="font-mono text-sm text-text-muted hover:text-primary no-underline transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  website <span aria-hidden="true">↗</span>
+                  <span class="sr-only">(opens in new tab)</span>
+                </a>
+              )}
+              {pi.email && (
+                <a
+                  href={`mailto:${pi.email}`}
+                  class="font-mono text-sm text-text-muted hover:text-primary no-underline transition-colors"
+                >
+                  {pi.email}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PhD Students -->
+    {phd.length > 0 && (
+      <div class="mb-12">
+        <h3 id="phd-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-6 font-semibold">
+          PhD Students
+        </h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {phd.map((m) => (
+            <PersonCard
+              name={m.name}
+              role={m.role}
+              photo={m.photo ?? undefined}
+              bio={m.bio ?? undefined}
+              website={m.website ?? undefined}
+              email={m.email ?? undefined}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Master's Students -->
+    {masters.length > 0 && (
+      <div class="mb-12">
+        <h3 id="masters-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-6 font-semibold">
+          Master's Students
+        </h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {masters.map((m) => (
+            <PersonCard
+              name={m.name}
+              role={m.role}
+              photo={m.photo ?? undefined}
+              bio={m.bio ?? undefined}
+              website={m.website ?? undefined}
+              email={m.email ?? undefined}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Undergraduate Researchers -->
+    {undergrad.length > 0 && (
+      <div class="mb-12">
+        <h3 id="undergrad-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-6 font-semibold">
+          Undergraduate Researchers
+        </h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {undergrad.map((m) => (
+            <PersonCard
+              name={m.name}
+              role={m.role}
+              photo={m.photo ?? undefined}
+              bio={m.bio ?? undefined}
+              website={m.website ?? undefined}
+              email={m.email ?? undefined}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Collaborators -->
+    {collaborators.length > 0 && (
+      <div class="mb-12">
+        <h3 id="collaborators-heading" class="font-heading text-sm text-secondary uppercase tracking-wider mb-6 font-semibold">
+          Frequent Collaborators
+        </h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {collaborators.map((m) => (
+            <PersonCard
+              name={m.name}
+              role={m.role}
+              photo={m.photo ?? undefined}
+              bio={m.bio ?? undefined}
+              website={m.website ?? undefined}
+              email={m.email ?? undefined}
+              institution={m.institution}
+              isCollaborator={true}
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Note about role verification -->
+    <aside class="mt-8 p-4 rounded-lg bg-accent/5 border border-accent/20 text-sm">
+      <p class="text-accent font-mono text-xs mb-1">⚠ Note</p>
+      <p class="text-text-muted">
+        Student roles are preliminary and pending verification by the PI.
+      </p>
+    </aside>
+  </div>
+</section>

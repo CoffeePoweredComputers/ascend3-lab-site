@@ -1,0 +1,127 @@
+---
+/**
+ * JoinSection — Recruitment info for PhD, Master's, undergrad
+ */
+import SectionHeading from '../SectionHeading.astro';
+import TerminalBlock from '../TerminalBlock.astro';
+---
+
+<section id="join" class="section">
+  <div class="container max-w-3xl">
+    <SectionHeading
+      title="Join the Lab"
+      subtitle="We're always looking for curious, motivated researchers."
+    />
+
+    <!-- Terminal Intro -->
+    <div class="mb-12">
+      <TerminalBlock title="ascend@vt — recruit">
+        <p class="text-emerald-400"><span class="text-slate-400">$</span> ascend --recruit</p>
+        <p class="text-slate-300 mt-2">
+          Searching for researchers who are passionate about computing education...
+        </p>
+        <p class="text-slate-400 mt-1">
+          Ideal candidates: curious thinkers, careful builders, strong communicators.
+        </p>
+        <p class="text-slate-400 mt-1">
+          Required dependencies: motivation, creativity, willingness to learn.
+        </p>
+        <p class="text-emerald-400 mt-2">✓ Positions available. See below.</p>
+      </TerminalBlock>
+    </div>
+
+    <!-- PhD Students -->
+    <div class="mb-10">
+      <h3 class="font-heading font-semibold text-xl text-text mb-3 flex items-center gap-2">
+        <span class="text-primary font-mono text-sm" aria-hidden="true">01</span>
+        PhD Students
+      </h3>
+      <div class="card p-6">
+        <p class="text-text-muted leading-relaxed">
+          We are recruiting PhD students interested in computing education research,
+          particularly at the intersection of AI, HCI, and pedagogy. PhD students in
+          the ASCEND Lab typically work on designing and evaluating educational tools,
+          conducting empirical studies, and publishing at top venues like ICER, SIGCSE,
+          and CHI.
+        </p>
+        <p class="text-text-muted leading-relaxed mt-3">
+          Ideal candidates have a background in computer science, learning sciences,
+          or a related field, and are excited about improving how people learn to code.
+        </p>
+      </div>
+    </div>
+
+    <!-- Master's Students -->
+    <div class="mb-10">
+      <h3 class="font-heading font-semibold text-xl text-text mb-3 flex items-center gap-2">
+        <span class="text-primary font-mono text-sm" aria-hidden="true">02</span>
+        Master's Students
+      </h3>
+      <div class="card p-6">
+        <p class="text-text-muted leading-relaxed">
+          Master's students work on focused research projects that contribute to
+          ongoing lab efforts. This is a great opportunity to gain research experience,
+          develop technical skills, and contribute to published work in computing
+          education.
+        </p>
+        <p class="text-text-muted leading-relaxed mt-3">
+          We especially welcome students interested in LLM applications for education,
+          educational tool design, or empirical education research.
+        </p>
+      </div>
+    </div>
+
+    <!-- Undergraduate Researchers -->
+    <div class="mb-10">
+      <h3 class="font-heading font-semibold text-xl text-text mb-3 flex items-center gap-2">
+        <span class="text-primary font-mono text-sm" aria-hidden="true">03</span>
+        Undergraduate Researchers
+      </h3>
+      <div class="card p-6">
+        <p class="text-text-muted leading-relaxed">
+          Undergrads contribute to real research projects — building prototypes,
+          running studies, analyzing data, and more. No prior research experience
+          required, just curiosity and commitment.
+        </p>
+        <p class="text-text-muted leading-relaxed mt-3">
+          This is especially valuable if you're considering graduate school or want
+          to explore computing education as a field.
+        </p>
+      </div>
+    </div>
+
+    <!-- How to Apply -->
+    <div class="mt-12">
+      <h3 class="font-heading font-semibold text-xl text-text mb-6 flex items-center gap-2">
+        <span class="text-primary text-sm" aria-hidden="true">&#9650;</span>
+        How to Apply
+      </h3>
+      <div class="card p-6">
+        <ol class="space-y-4 text-text-muted leading-relaxed">
+          <li class="flex gap-3">
+            <span class="font-mono text-primary shrink-0">1.</span>
+            <span>Check out our <a href="#research">research areas</a> and <a href="#projects">projects</a> to find topics that interest you.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-primary shrink-0">2.</span>
+            <span>Read a few of Dr. Smith's recent publications to understand our approach.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="font-mono text-primary shrink-0">3.</span>
+            <span>
+              Send an email to
+              <a href="mailto:dhsmith4@vt.edu">dhsmith4@vt.edu</a>
+              with:
+            </span>
+          </li>
+        </ol>
+        <ul class="ml-12 mt-2 space-y-1 text-text-muted text-sm list-disc">
+          <li>A brief introduction and why you're interested in the lab</li>
+          <li>Your CV or resume</li>
+          <li>Any relevant coursework, projects, or research experience</li>
+          <li>Which research area(s) interest you most</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

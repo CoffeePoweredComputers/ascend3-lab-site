@@ -1,0 +1,143 @@
+---
+/**
+ * PeopleStack — Overlapping circular avatar row
+ *
+ * Two modes:
+ * - Interactive (default): hover dims siblings, scales hovered avatar, shows name/role label
+ * - Compact: smaller avatars, no hover interaction (safe inside <a> tags)
+ *
+ * Supply either `group` (fetches from members.ts) or `memberIds` (arbitrary list).
+ */
+import { getGroup, getMember, type MemberGroup, type Member } from '../lib/members';
+
+interface Props {
+  group?: MemberGroup;
+  memberIds?: string[];
+  label?: string;
+  compact?: boolean;
+  isCollab?: boolean;
+}
+
+const { group, memberIds, label, compact = false, isCollab = false } = Astro.props;
+
+let members: Member[] = [];
+if (group) {
+  members = getGroup(group);
+} else if (memberIds) {
+  members = memberIds.map((id) => getMember(id)).filter((m): m is Member => m !== undefined);
+}
+
+const showCollab = isCollab || group === 'collaborators';
+
+const defaultLabels: Record<MemberGroup, string> = {
+  pi: 'Principal Investigator',
+  phd: 'PhD Students',
+  masters: "Master's Students",
+  undergrad: 'Undergraduate Researchers',
+  collaborators: 'Frequent Collaborators',
+};
+
+const heading = label ?? (group ? defaultLabels[group] : undefined);
+
+// Avatar sizes
+const avatarSize = compact ? 'w-8 h-8' : 'w-14 h-14';
+const overlap = compact ? '-ml-2' : '-ml-3';
+const textSize = compact ? 'text-[9px]' : 'text-sm';
+const ringWidth = compact ? 'ring-1' : 'ring-2';
+const ringOffset = compact ? 'ring-offset-1' : 'ring-offset-2';
+---
+
+{members.length > 0 && (
+  <div>
+    {heading && !compact && (
+      <p class:list={[
+        'text-[10px] font-mono uppercase tracking-wider mb-2',
+        showCollab ? 'text-secondary/70' : 'text-primary/70',
+      ]}>
+        {heading}
+      </p>
+    )}
+
+    {compact && heading && (
+      <p class:list={[
+        'text-[10px] font-mono uppercase tracking-wider mb-1',
+        showCollab ? 'text-secondary/70' : 'text-primary/70',
+      ]}>
+        {heading}
+      </p>
+    )}
+
+    <div class:list={[
+      'flex flex-wrap items-start',
+      !compact && 'people-stack group/stack',
+    ]}>
+      {members.map((m) => {
+        const initials = m.name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+
+        return compact ? (
+          /* Compact: no hover interaction */
+          <div class:list={['relative first:ml-0', overlap]}>
+            {m.photo ? (
+              <img
+                src={m.photo}
+                alt={`Photo of ${m.name}`}
+                class:list={[
+                  avatarSize, 'rounded-full object-cover ring-offset-surface-base',
+                  ringWidth, ringOffset,
+                  showCollab ? 'ring-secondary/60' : 'ring-primary/60',
+                ]}
+                loading="lazy"
+              />
+            ) : (
+              <div class:list={[
+                avatarSize, 'rounded-full flex items-center justify-center font-heading font-bold ring-offset-surface-base',
+                ringWidth, ringOffset, textSize,
+                showCollab ? 'ring-secondary/60 bg-secondary/10 text-secondary' : 'ring-primary/60 bg-primary/10 text-primary',
+              ]}>
+                {initials}
+              </div>
+            )}
+          </div>
+        ) : (
+          /* Interactive: hover dims siblings, scales hovered, shows label */
+          <div class="group/avatar relative -ml-3 first:ml-0 pb-6 transition-all duration-200 ease-out
+                       group-hover/stack:opacity-50 hover:!opacity-100 hover:z-30">
+            {m.photo ? (
+              <img
+                src={m.photo}
+                alt={`Photo of ${m.name}`}
+                class:list={[
+                  'w-14 h-14 rounded-full object-cover ring-2 ring-offset-2 ring-offset-surface-base transition-all duration-200',
+                  showCollab ? 'ring-secondary/60 hover:ring-secondary' : 'ring-primary/60 hover:ring-primary',
+                ]}
+                loading="lazy"
+              />
+            ) : (
+              <div class:list={[
+                'w-14 h-14 rounded-full flex items-center justify-center font-heading font-bold text-sm ring-2 ring-offset-2 ring-offset-surface-base transition-all duration-200',
+                showCollab ? 'ring-secondary/60 bg-secondary/10 text-secondary' : 'ring-primary/60 bg-primary/10 text-primary',
+              ]}>
+                {initials}
+              </div>
+            )}
+
+            {/* Hover label */}
+            <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 hidden group-hover/avatar:block
+                        whitespace-nowrap px-2 py-1 rounded bg-surface-base border border-border text-center shadow-lg z-40">
+              <p class="text-xs font-heading font-semibold text-text leading-tight">{m.name}</p>
+              <p class:list={[
+                'text-[10px] font-mono leading-tight',
+                showCollab ? 'text-secondary' : 'text-primary',
+              ]}>
+                {m.role}
+              </p>
+              {m.institution && (
+                <p class="text-[10px] text-text-muted leading-tight">{m.institution}</p>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+)}

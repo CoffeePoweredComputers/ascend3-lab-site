@@ -1,0 +1,56 @@
+---
+/**
+ * ProjectsSection — Active and completed projects grid
+ */
+import SectionHeading from '../SectionHeading.astro';
+import projectsData from '../../data/projects.json';
+---
+
+<section id="projects" class="section">
+  <div class="container">
+    <SectionHeading
+      title="Projects"
+      subtitle="Tools, systems, and studies we're building and running."
+    />
+
+    <div class="grid md:grid-cols-2 gap-6">
+      {projectsData.map((project) => (
+        <div class="card p-6">
+          <div class="flex items-start justify-between gap-4 mb-3">
+            <h3 class="font-heading font-semibold text-lg text-text">{project.title}</h3>
+            <span class:list={['badge shrink-0', project.status === 'active' ? 'badge-active' : 'badge-completed']}>
+              {project.status}
+            </span>
+          </div>
+          <p class="text-text-muted text-sm leading-relaxed">{project.description}</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            {project.tags.map((tag: string) => (
+              <span class="text-xs font-mono px-2 py-0.5 rounded-full bg-surface text-text-muted border border-border">
+                {tag}
+              </span>
+            ))}
+          </div>
+          {(project.links.paper || project.links.code || project.links.demo) && (
+            <div class="flex gap-3 mt-4 pt-4 border-t border-border">
+              {project.links.paper && (
+                <a href={project.links.paper} class="font-mono text-xs text-primary hover:text-secondary no-underline transition-colors" target="_blank" rel="noopener noreferrer">
+                  paper <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              {project.links.code && (
+                <a href={project.links.code} class="font-mono text-xs text-primary hover:text-secondary no-underline transition-colors" target="_blank" rel="noopener noreferrer">
+                  code <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              {project.links.demo && (
+                <a href={project.links.demo} class="font-mono text-xs text-primary hover:text-secondary no-underline transition-colors" target="_blank" rel="noopener noreferrer">
+                  demo <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

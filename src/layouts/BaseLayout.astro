@@ -1,0 +1,105 @@
+---
+/**
+ * BaseLayout — HTML shell for all pages
+ *
+ * Sidebar layout on desktop (lg+), stacked on mobile.
+ * Includes: skip link, sidebar nav, footer, meta/OG tags, easter egg scripts
+ */
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "ASCEND Lab — Advancing Support in Computing Education for Novice Developers, Data Scientists, and Designers at Virginia Tech." } = Astro.props;
+
+import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+
+    <script is:inline>
+      (function() {
+        var s = localStorage.getItem('theme');
+        if (s === 'dark' || (!s && matchMedia('(prefers-color-scheme: dark)').matches))
+          document.documentElement.classList.add('dark');
+      })();
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload fonts -->
+    <link rel="preload" href="/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ASCEND Lab" />
+
+    <title>{title} | ASCEND Lab</title>
+  </head>
+  <body class="min-h-screen bg-surface-base text-text">
+    <!--
+    ┌─────────────────────────────────────────────┐
+    │                                             │
+    │   ╔═╗╔═╗╔═╗╔═╗╔╗╔╔╦╗                      │
+    │   ╠═╣╚═╗║  ║╣ ║║║ ║║                       │
+    │   ╩ ╩╚═╝╚═╝╚═╝╝╚╝═╩╝                      │
+    │                                             │
+    │   Advancing Support in Computing Education  │
+    │   for Novice Developers, Data Scientists,   │
+    │   and Designers                             │
+    │                                             │
+    │   Virginia Tech · CS Department             │
+    │                                             │
+    │   Curious? We're recruiting.                │
+    │   → ascendlab.tech/join                     │
+    │                                             │
+    └─────────────────────────────────────────────┘
+    -->
+
+    <a href="#main-content" class="skip-link">
+      Skip to main content
+    </a>
+
+    <Navigation />
+
+    <!-- Content area: offset by sidebar on desktop, below mobile bar on mobile -->
+    <div class="lg:ml-[340px] min-h-screen flex flex-col pt-14 lg:pt-0">
+      <main id="main-content" class="flex-grow" tabindex="-1">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+
+    <script>
+      // Logo click counter easter egg
+      let logoClicks = 0;
+      let logoClickTimer: ReturnType<typeof setTimeout> | null = null;
+      document.getElementById('nav-logo')?.addEventListener('click', () => {
+        logoClicks++;
+        if (logoClickTimer) clearTimeout(logoClickTimer);
+        logoClickTimer = setTimeout(() => { logoClicks = 0; }, 2000);
+
+        if (logoClicks >= 7) {
+          logoClicks = 0;
+          const toast = document.createElement('div');
+          toast.textContent = 'Summit reached! You found the easter egg.';
+          toast.className = 'fixed bottom-4 right-4 bg-surface-base border border-primary text-primary font-mono text-sm px-4 py-2 rounded-lg z-50 shadow-lg';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+---
+/**
+ * SectionHeading — Title with mountain peak accent
+ *
+ * Decorative `^` peak icon in primary color (aria-hidden).
+ * Gradient underline from primary to secondary.
+ */
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  id?: string;
+}
+
+const { title, subtitle, id } = Astro.props;
+---
+
+<div class="mb-8 md:mb-12">
+  <h2 id={id} class="text-2xl md:text-3xl font-heading font-bold text-text">
+    <span class="text-primary text-lg mr-2" aria-hidden="true">&#9650;</span>
+    {title}
+  </h2>
+  <div class="mt-2 h-0.5 w-16 bg-gradient-to-r from-primary to-secondary rounded-full" aria-hidden="true"></div>
+  {subtitle && (
+    <p class="mt-3 text-text-muted max-w-2xl">{subtitle}</p>
+  )}
+</div>
