@@ -18,10 +18,11 @@
  */
 
 const navLinks = [
-  { href: '#home', label: 'Home', elevation: 420, id: 'home' },
-  { href: '#people', label: 'People', elevation: 840, id: 'people' },
-  { href: '#research', label: 'Research', elevation: 1260, id: 'research' },
-  { href: '#projects', label: 'Projects', elevation: 1680, id: 'projects' },
+  { href: '#home', label: 'Home', elevation: 350, id: 'home' },
+  { href: '#about', label: 'About', elevation: 700, id: 'about' },
+  { href: '#people', label: 'People', elevation: 1050, id: 'people' },
+  { href: '#research', label: 'Research', elevation: 1400, id: 'research' },
+  { href: '#projects', label: 'Projects', elevation: 1750, id: 'projects' },
   { href: '#news', label: 'News', elevation: 2100, id: 'news' },
   { href: '#join', label: 'Join', elevation: 2400, id: 'join' },
 ];
@@ -256,7 +257,7 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
 
 <script>
   // ── Constants ──
-  const SECTION_IDS = ['home', 'people', 'research', 'projects', 'news', 'join'];
+  const SECTION_IDS = ['home', 'about', 'people', 'research', 'projects', 'news', 'join'];
   const NUM_SECTIONS = SECTION_IDS.length;
   const TRAIL_WIDTH = 176;
   const WP_PCTS = SECTION_IDS.map((_id, i) => (5 + (i / (NUM_SECTIONS - 1)) * 90) / 100);
@@ -300,6 +301,46 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
     xApplied = true;
   }
 
+  // ── Trail path jitter: drift points + asymmetric control points ──
+  // Random values are pre-generated once so the path shape is stable across resizes.
+  const DRIFT_COUNT = 2;           // intermediate points per segment
+  const DRIFT_X_RANGE = 35;        // max px drift from interpolated X
+  const CP_Y_JITTER_FRAC = 0.12;   // ±12% of sub-segment height
+  const X_MIN = 8;
+  const X_MAX = 168;
+
+  function clamp(v: number, lo: number, hi: number) { return Math.max(lo, Math.min(hi, v)); }
+
+  // Pre-roll all random offsets once at page load
+  const DRIFT_X_ROLLS: number[][] = [];
+  for (let seg = 0; seg < NUM_SECTIONS - 1; seg++) {
+    const offsets: number[] = [];
+    for (let k = 0; k < DRIFT_COUNT; k++) {
+      offsets.push((Math.random() - 0.5) * 2 * DRIFT_X_RANGE);
+    }
+    DRIFT_X_ROLLS.push(offsets);
+  }
+
+  const TOTAL_SUB_SEGS = (NUM_SECTIONS - 1) * (DRIFT_COUNT + 1);
+  const CP_JITTER_ROLLS: number[] = [];
+  for (let i = 0; i < TOTAL_SUB_SEGS; i++) {
+    CP_JITTER_ROLLS.push((Math.random() - 0.5) * 2 * CP_Y_JITTER_FRAC);
+  }
+
+  /** Generate intermediate drift points between two waypoints (deterministic per segment) */
+  function driftPoints(a: { x: number; y: number }, b: { x: number; y: number }, segIndex: number) {
+    const pts: { x: number; y: number }[] = [];
+    for (let k = 0; k < DRIFT_COUNT; k++) {
+      const t = (k + 1) / (DRIFT_COUNT + 1);
+      const baseX = a.x + (b.x - a.x) * t;
+      pts.push({
+        x: clamp(baseX + DRIFT_X_ROLLS[segIndex][k], X_MIN, X_MAX),
+        y: a.y + (b.y - a.y) * t,
+      });
+    }
+    return pts;
+  }
+
   // ── Draw trail SVG through actual rendered waypoint positions ──
   function drawTrail() {
     if (!trailContainer || !trailSvg || !dashedPath || !solidPath) return;
@@ -325,12 +366,22 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
       }
     }
 
-    // Build cubic bezier S-curve path — control points share X with their
-    // endpoint so tangents are vertical at each waypoint (no kinks)
-    let d = `M ${points[0].x},${points[0].y}`;
+    // Expand waypoints → full point sequence with drift points between each pair
+    const allPoints: { x: number; y: number }[] = [points[0]];
     for (let i = 1; i < points.length; i++) {
-      const midY = (points[i - 1].y + points[i].y) / 2;
-      d += ` C ${points[i - 1].x},${midY} ${points[i].x},${midY} ${points[i].x},${points[i].y}`;
+      allPoints.push(...driftPoints(points[i - 1], points[i], i - 1), points[i]);
+    }
+
+    // Build cubic bezier path with asymmetric control points — CP X values
+    // still match their endpoints so tangents remain vertical (no kinks)
+    let d = `M ${allPoints[0].x},${allPoints[0].y}`;
+    for (let i = 1; i < allPoints.length; i++) {
+      const prev = allPoints[i - 1];
+      const curr = allPoints[i];
+      const segH = curr.y - prev.y;
+      const midY = (prev.y + curr.y) / 2;
+      const jitterY = CP_JITTER_ROLLS[i - 1] * segH;
+      d += ` C ${prev.x},${midY + jitterY} ${curr.x},${midY - jitterY} ${curr.x},${curr.y}`;
     }
 
     // Update SVG viewBox and paths
@@ -348,12 +399,23 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
     dashedPath.setAttribute('d', d);
     solidPath.setAttribute('d', d);
 
-    // Recalculate path length for stroke animation
+    // Preserve current fill ratio across path redraws
+    const oldLength = pathLength;
+    const oldOffset = parseFloat(solidPath.style.strokeDashoffset) || oldLength;
+    const fillRatio = oldLength > 0 ? 1 - oldOffset / oldLength : 0;
+
     pathLength = solidPath.getTotalLength();
     solidPath.style.strokeDasharray = String(pathLength);
-    solidPath.style.strokeDashoffset = String(pathLength);
+
+    // Apply preserved ratio without transition to avoid visual jump
+    solidPath.style.transition = 'none';
+    solidPath.style.strokeDashoffset = String(pathLength * (1 - fillRatio));
+
+    // Re-enable transition for future scroll-driven updates
     if (!prefersReducedMotion) {
-      solidPath.style.transition = 'stroke-dashoffset 0.3s ease-out';
+      requestAnimationFrame(() => {
+        solidPath.style.transition = 'stroke-dashoffset 0.3s ease-out';
+      });
     }
   }
 

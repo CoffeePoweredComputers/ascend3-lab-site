@@ -1,0 +1,88 @@
+---
+/**
+ * AboutSection — Acronym breakdown + interdisciplinary research panels
+ *
+ * Left: ASCEND acronym spelled out vertically (with three D's).
+ * Right: Three accent-bordered cards for Learning Sciences, CER, and HCI.
+ */
+import SectionHeading from '../SectionHeading.astro';
+
+const acronym = [
+  { letter: 'A', word: 'dvancing' },
+  { letter: 'S', word: 'upport\u2002in' },
+  { letter: 'C', word: 'omputing' },
+  { letter: 'E', word: 'ducation\u2002for' },
+  { letter: 'N', word: 'ovice' },
+];
+
+const threeDs = [
+  { letter: 'D', word: 'evelopers', color: 'text-primary' },
+  { letter: 'D', word: 'ata Scientists', color: 'text-secondary' },
+  { letter: 'D', word: 'esigners', color: 'text-accent' },
+];
+
+const panels = [
+  {
+    title: 'Learning Sciences, Cognitive Science & Educational Psychology',
+    description:
+      'We study how learning occurs and develop rigorous psychometric assessments to measure it.',
+    borderColor: 'border-primary',
+  },
+  {
+    title: 'Computing Education Research',
+    description:
+      'CS education is the domain-specific context where we ground our work — the field that shapes our research questions.',
+    borderColor: 'border-secondary',
+  },
+  {
+    title: 'Human-Computer Interaction',
+    description:
+      'We study how novices interact with computing systems and build tools to help them succeed.',
+    borderColor: 'border-accent',
+  },
+];
+---
+
+<section id="about" class="section">
+  <div class="container">
+    <SectionHeading
+      title="About"
+      subtitle="What ASCEND stands for — and what we stand for."
+    />
+
+    <!-- Two-column layout: acronym left, discipline panels right -->
+    <div class="flex flex-col md:flex-row gap-10 md:gap-14 md:items-stretch">
+
+      <!-- Left: Acronym in frosted glass container -->
+      <div class="shrink-0">
+        <div class="flex flex-col gap-3 h-full bg-primary/5 backdrop-blur-md border border-border rounded-[var(--radius-lg)] px-6 py-6 md:px-8 md:py-8">
+          {acronym.map((item) => (
+            <p class="font-heading font-medium text-lg md:text-xl text-text tracking-wide"><span class="font-mono font-bold text-3xl md:text-4xl text-primary">{item.letter}</span>{item.word}</p>
+          ))}
+
+          <!-- Separator before the three D's -->
+          <div class="my-2 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" aria-hidden="true"></div>
+
+          {threeDs.map((item) => (
+            <p class="font-heading font-medium text-lg md:text-xl text-text tracking-wide"><span class={`font-mono font-bold text-3xl md:text-4xl ${item.color}`}>{item.letter}</span>{item.word}</p>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Discipline panels -->
+      <div class="flex flex-col gap-6 flex-1 min-w-0">
+        {panels.map((panel) => (
+          <div class={`card border-l-4 ${panel.borderColor} p-6 md:p-8 flex-1`}>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text mb-3">
+              {panel.title}
+            </h3>
+            <p class="text-text-muted leading-relaxed">
+              {panel.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
