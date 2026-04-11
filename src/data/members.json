@@ -18,6 +18,24 @@
       "bio": "AI-assisted learning and assessment for introductory CS, focusing on databases.",
       "website": null,
       "email": null
+    },
+    {
+      "id": "minsun",
+      "name": "Minsun Kim",
+      "role": "Incoming PhD Student",
+      "photo": "/assets/people/minsun.jpg",
+      "bio": "AI-driven educational technologies and LLM applications.",
+      "website": "https://min-sunnying.github.io",
+      "email": null
+    },
+    {
+      "id": "fariha",
+      "name": "Fariha Anjum Shifa",
+      "role": "Incoming PhD Student",
+      "photo": "/assets/people/fariha.jpg",
+      "bio": "Language barriers and translanguaging in learning to code.",
+      "website": "https://farihanjum.github.io/",
+      "email": null
     }
   ],
   "masters": [],
@@ -71,26 +89,6 @@
       "website": null,
       "email": null,
       "institution": "University of Maine"
-    },
-    {
-      "id": "minsun",
-      "name": "Minsun Kim",
-      "role": "Researcher",
-      "photo": "/assets/people/minsun.jpg",
-      "bio": "AI-driven educational technologies and LLM applications.",
-      "website": "https://min-sunnying.github.io",
-      "email": null,
-      "institution": "KAIST"
-    },
-    {
-      "id": "fariha",
-      "name": "Fariha Anjum Shifa",
-      "role": "Researcher",
-      "photo": "/assets/people/fariha.jpg",
-      "bio": "Language barriers and translanguaging in learning to code.",
-      "website": "https://farihanjum.github.io/",
-      "email": null,
-      "institution": "University of Dhaka"
     },
     {
       "id": "seth",
