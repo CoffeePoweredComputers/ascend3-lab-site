@@ -28,6 +28,13 @@
     "researchers": ["dhsmith", "monisha"]
   },
   {
+    "title": "Behavior-Driven Specification for AI-Assisted Programming",
+    "icon": "speech",
+    "description": "Designing pedagogy and tooling for behavior-driven specification, where students learn to elicit and probe system behavior through end-user scenarios. As natural language closes the gap to code, this work prepares novices to take on the consolidating role of the AI-assisted programmer.",
+    "keywords": ["AI-Assisted Programming", "Behavior-Driven Specification", "End-User Programming", "Requirements Engineering"],
+    "researchers": ["dhsmith", "hudson"]
+  },
+  {
     "title": "Multilingual Computing Education",
     "icon": "globe",
     "description": "Investigating how language diversity impacts learning to code. Using translanguaging theory, we explore how non-native English speakers draw on their full linguistic repertoire to make sense of programming concepts and technical vocabulary.",

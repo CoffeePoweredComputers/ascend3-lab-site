@@ -10,6 +10,7 @@ const pi = getGroup('pi')[0];
 const phd = getGroup('phd');
 const masters = getGroup('masters');
 const undergrad = getGroup('undergrad');
+const highschool = getGroup('highschool');
 const collaborators = getGroup('collaborators');
 ---
 
@@ -73,7 +74,7 @@ const collaborators = getGroup('collaborators');
     {phd.length > 0 && (
       <div class="mb-8">
         <h3 id="phd-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-4 font-semibold">
-          PhD Students
+          PhD Students <span class="text-text-muted/60 font-normal normal-case tracking-normal ml-2">Central Summit</span>
         </h3>
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {phd.map((m) => (
@@ -94,7 +95,7 @@ const collaborators = getGroup('collaborators');
     {masters.length > 0 && (
       <div class="mb-8">
         <h3 id="masters-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-4 font-semibold">
-          Master's Students
+          Master's Students <span class="text-text-muted/60 font-normal normal-case tracking-normal ml-2">The Fang</span>
         </h3>
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {masters.map((m) => (
@@ -115,7 +116,7 @@ const collaborators = getGroup('collaborators');
     {undergrad.length > 0 && (
       <div class="mb-8">
         <h3 id="undergrad-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-4 font-semibold">
-          Undergraduate Researchers
+          Undergraduate Researchers <span class="text-text-muted/60 font-normal normal-case tracking-normal ml-2">Roc Noir</span>
         </h3>
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {undergrad.map((m) => (
@@ -126,6 +127,26 @@ const collaborators = getGroup('collaborators');
               bio={m.bio ?? undefined}
               website={m.website ?? undefined}
 
+            />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- High School Researchers -->
+    {highschool.length > 0 && (
+      <div class="mb-8">
+        <h3 id="highschool-heading" class="font-heading text-sm text-primary uppercase tracking-wider mb-4 font-semibold">
+          High School Researchers <span class="text-text-muted/60 font-normal normal-case tracking-normal ml-2">Base Camp</span>
+        </h3>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {highschool.map((m) => (
+            <PersonCard
+              name={m.name}
+              role={m.role}
+              photo={m.photo ?? undefined}
+              bio={m.bio ?? undefined}
+              website={m.website ?? undefined}
             />
           ))}
         </div>

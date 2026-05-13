@@ -1,6 +1,6 @@
 import membersData from '../data/members.json';
 
-export type MemberGroup = 'pi' | 'phd' | 'masters' | 'undergrad' | 'collaborators';
+export type MemberGroup = 'pi' | 'phd' | 'masters' | 'undergrad' | 'highschool' | 'collaborators';
 
 export interface Member {
   id: string;
@@ -18,6 +18,7 @@ const students: Member[] = [
   ...membersData.phd,
   ...membersData.masters,
   ...membersData.undergrad,
+  ...membersData.highschool,
 ];
 const all: Member[] = [pi, ...students, ...membersData.collaborators];
 
