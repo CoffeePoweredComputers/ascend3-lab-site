@@ -6,6 +6,8 @@
  * Collaborators use secondary accent.
  */
 
+import ProfileImage from './ProfileImage.astro';
+
 interface Props {
   name: string;
   role: string;
@@ -26,14 +28,15 @@ const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
 ]}>
   <!-- Photo -->
   {photo ? (
-    <img
-      src={photo}
-      alt={`Photo of ${name}`}
+    <ProfileImage
+      photo={photo}
+      name={name}
+      size={56}
+      sizeClass="w-14 h-14"
       class:list={[
-        'w-14 h-14 rounded-full object-cover mb-3 ring-1 ring-offset-1 ring-offset-surface-base',
+        'mb-3 ring-1 ring-offset-1 ring-offset-surface-base',
         isCollaborator ? 'ring-secondary/50' : 'ring-primary/50'
       ]}
-      loading="lazy"
     />
   ) : (
     <div class:list={[

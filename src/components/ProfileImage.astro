@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { resolvePhoto, isLocalImage } from '../lib/images';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  photo: string;
+  name: string;
+  size: number;
+  sizeClass: string;
+  class?: string;
+}
+
+const { photo, name, size, sizeClass, class: className } = Astro.props;
+
+const resolved = resolvePhoto(photo);
+const retinaWidth = size * 2;
+---
+
+{isLocalImage(resolved) ? (
+  <Image
+    src={resolved}
+    alt={`Photo of ${name}`}
+    width={retinaWidth}
+    height={retinaWidth}
+    format="webp"
+    quality={80}
+    class:list={[sizeClass, 'rounded-full object-cover', className]}
+    loading="lazy"
+    decoding="async"
+  />
+) : (
+  <img
+    src={resolved}
+    alt={`Photo of ${name}`}
+    width={size}
+    height={size}
+    class:list={[sizeClass, 'rounded-full object-cover', className]}
+    loading="lazy"
+    decoding="async"
+  />
+)}

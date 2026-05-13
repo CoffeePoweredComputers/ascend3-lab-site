@@ -4,6 +4,7 @@
  */
 import SectionHeading from '../SectionHeading.astro';
 import PersonCard from '../PersonCard.astro';
+import ProfileImage from '../ProfileImage.astro';
 import { getGroup } from '../../lib/members';
 
 const pi = getGroup('pi')[0];
@@ -28,10 +29,12 @@ const collaborators = getGroup('collaborators');
       <div class="card p-6 md:p-8">
         <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start">
           {pi.photo ? (
-            <img
-              src={pi.photo}
-              alt={`Photo of ${pi.name}`}
-              class="w-32 h-32 rounded-full object-cover ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0"
+            <ProfileImage
+              photo={pi.photo}
+              name={pi.name}
+              size={128}
+              sizeClass="w-32 h-32"
+              class="ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0"
             />
           ) : (
             <div class="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center font-heading font-bold text-3xl text-primary ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0">

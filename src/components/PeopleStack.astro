@@ -9,6 +9,7 @@
  * Supply either `group` (fetches from members.ts) or `memberIds` (arbitrary list).
  */
 import { getGroup, getMember, type MemberGroup, type Member } from '../lib/members';
+import ProfileImage from './ProfileImage.astro';
 
 interface Props {
   group?: MemberGroup;
@@ -78,15 +79,16 @@ const ringOffset = compact ? 'ring-offset-1' : 'ring-offset-2';
           /* Compact: no hover interaction */
           <div class:list={['relative first:ml-0', overlap]}>
             {m.photo ? (
-              <img
-                src={m.photo}
-                alt={`Photo of ${m.name}`}
+              <ProfileImage
+                photo={m.photo}
+                name={m.name}
+                size={32}
+                sizeClass={avatarSize}
                 class:list={[
-                  avatarSize, 'rounded-full object-cover ring-offset-surface-base',
+                  'ring-offset-surface-base',
                   ringWidth, ringOffset,
                   showCollab ? 'ring-secondary/60' : 'ring-primary/60',
                 ]}
-                loading="lazy"
               />
             ) : (
               <div class:list={[
@@ -103,14 +105,15 @@ const ringOffset = compact ? 'ring-offset-1' : 'ring-offset-2';
           <div class="group/avatar relative -ml-3 first:ml-0 pb-6 transition-all duration-200 ease-out
                        group-hover/stack:opacity-50 hover:!opacity-100 hover:z-30">
             {m.photo ? (
-              <img
-                src={m.photo}
-                alt={`Photo of ${m.name}`}
+              <ProfileImage
+                photo={m.photo}
+                name={m.name}
+                size={56}
+                sizeClass="w-14 h-14"
                 class:list={[
-                  'w-14 h-14 rounded-full object-cover ring-2 ring-offset-2 ring-offset-surface-base transition-all duration-200',
+                  'ring-2 ring-offset-2 ring-offset-surface-base transition-all duration-200',
                   showCollab ? 'ring-secondary/60 hover:ring-secondary' : 'ring-primary/60 hover:ring-primary',
                 ]}
-                loading="lazy"
               />
             ) : (
               <div class:list={[
