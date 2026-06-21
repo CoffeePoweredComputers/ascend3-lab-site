@@ -1,0 +1,67 @@
+---
+/**
+ * ProcessFlow — a horizontal stepped flow. Each step is a button; clicking it
+ * reveals a detail panel (and an optional link to the relevant lesson).
+ * Usage:
+ *   <ProcessFlow steps={[
+ *     { label: "Raw data", detail: "Transcripts, notes…", href: "/wiki/qualitative/familiarization-and-memoing" },
+ *     { label: "Codes", detail: "Short labels on chunks." },
+ *   ]} />
+ */
+interface Step {
+  label: string;
+  detail?: string;
+  href?: string;
+}
+interface Props {
+  steps: Step[];
+}
+const { steps } = Astro.props;
+---
+
+<div class="wiki-flow" data-flow>
+  <ol class="wiki-flow__track" role="list">
+    {steps.map((s, i) => (
+      <li class="wiki-flow__step">
+        <button
+          type="button"
+          class="wiki-flow__node"
+          data-detail={s.detail ?? ''}
+          data-href={s.href ?? ''}
+          data-label={s.label}
+          aria-pressed="false"
+        >{s.label}</button>
+        {i < steps.length - 1 && <span class="wiki-flow__arrow" aria-hidden="true">→</span>}
+      </li>
+    ))}
+  </ol>
+  <div class="wiki-flow__panel" aria-live="polite">
+    <p class="wiki-flow__panel-empty">Click a stage to see what happens there.</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-flow]').forEach((root) => {
+    const panel = root.querySelector<HTMLElement>('.wiki-flow__panel')!;
+    const nodes = Array.from(root.querySelectorAll<HTMLButtonElement>('.wiki-flow__node'));
+
+    nodes.forEach((node) => {
+      node.addEventListener('click', () => {
+        const active = node.getAttribute('aria-pressed') === 'true';
+        nodes.forEach((n) => n.setAttribute('aria-pressed', 'false'));
+        if (active) {
+          panel.innerHTML = '<p class="wiki-flow__panel-empty">Click a stage to see what happens there.</p>';
+          return;
+        }
+        node.setAttribute('aria-pressed', 'true');
+        const label = node.dataset.label || '';
+        const detail = node.dataset.detail || '';
+        const href = node.dataset.href || '';
+        const parts = [`<p class="wiki-flow__panel-title">${label}</p>`];
+        if (detail) parts.push(`<p class="wiki-flow__panel-detail">${detail}</p>`);
+        if (href) parts.push(`<a class="wiki-flow__panel-link" href="${href}">Open this lesson →</a>`);
+        panel.innerHTML = parts.join('');
+      });
+    });
+  });
+</script>

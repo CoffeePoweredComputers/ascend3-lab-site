@@ -1,0 +1,16 @@
+---
+/**
+ * Reveal — click-to-reveal answer / flashcard. Uses native <details>.
+ * Usage: <Reveal summary="Show answer">hidden content</Reveal>
+ */
+interface Props {
+  summary?: string;
+}
+const { summary = 'Reveal' } = Astro.props;
+---
+<details class="wiki-reveal">
+  <summary class="wiki-reveal__summary">
+    <span class="wiki-reveal__chevron" aria-hidden="true">▸</span>{summary}
+  </summary>
+  <div class="wiki-reveal__body"><slot /></div>
+</details>

@@ -40,6 +40,7 @@
   --color-primary-light: #2563EB15;
   --color-secondary: #166534;
   --color-accent: #D97706;
+  --color-danger: #DC2626;
 
   /* Text */
   --color-text: #0F172A;
@@ -78,6 +79,7 @@
   --color-primary-light: #60A5FA15;
   --color-secondary: #4ADE80;
   --color-accent: #FBBF24;
+  --color-danger: #F87171;
   --color-text: #F1F5F9;
   --color-text-muted: #94A3B8;
   --color-border: #334155;

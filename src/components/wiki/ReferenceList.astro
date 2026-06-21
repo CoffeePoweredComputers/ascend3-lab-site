@@ -1,0 +1,37 @@
+---
+/**
+ * ReferenceList — annotated bibliography. Renders APA strings, DOI/publisher
+ * links, annotations, and per-entry anchors (#ref-<id>) that <Cite> links to.
+ * Unverified DOIs get a "verify" badge so students re-check before citing.
+ * Usage: <ReferenceList tags={["irr"]} />  or  <ReferenceList /> for everything.
+ */
+import { getReferences } from '../../lib/references';
+
+interface Props {
+  tags?: string[];
+}
+const { tags } = Astro.props;
+const refs = getReferences(tags);
+---
+
+<ol class="wiki-reflist" role="list">
+  {refs.map((ref) => (
+    <li class="wiki-reflist__item" id={`ref-${ref.id}`}>
+      <p class="wiki-reflist__apa">
+        {ref.apa}
+        {!ref.verified && (
+          <span class="wiki-reflist__badge" title="DOI from a standard record — confirm it resolves before citing.">
+            verify
+          </span>
+        )}
+      </p>
+      <p class="wiki-reflist__meta">
+        <a href={ref.url} target="_blank" rel="noopener noreferrer">
+          {ref.doi ? `https://doi.org/${ref.doi}` : ref.url} <span aria-hidden="true">↗</span>
+        </a>
+        {ref.type !== 'article' && <span class="wiki-reflist__type"> · {ref.type}</span>}
+      </p>
+      <p class="wiki-reflist__note">{ref.annotation}</p>
+    </li>
+  ))}
+</ol>

@@ -1,0 +1,126 @@
+---
+/**
+ * IRBNavigator — a VT-specific branching questionnaire whose outcomes surface
+ * the exact HRPP forms/links a study needs. Same data-attribute hydration
+ * pattern as DecisionTree, but result nodes carry a determination badge and a
+ * list of resource links, and it keeps a history stack so "Back" works.
+ *
+ * Like MeasureExplorer, it imports its own data rather than taking props.
+ * Guidance only — HRPP makes the official determination.
+ */
+import { irbNavStart, irbNavNodes } from '../../data/irb-navigator';
+---
+
+<div class="wiki-tree wiki-tree--nav" data-start={irbNavStart} data-nodes={JSON.stringify(irbNavNodes)}>
+  <div class="wiki-tree__stage" aria-live="polite"></div>
+  <div class="wiki-tree__controls">
+    <button type="button" class="wiki-tree__back" hidden>← Back</button>
+    <button type="button" class="wiki-tree__restart" hidden>↺ Start over</button>
+  </div>
+  <noscript><p class="wiki-tree__noscript">This walkthrough needs JavaScript enabled.</p></noscript>
+</div>
+
+<script>
+  type NavLink = { title: string; url: string; note?: string };
+  type NavNode =
+    | { text: string; options: { label: string; to: string }[] }
+    | { badge: string; tone: string; summary: string; links: NavLink[] };
+
+  document.querySelectorAll<HTMLElement>('.wiki-tree--nav').forEach((tree) => {
+    const nodes: Record<string, NavNode> = JSON.parse(tree.dataset.nodes || '{}');
+    const start = tree.dataset.start || '';
+    const stage = tree.querySelector<HTMLElement>('.wiki-tree__stage')!;
+    const back = tree.querySelector<HTMLButtonElement>('.wiki-tree__back')!;
+    const restart = tree.querySelector<HTMLButtonElement>('.wiki-tree__restart')!;
+    const history: string[] = [];
+
+    function renderResult(node: Extract<NavNode, { badge: string }>) {
+      const badge = document.createElement('span');
+      badge.className = `wiki-tree__badge wiki-tree__badge--${node.tone}`;
+      badge.textContent = node.badge;
+      stage.appendChild(badge);
+
+      const summary = document.createElement('p');
+      summary.className = `wiki-tree__result wiki-tree__result--${node.tone}`;
+      summary.textContent = node.summary;
+      stage.appendChild(summary);
+
+      const heading = document.createElement('p');
+      heading.className = 'wiki-tree__links-heading';
+      heading.textContent = 'What you need:';
+      stage.appendChild(heading);
+
+      const list = document.createElement('ul');
+      list.className = 'wiki-tree__links';
+      node.links.forEach((link) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'wiki-tree__link';
+        a.href = link.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = link.title;
+        li.appendChild(a);
+        if (link.note) {
+          const note = document.createElement('span');
+          note.className = 'wiki-tree__link-note';
+          note.textContent = link.note;
+          li.appendChild(note);
+        }
+        list.appendChild(li);
+      });
+      stage.appendChild(list);
+    }
+
+    function renderQuestion(node: Extract<NavNode, { text: string }>) {
+      const q = document.createElement('p');
+      q.className = 'wiki-tree__question';
+      q.textContent = node.text;
+      stage.appendChild(q);
+
+      const opts = document.createElement('div');
+      opts.className = 'wiki-tree__options';
+      node.options.forEach((opt) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'wiki-tree__option';
+        b.textContent = opt.label;
+        b.addEventListener('click', () => {
+          history.push(currentId);
+          render(opt.to);
+        });
+        opts.appendChild(b);
+      });
+      stage.appendChild(opts);
+    }
+
+    let currentId = start;
+
+    function render(id: string) {
+      const node = nodes[id];
+      if (!node) return;
+      currentId = id;
+      stage.innerHTML = '';
+
+      if ('badge' in node) {
+        renderResult(node);
+      } else {
+        renderQuestion(node);
+      }
+
+      const atStart = history.length === 0;
+      back.hidden = atStart;
+      restart.hidden = atStart;
+    }
+
+    back.addEventListener('click', () => {
+      const prev = history.pop();
+      if (prev !== undefined) render(prev);
+    });
+    restart.addEventListener('click', () => {
+      history.length = 0;
+      render(start);
+    });
+    render(start);
+  });
+</script>

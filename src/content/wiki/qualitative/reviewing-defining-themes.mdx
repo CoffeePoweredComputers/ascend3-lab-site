@@ -1,0 +1,51 @@
+---
+title: "Path B — Reviewing & Defining Themes"
+module: qualitative
+order: 7
+description: Generating, reviewing, and naming themes — then comparing both paths' results.
+estMinutes: 11
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import ThemeTree from '@wiki/ThemeTree.astro';
+import SideBySide from '@wiki/SideBySide.astro';
+import Cite from '@wiki/Cite.astro';
+import { reflexiveThemes, themeComparisonRows } from '../../../data/qual-example';
+
+Codes are not themes. A **theme** captures a *patterned meaning* organized around a central
+idea <Cite id="braun-clarke-2022" />. Building them is the affinity move: cluster related
+codes, then ask "what's the story these tell together?"
+
+<Steps>
+1. **Generate candidate themes.** Cluster codes that share meaning (an affinity-diagram move).
+2. **Review against the data.** Does each theme hold across the extracts? Split, merge, or drop.
+3. **Define and name.** Write a sentence or two stating each theme's *central organizing concept*.
+4. **Select compelling extracts** that evidence the theme, and weave them into the write-up.
+</Steps>
+
+## Path B's themes
+
+Reflexive themes read the debugging experience interpretively — about identity, isolation,
+and access:
+
+<ThemeTree themes={reflexiveThemes} open />
+
+## The payoff: same data, two valid readings
+
+The two paths reach a **matched theme for each phenomenon** — built from the *same
+interviews* — but frame it differently. Read each row across: descriptive and reliably
+codable on the left, interpretive and researcher-constructed on the right.
+
+<SideBySide
+  leftLabel="Codebook (Path A)"
+  rightLabel="Reflexive (Path B)"
+  rows={themeComparisonRows}
+/>
+
+<Callout type="tip" title="The lesson of the whole module">
+Method is a choice with consequences. The codebook path buys you transferability and a
+reliability claim; the reflexive path buys you interpretive depth. Choose the one your
+question and epistemology call for — and report it honestly <Cite id="braun-clarke-2021-onesize" />
+<Cite id="mcdonald-2019" />.
+</Callout>

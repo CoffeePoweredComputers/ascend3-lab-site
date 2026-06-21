@@ -1,0 +1,46 @@
+---
+title: Initial Coding
+module: qualitative
+order: 3
+description: First-cycle coding — turning jottings into descriptive and in vivo codes.
+estMinutes: 9
+---
+
+import Callout from '@wiki/Callout.astro';
+import CodedTranscript from '@wiki/CodedTranscript.astro';
+import Cite from '@wiki/Cite.astro';
+import { initialCodingTurns } from '../../../data/qual-example';
+
+**First-cycle coding** is your first systematic pass: break the data into chunks and
+attach a short label to each <Cite id="saldana-2021" />. Two workhorse styles:
+
+- **Descriptive coding** — *you* summarize the chunk in a word or phrase (`help-seeking delay`).
+- **In vivo coding** — the code *is the participant's own words* (`"think I was dumb"`),
+  preserving their voice <Cite id="charmaz-2014" />.
+
+This stage is shared by both traditions — everyone codes the data first. What differs
+(next lessons) is what you do *with* the codes.
+
+## Code the example
+
+Same excerpts as before, now coded. Click any highlighted span to see the **code**, its
+**type**, the **memo** justifying it, and **what theme it will eventually roll up to**.
+(The roll-up is shown for orientation; in real work, themes come later — don't pre-judge.)
+
+<CodedTranscript turns={initialCodingTurns} />
+
+<Callout type="note" title="One chunk can get several codes">
+Segments often carry more than one code, and the same code recurs across participants —
+that recurrence is the raw material of categories. Code generously now; you'll prune later
+<Cite id="saldana-2021" />.
+</Callout>
+
+## Inductive, deductive, abductive?
+
+Where do codes come from? Three stances, and most analysts move between them:
+
+| Reasoning | How codes arise | Source |
+| --- | --- | --- |
+| **Inductive** | codes emerge from the data | <Cite id="thomas-2006" /> |
+| **Deductive** | a pre-set framework is applied first | <Cite id="hsieh-shannon-2005" /> |
+| **Abductive** | looping between data and theory — where most analysts land, guided by "sensitizing concepts" | <Cite id="timmermans-tavory-2012" />, <Cite id="blumer-1954" /> |

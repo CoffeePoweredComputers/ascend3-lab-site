@@ -1,0 +1,41 @@
+# Auto-build and deploy the site to Firebase Hosting on every push to master.
+#
+# ── One-time setup (do this once; cannot be scripted here) ──
+# Easiest: run `firebase init hosting:github` locally — it creates a service
+# account, stores its key as the FIREBASE_SERVICE_ACCOUNT_HAMILTONFOUR secret in
+# this repo, and wires up the workflow.
+# Manual alternative: create a service account in the `hamiltonfour` Google Cloud
+# project with the "Firebase Hosting Admin" role, download its JSON key, and add it
+# as a repository secret named FIREBASE_SERVICE_ACCOUNT (Settings → Secrets and
+# variables → Actions). If you use the name below from `firebase init`, update the
+# secret reference in the deploy step to match.
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run check:citations
+      - run: npm run build
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: hamiltonfour

@@ -1,0 +1,231 @@
+---
+/**
+ * WikiSidebar — Khan-Academy style module → lesson navigation.
+ *
+ * Sibling to Navigation.astro (the homepage scroll-trail). This one is built for
+ * a MULTI-PAGE section: active state comes from the current URL, and per-lesson
+ * completion is read from localStorage ("wiki-progress") and painted client-side.
+ *
+ * Collapsible modules use native <details>; the active module is open by default.
+ */
+import { getWikiNav, lessonHref } from '../lib/wiki';
+
+const nav = await getWikiNav();
+const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
+const current = stripSlash(Astro.url.pathname);
+
+const isActiveLesson = (l: (typeof nav)[number]['lessons'][number]) =>
+  stripSlash(lessonHref(l)) === current;
+const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesson);
+---
+
+<!-- ═══ DESKTOP SIDEBAR ═══ -->
+<aside class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[340px] z-40 flex-col" aria-label="Lab wiki navigation">
+  <div class="absolute inset-0 bg-white/60 dark:bg-surface-base/60 backdrop-blur-xl border-r border-border/50"></div>
+  <div class="absolute inset-0 topo-sidebar opacity-30 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative z-10 flex flex-col h-full px-6 py-6">
+    <!-- Header -->
+    <div class="shrink-0 mb-5">
+      <a href="/" class="no-underline text-xs font-mono text-text-muted hover:text-primary">← ASCEND Lab</a>
+      <h2 class="mt-2 font-heading text-xl font-bold text-text">Lab Wiki</h2>
+      <p class="text-xs text-text-muted">Interactive lab handbook</p>
+    </div>
+
+    <!-- Modules -->
+    <nav class="flex-1 min-h-0 overflow-y-auto wiki-sidebar__scroll" aria-label="Modules">
+      {nav.map((m) => (
+        m.underConstruction ? (
+          <div class="wiki-mod wiki-mod--soon" data-mod={m.slug}>
+            <div class="wiki-mod__summary wiki-mod__summary--soon">
+              <span class="wiki-mod__icon" aria-hidden="true">{m.icon}</span>
+              <span class="wiki-mod__title">{m.title}</span>
+              <span class="wiki-mod__soon">🚧 Soon</span>
+            </div>
+          </div>
+        ) : (
+          <details class="wiki-mod" data-mod={m.slug} data-mod-total={m.lessons.length} open={isActiveModule(m)}>
+            <summary class="wiki-mod__summary">
+              <span class="wiki-mod__icon" aria-hidden="true">{m.icon}</span>
+              <span class="wiki-mod__title">{m.title}</span>
+              <span class="wiki-mod__count" data-mod-count>0/{m.lessons.length}</span>
+            </summary>
+            <div class="wiki-mod__bar" aria-hidden="true"><span data-mod-bar style="width:0%"></span></div>
+            <ul class="wiki-mod__lessons" role="list">
+              {m.lessons.map((l) => (
+                <li>
+                  <a
+                    href={lessonHref(l)}
+                    data-lesson-id={l.id}
+                    class="wiki-lesson no-underline"
+                    aria-current={isActiveLesson(l) ? 'page' : undefined}
+                  >
+                    <span class="wiki-lesson__check" aria-hidden="true">✓</span>
+                    <span class="wiki-lesson__title">{l.data.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )
+      ))}
+    </nav>
+
+    <!-- Footer -->
+    <div class="shrink-0 pt-4 border-t border-border/50 flex items-center justify-between">
+      <p class="text-[11px] text-text-muted/60 leading-relaxed">Virginia Tech<br/>Dept. of Computer Science</p>
+      <button type="button" id="wiki-theme-toggle" class="theme-toggle p-2 rounded-md text-text-muted hover:text-text hover:bg-surface" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.75em" height="1.75em" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic" viewBox="0 0 32 32">
+          <clipPath id="wiki-cutout-d"><path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" /></clipPath>
+          <g clip-path="url(#wiki-cutout-d)">
+            <circle cx="16" cy="16" r="9.34" />
+            <g stroke="currentColor" stroke-width="1.5">
+              <path d="M16 5.5v-4" /><path d="M16 30.5v-4" /><path d="M1.5 16h4" /><path d="M26.5 16h4" />
+              <path d="m23.4 8.6 2.8-2.8" /><path d="m5.7 26.3 2.9-2.9" /><path d="m5.8 5.8 2.8 2.8" /><path d="m23.4 23.4 2.9 2.9" />
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MOBILE TOP BAR ═══ -->
+<header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-surface-base/70 backdrop-blur-xl border-b border-border/50">
+  <div class="flex items-center justify-between px-4 py-3">
+    <a href="/wiki" class="no-underline font-heading font-bold text-text">Lab Wiki</a>
+    <div class="flex items-center gap-1">
+      <button type="button" id="wiki-theme-toggle-mobile" class="theme-toggle p-2 rounded-md text-text-muted hover:text-text hover:bg-surface" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.75em" height="1.75em" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic" viewBox="0 0 32 32">
+          <clipPath id="wiki-cutout-m"><path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" /></clipPath>
+          <g clip-path="url(#wiki-cutout-m)">
+            <circle cx="16" cy="16" r="9.34" />
+            <g stroke="currentColor" stroke-width="1.5">
+              <path d="M16 5.5v-4" /><path d="M16 30.5v-4" /><path d="M1.5 16h4" /><path d="M26.5 16h4" />
+              <path d="m23.4 8.6 2.8-2.8" /><path d="m5.7 26.3 2.9-2.9" /><path d="m5.8 5.8 2.8 2.8" /><path d="m23.4 23.4 2.9 2.9" />
+            </g>
+          </g>
+        </svg>
+      </button>
+      <button type="button" id="wiki-menu-button" class="p-2 rounded-md text-text-muted hover:text-text hover:bg-surface" aria-expanded="false" aria-controls="wiki-mobile-menu" aria-label="Open wiki menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" class="menu-icon"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class="close-icon hidden"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="wiki-mobile-menu" class="hidden max-h-[70vh] overflow-y-auto pb-4 px-4">
+    {nav.map((m) => (
+      m.underConstruction ? (
+        <div class="wiki-mod wiki-mod--soon" data-mod={m.slug}>
+          <div class="wiki-mod__summary wiki-mod__summary--soon">
+            <span class="wiki-mod__icon" aria-hidden="true">{m.icon}</span>
+            <span class="wiki-mod__title">{m.title}</span>
+            <span class="wiki-mod__soon">🚧 Soon</span>
+          </div>
+        </div>
+      ) : (
+        <details class="wiki-mod" data-mod={m.slug} data-mod-total={m.lessons.length} open={isActiveModule(m)}>
+          <summary class="wiki-mod__summary">
+            <span class="wiki-mod__icon" aria-hidden="true">{m.icon}</span>
+            <span class="wiki-mod__title">{m.title}</span>
+            <span class="wiki-mod__count" data-mod-count>0/{m.lessons.length}</span>
+          </summary>
+          <div class="wiki-mod__bar" aria-hidden="true"><span data-mod-bar style="width:0%"></span></div>
+          <ul class="wiki-mod__lessons" role="list">
+            {m.lessons.map((l) => (
+              <li>
+                <a href={lessonHref(l)} data-lesson-id={l.id} class="wiki-lesson no-underline" aria-current={isActiveLesson(l) ? 'page' : undefined}>
+                  <span class="wiki-lesson__check" aria-hidden="true">✓</span>
+                  <span class="wiki-lesson__title">{l.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )
+    ))}
+  </div>
+</header>
+
+<script>
+  // ── Progress painting (reads localStorage; live-updates on change) ──
+  const STORAGE_KEY = 'wiki-progress';
+
+  function readProgress(): string[] {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function paintProgress() {
+    const done = new Set(readProgress());
+
+    document.querySelectorAll<HTMLAnchorElement>('.wiki-lesson').forEach((a) => {
+      a.classList.toggle('is-done', done.has(a.dataset.lessonId || ''));
+    });
+
+    document.querySelectorAll<HTMLElement>('.wiki-mod').forEach((mod) => {
+      const total = Number(mod.dataset.modTotal) || 0;
+      const ids = Array.from(mod.querySelectorAll<HTMLAnchorElement>('.wiki-lesson'))
+        .map((a) => a.dataset.lessonId || '');
+      const completed = ids.filter((id) => done.has(id)).length;
+      const bar = mod.querySelector<HTMLElement>('[data-mod-bar]');
+      const count = mod.querySelector<HTMLElement>('[data-mod-count]');
+      if (bar) bar.style.width = total ? `${(completed / total) * 100}%` : '0%';
+      if (count) count.textContent = `${completed}/${total}`;
+    });
+  }
+
+  paintProgress();
+  window.addEventListener('wiki-progress-change', paintProgress);
+  window.addEventListener('storage', (e) => { if (e.key === STORAGE_KEY) paintProgress(); });
+
+  // ── Mobile menu ──
+  const menuBtn = document.getElementById('wiki-menu-button');
+  const menu = document.getElementById('wiki-mobile-menu');
+  const menuIcon = menuBtn?.querySelector('.menu-icon');
+  const closeIcon = menuBtn?.querySelector('.close-icon');
+
+  function toggleMenu() {
+    const expanded = menuBtn!.getAttribute('aria-expanded') === 'true';
+    menuBtn!.setAttribute('aria-expanded', String(!expanded));
+    menuBtn!.setAttribute('aria-label', expanded ? 'Open wiki menu' : 'Close wiki menu');
+    menu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  }
+  menuBtn?.addEventListener('click', toggleMenu);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) toggleMenu();
+  });
+
+  // ── Dark mode toggle (mirrors Navigation.astro) ──
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const toggleButtons = document.querySelectorAll<HTMLElement>('.theme-toggle');
+
+  if (document.documentElement.classList.contains('dark')) {
+    toggleButtons.forEach((btn) => btn.classList.add('theme-toggle--toggled'));
+  }
+
+  function toggleTheme() {
+    const goingDark = !document.documentElement.classList.contains('dark');
+    if (!prefersReducedMotion) {
+      document.documentElement.classList.add('theme-transitioning');
+      void document.documentElement.offsetHeight;
+    }
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+    toggleButtons.forEach((btn) => btn.classList.toggle('theme-toggle--toggled'));
+    if (!prefersReducedMotion) {
+      setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 650);
+    }
+  }
+  document.getElementById('wiki-theme-toggle')?.addEventListener('click', toggleTheme);
+  document.getElementById('wiki-theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+</script>

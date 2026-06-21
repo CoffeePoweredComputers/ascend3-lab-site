@@ -1,0 +1,33 @@
+---
+/**
+ * CodeConsolidation — shows several raw codes merging into one consolidated code.
+ * Usage:
+ *   <CodeConsolidation groups={[
+ *     { consolidated: "fear of negative evaluation",
+ *       raw: ["didn't want to look dumb", "embarrassed to ask", "fear TA judgment"],
+ *       rationale: "All three name the same affective barrier..." },
+ *   ]} />
+ */
+interface Group {
+  consolidated: string;
+  raw: string[];
+  rationale?: string;
+}
+interface Props {
+  groups: Group[];
+}
+const { groups } = Astro.props;
+---
+
+<div class="wiki-consol">
+  {groups.map((g) => (
+    <div class="wiki-consol__group">
+      <div class="wiki-consol__raw">
+        {g.raw.map((r) => <span class="wiki-chip">{r}</span>)}
+      </div>
+      <div class="wiki-consol__arrow" aria-hidden="true">→</div>
+      <div><span class="wiki-chip wiki-chip--result">{g.consolidated}</span></div>
+      {g.rationale && <p class="wiki-consol__rationale">{g.rationale}</p>}
+    </div>
+  ))}
+</div>

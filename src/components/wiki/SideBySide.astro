@@ -1,0 +1,57 @@
+---
+/**
+ * SideBySide — a paired two-column comparison. Each row pairs two panels that
+ * describe the same thing two ways, separated by a centered label. Pure CSS grid
+ * (no JS). Reusable for any "A vs B, item by item" contrast.
+ * Usage:
+ *   <SideBySide
+ *     leftLabel="Codebook (Path A)" rightLabel="Reflexive (Path B)"
+ *     rows={[
+ *       { label: "Help-seeking",
+ *         left:  { title: "Help-Seeking Anxiety", body: "…" },
+ *         right: { title: "Asking for help as social risk", body: "…" } },
+ *     ]} />
+ */
+interface Panel {
+  title: string;
+  body?: string;
+}
+interface Row {
+  label?: string;
+  left: Panel;
+  right: Panel;
+  diff?: string;
+}
+interface Props {
+  leftLabel: string;
+  rightLabel: string;
+  rows: Row[];
+}
+const { leftLabel, rightLabel, rows } = Astro.props;
+---
+
+<div class="wiki-sxs">
+  <div class="wiki-sxs__head wiki-sxs__head--a">{leftLabel}</div>
+  <div class="wiki-sxs__head wiki-sxs__head--b">{rightLabel}</div>
+
+  {rows.map((row) => (
+    <Fragment>
+      {row.label && (
+        <div class="wiki-sxs__divider"><span>{row.label}</span></div>
+      )}
+      <div class="wiki-sxs__cell wiki-sxs__cell--a">
+        <p class="wiki-sxs__title" data-tag={leftLabel}>{row.left.title}</p>
+        {row.left.body && <p class="wiki-sxs__body">{row.left.body}</p>}
+      </div>
+      <div class="wiki-sxs__cell wiki-sxs__cell--b">
+        <p class="wiki-sxs__title" data-tag={rightLabel}>{row.right.title}</p>
+        {row.right.body && <p class="wiki-sxs__body">{row.right.body}</p>}
+      </div>
+      {row.diff && (
+        <p class="wiki-sxs__diff">
+          <span class="wiki-sxs__diff-lead">↔ The shift</span> {row.diff}
+        </p>
+      )}
+    </Fragment>
+  ))}
+</div>

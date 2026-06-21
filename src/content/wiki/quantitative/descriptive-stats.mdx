@@ -1,0 +1,44 @@
+---
+title: Descriptive Statistics
+module: quantitative
+order: 2
+description: Summarizing data honestly before you test anything.
+estMinutes: 7
+---
+
+import Reveal from '@wiki/Reveal.astro';
+import DistributionPlot from '@wiki/DistributionPlot.astro';
+
+Before any test, describe your data: central tendency, spread, and shape.
+
+- **Center** — mean, median, mode.
+- **Spread** — standard deviation, IQR, range.
+- **Shape** — skew, outliers, modality (look at a histogram!).
+
+## Shape changes everything
+
+The mean and median agree only when the data is symmetric. Switch the shape below and
+watch the **mean** (solid) chase the tail while the **median** (dashed) barely moves:
+
+<DistributionPlot />
+
+That gap is why you always plot your data before trusting a single summary number.
+
+## Spread: how much do values vary?
+
+A center is only half the story — you also need to report how spread out the data is, and
+which spread measure you pick should match your center:
+
+| Measure | What it captures | Pairs with | Sensitive to outliers? |
+| --- | --- | --- | --- |
+| **Standard deviation** | typical distance of values from the mean | mean | Yes |
+| **IQR** (interquartile range) | the span of the middle 50% | median | No |
+| **Range** | min to max | — | Very |
+
+Rule of thumb: report **mean ± SD** for roughly symmetric data, and **median (IQR)** when the
+distribution is skewed or has outliers — the same logic as choosing the center.
+
+<Reveal summary="When should I prefer the median over the mean?">
+When the distribution is skewed or has outliers. The mean is pulled toward extreme
+values; the median is robust to them, so it better represents a "typical" case.
+</Reveal>

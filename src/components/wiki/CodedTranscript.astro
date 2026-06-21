@@ -1,0 +1,97 @@
+---
+/**
+ * CodedTranscript — guided-reveal transcript. Coded spans are buttons; clicking
+ * one reveals the code, its type (in vivo / descriptive), the analytic memo, and
+ * what it rolls up to. Data-driven so the SAME transcript can be shown with
+ * different codings (e.g. codebook vs. reflexive).
+ *
+ * Usage:
+ *   <CodedTranscript
+ *     turns={[
+ *       { speaker: "P3", segments: [
+ *         { text: "I sat there for an hour " },
+ *         { text: "before I asked", code: "help-seeking delay", codeType: "descriptive",
+ *           memo: "Delays help despite being stuck.", rollsUpTo: "Help-Seeking Anxiety" },
+ *       ]},
+ *     ]}
+ *   />
+ */
+interface Segment {
+  text: string;
+  code?: string;
+  codeType?: 'in vivo' | 'descriptive';
+  memo?: string;
+  rollsUpTo?: string;
+}
+interface Turn {
+  speaker: string;
+  segments: Segment[];
+}
+interface Props {
+  turns: Turn[];
+}
+const { turns } = Astro.props;
+---
+
+<div class="wiki-transcript" data-transcript>
+  <div class="wiki-transcript__legend">
+    <span><span class="wiki-transcript__swatch"></span> Coded segment — click to inspect</span>
+  </div>
+
+  {turns.map((turn) => (
+    <div class="wiki-transcript__turn">
+      <span class="wiki-transcript__speaker">{turn.speaker}</span>
+      <p class="wiki-transcript__text">
+        {turn.segments.map((seg) =>
+          seg.code ? (
+            <button
+              type="button"
+              class="wiki-transcript__seg--coded"
+              data-code={seg.code}
+              data-codetype={seg.codeType ?? ''}
+              data-memo={seg.memo ?? ''}
+              data-rollup={seg.rollsUpTo ?? ''}
+            >{seg.text}</button>
+          ) : (
+            <span>{seg.text}</span>
+          ),
+        )}
+      </p>
+    </div>
+  ))}
+
+  <div class="wiki-transcript__panel" aria-live="polite">
+    <p class="wiki-transcript__panel-empty">Click a highlighted segment to see how it was coded and why.</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-transcript]').forEach((root) => {
+    const panel = root.querySelector<HTMLElement>('.wiki-transcript__panel')!;
+    const segs = Array.from(root.querySelectorAll<HTMLButtonElement>('.wiki-transcript__seg--coded'));
+
+    segs.forEach((seg) => {
+      seg.addEventListener('click', () => {
+        const active = seg.classList.contains('is-active');
+        segs.forEach((s) => s.classList.remove('is-active'));
+        if (active) {
+          panel.innerHTML = '<p class="wiki-transcript__panel-empty">Click a highlighted segment to see how it was coded and why.</p>';
+          return;
+        }
+        seg.classList.add('is-active');
+
+        const code = seg.dataset.code || '';
+        const type = seg.dataset.codetype || '';
+        const memo = seg.dataset.memo || '';
+        const rollup = seg.dataset.rollup || '';
+
+        const parts = [
+          `<p><span class="wiki-transcript__code">${code}</span>${type ? `<span class="wiki-transcript__type">${type}</span>` : ''}</p>`,
+        ];
+        if (memo) parts.push(`<p class="wiki-transcript__memo">${memo}</p>`);
+        if (rollup) parts.push(`<p class="wiki-transcript__rollup">↳ rolls up to <strong>${rollup}</strong></p>`);
+        panel.innerHTML = parts.join('');
+      });
+    });
+  });
+</script>

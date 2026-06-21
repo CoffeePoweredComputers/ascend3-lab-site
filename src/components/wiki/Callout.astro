@@ -1,0 +1,23 @@
+---
+/**
+ * Callout — a note / tip / warning aside for lesson prose.
+ * Usage: <Callout type="tip" title="Optional">body markdown</Callout>
+ */
+interface Props {
+  type?: 'note' | 'tip' | 'warning';
+  title?: string;
+}
+const { type = 'note', title } = Astro.props;
+
+const ICONS: Record<string, string> = { note: 'ℹ', tip: '✦', warning: '⚠' };
+const DEFAULT_TITLES: Record<string, string> = { note: 'Note', tip: 'Tip', warning: 'Warning' };
+const heading = title ?? DEFAULT_TITLES[type];
+---
+
+<aside class={`wiki-callout wiki-callout--${type}`} role="note">
+  <p class="wiki-callout__title">
+    <span class="wiki-callout__icon" aria-hidden="true">{ICONS[type]}</span>
+    {heading}
+  </p>
+  <div class="wiki-callout__body"><slot /></div>
+</aside>

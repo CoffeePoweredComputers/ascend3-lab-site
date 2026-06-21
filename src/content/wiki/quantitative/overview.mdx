@@ -1,0 +1,68 @@
+---
+title: Quantitative Analysis Overview
+module: quantitative
+order: 1
+description: Framing questions in measurable terms and the workflow ahead.
+estMinutes: 5
+---
+
+import Callout from '@wiki/Callout.astro';
+import DecisionTree from '@wiki/DecisionTree.astro';
+
+Quantitative analysis is about answering questions with numbers — measuring effects,
+estimating uncertainty, and reporting results others can reproduce.
+
+## A typical workflow
+
+- Define variables and how each is measured.
+- Explore with descriptive statistics and plots.
+- Choose a test or model that matches your design and data.
+- Report effect sizes and uncertainty, not just p-values.
+
+<Callout type="warning" title="Plan analysis before collecting data">
+Deciding your analysis after seeing the data invites p-hacking. Pre-register or at
+least write your analysis plan first.
+</Callout>
+
+## Which test should I use?
+
+A first-pass guide — your design and whether assumptions (normality, equal variance)
+hold still decide the final call:
+
+<DecisionTree
+  start="q1"
+  nodes={{
+    q1: {
+      text: 'What kind of outcome are you analyzing?',
+      options: [
+        { label: 'A number (continuous)', to: 'q2' },
+        { label: 'A category / count', to: 'r-cat' },
+        { label: 'Association of two numbers', to: 'r-corr' },
+      ],
+    },
+    q2: {
+      text: 'How many groups are you comparing?',
+      options: [
+        { label: 'One group vs a known value', to: 'r-one' },
+        { label: 'Two groups', to: 'q3' },
+        { label: 'Three or more groups', to: 'r-anova' },
+      ],
+    },
+    q3: {
+      text: 'Are the two groups the same subjects measured twice, or different subjects?',
+      options: [
+        { label: 'Same subjects (paired)', to: 'r-paired' },
+        { label: 'Different subjects (independent)', to: 'r-indep' },
+      ],
+    },
+    'r-one': { result: 'One-sample t-test (or Wilcoxon signed-rank if not roughly normal).' },
+    'r-paired': { result: 'Paired t-test (or Wilcoxon signed-rank for non-normal differences).' },
+    'r-indep': { result: 'Independent-samples t-test (or Mann–Whitney U if assumptions fail).' },
+    'r-anova': { result: 'One-way ANOVA (or Kruskal–Wallis if non-normal); follow up with post-hoc tests.' },
+    'r-corr': { result: 'Pearson correlation / linear regression (Spearman if the relationship is monotonic but not linear).' },
+    'r-cat': { result: 'Chi-square test of independence (Fisher’s exact test when expected counts are small).' },
+  }}
+/>
+
+Whatever it suggests, report an **effect size** and a confidence interval, not just a
+p-value.

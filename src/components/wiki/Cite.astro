@@ -1,0 +1,32 @@
+---
+/**
+ * Cite — inline citation that links to the current module's bibliography.
+ * Usage: <Cite id="braun-clarke-2006" /> → (Braun & Clarke, 2006)
+ *        <Cite id="cohen-1960" bare /> → Cohen, 1960 (no parentheses, for narrative use)
+ * The display text comes from references.json, so author/year is never hand-typed.
+ * The link target is inferred from the page's module (/wiki/<module>/references),
+ * so IRB/Quant/Qual citations each resolve to their own references page.
+ */
+import { getReference } from '../../lib/references';
+
+interface Props {
+  id: string;
+  bare?: boolean;
+  refPath?: string;
+}
+const { id, bare = false, refPath } = Astro.props;
+
+// Infer module from the URL: /wiki/<module>/<lesson> → <module>
+const moduleSlug = Astro.url.pathname.split('/').filter(Boolean)[1] ?? 'qualitative';
+const target = refPath ?? `/wiki/${moduleSlug}/references`;
+
+const ref = getReference(id);
+const label = ref ? ref.cite : `?${id}`;
+---
+{ref ? (
+  <a class="wiki-cite" href={`${target}#ref-${id}`} title={ref.apa}>
+    {bare ? label : `(${label})`}
+  </a>
+) : (
+  <span class="wiki-cite wiki-cite--missing">{bare ? label : `(${label})`}</span>
+)}

@@ -1,0 +1,160 @@
+---
+/**
+ * SaturationCurve — bars of "new codes per interview" + a cumulative line, now
+ * beside a live "codebook so far". An "add interview" stepper reveals each
+ * interview: new codes glow into the codebook, repeats bump a mention count, and
+ * once interviews stop adding codes the codebook (and the line) plateau.
+ * Self-contained (ships illustrative data); pass `interviews` to override.
+ */
+interface Props {
+  interviews?: string[][];
+}
+const DEFAULT_INTERVIEWS: string[][] = [
+  ['help-seeking delay', 'fear of negative evaluation', 'trial-and-error debugging', 'print-statement debugging', 'cryptic error messages', 'low confidence', 'persistence', 'disengagement', 'reading the stack trace'],
+  ['relief after help', 'comparing self to peers', 'googling the error', 'rubber-ducking', 'imposter feelings', 'office-hours avoidance', 'fear of negative evaluation', 'print-statement debugging'],
+  ['asking a friend first', 'copy-paste from Stack Overflow', 'blaming the tools', 'starting over from scratch', 'time pressure', 'help-seeking delay', 'trial-and-error debugging', 'cryptic error messages'],
+  ['commenting out code', 'environment friction', 'misreading the error line', 'small wins motivate', 'googling the error', 'low confidence', 'persistence'],
+  ['IDE unfamiliarity', 'fear of breaking working code', 'celebrating the fix', 'print-statement debugging', 'fear of negative evaluation', 'relief after help'],
+  ['off-by-one realization', 'variable naming confusion', 'trial-and-error debugging', 'googling the error', 'imposter feelings'],
+  ['asking on Discord', 'dreading the next bug', 'help-seeking delay', 'cryptic error messages', 'comparing self to peers'],
+  ['not knowing what to search', 'relief after help', 'googling the error', 'persistence'],
+  ["fear of wasting TA's time", 'fear of negative evaluation', 'office-hours avoidance', 'low confidence'],
+  ['help-seeking delay', 'googling the error', 'trial-and-error debugging', 'relief after help'],
+  ['print-statement debugging', 'cryptic error messages', 'imposter feelings'],
+  ['persistence', 'googling the error', 'fear of negative evaluation'],
+];
+const { interviews = DEFAULT_INTERVIEWS } = Astro.props;
+---
+
+<div class="wiki-sat" data-sat data-interviews={JSON.stringify(interviews)}>
+  <div class="wiki-sat__layout">
+    <div class="wiki-sat__chart">
+      <svg class="wiki-sat__svg" viewBox="0 0 320 190" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Saturation curve: new codes per interview and cumulative codes">
+        <g data-bars></g>
+        <polyline data-cum points="" />
+        <line data-axis x1="28" y1="150" x2="312" y2="150" />
+        <g data-sat-marker hidden>
+          <line data-sat-line y1="20" y2="150" />
+          <text data-sat-text x="0" y="16" class="wiki-sat__marker-text">saturation</text>
+        </g>
+      </svg>
+      <div class="wiki-sat__legend">
+        <span><span class="wiki-sat__key wiki-sat__key--bar"></span> new codes this interview</span>
+        <span><span class="wiki-sat__key wiki-sat__key--line"></span> cumulative codes</span>
+      </div>
+    </div>
+
+    <div class="wiki-sat__codebook">
+      <p class="wiki-sat__cb-head" data-cb-head>Codebook so far · 0</p>
+      <div class="wiki-sat__codes" data-codes aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="wiki-sat__controls">
+    <button type="button" data-add>+ Add interview</button>
+    <button type="button" data-reset>Reset</button>
+    <span class="wiki-sat__status" data-status></span>
+  </div>
+</div>
+
+<script>
+  const NS = 'http://www.w3.org/2000/svg';
+  const PAD_L = 28, PAD_R = 8, TOP = 20, BASE = 150, W = 320;
+
+  document.querySelectorAll<HTMLElement>('[data-sat]').forEach((root) => {
+    const interviews: string[][] = JSON.parse(root.dataset.interviews || '[]');
+    const N = interviews.length;
+
+    // Derive per-interview NEW-code counts (first global appearance) for the chart.
+    const seenGlobal = new Set<string>();
+    const newCounts = interviews.map((list) => {
+      let c = 0;
+      for (const code of list) if (!seenGlobal.has(code)) { seenGlobal.add(code); c++; }
+      return c;
+    });
+    const cum = newCounts.reduce<number[]>((acc, v, i) => [...acc, (acc[i - 1] || 0) + v], []);
+    const total = cum[cum.length - 1] || 1;
+    const maxNew = Math.max(...newCounts, 1);
+    const slotW = (W - PAD_L - PAD_R) / N;
+    const xOf = (i: number) => PAD_L + slotW * (i + 0.5);
+    const yBar = (v: number) => BASE - (v / maxNew) * (BASE - TOP) * 0.6;
+    const yCum = (v: number) => BASE - (v / total) * (BASE - TOP);
+
+    const barsG = root.querySelector('[data-bars]')!;
+    const cumLine = root.querySelector('[data-cum]')!;
+    const marker = root.querySelector('[data-sat-marker]')!;
+    const satLine = root.querySelector('[data-sat-line]')!;
+    const satText = root.querySelector('[data-sat-text]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    const codesEl = root.querySelector<HTMLElement>('[data-codes]')!;
+    const cbHead = root.querySelector<HTMLElement>('[data-cb-head]')!;
+
+    let shown = 1;
+
+    function renderChart() {
+      barsG.innerHTML = '';
+      for (let i = 0; i < shown; i++) {
+        const r = document.createElementNS(NS, 'rect');
+        r.setAttribute('x', String(PAD_L + slotW * i + 2));
+        r.setAttribute('y', String(yBar(newCounts[i])));
+        r.setAttribute('width', String(slotW - 4));
+        r.setAttribute('height', String(BASE - yBar(newCounts[i])));
+        r.setAttribute('class', 'wiki-sat__bar');
+        barsG.appendChild(r);
+      }
+      cumLine.setAttribute('points', Array.from({ length: shown }, (_, i) => `${xOf(i)},${yCum(cum[i])}`).join(' '));
+    }
+
+    function renderCodebook() {
+      // Recompute the codebook from interviews[0..shown-1].
+      const order: string[] = [];
+      const counts: Record<string, number> = {};
+      const firstAt: Record<string, number> = {};
+      for (let i = 0; i < shown; i++) {
+        for (const code of interviews[i]) {
+          if (!(code in counts)) { counts[code] = 0; order.push(code); firstAt[code] = i; }
+          counts[code]++;
+        }
+      }
+      codesEl.innerHTML = '';
+      for (const code of order) {
+        const chip = document.createElement('span');
+        chip.className = 'wiki-sat__code' + (firstAt[code] === shown - 1 ? ' is-new' : '');
+        chip.textContent = code;
+        if (counts[code] > 1) {
+          const sup = document.createElement('sup');
+          sup.textContent = String(counts[code]);
+          sup.title = `${counts[code]} mentions`;
+          chip.appendChild(sup);
+        }
+        codesEl.appendChild(chip);
+      }
+      cbHead.textContent = `Codebook so far · ${order.length}`;
+    }
+
+    function render() {
+      renderChart();
+      renderCodebook();
+
+      let satIdx = -1;
+      for (let i = 1; i < shown; i++) {
+        if (newCounts[i] === 0 && newCounts[i - 1] === 0) { satIdx = i; break; }
+      }
+      if (satIdx >= 0) {
+        marker.removeAttribute('hidden');
+        satLine.setAttribute('x1', String(xOf(satIdx)));
+        satLine.setAttribute('x2', String(xOf(satIdx)));
+        satText.setAttribute('x', String(Math.min(xOf(satIdx) - 10, W - 70)));
+        status.textContent = `Saturation: no new codes after interview ${satIdx - 1}.`;
+      } else {
+        marker.setAttribute('hidden', '');
+        const added = newCounts[shown - 1];
+        status.textContent = `${shown}/${N} interviews · ${cum[shown - 1]} codes · +${added} new`;
+      }
+    }
+
+    root.querySelector('[data-add]')!.addEventListener('click', () => { if (shown < N) shown++; render(); });
+    root.querySelector('[data-reset]')!.addEventListener('click', () => { shown = 1; render(); });
+    render();
+  });
+</script>

@@ -1,0 +1,60 @@
+---
+/**
+ * WikiLayout — HTML shell for the lab wiki section.
+ *
+ * Mirrors BaseLayout's <head>/theme/footer but swaps the homepage scroll-trail
+ * Navigation for WikiSidebar (URL-driven module → lesson nav). Kept separate
+ * because the wiki is multi-page while the homepage is a single scrolling page.
+ */
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "ASCEND Lab Wiki — interactive lab handbook." } = Astro.props;
+
+import '../styles/global.css';
+import '../styles/wiki.css';
+import WikiSidebar from '../components/WikiSidebar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+
+    <script is:inline>
+      (function() {
+        var s = localStorage.getItem('theme');
+        if (s === 'dark' || (!s && matchMedia('(prefers-color-scheme: dark)').matches))
+          document.documentElement.classList.add('dark');
+      })();
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preload" href="/fonts/PlusJakartaSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/JetBrainsMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="ASCEND Lab" />
+
+    <title>{title} | ASCEND Lab Wiki</title>
+  </head>
+  <body class="min-h-screen bg-surface-page text-text">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <WikiSidebar />
+
+    <div class="lg:ml-[340px] min-h-screen flex flex-col pt-14 lg:pt-0">
+      <main id="main-content" class="flex-grow" tabindex="-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

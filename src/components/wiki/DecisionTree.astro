@@ -1,0 +1,76 @@
+---
+/**
+ * DecisionTree — a branching Q&A walkthrough.
+ * Usage:
+ *   <DecisionTree
+ *     start="q1"
+ *     nodes={{
+ *       q1: { text: "Question?", options: [{ label: "Yes", to: "q2" }, { label: "No", to: "r-end" }] },
+ *       "r-end": { result: "Your outcome text." },
+ *     }}
+ *   />
+ */
+interface TreeNode {
+  text?: string;
+  options?: { label: string; to: string }[];
+  result?: string;
+}
+interface Props {
+  start: string;
+  nodes: Record<string, TreeNode>;
+}
+const { start, nodes } = Astro.props;
+---
+
+<div class="wiki-tree" data-start={start} data-nodes={JSON.stringify(nodes)}>
+  <div class="wiki-tree__stage" aria-live="polite"></div>
+  <button type="button" class="wiki-tree__restart" hidden>↺ Start over</button>
+  <noscript><p class="wiki-tree__noscript">This walkthrough needs JavaScript enabled.</p></noscript>
+</div>
+
+<script>
+  type TreeNode = { text?: string; options?: { label: string; to: string }[]; result?: string };
+
+  document.querySelectorAll<HTMLElement>('.wiki-tree').forEach((tree) => {
+    const nodes: Record<string, TreeNode> = JSON.parse(tree.dataset.nodes || '{}');
+    const start = tree.dataset.start || '';
+    const stage = tree.querySelector<HTMLElement>('.wiki-tree__stage')!;
+    const restart = tree.querySelector<HTMLButtonElement>('.wiki-tree__restart')!;
+
+    function render(id: string) {
+      const node = nodes[id];
+      if (!node) return;
+      stage.innerHTML = '';
+
+      if (node.result) {
+        const r = document.createElement('p');
+        r.className = 'wiki-tree__result';
+        r.textContent = node.result;
+        stage.appendChild(r);
+        restart.hidden = false;
+        return;
+      }
+
+      const q = document.createElement('p');
+      q.className = 'wiki-tree__question';
+      q.textContent = node.text || '';
+      stage.appendChild(q);
+
+      const opts = document.createElement('div');
+      opts.className = 'wiki-tree__options';
+      (node.options || []).forEach((opt) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'wiki-tree__option';
+        b.textContent = opt.label;
+        b.addEventListener('click', () => render(opt.to));
+        opts.appendChild(b);
+      });
+      stage.appendChild(opts);
+      restart.hidden = true;
+    }
+
+    restart.addEventListener('click', () => render(start));
+    render(start);
+  });
+</script>
