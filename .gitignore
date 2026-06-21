@@ -2,6 +2,9 @@
 dist/
 .astro/
 
+# Test/automation artifacts
+.playwright-mcp/
+
 # Dependencies
 node_modules/
 

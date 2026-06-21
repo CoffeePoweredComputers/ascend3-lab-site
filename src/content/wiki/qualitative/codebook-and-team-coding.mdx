@@ -1,0 +1,69 @@
+---
+title: "Path A — Codebook & Team Coding"
+module: qualitative
+order: 4
+description: Consolidate codes, write a codebook, then code as a team and reconcile.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import CodeConsolidation from '@wiki/CodeConsolidation.astro';
+import Codebook from '@wiki/Codebook.astro';
+import CodebookMerge from '@wiki/CodebookMerge.astro';
+import ThemeTree from '@wiki/ThemeTree.astro';
+import Cite from '@wiki/Cite.astro';
+import { consolidationGroups, codebookEntries, mergeSegments, codebookThemes } from '../../../data/qual-example';
+
+This is the **codebook / coding-reliability** path. The goal: a shared, well-defined
+codebook that *different people* can apply consistently <Cite id="hsieh-shannon-2005" />
+<Cite id="gale-2013" />.
+
+## Step 1 — Consolidate redundant codes
+
+A generous first pass across the *full* set of interviews produces overlapping codes — more
+than the few excerpts you saw earlier. Group ones that mean the same thing and give the
+group a single clear name. Click through the logic:
+
+<CodeConsolidation groups={consolidationGroups} />
+
+## Step 2 — Write the codebook
+
+Each consolidated code gets a **definition**, an **anchor example**, and explicit
+**apply / don't-apply** rules. This is what makes a code transferable to another coder
+<Cite id="krippendorff-2018" />.
+
+<Codebook entries={codebookEntries} />
+
+## Step 3 — Code independently, then reconcile
+
+The team-coding loop is iterative <Cite id="saldana-2021" />:
+
+<Steps>
+1. **Code independently.** Two+ coders apply the codebook to the same transcripts, alone.
+2. **Compare.** Find where you agree and where you don't.
+3. **Negotiate.** Discuss disagreements; the fix is usually a sharper *definition*, not a winner.
+4. **Revise the codebook** and log the decision in your audit trail.
+5. **Re-code** with the revised codebook; repeat on new transcripts until stable.
+</Steps>
+
+Here are two coders' independent assignments on our excerpts. Agreements are green,
+disagreements amber, with the negotiated outcome in the last column:
+
+<CodebookMerge segments={mergeSegments} />
+
+<Callout type="warning" title="Disagreement is information, not failure">
+A disagreement usually means the codebook is ambiguous. Resolving it by refining the
+definition improves every future coding decision. Averaging codes or deferring to the
+senior coder just hides the problem <Cite id="oconnor-joffe-2020" />.
+</Callout>
+
+## Where this path lands
+
+Consolidated codes cluster into categories, and categories into **themes** — now backed
+by definitions and (next lesson) a reliability statistic:
+
+<ThemeTree themes={codebookThemes} open />
+
+In **Lesson 5** we quantify that agreement with inter-rater reliability. (The reflexive
+path in **Lessons 6–7** reaches themes very differently — and deliberately skips IRR.)

@@ -1,0 +1,123 @@
+---
+/**
+ * DistributionPlot — an SVG histogram with live mean/median markers and stats.
+ * Preset buttons switch the dataset so learners watch the mean chase the skew
+ * while the median stays put. Self-contained (ships default presets); pass a
+ * `presets` prop to override: { name: number[] }.
+ */
+interface Props {
+  presets?: Record<string, number[]>;
+}
+const DEFAULTS: Record<string, number[]> = {
+  Symmetric: [20, 30, 35, 40, 40, 45, 45, 50, 50, 50, 50, 55, 55, 60, 60, 65, 70, 80],
+  'Right-skew': [8, 10, 12, 15, 15, 18, 20, 20, 22, 25, 25, 28, 32, 40, 55, 72, 88, 96],
+  'Left-skew': [4, 12, 28, 45, 60, 70, 72, 75, 75, 78, 80, 80, 82, 85, 85, 88, 90, 96],
+  Bimodal: [12, 18, 20, 22, 25, 25, 28, 30, 70, 72, 75, 75, 78, 80, 82, 85],
+};
+const { presets = DEFAULTS } = Astro.props;
+const names = Object.keys(presets);
+---
+
+<div class="wiki-dist" data-dist data-presets={JSON.stringify(presets)}>
+  <div class="wiki-dist__presets">
+    {names.map((n, i) => (
+      <button type="button" class="wiki-dist__preset" data-name={n} aria-pressed={i === 0 ? 'true' : 'false'}>{n}</button>
+    ))}
+  </div>
+
+  <svg class="wiki-dist__svg" viewBox="0 0 320 170" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Histogram with mean and median markers">
+    <g data-bars></g>
+    <line data-axis x1="24" y1="140" x2="312" y2="140" />
+    <line data-mean y1="20" y2="140" />
+    <line data-median y1="20" y2="140" />
+  </svg>
+
+  <div class="wiki-dist__legend">
+    <span><span class="wiki-dist__key wiki-dist__key--mean"></span> mean</span>
+    <span><span class="wiki-dist__key wiki-dist__key--median"></span> median</span>
+  </div>
+
+  <div class="wiki-dist__stats">
+    <span>mean <b data-stat="mean">—</b></span>
+    <span>median <b data-stat="median">—</b></span>
+    <span>SD <b data-stat="sd">—</b></span>
+    <span>n <b data-stat="n">—</b></span>
+  </div>
+  <p class="wiki-dist__note" data-note></p>
+</div>
+
+<script>
+  const NS = 'http://www.w3.org/2000/svg';
+  const PAD_L = 24, PAD_R = 8, TOP = 20, BASE = 140, W = 320;
+  const xOf = (v: number) => PAD_L + (v / 100) * (W - PAD_L - PAD_R);
+
+  function stats(data: number[]) {
+    const n = data.length;
+    const sorted = [...data].sort((a, b) => a - b);
+    const mean = data.reduce((s, v) => s + v, 0) / n;
+    const median = n % 2 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2;
+    const sd = Math.sqrt(data.reduce((s, v) => s + (v - mean) ** 2, 0) / n);
+    return { n, mean, median, sd };
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-dist]').forEach((root) => {
+    const presets: Record<string, number[]> = JSON.parse(root.dataset.presets || '{}');
+    const barsG = root.querySelector('[data-bars]')!;
+    const meanLine = root.querySelector('[data-mean]')!;
+    const medianLine = root.querySelector('[data-median]')!;
+    const note = root.querySelector<HTMLElement>('[data-note]')!;
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('.wiki-dist__preset'));
+
+    function draw(name: string) {
+      const data = presets[name];
+      if (!data) return;
+      const { n, mean, median, sd } = stats(data);
+
+      // 10 bins over [0,100]
+      const bins = new Array(10).fill(0);
+      data.forEach((v) => bins[Math.min(9, Math.floor(v / 10))]++);
+      const max = Math.max(...bins, 1);
+      const binW = (W - PAD_L - PAD_R) / 10;
+
+      barsG.innerHTML = '';
+      bins.forEach((count, b) => {
+        const h = (count / max) * (BASE - TOP);
+        const rect = document.createElementNS(NS, 'rect');
+        rect.setAttribute('x', String(PAD_L + b * binW + 1));
+        rect.setAttribute('y', String(BASE - h));
+        rect.setAttribute('width', String(binW - 2));
+        rect.setAttribute('height', String(h));
+        rect.setAttribute('class', 'wiki-dist__bar');
+        barsG.appendChild(rect);
+      });
+
+      meanLine.setAttribute('x1', String(xOf(mean)));
+      meanLine.setAttribute('x2', String(xOf(mean)));
+      medianLine.setAttribute('x1', String(xOf(median)));
+      medianLine.setAttribute('x2', String(xOf(median)));
+
+      root.querySelector('[data-stat="mean"]')!.textContent = mean.toFixed(1);
+      root.querySelector('[data-stat="median"]')!.textContent = median.toFixed(1);
+      root.querySelector('[data-stat="sd"]')!.textContent = sd.toFixed(1);
+      root.querySelector('[data-stat="n"]')!.textContent = String(n);
+
+      const gap = mean - median;
+      note.textContent =
+        Math.abs(gap) < 1.5
+          ? 'Mean ≈ median — the distribution is roughly symmetric.'
+          : gap > 0
+            ? 'Mean > median: the right tail pulls the mean up. The median is the more robust "typical" value.'
+            : 'Mean < median: the left tail pulls the mean down. The median better represents a typical case.';
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        draw(btn.dataset.name || '');
+      });
+    });
+
+    draw(buttons[0]?.dataset.name || '');
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+import { render } from 'astro:content';
+import WikiLayout from '../../layouts/WikiLayout.astro';
+import LessonNav from '../../components/wiki/LessonNav.astro';
+import { getLessons, getLessonsByModule, getModule, lessonHref, type WikiLesson } from '../../lib/wiki';
+
+export async function getStaticPaths() {
+  const lessons = await getLessons();
+
+  return Promise.all(
+    lessons.map(async (lesson) => {
+      const siblings = await getLessonsByModule(lesson.data.module);
+      const idx = siblings.findIndex((l) => l.id === lesson.id);
+      const prev = idx > 0 ? siblings[idx - 1] : undefined;
+      const next = idx < siblings.length - 1 ? siblings[idx + 1] : undefined;
+
+      const toLink = (l?: WikiLesson) => (l ? { href: lessonHref(l), title: l.data.title } : undefined);
+
+      return {
+        params: { slug: lesson.id },
+        props: { lesson, prev: toLink(prev), next: toLink(next) },
+      };
+    }),
+  );
+}
+
+interface Props {
+  lesson: WikiLesson;
+  prev?: { href: string; title: string };
+  next?: { href: string; title: string };
+}
+
+const { lesson, prev, next } = Astro.props;
+const { Content } = await render(lesson);
+const module = getModule(lesson.data.module);
+const { title, description, estMinutes } = lesson.data;
+---
+
+<WikiLayout title={title} description={description}>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">
+        &gt; {module?.title ?? lesson.data.module}
+      </p>
+      <h1>{title}</h1>
+      {(description || estMinutes) && (
+        <p class="text-text-muted" style="margin-top:0.25em">
+          {description}{description && estMinutes ? ' · ' : ''}{estMinutes ? `${estMinutes} min` : ''}
+        </p>
+      )}
+
+      <Content />
+    </div>
+
+    <LessonNav lessonId={lesson.id} prev={prev} next={next} />
+  </article>
+</WikiLayout>

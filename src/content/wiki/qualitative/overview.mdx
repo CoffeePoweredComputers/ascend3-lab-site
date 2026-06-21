@@ -1,0 +1,67 @@
+---
+title: Qualitative Analysis Overview
+module: qualitative
+order: 1
+description: What qualitative analysis is, the two traditions you'll meet, and the running example we'll use throughout.
+estMinutes: 7
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import ProcessFlow from '@wiki/ProcessFlow.astro';
+
+Qualitative analysis turns unstructured data — interview transcripts, open-ended
+responses, field notes — into defensible findings about *how* and *why* something
+happens. This module teaches it as a craft you can watch unfold, using **one running
+example** that travels through every lesson.
+
+## The pipeline
+
+Most approaches move data through the same broad arc <Cite id="saldana-2021" />. Click a
+stage to see what happens there and jump to its lesson:
+
+<ProcessFlow steps={[
+  { label: "Raw data", detail: "Transcripts, notes, open responses — read for familiarity and write memos before labeling anything.", href: "/wiki/qualitative/familiarization-and-memoing" },
+  { label: "Codes", detail: "Short labels attached to meaningful chunks (descriptive or in vivo).", href: "/wiki/qualitative/initial-coding" },
+  { label: "Categories", detail: "Clusters of related codes, consolidated and defined.", href: "/wiki/qualitative/codebook-and-team-coding" },
+  { label: "Themes", detail: "Higher-level patterns built from categories — the analytic payoff.", href: "/wiki/qualitative/reviewing-defining-themes" },
+  { label: "(Theory)", detail: "Optionally, an explanatory account tying themes together." },
+]} />
+
+The lessons make each arrow concrete — on the *same* running example, analyzed two ways.
+
+## Two traditions (we teach both, as equals)
+
+A real fault line runs through the literature, and it changes how you work:
+
+- **Codebook / coding-reliability.** A team develops a shared **codebook**, codes
+  independently, measures agreement (**inter-rater reliability, IRR**), and reconciles.
+  Rigor comes from systematicity and reliability <Cite id="hsieh-shannon-2005" /> <Cite id="oconnor-joffe-2020" />.
+- **Reflexive thematic analysis (RTA).** A researcher engages deeply and reflexively;
+  themes are analytic *outputs* of interpretation, not pre-existing buckets. Here, IRR is
+  considered conceptually inappropriate <Cite id="braun-clarke-2019" /> <Cite id="braun-clarke-2021-onesize" />.
+
+<Callout type="note" title="Two co-equal paths">
+Lesson order is just sequencing — the codebook and reflexive paths are equally valid; pick
+what your epistemology calls for, or learn both. In HCI/CSCW, IRR appears in only about 1 in
+9 qualitative papers <Cite id="mcdonald-2019" />, so neither is the default.
+</Callout>
+
+## Our running example
+
+Throughout, we analyze a small set of interview excerpts from **intro-CS students
+describing a debugging experience** — getting stuck, deciding whether to ask for help,
+and improvising fixes. You'll watch the *same words* get coded, consolidated, built into
+a codebook, coded by a second person, and assembled into themes — **twice**, once each
+way. Reaching *different but equally valid* theme sets from identical data is the whole
+point.
+
+## Vocabulary
+
+| Term | Meaning |
+| --- | --- |
+| **Code** | a short label on a chunk of data |
+| **Codebook** | the agreed set of codes and their definitions |
+| **Category** | a cluster of related codes |
+| **Theme** | a higher-level pattern across categories |
+| **IRR** | inter-rater reliability — agreement between independent coders |

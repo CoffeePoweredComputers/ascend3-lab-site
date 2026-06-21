@@ -153,6 +153,14 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
       </div>
     </nav>
 
+    <!-- Lab Wiki — separate route, not a trail waypoint -->
+    <a
+      href="/wiki"
+      class="shrink-0 mb-4 flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white/40 dark:bg-surface-base/40 backdrop-blur text-sm font-medium text-text-muted hover:text-primary hover:border-primary no-underline transition-colors"
+    >
+      <span aria-hidden="true">📚</span> Lab Wiki
+    </a>
+
     <!-- ═══ Section 3: Footer (fixed size) ═══ -->
     <div class="shrink-0 pt-4 border-t border-border/50 flex items-center justify-between">
       <p class="text-[11px] text-text-muted/60 leading-relaxed">
@@ -250,6 +258,15 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
           </a>
         </li>
       ))}
+      <li>
+        <a
+          href="/wiki"
+          class="flex items-center gap-3 py-3 px-4 rounded-lg font-body font-medium text-sm no-underline transition-colors text-text-muted hover:text-text hover:bg-surface"
+        >
+          <span aria-hidden="true">📚</span>
+          Lab Wiki
+        </a>
+      </li>
     </ul>
   </div>
 </header>

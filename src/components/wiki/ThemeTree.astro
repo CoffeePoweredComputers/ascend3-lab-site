@@ -1,0 +1,48 @@
+---
+/**
+ * ThemeTree — collapsible codes → categories → themes hierarchy.
+ * Usage:
+ *   <ThemeTree themes={[
+ *     { name: "Help-Seeking Anxiety", definition: "...",
+ *       categories: [
+ *         { name: "Affective barriers", codes: ["fear of negative evaluation", "low confidence"] },
+ *       ] },
+ *   ]} open />
+ */
+interface Category {
+  name: string;
+  codes: string[];
+}
+interface Theme {
+  name: string;
+  definition?: string;
+  categories: Category[];
+}
+interface Props {
+  themes: Theme[];
+  open?: boolean;
+}
+const { themes, open = false } = Astro.props;
+---
+
+<div class="wiki-themetree">
+  {themes.map((theme, i) => (
+    <details class="wiki-themetree__theme" open={open && i === 0}>
+      <summary class="wiki-themetree__summary">
+        <span class="wiki-themetree__chevron" aria-hidden="true">▸</span>
+        {theme.name}
+      </summary>
+      <div class="wiki-themetree__body">
+        {theme.definition && <p class="wiki-themetree__def">{theme.definition}</p>}
+        {theme.categories.map((cat) => (
+          <div class="wiki-themetree__cat">
+            <div class="wiki-themetree__cat-name">{cat.name}</div>
+            <div class="wiki-themetree__codes">
+              {cat.codes.map((c) => <span class="wiki-chip">{c}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  ))}
+</div>

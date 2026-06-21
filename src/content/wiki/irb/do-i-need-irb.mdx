@@ -1,0 +1,58 @@
+---
+title: Do I Need IRB Review?
+module: irb
+order: 2
+description: A decision walkthrough for whether your project needs IRB review.
+estMinutes: 8
+---
+
+import Callout from '@wiki/Callout.astro';
+import DecisionTree from '@wiki/DecisionTree.astro';
+
+Most projects fall into one of three buckets: **not human-subjects research**,
+**exempt**, or **requiring review**. Work through the tree below for a first read —
+it is guidance, not an official determination.
+
+<DecisionTree
+  start="q1"
+  nodes={{
+    q1: {
+      text: 'Are you systematically collecting data about living individuals?',
+      options: [
+        { label: 'Yes', to: 'q2' },
+        { label: 'No', to: 'r-none' },
+      ],
+    },
+    q2: {
+      text: 'Do you intend to produce generalizable knowledge (e.g. publish/present)?',
+      options: [
+        { label: 'Yes', to: 'q3' },
+        { label: 'No (internal/quality improvement only)', to: 'r-maybe' },
+      ],
+    },
+    q3: {
+      text: 'Is the data fully de-identified and already public, or limited to normal educational practice?',
+      options: [
+        { label: 'Yes', to: 'r-exempt' },
+        { label: 'No — identifiable or sensitive', to: 'r-review' },
+      ],
+    },
+    'r-none': {
+      result: 'Likely not human-subjects research. Document your reasoning and move on.',
+    },
+    'r-maybe': {
+      result: 'Possibly outside the federal definition — but confirm with the IRB before assuming.',
+    },
+    'r-exempt': {
+      result: 'Likely qualifies for an exempt category. You still file for an exemption determination — you do not decide it yourself.',
+    },
+    'r-review': {
+      result: 'Plan for expedited or full-board review. Start your protocol early.',
+    },
+  }}
+/>
+
+<Callout type="warning" title="You don't self-exempt">
+Even "exempt" research requires a determination *from* the IRB. Researchers don't
+get to declare their own studies exempt.
+</Callout>

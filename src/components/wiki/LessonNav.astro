@@ -1,0 +1,78 @@
+---
+/**
+ * LessonNav — prev/next links plus a "Mark complete" toggle.
+ * Rendered automatically by the lesson route (not imported in MDX).
+ * Completion is stored per-visitor in localStorage under "wiki-progress".
+ */
+interface Props {
+  lessonId: string;
+  prev?: { href: string; title: string };
+  next?: { href: string; title: string };
+}
+const { lessonId, prev, next } = Astro.props;
+---
+
+<nav class="wiki-lessonnav" aria-label="Lesson navigation" data-lesson-id={lessonId}>
+  <button type="button" class="wiki-lessonnav__complete" data-complete-toggle aria-pressed="false">
+    <span class="wiki-lessonnav__check" aria-hidden="true">✓</span>
+    <span data-complete-label>Mark complete</span>
+  </button>
+
+  <div class="wiki-lessonnav__links">
+    {prev ? (
+      <a class="wiki-lessonnav__link wiki-lessonnav__link--prev no-underline" href={prev.href}>
+        <span class="wiki-lessonnav__dir">← Previous</span>
+        <span class="wiki-lessonnav__title">{prev.title}</span>
+      </a>
+    ) : <span />}
+    {next ? (
+      <a class="wiki-lessonnav__link wiki-lessonnav__link--next no-underline" href={next.href}>
+        <span class="wiki-lessonnav__dir">Next →</span>
+        <span class="wiki-lessonnav__title">{next.title}</span>
+      </a>
+    ) : <span />}
+  </div>
+</nav>
+
+<script>
+  const STORAGE_KEY = 'wiki-progress';
+
+  function readProgress(): string[] {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function writeProgress(ids: string[]) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+    // Notify the sidebar (and any other listeners) in the same tab.
+    window.dispatchEvent(new CustomEvent('wiki-progress-change', { detail: { ids } }));
+  }
+
+  const nav = document.querySelector<HTMLElement>('.wiki-lessonnav');
+  const btn = nav?.querySelector<HTMLButtonElement>('[data-complete-toggle]');
+  const label = nav?.querySelector<HTMLElement>('[data-complete-label]');
+  const id = nav?.dataset.lessonId;
+
+  if (nav && btn && label && id) {
+    const paint = () => {
+      const done = readProgress().includes(id);
+      btn.setAttribute('aria-pressed', String(done));
+      label.textContent = done ? 'Completed' : 'Mark complete';
+    };
+
+    btn.addEventListener('click', () => {
+      const ids = readProgress();
+      const i = ids.indexOf(id);
+      if (i >= 0) ids.splice(i, 1);
+      else ids.push(id);
+      writeProgress(ids);
+      paint();
+    });
+
+    paint();
+  }
+</script>

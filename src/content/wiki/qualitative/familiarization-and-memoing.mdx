@@ -1,0 +1,40 @@
+---
+title: Familiarization & Memoing
+module: qualitative
+order: 2
+description: Before you code, you read — and you write notes about what you notice.
+estMinutes: 7
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import CodedTranscript from '@wiki/CodedTranscript.astro';
+import Cite from '@wiki/Cite.astro';
+import { familiarizationTurns } from '../../../data/qual-example';
+
+Coding too early is the classic beginner mistake. Both traditions start the same way:
+**immerse yourself in the data**, then **write memos** — informal analytic notes that
+capture hunches before they harden into codes <Cite id="saldana-2021" /> <Cite id="charmaz-2014" />.
+
+<Steps>
+1. **Read the whole transcript** once without labeling anything. Get the gist.
+2. **Re-read and jot.** In the margins, note what strikes you — surprises, repetitions, contradictions, emotion.
+3. **Write an analytic memo.** A few sentences: what might be going on here? What questions does it raise?
+4. **Hold your jottings loosely.** They are candidates for codes, not codes yet.
+</Steps>
+
+## Our example, at the jotting stage
+
+Here is the first slice of our debugging interviews. The highlighted spans are **early
+jottings** — click one to see the memo a researcher might write. Notice these are
+*observations and questions*, not yet tidy codes.
+
+<CodedTranscript turns={familiarizationTurns} />
+
+<Callout type="tip" title="Memos are data too">
+Keep memos in a running document with dates. They become your audit trail
+<Cite id="lincoln-guba-1985" /> and, in reflexive work, a record of how your reading
+evolved <Cite id="braun-clarke-2022" />.
+</Callout>
+
+In the next lesson we turn these jottings into a first pass of **codes**.

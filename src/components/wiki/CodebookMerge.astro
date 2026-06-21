@@ -1,0 +1,56 @@
+---
+/**
+ * CodebookMerge — two coders' code assignments per segment, with agreement /
+ * disagreement highlighting and the negotiated outcome. Computes simple
+ * percent agreement across the shown segments.
+ * Usage:
+ *   <CodebookMerge
+ *     coderA="Coder A" coderB="Coder B"
+ *     segments={[
+ *       { text: "before I asked", coderA: "help-seeking delay", coderB: "help-seeking delay", agreed: "help-seeking delay" },
+ *       { text: "felt so stupid", coderA: "fear of evaluation", coderB: "low confidence", agreed: "fear of evaluation" },
+ *     ]} />
+ */
+interface Segment {
+  text: string;
+  coderA: string;
+  coderB: string;
+  agreed: string;
+}
+interface Props {
+  coderA?: string;
+  coderB?: string;
+  segments: Segment[];
+}
+const { coderA = 'Coder A', coderB = 'Coder B', segments } = Astro.props;
+
+const agreements = segments.filter((s) => s.coderA === s.coderB).length;
+const pct = segments.length ? Math.round((agreements / segments.length) * 100) : 0;
+---
+
+<div>
+  <div class="wiki-merge">
+    <div class="wiki-merge__row wiki-merge__head">
+      <span class="wiki-merge__seg">Segment</span>
+      <span>{coderA}</span>
+      <span>{coderB}</span>
+      <span>Negotiated</span>
+    </div>
+    {segments.map((s) => {
+      const agree = s.coderA === s.coderB;
+      return (
+        <div class={`wiki-merge__row ${agree ? 'is-agree' : 'is-disagree'}`}>
+          <span class="wiki-merge__seg">"{s.text}"</span>
+          <span class="wiki-merge__code" data-label={coderA}>{s.coderA}</span>
+          <span class="wiki-merge__code" data-label={coderB}>{s.coderB}</span>
+          <span class="wiki-merge__code" data-label="Negotiated"><strong>{s.agreed}</strong></span>
+        </div>
+      );
+    })}
+  </div>
+  <p class="wiki-merge__summary">
+    Raw agreement before discussion: <strong>{agreements}/{segments.length} ({pct}%)</strong>.
+    Disagreements (amber) are resolved by discussing the data and refining code definitions —
+    not by averaging or seniority.
+  </p>
+</div>

@@ -1,0 +1,122 @@
+---
+title: "Path A — Inter-Rater Reliability"
+module: qualitative
+order: 5
+description: Whether to use IRR, which measure to pick, how to read it, and the kappa paradox.
+estMinutes: 14
+---
+
+import Callout from '@wiki/Callout.astro';
+import DecisionTree from '@wiki/DecisionTree.astro';
+import KappaCalculator from '@wiki/KappaCalculator.astro';
+import MeasureExplorer from '@wiki/MeasureExplorer.astro';
+import Cite from '@wiki/Cite.astro';
+
+**Inter-rater reliability (IRR)** quantifies how much independent coders agree, *corrected
+for the agreement you'd expect by chance*. It belongs to the codebook/coding-reliability
+path — and, importantly, **not every study should report it** <Cite id="mcdonald-2019" />
+<Cite id="oconnor-joffe-2020" />.
+
+## First question: should you use IRR at all?
+
+If themes are the *interpretive product of a reflexive researcher*, a reliability
+coefficient measures the wrong thing <Cite id="braun-clarke-2019" />. Use this guide:
+
+<DecisionTree
+  start="q1"
+  nodes={{
+    q1: {
+      text: 'Is your analysis interpretivist/reflexive (themes are the researcher’s interpretation, not slots in a fixed scheme)?',
+      options: [
+        { label: 'Yes — reflexive/interpretivist', to: 'r-skip' },
+        { label: 'No — codebook/positivist', to: 'q2' },
+      ],
+    },
+    q2: {
+      text: 'What is the measurement level of what you’re coding?',
+      options: [
+        { label: 'Nominal (unordered categories)', to: 'q3' },
+        { label: 'Ordinal (ranked categories)', to: 'r-weighted' },
+        { label: 'Interval/continuous (ratings)', to: 'r-icc' },
+      ],
+    },
+    q3: {
+      text: 'How many coders code each item?',
+      options: [
+        { label: 'Exactly two', to: 'q4' },
+        { label: 'Three or more', to: 'r-fleiss' },
+      ],
+    },
+    q4: {
+      text: 'Is one category very dominant (skewed marginals / high prevalence)?',
+      options: [
+        { label: 'Yes — one category dominates', to: 'r-gwet' },
+        { label: 'No — fairly balanced', to: 'r-cohen' },
+      ],
+    },
+    'r-skip': {
+      result:
+        'IRR is likely inappropriate. Report reflexivity, an audit trail, and rich theme definitions instead (see Lessons 6–7).',
+    },
+    'r-cohen': {
+      result:
+        "Cohen’s kappa (two coders, nominal). Scott’s pi or Krippendorff’s alpha are fine alternatives; alpha also handles missing data.",
+    },
+    'r-gwet': {
+      result:
+        'Watch for the kappa paradox. Prefer Gwet’s AC1, or report observed agreement alongside kappa so a deflated value isn’t misread.',
+    },
+    'r-fleiss': {
+      result:
+        "Fleiss’ kappa (3+ raters), or Krippendorff’s alpha — the most general choice (any number of coders, any level, missing data).",
+    },
+    'r-weighted': {
+      result:
+        'Weighted kappa (two coders) so near-misses count as partial agreement; or ordinal Krippendorff’s alpha.',
+    },
+    'r-icc': {
+      result:
+        'Intraclass correlation (ICC). Choose the form (one-/two-way, agreement vs. consistency, single vs. average) per Shrout & Fleiss and Koo & Li.',
+    },
+  }}
+/>
+
+Each branch lands on a measure. Click one to see its equation, what the symbols mean, when
+to use it, and the source:
+
+<MeasureExplorer />
+
+Hands-on tutorial for computing these: <Cite id="hallgren-2012" />.
+
+## Compute Cohen's κ — and see the paradox
+
+Two coders mark whether a code is **present** or **absent** on each segment. Edit the 2×2
+counts, or load a preset:
+
+<KappaCalculator />
+
+Try **Balanced** then **Kappa paradox**: observed agreement stays ~85%, but κ collapses.
+That's the **kappa paradox** — when one category dominates, chance-corrected agreement is
+deflated even though raters mostly agree <Cite id="feinstein-cicchetti-1990" />
+<Cite id="cicchetti-feinstein-1990" />. The calculator reports **Gwet's AC1** right beside
+κ <Cite id="gwet-2008" /> — on the paradox preset AC1 stays sensible while κ craters,
+which is exactly why AC1 is the fairer summary under skew.
+
+## Reading the number
+
+A common (and explicitly *arbitrary*) benchmark set <Cite id="landis-koch-1977" />:
+
+| κ | Strength of agreement |
+| --- | --- |
+| < 0.00 | Poor |
+| 0.00–0.20 | Slight |
+| 0.21–0.40 | Fair |
+| 0.41–0.60 | Moderate |
+| 0.61–0.80 | Substantial |
+| 0.81–1.00 | Almost perfect |
+
+<Callout type="warning" title="The thresholds are arbitrary">
+Landis & Koch themselves call these cutoffs arbitrary. Report the coefficient, the
+observed agreement, and your reasoning — not just a band label. A "substantial" κ on a
+badly-defined codebook is still a bad analysis.
+</Callout>

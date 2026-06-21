@@ -1,0 +1,59 @@
+---
+/**
+ * MeasureExplorer — clickable badges (left) for each IRR measure; a panel (right)
+ * shows the selected measure's equation, what the symbols mean, an explanation,
+ * the use case, and a link to the source. Tabs toggle pre-rendered panels (no JS
+ * HTML building), so the equation markup is server-rendered.
+ */
+import { irrMeasures } from '../../data/irr-measures';
+import { getReference } from '../../lib/references';
+
+const moduleSlug = Astro.url.pathname.split('/').filter(Boolean)[1] ?? 'qualitative';
+const refLink = (id: string) => `/wiki/${moduleSlug}/references#ref-${id}`;
+const refLabel = (id: string) => getReference(id)?.cite ?? id;
+---
+
+<div class="wiki-measures" data-measures>
+  <div class="wiki-measures__badges" role="tablist" aria-label="Reliability measures">
+    {irrMeasures.map((m, i) => (
+      <button
+        type="button"
+        class="wiki-measures__badge"
+        role="tab"
+        data-target={m.id}
+        aria-selected={i === 0 ? 'true' : 'false'}
+      >{m.name}</button>
+    ))}
+  </div>
+
+  <div class="wiki-measures__panels">
+    {irrMeasures.map((m, i) => (
+      <div class="wiki-measures__panel" data-panel={m.id} role="tabpanel" hidden={i !== 0}>
+        <p class="wiki-measures__name">{m.name}</p>
+        <div class="wiki-eq" set:html={m.formula} />
+        <p class="wiki-measures__where" set:html={`where ${m.where}`} />
+        <p class="wiki-measures__exp">{m.explanation}</p>
+        <p class="wiki-measures__use"><strong>Use it for:</strong> {m.useCase}</p>
+        <p class="wiki-measures__src">
+          Source: {m.citeIds.map((id, idx) => (
+            <Fragment>{idx > 0 ? ', ' : ''}<a href={refLink(id)}>{refLabel(id)}</a></Fragment>
+          ))}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-measures]').forEach((root) => {
+    const badges = Array.from(root.querySelectorAll<HTMLButtonElement>('.wiki-measures__badge'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('.wiki-measures__panel'));
+    badges.forEach((b) => {
+      b.addEventListener('click', () => {
+        badges.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+        const t = b.dataset.target;
+        panels.forEach((p) => { p.hidden = p.dataset.panel !== t; });
+      });
+    });
+  });
+</script>

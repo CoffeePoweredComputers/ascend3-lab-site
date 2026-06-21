@@ -1,0 +1,46 @@
+---
+/**
+ * Codebook — a structured codebook table.
+ * Usage:
+ *   <Codebook entries={[
+ *     { code: "fear of negative evaluation", definition: "...", example: "...",
+ *       include: "Apply when...", exclude: "Do not apply when..." },
+ *   ]} />
+ */
+interface Entry {
+  code: string;
+  definition: string;
+  example: string;
+  include: string;
+  exclude: string;
+}
+interface Props {
+  entries: Entry[];
+}
+const { entries } = Astro.props;
+---
+
+<div class="wiki-codebook__scroll">
+  <table class="wiki-codebook">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Definition</th>
+        <th>Example (anchor quote)</th>
+        <th>Apply when</th>
+        <th>Don't apply when</th>
+      </tr>
+    </thead>
+    <tbody>
+      {entries.map((e) => (
+        <tr>
+          <td class="wiki-codebook__code">{e.code}</td>
+          <td>{e.definition}</td>
+          <td class="wiki-codebook__example">"{e.example}"</td>
+          <td>{e.include}</td>
+          <td>{e.exclude}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
