@@ -7,6 +7,13 @@
  * codes → codebook → merged codebook → categories → themes, and is analyzed
  * two ways (codebook/coding-reliability and reflexive thematic analysis).
  *
+ * Each participant's excerpt is coded for MORE THAN ONE theme, and each theme
+ * draws on MORE THAN ONE participant — themes are patterns *across* the corpus,
+ * not per-person summaries. The coverage is deliberately many-to-many:
+ *   Help-Seeking Anxiety        ← P3, P7
+ *   Improvised Debugging        ← P3, P7, P9
+ *   Error Messages as Barriers  ← P7, P9
+ *
  * Shapes match the wiki component props (CodedTranscript, Codebook,
  * CodeConsolidation, CodebookMerge, ThemeTree).
  */
@@ -41,13 +48,13 @@ export const familiarizationTurns: Turn[] = [
         code: 'jotting: worried about TA judgment',
         memo: 'Affective — social risk of asking. This feels important; watch for it elsewhere.',
       },
-      { text: ' for not getting something that seemed basic. ' },
+      { text: ' for not getting something that seemed basic. Before that I ' },
       {
-        text: 'Everyone around me looked like they were already done',
-        code: 'jotting: comparing to peers',
-        memo: 'Self vs. others. Does the room amplify the reluctance to ask?',
+        text: 'just kept rewriting the same few lines hoping it would work',
+        code: 'jotting: changing code without a plan',
+        memo: 'Not just a help-seeking story — there is a debugging style here too. Note both.',
       },
-      { text: ', which made it worse. When I finally went up, ' },
+      { text: '. When I finally went up, ' },
       {
         text: 'the TA fixed it in like two minutes',
         code: 'jotting: quick fix once asked',
@@ -58,7 +65,8 @@ export const familiarizationTurns: Turn[] = [
   },
 ];
 
-/* ── Stage 2: initial / first-cycle coding (descriptive + in vivo) ── */
+/* ── Stage 2: initial / first-cycle coding (descriptive + in vivo) ──
+   Each participant is coded for codes that roll up to MORE THAN ONE theme. */
 export const initialCodingTurns: Turn[] = [
   {
     speaker: 'P3',
@@ -68,7 +76,7 @@ export const initialCodingTurns: Turn[] = [
         text: 'I sat there for probably an hour before I asked',
         code: 'help-seeking delay',
         codeType: 'descriptive',
-        memo: 'Delays help despite being stuck. Recurs in P5, P9.',
+        memo: 'Delays help despite being stuck. The same delay shows up in P7.',
         rollsUpTo: 'Help-Seeking Anxiety',
       },
       { text: '. Honestly ' },
@@ -79,13 +87,13 @@ export const initialCodingTurns: Turn[] = [
         memo: "Participant's own words. Fear of negative evaluation as the barrier to asking.",
         rollsUpTo: 'Help-Seeking Anxiety',
       },
-      { text: ' for missing something basic, and ' },
+      { text: ' for missing something basic. Before that I ' },
       {
-        text: 'everyone around me looked like they were already done',
-        code: 'comparing self to peers',
+        text: 'just kept rewriting the same few lines hoping it would work',
+        code: 'trial-and-error debugging',
         codeType: 'descriptive',
-        memo: 'Social comparison raises the stakes of asking.',
-        rollsUpTo: 'Help-Seeking Anxiety',
+        memo: 'No hypothesis — changing code and hoping. Same improvised tactic as P7 and P9: this excerpt is not only about help-seeking.',
+        rollsUpTo: 'Improvised Debugging',
       },
       { text: '. When I finally asked, ' },
       {
@@ -106,7 +114,7 @@ export const initialCodingTurns: Turn[] = [
         text: 'I just kept changing things and re-running it',
         code: 'trial-and-error debugging',
         codeType: 'descriptive',
-        memo: 'Unsystematic strategy — no stated hypothesis.',
+        memo: 'Unsystematic strategy — no stated hypothesis. Matches P3.',
         rollsUpTo: 'Improvised Debugging',
       },
       { text: ' until something worked — ' },
@@ -117,23 +125,31 @@ export const initialCodingTurns: Turn[] = [
         memo: 'Names the absence of method directly.',
         rollsUpTo: 'Improvised Debugging',
       },
-      { text: ', just guessing. I ' },
+      { text: '. The compiler kept throwing this ' },
       {
-        text: 'put print statements everywhere',
-        code: 'print-statement debugging',
+        text: "type-mismatch error I couldn't make sense of",
+        code: 'cryptic error messages',
         codeType: 'descriptive',
-        memo: 'Self-taught tooling in absence of a debugger.',
-        rollsUpTo: 'Improvised Debugging',
+        memo: 'Tool output opaque to the student — the same barrier P9 describes. P7 spans debugging AND error messages.',
+        rollsUpTo: 'Error Messages as Barriers',
       },
-      { text: ' to see the values, and ' },
+      { text: ', and I ' },
       {
-        text: 'I googled the exact error message',
+        text: 'thought about asking the TA but didn\'t want to bug them again',
+        code: 'help-seeking delay',
+        codeType: 'descriptive',
+        memo: 'Reluctance to ask recurs here, not just in P3 — help-seeking is a cross-cutting theme.',
+        rollsUpTo: 'Help-Seeking Anxiety',
+      },
+      { text: ', so I just ' },
+      {
+        text: 'googled the exact error message',
         code: 'googling the error',
         codeType: 'descriptive',
         memo: 'Outsourcing the diagnosis to search/Stack Overflow.',
         rollsUpTo: 'Improvised Debugging',
       },
-      { text: ' and pasted in whatever Stack Overflow said.' },
+      { text: ' and pasted in whatever came up.' },
     ],
   },
   {
@@ -144,7 +160,7 @@ export const initialCodingTurns: Turn[] = [
         text: '"segmentation fault" and that means nothing to me',
         code: 'cryptic error messages',
         codeType: 'descriptive',
-        memo: 'Tooling output is opaque to a novice — a trigger for being stuck.',
+        memo: 'Tooling output is opaque to a novice — a trigger for being stuck. Recurs in P7.',
         rollsUpTo: 'Error Messages as Barriers',
       },
       { text: " — it doesn't say where or why. " },
@@ -155,7 +171,15 @@ export const initialCodingTurns: Turn[] = [
         memo: 'Even the diagnostic is unreadable to them.',
         rollsUpTo: 'Error Messages as Barriers',
       },
-      { text: '. After a while ' },
+      { text: '. So I ' },
+      {
+        text: 'added print statements all over to find where it died',
+        code: 'print-statement debugging',
+        codeType: 'descriptive',
+        memo: 'Self-taught tooling in absence of a debugger — improvised debugging shows up in P9 too.',
+        rollsUpTo: 'Improvised Debugging',
+      },
+      { text: ', just guessing really. After a while ' },
       {
         text: 'I just gave up for the night',
         code: 'disengagement',
@@ -176,7 +200,8 @@ export const initialCodingTurns: Turn[] = [
   },
 ];
 
-/* ── Stage 2 (Path B): the SAME data coded reflexively (latent, interpretive) ── */
+/* ── Stage 2 (Path B): the SAME data coded reflexively (latent, interpretive) ──
+   Same multi-theme spans as Path A, recoded for underlying meaning. */
 export const reflexiveCodingTurns: Turn[] = [
   {
     speaker: 'P3',
@@ -197,13 +222,13 @@ export const reflexiveCodingTurns: Turn[] = [
         memo: 'Beyond fear — actively managing an identity as a competent student before an authority.',
         rollsUpTo: 'Asking for help as social risk',
       },
-      { text: ' for missing something basic, and ' },
+      { text: ' for missing something basic. Before that I ' },
       {
-        text: 'everyone around me looked like they were already done',
-        code: 'measuring up to others',
+        text: 'just kept rewriting the same few lines hoping it would work',
+        code: 'acting without a model',
         codeType: 'descriptive',
-        memo: 'Competence is read relationally — the room is an audience.',
-        rollsUpTo: 'Asking for help as social risk',
+        memo: 'Latent: acting on the code without a mental model of it — agency is low. Same span, a debugging reading.',
+        rollsUpTo: 'Debugging as lonely trial-and-error',
       },
       { text: '.' },
     ],
@@ -219,15 +244,31 @@ export const reflexiveCodingTurns: Turn[] = [
         memo: 'Agency is low — acting on the code without a model of it.',
         rollsUpTo: 'Debugging as lonely trial-and-error',
       },
-      { text: ', and ' },
+      { text: '. The compiler kept throwing an ' },
       {
-        text: 'I googled the exact error message',
+        text: "error I couldn't make sense of",
+        code: 'tool that talks past me',
+        codeType: 'descriptive',
+        memo: 'Latent: the message positions the student as not its intended audience — it withholds rather than guides.',
+        rollsUpTo: 'The error message as gatekeeper',
+      },
+      { text: ', and I ' },
+      {
+        text: "didn't want to bug the TA again",
+        code: 'asking as last resort',
+        codeType: 'descriptive',
+        memo: 'Help withheld to avoid being a burden — managing standing. Social risk recurs here, not only in P3.',
+        rollsUpTo: 'Asking for help as social risk',
+      },
+      { text: ', so I ' },
+      {
+        text: 'googled it and pasted in whatever came up',
         code: 'outsourcing understanding',
         codeType: 'descriptive',
         memo: 'Understanding is borrowed from strangers online, not built.',
         rollsUpTo: 'Debugging as lonely trial-and-error',
       },
-      { text: ' and pasted in whatever came up.' },
+      { text: '.' },
     ],
   },
   {
@@ -238,10 +279,18 @@ export const reflexiveCodingTurns: Turn[] = [
         text: '"segmentation fault" and that means nothing to me',
         code: 'tool that talks past me',
         codeType: 'descriptive',
-        memo: 'Latent: the message positions the student as not its intended audience — it withholds rather than guides.',
+        memo: 'Latent: the message withholds rather than guides — the novice is not its audience.',
         rollsUpTo: 'The error message as gatekeeper',
       },
-      { text: ', so I kind of just ' },
+      { text: ', so I ' },
+      {
+        text: 'added prints everywhere just to see where it broke',
+        code: 'guessing in the dark',
+        codeType: 'descriptive',
+        memo: 'Probing blindly for a foothold — the lonely improvised struggle shows up in P9 too.',
+        rollsUpTo: 'Debugging as lonely trial-and-error',
+      },
+      { text: ', and eventually I just ' },
       {
         text: 'gave up for the night',
         code: 'shut out',
@@ -305,31 +354,35 @@ export const codebookEntries = [
 export const mergeSegments = [
   { text: 'before I asked', coderA: 'help-seeking delay', coderB: 'help-seeking delay', agreed: 'help-seeking delay' },
   { text: 'think I was dumb', coderA: 'fear of negative evaluation', coderB: 'low confidence', agreed: 'fear of negative evaluation' },
-  { text: 'print statements everywhere', coderA: 'improvised debugging strategy', coderB: 'improvised debugging strategy', agreed: 'improvised debugging strategy' },
+  { text: 'print statements all over', coderA: 'improvised debugging strategy', coderB: 'improvised debugging strategy', agreed: 'improvised debugging strategy' },
   { text: 'means nothing to me', coderA: 'cryptic error messages', coderB: 'cryptic error messages', agreed: 'cryptic error messages' },
   { text: 'gave up for the night', coderA: 'disengagement', coderB: 'cryptic error messages', agreed: 'disengagement' },
 ];
 
-/* ── Stage 6 (Path A): codebook-derived themes ── */
+/* ── Stage 6 (Path A): codebook-derived themes ──
+   Each theme's codes are contributed by more than one participant. */
 export const codebookThemes = [
   {
     name: 'Help-Seeking Anxiety',
-    definition: 'Students delay or avoid seeking help because asking feels like exposing incompetence.',
+    definition:
+      'Students delay or avoid seeking help because asking feels like exposing incompetence. Seen in P3 (the linked-list wait) and P7 (not wanting to bug the TA again).',
     categories: [
       { name: 'Affective barriers', codes: ['fear of negative evaluation'] },
-      { name: 'Help-seeking behavior', codes: ['help-seeking delay', 'comparing self to peers', 'relief after help'] },
+      { name: 'Help-seeking behavior', codes: ['help-seeking delay', 'relief after help'] },
     ],
   },
   {
     name: 'Improvised Debugging',
-    definition: 'Without systematic methods, students fall back on self-taught trial-and-error tactics.',
+    definition:
+      'Without systematic methods, students fall back on self-taught trial-and-error tactics. Evidenced across P3, P7, and P9.',
     categories: [
       { name: 'Strategies', codes: ['improvised debugging strategy', 'googling the error'] },
     ],
   },
   {
     name: 'Error Messages as Barriers',
-    definition: 'Opaque tool output stalls progress and can end a work session.',
+    definition:
+      'Opaque tool output stalls progress and can end a work session. Seen in P7 (type-mismatch error) and P9 (segfault, stack trace).',
     categories: [
       { name: 'Triggers / tooling', codes: ['cryptic error messages', 'reading the stack trace'] },
       { name: 'Outcomes', codes: ['disengagement', 'dreading the next bug'] },
@@ -344,14 +397,14 @@ export const reflexiveThemes = [
     definition:
       'Help-seeking is experienced not as a neutral act but as a move that risks one’s standing as a competent student — so it is delayed, hedged, or avoided.',
     categories: [
-      { name: 'Identity management', codes: ['managing how I am seen', 'asking as last resort', 'measuring up to others'] },
+      { name: 'Identity management', codes: ['managing how I am seen', 'asking as last resort'] },
     ],
   },
   {
     name: 'Debugging as lonely trial-and-error',
     definition: 'In the absence of shared method, debugging becomes a private, improvised, often isolating struggle.',
     categories: [
-      { name: 'Improvised practice', codes: ['guessing in the dark', 'outsourcing understanding'] },
+      { name: 'Improvised practice', codes: ['guessing in the dark', 'outsourcing understanding', 'acting without a model'] },
     ],
   },
   {
@@ -364,9 +417,10 @@ export const reflexiveThemes = [
 ];
 
 /**
- * Paired rows for the side-by-side comparison in lesson 7 — the codebook and
- * reflexive themes describe the SAME phenomenon two ways (they align by index).
- * Derived from the arrays above so theme text has a single source of truth.
+ * Paired rows for the side-by-side comparison in the Reviewing & Defining Themes
+ * lesson — the codebook and reflexive themes describe the SAME phenomenon two
+ * ways (they align by index). Derived from the arrays above so theme text has a
+ * single source of truth.
  */
 const COMPARE_PHENOMENA = ['Help-seeking', 'Debugging approach', 'Error messages'];
 const COMPARE_DIFFS = [

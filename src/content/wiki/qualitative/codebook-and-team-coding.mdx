@@ -1,7 +1,7 @@
 ---
 title: "Path A — Codebook & Team Coding"
 module: qualitative
-order: 4
+order: 5
 description: Consolidate codes, write a codebook, then code as a team and reconcile.
 estMinutes: 12
 ---
@@ -19,7 +19,34 @@ This is the **codebook / coding-reliability** path. The goal: a shared, well-def
 codebook that *different people* can apply consistently <Cite id="hsieh-shannon-2005" />
 <Cite id="gale-2013" />.
 
-## Step 1 — Consolidate redundant codes
+## How the codebook gets built
+
+The codebook doesn't arrive fully formed — and it isn't one person's draft handed to the
+team. It's built **collaboratively from the first cycle**: two coders develop in parallel, then
+reconcile. Here's the whole loop at a glance (the sections after it zoom in):
+
+<Steps>
+1. **Assemble a starter subset.** Pick a few transcripts that look maximally different, so early codes have to stretch to fit <Cite id="guest-2006" />.
+2. **Agree on the coding unit.** Together, decide what a "chunk" is — a line, a sentence, or a *meaning unit* — and apply it consistently across coders <Cite id="krippendorff-2018" />.
+3. **Each coder open-codes the subset, independently.** Both work the *same* transcripts alone, generating first-cycle codes inductively from the data and/or deductively from a framework or research question (the [reasoning stances](/wiki/qualitative/initial-coding) from the previous lesson) — producing *two* parallel draft codebooks, which guards against anchoring on one person's view <Cite id="thomas-2006" /> <Cite id="hsieh-shannon-2005" />.
+4. **Reconcile into one shared codebook.** Compare the two drafts and consolidate them; give each surviving code a name, definition, anchor example, and apply / don't-apply rules — the structured shape shown in **Write the codebook** below <Cite id="guest-2006" />.
+5. **Apply the shared codebook to the next set.** Where codes don't fit, add, split, or merge them (the **Consolidate redundant codes** step below) — the codebook is a living document, not a fixed list.
+6. **Version and log.** Bump the codebook version and record every change in your audit trail, then repeat on new transcripts until it stabilizes (constant comparison) <Cite id="saldana-2021" /> <Cite id="gale-2013" />.
+</Steps>
+
+The rest of this lesson zooms into the three moves that matter most: consolidating
+redundant codes, writing transferable entries, and reconciling across coders.
+
+<Callout type="warning" title="Consensus is not the same as a reliability statistic">
+The loop above builds a codebook by **negotiated consensus** — its rigor is the agreement plus
+a documented audit trail. That is *not* the same as a reported **κ/α**: the moment your two
+coders consolidate, they are no longer independent, so you cannot compute a clean coefficient on
+data you've already reconciled. If a reviewer or funder expects a reliability number, hold out a
+fresh set and code it *independently first*, then measure agreement (the next lesson) before you
+reconcile <Cite id="oconnor-joffe-2020" />.
+</Callout>
+
+## Consolidate redundant codes
 
 A generous first pass across the *full* set of interviews produces overlapping codes — more
 than the few excerpts you saw earlier. Group ones that mean the same thing and give the
@@ -27,7 +54,7 @@ group a single clear name. Click through the logic:
 
 <CodeConsolidation groups={consolidationGroups} />
 
-## Step 2 — Write the codebook
+## Write the codebook
 
 Each consolidated code gets a **definition**, an **anchor example**, and explicit
 **apply / don't-apply** rules. This is what makes a code transferable to another coder
@@ -35,9 +62,10 @@ Each consolidated code gets a **definition**, an **anchor example**, and explici
 
 <Codebook entries={codebookEntries} />
 
-## Step 3 — Code independently, then reconcile
+## Code independently, then reconcile
 
-The team-coding loop is iterative <Cite id="saldana-2021" />:
+Once you have a working codebook, the team-coding loop **tests and refines it on fresh
+transcripts** — distinct from building it above, and now iterative <Cite id="saldana-2021" />:
 
 <Steps>
 1. **Code independently.** Two+ coders apply the codebook to the same transcripts, alone.
@@ -65,5 +93,5 @@ by definitions and (next lesson) a reliability statistic:
 
 <ThemeTree themes={codebookThemes} open />
 
-In **Lesson 5** we quantify that agreement with inter-rater reliability. (The reflexive
-path in **Lessons 6–7** reaches themes very differently — and deliberately skips IRR.)
+In **Lesson 6** we quantify that agreement with inter-rater reliability. (The reflexive
+path in **Lessons 7–8** reaches themes very differently — and deliberately skips IRR.)

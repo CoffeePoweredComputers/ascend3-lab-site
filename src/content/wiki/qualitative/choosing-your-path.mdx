@@ -1,0 +1,131 @@
+---
+title: "Choosing Your Path: Codebook or RTA?"
+module: qualitative
+order: 2
+description: When to use codebook / coding-reliability vs reflexive thematic analysis — with concrete domain examples and a decision walkthrough.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import DecisionTree from '@wiki/DecisionTree.astro';
+import RoleWalkthrough from '@wiki/RoleWalkthrough.astro';
+import Cite from '@wiki/Cite.astro';
+import { roleWalkthrough } from '../../../data/qual-roles';
+
+The Overview introduced two traditions — **codebook / coding-reliability** and **reflexive
+thematic analysis (RTA)**. Before you start coding, decide *which one your study calls for*:
+the choice shapes how you code, whether you measure agreement, and how you write up rigor.
+This lesson compares them, shows who does what, and helps you make that call **up front**.
+(Later, [Comparing the Two Paths](/wiki/qualitative/comparing-the-two-paths) shows the *same
+data* analyzed both ways, side by side, as the payoff.)
+
+## What pulls you toward each
+
+| Dimension | Codebook / coding-reliability | Reflexive TA |
+| --- | --- | --- |
+| **Research question** | Prevalence, comparison, "how often / which category" | Meaning, experience, "how / why" |
+| **Stance toward codes** | Codes can be defined in advance; meaning is stable enough to share | Codes are interpretive; the analyst is the instrument |
+| **Who analyzes & why** | Two+ coders who *converge* on a shared codebook | Two+ analysts who stay *divergent* — they discuss to deepen, never to score |
+| **Reliability claim** | Wanted/expected (κ or α reported) | Rejected as a quality measure |
+| **Main payoff** | Transferability + a reproducibility claim | Interpretive depth + theory-building |
+| **Reporting norms (within education, HCI & social science)** | Venues/subfields that expect a reported reliability statistic, prevalence claims, or a reusable coding scheme | Venues/subfields that expect reflexivity, an interpretive stance, and rich situated accounts |
+| **Poor fit when…** | The question is about contested meaning | You need prevalence counts or an auditor wants reproducibility |
+
+<Callout type="warning" title="Neither is the default">
+In HCI/CSCW, IRR appears in only about 1 in 9 qualitative papers <Cite id="mcdonald-2019" /> —
+so reaching for a codebook *because everyone does* is a mistake, and so is assuming RTA is
+always "deeper." Pick for your question and epistemology, then **report which you chose and
+why** <Cite id="braun-clarke-2021-onesize" />.
+</Callout>
+
+## Concrete examples
+
+Both traditions are used heavily across **education, HCI, and the social sciences** — the
+choice is about *your study*, not your discipline. The same lab, in the same field, picks
+differently from project to project:
+
+<Callout type="note" title="When a codebook fits">
+- Coding **200 open-ended survey responses** to report *how many* students mention each barrier — a prevalence question with multiple coders.
+- Applying an **existing taxonomy** of help-seeking behaviors to interviews (a deductive, directed content analysis) <Cite id="hsieh-shannon-2005" />.
+- A **multi-coder study** building a coding scheme other researchers will reuse, where the venue expects a reported reliability statistic.
+- A **meta-synthesis / systematic review** team coding findings across papers, where reproducibility is part of the method.
+</Callout>
+
+<Callout type="tip" title="When reflexive TA fits">
+- A **dissertation** theorizing how first-generation students *experience belonging* in CS — an interpretive, theory-building question.
+- A **single reflexive researcher** reading interviews for latent meaning (identity, power, framing) rather than counting categories.
+- An **exploratory** study where the interesting patterns aren't known in advance and you want to construct them from the data <Cite id="braun-clarke-2022" />.
+</Callout>
+
+## Who does what, and when
+
+The table tells you *which* path; this shows what each looks like **in practice**. The
+confusing part isn't the *steps* — it's the **people**. Both paths can use two or more
+researchers, so the real question is what the *second person is for*. In the codebook path the
+two coders **converge** — they reconcile toward one shared instrument. In RTA they stay
+**divergent** — a critical friend challenges the reading to deepen it, and the codes are never
+merged or scored. Same two people, opposite purpose. Pick a path and step through it:
+
+<RoleWalkthrough data={roleWalkthrough} />
+
+We show both paths with two people, but either can be done by one — solo RTA is common, and a
+lone researcher can still keep a codebook; what needs a second person is the reliability or
+consensus *claim*, not the analysis itself <Cite id="braun-clarke-2021-onesize" />.
+
+## Walk it through
+
+The table and examples show *which* path fits; now run *your own* study through it:
+
+<DecisionTree
+  start="q1"
+  nodes={{
+    q1: {
+      text: "What is your research question really after?",
+      options: [
+        { label: "Measuring / comparing how often things occur", to: "q-prev" },
+        { label: "Interpreting meaning or building theory", to: "q-mean" },
+      ],
+    },
+    "q-prev": {
+      text: "Will more than one person code the data?",
+      options: [
+        { label: "Yes — a coding team", to: "r-codebook-team" },
+        { label: "No — just me", to: "q-solo" },
+      ],
+    },
+    "q-solo": {
+      text: "Does your audience (a funder, journal, or review panel) expect a reliability claim?",
+      options: [
+        { label: "Yes", to: "r-codebook-solo" },
+        { label: "No", to: "r-either" },
+      ],
+    },
+    "q-mean": {
+      text: "Are you applying an existing framework, or building concepts from the data?",
+      options: [
+        { label: "Applying an existing framework", to: "r-codebook-deductive" },
+        { label: "Building concepts from the data", to: "r-rta" },
+      ],
+    },
+    "r-codebook-team": {
+      result: "Lean codebook / coding-reliability. A prevalence question plus multiple coders is exactly where a shared codebook and inter-rater reliability earn their keep.",
+    },
+    "r-codebook-solo": {
+      result: "Lean codebook. Even solo, if your audience expects a reliability or transferability claim, a defined codebook (and ideally a second coder) supports it.",
+    },
+    "r-either": {
+      result: "Either can work. A single analyst answering a descriptive question with no reliability expectation can use a lightweight codebook or a reflexive approach — decide by your epistemology and report it honestly.",
+    },
+    "r-codebook-deductive": {
+      result: "Lean codebook / directed content analysis. Applying an existing framework to label data is a deductive, codebook-style task.",
+    },
+    "r-rta": {
+      result: "Lean reflexive thematic analysis. An interpretive, theory-building question owned by a reflexive analyst is RTA's home turf — and it deliberately skips IRR.",
+    },
+  }}
+/>
+
+The next lessons are familiarization and first-cycle coding — the *mechanic* is shared, but
+the coding **stance** already starts to diverge there. The paths then split fully — codebook &
+team coding, then reflexive coding — and meet again in
+[Comparing the Two Paths](/wiki/qualitative/comparing-the-two-paths).

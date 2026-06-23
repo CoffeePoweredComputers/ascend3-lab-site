@@ -1,0 +1,228 @@
+---
+/**
+ * RoleWalkthrough — an interactive "cast walkthrough" of who does what, and when.
+ * The reader picks a path and steps through its timeline; each step shows which
+ * person is active and what they produce, plus the same step in the other path
+ * as a contrast. Server-rendered cards + vanilla JS (mirrors ProcessFlow /
+ * DecisionTree). Paths share a stage spine and align by index.
+ *
+ * Usage:
+ *   import { roleWalkthrough } from '../../../data/qual-roles';
+ *   <RoleWalkthrough data={roleWalkthrough} />
+ */
+interface Role {
+  id: string;
+  label: string;
+  icon: string;
+}
+type Visual =
+  | { kind: 'memo'; quote: string; note: string }
+  | { kind: 'columns'; groups: { label: string; items: { code: string; tag?: string }[] }[] }
+  | { kind: 'consolidation'; raw: string[]; into: string; rationale?: string }
+  | { kind: 'codebook'; entries: { code: string; definition: string }[] }
+  | { kind: 'themes'; items: { name: string; codes: string[] }[] };
+interface Step {
+  stage: string;
+  actors: string[];
+  body: string;
+  purpose: string;
+  tone: 'neutral' | 'good' | 'warn';
+  summary: string;
+  visual?: Visual;
+}
+interface Path {
+  id: string;
+  label: string;
+  steps: Step[];
+}
+interface Props {
+  data: { roles: Role[]; paths: Path[] };
+}
+
+const { data } = Astro.props;
+const { roles, paths } = data;
+const roleById = Object.fromEntries(roles.map((r) => [r.id, r]));
+const stepCount = paths[0].steps.length;
+---
+
+<div class="wiki-roles" data-roles>
+  <div class="wiki-roles__tabs" role="tablist" aria-label="Choose a path">
+    {paths.map((p, i) => (
+      <button
+        type="button"
+        class="wiki-roles__tab"
+        role="tab"
+        data-path={p.id}
+        aria-selected={i === 0 ? 'true' : 'false'}
+      >{p.label}</button>
+    ))}
+  </div>
+
+  <div class="wiki-roles__legend">
+    {roles.map((r) => (
+      <span class="wiki-roles__legend-item">
+        <span class="wiki-roles__icon" aria-hidden="true">{r.icon}</span>{r.label}
+      </span>
+    ))}
+  </div>
+
+  <div class="wiki-roles__stage" aria-live="polite">
+    {paths.map((p, pi) =>
+      p.steps.map((s, si) => {
+        const other = paths[(pi + 1) % paths.length];
+        const otherStep = other.steps[si];
+        return (
+          <article
+            class="wiki-roles__card"
+            data-path={p.id}
+            data-step={si}
+            hidden={!(pi === 0 && si === 0)}
+          >
+            <div class="wiki-roles__card-head">
+              <span class="wiki-roles__stage-name">{s.stage}</span>
+              <span class={`wiki-roles__badge wiki-roles__badge--${s.tone}`}>{s.purpose}</span>
+            </div>
+            <div class="wiki-roles__actors">
+              {s.actors.map((a) => (
+                <span class="wiki-roles__actor">
+                  <span class="wiki-roles__icon" aria-hidden="true">{roleById[a]?.icon}</span>
+                  {roleById[a]?.label}
+                </span>
+              ))}
+            </div>
+            <p class="wiki-roles__body">{s.body}</p>
+
+            {s.visual && (
+              <div class="wiki-roles__visual">
+                {s.visual.kind === 'memo' && (
+                  <div class="wiki-roles__memo">
+                    <p class="wiki-roles__memo-quote">“{s.visual.quote}”</p>
+                    <p class="wiki-roles__memo-note">{s.visual.note}</p>
+                  </div>
+                )}
+                {s.visual.kind === 'columns' && (
+                  <div class="wiki-roles__cols">
+                    {s.visual.groups.map((g) => (
+                      <div class="wiki-roles__col">
+                        <p class="wiki-roles__col-label">{g.label}</p>
+                        <div class="wiki-roles__col-chips">
+                          {g.items.map((it) => (
+                            <span class="wiki-chip">
+                              {it.code}
+                              {it.tag && <span class="wiki-roles__tag">{it.tag}</span>}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {s.visual.kind === 'consolidation' && (
+                  <div class="wiki-consol">
+                    <div class="wiki-consol__group">
+                      <div class="wiki-consol__raw">
+                        {s.visual.raw.map((r) => <span class="wiki-chip">{r}</span>)}
+                      </div>
+                      <div class="wiki-consol__arrow" aria-hidden="true">→</div>
+                      <div><span class="wiki-chip wiki-chip--result">{s.visual.into}</span></div>
+                      {s.visual.rationale && <p class="wiki-consol__rationale">{s.visual.rationale}</p>}
+                    </div>
+                  </div>
+                )}
+                {s.visual.kind === 'codebook' && (
+                  <table class="wiki-roles__cb">
+                    <thead>
+                      <tr><th>Code</th><th>Definition</th></tr>
+                    </thead>
+                    <tbody>
+                      {s.visual.entries.map((e) => (
+                        <tr>
+                          <td class="wiki-roles__cb-code">{e.code}</td>
+                          <td>{e.definition}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+                {s.visual.kind === 'themes' && (
+                  <div class="wiki-roles__themes">
+                    {s.visual.items.map((t) => (
+                      <div class="wiki-roles__theme">
+                        <p class="wiki-roles__theme-name">{t.name}</p>
+                        <div class="wiki-roles__col-chips">
+                          {t.codes.map((c) => <span class="wiki-chip">{c}</span>)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            <p class="wiki-roles__contrast">
+              <span class="wiki-roles__contrast-lead">{other.label}, same step:</span> {otherStep.summary}
+            </p>
+          </article>
+        );
+      }),
+    )}
+  </div>
+
+  <div class="wiki-roles__nav">
+    <button type="button" class="wiki-roles__btn" data-prev disabled>◂ prev</button>
+    <span class="wiki-roles__progress" data-progress>Step 1 of {stepCount}</span>
+    <button type="button" class="wiki-roles__btn" data-next>next ▸</button>
+  </div>
+
+  <noscript>
+    <p class="wiki-roles__noscript">Enable JavaScript to step through the two workflows.</p>
+  </noscript>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-roles]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.wiki-roles__tab'));
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('.wiki-roles__card'));
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const progress = root.querySelector<HTMLElement>('[data-progress]')!;
+
+    const paths = tabs.map((t) => t.dataset.path || '');
+    const stepCount = cards.filter((c) => c.dataset.path === paths[0]).length;
+
+    let path = paths[0];
+    let step = 0;
+
+    function render() {
+      cards.forEach((c) => {
+        const active = c.dataset.path === path && Number(c.dataset.step) === step;
+        c.hidden = !active;
+      });
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.path === path)));
+      progress.textContent = `Step ${step + 1} of ${stepCount}`;
+      prev.disabled = step === 0;
+      next.disabled = step === stepCount - 1;
+    }
+
+    tabs.forEach((t) =>
+      t.addEventListener('click', () => {
+        path = t.dataset.path || path;
+        render();
+      }),
+    );
+    prev.addEventListener('click', () => {
+      if (step > 0) {
+        step--;
+        render();
+      }
+    });
+    next.addEventListener('click', () => {
+      if (step < stepCount - 1) {
+        step++;
+        render();
+      }
+    });
+
+    render();
+  });
+</script>

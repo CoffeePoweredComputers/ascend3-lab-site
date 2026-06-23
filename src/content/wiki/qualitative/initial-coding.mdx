@@ -1,8 +1,8 @@
 ---
 title: Initial Coding
 module: qualitative
-order: 3
-description: First-cycle coding — turning jottings into descriptive and in vivo codes.
+order: 4
+description: First-cycle coding — the shared mechanic, and where the two paths' coding stances diverge.
 estMinutes: 9
 ---
 
@@ -12,27 +12,41 @@ import Cite from '@wiki/Cite.astro';
 import { initialCodingTurns } from '../../../data/qual-example';
 
 **First-cycle coding** is your first systematic pass: break the data into chunks and
-attach a short label to each <Cite id="saldana-2021" />. Two workhorse styles:
+attach a short label to each <Cite id="saldana-2021" />. Two workhorse **semantic** styles —
+codes that stay close to what was said:
 
 - **Descriptive coding** — *you* summarize the chunk in a word or phrase (`help-seeking delay`).
 - **In vivo coding** — the code *is the participant's own words* (`"think I was dumb"`),
   preserving their voice <Cite id="charmaz-2014" />.
 
-This stage is shared by both traditions — everyone codes the data first. What differs
-(next lessons) is what you do *with* the codes.
+The *mechanic* — segment, then label — is common to both traditions. But the **coding stance
+already diverges here**, and neither is the neutral default:
+
+- The **codebook / coding-reliability** path favors **semantic** codes like the ones above:
+  close to the surface, so they can be defined and applied consistently across coders. They
+  feed the codebook in the next lessons.
+- **Reflexive TA** leans on **latent** coding — reading for the meaning *underneath* the
+  words. The [Reflexive Coding](/wiki/qualitative/reflexive-coding-and-themes) lesson recodes
+  these *same excerpts* that way (e.g. `"think I was dumb"` → `managing how I am seen`).
+
+The worked example below uses the semantic stance — read it as *one* reading, not the default.
 
 ## Code the example
 
-Same excerpts as before, now coded. Click any highlighted span to see the **code**, its
-**type**, the **memo** justifying it, and **what theme it will eventually roll up to**.
-(The roll-up is shown for orientation; in real work, themes come later — don't pre-judge.)
+Same excerpts as before, now coded the semantic way. Click any highlighted span to see the
+**code**, its **type**, the **memo** justifying it, and **what theme it rolls up to on the
+codebook path**. (The roll-up is shown for orientation; in real work, themes come later —
+don't pre-judge. Path B's latent recoding of the same spans is in [Reflexive Coding](/wiki/qualitative/reflexive-coding-and-themes).)
 
 <CodedTranscript turns={initialCodingTurns} />
 
-<Callout type="note" title="One chunk can get several codes">
+<Callout type="note" title="Codes (and themes) cut across participants">
 Segments often carry more than one code, and the same code recurs across participants —
-that recurrence is the raw material of categories. Code generously now; you'll prune later
-<Cite id="saldana-2021" />.
+that recurrence is the raw material of categories. Notice the spread above: each student's
+excerpt touches **several** themes (P3 is both a help-seeking *and* a debugging story), and
+each theme is built from **several** students (improvised debugging shows up in P3, P7, and
+P9). A theme is a pattern *across the dataset*, not a one-line summary of one person. Code
+generously now; you'll prune later <Cite id="saldana-2021" />.
 </Callout>
 
 ## Inductive, deductive, abductive?

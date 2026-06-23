@@ -1,7 +1,7 @@
 ---
 title: "Path A — Inter-Rater Reliability"
 module: qualitative
-order: 5
+order: 6
 description: Whether to use IRR, which measure to pick, how to read it, and the kappa paradox.
 estMinutes: 14
 ---
@@ -16,6 +16,12 @@ import Cite from '@wiki/Cite.astro';
 for the agreement you'd expect by chance*. It belongs to the codebook/coding-reliability
 path — and, importantly, **not every study should report it** <Cite id="mcdonald-2019" />
 <Cite id="oconnor-joffe-2020" />.
+
+The word that does the work is **independent**. A reliability coefficient is only meaningful
+on a set the two coders code *separately, before discussing it* — so the
+consolidate-as-you-go loop from the [previous lesson](/wiki/qualitative/codebook-and-team-coding)
+(which builds the codebook by consensus) can't produce one. If you need a number, reserve a
+fresh, un-reconciled set and code it independently first.
 
 ## First question: should you use IRR at all?
 
@@ -56,7 +62,7 @@ coefficient measures the wrong thing <Cite id="braun-clarke-2019" />. Use this g
     },
     'r-skip': {
       result:
-        'IRR is likely inappropriate. Report reflexivity, an audit trail, and rich theme definitions instead (see Lessons 6–7).',
+        'IRR is likely inappropriate. Report reflexivity, an audit trail, and rich theme definitions instead (see Lessons 7–8).',
     },
     'r-cohen': {
       result:

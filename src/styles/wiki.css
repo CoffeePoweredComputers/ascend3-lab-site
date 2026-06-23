@@ -114,10 +114,11 @@
 
 
 /* ── Lesson layout ── */
-/* Wide frame so interactive/visual widgets get room; flowing text is capped
-   below to a comfortable reading measure. */
+/* One content column shared by text, headings, tables, and interactive widgets,
+   so every element lines up on the same left/right edges with a modest,
+   consistent inset (no uneven right-hand gutter). */
 .wiki-article {
-  max-width: 88rem;
+  max-width: 64rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
 }
@@ -132,17 +133,8 @@
   margin-top: 1.1em;
 }
 
-/* Keep running text at a readable line length; visual widgets (everything not
-   listed here) span the full frame width. */
-.wiki-prose > p,
-.wiki-prose > ul,
-.wiki-prose > ol,
-.wiki-prose > blockquote,
-.wiki-prose > .wiki-callout,
-.wiki-prose > .wiki-steps,
-.wiki-prose > .wiki-reveal {
-  max-width: 60rem;
-}
+/* Text and visual widgets share the single column width set on .wiki-article —
+   no per-element cap, so nothing leaves an uneven right-hand gutter. */
 
 .wiki-prose h1 {
   font-size: 2rem;
@@ -1267,4 +1259,215 @@
     color: var(--color-text-muted);
     margin-bottom: 0.15rem;
   }
+}
+
+/* ── RoleWalkthrough: who does what, and when ── */
+.wiki-roles {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.wiki-roles__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.wiki-roles__tab {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.wiki-roles__tab:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.wiki-roles__tab[aria-selected="true"] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.wiki-roles__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin: 0.85rem 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+.wiki-roles__legend-item { display: inline-flex; align-items: center; gap: 0.3rem; }
+.wiki-roles__icon { font-size: 1rem; line-height: 1; }
+.wiki-roles__stage { min-height: 9rem; }
+.wiki-roles__card {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-base);
+  border-left: 4px solid var(--color-primary);
+}
+.wiki-roles__card[hidden] { display: none; }
+.wiki-roles__card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.wiki-roles__stage-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.wiki-roles__badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.wiki-roles__badge--neutral {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+.wiki-roles__badge--good {
+  color: var(--color-secondary);
+  background: rgba(22, 101, 52, 0.1);
+  border-color: var(--color-secondary);
+}
+.wiki-roles__badge--warn {
+  color: var(--color-accent);
+  background: rgba(217, 119, 6, 0.12);
+  border-color: var(--color-accent);
+}
+.wiki-roles__actors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.7rem 0;
+}
+.wiki-roles__actor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.wiki-roles__body { margin: 0; font-size: 0.95rem; }
+.wiki-roles__contrast {
+  margin: 0.8rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px dashed var(--color-border);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.wiki-roles__contrast-lead {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.wiki-roles__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+.wiki-roles__btn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+.wiki-roles__btn:hover:not(:disabled) { border-color: var(--color-primary); }
+.wiki-roles__btn:disabled { color: var(--color-text-muted); cursor: not-allowed; opacity: 0.5; }
+.wiki-roles__progress { font-size: 0.82rem; color: var(--color-text-muted); }
+.wiki-roles__noscript { margin: 0.5rem 0 0; font-size: 0.85rem; color: var(--color-text-muted); }
+
+/* RoleWalkthrough — per-step visual artifacts */
+.wiki-roles__visual { margin-top: 0.85rem; }
+.wiki-roles__memo {
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-text-muted);
+}
+.wiki-roles__memo-quote { margin: 0; font-style: italic; font-size: 0.92rem; }
+.wiki-roles__memo-note { margin: 0.4rem 0 0; font-size: 0.82rem; color: var(--color-text-muted); }
+.wiki-roles__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+.wiki-roles__col {
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+.wiki-roles__col-label {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+.wiki-roles__col-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.wiki-roles__tag {
+  margin-left: 0.3rem;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+.wiki-roles__cb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.wiki-roles__cb th,
+.wiki-roles__cb td {
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.wiki-roles__cb th {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+.wiki-roles__cb-code { font-family: var(--font-mono); font-size: 0.8rem; white-space: nowrap; }
+.wiki-roles__themes { display: flex; flex-direction: column; gap: 0.6rem; }
+.wiki-roles__theme {
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+.wiki-roles__theme-name {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 639px) {
+  .wiki-roles__cols { grid-template-columns: 1fr; }
 }

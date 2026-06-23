@@ -1,17 +1,15 @@
 ---
 title: "Path B — Reviewing & Defining Themes"
 module: qualitative
-order: 7
-description: Generating, reviewing, and naming themes — then comparing both paths' results.
-estMinutes: 11
+order: 8
+description: Generating, reviewing, and naming reflexive themes.
+estMinutes: 10
 ---
 
-import Callout from '@wiki/Callout.astro';
 import Steps from '@wiki/Steps.astro';
 import ThemeTree from '@wiki/ThemeTree.astro';
-import SideBySide from '@wiki/SideBySide.astro';
 import Cite from '@wiki/Cite.astro';
-import { reflexiveThemes, themeComparisonRows } from '../../../data/qual-example';
+import { reflexiveThemes } from '../../../data/qual-example';
 
 Codes are not themes. A **theme** captures a *patterned meaning* organized around a central
 idea <Cite id="braun-clarke-2022" />. Building them is the affinity move: cluster related
@@ -31,21 +29,6 @@ and access:
 
 <ThemeTree themes={reflexiveThemes} open />
 
-## The payoff: same data, two valid readings
-
-The two paths reach a **matched theme for each phenomenon** — built from the *same
-interviews* — but frame it differently. Read each row across: descriptive and reliably
-codable on the left, interpretive and researcher-constructed on the right.
-
-<SideBySide
-  leftLabel="Codebook (Path A)"
-  rightLabel="Reflexive (Path B)"
-  rows={themeComparisonRows}
-/>
-
-<Callout type="tip" title="The lesson of the whole module">
-Method is a choice with consequences. The codebook path buys you transferability and a
-reliability claim; the reflexive path buys you interpretive depth. Choose the one your
-question and epistemology call for — and report it honestly <Cite id="braun-clarke-2021-onesize" />
-<Cite id="mcdonald-2019" />.
-</Callout>
+With both paths' themes now in hand, the next lesson —
+[Comparing the Two Paths](/wiki/qualitative/comparing-the-two-paths) — sets them side by side:
+the same interviews, read two ways.
