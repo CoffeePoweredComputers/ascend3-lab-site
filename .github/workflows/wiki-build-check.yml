@@ -1,0 +1,42 @@
+# Fails a PR that would break the static build — the real correctness gate for
+# in-app wiki contributions. Neither Firestore rules nor an admin eyeballing a
+# diff catch a Zod-schema or MDX-compile error; this can.
+#
+# WIKI_RENDER_ALL=1 forces every lesson to render (drafts + under-construction),
+# so new-lesson / new-module contributions (which land hidden) still get their
+# MDX bodies compiled here instead of only at publish time.
+#
+# No Firebase secret is needed: the build reads PUBLIC_FIREBASE_* only in client
+# scripts (loaded lazily in the browser), so it compiles fine without them.
+#
+# NOTE: a per-PR *rendered preview* is intentionally NOT wired here — the site is
+# self-hosted (nginx VM), not Firebase Hosting. If a preview URL is wanted later,
+# deploy dist/ to the VM (or a static-preview service) as a separate step.
+name: Wiki build check
+
+on:
+  pull_request:
+    paths:
+      - 'src/content/wiki/**'
+      - 'src/data/wiki-modules.json'
+      - 'src/content.config.ts'
+      - 'src/data/references.json'
+      - 'src/lib/wiki.ts'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Build
+        run: npm run build
+        env:
+          WIKI_RENDER_ALL: '1'

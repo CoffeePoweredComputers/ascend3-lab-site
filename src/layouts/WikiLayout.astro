@@ -9,8 +9,16 @@
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
-const { title, description = "ASCEND Lab Wiki — interactive lab handbook." } = Astro.props;
+const { title, description = "ASCEND Lab Wiki — interactive lab handbook.", noindex = false } = Astro.props;
+
+// Preview-channel builds set WIKI_RENDER_ALL=1 (they render drafts). Mark the
+// WHOLE preview site noindex so an ephemeral per-PR URL never gets indexed —
+// the real deploy never sets this flag, so production indexing is unaffected.
+const isPreviewBuild =
+  (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env
+    ?.WIKI_RENDER_ALL === '1';
 
 import '../styles/global.css';
 import '../styles/wiki.css';
@@ -24,6 +32,7 @@ import Footer from '../components/Footer.astro';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {(noindex || isPreviewBuild) && <meta name="robots" content="noindex" />}
 
     <script is:inline>
       (function() {

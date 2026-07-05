@@ -1,0 +1,91 @@
+[
+  {
+    "slug": "purplex-splice",
+    "title": "Purplex Development for SPLICE Interoperability",
+    "shortTitle": "Purplex × SPLICE",
+    "area": "tools",
+    "status": "recruiting",
+    "prereq": "Comfortable writing JavaScript/TypeScript. No research experience required.",
+    "lede": "Purplex is the lab's own problem-authoring platform, and SPLICE is the shared exchange format the broader CS-ed tooling community is converging on. You'd work on making Purplex speak SPLICE — exporting problems and interaction logs in a format other researchers' tools can read — and testing that round-trip against real SPLICE-compatible tools.",
+    "mentorId": "dhsmith",
+    "teamIds": [
+      "dhsmith"
+    ],
+    "materials": [],
+    "wikiLinks": [
+      "design/overview"
+    ]
+  },
+  {
+    "slug": "probeable-problems-qual",
+    "title": "Qualitative Analysis of Student Interactions with Probeable Problems",
+    "shortTitle": "Probeable Problems",
+    "area": "qual",
+    "status": "recruiting",
+    "prereq": "No coding required — this is a qualitative, participant-facing role.",
+    "lede": "Working with Vanshika, you'd help create new \"probeable problems\" in Purplex — problems designed to be explored through questions rather than solved outright — then run think-aloud interviews where students work through them out loud while you observe. You'd help build the codebook for those interactions and look for patterns in how students probe unfamiliar problems.",
+    "mentorId": "vanshika",
+    "teamIds": [
+      "dhsmith",
+      "vanshika"
+    ],
+    "materials": [],
+    "wikiLinks": [
+      "qualitative/overview",
+      "qualitative/codebook-and-team-coding",
+      "qualitative/inter-rater-reliability"
+    ]
+  },
+  {
+    "slug": "decomposition-diagrams",
+    "title": "Decomposition Diagram Analysis and Autograding",
+    "shortTitle": "Decomposition Diagrams",
+    "area": "assessment",
+    "status": "recruiting",
+    "prereq": "Comfort with organizing data (e.g. spreadsheets); Python is a plus for the autograding half but not required to start.",
+    "lede": "We've collected a large set of decomposition diagrams from a data-science course — visual breakdowns of how students structured their solutions. Working with Monisha, you'd sort and categorize the diagram types students produced, help build a rubric for grading them consistently, and then prototype ways to auto-grade diagrams against that rubric.",
+    "mentorId": "monisha",
+    "teamIds": [
+      "dhsmith",
+      "monisha"
+    ],
+    "materials": [],
+    "wikiLinks": [
+      "quantitative/overview"
+    ]
+  },
+  {
+    "slug": "eipl-prompt-feedback",
+    "title": "Investigating Grading and Feedback Approaches for EiPL and Prompt Problems",
+    "shortTitle": "EiPL & Prompt Feedback",
+    "area": "assessment",
+    "status": "recruiting",
+    "prereq": "Python and basic data analysis (e.g. pandas) will help; we'll teach the rest.",
+    "lede": "EiPL (\"Explain in Plain Language\") and Prompt Problems are two exercise types the lab uses to study how students reason about code and AI-generated solutions. You'd help compare grading and feedback approaches for both — building a hand-graded baseline, testing an LLM-based grader against it, and analyzing where the two agree and diverge.",
+    "mentorId": "dhsmith",
+    "teamIds": [
+      "dhsmith"
+    ],
+    "materials": [],
+    "wikiLinks": [
+      "quantitative/overview"
+    ]
+  },
+  {
+    "slug": "debuggers-comprehension",
+    "title": "Designing \"Debuggers\" for Code Comprehension",
+    "shortTitle": "Debuggers",
+    "area": "tools",
+    "status": "recruiting",
+    "prereq": "Comfortable in Python; front-end/JS experience is a plus for the prototyping half.",
+    "lede": "We're prototyping a visual debugger — in the spirit of Python Tutor — built for code comprehension, not just bug-hunting. You'd help build the prototype, run sessions where students use it to make sense of unfamiliar code, and turn what you observe into concrete design goals for the next iteration.",
+    "mentorId": "dhsmith",
+    "teamIds": [
+      "dhsmith"
+    ],
+    "materials": [],
+    "wikiLinks": [
+      "design/overview"
+    ]
+  }
+]

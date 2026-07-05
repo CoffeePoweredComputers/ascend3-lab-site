@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import WikiLayout from '../../layouts/WikiLayout.astro';
 import LessonNav from '../../components/wiki/LessonNav.astro';
 import { getLessons, getLessonsByModule, getModule, lessonHref, type WikiLesson } from '../../lib/wiki';
+import AnnotationLayer from '../../components/wiki/AnnotationLayer.astro';
 
 export async function getStaticPaths() {
   const lessons = await getLessons();
@@ -49,9 +50,31 @@ const { title, description, estMinutes } = lesson.data;
         </p>
       )}
 
-      <Content />
+      <div class="wiki-editlink" data-editlink hidden>
+        <a class="wiki-editlink__a" href={`/wiki/edit?slug=${lesson.id}`}>✎ Edit this page</a>
+      </div>
+
+      <div class="wiki-annotatable" data-lesson-slug={lesson.id}>
+        <Content />
+      </div>
     </div>
 
     <LessonNav lessonId={lesson.id} prev={prev} next={next} />
   </article>
+
+  <AnnotationLayer />
 </WikiLayout>
+
+<script>
+  // Reveal "Edit this page" only for editors. Reuses the `wiki-auth-change`
+  // event AuthWidget already broadcasts, so read-only visitors load no Firebase.
+  const el = document.querySelector<HTMLElement>('[data-editlink]');
+  if (el) {
+    const reveal = (m: { status?: string; role?: string; editor?: boolean } | null | undefined) => {
+      el.hidden = !(m && m.status === 'member' && (m.role === 'admin' || m.editor === true));
+    };
+    window.addEventListener('wiki-auth-change', (e) => {
+      reveal((e as CustomEvent<{ member: { status?: string; role?: string; editor?: boolean } | null }>).detail?.member);
+    });
+  }
+</script>

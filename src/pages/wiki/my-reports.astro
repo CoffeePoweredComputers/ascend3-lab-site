@@ -1,0 +1,128 @@
+---
+/**
+ * /wiki/my-reports — a member's own filed reports and how they were resolved.
+ *
+ * Static page, client-rendered and gated: the script subscribes to the signed-in
+ * user's reports (rules only return their own). Firebase is loaded here on purpose
+ * (this page is for signed-in members). noindex — it's a personal, gated view.
+ */
+import WikiLayout from '../../layouts/WikiLayout.astro';
+
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+---
+
+<WikiLayout title="My reports" noindex>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">&gt; Account</p>
+      <h1>My reports</h1>
+      <p class="text-text-muted">Issues, questions, and suggestions you've filed — and how they were resolved.</p>
+
+      <div class="wiki-myreports" data-state={configured ? 'loading' : 'notconfigured'}>
+        <p class="wiki-myreports__msg wiki-myreports__loading">Loading your reports…</p>
+
+        <div class="wiki-myreports__msg wiki-myreports__signedout">
+          <p>Sign in with your Virginia Tech account to see your reports.</p>
+          <button type="button" class="wiki-report__signin" data-myreports-signin>Sign in with Google</button>
+        </div>
+
+        <p class="wiki-myreports__msg wiki-myreports__empty">
+          You haven't filed any reports yet. On any lesson, select text or hover a widget to report an issue.
+        </p>
+
+        <p class="wiki-myreports__msg wiki-myreports__notconfigured">Reporting isn't set up yet.</p>
+        <p class="wiki-myreports__msg wiki-myreports__error">Couldn't load your reports — check your connection and reload.</p>
+
+        <ul class="wiki-myreports__list" data-myreports-list role="list"></ul>
+      </div>
+    </div>
+  </article>
+</WikiLayout>
+
+<script>
+  import type { Annotation } from '@lib/annotate/types';
+  import { toast } from '@lib/annotate/toast';
+
+  const box = document.querySelector<HTMLElement>('.wiki-myreports');
+  const listEl = document.querySelector<HTMLElement>('[data-myreports-list]');
+
+  if (box && listEl && box.dataset.state !== 'notconfigured') {
+    (async () => {
+      const { onUser, signIn, isVtEmail } = await import('@lib/annotate/auth');
+      const { watchMyReports } = await import('@lib/annotate/annotations');
+      const { TYPE_META, STATUS_META } = await import('@lib/annotate/meta');
+
+      const esc = (s: string) =>
+        s.replace(/[&<>"']/g, (c) => (
+          { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string
+        ));
+
+      const shortLink = (url: string) => {
+        const pr = url.match(/\/pull\/(\d+)/);
+        if (pr) return `PR #${pr[1]}`;
+        const commit = url.match(/\/commit\/([0-9a-f]{7})/);
+        if (commit) return `commit ${commit[1]}`;
+        return url.replace(/^https?:\/\//, '').slice(0, 48);
+      };
+
+      const renderItem = (r: Annotation) => {
+        const t = TYPE_META[r.type] ?? { icon: '•', label: r.type };
+        const st = STATUS_META[r.status] ?? { label: r.status, color: 'var(--color-text-muted)' };
+        const where =
+          r.selector?.kind === 'block'
+            ? esc(r.selector.label)
+            : `“${esc((r.selector?.quote ?? '').slice(0, 120))}”`;
+        const created =
+          r.createdAt && typeof r.createdAt.toDate === 'function'
+            ? r.createdAt.toDate().toLocaleDateString()
+            : '';
+        const resolution = r.resolutionUrl
+          ? `<a class="wiki-myreports__pr" href="${esc(r.resolutionUrl)}" target="_blank" rel="noopener noreferrer">Resolved by ${esc(shortLink(r.resolutionUrl))} ↗</a>`
+          : '';
+        const resNote = r.resolutionNote
+          ? `<p class="wiki-myreports__resnote">${esc(r.resolutionNote)}</p>`
+          : '';
+        const issue = r.issueUrl
+          ? `<a class="wiki-myreports__pr" href="${esc(r.issueUrl)}" target="_blank" rel="noopener noreferrer">Tracked in #${esc(String(r.issueNumber ?? ''))} ↗</a>`
+          : '';
+        return `<li class="wiki-myreports__item">
+          <div class="wiki-myreports__row">
+            <span class="wiki-myreports__type">${t.icon} ${esc(t.label)}</span>
+            <span class="wiki-myreports__status" style="--s:${st.color}">${esc(st.label)}</span>
+          </div>
+          <p class="wiki-myreports__note">${esc(r.note)}</p>
+          <p class="wiki-myreports__ctx">${where} · <a href="/wiki/${esc(r.lessonSlug)}">${esc(r.lessonSlug)}</a>${created ? ' · ' + created : ''}</p>
+          ${resolution}${resNote}${issue}
+        </li>`;
+      };
+
+      let unsub: (() => void) | null = null;
+      onUser((user) => {
+        if (!user || !isVtEmail(user.email)) {
+          box.dataset.state = 'signedout';
+          if (unsub) { unsub(); unsub = null; }
+          return;
+        }
+        if (unsub) unsub();
+        unsub = watchMyReports(
+          user.uid,
+          (reports) => {
+            if (!reports.length) { box.dataset.state = 'empty'; return; }
+            box.dataset.state = 'list';
+            listEl.innerHTML = reports.map(renderItem).join('');
+          },
+          (err) => {
+            box.dataset.state = 'error';
+            toast(`Couldn't load your reports: ${err.message}`, 'error');
+          },
+        );
+      });
+
+      document.querySelector('[data-myreports-signin]')?.addEventListener('click', async () => {
+        try { await signIn(); } catch { /* onUser reflects the outcome */ }
+      });
+    })();
+  }
+</script>

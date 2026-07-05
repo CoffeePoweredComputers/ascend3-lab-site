@@ -5,7 +5,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@wiki/*": ["src/components/wiki/*"]
+      "@wiki/*": ["src/components/wiki/*"],
+      "@lib/*": ["src/lib/*"]
     }
   }
 }

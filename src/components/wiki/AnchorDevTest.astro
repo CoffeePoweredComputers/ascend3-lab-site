@@ -1,0 +1,142 @@
+---
+/**
+ * AnchorDevTest — DEV-ONLY verification harness for the anchoring engine.
+ *
+ * Rendered only under `{import.meta.env.DEV && ...}` in the lesson page, and its
+ * script is additionally wrapped in `if (import.meta.env.DEV)` so Vite
+ * dead-code-eliminates it (and its imports) from production builds. Inline
+ * styles keep it self-contained; nothing here ships to prod.
+ *
+ * Verifies BOTH anchor kinds:
+ *  - text  — select any prose to describe→anchor→highlight (reuses one highlight).
+ *  - block — hover an interactive widget to get a "💬 Comment" handle; clicking it
+ *            anchors the whole widget and outlines it.
+ * "Clear" / Escape removes everything. Throwaway tool — the real layer (Phase 3)
+ * only persists highlights for saved annotations.
+ */
+---
+
+<div
+  class="anchor-dev"
+  style="position:fixed;bottom:12px;right:12px;z-index:9999;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:#1e293b;color:#e2e8f0;font:500 12px/1.3 ui-monospace,monospace;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:min(90vw,460px)"
+>
+  <span style="width:8px;height:8px;border-radius:9999px;background:#D97706;flex-shrink:0"></span>
+  <span data-dev-status style="flex:1;min-width:0">anchor dev…</span>
+  <button
+    type="button"
+    data-dev-clear
+    style="border:1px solid #475569;background:#334155;color:#e2e8f0;border-radius:6px;padding:2px 8px;font:inherit;cursor:pointer;flex-shrink:0"
+  >Clear</button>
+</div>
+
+<script>
+  if (import.meta.env.DEV) {
+    (async () => {
+      const { anchor, describe, markInteractive, annotatableText, assignBlockIds, describeBlock, anchorBlock } =
+        await import('@lib/annotate/anchor');
+      const { setHighlight, removeHighlight, clearHighlights, setActiveHighlight, setBlockMarker, hitTest, highlightsSupported } =
+        await import('@lib/annotate/highlight');
+
+      const root = document.querySelector<HTMLElement>('.wiki-annotatable');
+      const statusEl = document.querySelector<HTMLElement>('[data-dev-status]');
+      const clearBtn = document.querySelector<HTMLElement>('[data-dev-clear]');
+      if (!root || !statusEl) return;
+      markInteractive(root);
+      const blocks = assignBlockIds(root);
+
+      const setStatus = (msg: string) => { statusEl.textContent = msg; };
+      const tag = '%c[anchor dev]';
+      const style = 'color:#D97706;font-weight:bold';
+
+      // ── Automated text round-trip on load ──
+      const text = annotatableText(root);
+      const spans: Array<[number, number]> = [
+        [Math.floor(text.length * 0.15), Math.floor(text.length * 0.15) + 48],
+        [Math.floor(text.length * 0.5), Math.floor(text.length * 0.5) + 60],
+        [Math.floor(text.length * 0.8), Math.floor(text.length * 0.8) + 40],
+      ];
+      let pass = 0;
+      spans.forEach(([s, e], i) => {
+        if (e > text.length) return;
+        const sel = {
+          kind: 'text' as const,
+          quote: text.slice(s, e),
+          prefix: text.slice(Math.max(0, s - 32), s),
+          suffix: text.slice(e, e + 32),
+          start: s,
+          end: e,
+        };
+        const range = anchor(root, sel);
+        const ok = !!range && range.toString() === sel.quote;
+        if (ok && range) { setHighlight('auto' + i, range); pass++; }
+        console.log(tag, style, ok ? '✓' : '✗ orphaned', JSON.stringify(sel.quote.slice(0, 42) + '…'));
+      });
+
+      const supported = highlightsSupported();
+      setStatus(`Highlight API ${supported ? '✓' : '✗'} · text ${pass}/${spans.length} · ${blocks.length} widgets · select prose or hover a widget`);
+      console.log(tag, style, `CSS Highlight API: ${supported} · text round-trip ${pass}/${spans.length} · ${blocks.length} block(s)`);
+
+      const clearAll = () => { clearHighlights(); setStatus('cleared'); };
+      clearBtn?.addEventListener('click', clearAll);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') clearAll(); });
+
+      // ── Text: select prose → describe → re-anchor → highlight (reuses one id) ──
+      document.addEventListener('mouseup', () => {
+        const s = window.getSelection();
+        if (!s || s.isCollapsed || s.rangeCount === 0) return;
+        const range = s.getRangeAt(0);
+        if (!root.contains(range.commonAncestorContainer)) return;
+        const sel = describe(root, range);
+        if (!sel) { setStatus('✗ selection rejected (empty or inside a widget)'); return; }
+        const back = anchor(root, sel);
+        const ok = !!back && back.toString() === sel.quote;
+        if (back) { setHighlight('current', back); setActiveHighlight('current'); }
+        setStatus(ok ? `✓ text: "${sel.quote.slice(0, 40)}${sel.quote.length > 40 ? '…' : ''}"` : '✗ round-trip mismatch');
+        console.log(tag, style, ok ? '✓ text round-trip' : '✗ MISMATCH', sel);
+      });
+
+      root.addEventListener('click', (e) => {
+        const id = hitTest(e.clientX, e.clientY);
+        if (id) { console.log(tag, style, 'hit-test →', id); return; }
+        const s = window.getSelection();
+        if (!s || s.isCollapsed) { removeHighlight('current'); setActiveHighlight(null); }
+      });
+
+      // ── Block: hover a widget → shared "Comment" handle → click → block anchor ──
+      const handle = document.createElement('button');
+      handle.type = 'button';
+      handle.className = 'wiki-block-handle';
+      handle.textContent = '💬 Comment';
+      document.body.appendChild(handle);
+      let hoverWidget: HTMLElement | null = null;
+      let hideTimer: number | undefined;
+
+      const positionHandle = (el: HTMLElement) => {
+        const r = el.getBoundingClientRect();
+        handle.style.top = `${Math.max(8, r.top + 8)}px`;
+        handle.style.left = `${Math.max(8, r.right - 112)}px`;
+        handle.classList.add('is-visible');
+        hoverWidget = el;
+      };
+      const scheduleHide = () => {
+        clearTimeout(hideTimer);
+        hideTimer = window.setTimeout(() => { handle.classList.remove('is-visible'); hoverWidget = null; }, 160);
+      };
+      blocks.forEach(({ el }) => {
+        el.addEventListener('pointerenter', () => { clearTimeout(hideTimer); positionHandle(el); });
+        el.addEventListener('pointerleave', scheduleHide);
+      });
+      handle.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+      handle.addEventListener('pointerleave', scheduleHide);
+      handle.addEventListener('click', () => {
+        if (!hoverWidget) return;
+        const sel = describeBlock(hoverWidget);
+        if (!sel) return;
+        const target = anchorBlock(root, sel);
+        if (target) setBlockMarker('block:' + sel.blockId, target);
+        setStatus(`✓ block: ${sel.label} (${sel.blockId})`);
+        console.log(tag, style, '✓ block anchor', sel);
+      });
+    })();
+  }
+</script>

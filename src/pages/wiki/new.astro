@@ -1,0 +1,412 @@
+---
+/**
+ * /wiki/new — guided scaffolding for proposing NEW content: a new lesson in an
+ * existing module, or a whole new module (registry entry + its first lesson in
+ * one atomic PR).
+ *
+ * Editor-gated like /wiki/edit. The module list + each module's existing lesson
+ * slugs/orders are injected at build time so the client can validate slug format,
+ * collisions, and suggest the next order without a round-trip. New lessons default
+ * to draft:true and new modules to underConstruction:true, so nothing lands live
+ * half-finished. noindex.
+ */
+import WikiLayout from '../../layouts/WikiLayout.astro';
+import { getCollection } from 'astro:content';
+import { getModules } from '../../lib/wiki';
+
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+
+// Build-time data for client validation: every module + every existing lesson
+// slug/order per module (including drafts + under-construction, so collisions
+// against hidden files are still caught).
+const modules = getModules().map((m) => ({ slug: m.slug, title: m.title, order: m.order }));
+const all = await getCollection('wiki');
+const siblings: Record<string, { slug: string; order: number }[]> = {};
+for (const l of all) {
+  const filename = l.id.split('/').pop() ?? l.id;
+  (siblings[l.data.module] ??= []).push({ slug: filename, order: l.data.order });
+}
+const clientData = JSON.stringify({ modules, siblings });
+---
+
+<WikiLayout title="Propose new content" noindex>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">&gt; Editor</p>
+      <h1>Propose new content</h1>
+
+      <div class="wiki-new" data-state={configured ? 'loading' : 'notconfigured'}>
+        <script type="application/json" data-new-data set:html={clientData} is:inline></script>
+
+        <p class="wiki-new__msg wiki-new__loading">Loading…</p>
+        <div class="wiki-new__msg wiki-new__signedout">
+          <p>Sign in with your Virginia Tech account to propose content.</p>
+          <button type="button" class="wiki-report__signin" data-new-signin>Sign in with Google</button>
+        </div>
+        <p class="wiki-new__msg wiki-new__noteditor">
+          You don't have editor access yet. Ask a lab admin to grant you the editor role.
+        </p>
+        <p class="wiki-new__msg wiki-new__notconfigured">Editing isn't set up yet.</p>
+        <p class="wiki-new__msg wiki-new__error" data-new-error>Something went wrong.</p>
+
+        <form class="wiki-new__form" data-new-form data-mode="lesson">
+          <div class="wiki-new__modes" role="tablist">
+            <label class="wiki-new__mode">
+              <input type="radio" name="mode" value="lesson" checked data-mode-radio />
+              <span>New lesson</span>
+            </label>
+            <label class="wiki-new__mode">
+              <input type="radio" name="mode" value="module" data-mode-radio />
+              <span>New module</span>
+            </label>
+          </div>
+
+          <!-- ── NEW LESSON ── -->
+          <fieldset class="wiki-new__pane" data-pane="lesson">
+            <label class="wiki-new__field">
+              <span>Module</span>
+              <select data-l-module></select>
+            </label>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Title</span>
+              <input type="text" data-l-title placeholder="e.g. Choosing a Sampling Strategy" />
+            </label>
+            <div class="wiki-new__row">
+              <label class="wiki-new__field">
+                <span>Filename slug</span>
+                <input type="text" data-l-slug placeholder="choosing-a-sampling-strategy" />
+                <small class="wiki-new__hint" data-l-slug-hint>lowercase-hyphenated; becomes the URL</small>
+              </label>
+              <label class="wiki-new__field">
+                <span>Order</span>
+                <input type="number" step="any" data-l-order />
+              </label>
+              <label class="wiki-new__field">
+                <span>Est. minutes <em>(optional)</em></span>
+                <input type="number" min="0" data-l-est />
+              </label>
+            </div>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Description <em>(optional)</em></span>
+              <input type="text" data-l-desc />
+            </label>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Sidebar sub-group <em>(optional)</em></span>
+              <input type="text" data-l-group placeholder="e.g. Path A — Codebook / IRR" />
+              <small class="wiki-new__hint">Lessons sharing this label AND adjacent order numbers nest under one heading.</small>
+            </label>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Content <em>(Markdown / MDX)</em></span>
+              <textarea class="wiki-edit__body" data-l-body rows="16"></textarea>
+            </label>
+          </fieldset>
+
+          <!-- ── NEW MODULE ── -->
+          <fieldset class="wiki-new__pane" data-pane="module" hidden>
+            <p class="wiki-new__lede">A module needs a registry entry AND at least one lesson — this form creates both in one PR.</p>
+            <div class="wiki-new__row">
+              <label class="wiki-new__field">
+                <span>Module slug</span>
+                <input type="text" data-m-slug placeholder="mixed-methods" />
+                <small class="wiki-new__hint" data-m-slug-hint>lowercase-hyphenated; the folder name</small>
+              </label>
+              <label class="wiki-new__field">
+                <span>Icon <em>(emoji)</em></span>
+                <input type="text" data-m-icon placeholder="🔬" maxlength="4" />
+              </label>
+              <label class="wiki-new__field">
+                <span>Order</span>
+                <input type="number" step="any" data-m-order />
+              </label>
+            </div>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Module title</span>
+              <input type="text" data-m-title placeholder="Mixed Methods" />
+            </label>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Blurb <em>(one-line description on the landing card)</em></span>
+              <input type="text" data-m-blurb />
+            </label>
+            <label class="wiki-new__check">
+              <input type="checkbox" data-m-underconstruction checked />
+              <span>Under construction — module shown as a placeholder until unchecked</span>
+            </label>
+            <hr class="wiki-new__hr" />
+            <p class="wiki-new__sublede">First lesson</p>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Lesson title</span>
+              <input type="text" data-m-ltitle placeholder="Overview" />
+            </label>
+            <label class="wiki-new__field">
+              <span>Lesson filename slug</span>
+              <input type="text" data-m-lslug placeholder="overview" />
+            </label>
+            <label class="wiki-new__field wiki-new__field--wide">
+              <span>Lesson content <em>(Markdown / MDX)</em></span>
+              <textarea class="wiki-edit__body" data-m-lbody rows="12"></textarea>
+            </label>
+          </fieldset>
+
+          <label class="wiki-new__field wiki-new__field--wide">
+            <span>Describe your proposal <em>(becomes the PR description)</em></span>
+            <textarea class="wiki-edit__summary" data-new-summary rows="3"></textarea>
+          </label>
+
+          <p class="wiki-new__validation" data-new-validation hidden></p>
+
+          <div class="wiki-edit__actions">
+            <button type="submit" class="wiki-edit__submit" data-new-submit>Open pull request</button>
+            <a class="wiki-edit__cancel" href="/wiki">Cancel</a>
+          </div>
+
+          <div class="wiki-edit__result" data-new-result hidden></div>
+        </form>
+      </div>
+    </div>
+  </article>
+</WikiLayout>
+
+<script>
+  import type { SourceEditor } from '@lib/annotate/editor';
+
+  const box = document.querySelector<HTMLElement>('.wiki-new');
+  if (box && box.dataset.state !== 'notconfigured') {
+    (async () => {
+      const { onUser, getMember, isEditor, isVtEmail, signIn } = await import('@lib/annotate/auth');
+      const { stringifyFrontmatter, buildFrontmatter } = await import('@lib/annotate/frontmatter');
+      const { openWikiPullRequest } = await import('@lib/annotate/pr');
+      const { mountSourceEditor } = await import('@lib/annotate/editor');
+
+      type ModuleInfo = { slug: string; title: string; order: number };
+      type Sib = { slug: string; order: number };
+      const data = JSON.parse(
+        box.querySelector('[data-new-data]')?.textContent || '{"modules":[],"siblings":{}}',
+      ) as { modules: ModuleInfo[]; siblings: Record<string, Sib[]> };
+
+      const q = <T extends HTMLElement = HTMLElement>(sel: string) => box.querySelector<T>(sel)!;
+      const setState = (s: string) => (box.dataset.state = s);
+      const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+      const slugify = (s: string) =>
+        s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      const nextOrder = (rows: Sib[] | undefined) =>
+        (rows && rows.length ? Math.max(...rows.map((r) => r.order)) : 0) + 1;
+
+      const form = q('[data-new-form]');
+      const validationEl = q('[data-new-validation]');
+      const submitBtn = q<HTMLButtonElement>('[data-new-submit]');
+      const resultEl = q('[data-new-result]');
+      const errEl = q('[data-new-error]');
+      const showError = (m: string) => {
+        errEl.textContent = m;
+        setState('error');
+      };
+
+      // ── lesson-mode refs ──
+      const lModule = q<HTMLSelectElement>('[data-l-module]');
+      const lTitle = q<HTMLInputElement>('[data-l-title]');
+      const lSlug = q<HTMLInputElement>('[data-l-slug]');
+      const lOrder = q<HTMLInputElement>('[data-l-order]');
+      const lEst = q<HTMLInputElement>('[data-l-est]');
+      const lDesc = q<HTMLInputElement>('[data-l-desc]');
+      const lGroup = q<HTMLInputElement>('[data-l-group]');
+      const lBody = q<HTMLTextAreaElement>('[data-l-body]');
+      let lSlugTouched = false;
+
+      // populate module dropdown
+      lModule.innerHTML = data.modules
+        .map((m) => `<option value="${m.slug}">${m.title}</option>`)
+        .join('');
+      const refreshLessonOrder = () => {
+        lOrder.value = String(nextOrder(data.siblings[lModule.value]));
+      };
+      refreshLessonOrder();
+      lModule.addEventListener('change', refreshLessonOrder);
+      lTitle.addEventListener('input', () => {
+        if (!lSlugTouched) lSlug.value = slugify(lTitle.value);
+      });
+      lSlug.addEventListener('input', () => (lSlugTouched = true));
+
+      // ── module-mode refs ──
+      const mSlug = q<HTMLInputElement>('[data-m-slug]');
+      const mIcon = q<HTMLInputElement>('[data-m-icon]');
+      const mOrder = q<HTMLInputElement>('[data-m-order]');
+      const mTitle = q<HTMLInputElement>('[data-m-title]');
+      const mBlurb = q<HTMLInputElement>('[data-m-blurb]');
+      const mUnder = q<HTMLInputElement>('[data-m-underconstruction]');
+      const mLTitle = q<HTMLInputElement>('[data-m-ltitle]');
+      const mLSlug = q<HTMLInputElement>('[data-m-lslug]');
+      const mLBody = q<HTMLTextAreaElement>('[data-m-lbody]');
+      let mSlugTouched = false;
+      let mLSlugTouched = false;
+      let lBodyEditor: SourceEditor | null = null;
+      let mBodyEditor: SourceEditor | null = null;
+      mOrder.value = String(nextOrder(data.modules));
+      mTitle.addEventListener('input', () => {
+        if (!mSlugTouched) mSlug.value = slugify(mTitle.value);
+      });
+      mSlug.addEventListener('input', () => (mSlugTouched = true));
+      mLTitle.addEventListener('input', () => {
+        if (!mLSlugTouched) mLSlug.value = slugify(mLTitle.value);
+      });
+      mLSlug.addEventListener('input', () => (mLSlugTouched = true));
+
+      // ── mode switch ──
+      box.querySelectorAll<HTMLInputElement>('[data-mode-radio]').forEach((r) =>
+        r.addEventListener('change', () => {
+          if (!r.checked) return;
+          form.dataset.mode = r.value;
+          box.querySelectorAll<HTMLElement>('[data-pane]').forEach((p) => {
+            p.hidden = p.dataset.pane !== r.value;
+          });
+          validationEl.hidden = true;
+          // Re-measure the editor in the pane that just became visible.
+          (r.value === 'module' ? mBodyEditor : lBodyEditor)?.refresh();
+        }),
+      );
+
+      const invalid = (msg: string) => {
+        validationEl.textContent = msg;
+        validationEl.hidden = false;
+        return null;
+      };
+
+      // ── auth gate ──
+      onUser(async (user) => {
+        if (!user || !isVtEmail(user.email)) return setState('signedout');
+        const member = await getMember(user.uid);
+        if (!isEditor(member)) return setState('noteditor');
+        setState('ready');
+        if (!lBodyEditor) lBodyEditor = mountSourceEditor(lBody);
+        if (!mBodyEditor) mBodyEditor = mountSourceEditor(mLBody);
+        lBodyEditor.refresh();
+      });
+      q('[data-new-signin]').addEventListener('click', async () => {
+        try {
+          await signIn();
+        } catch {
+          /* onUser reflects it */
+        }
+      });
+
+      // ── submit ──
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitBtn.disabled) return;
+        validationEl.hidden = true;
+        const mode = form.dataset.mode;
+        const summary = q<HTMLTextAreaElement>('[data-new-summary]').value.trim();
+
+        let payload:
+          | Parameters<typeof openWikiPullRequest>[0]
+          | null = null;
+
+        if (mode === 'lesson') {
+          const mod = lModule.value;
+          const slug = lSlug.value.trim();
+          const order = Number(lOrder.value);
+          if (!lTitle.value.trim()) return invalid('Give the lesson a title.');
+          if (!SLUG_RE.test(slug)) return invalid('Slug must be lowercase letters, numbers, and hyphens.');
+          if ((data.siblings[mod] ?? []).some((s) => s.slug === slug))
+            return invalid(`A lesson "${slug}" already exists in ${mod}.`);
+          if (Number.isNaN(order)) return invalid('Order must be a number.');
+          const fm = buildFrontmatter({
+            title: lTitle.value.trim(),
+            module: mod,
+            order,
+            group: lGroup.value.trim() || undefined,
+            description: lDesc.value.trim() || undefined,
+            estMinutes: lEst.value ? Number(lEst.value) : undefined,
+            draft: true,
+          });
+          const bodyText = lBody.value.trim() || `Write the lesson here.\n\n## First section\n`;
+          payload = {
+            kind: 'new-lesson',
+            branchKey: `${mod}-${slug}`,
+            title: `[wiki] new lesson: ${mod}/${slug}`,
+            body: prBody(summary, `New lesson \`${mod}/${slug}\` (draft).`),
+            files: [{ path: `src/content/wiki/${mod}/${slug}.mdx`, content: stringifyFrontmatter(fm, bodyText) }],
+          };
+        } else {
+          const slug = mSlug.value.trim();
+          const lslug = mLSlug.value.trim();
+          if (!SLUG_RE.test(slug)) return invalid('Module slug must be lowercase-hyphenated.');
+          if (data.modules.some((m) => m.slug === slug))
+            return invalid(`A module "${slug}" already exists.`);
+          if (!mTitle.value.trim()) return invalid('Give the module a title.');
+          if (!mIcon.value.trim()) return invalid('Pick an icon emoji for the module.');
+          if (!mBlurb.value.trim()) return invalid('Add a one-line blurb.');
+          if (!mLTitle.value.trim()) return invalid('The first lesson needs a title.');
+          if (!SLUG_RE.test(lslug)) return invalid('First-lesson slug must be lowercase-hyphenated.');
+          const lessonFm = buildFrontmatter({
+            title: mLTitle.value.trim(),
+            module: slug,
+            order: 1,
+            draft: true,
+          });
+          const lessonBody = mLBody.value.trim() || `Write the lesson here.\n\n## First section\n`;
+          payload = {
+            kind: 'new-module',
+            branchKey: slug,
+            title: `[wiki] new module: ${slug}`,
+            body: prBody(summary, `New module \`${slug}\` + first lesson (under construction).`),
+            files: [
+              {
+                path: `src/content/wiki/${slug}/${lslug}.mdx`,
+                content: stringifyFrontmatter(lessonFm, lessonBody),
+              },
+            ],
+            moduleEntry: {
+              slug,
+              title: mTitle.value.trim(),
+              order: Number(mOrder.value),
+              icon: mIcon.value.trim(),
+              blurb: mBlurb.value.trim(),
+              underConstruction: mUnder.checked,
+            },
+          };
+        }
+
+        if (!payload) return;
+        const label = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-filing');
+        submitBtn.textContent = 'Opening PR…';
+        resultEl.hidden = true;
+        resultEl.className = 'wiki-edit__result';
+        try {
+          const pr = await openWikiPullRequest(payload);
+          resultEl.classList.add('is-success');
+          resultEl.innerHTML = `<p><strong>Pull request opened.</strong> <a href="${esc(
+            pr.url,
+          )}" target="_blank" rel="noopener noreferrer">Review PR #${pr.number} on GitHub ↗</a></p>`;
+          resultEl.hidden = false;
+          submitBtn.textContent = 'PR opened ✓';
+        } catch (err) {
+          const status = (err as { status?: number })?.status;
+          resultEl.classList.add('is-error');
+          resultEl.textContent =
+            status === 403 || status === 404
+              ? "Couldn’t open the PR — your GitHub account may not have write access yet. Ask an admin to add you as a collaborator."
+              : err instanceof Error
+                ? err.message
+                : 'Failed to open the pull request.';
+          resultEl.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('is-filing');
+          submitBtn.textContent = label;
+        }
+      });
+
+      function prBody(summary: string, headline: string) {
+        return [summary || headline, '', headline, '', '_Opened from the Lab Wiki in-app editor._'].join('\n');
+      }
+      function esc(s: string) {
+        return s.replace(/[&<>"']/g, (c) =>
+          ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string),
+        );
+      }
+    })();
+  }
+</script>

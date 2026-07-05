@@ -35,46 +35,18 @@ const nav = await getWikiNav();
         const first = m.lessons[0];
         const href = first ? lessonHref(first) : '/wiki';
         return (
-          <a href={href} class="card no-underline p-6 flex flex-col gap-3 group" data-mod={m.slug} data-mod-total={m.lessons.length}>
+          <a href={href} class="card no-underline p-6 flex flex-col gap-3 group" data-mod={m.slug}>
             <div class="flex items-center gap-3">
               <span class="text-2xl" aria-hidden="true">{m.icon}</span>
               <h2 class="font-heading text-lg font-bold text-text group-hover:text-primary transition-colors">{m.title}</h2>
             </div>
             <p class="text-sm text-text-muted flex-grow">{m.blurb}</p>
-            <div class="flex items-center justify-between text-xs font-mono text-text-muted pt-2">
+            <div class="text-xs font-mono text-text-muted pt-2">
               <span>{m.lessons.length} {m.lessons.length === 1 ? 'lesson' : 'lessons'}</span>
-              <span data-mod-count>0/{m.lessons.length} done</span>
             </div>
-            <div class="wiki-mod__bar" aria-hidden="true"><span data-mod-bar style="width:0%"></span></div>
           </a>
         );
       })}
     </div>
   </div>
-
-  <script>
-    // Reflect saved progress on the landing cards.
-    const STORAGE_KEY = 'wiki-progress';
-    function readProgress(): string[] {
-      try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
-      catch { return []; }
-    }
-    function paint() {
-      const done = new Set(readProgress());
-      document.querySelectorAll<HTMLElement>('[data-mod]').forEach((card) => {
-        const total = Number(card.dataset.modTotal) || 0;
-        // The landing cards don't list lessons, so derive completion from ids that
-        // start with "<slug>/" — entry ids are "<module>/<lesson>".
-        const slug = card.dataset.mod;
-        const completed = Array.from(done).filter((id) => id.startsWith(slug + '/')).length;
-        const bar = card.querySelector<HTMLElement>('[data-mod-bar]');
-        const count = card.querySelector<HTMLElement>('[data-mod-count]');
-        if (bar) bar.style.width = total ? `${(completed / total) * 100}%` : '0%';
-        if (count) count.textContent = `${completed}/${total} done`;
-      });
-    }
-    paint();
-    window.addEventListener('wiki-progress-change', paint);
-    window.addEventListener('storage', (e) => { if (e.key === STORAGE_KEY) paint(); });
-  </script>
 </WikiLayout>

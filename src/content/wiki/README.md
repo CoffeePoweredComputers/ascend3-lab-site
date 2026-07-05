@@ -98,8 +98,7 @@ Narrative form: <Cite id="cohen-1960" bare /> introduced kappa.
 Render a tagged bibliography with `<ReferenceList tags={["irr"]} />` (omit `tags` for all).
 To add a source, append an object to `references.json` and cite it by `id`.
 
-Prev/next links and the "Mark complete" button are added automatically; you don't
-need to include them in the lesson.
+Prev/next links are added automatically; you don't need to include them in the lesson.
 
 > The interactive components themselves are code (`src/components/wiki/`). To add a new
 > *kind* of widget, ask a developer — but editing lesson text and using the existing

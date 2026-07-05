@@ -563,6 +563,256 @@ section[id]:not(#home) {
 }
 
 /* ============================================
+   Undergraduate Research Panels (/undergrad)
+   ============================================ */
+
+.undergrad-area {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.16rem 0.55rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.undergrad-area--tools { color: var(--color-primary); background: var(--color-primary-light); }
+.undergrad-area--qual { color: var(--color-accent); background: rgba(217, 119, 6, 0.12); }
+.undergrad-area--assessment { color: var(--color-secondary); background: rgba(22, 101, 52, 0.12); }
+
+/* Auth gate: show exactly the child matching the current state. Mirrors the
+   .wiki-review[data-state] pattern, duplicated here since this page renders
+   under BaseLayout (no wiki.css) rather than WikiLayout. */
+.undergrad-gate > * { display: none; }
+.undergrad-gate[data-state="loading"] .undergrad-gate__loading,
+.undergrad-gate[data-state="signedout"] .undergrad-gate__signedout,
+.undergrad-gate[data-state="pending"] .undergrad-gate__pending { display: block; }
+/* The open state is the pad list — must be flex, not block: this rule is
+   unlayered so it beats the markup's `.flex` utility (which lives in a
+   cascade layer), and block would silently kill the inter-pad gap. */
+.undergrad-gate[data-state="open"] .undergrad-gate__open { display: flex; }
+
+/* ── Flipbook: one register page at a time, index tabs as the guide ───────
+   Progressive enhancement: without JS the stages simply stack with generous
+   gaps (the tablist stays hidden); the page script adds .is-flip to the
+   stack and reveals the tabs. */
+
+/* All tab bottoms sit exactly ON the pad's top border (flex-end). The pad
+   border runs beneath inactive tabs — the line reads as them being behind
+   the page. Only the active tab crosses it, by the 1px it needs to merge.
+   (Never shift inactive tabs down with `top:` — a relative offset keeps its
+   layout box, so the tab paints over the pad edge instead of tucking under.) */
+.undergrad-tabs { display: flex; align-items: flex-end; gap: 0.35rem; padding: 0 0.9rem 0 3.3rem; position: relative; z-index: 5; }
+.undergrad-tabs[hidden] { display: none; } /* author display:flex would beat the [hidden] UA style */
+.undergrad-tab { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.02em; color: var(--color-text-muted);
+  background: var(--color-surface); border: 1px solid var(--color-border); border-bottom: none;
+  border-radius: 0.45rem 0.45rem 0 0; padding: 0.4rem 0.75rem 0.5rem; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.45rem; position: relative;
+  transition: background 0.15s, color 0.15s, padding 0.15s; max-width: 13rem; min-width: 0; }
+.undergrad-tab__dot { width: 8px; height: 8px; border-radius: 9999px; flex-shrink: 0; }
+.undergrad-tab__dot--tools { background: var(--color-primary); }
+.undergrad-tab__dot--qual { background: var(--color-accent); }
+.undergrad-tab__dot--assessment { background: var(--color-secondary); }
+/* min-width: 0 is load-bearing: a flex child's min-width defaults to auto,
+   so without it the nowrap label refuses to shrink — the tabs can't compress
+   and the strip overflows the container at mid widths instead of ellipsizing. */
+.undergrad-tab__label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.undergrad-tab__no { display: none; font-weight: 700; }
+.undergrad-tab:hover { color: var(--color-text); }
+/* The active tab merges into the page below it: same paper, joined edge —
+   taller than its neighbors (extra top padding) and 1px over the pad border. */
+.undergrad-tab[aria-selected="true"] { background: var(--color-surface-base); color: var(--color-text);
+  padding-top: 0.6rem; padding-bottom: 0.6rem; margin-bottom: -1px; z-index: 6; }
+
+/* Dense mode (7+ projects, set at build time): inactive tabs compress to
+   dot + № like thin binder dividers; only the open tab keeps its name.
+   Full titles remain available as native tooltips (title attr). */
+.undergrad-tabs.is-dense .undergrad-tab__no { display: inline; }
+.undergrad-tabs.is-dense .undergrad-tab:not([aria-selected="true"]) .undergrad-tab__label { display: none; }
+
+.undergrad-flipstack { display: flex; flex-direction: column; gap: 6rem; padding-bottom: 1.5rem; }
+/* Flip mode: stages stack in place; only the active page is visible. The
+   bottom padding keeps the torn page's hanging corner clear of the footer. */
+.undergrad-flipstack.is-flip { display: block; position: relative; padding-bottom: 3.5rem; }
+.undergrad-flipstack.is-flip .undergrad-stage { visibility: hidden; position: absolute; inset: 0 0 auto 0; }
+.undergrad-flipstack.is-flip .undergrad-stage.is-page-active { visibility: visible; position: relative; }
+.undergrad-flipstack.is-flip .undergrad-stage.is-page-anim { visibility: visible; position: absolute; }
+
+/* Flip transition — "pad riffle": direction-aware, strictly 2D paper
+   physics. Forward flicks the old page up and away with a slight tilt
+   (thumbing through the pad); the new page drops in on a spring after a
+   beat. Backward mirrors it. Frames are pixel-identical in size (heights
+   synced below), so only the paper appears to move, never the pad. */
+.undergrad-flipstack.is-flip .undergrad-stage.page-out-up { animation: undergrad-riffle-out-up 0.16s ease-in forwards; z-index: 3; }
+.undergrad-flipstack.is-flip .undergrad-stage.page-out-down { animation: undergrad-riffle-out-down 0.16s ease-in forwards; z-index: 3; }
+.undergrad-flipstack.is-flip .undergrad-stage.page-in-drop { animation: undergrad-riffle-in-drop 0.3s cubic-bezier(0.3, 1.35, 0.5, 1) 0.1s both; z-index: 2; }
+.undergrad-flipstack.is-flip .undergrad-stage.page-in-rise { animation: undergrad-riffle-in-rise 0.3s cubic-bezier(0.3, 1.35, 0.5, 1) 0.1s both; z-index: 2; }
+@keyframes undergrad-riffle-out-up { to { transform: translateY(-22px) rotate(-1.6deg); opacity: 0; } }
+@keyframes undergrad-riffle-out-down { to { transform: translateY(18px) rotate(1.2deg); opacity: 0; } }
+@keyframes undergrad-riffle-in-drop { from { transform: translateY(-14px); opacity: 0; } }
+@keyframes undergrad-riffle-in-rise { from { transform: translateY(12px); opacity: 0; } }
+
+/* Equal page size: JS sets every stage's min-height to the tallest page and
+   this chain stretches the paper down to fill it, so the pad never resizes
+   when flipping — shorter projects just show more blank paper. */
+.undergrad-flipstack.is-flip .undergrad-stage { display: flex; flex-direction: column; }
+.undergrad-flipstack.is-flip .undergrad-pad { flex: 1 1 auto; display: flex; flex-direction: column; }
+.undergrad-flipstack.is-flip .undergrad-pad .undergrad-sheetwrap { flex: 1 1 auto; display: flex; flex-direction: column; }
+.undergrad-flipstack.is-flip .undergrad-sheetwrap .undergrad-sheet { flex: 1 1 auto; }
+
+@media (max-width: 640px) {
+  .undergrad-tabs { padding-left: 2.6rem; gap: 0.25rem; }
+  .undergrad-tab { padding: 0.35rem 0.55rem 0.45rem; }
+  .undergrad-tab[aria-selected="true"] { padding-top: 0.55rem; padding-bottom: 0.55rem; }
+  /* Narrow screens go dense regardless of project count */
+  .undergrad-tab__no { display: inline; }
+  .undergrad-tab:not([aria-selected="true"]) .undergrad-tab__label { display: none; }
+}
+
+/* ── Register pad ─────────────────────────────────────────────────────────
+   Each project is a page on a spiral pad, three honest layers:
+     stub  — the strip above the perforation (tear label + dashes); never moves
+     sheet — everything below the perforation (the project content); pulling
+             it tears the perforation and leaves the page HANGING, tilted,
+             from the one corner that never gave — it never disappears
+     underpage — the blank ruled next page, seen through the gap the rip opens
+   The pull itself lives in undergrad.astro's script; these are its states. */
+
+/* The clearance for the hanging corner (~sin(5.2°)·width + 13px sag ≈ 88px
+   at the widest layout) is reserved UP FRONT by the gap in the page markup —
+   tearing a page must never shift the panels below it. */
+.undergrad-stage { position: relative; }
+
+.undergrad-pad {
+  position: relative;
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.07), 0 4px 14px rgba(15, 23, 42, 0.04);
+  padding: 1.5rem 1.7rem 1.6rem 3.3rem;
+}
+.undergrad-pad__holes { position: absolute; left: 0.85rem; top: 0.9rem; bottom: 0.9rem; width: 14px;
+  background-image: radial-gradient(circle, var(--color-surface-page) 3.5px, transparent 3.6px);
+  background-size: 14px 22px; background-repeat: repeat-y; }
+.undergrad-pad__holes::before { content: ''; position: absolute; inset: -1px; border-radius: 7px;
+  background-image: radial-gradient(circle, transparent 4.5px, var(--color-border) 4.6px, var(--color-border) 5.2px, transparent 5.3px);
+  background-size: 14px 22px; background-repeat: repeat-y; }
+/* Pad-level red margin line shows only in the stub strip — the sheet and
+   underpage each carry their own copy, so the line tears away with the page. */
+.undergrad-pad__margin { position: absolute; left: 1.9rem; top: 0; bottom: 0; width: 0;
+  border-left: 1.5px solid color-mix(in srgb, var(--color-danger) 55%, transparent); }
+
+.undergrad-tearlabel { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--color-text-muted); margin: 0 -1.7rem 0.45rem -1.7rem; padding-left: 0.75rem; }
+.undergrad-dashes { display: flex; align-items: center; gap: 4px; height: 6px; margin: 0 -1.7rem; position: relative; z-index: 3; }
+.undergrad-dash { flex: 1 1 auto; height: 1px; background: var(--color-border); transform-origin: center; }
+.undergrad-stage:not(.is-dragging) .undergrad-dash { transition: opacity 0.22s ease, transform 0.22s ease; }
+
+/* Jagged remnant left hanging from the stub after the rip. Absolutely
+   positioned so its appearance doesn't shift the layout below. */
+.undergrad-tornstrip { position: absolute; top: 0; left: 0; right: 0; z-index: 3; height: 0; overflow: hidden;
+  transition: height 0.22s ease-out;
+  background:
+    linear-gradient(-45deg, transparent 6px, var(--color-surface-alt) 6px),
+    linear-gradient(45deg, transparent 6px, var(--color-surface-alt) 6px);
+  background-size: 12px 12px; background-repeat: repeat-x; background-position: top; }
+.undergrad-stage.is-torn .undergrad-tornstrip { height: 6px; }
+
+/* Sheet + underpage share one box bled out to the paper's true edges:
+   from just right of the spiral to the card's right/bottom border. */
+.undergrad-sheetwrap { position: relative; margin: 0 -1.7rem -1.6rem -1.7rem; }
+
+.undergrad-sheet { position: relative; z-index: 2; background: var(--color-surface-base);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 0.9rem 1.7rem 1.6rem 1.7rem; transform-origin: top left; }
+/* Extra bottom room for the grab strip so content never sits under it */
+.undergrad-sheet--pullable { padding-bottom: 3.6rem; }
+.undergrad-sheet__margin { position: absolute; left: 0.3rem; top: 0; bottom: 0; width: 0;
+  border-left: 1.5px solid color-mix(in srgb, var(--color-danger) 55%, transparent); }
+.undergrad-stage.is-grabbed .undergrad-sheet,
+.undergrad-stage.is-tearing .undergrad-sheet,
+.undergrad-stage.is-torn .undergrad-sheet {
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.22), 0 4px 8px rgba(15, 23, 42, 0.10);
+}
+.dark .undergrad-stage.is-grabbed .undergrad-sheet,
+.dark .undergrad-stage.is-tearing .undergrad-sheet,
+.dark .undergrad-stage.is-torn .undergrad-sheet {
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45), 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* The page beneath is deliberately blank — just the next ruled sheet. */
+.undergrad-underpage { position: absolute; inset: 0; z-index: 1; overflow: hidden;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background-color: var(--color-surface);
+  background-image: repeating-linear-gradient(180deg,
+    transparent 0, transparent calc(1.85rem - 1px),
+    color-mix(in srgb, var(--color-border) 70%, transparent) calc(1.85rem - 1px),
+    color-mix(in srgb, var(--color-border) 70%, transparent) 1.85rem);
+  box-shadow: inset 0 7px 9px -7px rgba(15, 23, 42, 0.28); }
+.dark .undergrad-underpage { box-shadow: inset 0 7px 9px -7px rgba(0, 0, 0, 0.5); }
+/* Shade cast on the page beneath by the ripped sheet hanging over it */
+.undergrad-underpage::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 46%;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.20), transparent);
+  opacity: 0; transition: opacity 0.45s ease 0.35s; pointer-events: none; }
+.dark .undergrad-underpage::after { background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent); }
+.undergrad-stage.is-torn .undergrad-underpage::after { opacity: 1; }
+.undergrad-underpage__margin { position: absolute; left: 0.3rem; top: 0; bottom: 0; width: 0;
+  border-left: 1.5px solid color-mix(in srgb, var(--color-danger) 40%, transparent); }
+
+/* Canned rip (tap / keyboard): the perforation gives way right-to-left while
+   the freed side droops, ending hung from the surviving top-left corner.
+   The drag path drives these transforms from JS instead. */
+.undergrad-stage.is-tearing .undergrad-sheet {
+  animation: undergrad-sheet-tear 1s cubic-bezier(0.36, 0.07, 0.33, 1) forwards;
+}
+@keyframes undergrad-sheet-tear {
+  0%   { transform: translateY(0) rotate(0deg); }
+  10%  { transform: translateY(3px) rotate(0.3deg); }
+  40%  { transform: translateY(10px) rotate(2.2deg); }
+  66%  { transform: translateY(17px) rotate(6.6deg); }
+  82%  { transform: translateY(12px) rotate(4.5deg); }
+  100% { transform: translateY(13px) rotate(5.2deg); }
+}
+/* --r counts dashes from the right: the tear starts where you pull */
+.undergrad-stage.is-tearing .undergrad-dash {
+  animation: undergrad-dash-tear 0.2s ease-in forwards;
+  animation-delay: calc(0.13s + var(--r) * 19ms);
+}
+@keyframes undergrad-dash-tear { to { transform: translateY(7px) rotate(9deg); opacity: 0; } }
+
+/* Grab strip: a real <button>, so Enter/Space/click all work natively —
+   the drag is a pointer-only enhancement layered on top (WCAG 2.5.7). */
+.undergrad-grabedge { position: absolute; left: 0; right: 0; bottom: 0; height: 2.5rem;
+  display: flex; align-items: flex-end; justify-content: center; padding: 0 0 0.5rem;
+  cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+  background: none; border: none; width: 100%;
+  border-radius: 0 0 var(--radius-md) var(--radius-md); }
+.undergrad-grabedge:active { cursor: grabbing; }
+.undergrad-grabedge[aria-disabled="true"] { cursor: default; }
+.undergrad-grabedge span { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--color-text-muted); transition: color 0.15s; }
+.undergrad-grabedge:hover:not([aria-disabled="true"]) span,
+.undergrad-stage.is-grabbed .undergrad-grabedge span { color: var(--color-primary); }
+.undergrad-grabedge[aria-disabled="true"] span { color: var(--color-secondary); }
+
+.undergrad-scrawl { font-family: var(--font-heading); font-style: italic; font-size: 0.95rem;
+  color: var(--color-secondary); transform: rotate(-2deg); display: inline-block; opacity: 0; }
+.undergrad-scrawl.show { animation: undergrad-scrawl-in 0.3s ease-out forwards; }
+@keyframes undergrad-scrawl-in {
+  from { opacity: 0; transform: rotate(-2deg) translateX(-6px); }
+  to   { opacity: 1; transform: rotate(-2deg) translateX(0); }
+}
+
+@media (max-width: 640px) {
+  .undergrad-pad { padding-left: 2.6rem; }
+  .undergrad-pad__holes { left: 0.55rem; }
+  .undergrad-pad__margin { left: 1.35rem; }
+  .undergrad-tearlabel, .undergrad-dashes, .undergrad-sheetwrap { margin-left: -1.5rem; }
+  .undergrad-sheet { padding-left: 1.5rem; }
+  .undergrad-sheet__margin, .undergrad-underpage__margin { left: 0.25rem; }
+}
+
+/* ============================================
    News Section — Filter Chips + Compact List
    ============================================ */
 
@@ -811,4 +1061,139 @@ section[id]:not(#home) {
   nav a {
     padding-block: 0.75rem;
   }
+}
+
+/* ── Sign-in / membership widget (AuthWidget) ───────────────────────────────
+   Shared between the main-site nav (Navigation.astro) and the wiki sidebar
+   (WikiSidebar.astro). Lives here (not wiki.css) so it's styled on both — both
+   layouts import global.css, only the wiki imports wiki.css. */
+.wiki-auth { font-size: 0.85rem; }
+.wiki-auth__signin,
+.wiki-auth__loading,
+.wiki-auth__user { display: none; }
+
+.wiki-auth[data-state="signedout"] .wiki-auth__signin { display: inline-flex; }
+.wiki-auth[data-state="loading"] .wiki-auth__loading { display: block; }
+.wiki-auth[data-state="pending"] .wiki-auth__user,
+.wiki-auth[data-state="member"] .wiki-auth__user,
+.wiki-auth[data-state="admin"] .wiki-auth__user { display: flex; }
+
+.wiki-auth__signin {
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-base);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.wiki-auth__signin:hover { background: var(--color-surface); border-color: var(--color-primary); }
+
+.wiki-auth__loading { color: var(--color-text-muted); font-size: 0.8rem; padding: 0.3rem 0.1rem; }
+
+.wiki-auth__user { align-items: center; gap: 0.5rem; }
+.wiki-auth__avatar { border-radius: 9999px; flex-shrink: 0; object-fit: cover; }
+.wiki-auth__meta { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.2; }
+.wiki-auth__name {
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wiki-auth__badge {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-accent);
+}
+.wiki-auth__badge:empty { display: none; }
+
+/* One-time "which best describes you" prompt — shown only while level is unset. */
+.wiki-auth__level {
+  display: none;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--color-border);
+}
+.wiki-auth[data-show-level="true"] .wiki-auth__level { display: flex; }
+.wiki-auth__level p {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+.wiki-auth__level-options { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.wiki-auth__level-btn {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-base);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+.wiki-auth__level-btn:hover { border-color: var(--color-primary); color: var(--color-text); }
+
+/* Account menu — a tidy vertical list of destinations, gated by role. */
+.wiki-auth__menu {
+  display: none;
+  flex-direction: column;
+  gap: 0.05rem;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--color-border);
+}
+.wiki-auth[data-state="member"] .wiki-auth__menu,
+.wiki-auth[data-state="admin"] .wiki-auth__menu { display: flex; }
+
+.wiki-auth__item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+.wiki-auth__item:hover { background: var(--color-surface); color: var(--color-primary); }
+.wiki-auth__item svg { width: 15px; height: 15px; flex-shrink: 0; color: var(--color-text-muted); transition: color 0.12s; }
+.wiki-auth__item:hover svg { color: var(--color-primary); }
+
+/* Role-gated items: editors get "Propose content"; admins additionally get
+   "Publish" + "Review queue". Base rule hides them; state/editor reveals. */
+.wiki-auth__item--editor,
+.wiki-auth__item--admin { display: none; }
+.wiki-auth[data-editor="true"] .wiki-auth__item--editor { display: flex; }
+.wiki-auth[data-state="admin"] .wiki-auth__item--admin { display: flex; }
+
+.wiki-auth__signout {
+  display: inline-flex;
+  padding: 0.3rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.wiki-auth__signout:hover { color: var(--color-text); background: var(--color-surface); }
+
+.wiki-auth__error {
+  margin: 0.5rem 0 0;
+  font-size: 0.72rem;
+  color: var(--color-danger);
+  line-height: 1.35;
 }

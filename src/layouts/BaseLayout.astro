@@ -71,7 +71,7 @@ import Footer from '../components/Footer.astro';
       Skip to main content
     </a>
 
-    <Navigation />
+    <slot name="nav"><Navigation /></slot>
 
     <!-- Content area: offset by sidebar on desktop, below mobile bar on mobile -->
     <div class="lg:ml-[340px] min-h-screen flex flex-col pt-14 lg:pt-0">

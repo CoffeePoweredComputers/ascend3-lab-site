@@ -16,8 +16,26 @@
  * - Active marker pulses with ring animation
  * - Collapses to top hamburger on mobile
  */
+import AuthWidget from './AuthWidget.astro';
 
-const navLinks = [
+// Mirror AuthWidget's own gate so we can skip its mobile-menu wrapper (and its
+// empty bordered box) when Firebase isn't configured.
+const authConfigured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+
+interface NavLink { href: string; label: string; id: string; elevation?: number; }
+interface RouteLink { href: string; label: string; icon: string; }
+interface Props {
+  /** Trail waypoints. Defaults to the single-page homepage sections. */
+  links?: NavLink[];
+  /** Where the logo points (default: top of the homepage). */
+  logoHref?: string;
+  /** Pill links under the trail (default: Lab Wiki + Undergrad Research). */
+  routeLinks?: RouteLink[];
+}
+
+const DEFAULT_LINKS: NavLink[] = [
   { href: '#home', label: 'Home', elevation: 350, id: 'home' },
   { href: '#about', label: 'About', elevation: 700, id: 'about' },
   { href: '#people', label: 'People', elevation: 1050, id: 'people' },
@@ -26,6 +44,16 @@ const navLinks = [
   { href: '#news', label: 'News', elevation: 2100, id: 'news' },
   { href: '#join', label: 'Join', elevation: 2400, id: 'join' },
 ];
+const DEFAULT_ROUTES: RouteLink[] = [
+  { href: '/wiki', label: 'Lab Wiki', icon: '📚' },
+  { href: '/undergrad', label: 'Undergrad Research', icon: '🎓' },
+];
+
+const {
+  links: navLinks = DEFAULT_LINKS,
+  logoHref = '#home',
+  routeLinks = DEFAULT_ROUTES,
+} = Astro.props;
 
 /* ── Trail geometry constants ── */
 const TRAIL_WIDTH = 176;
@@ -38,7 +66,7 @@ const waypointPcts = navLinks.map((_link, i) => 5 + (i / (navLinks.length - 1)) 
 interface Waypoint {
   href: string;
   label: string;
-  elevation: number;
+  elevation?: number;
   id: string;
   x: number;
   pct: number;
@@ -76,7 +104,7 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
     <!-- ═══ Section 1: Logo (fixed size) ═══ -->
     <div class="shrink-0 mb-6">
       <a
-        href="#home"
+        href={logoHref}
         id="nav-logo"
         class="block no-underline group"
         aria-label="ASCEND Lab - Home"
@@ -153,16 +181,23 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
       </div>
     </nav>
 
-    <!-- Lab Wiki — separate route, not a trail waypoint -->
-    <a
-      href="/wiki"
-      class="shrink-0 mb-4 flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white/40 dark:bg-surface-base/40 backdrop-blur text-sm font-medium text-text-muted hover:text-primary hover:border-primary no-underline transition-colors"
-    >
-      <span aria-hidden="true">📚</span> Lab Wiki
-    </a>
+    <!-- Route links (Wiki / Undergrad / Home) — not trail waypoints -->
+    <div class="shrink-0 mb-4 flex flex-col gap-2">
+      {routeLinks.map((r) => (
+        <a
+          href={r.href}
+          class="flex items-center gap-2 px-3 py-2 rounded-lg border border-border/60 bg-white/40 dark:bg-surface-base/40 backdrop-blur text-sm font-medium text-text-muted hover:text-primary hover:border-primary no-underline transition-colors"
+        >
+          <span aria-hidden="true">{r.icon}</span> {r.label}
+        </a>
+      ))}
+    </div>
 
     <!-- ═══ Section 3: Footer (fixed size) ═══ -->
-    <div class="shrink-0 pt-4 border-t border-border/50 flex items-center justify-between">
+    <div class="shrink-0 pt-4 border-t border-border/50 flex flex-col gap-3">
+      <!-- Sign in / membership (renders nothing until Firebase is configured) -->
+      <AuthWidget />
+      <div class="flex items-center justify-between">
       <p class="text-[11px] text-text-muted/60 leading-relaxed">
         Virginia Tech<br/>Dept. of Computer Science
       </p>
@@ -185,6 +220,7 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
           </g>
         </svg>
       </button>
+      </div>
     </div>
 
   </div>
@@ -193,7 +229,7 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
 <!-- ═══ MOBILE TOP BAR ═══ -->
 <header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-surface-base/70 backdrop-blur-xl border-b border-border/50">
   <div class="flex items-center justify-between px-4 py-3">
-    <a href="#home" class="no-underline" aria-label="ASCEND Lab - Home">
+    <a href={logoHref} class="no-underline" aria-label="ASCEND Lab - Home">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xml:space="preserve"
@@ -245,6 +281,11 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
 
   <!-- Mobile dropdown -->
   <div id="mobile-menu" class="hidden pb-4 px-4" aria-label="Mobile navigation">
+    {authConfigured && (
+      <div class="py-3 mb-2 border-b border-border/50">
+        <AuthWidget />
+      </div>
+    )}
     <ul class="flex flex-col gap-1" role="list">
       {navLinks.map((link) => (
         <li>
@@ -258,15 +299,17 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
           </a>
         </li>
       ))}
-      <li>
-        <a
-          href="/wiki"
-          class="flex items-center gap-3 py-3 px-4 rounded-lg font-body font-medium text-sm no-underline transition-colors text-text-muted hover:text-text hover:bg-surface"
-        >
-          <span aria-hidden="true">📚</span>
-          Lab Wiki
-        </a>
-      </li>
+      {routeLinks.map((r) => (
+        <li>
+          <a
+            href={r.href}
+            class="flex items-center gap-3 py-3 px-4 rounded-lg font-body font-medium text-sm no-underline transition-colors text-text-muted hover:text-text hover:bg-surface"
+          >
+            <span aria-hidden="true">{r.icon}</span>
+            {r.label}
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
 </header>
@@ -274,7 +317,11 @@ const logoSvgContent = `<defs><filter id="b" width="1" height="1" x="0" y="0" st
 
 <script>
   // ── Constants ──
-  const SECTION_IDS = ['home', 'about', 'people', 'research', 'projects', 'news', 'join'];
+  // Derive section ids from the rendered trail waypoints, so the same scroll-spy
+  // drives any set of sections (the homepage trail or /undergrad's own trail).
+  const SECTION_IDS = Array.from(
+    document.querySelectorAll<HTMLElement>('[data-waypoint]'),
+  ).map((el) => el.dataset.waypoint ?? '').filter(Boolean);
   const NUM_SECTIONS = SECTION_IDS.length;
   const TRAIL_WIDTH = 176;
   const WP_PCTS = SECTION_IDS.map((_id, i) => (5 + (i / (NUM_SECTIONS - 1)) * 90) / 100);

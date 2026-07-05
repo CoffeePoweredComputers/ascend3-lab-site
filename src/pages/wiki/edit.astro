@@ -1,0 +1,318 @@
+---
+/**
+ * /wiki/edit?slug=<lesson.id> — in-app editor for an existing lesson.
+ *
+ * Static, client-rendered and gated to EDITORS (admin-granted `editor` flag).
+ * The flag only reveals the UI; the real gate is GitHub collaborator access —
+ * a non-collaborator's "Open PR" fails with a clear message rather than a silent
+ * write. Loads the lesson's true source from master (so the editor edits what's
+ * actually deployed, not a stale build), then opens a same-repo PR with the
+ * editor's own GitHub token. noindex — a gated authoring surface.
+ */
+import WikiLayout from '../../layouts/WikiLayout.astro';
+
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+---
+
+<WikiLayout title="Edit lesson" noindex>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">&gt; Editor</p>
+      <h1>Edit lesson</h1>
+
+      <div class="wiki-edit" data-state={configured ? 'loading' : 'notconfigured'}>
+        <!-- gate messages -->
+        <p class="wiki-edit__msg wiki-edit__loading">Loading…</p>
+        <div class="wiki-edit__msg wiki-edit__signedout">
+          <p>Sign in with your Virginia Tech account to edit.</p>
+          <button type="button" class="wiki-report__signin" data-edit-signin>Sign in with Google</button>
+        </div>
+        <p class="wiki-edit__msg wiki-edit__noteditor">
+          You don't have editor access yet. Ask a lab admin to grant you the editor role.
+        </p>
+        <p class="wiki-edit__msg wiki-edit__notconfigured">Editing isn't set up yet.</p>
+        <p class="wiki-edit__msg wiki-edit__error" data-edit-error>Something went wrong.</p>
+
+        <!-- editor form -->
+        <form class="wiki-edit__form" data-edit-form>
+          <p class="wiki-edit__lede">
+            Editing <code data-edit-slug></code>. Your changes open a pull request for review —
+            nothing goes live until an admin merges it.
+          </p>
+
+          <fieldset class="wiki-edit__fm">
+            <legend>Lesson details</legend>
+            <label class="wiki-edit__field wiki-edit__field--wide">
+              <span>Title</span>
+              <input type="text" data-fm-title required />
+            </label>
+            <label class="wiki-edit__field wiki-edit__field--wide">
+              <span>Description <em>(optional)</em></span>
+              <input type="text" data-fm-description />
+            </label>
+            <div class="wiki-edit__row">
+              <label class="wiki-edit__field">
+                <span>Order</span>
+                <input type="number" step="any" data-fm-order required />
+              </label>
+              <label class="wiki-edit__field">
+                <span>Est. minutes <em>(optional)</em></span>
+                <input type="number" min="0" data-fm-estminutes />
+              </label>
+              <label class="wiki-edit__field">
+                <span>Module</span>
+                <input type="text" data-fm-module readonly title="Changing a lesson's module is a rename — out of scope here." />
+              </label>
+            </div>
+            <label class="wiki-edit__field wiki-edit__field--wide">
+              <span>Sidebar sub-group <em>(optional)</em></span>
+              <input type="text" data-fm-group placeholder="e.g. Path A — Codebook / IRR" />
+              <small class="wiki-edit__hint">Lessons sharing this label AND adjacent order numbers nest under one collapsible heading.</small>
+            </label>
+            <label class="wiki-edit__check">
+              <input type="checkbox" data-fm-draft />
+              <span>Draft — hidden from the live site until unchecked</span>
+            </label>
+          </fieldset>
+
+          <div class="wiki-edit__field wiki-edit__field--wide">
+            <span class="wiki-edit__bodylabel">Content <em>(Markdown / MDX)</em></span>
+            <div class="wiki-edit__bodytabs" role="tablist">
+              <button type="button" class="is-active" data-bodytab="write">Write</button>
+              <button type="button" data-bodytab="preview">Preview</button>
+            </div>
+            <div data-bodypane="write">
+              <textarea class="wiki-edit__body" data-edit-body rows="24" spellcheck="true"></textarea>
+            </div>
+            <div data-bodypane="preview" hidden>
+              <p class="wiki-preview__banner">Approximate preview — prose only. Components &amp; citations show as placeholders; the live site renders the real thing.</p>
+              <div class="wiki-preview" data-edit-preview></div>
+            </div>
+            <small class="wiki-edit__hint">
+              Prose, headings, lists, links, and callouts edit cleanly. Interactive widgets
+              (<code>&lt;DecisionTree&gt;</code> etc.) are code — leave their tags intact.
+            </small>
+          </div>
+
+          <label class="wiki-edit__field wiki-edit__field--wide">
+            <span>Describe your change <em>(becomes the PR description)</em></span>
+            <textarea class="wiki-edit__summary" data-edit-summary rows="3" placeholder="What did you change and why?"></textarea>
+          </label>
+
+          <div class="wiki-edit__actions">
+            <button type="submit" class="wiki-edit__submit" data-edit-submit>Open pull request</button>
+            <a class="wiki-edit__cancel" data-edit-cancel href="/wiki">Cancel</a>
+          </div>
+
+          <div class="wiki-edit__result" data-edit-result hidden></div>
+        </form>
+      </div>
+    </div>
+  </article>
+</WikiLayout>
+
+<script>
+  import type { SourceEditor } from '@lib/annotate/editor';
+
+  const box = document.querySelector<HTMLElement>('.wiki-edit');
+  const slug = new URLSearchParams(location.search).get('slug');
+
+  if (box && box.dataset.state !== 'notconfigured') {
+    (async () => {
+      const { onUser, getMember, isEditor, isVtEmail, signIn } = await import('@lib/annotate/auth');
+      const { sourcePath } = await import('@lib/annotate/links');
+      const {
+        parseFrontmatter,
+        stringifyFrontmatter,
+        buildFrontmatter,
+        toWikiFrontmatter,
+      } = await import('@lib/annotate/frontmatter');
+      const { openWikiPullRequest, readFileFromMaster } = await import('@lib/annotate/pr');
+      const { mountSourceEditor } = await import('@lib/annotate/editor');
+
+      const q = <T extends HTMLElement = HTMLElement>(sel: string) =>
+        box.querySelector<T>(sel);
+      const setState = (s: string) => (box.dataset.state = s);
+      const errEl = q('[data-edit-error]');
+      const showError = (msg: string) => {
+        if (errEl) errEl.textContent = msg;
+        setState('error');
+      };
+
+      if (!slug) {
+        showError('No lesson specified. Open the editor from a lesson’s "Edit this page" link.');
+        return;
+      }
+      q('[data-edit-slug]')!.textContent = slug;
+      (q<HTMLAnchorElement>('[data-edit-cancel]'))!.href = `/wiki/${slug}`;
+
+      // ── form refs ──
+      const inTitle = q<HTMLInputElement>('[data-fm-title]')!;
+      const inDesc = q<HTMLInputElement>('[data-fm-description]')!;
+      const inOrder = q<HTMLInputElement>('[data-fm-order]')!;
+      const inEst = q<HTMLInputElement>('[data-fm-estminutes]')!;
+      const inModule = q<HTMLInputElement>('[data-fm-module]')!;
+      const inGroup = q<HTMLInputElement>('[data-fm-group]')!;
+      const inDraft = q<HTMLInputElement>('[data-fm-draft]')!;
+      const inBody = q<HTMLTextAreaElement>('[data-edit-body]')!;
+      const inSummary = q<HTMLTextAreaElement>('[data-edit-summary]')!;
+      const submitBtn = q<HTMLButtonElement>('[data-edit-submit]')!;
+      const resultEl = q('[data-edit-result]')!;
+      const previewEl = q('[data-edit-preview]')!;
+
+      // ── Write / Preview tabs (approximate prose preview; widgets = placeholders) ──
+      box.querySelectorAll<HTMLElement>('[data-bodytab]').forEach((tab) => {
+        tab.addEventListener('click', async () => {
+          const which = tab.dataset.bodytab;
+          box.querySelectorAll<HTMLElement>('[data-bodytab]').forEach((t) =>
+            t.classList.toggle('is-active', t === tab),
+          );
+          box.querySelectorAll<HTMLElement>('[data-bodypane]').forEach((p) => {
+            p.hidden = p.dataset.bodypane !== which;
+          });
+          if (which === 'preview') {
+            const { renderPreview } = await import('@lib/annotate/preview');
+            previewEl.innerHTML = renderPreview(bodyEditor ? bodyEditor.getValue() : inBody.value);
+          } else {
+            bodyEditor?.refresh();
+          }
+        });
+      });
+
+      let baseSha: string | undefined;
+      let existingData: Record<string, unknown> = {};
+      let loaded = false;
+      let bodyEditor: SourceEditor | null = null;
+
+      async function loadContent() {
+        if (loaded) return;
+        loaded = true;
+        setState('loading');
+        try {
+          const src = await readFileFromMaster(sourcePath(slug!));
+          if (!src) {
+            showError(`Couldn’t find the source for "${slug}" on master.`);
+            loaded = false;
+            return;
+          }
+          baseSha = src.sha;
+          const { data, body } = parseFrontmatter(src.text);
+          existingData = data;
+          const fm = toWikiFrontmatter(data);
+          inTitle.value = fm.title;
+          inDesc.value = fm.description ?? '';
+          inOrder.value = String(fm.order);
+          inEst.value = fm.estMinutes != null ? String(fm.estMinutes) : '';
+          inModule.value = fm.module;
+          inGroup.value = fm.group ?? '';
+          inDraft.checked = fm.draft === true;
+          inBody.value = body;
+          setState('ready');
+          if (!bodyEditor) bodyEditor = mountSourceEditor(inBody);
+          else bodyEditor.setValue(body);
+          bodyEditor.refresh();
+        } catch (e) {
+          showError(e instanceof Error ? e.message : 'Failed to load the lesson.');
+          loaded = false;
+        }
+      }
+
+      // ── auth gate ──
+      onUser(async (user) => {
+        if (!user || !isVtEmail(user.email)) {
+          setState('signedout');
+          return;
+        }
+        const member = await getMember(user.uid);
+        if (!isEditor(member)) {
+          setState('noteditor');
+          return;
+        }
+        await loadContent();
+      });
+
+      q('[data-edit-signin]')?.addEventListener('click', async () => {
+        try {
+          await signIn();
+        } catch {
+          /* onUser reflects the outcome */
+        }
+      });
+
+      // ── submit ──
+      q('[data-edit-form]')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (submitBtn.disabled) return;
+        const label = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-filing');
+        submitBtn.textContent = 'Opening PR…';
+        resultEl.hidden = true;
+        resultEl.className = 'wiki-edit__result';
+        try {
+          const fm = buildFrontmatter(
+            {
+              title: inTitle.value.trim(),
+              module: inModule.value.trim(),
+              order: Number(inOrder.value),
+              group: inGroup.value.trim() || undefined,
+              description: inDesc.value.trim() || undefined,
+              estMinutes: inEst.value ? Number(inEst.value) : undefined,
+              draft: inDraft.checked,
+            },
+            existingData,
+          );
+          const mdx = stringifyFrontmatter(fm, inBody.value);
+          const summary = inSummary.value.trim();
+          const prBody = [
+            summary || '_(no description provided)_',
+            '',
+            `Lesson: \`${slug}\``,
+            '',
+            '_Opened from the Lab Wiki in-app editor._',
+          ].join('\n');
+
+          const pr = await openWikiPullRequest({
+            kind: 'edit',
+            branchKey: slug!,
+            title: `[wiki] edit: ${slug}`,
+            body: prBody,
+            files: [{ path: sourcePath(slug!), content: mdx, baseSha }],
+          });
+
+          const drift = pr.drift.length
+            ? `<p class="wiki-edit__drift">⚠ ${pr.drift.map(escapeHtml).join('<br>')}</p>`
+            : '';
+          resultEl.classList.add('is-success');
+          resultEl.innerHTML = `<p><strong>Pull request opened.</strong> <a href="${escapeHtml(
+            pr.url,
+          )}" target="_blank" rel="noopener noreferrer">Review PR #${pr.number} on GitHub ↗</a></p>${drift}`;
+          resultEl.hidden = false;
+          submitBtn.textContent = 'PR opened ✓';
+        } catch (err) {
+          const status = (err as { status?: number })?.status;
+          const msg =
+            status === 403 || status === 404
+              ? "Couldn’t open the PR — your GitHub account may not have write access to the repo yet. Ask an admin to add you as a collaborator."
+              : err instanceof Error
+                ? err.message
+                : 'Failed to open the pull request.';
+          resultEl.classList.add('is-error');
+          resultEl.textContent = msg;
+          resultEl.hidden = false;
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('is-filing');
+          submitBtn.textContent = label;
+        }
+      });
+
+      function escapeHtml(s: string) {
+        return s.replace(/[&<>"']/g, (c) =>
+          ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string),
+        );
+      }
+    })();
+  }
+</script>

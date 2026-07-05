@@ -1,0 +1,112 @@
+rules_version = '2';
+
+// Security rules for the wiki annotation/review layer and the undergrad
+// research panels' "Express interest" feature — both share the same
+// members/{uid} auth model.
+//
+// Enforcement model: these rules are the ONLY real access control. The client
+// UI (sign-in gating, the /wiki/review admin page) is cosmetic — a determined
+// user can call Firestore directly, so every read/write is checked here.
+//
+// Roles live in members/{uid}. `get()` reads bill one doc read per evaluation;
+// negligible for a lab. If that ever matters, migrate role/status to Firebase
+// Auth custom claims (set via the Admin SDK on approval) and read them from
+// request.auth.token instead — no get() needed.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isVtUser() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.matches('.*@vt[.]edu$');
+    }
+
+    function memberDoc() {
+      return get(/databases/$(database)/documents/members/$(request.auth.uid)).data;
+    }
+    function hasMemberDoc() {
+      return isVtUser()
+        && exists(/databases/$(database)/documents/members/$(request.auth.uid));
+    }
+    function isMember() {
+      return hasMemberDoc() && memberDoc().status == 'member';
+    }
+    function isAdmin() {
+      return hasMemberDoc() && memberDoc().role == 'admin' && memberDoc().status == 'member';
+    }
+
+    // ── members ──────────────────────────────────────────────────────────────
+    // Any VT user may create their own PENDING record. Only admins approve
+    // (status) or promote (role). Bootstrap the first admin by hand in the
+    // console (see FIREBASE_SETUP.md) — the rules intentionally allow no other way.
+    match /members/{uid} {
+      allow read: if isVtUser() && (request.auth.uid == uid || isAdmin());
+
+      allow create: if isVtUser()
+        && request.auth.uid == uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.status == 'pending'
+        && request.resource.data.role == 'member'
+        // A user cannot self-grant the editor flag; only an admin sets it (update).
+        && request.resource.data.get('editor', false) == false;
+
+      // A member may set their own `level` exactly once (never change role/status/
+      // anything else themselves) — everything besides that is admin-only.
+      allow update: if isAdmin()
+        || (isVtUser()
+            && request.auth.uid == uid
+            && !('level' in resource.data)
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['level'])
+            && request.resource.data.level in ['undergraduate', 'graduate', 'other']);
+
+      allow delete: if isAdmin();
+    }
+
+    // ── annotations ──────────────────────────────────────────────────────────
+    // Members read all and create as themselves. Authors may edit their own note
+    // but NOT change status or reassign authorship. Only admins move status or
+    // delete others' annotations.
+    match /annotations/{id} {
+      allow read: if isMember();
+
+      allow create: if isMember()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.authorEmail == request.auth.token.email
+        && request.resource.data.status == 'open';
+
+      allow update: if isAdmin()
+        || (isMember()
+            && resource.data.authorUid == request.auth.uid
+            && request.resource.data.authorUid == resource.data.authorUid
+            && request.resource.data.status == resource.data.status);
+
+      allow delete: if isAdmin()
+        || (isMember() && resource.data.authorUid == request.auth.uid);
+
+      // ── replies (threaded discussion) ──
+      match /replies/{replyId} {
+        allow read: if isMember();
+        allow create: if isMember()
+          && request.resource.data.authorUid == request.auth.uid;
+        allow update, delete: if isAdmin()
+          || (isMember() && resource.data.authorUid == request.auth.uid);
+      }
+    }
+
+    // ── interest ─────────────────────────────────────────────────────────────
+    // "Express interest" submissions from the undergrad research panels. A
+    // member reads only their own; the admin Interest tab reads all and
+    // triages (contacted/closed). Never editable by the author after create.
+    match /interest/{id} {
+      allow read: if isAdmin() || (isMember() && resource.data.authorUid == request.auth.uid);
+
+      allow create: if isMember()
+        && request.resource.data.authorUid == request.auth.uid
+        && request.resource.data.authorEmail == request.auth.token.email
+        && request.resource.data.status == 'new';
+
+      allow update, delete: if isAdmin();
+    }
+  }
+}

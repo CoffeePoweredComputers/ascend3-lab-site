@@ -1,0 +1,256 @@
+---
+/**
+ * AuthWidget — shared sign-in / membership control.
+ *
+ * Used site-wide: the main-site nav (Navigation.astro) renders it with no menu,
+ * and the wiki sidebar (WikiSidebar.astro) passes its account links into the
+ * `menu` slot. The auth session is global (Firebase browserLocalPersistence), so
+ * signing in from any surface reflects everywhere.
+ *
+ * Renders nothing unless Firebase is configured (PUBLIC_FIREBASE_* env vars),
+ * so anonymous pages are unaffected. The Firebase SDK is only fetched via a
+ * dynamic import() on first interaction (or session restore), so logged-out
+ * readers download none of it.
+ *
+ * Owns auth state for the page and broadcasts `wiki-auth-change`
+ * ({ user, member }) on window — later islands (AnnotationLayer) listen for it.
+ * Safe to render more than once per page; the script wires every `.wiki-auth`.
+ */
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+---
+
+{configured && (
+  <div class="wiki-auth" data-state="signedout">
+    <button type="button" class="wiki-auth__signin" data-auth-signin>
+      <svg viewBox="0 0 18 18" width="16" height="16" aria-hidden="true">
+        <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.92c1.7-1.57 2.68-3.88 2.68-6.62Z"/>
+        <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.92-2.26c-.8.54-1.84.86-3.04.86-2.34 0-4.32-1.58-5.03-3.7H.96v2.33A9 9 0 0 0 9 18Z"/>
+        <path fill="#FBBC05" d="M3.97 10.72a5.4 5.4 0 0 1 0-3.44V4.95H.96a9 9 0 0 0 0 8.1l3.01-2.33Z"/>
+        <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.47.89 11.43 0 9 0A9 9 0 0 0 .96 4.95l3.01 2.33C4.68 5.16 6.66 3.58 9 3.58Z"/>
+      </svg>
+      <span>Sign in</span>
+    </button>
+
+    <div class="wiki-auth__loading" role="status">Signing in…</div>
+
+    <div class="wiki-auth__user">
+      <img class="wiki-auth__avatar" data-auth-avatar alt="" width="28" height="28" hidden />
+      <div class="wiki-auth__meta">
+        <span class="wiki-auth__name" data-auth-name></span>
+        <span class="wiki-auth__badge" data-auth-badge></span>
+      </div>
+      <button type="button" class="wiki-auth__signout" data-auth-signout aria-label="Sign out" title="Sign out">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="wiki-auth__level">
+      <p>Which best describes you?</p>
+      <div class="wiki-auth__level-options">
+        <button type="button" class="wiki-auth__level-btn" data-auth-level="undergraduate">Undergraduate</button>
+        <button type="button" class="wiki-auth__level-btn" data-auth-level="graduate">Graduate</button>
+        <button type="button" class="wiki-auth__level-btn" data-auth-level="other">Other</button>
+      </div>
+    </div>
+
+    <slot name="menu" />
+
+    <p class="wiki-auth__error" data-auth-error role="alert" hidden></p>
+  </div>
+)}
+
+{configured && (
+  <script is:inline>
+    /* Pre-paint the last-known identity synchronously, before the browser paints
+       the server-rendered "Sign in" button. Astro is MPA (full reload per nav),
+       so without this every navigation flashes the sign-in button → name. Mirrors
+       the theme bootstrap in BaseLayout; the module script below reconciles with
+       Firebase. Runs per widget instance; painting all `.wiki-auth` is idempotent. */
+    (function () {
+      try {
+        if (!localStorage.getItem('wiki-auth')) return;
+        var snap = null;
+        try { snap = JSON.parse(localStorage.getItem('wiki-auth-snapshot') || 'null'); } catch (e) {}
+        document.querySelectorAll('.wiki-auth').forEach(function (w) {
+          if (snap && snap.state) {
+            w.dataset.state = snap.state;
+            var n = w.querySelector('[data-auth-name]'); if (n) n.textContent = snap.name || '';
+            var b = w.querySelector('[data-auth-badge]');
+            if (b) b.textContent = snap.state === 'pending' ? 'Pending approval'
+              : snap.state === 'admin' ? 'Admin' : snap.state === 'member' ? 'Member' : '';
+            var a = w.querySelector('[data-auth-avatar]');
+            if (a && snap.photo) { a.src = snap.photo; a.hidden = false; }
+          } else {
+            /* Session exists but no snapshot yet → blank, never the sign-in flash. */
+            w.dataset.state = 'restoring';
+          }
+        });
+      } catch (e) { /* storage blocked — module script handles it */ }
+    })();
+  </script>
+)}
+
+<script>
+  import type { Member } from '@lib/annotate/types';
+
+  const widgets = Array.from(document.querySelectorAll<HTMLElement>('.wiki-auth'));
+  if (widgets.length) {
+    type AuthMod = typeof import('@lib/annotate/auth');
+    let modPromise: Promise<AuthMod> | null = null;
+    const auth = () => (modPromise ??= import('@lib/annotate/auth'));
+
+    // Cached identity snapshot. Astro is MPA (full reload per navigation), so the
+    // Firebase session is rehydrated on every page. Painting the last-known
+    // identity from this snapshot lets navigation show the member's name
+    // immediately instead of a misleading "Signing in…" while the SDK loads.
+    const SNAP_KEY = 'wiki-auth-snapshot';
+    // Written here; read by the is:inline pre-paint script above, so navigation
+    // shows the last-known identity instantly instead of flashing "Sign in".
+    function saveSnapshot(state: string, name: string, photo: string) {
+      try {
+        if (state === 'signedout') localStorage.removeItem(SNAP_KEY);
+        else localStorage.setItem(SNAP_KEY, JSON.stringify({ state, name, photo }));
+      } catch { /* storage unavailable — pre-paint just won't happen */ }
+    }
+
+    const stateFor = (m: Member | null): string =>
+      !m ? 'signedout'
+        : m.role === 'admin' && m.status === 'member' ? 'admin'
+        : m.status === 'member' ? 'member'
+        : 'pending';
+
+    // Set once a member is loaded, so the level-picker click handler knows who
+    // to write for without threading it through every call site.
+    let currentUid = '';
+    let currentMember: Member | null = null;
+
+    function paint(state: string, member: Member | null, name?: string, photo?: string) {
+      currentUid = member?.uid ?? '';
+      currentMember = member;
+      widgets.forEach((w) => {
+        w.dataset.state = state;
+        const setText = (sel: string, text: string) => {
+          const el = w.querySelector<HTMLElement>(sel);
+          if (el) el.textContent = text;
+        };
+        setText('[data-auth-name]', name ?? member?.displayName ?? '');
+        const roleLabel =
+          state === 'pending' ? 'Pending approval'
+          : state === 'admin' ? 'Admin'
+          : member?.editor ? 'Editor'
+          : state === 'member' ? 'Member'
+          : '';
+        setText('[data-auth-badge]', roleLabel);
+        // Editors (admins are implicitly editors) get the "Propose content" link.
+        w.dataset.editor = String(state === 'admin' || member?.editor === true);
+        // One-time prompt: only while signed in and level has never been set.
+        w.dataset.showLevel = String(!!member && !member.level);
+        const av = w.querySelector<HTMLImageElement>('[data-auth-avatar]');
+        if (av) {
+          const p = photo ?? member?.photoURL ?? '';
+          if (p) { av.src = p; av.hidden = false; } else { av.removeAttribute('src'); av.hidden = true; }
+        }
+      });
+      // Persist terminal states so the next navigation can paint instantly.
+      if (state === 'signedout' || state === 'pending' || state === 'member' || state === 'admin') {
+        saveSnapshot(state, name ?? member?.displayName ?? '', photo ?? member?.photoURL ?? '');
+      }
+    }
+
+    function broadcast(user: unknown, member: Member | null) {
+      window.dispatchEvent(new CustomEvent('wiki-auth-change', { detail: { user, member } }));
+    }
+
+    function showError(msg: string) {
+      widgets.forEach((w) => {
+        const el = w.querySelector<HTMLElement>('[data-auth-error]');
+        if (el) { el.textContent = msg; el.hidden = false; }
+      });
+    }
+    function clearError() {
+      widgets.forEach((w) => {
+        const el = w.querySelector<HTMLElement>('[data-auth-error]');
+        if (el) el.hidden = true;
+      });
+    }
+
+    async function doSignIn() {
+      clearError();
+      paint('loading', null);
+      try {
+        const a = await auth();
+        const { user, member } = await a.signIn();
+        paint(stateFor(member), member);
+        broadcast(user, member);
+      } catch (e) {
+        paint('signedout', null);
+        showError(e instanceof Error ? e.message : 'Sign-in failed. Please try again.');
+      }
+    }
+
+    async function doSignOut() {
+      const a = await auth();
+      await a.signOut();
+      paint('signedout', null);
+      broadcast(null, null);
+    }
+
+    async function doSetLevel(btn: HTMLButtonElement) {
+      const level = btn.dataset.authLevel as Member['level'];
+      if (!level || !currentUid || !currentMember) return;
+      btn.setAttribute('disabled', '');
+      try {
+        const a = await auth();
+        await a.setMyLevel(currentUid, level);
+        const updated = { ...currentMember, level };
+        paint(stateFor(updated), updated);
+        broadcast(null, updated);
+      } catch {
+        btn.removeAttribute('disabled');
+        showError("Couldn't save that — please try again.");
+      }
+    }
+
+    widgets.forEach((w) => {
+      w.querySelector('[data-auth-signin]')?.addEventListener('click', doSignIn);
+      w.querySelector('[data-auth-signout]')?.addEventListener('click', doSignOut);
+      w.querySelectorAll<HTMLButtonElement>('[data-auth-level]').forEach((btn) =>
+        btn.addEventListener('click', () => doSetLevel(btn)),
+      );
+    });
+
+    // Reflect sign-in/out that happened elsewhere (e.g. the report composer).
+    // Only repaints — never re-broadcasts — so there's no event loop.
+    window.addEventListener('wiki-auth-change', (e) => {
+      const d = (e as CustomEvent<{ user: { displayName?: string | null; photoURL?: string | null } | null; member: Member | null }>).detail;
+      paint(stateFor(d?.member ?? null), d?.member ?? null, d?.user?.displayName ?? undefined, d?.user?.photoURL ?? undefined);
+    });
+
+    // Restore an existing session. We only touch Firebase if this browser has a
+    // prior session flag — logged-out readers never load the SDK.
+    if (localStorage.getItem('wiki-auth')) {
+      // The is:inline script above already pre-painted the cached identity
+      // (flash-free, before first paint). Here we only reconcile with the live
+      // Firebase session — onUser repaints if anything actually changed.
+      auth()
+        .then((a) => {
+          a.onUser(async (user) => {
+            if (!user || !a.isVtEmail(user.email)) {
+              localStorage.removeItem('wiki-auth');
+              paint('signedout', null);
+              broadcast(null, null);
+              return;
+            }
+            const member = await a.getMember(user.uid);
+            paint(stateFor(member), member, user.displayName ?? undefined, user.photoURL ?? undefined);
+            broadcast(user, member);
+          });
+        })
+        .catch(() => paint('signedout', null));
+    }
+  }
+</script>

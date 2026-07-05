@@ -1,0 +1,367 @@
+---
+/**
+ * AnnotationLayer — the reader-facing issue-reporting capture UI.
+ *
+ * Submit-and-forget (per product decision): no persistent markers on the page.
+ * Selecting prose shows a "⚠ Report" launcher; hovering a widget shows a
+ * "💬 Comment" handle. Either opens a composer popover to pick a type + write a
+ * note, which is saved to Firestore as a report (status 'open').
+ *
+ * Renders nothing unless Firebase is configured, so the wiki is unaffected before
+ * setup. Auth state arrives via the `wiki-auth-change` event from AuthWidget; the
+ * firebase-heavy modules (auth, annotations) are dynamically imported only when
+ * the user signs in or submits — readers download none of it.
+ */
+import { REPORT_TYPE_ORDER, TYPE_META } from '@lib/annotate/meta';
+
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+// In dev we also render the layer (inert) so the selection/comment interaction
+// can be previewed without a Firebase backend. Production stays gated on config.
+const active = configured || import.meta.env.DEV;
+---
+
+{active && (
+  <div class="wiki-report" hidden data-open="false" data-configured={String(configured)} role="dialog" aria-label="Report an issue">
+    <header class="wiki-report__head">
+      <strong>Report an issue</strong>
+      <button type="button" class="wiki-report__close" data-report-close aria-label="Close">×</button>
+    </header>
+
+    <p class="wiki-report__context" data-report-context></p>
+
+    <div data-report-body data-state="signedout">
+      <div class="wiki-report__preview">
+        <p>Preview mode — Firebase isn't configured, so sign-in and submitting are disabled. The selection &amp; comment affordances still work for layout testing.</p>
+      </div>
+
+      <div class="wiki-report__signedout">
+        <p>Sign in with your Virginia Tech account to report an issue.</p>
+        <button type="button" class="wiki-report__signin" data-report-signin>Sign in with Google</button>
+      </div>
+
+      <div class="wiki-report__pending">
+        <p>Your access is pending admin approval — you'll be able to report once you're approved.</p>
+      </div>
+
+      <form class="wiki-report__form" data-report-form>
+        <div class="wiki-report__types" role="radiogroup" aria-label="Report type">
+          {REPORT_TYPE_ORDER.map((t, i) => (
+            <label class="wiki-report__type">
+              <input type="radio" name="type" value={t} required checked={i === 0} />
+              <span>{TYPE_META[t].icon} {TYPE_META[t].label}</span>
+            </label>
+          ))}
+        </div>
+        <textarea name="note" rows="3" required placeholder="Describe the issue, question, or suggestion…"></textarea>
+        <p class="wiki-report__error" data-report-error hidden></p>
+        <div class="wiki-report__actions">
+          <button type="button" class="wiki-report__btn" data-report-cancel>Cancel</button>
+          <button type="submit" class="wiki-report__btn wiki-report__btn--primary">Submit report</button>
+        </div>
+      </form>
+
+      <div class="wiki-report__success">
+        <p>✓ Reported — thank you. An admin will review it.</p>
+      </div>
+    </div>
+  </div>
+)}
+
+<script>
+  import { describe, anchor, anchorBlock, markInteractive, assignBlockIds, describeBlock } from '@lib/annotate/anchor';
+  import { setHighlight, clearHighlights, setActiveHighlight, setBlockMarker, removeBlockMarker } from '@lib/annotate/highlight';
+  import type { TextSelector, BlockSelector, Member, AnnotationType, Annotation } from '@lib/annotate/types';
+
+  const root = document.querySelector<HTMLElement>('.wiki-annotatable');
+  const pop = document.querySelector<HTMLElement>('.wiki-report');
+
+  if (root && pop) {
+    const lessonSlug = root.dataset.lessonSlug || '';
+    const configured = pop.dataset.configured === 'true';
+    markInteractive(root);
+    const blocks = assignBlockIds(root);
+
+    interface AuthUser { uid: string; email: string | null; displayName: string | null; }
+    interface AuthState { user: AuthUser | null; member: Member | null; }
+    let authState: AuthState = { user: null, member: null };
+
+    const escHtml = (s: string) =>
+      s.replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string
+      ));
+
+    // A small read-only card that shows WHAT was reported when you arrive via a
+    // "View in context" link. The highlight shows *where*; this shows the comment.
+    const viewer = document.createElement('div');
+    viewer.className = 'wiki-report-view';
+    viewer.hidden = true;
+    document.body.appendChild(viewer);
+
+    const dismissView = () => {
+      viewer.hidden = true;
+      clearHighlights();
+      removeBlockMarker('target');
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const showView = (r: Annotation, TYPE_META: any, STATUS_META: any) => {
+      const t = TYPE_META[r.type] ?? { icon: '•', label: r.type };
+      const st = STATUS_META[r.status] ?? { label: r.status, color: 'var(--color-text-muted)' };
+      const ref = r.selector?.kind === 'block'
+        ? `Widget: ${r.selector.label}`
+        : `“${r.selector?.quote ?? ''}”`;
+      viewer.innerHTML =
+        `<button type="button" class="wiki-report-view__close" aria-label="Close">×</button>` +
+        `<div class="wiki-report-view__head">` +
+          `<span class="wiki-report-view__type">${t.icon} ${escHtml(t.label)}</span>` +
+          `<span class="wiki-report-view__status" style="--s:${st.color}">${escHtml(st.label)}</span>` +
+        `</div>` +
+        `<p class="wiki-report-view__note">${escHtml(r.note)}</p>` +
+        `<p class="wiki-report-view__ref">${escHtml(ref)}</p>` +
+        `<p class="wiki-report-view__meta">Reported by ${escHtml(r.authorName || 'a member')}</p>`;
+      viewer.hidden = false;
+      viewer.querySelector('.wiki-report-view__close')?.addEventListener('click', dismissView);
+    };
+
+    // Jump-to-highlight: /wiki/<slug>?report=<id> (from the admin dashboard).
+    const reportParam = new URLSearchParams(location.search).get('report');
+    let jumped = false;
+    async function tryJump() {
+      if (jumped || !reportParam || !root || authState.member?.status !== 'member') return;
+      jumped = true;
+      const [{ getReport }, meta] = await Promise.all([
+        import('@lib/annotate/annotations'),
+        import('@lib/annotate/meta'),
+      ]);
+      const r = await getReport(reportParam);
+      if (!r || !r.selector) return;
+      if (r.selector.kind === 'text') {
+        const range = anchor(root, r.selector);
+        if (range) {
+          setHighlight('target', range);
+          setActiveHighlight('target');
+          range.startContainer.parentElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        const el = anchorBlock(root, r.selector);
+        if (el) {
+          setBlockMarker('target', el);
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+      // Show the comment even if re-anchoring failed (orphaned) — the frozen quote
+      // in the card still tells the admin what was flagged.
+      showView(r, meta.TYPE_META, meta.STATUS_META);
+    }
+
+    const bodyEl = pop.querySelector<HTMLElement>('[data-report-body]')!;
+    const ctxEl = pop.querySelector<HTMLElement>('[data-report-context]')!;
+    const form = pop.querySelector<HTMLFormElement>('[data-report-form]')!;
+    const errEl = pop.querySelector<HTMLElement>('[data-report-error]')!;
+
+    let current: { selector: TextSelector | BlockSelector; cleanup: () => void } | null = null;
+    let previouslyFocused: HTMLElement | null = null;
+
+    window.addEventListener('wiki-auth-change', (e) => {
+      authState = (e as CustomEvent<AuthState>).detail ?? { user: null, member: null };
+      if (pop.dataset.open === 'true') renderState();
+      tryJump();
+    });
+
+    const renderState = () => {
+      if (!configured) { bodyEl.dataset.state = 'preview'; return; }
+      bodyEl.dataset.state = !authState.user
+        ? 'signedout'
+        : authState.member?.status === 'member'
+          ? 'form'
+          : 'pending';
+    };
+
+    const positionAt = (r: DOMRect) => {
+      const W = 340, M = 12;
+      pop.style.left = `${Math.max(M, Math.min(r.left, window.innerWidth - W - M))}px`;
+      pop.style.top = `${Math.min(r.bottom + 8, window.innerHeight - 40)}px`;
+    };
+
+    // Move focus into the composer: the textarea when a member can submit,
+    // otherwise the primary control (sign-in / close).
+    const focusComposer = () => {
+      const el = bodyEl.dataset.state === 'form'
+        ? form.querySelector<HTMLTextAreaElement>('textarea')
+        : (pop.querySelector<HTMLElement>('[data-report-signin]') ?? pop.querySelector<HTMLElement>('.wiki-report__close'));
+      el?.focus();
+    };
+
+    const show = () => {
+      previouslyFocused = document.activeElement as HTMLElement | null;
+      pop.dataset.open = 'true';
+      pop.hidden = false;
+      errEl.hidden = true;
+      renderState();
+      focusComposer();
+    };
+    const close = () => {
+      pop.dataset.open = 'false';
+      pop.hidden = true;
+      if (current) { current.cleanup(); current = null; }
+      previouslyFocused?.focus?.();
+      previouslyFocused = null;
+    };
+
+    const openText = (sel: TextSelector, range: Range) => {
+      if (current) current.cleanup();
+      setHighlight('composing', range);
+      current = { selector: sel, cleanup: () => clearHighlights() };
+      ctxEl.textContent = `“${sel.quote.slice(0, 90)}${sel.quote.length > 90 ? '…' : ''}”`;
+      positionAt(range.getBoundingClientRect());
+      show();
+    };
+    const openBlock = (sel: BlockSelector, el: HTMLElement) => {
+      if (current) current.cleanup();
+      setBlockMarker('composing', el);
+      current = { selector: sel, cleanup: () => removeBlockMarker('composing') };
+      ctxEl.textContent = sel.label;
+      positionAt(el.getBoundingClientRect());
+      show();
+    };
+
+    // ── prose selection → "Report" launcher ──
+    const launcher = document.createElement('button');
+    launcher.type = 'button';
+    launcher.className = 'wiki-annot-launcher';
+    launcher.innerHTML = '<span aria-hidden="true">⚠️</span> Report';
+    document.body.appendChild(launcher);
+    let pendingText: { sel: TextSelector; range: Range } | null = null;
+    const hideLauncher = () => launcher.classList.remove('is-visible');
+
+    document.addEventListener('mouseup', (e) => {
+      if (launcher.contains(e.target as Node) || pop.contains(e.target as Node)) return;
+      const s = window.getSelection();
+      if (!s || s.isCollapsed || s.rangeCount === 0) { hideLauncher(); return; }
+      const range = s.getRangeAt(0);
+      if (!root.contains(range.commonAncestorContainer)) { hideLauncher(); return; }
+      const sel = describe(root, range);
+      if (!sel) { hideLauncher(); return; }
+      pendingText = { sel, range: range.cloneRange() };
+      const r = range.getBoundingClientRect();
+      launcher.style.top = `${r.bottom + 6}px`;
+      launcher.style.left = `${Math.max(8, Math.min(r.left, window.innerWidth - 120))}px`;
+      launcher.classList.add('is-visible');
+    });
+    launcher.addEventListener('click', () => {
+      if (!pendingText) return;
+      hideLauncher();
+      openText(pendingText.sel, pendingText.range);
+    });
+
+    // ── widget hover → "Comment" handle ──
+    const handle = document.createElement('button');
+    handle.type = 'button';
+    handle.className = 'wiki-block-handle';
+    handle.textContent = '💬 Comment';
+    document.body.appendChild(handle);
+    let hoverWidget: HTMLElement | null = null;
+    let hideTimer: number | undefined;
+    const positionHandle = (el: HTMLElement) => {
+      const r = el.getBoundingClientRect();
+      handle.style.top = `${Math.max(8, r.top + 8)}px`;
+      handle.style.left = `${Math.max(8, r.right - 112)}px`;
+      handle.classList.add('is-visible');
+      hoverWidget = el;
+    };
+    const scheduleHideHandle = () => {
+      clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => { handle.classList.remove('is-visible'); hoverWidget = null; }, 160);
+    };
+    blocks.forEach(({ el }) => {
+      el.addEventListener('pointerenter', () => { clearTimeout(hideTimer); positionHandle(el); });
+      el.addEventListener('pointerleave', scheduleHideHandle);
+    });
+    handle.addEventListener('pointerenter', () => clearTimeout(hideTimer));
+    handle.addEventListener('pointerleave', scheduleHideHandle);
+    handle.addEventListener('click', () => {
+      if (!hoverWidget) return;
+      const sel = describeBlock(hoverWidget);
+      handle.classList.remove('is-visible');
+      if (sel) openBlock(sel, hoverWidget);
+    });
+
+    // ── composer actions ──
+    pop.querySelectorAll('[data-report-cancel], [data-report-close]').forEach((b) =>
+      b.addEventListener('click', close),
+    );
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (pop.dataset.open === 'true') close();
+      if (!viewer.hidden) dismissView();
+    });
+
+    // Trap Tab within the open composer (basic dialog focus management).
+    pop.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab' || pop.dataset.open !== 'true') return;
+      const list = Array.from(
+        pop.querySelectorAll<HTMLElement>('button, textarea, input, a[href], [tabindex]:not([tabindex="-1"])'),
+      ).filter((el) => el.offsetParent !== null);
+      if (!list.length) return;
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    document.addEventListener('mousedown', (e) => {
+      if (pop.dataset.open === 'true' && !pop.contains(e.target as Node) && !launcher.contains(e.target as Node)) {
+        close();
+      }
+    });
+
+    pop.querySelector('[data-report-signin]')?.addEventListener('click', async () => {
+      errEl.hidden = true;
+      try {
+        const auth = await import('@lib/annotate/auth');
+        const { user, member } = await auth.signIn();
+        authState = { user, member };
+        window.dispatchEvent(new CustomEvent('wiki-auth-change', { detail: authState }));
+        renderState();
+      } catch (err) {
+        errEl.textContent = err instanceof Error ? err.message : 'Sign-in failed.';
+        errEl.hidden = false;
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!current || !authState.user) return;
+      const fd = new FormData(form);
+      const type = fd.get('type') as AnnotationType | null;
+      const note = ((fd.get('note') as string) || '').trim();
+      if (!type || !note) return;
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      submitBtn.disabled = true;
+      errEl.hidden = true;
+      try {
+        const { createReport } = await import('@lib/annotate/annotations');
+        await createReport({
+          lessonSlug,
+          type,
+          selector: current.selector,
+          note,
+          author: {
+            uid: authState.user.uid,
+            email: authState.user.email || '',
+            name: authState.user.displayName || authState.user.email || 'Member',
+          },
+        });
+        bodyEl.dataset.state = 'success';
+        form.reset();
+        window.setTimeout(close, 1600);
+      } catch (err) {
+        errEl.textContent = err instanceof Error ? err.message : 'Could not submit — please try again.';
+        errEl.hidden = false;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>

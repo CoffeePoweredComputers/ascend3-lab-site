@@ -14,6 +14,9 @@ const wiki = defineCollection({
     title: z.string(),
     module: z.string(),
     order: z.number(),
+    /** Optional sub-group label; contiguous lessons sharing one are nested
+     *  under a collapsible sub-heading in the sidebar (e.g. "Path A — …"). */
+    group: z.string().optional(),
     description: z.string().optional(),
     estMinutes: z.number().optional(),
     draft: z.boolean().default(false),

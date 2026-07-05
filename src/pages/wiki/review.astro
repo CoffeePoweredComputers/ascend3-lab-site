@@ -1,0 +1,480 @@
+---
+/**
+ * /wiki/review — admin dashboard: triage issue-reports + manage members.
+ *
+ * Static page, client-gated to admins (real enforcement is firestore.rules).
+ * Two tabs:
+ *  - Reports: live list, filter by status/type/lesson, change status, resolve
+ *    with a PR link, "View in context" jump-to-highlight on the lesson.
+ *  - Members: approve pending lab members, promote/revoke admin, remove.
+ * noindex — gated app shell.
+ */
+import WikiLayout from '../../layouts/WikiLayout.astro';
+import { STATUS_ORDER, REPORT_TYPE_ORDER, TYPE_META, STATUS_META } from '../../lib/annotate/meta';
+
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+---
+
+<WikiLayout title="Review queue" noindex>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">&gt; Admin</p>
+      <h1>Review queue</h1>
+      <p class="text-text-muted">Triage reported issues and manage lab members.</p>
+
+      <div class="wiki-review" data-state={configured ? 'loading' : 'notconfigured'}>
+        <p class="wiki-review__msg wiki-review__loading">Loading…</p>
+        <p class="wiki-review__msg wiki-review__signedout">Sign in from the sidebar with an admin account to view this.</p>
+        <p class="wiki-review__msg wiki-review__denied">This page is for admins only.</p>
+        <p class="wiki-review__msg wiki-review__notconfigured">Reporting isn't set up yet.</p>
+        <p class="wiki-review__msg wiki-review__error">Couldn't load the queue — check your connection and reload.</p>
+
+        <div class="wiki-review__panel">
+          <div class="wiki-review__tabs" role="tablist">
+            <button type="button" class="is-active" data-tab="reports">Reports</button>
+            <button type="button" data-tab="members">
+              Members <span class="wiki-review__pill" data-pending-badge hidden></span>
+            </button>
+            <button type="button" data-tab="interest">
+              Interest <span class="wiki-review__pill" data-interest-badge hidden></span>
+            </button>
+          </div>
+
+          <!-- Reports -->
+          <div data-view="reports">
+            <div class="wiki-review__filters">
+              <label>Status
+                <select data-filter="status">
+                  <option value="">All</option>
+                  {STATUS_ORDER.map((s) => <option value={s}>{STATUS_META[s].label}</option>)}
+                </select>
+              </label>
+              <label>Type
+                <select data-filter="type">
+                  <option value="">All</option>
+                  {REPORT_TYPE_ORDER.map((t) => <option value={t}>{TYPE_META[t].icon} {TYPE_META[t].label}</option>)}
+                </select>
+              </label>
+              <label>Lesson
+                <select data-filter="lesson"><option value="">All</option></select>
+              </label>
+              <span class="wiki-review__count" data-review-count></span>
+            </div>
+            <ul class="wiki-review__list" data-review-list role="list"></ul>
+            <p class="wiki-review__empty" data-review-empty hidden>No reports match these filters.</p>
+          </div>
+
+          <!-- Members -->
+          <div data-view="members" hidden>
+            <h2 class="wiki-review__subhead">Pending approval</h2>
+            <ul class="wiki-review__list" data-members-pending role="list"></ul>
+            <p class="wiki-review__empty" data-members-nopending hidden>No one's waiting for approval.</p>
+
+            <h2 class="wiki-review__subhead">Members</h2>
+            <ul class="wiki-review__list" data-members-active role="list"></ul>
+          </div>
+
+          <!-- Interest ("Express interest" submissions from /undergrad) -->
+          <div data-view="interest" hidden>
+            <ul class="wiki-review__list" data-interest-list role="list"></ul>
+            <p class="wiki-review__empty" data-interest-empty hidden>No one's expressed interest yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</WikiLayout>
+
+<script>
+  import type { Annotation, AnnotationStatus, Member, Interest, InterestStatus } from '@lib/annotate/types';
+  import { toast } from '@lib/annotate/toast';
+
+  const box = document.querySelector<HTMLElement>('.wiki-review');
+  const listEl = document.querySelector<HTMLElement>('[data-review-list]');
+  const emptyEl = document.querySelector<HTMLElement>('[data-review-empty]');
+  const countEl = document.querySelector<HTMLElement>('[data-review-count]');
+  const lessonSel = document.querySelector<HTMLSelectElement>('[data-filter="lesson"]');
+  const pendingEl = document.querySelector<HTMLElement>('[data-members-pending]');
+  const noPendingEl = document.querySelector<HTMLElement>('[data-members-nopending]');
+  const activeEl = document.querySelector<HTMLElement>('[data-members-active]');
+  const pendingBadge = document.querySelector<HTMLElement>('[data-pending-badge]');
+  const interestEl = document.querySelector<HTMLElement>('[data-interest-list]');
+  const interestEmptyEl = document.querySelector<HTMLElement>('[data-interest-empty]');
+  const interestBadge = document.querySelector<HTMLElement>('[data-interest-badge]');
+
+  if (box && listEl && emptyEl && countEl && lessonSel && pendingEl && activeEl && interestEl && interestEmptyEl && box.dataset.state !== 'notconfigured') {
+    (async () => {
+      const { onUser, getMember, isAdmin } = await import('@lib/annotate/auth');
+      const { watchAllReports, setReportStatus } = await import('@lib/annotate/annotations');
+      const { watchMembers, approveMember, removeMember, setMemberRole, setMemberEditor } = await import('@lib/annotate/members');
+      const { watchAllInterest, setInterestStatus } = await import('@lib/annotate/interest');
+      const { TYPE_META, STATUS_META } = await import('@lib/annotate/meta');
+      const { githubEditUrl, githubIssueUrl, githubIssueContent } = await import('@lib/annotate/links');
+
+      const esc = (s: string) =>
+        s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string));
+      const fmtDate = (ts: Annotation['createdAt']) =>
+        ts && typeof ts.toDate === 'function' ? ts.toDate().toLocaleDateString() : '';
+      const errMsg = (e: unknown) => (e instanceof Error ? e.message : 'unknown error');
+
+      let myUid = '';
+
+      // ── Tabs ──
+      box.querySelectorAll<HTMLElement>('[data-tab]').forEach((tab) =>
+        tab.addEventListener('click', () => {
+          const name = tab.dataset.tab;
+          box.querySelectorAll<HTMLElement>('[data-tab]').forEach((t) => t.classList.toggle('is-active', t === tab));
+          box.querySelectorAll<HTMLElement>('[data-view]').forEach((v) => (v.hidden = v.dataset.view !== name));
+        }),
+      );
+
+      // ── Reports ──
+      let all: Annotation[] = [];
+      const filters = { status: '', type: '', lesson: '' };
+
+      const reportCard = (r: Annotation) => {
+        const t = TYPE_META[r.type] ?? { icon: '•', label: r.type };
+        const st = STATUS_META[r.status] ?? { label: r.status, color: 'var(--color-text-muted)' };
+        const where = r.selector?.kind === 'block'
+          ? esc(r.selector.label)
+          : `“${esc((r.selector?.quote ?? '').slice(0, 140))}”`;
+        const reference = r.selector?.kind === 'block'
+          ? `Widget: ${r.selector.label}`
+          : (r.selector?.quote ?? '');
+        const issueUrl = githubIssueUrl({
+          type: r.type,
+          lessonSlug: r.lessonSlug,
+          note: r.note,
+          reference,
+          author: r.authorName || r.authorEmail || 'Member',
+          contextUrl: `${location.origin}/wiki/${r.lessonSlug}?report=${r.id}`,
+        });
+        const issueLink = r.issueUrl
+          ? `<a href="${esc(r.issueUrl)}" target="_blank" rel="noopener noreferrer">Issue #${esc(String(r.issueNumber ?? ''))} ↗</a>`
+          : `<a href="${esc(issueUrl)}" target="_blank" rel="noopener noreferrer">Open GitHub issue ↗</a>`;
+        const resolved = r.resolutionUrl
+          ? `<a href="${esc(r.resolutionUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.resolutionUrl)}</a>`
+          : '';
+        return `<li class="wiki-review__item" data-id="${esc(r.id)}">
+          <div class="wiki-review__row">
+            <span class="wiki-review__type">${t.icon} ${esc(t.label)}</span>
+            <span class="wiki-review__status" style="--s:${st.color}">${esc(st.label)}</span>
+          </div>
+          <p class="wiki-review__note">${esc(r.note)}</p>
+          <p class="wiki-review__ctx">${where}</p>
+          <p class="wiki-review__meta">${esc(r.authorName || r.authorEmail || 'Member')} · ${esc(fmtDate(r.createdAt))}</p>
+          <div class="wiki-review__links">
+            <a href="/wiki/${esc(r.lessonSlug)}?report=${esc(r.id)}">View in context ↗</a>
+            <a href="${esc(githubEditUrl(r.lessonSlug))}" target="_blank" rel="noopener noreferrer">Edit on GitHub ↗</a>
+            ${issueLink}
+          </div>
+          ${resolved ? `<p class="wiki-review__resolved">Resolved by ${resolved}</p>` : ''}
+          <div class="wiki-review__actions">
+            <button type="button" data-act="status" data-status="open">Reopen</button>
+            <button type="button" data-act="status" data-status="in-review">In review</button>
+            <button type="button" data-act="resolve">Resolve…</button>
+            <button type="button" data-act="status" data-status="wontfix">Won't fix</button>
+          </div>
+          <form class="wiki-review__resolveform" data-resolveform hidden>
+            <input type="url" name="url" placeholder="PR or commit URL (optional)" />
+            <input type="text" name="note" placeholder="Resolution note (optional)" />
+            <div class="wiki-review__resolveactions">
+              <button type="button" data-act="resolve-cancel">Cancel</button>
+              <button type="submit">Mark resolved</button>
+            </div>
+          </form>
+        </li>`;
+      };
+
+      const renderReports = () => {
+        const shown = all.filter(
+          (r) =>
+            (!filters.status || r.status === filters.status) &&
+            (!filters.type || r.type === filters.type) &&
+            (!filters.lesson || r.lessonSlug === filters.lesson),
+        );
+        countEl.textContent = `${shown.length} of ${all.length}`;
+        emptyEl.hidden = shown.length > 0;
+        listEl.innerHTML = shown.map(reportCard).join('');
+      };
+
+      const syncLessonOptions = () => {
+        const slugs = [...new Set(all.map((r) => r.lessonSlug))].sort();
+        const cur = lessonSel.value;
+        lessonSel.innerHTML = '<option value="">All</option>' + slugs.map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+        lessonSel.value = cur;
+      };
+
+      box.querySelectorAll<HTMLSelectElement>('[data-filter]').forEach((sel) =>
+        sel.addEventListener('change', () => {
+          filters[sel.dataset.filter as keyof typeof filters] = sel.value;
+          renderReports();
+        }),
+      );
+
+      listEl.addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLElement>('button[data-act]');
+        if (!btn) return;
+        const li = btn.closest<HTMLElement>('.wiki-review__item');
+        const id = li?.dataset.id;
+        if (!id) return;
+        const form = li!.querySelector<HTMLElement>('[data-resolveform]');
+        const act = btn.dataset.act;
+        if (act === 'resolve') { form?.removeAttribute('hidden'); return; }
+        if (act === 'resolve-cancel') { form?.setAttribute('hidden', ''); return; }
+        if (act === 'status') {
+          const status = btn.dataset.status as AnnotationStatus;
+          const report = all.find((x) => x.id === id);
+          // Flipping to in-review may open (or re-open) a GitHub issue — the slow,
+          // popup path — so show the loading bar for any in-review flip.
+          const goingInReview = status === 'in-review' && !!report;
+          const label = btn.textContent;
+          btn.setAttribute('disabled', '');
+          if (goingInReview) { btn.classList.add('is-filing'); btn.textContent = 'Filing…'; }
+          let filed = false; // did we actually POST a new issue? (shapes the error copy)
+          try {
+            if (goingInReview) {
+              const rep = report!;
+              const gh = await import('@lib/annotate/github');
+              // Reuse the stored issue ONLY if it still exists on GitHub. A deleted
+              // issue must not stay linked — verify, and re-file if it's gone.
+              const reuse = !!rep.issueNumber && (await gh.githubIssueExists(rep.issueNumber));
+              if (reuse) {
+                await setReportStatus(id, 'in-review');
+                toast(`Marked in review (issue #${rep.issueNumber}).`, 'success',
+                  rep.issueUrl ? { href: rep.issueUrl, linkText: `#${rep.issueNumber} ↗` } : undefined);
+              } else {
+                filed = true;
+                const reference = rep.selector?.kind === 'block'
+                  ? `Widget: ${rep.selector.label}`
+                  : (rep.selector?.quote ?? '');
+                const issue = await gh.createGithubIssue(githubIssueContent({
+                  type: rep.type,
+                  lessonSlug: rep.lessonSlug,
+                  note: rep.note,
+                  reference,
+                  author: rep.authorName || rep.authorEmail || 'a member',
+                  contextUrl: `${location.origin}/wiki/${rep.lessonSlug}?report=${rep.id}`,
+                }));
+                // New issueUrl/issueNumber overwrite any stale (deleted) ones.
+                await setReportStatus(id, 'in-review', { issueUrl: issue.url, issueNumber: issue.number });
+                toast(`Opened issue #${issue.number}.`, 'success', { href: issue.url, linkText: `#${issue.number} ↗` });
+              }
+            } else {
+              await setReportStatus(id, status, status === 'wontfix' ? { resolvedBy: myUid } : undefined);
+              toast(status === 'wontfix' ? "Marked won't fix." : 'Reopened.');
+            }
+          } catch (err) {
+            toast(goingInReview
+              ? `Couldn't ${filed ? 'file the GitHub issue' : 'update'}: ${errMsg(err)}`
+              : `Couldn't update: ${errMsg(err)}`, 'error');
+          } finally {
+            // On success the list re-renders (fresh button); on failure this same
+            // button persists, so restore its label/class either way.
+            btn.removeAttribute('disabled');
+            if (goingInReview) { btn.classList.remove('is-filing'); btn.textContent = label; }
+          }
+        }
+      });
+
+      listEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target as HTMLFormElement;
+        const id = form.closest<HTMLElement>('.wiki-review__item')?.dataset.id;
+        if (!id) return;
+        const fd = new FormData(form);
+        const url = ((fd.get('url') as string) || '').trim();
+        const note = ((fd.get('note') as string) || '').trim();
+        const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+        submitBtn.disabled = true;
+        try {
+          await setReportStatus(id, 'resolved', {
+            resolvedBy: myUid,
+            ...(url ? { resolutionUrl: url } : {}),
+            ...(note ? { resolutionNote: note } : {}),
+          });
+          toast('Report resolved.', 'success');
+        } catch (err) {
+          toast(`Couldn't resolve: ${errMsg(err)}`, 'error');
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+
+      // ── Members ──
+      const levelLabel = (m: Member) =>
+        m.level ? m.level.charAt(0).toUpperCase() + m.level.slice(1) : '';
+
+      const pendingCard = (m: Member) => `<li class="wiki-review__member" data-uid="${esc(m.uid)}">
+        <div class="wiki-review__memberinfo">
+          <span class="wiki-review__membername">${esc(m.displayName || m.email)}</span>
+          <span class="wiki-review__membermeta">${esc(m.email)} · ${esc(fmtDate(m.createdAt))}${m.level ? ` · ${esc(levelLabel(m))}` : ''}</span>
+        </div>
+        <div class="wiki-review__actions">
+          <button type="button" data-mact="approve" class="wiki-review__approve">Approve</button>
+          <button type="button" data-mact="deny">Deny</button>
+        </div>
+      </li>`;
+
+      const activeRow = (m: Member) => {
+        const self = m.uid === myUid;
+        const admin = m.role === 'admin';
+        const editor = m.editor === true;
+        const roleBtn = self
+          ? ''
+          : admin
+            ? `<button type="button" data-mact="revoke">Revoke admin</button>`
+            : `<button type="button" data-mact="makeadmin">Make admin</button>`;
+        // Admins are implicitly editors, so the editor toggle only applies to
+        // non-admin members. Granting it still requires a GitHub-collaborator add.
+        const editorBtn = self || admin
+          ? ''
+          : editor
+            ? `<button type="button" data-mact="editoroff">Revoke editor</button>`
+            : `<button type="button" data-mact="editoron">Make editor</button>`;
+        const removeBtn = self ? '' : `<button type="button" data-mact="remove">Remove</button>`;
+        const badge = admin ? 'admin' : editor ? 'editor' : 'member';
+        return `<li class="wiki-review__member" data-uid="${esc(m.uid)}">
+          <div class="wiki-review__memberinfo">
+            <span class="wiki-review__membername">${esc(m.displayName || m.email)}${self ? ' <em>(you)</em>' : ''}</span>
+            <span class="wiki-review__membermeta">${esc(m.email)}${m.level ? ` · ${esc(levelLabel(m))}` : ''}</span>
+          </div>
+          <span class="wiki-review__rolebadge" data-admin="${admin}" data-editor="${editor}">${badge}</span>
+          <div class="wiki-review__actions">${roleBtn}${editorBtn}${removeBtn}</div>
+        </li>`;
+      };
+
+      let lastMembers: Member[] = [];
+      const renderMembers = (members: Member[]) => {
+        lastMembers = members;
+        const pending = members.filter((m) => m.status === 'pending');
+        const active = members.filter((m) => m.status === 'member');
+        pendingEl.innerHTML = pending.map(pendingCard).join('');
+        noPendingEl!.hidden = pending.length > 0;
+        activeEl.innerHTML = active.map(activeRow).join('');
+        if (pendingBadge) {
+          pendingBadge.textContent = String(pending.length);
+          pendingBadge.hidden = pending.length === 0;
+        }
+      };
+
+      const memberAction = (container: HTMLElement) => {
+        container.addEventListener('click', async (e) => {
+          const btn = (e.target as HTMLElement).closest<HTMLElement>('button[data-mact]');
+          if (!btn) return;
+          const uid = btn.closest<HTMLElement>('.wiki-review__member')?.dataset.uid;
+          if (!uid) return;
+          const act = btn.dataset.mact;
+
+          // Inline confirm (replaces native confirm()) for destructive removal:
+          // swap the row's actions for a Yes/Cancel prompt.
+          if (act === 'deny' || act === 'remove') {
+            const actions = btn.closest<HTMLElement>('.wiki-review__actions');
+            if (actions) {
+              actions.innerHTML =
+                `<span class="wiki-review__confirmtext">Remove this member?</span>` +
+                `<button type="button" data-mact="confirm-yes" class="wiki-review__danger">Yes, remove</button>` +
+                `<button type="button" data-mact="confirm-no">Cancel</button>`;
+            }
+            return;
+          }
+          if (act === 'confirm-no') { renderMembers(lastMembers); return; }
+
+          btn.setAttribute('disabled', '');
+          try {
+            if (act === 'approve') { await approveMember(uid); toast('Member approved.', 'success'); }
+            else if (act === 'confirm-yes') { await removeMember(uid); toast('Member removed.'); }
+            else if (act === 'makeadmin') { await setMemberRole(uid, 'admin'); toast('Promoted to admin.', 'success'); }
+            else if (act === 'revoke') { await setMemberRole(uid, 'member'); toast('Admin revoked.'); }
+            else if (act === 'editoron') { await setMemberEditor(uid, true); toast('Editor access granted — remember to add them as a GitHub collaborator.', 'success'); }
+            else if (act === 'editoroff') { await setMemberEditor(uid, false); toast('Editor access revoked.'); }
+            // On success the members snapshot re-renders the row; no re-enable needed.
+          } catch (err) {
+            toast(`Couldn't update member: ${errMsg(err)}`, 'error');
+            renderMembers(lastMembers); // restore the row (undo any confirm swap)
+          }
+        });
+      };
+      memberAction(pendingEl);
+      memberAction(activeEl);
+
+      // ── Interest ("Express interest" submissions) ──
+      const INTEREST_STATUS_LABEL: Record<InterestStatus, string> = {
+        new: 'New', contacted: 'Contacted', closed: 'Closed',
+      };
+      const interestActions = (i: Interest): string => {
+        if (i.status === 'new') return `<button type="button" data-iact="contacted">Mark contacted</button><button type="button" data-iact="closed">Close</button>`;
+        if (i.status === 'contacted') return `<button type="button" data-iact="closed">Close</button><button type="button" data-iact="new">Reopen</button>`;
+        return `<button type="button" data-iact="new">Reopen</button>`;
+      };
+      const interestCard = (i: Interest) => `<li class="wiki-review__item" data-id="${esc(i.id)}">
+        <div class="wiki-review__row">
+          <span class="wiki-review__type">${esc(i.projectTitle)}</span>
+          <span class="wiki-review__status">${esc(INTEREST_STATUS_LABEL[i.status] ?? i.status)}</span>
+        </div>
+        ${i.note ? `<p class="wiki-review__note">${esc(i.note)}</p>` : ''}
+        <p class="wiki-review__meta">${esc(i.authorName || i.authorEmail)} · ${esc(fmtDate(i.createdAt))} · <a href="mailto:${esc(i.authorEmail)}">${esc(i.authorEmail)}</a></p>
+        <div class="wiki-review__actions">${interestActions(i)}</div>
+      </li>`;
+
+      let allInterest: Interest[] = [];
+      const renderInterest = (items: Interest[]) => {
+        allInterest = items;
+        interestEl.innerHTML = items.map(interestCard).join('');
+        interestEmptyEl.hidden = items.length > 0;
+        const newCount = items.filter((i) => i.status === 'new').length;
+        if (interestBadge) {
+          interestBadge.textContent = String(newCount);
+          interestBadge.hidden = newCount === 0;
+        }
+      };
+
+      interestEl.addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLElement>('button[data-iact]');
+        if (!btn) return;
+        const id = btn.closest<HTMLElement>('.wiki-review__item')?.dataset.id;
+        const status = btn.dataset.iact as InterestStatus | undefined;
+        if (!id || !status) return;
+        btn.setAttribute('disabled', '');
+        try {
+          await setInterestStatus(id, status);
+        } catch (err) {
+          toast(`Couldn't update: ${errMsg(err)}`, 'error');
+          btn.removeAttribute('disabled');
+        }
+      });
+
+      // ── Gate + subscribe ──
+      let unsubReports: (() => void) | null = null;
+      let unsubMembers: (() => void) | null = null;
+      let unsubInterest: (() => void) | null = null;
+      const stop = () => {
+        unsubReports?.(); unsubMembers?.(); unsubInterest?.();
+        unsubReports = unsubMembers = unsubInterest = null;
+      };
+
+      onUser(async (user) => {
+        if (!user) { box.dataset.state = 'signedout'; stop(); return; }
+        const member = await getMember(user.uid);
+        if (!isAdmin(member)) { box.dataset.state = 'denied'; stop(); return; }
+        myUid = user.uid;
+        box.dataset.state = 'ready';
+        stop();
+        unsubReports = watchAllReports(
+          (reports) => { all = reports; syncLessonOptions(); renderReports(); },
+          (err) => { box.dataset.state = 'error'; toast(`Couldn't load reports: ${errMsg(err)}`, 'error'); },
+        );
+        unsubMembers = watchMembers(
+          renderMembers,
+          (err) => { toast(`Couldn't load members: ${errMsg(err)}`, 'error'); },
+        );
+        unsubInterest = watchAllInterest(
+          renderInterest,
+          (err) => { toast(`Couldn't load interest submissions: ${errMsg(err)}`, 'error'); },
+        );
+      });
+    })();
+  }
+</script>

@@ -1,0 +1,807 @@
+---
+/**
+ * /undergrad — Undergraduate research at ASCEND.
+ *
+ * A recruiting page with its OWN scroll-trail nav (the homepage's Navigation
+ * component, parametrized with these sections instead of the home sections).
+ * The informational sections — Overview, How projects work, Studio day,
+ * Guidance — are PUBLIC. Only the final "Open Projects" section is gated:
+ * signed-out / pending visitors get a locked placeholder + sign-in button;
+ * approved members get the project flipbook. (Content grounded in research on
+ * running undergraduate research — see the references block in Guidance.)
+ *
+ * Each project renders as a page on a spiral register pad, presented as a
+ * FLIPBOOK: one page at a time, with an index-tab strip as the guide bar
+ * (APG tablist — arrow keys flip, Home/End jump, tabs are native buttons,
+ * roving tabindex). Each page keeps its own independent tear state. Tabs go
+ * dense (dot + №) at 7+ projects and on narrow screens; full titles stay
+ * available as native tooltips. Every page is deep-linkable via #slug.
+ * Progressive enhancement: without JS the pages simply stack.
+ *
+ * "Express interest" is tearing the page: pull it down past the perforation
+ * (pointer drag), or simply tap / press Enter on the grab strip — the drag
+ * is an enhancement, never the only path (WCAG 2.5.7). On success the page
+ * rips and hangs from its surviving corner, signed; the Firestore write
+ * happens at commit and the page springs back with an error if it fails.
+ *
+ * When Firebase isn't configured, the projects section renders ungated and
+ * each pad's sign area becomes a plain mailto — there's no backend to submit to.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProfileImage from '../components/ProfileImage.astro';
+import { getUndergradProjects } from '../lib/undergrad';
+
+const projects = await getUndergradProjects();
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+
+const AREA_LABEL: Record<string, string> = {
+  tools: 'Tools & Infra',
+  qual: 'Qual Methods',
+  assessment: 'Assessment',
+};
+
+const initials = (name: string) => name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+
+// Trail waypoints for this page's own nav (the projects flipbook is the last
+// waypoint). Section ids below must match these ids for the scroll-spy.
+const SECTIONS = [
+  { href: '#overview', label: 'Overview', id: 'overview' },
+  { href: '#how', label: 'How it works', id: 'how' },
+  { href: '#studio', label: 'Studio day', id: 'studio' },
+  { href: '#guidance', label: 'Guidance', id: 'guidance' },
+  { href: '#projects', label: 'Open Projects', id: 'projects' },
+];
+const NAV_ROUTES = [
+  { href: '/', label: 'ASCEND Home', icon: '🏔' },
+  { href: '/wiki', label: 'Lab Wiki', icon: '📚' },
+];
+
+// External references shown in the Guidance section.
+const REFERENCES = [
+  { label: 'Council on Undergraduate Research — Characteristics of Excellence', href: 'https://www.cur.org/resources-publications/coeur-2-0/coeur-2-0-the-characteristics/' },
+  { label: 'Ten simple rules for an undergraduate-intensive research lab', href: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11008859/' },
+  { label: 'Computational Apprenticeship — a CS research-lab case study', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8863170/' },
+  { label: 'Vertically Integrated Projects (VIP) — Georgia Tech', href: 'https://vip.gatech.edu/' },
+  { label: 'Effective mentoring practices — UCF Office of Undergraduate Research', href: 'https://academicsuccess.ucf.edu/our/faculty/effective-mentoring-practices/' },
+];
+---
+
+<BaseLayout
+  title="Undergraduate Research"
+  description="Undergraduate research in the ASCEND Lab at Virginia Tech — how projects work, what a studio day looks like, and current openings."
+>
+  <Navigation slot="nav" links={SECTIONS} logoHref="/" routeLinks={NAV_ROUTES} />
+
+  <!-- ① Overview ─────────────────────────────────────────────────────────── -->
+  <section id="overview" class="section relative overflow-hidden">
+    <div class="topo-bg absolute inset-0 opacity-70 pointer-events-none" aria-hidden="true"></div>
+    <div class="container relative">
+      <div class="max-w-3xl">
+        <h1 class="font-heading font-bold text-4xl md:text-5xl text-text leading-[1.1] text-balance">
+          Undergraduate research at <span class="text-primary">ASCEND</span>
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-text-muted leading-relaxed">
+          Not busywork, and not shadowing. You join a project team as an apprentice researcher and
+          do real work — alongside PhD and master's students — toward results that ship and get
+          published.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <div class="card border-l-4 border-primary p-6 md:p-7">
+          <h3 class="font-heading font-semibold text-lg text-text mb-2">Apprenticeship, not observation</h3>
+          <p class="text-text-muted leading-relaxed">You're embedded in a project with real responsibilities, learning the craft by doing it — not watching from the side.</p>
+        </div>
+        <div class="card border-l-4 border-secondary p-6 md:p-7">
+          <h3 class="font-heading font-semibold text-lg text-text mb-2">Vertically integrated</h3>
+          <p class="text-text-muted leading-relaxed">Undergrads, grad students, and faculty work the same problems together, so there's always a mentor a step ahead of you.</p>
+        </div>
+        <div class="card border-l-4 border-accent p-6 md:p-7">
+          <h3 class="font-heading font-semibold text-lg text-text mb-2">Built for the long game</h3>
+          <p class="text-text-muted leading-relaxed">The best trajectories span several semesters — you ramp up, take ownership, and leave with signature work: a paper, a tool, a poster.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② How project structures work ──────────────────────────────────────── -->
+  <section id="how" class="section">
+    <div class="container">
+      <SectionHeading
+        title="How it works"
+        subtitle="Every project is a small team with a clear shape, so you always know who you're working with and what &ldquo;done&rdquo; looks like this semester."
+      />
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🧭</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Tiered mentoring</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Each project has a faculty lead <em>and</em> a graduate or senior-peer mentor you meet with directly — big-picture direction plus hands-on guidance.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🗺️</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Scoped to a semester, aimed at years</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Work is broken into semester-sized milestones that ladder up to a larger goal — one term is achievable, but the arc rewards staying.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🧩</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Sub-teams</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Larger projects split into sub-teams that each own a piece and sync with the whole group, so your contribution is concrete.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🤝</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Expectations up front</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">At the start, you and your mentor agree on goals, hours, and deliverables — no ambiguity about what's expected of you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ Studio session day ───────────────────────────────────────────────── -->
+  <section id="studio" class="section">
+    <div class="container">
+      <SectionHeading
+        title="Studio day"
+        subtitle="The rhythm of the lab is the weekly studio session — the standing time the whole team is in the room together."
+      />
+
+      <div class="flex items-start gap-4 rounded-[var(--radius-lg)] bg-primary/5 backdrop-blur-md border border-primary/20 p-6">
+        <span class="text-3xl shrink-0" aria-hidden="true">🚪</span>
+        <div>
+          <h3 class="font-heading font-semibold text-lg text-text mb-1">The first session each semester is an open house</h3>
+          <p class="text-text-muted leading-relaxed">The studio day is set at the start of every semester to fit everyone's schedules — so the easiest way to see the lab is to drop in on that first open session. No commitment required.</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-6">
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">⏱️</span>
+            <h3 class="font-heading font-semibold text-lg text-text">One meeting a week</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Roughly an hour together for progress check-ins, unblocking, and planning — plus about three more hours of independent work across the week.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🛠️</span>
+            <h3 class="font-heading font-semibold text-lg text-text">A working session, not a lecture</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">You demo what you did, get feedback, pair with your mentor or sub-team, and leave with a concrete next task.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">💬</span>
+            <h3 class="font-heading font-semibold text-lg text-text">A community of practice</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">It's also where you see everyone else's work — reading groups, practice talks, informal help — so you learn the field, not just your slice of it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ Guidance ─────────────────────────────────────────────────────────── -->
+  <section id="guidance" class="section">
+    <div class="container">
+      <SectionHeading
+        title="Guidance"
+        subtitle="A few things that make undergraduate research go well — worth reading before you express interest."
+      />
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🌱</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Start early, stay a while</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Students who begin earlier in their degree and stick with a project across terms get the most out of it — and the best outcomes.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">🎯</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Own your goals</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Come with what <em>you</em> want out of it — skills, a paper, grad-school prep. Mentoring works best when you and your mentor set goals together.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">⏳</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Research runs slower than coursework</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Expect longer turnaround and dead ends. That's the normal texture of research, not a sign you're failing.</p>
+        </div>
+        <div class="card p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl shrink-0" aria-hidden="true">📚</span>
+            <h3 class="font-heading font-semibold text-lg md:text-xl text-text">Build research skills deliberately</h3>
+          </div>
+          <p class="text-text-muted leading-relaxed">Read the literature, question methods, and present your work at symposia when you're ready. Ownership of the whole process is the point.</p>
+        </div>
+      </div>
+
+      <p class="text-text-muted leading-relaxed mt-8 max-w-3xl">
+        <span class="font-medium text-text">Prerequisites vary by project</span> — each open project lists what's
+        good to have. Not sure whether you're a fit? Email David at
+        <a href="mailto:dhsmith4@vt.edu">dhsmith4@vt.edu</a>, or drop into the next open house.
+      </p>
+
+      <div class="mt-12 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" aria-hidden="true"></div>
+      <div class="mt-6">
+        <h3 class="font-mono text-xs uppercase tracking-wide text-text-muted mb-3">How we think about this — further reading</h3>
+        <ul class="flex flex-col gap-1.5 text-sm" role="list">
+          {REFERENCES.map((r) => (
+            <li>
+              <a
+                href={r.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-text-muted hover:text-primary transition-colors"
+              >
+                {r.label} <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ Open Projects (gated) ────────────────────────────────────────────── -->
+  <section id="projects" class="section">
+    <div class="container max-w-4xl">
+      <SectionHeading
+        title="Open Projects"
+        subtitle="Current ASCEND projects open to undergraduates — one register page per project. Flip through with the tabs, and tear a page off to sign on."
+      />
+
+      <div class="undergrad-gate" data-state={configured ? 'loading' : 'open'}>
+        <p class="undergrad-gate__loading text-text-muted">Loading…</p>
+
+        <div class="undergrad-gate__signedout card p-8 md:p-10 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-2xl" aria-hidden="true">🔒</div>
+          <h2 class="font-heading text-xl font-semibold text-text mb-2">Open projects are members-only</h2>
+          <p class="text-text-muted max-w-md mx-auto mb-5">
+            Everything above is open to everyone — the project list itself is for approved ASCEND
+            members. Sign in with your Virginia Tech Google account; an admin approves new accounts
+            before you can browse and sign on.
+          </p>
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+            data-undergrad-signin
+          >
+            Sign in to see open projects
+          </button>
+          <p class="text-danger text-sm mt-3" data-undergrad-error hidden></p>
+        </div>
+
+        <div class="undergrad-gate__pending card p-8 md:p-10 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 border border-accent/20 text-2xl" aria-hidden="true">⏳</div>
+          <h2 class="font-heading text-xl font-semibold text-text mb-2">Your account is pending approval</h2>
+          <p class="text-text-muted max-w-md mx-auto">
+            An admin needs to approve your account before you can see project details.
+            Check back soon, or reach out to <a href="mailto:dhsmith4@vt.edu">dhsmith4@vt.edu</a>.
+          </p>
+        </div>
+
+        <div class="undergrad-gate__open flex flex-col">
+          <!-- Guide bar: one index tab per project. Hidden until the flip
+               script takes over; without JS the pages stack below instead. -->
+          <div
+            class:list={['undergrad-tabs', projects.length >= 7 && 'is-dense']}
+            role="tablist"
+            aria-label="Projects"
+            data-flip-tabs
+            hidden
+          >
+            {projects.map((p, i) => (
+              <button
+                type="button"
+                role="tab"
+                id={`tab-${p.slug}`}
+                aria-controls={`panel-${p.slug}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                tabindex={i === 0 ? 0 : -1}
+                class="undergrad-tab"
+                title={p.title}
+              >
+                <i class={`undergrad-tab__dot undergrad-tab__dot--${p.area}`} aria-hidden="true"></i>
+                <b class="undergrad-tab__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</b>
+                <span class="undergrad-tab__label">{p.shortTitle}</span>
+              </button>
+            ))}
+          </div>
+
+          <div class="undergrad-flipstack" data-flipstack>
+          {projects.map((p) => (
+            <div
+              class="undergrad-stage"
+              role="tabpanel"
+              id={`panel-${p.slug}`}
+              aria-labelledby={`tab-${p.slug}`}
+              data-interest-block
+              data-slug={p.slug}
+              data-title={p.title}
+            >
+              <div class="undergrad-pad">
+                <div class="undergrad-pad__holes" aria-hidden="true"></div>
+                <div class="undergrad-pad__margin" aria-hidden="true"></div>
+                <p class="undergrad-tearlabel" aria-hidden="true">tear along here to sign on</p>
+                <div class="undergrad-dashes" data-dashes aria-hidden="true"></div>
+
+                <div class="undergrad-sheetwrap">
+                  <div class="undergrad-tornstrip" aria-hidden="true"></div>
+                  <div class="undergrad-underpage" aria-hidden="true">
+                    <div class="undergrad-underpage__margin"></div>
+                  </div>
+
+                  <div
+                    class:list={['undergrad-sheet', configured && 'undergrad-sheet--pullable']}
+                    data-sheet
+                  >
+                    <div class="undergrad-sheet__margin" aria-hidden="true"></div>
+
+                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                      <span class:list={['undergrad-area', `undergrad-area--${p.area}`]}>
+                        {AREA_LABEL[p.area]}
+                      </span>
+                      <h2 class="font-heading font-bold text-xl md:text-2xl text-text">{p.title}</h2>
+                      {p.status === 'recruiting' && <span class="badge badge-active ml-auto shrink-0">Recruiting</span>}
+                      {p.status === 'running' && <span class="badge badge-completed ml-auto shrink-0">Ongoing</span>}
+                      {p.status === 'full' && <span class="badge badge-general ml-auto shrink-0">Full</span>}
+                    </div>
+
+                    <p class="text-text leading-relaxed max-w-2xl">{p.lede}</p>
+                    {p.prereq && (
+                      <p class="text-text-muted text-sm mt-3">
+                        <span class="font-mono text-xs uppercase tracking-wide">Good to have:</span> {p.prereq}
+                      </p>
+                    )}
+
+                    <div class="grid sm:grid-cols-2 gap-6 mt-6">
+                      <div>
+                        <h3 class="font-mono text-xs uppercase tracking-wide text-accent mb-3">Your team</h3>
+                        <div class="flex flex-col gap-2.5">
+                          {p.team.map((person) => (
+                            <div class="flex items-center gap-2.5">
+                              {person.photo ? (
+                                <ProfileImage
+                                  photo={person.photo}
+                                  name={person.name}
+                                  size={32}
+                                  sizeClass="w-8 h-8 shrink-0"
+                                  class="ring-1 ring-offset-1 ring-offset-surface-base ring-primary/50"
+                                />
+                              ) : (
+                                <div class="w-8 h-8 shrink-0 rounded-full flex items-center justify-center font-heading font-bold text-xs bg-primary/10 text-primary ring-1 ring-offset-1 ring-offset-surface-base ring-primary/50">
+                                  {initials(person.name)}
+                                </div>
+                              )}
+                              <div class="leading-tight min-w-0">
+                                <p class="text-sm font-medium text-text truncate">{person.name}</p>
+                                <p class="text-xs text-text-muted truncate">{person.role}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3 class="font-mono text-xs uppercase tracking-wide text-accent mb-3">Materials &amp; resources</h3>
+                        {p.materials.length > 0 ? (
+                          <div class="flex flex-col gap-1.5">
+                            {p.materials.map((m) => (
+                              <a
+                                href={m.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex items-center gap-2 text-sm text-text no-underline hover:text-primary transition-colors"
+                              >
+                                <span class="font-mono text-xs text-text-muted shrink-0">{m.kind}</span>
+                                <span class="truncate">{m.label}</span>
+                                <span aria-hidden="true" class="shrink-0">↗</span>
+                              </a>
+                            ))}
+                          </div>
+                        ) : (
+                          <p class="text-sm text-text-muted italic">Materials coming soon.</p>
+                        )}
+
+                        {p.wikiLinks.length > 0 && (
+                          <div class="flex flex-wrap gap-2 mt-3">
+                            {p.wikiLinks.map((w) => (
+                              <a
+                                href={w.href}
+                                class="text-xs font-mono px-2 py-0.5 rounded-full bg-surface text-text-muted border border-border no-underline hover:border-primary hover:text-primary transition-colors"
+                              >
+                                wiki: {w.title}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {configured ? (
+                      <Fragment>
+                        <div class="mt-6 pt-5 border-t border-border">
+                          <textarea
+                            data-note
+                            rows="2"
+                            placeholder="Anything you'd like us to know? (optional)"
+                            aria-label={`Optional note to include when signing on to ${p.title}`}
+                            class="w-full max-w-lg text-sm p-3 border border-border rounded-lg bg-surface-base text-text"
+                          ></textarea>
+                        </div>
+                        <div class="mt-2 flex items-center gap-3 flex-wrap min-h-[2.2rem]">
+                          <span class="undergrad-scrawl" data-scrawl>— You, signed on</span>
+                          <span class="text-sm text-secondary font-medium hidden" data-success>
+                            You're on the register — David will follow up.
+                          </span>
+                          <span class="text-sm text-danger hidden" data-error role="alert"></span>
+                          <span class="sr-only" data-live aria-live="polite"></span>
+                        </div>
+                        <button
+                          type="button"
+                          class="undergrad-grabedge"
+                          data-grabedge
+                          aria-label={`Sign on to ${p.title} — press Enter, or pull the page down`}
+                        >
+                          <span aria-hidden="true">⬇ pull the page down to sign on</span>
+                        </button>
+                      </Fragment>
+                    ) : (
+                      <div class="mt-6 pt-6 border-t border-border">
+                        <a
+                          href={`mailto:dhsmith4@vt.edu?subject=${encodeURIComponent('Interested in: ' + p.title)}`}
+                          class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 no-underline transition-colors"
+                        >
+                          Email to express interest
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const gate = document.querySelector<HTMLElement>('.undergrad-gate');
+
+  interface CurrentUser { uid: string; email: string | null; }
+  let currentUser: CurrentUser | null = null;
+  let currentName = '';
+
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const N_DASHES = 22;
+  const THRESHOLD = 85; // px of pull that commits the tear
+  const REST = 'translateY(13px) rotate(5.2deg)'; // the hanging resting rip
+
+  // ── Flipbook: index-tab navigation between register pages ──
+  // APG tabs pattern: roving tabindex, arrow keys with wrap-around, Home/End,
+  // automatic activation. Each page keeps its own tear state; the URL hash
+  // tracks the open project so a specific page can be linked directly.
+  (() => {
+    const tablist = document.querySelector<HTMLElement>('[data-flip-tabs]');
+    const stack = document.querySelector<HTMLElement>('[data-flipstack]');
+    if (!tablist || !stack) return;
+    const tabs = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const stages = Array.from(stack.querySelectorAll<HTMLElement>('[data-interest-block]'));
+    if (tabs.length === 0 || tabs.length !== stages.length) return;
+
+    const slugs = stages.map((s) => s.dataset.slug ?? '');
+    const last = stages.length - 1;
+    let idx = Math.max(0, slugs.indexOf(location.hash.slice(1)));
+    let busy = false;
+
+    stack.classList.add('is-flip');
+    tablist.hidden = false;
+
+    // Every page takes the height of the tallest one, so the pad is a fixed
+    // frame and flipping never resizes anything. Hidden stages still lay out
+    // (visibility, not display), so their natural heights are measurable.
+    // NOTE: while the projects section is gated the whole flipbook is
+    // display:none, so heights measure 0 — the gate dispatches a `resize` when
+    // it unlocks, which re-runs this below.
+    function syncHeights() {
+      stages.forEach((s) => { s.style.minHeight = ''; });
+      const max = Math.max(...stages.map((s) => s.offsetHeight));
+      stages.forEach((s) => { s.style.minHeight = `${max}px`; });
+    }
+    let resizeQueued = false;
+    window.addEventListener('resize', () => {
+      if (resizeQueued) return;
+      resizeQueued = true;
+      requestAnimationFrame(() => { resizeQueued = false; syncHeights(); });
+    });
+    document.fonts?.ready.then(syncHeights);
+
+    function paint() {
+      tabs.forEach((t, i) => {
+        t.setAttribute('aria-selected', String(i === idx));
+        t.tabIndex = i === idx ? 0 : -1;
+      });
+      stages.forEach((s, i) => s.classList.toggle('is-page-active', i === idx));
+    }
+
+    function go(n: number, focusTab = false) {
+      if (n === idx || busy || n < 0 || n > last) return;
+      const fwd = n > idx; // before idx moves — the riffle is direction-aware
+      const oldStage = stages[idx];
+      const newStage = stages[n];
+      idx = n;
+      if (!reduceMotion) {
+        busy = true;
+        // Riffle: forward flicks the old page up and away, the new one drops
+        // in on a spring; backward mirrors it. (Wrap-around plays as backward,
+        // which reads as looping back to the start.)
+        oldStage.classList.add('is-page-anim', fwd ? 'page-out-up' : 'page-out-down');
+        newStage.classList.add(fwd ? 'page-in-drop' : 'page-in-rise');
+        setTimeout(() => {
+          oldStage.classList.remove('is-page-anim', 'page-out-up', 'page-out-down');
+          newStage.classList.remove('page-in-drop', 'page-in-rise');
+          busy = false;
+        }, 430);
+      }
+      paint();
+      if (slugs[idx]) history.replaceState(null, '', '#' + slugs[idx]);
+      if (focusTab) tabs[idx].focus();
+    }
+
+    tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    tablist.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(idx === last ? 0 : idx + 1, true); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx === 0 ? last : idx - 1, true); }
+      else if (e.key === 'Home') { e.preventDefault(); go(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); go(last, true); }
+    });
+    window.addEventListener('hashchange', () => {
+      const n = slugs.indexOf(location.hash.slice(1));
+      if (n >= 0) go(n);
+    });
+
+    syncHeights();
+    paint();
+  })();
+
+  // ── Register pads: pull-to-tear sign-on ──
+  // Accessibility contract: the grab strip is a real <button>, so tap, Enter
+  // and Space all sign on natively (single-pointer + keyboard paths). The
+  // pointer drag is layered on top for the ritual; a drag released early
+  // springs back and does NOT count as a tap.
+  document.querySelectorAll<HTMLElement>('[data-interest-block]').forEach((stage) => {
+    const dashRow = stage.querySelector<HTMLElement>('[data-dashes]');
+    // Dashes render even without Firebase — pure perforation decor there.
+    if (dashRow) {
+      for (let i = 0; i < N_DASHES; i++) {
+        const d = document.createElement('i');
+        d.className = 'undergrad-dash';
+        // --r counts from the right: the tear starts where you pull
+        d.style.setProperty('--r', String(N_DASHES - 1 - i));
+        dashRow.appendChild(d);
+      }
+    }
+
+    const sheet = stage.querySelector<HTMLElement>('[data-sheet]');
+    const grab = stage.querySelector<HTMLButtonElement>('[data-grabedge]');
+    if (!sheet || !grab || !dashRow) return; // unconfigured: mailto only
+
+    const grabLabel = grab.querySelector<HTMLElement>('span');
+    const noteEl = stage.querySelector<HTMLTextAreaElement>('[data-note]');
+    const scrawl = stage.querySelector<HTMLElement>('[data-scrawl]');
+    const successEl = stage.querySelector<HTMLElement>('[data-success]');
+    const errEl = stage.querySelector<HTMLElement>('[data-error]');
+    const liveEl = stage.querySelector<HTMLElement>('[data-live]');
+    const dashes = Array.from(dashRow.children) as HTMLElement[];
+
+    let dragging = false;
+    let startY = 0;
+    let dy = 0;
+    let maxDy = 0;
+    let signed = false;
+    let busy = false;
+    let suppressClick = false;
+
+    function setProgress(pull: number) {
+      const p = Math.min(1, pull / THRESHOLD);
+      // Paper resists: the sheet follows the finger at 45%, loosening to 85%
+      // as the perforation gives way.
+      const follow = 0.45 + 0.4 * p;
+      sheet!.style.transform = `translateY(${pull * follow}px) rotate(${p * 2.8}deg)`;
+      dashes.forEach((d) => {
+        const r = parseFloat(d.style.getPropertyValue('--r'));
+        const local = Math.max(0, Math.min(1, (p * (N_DASHES + 3) - r) / 3));
+        d.style.opacity = String(1 - local);
+        d.style.transform = `translateY(${local * 7}px) rotate(${local * 9}deg)`;
+      });
+    }
+
+    function clearDashStyles() {
+      dashes.forEach((d) => { d.style.opacity = ''; d.style.transform = ''; d.style.transition = ''; });
+    }
+
+    function springBack() {
+      sheet!.style.transition = reduceMotion ? 'none' : 'transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.15)';
+      sheet!.style.transform = '';
+      clearDashStyles();
+      setTimeout(() => { sheet!.style.transition = ''; }, 340);
+    }
+
+    function showError(msg: string) {
+      // role="alert" on errEl announces on its own — no live-region echo.
+      if (errEl) { errEl.textContent = msg; errEl.classList.remove('hidden'); }
+    }
+
+    /** Visually tear the page. mode 'drag' continues from the current pulled
+     *  position; 'tap' plays the canned rip (or jumps straight to rest under
+     *  reduced motion, since the global CSS only near-zeroes durations, not
+     *  the per-dash delays). */
+    function tearNow(mode: 'drag' | 'tap') {
+      stage.classList.remove('is-dragging', 'is-grabbed');
+      if (reduceMotion) {
+        sheet!.style.transition = 'none';
+        sheet!.style.transform = REST;
+        dashes.forEach((d) => { d.style.transition = 'none'; d.style.opacity = '0'; });
+        stage.classList.add('is-torn');
+      } else if (mode === 'drag') {
+        // Springy swing from wherever the finger let go into the resting rip
+        sheet!.style.transition = 'transform 0.55s cubic-bezier(0.3, 1.35, 0.45, 1)';
+        requestAnimationFrame(() => { sheet!.style.transform = REST; });
+        dashes.forEach((d) => { d.style.opacity = '0'; d.style.transform = 'translateY(7px) rotate(9deg)'; });
+        stage.classList.add('is-torn');
+      } else {
+        stage.classList.add('is-tearing');
+        setTimeout(() => stage.classList.add('is-torn'), 850);
+      }
+    }
+
+    /** Undo the tear after a failed write — the page goes back on the pad. */
+    function untear() {
+      stage.classList.remove('is-tearing', 'is-torn');
+      sheet!.style.transition = reduceMotion ? 'none' : 'transform 0.3s ease';
+      sheet!.style.transform = '';
+      clearDashStyles();
+      setTimeout(() => { sheet!.style.transition = ''; }, 320);
+    }
+
+    async function commit(mode: 'drag' | 'tap') {
+      if (signed || busy) return;
+      const user = currentUser;
+      if (!user) {
+        if (mode === 'drag') springBack();
+        showError('Still connecting — try again in a second.');
+        return;
+      }
+      busy = true;
+      errEl?.classList.add('hidden');
+      if (grabLabel) grabLabel.textContent = 'signing on…';
+
+      // Tear optimistically — the write below usually lands mid-animation.
+      tearNow(mode);
+
+      try {
+        const { submitInterest } = await import('@lib/annotate/interest');
+        await submitInterest({
+          projectSlug: stage.dataset.slug ?? '',
+          projectTitle: stage.dataset.title ?? '',
+          note: noteEl?.value ?? '',
+          author: { uid: user.uid, email: user.email ?? '', name: currentName },
+        });
+        signed = true;
+        scrawl?.classList.add('show');
+        successEl?.classList.remove('hidden');
+        if (noteEl) noteEl.disabled = true;
+        if (grabLabel) grabLabel.textContent = '✓ signed on';
+        grab!.setAttribute('aria-label', `Signed on to ${stage.dataset.title}`);
+        // aria-disabled (not `disabled`) so keyboard focus isn't dropped to
+        // <body> the moment the action completes; the `signed` flag is the
+        // real re-activation guard.
+        grab!.setAttribute('aria-disabled', 'true');
+        if (liveEl) liveEl.textContent = `Signed on to ${stage.dataset.title}. David will follow up.`;
+      } catch (e) {
+        untear();
+        if (grabLabel) grabLabel.textContent = '⬇ pull the page down to sign on';
+        showError(
+          e instanceof Error && /permission/i.test(e.message)
+            ? "Couldn't sign on — your account may not be approved yet."
+            : "Couldn't sign on — please try again.",
+        );
+      } finally {
+        busy = false;
+      }
+    }
+
+    // ── Pointer drag (enhancement path) ──
+    grab.addEventListener('pointerdown', (e) => {
+      if (signed || busy || !e.isPrimary) return;
+      dragging = true;
+      startY = e.clientY;
+      dy = 0;
+      maxDy = 0;
+      stage.classList.add('is-grabbed', 'is-dragging');
+      sheet.style.transition = 'none';
+      grab.setPointerCapture(e.pointerId);
+    });
+    grab.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      dy = Math.max(0, Math.min(THRESHOLD + 40, e.clientY - startY));
+      maxDy = Math.max(maxDy, dy);
+      setProgress(dy);
+    });
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      stage.classList.remove('is-grabbed', 'is-dragging');
+      // A real drag (moved meaningfully) must not double-fire via the click
+      // event the browser dispatches right after pointerup.
+      if (maxDy > 8) suppressClick = true;
+      if (dy >= THRESHOLD) commit('drag');
+      else if (maxDy > 0) springBack();
+    }
+    grab.addEventListener('pointerup', endDrag);
+    grab.addEventListener('pointercancel', endDrag);
+
+    // ── Single-pointer + keyboard path: plain click, Enter, or Space all
+    // sign on with the canned rip. Keyboard activation arrives here too,
+    // since this is a native <button>. ──
+    grab.addEventListener('click', () => {
+      if (suppressClick) { suppressClick = false; return; }
+      commit('tap');
+    });
+  });
+
+  // ── Auth gate — only the projects section is gated; when Firebase isn't
+  // configured the server already rendered data-state="open" (mailto CTAs),
+  // so this whole block is skipped. ──
+  if (gate && gate.dataset.state === 'loading') {
+    (async () => {
+      const { onUser, getMember, isApprovedMember, signIn } = await import('@lib/annotate/auth');
+
+      // The locked placeholder has its own "Sign in to see open projects"
+      // button (a section-level CTA, in addition to the nav's sign-in).
+      const signinBtn = gate.querySelector<HTMLButtonElement>('[data-undergrad-signin]');
+      const errorEl = gate.querySelector<HTMLElement>('[data-undergrad-error]');
+      signinBtn?.addEventListener('click', async () => {
+        if (errorEl) errorEl.hidden = true;
+        try {
+          await signIn();
+        } catch (e) {
+          if (errorEl) {
+            errorEl.textContent = e instanceof Error ? e.message : 'Sign-in failed. Please try again.';
+            errorEl.hidden = false;
+          }
+        }
+      });
+
+      // React to the shared session: flip the section to open/pending and
+      // capture the member's identity for the express-interest flow.
+      onUser(async (user) => {
+        if (!user) { gate.dataset.state = 'signedout'; currentUser = null; return; }
+        const member = await getMember(user.uid);
+        currentUser = { uid: user.uid, email: user.email };
+        currentName = member?.displayName || user.displayName || user.email || 'A member';
+        gate.dataset.state = isApprovedMember(member) ? 'open' : 'pending';
+        // The flipbook was display:none while gated, so its height-sync measured
+        // 0. Now that it's visible, nudge a resize: the flipbook re-syncs heights
+        // and the trail nav re-measures section positions.
+        if (gate.dataset.state === 'open') window.dispatchEvent(new Event('resize'));
+      });
+    })();
+  }
+</script>
