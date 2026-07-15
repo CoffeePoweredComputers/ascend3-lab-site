@@ -7,7 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check:citations": "node scripts/check-citations.mjs"
+    "check:citations": "node scripts/check-citations.mjs",
+    "build:pm-template": "node scripts/build-pm-template.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",
@@ -28,6 +29,7 @@
     "@astrojs/check": "^0.9.9",
     "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "@types/js-yaml": "^4.0.9",
+    "exceljs": "^4.4.0",
     "typescript": "^5.9.3"
   }
 }

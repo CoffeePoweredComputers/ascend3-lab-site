@@ -1,0 +1,119 @@
+---
+/**
+ * SheetEmbed — a framed, read-only Google Sheets preview with a "Make a copy" action.
+ *
+ * The embed is a PREVIEW only (viewers can't edit it); the copy button in the header
+ * bar is the real call to action. Google's /preview path renders chrome-less and
+ * read-only, so it reads as an inset panel rather than an embedded app.
+ *
+ * Usage (pass the file id, URLs are derived):
+ *   <SheetEmbed id="1DF4Bt…" title="Research planning sheet" />
+ * The sheet's link sharing must be "Anyone with the link – Viewer" for the preview
+ * to load for signed-out students.
+ */
+interface Props {
+  id?: string;
+  previewSrc?: string;
+  copyHref?: string;
+  title?: string;
+  height?: number;
+}
+const {
+  id,
+  previewSrc = id ? `https://docs.google.com/spreadsheets/d/${id}/preview` : undefined,
+  copyHref = id ? `https://docs.google.com/spreadsheets/d/${id}/copy` : undefined,
+  title = 'Google Sheet',
+  height = 560,
+} = Astro.props;
+---
+
+<figure class="wiki-embed" style={`--wiki-embed-h:${height}px`}>
+  <div class="wiki-embed__bar">
+    <span class="wiki-embed__title"><span aria-hidden="true">📄</span> {title}</span>
+    {copyHref && (
+      <a class="wiki-embed__cta" href={copyHref} target="_blank" rel="noopener noreferrer">
+        Make a copy <span aria-hidden="true">↗</span>
+      </a>
+    )}
+  </div>
+  <div class="wiki-embed__frame">
+    {previewSrc ? (
+      <iframe src={previewSrc} title={`${title} — preview`} loading="lazy"></iframe>
+    ) : (
+      <p class="wiki-embed__missing">No sheet URL provided.</p>
+    )}
+  </div>
+  <p class="wiki-embed__note">
+    Read-only preview. Click <strong>Make a copy</strong> to get your own editable version in your Drive.
+  </p>
+</figure>
+
+<style>
+  .wiki-embed {
+    margin: 1.75rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-surface-base);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+  .wiki-embed__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--color-surface-page);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .wiki-embed__title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .wiki-embed__cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .wiki-embed__cta:hover { opacity: 0.9; }
+  .wiki-embed__frame {
+    /* min() caps the height on short / mobile viewports without a media query. */
+    height: min(var(--wiki-embed-h, 560px), 78vh);
+    background: var(--color-surface-base);
+  }
+  .wiki-embed__frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .wiki-embed__note {
+    margin: 0;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    background: var(--color-surface-page);
+    border-top: 1px solid var(--color-border);
+  }
+  .wiki-embed__missing {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+</style>

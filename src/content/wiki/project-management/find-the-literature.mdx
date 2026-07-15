@@ -1,0 +1,77 @@
+---
+title: Find the Literature
+module: project-management
+order: 2
+description: A repeatable loop — targeted search, an anchor tome, two-color highlighting, reading to saturation, and widening by analogy — that turns an idea into a defensible gap.
+estMinutes: 8
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import Reveal from '@wiki/Reveal.astro';
+import Cite from '@wiki/Cite.astro';
+import LitScan from '@wiki/LitScan.astro';
+
+You have an idea. Before it can become a study, you need to know the conversation you are
+joining — who has already asked something like your question, what they found, and what they
+left open. That is all a literature review is: **reading your way to a gap you can defend.**
+You cannot write "nobody has shown X" until you know who came closest.
+
+Finding that conversation is a craft, and a repeatable one. Here is the loop, with the CS1
+debugging-prompt study (this module's running example) worked through each step.
+
+## The loop
+
+<Steps>
+1. **Search with intent.** Start narrow in [Google Scholar](https://scholar.google.com) (or Scholar Labs) with your actual constructs, and skim the most-cited *and* the most-recent hits. For the CS1 study, "help-seeking novice programmers" and "metacognition debugging" surface work like <Cite id="loksa-2016" />.
+2. **Find an anchor tome and live in it.** One review, working-group report, or handbook chapter that maps the whole area — read it slowly, more than once. Ours is <Cite id="mccauley-2008" />, a review of decades of debugging-education research.
+3. **Read with a highlighter — two colors.** Mark every **term you don't know** (each becomes something to learn and a fresh search) and every **reference the authors lean on** (each becomes your next read — this is *snowballing* backward through citations). That is how you get from the review to <Cite id="fitzgerald-2008" />.
+4. **Keep going until nothing is new.** Loop search → anchor → snowball until fresh sources stop turning up fresh terms, names, or findings. That stopping point is **literature saturation** — the same idea as [data saturation](/wiki/qualitative/trustworthiness-rigor-saturation) in qualitative work, aimed at your reading.
+5. **Widen by analogy — ask an AI, then verify.** Ask Claude to explain what you flagged and, more usefully, to name **adjacent fields** that study your problem under another name. "Who else studies help-seeking?" points outside CS entirely — to help-seeking in intelligent tutoring systems <Cite id="aleven-2003" /> and the psychology of academic motivation <Cite id="karabenick-newman-2006" />. Creativity comes from analogy: those outside frames are usually where your most original angle hides.
+</Steps>
+
+## The highlighter, in action
+
+Step 3 is the engine of the loop. Here is what it looks like on the page — the same two colors
+you would use in a PDF:
+
+<LitScan source="Illustrative passage — the kind of sentence you mark up while reading">
+When novices debug they often fail to <mark class="lit-term">self-regulate</mark>: they change code
+without a plan and rarely <mark class="lit-term">monitor</mark> whether it helped <mark class="lit-ref">(Fitzgerald et al., 2008)</mark>.
+Prompting explicit <mark class="lit-term">metacognitive</mark> awareness can improve how they solve
+problems <mark class="lit-ref">(Loksa et al., 2016)</mark>.
+</LitScan>
+
+Two highlights, two running lists: the yellow terms (*self-regulate, monitor, metacognitive*) go on
+your "learn these" list; the underlined citations go on your "read these next" list. Work both
+lists down and the loop turns itself. Keep the lists wherever you already take notes — the tool
+doesn't matter; *keeping them* does.
+
+<Reveal summary="One pass on the CS1 study — what the lists look like after a week of reading">
+**Terms to learn:** self-regulation · metacognition · help avoidance · information power
+
+**References to chase (snowballed):** Fitzgerald et al. (2008) — how novices actually debug ·
+Aleven et al. (2003) — help offered ≠ help used, from tutoring systems ·
+Karabenick & Newman (2006) — help avoidance as a threat response, from ed psychology
+
+**Adjacent domains & analogies:** intelligent tutoring systems (help design) · educational
+psychology (achievement goals) · medicine and aviation (why people hide being stuck)
+
+**The gap this produced:** CS1 help-seeking is well *described* as behavior, but few studies test
+whether prompting metacognition *changes* help-seeking in the moment. That sentence is the seed of
+the whole study — and it came from the lists, not from a brainstorm.
+</Reveal>
+
+<Callout type="warning" title="Trust the direction, verify the source">
+An AI is genuinely good at suggesting *where else to look* and reframing your problem by analogy —
+and unreliable at citations, which it can invent. Use it for **questions and directions**, then
+confirm every paper it names in Google Scholar before it goes in your notes. A hallucinated
+reference in your review is worse than a gap.
+</Callout>
+
+## What this produces
+
+The loop's output is one hard-won sentence: **the gap.** That sentence becomes the *Background*
+of your one-paragraph plan, and what you'll do about it becomes the *Expected contribution* — the
+two slots the next lesson builds around. When you can state the gap and back it with the papers
+on your lists, you are ready to [scope the study](/wiki/project-management/scope).

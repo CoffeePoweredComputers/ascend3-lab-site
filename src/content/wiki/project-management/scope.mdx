@@ -1,0 +1,174 @@
+---
+title: "Scope It: The One-Paragraph Plan"
+module: project-management
+order: 3
+description: Turn a structured abstract into a pre-data plan whose "results" slot becomes expected contribution — with the impact committed up front whether results come out positive, neutral, or opposite.
+estMinutes: 10
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import Reveal from '@wiki/Reveal.astro';
+import Cite from '@wiki/Cite.astro';
+
+You've [mapped the conversation](/wiki/project-management/find-the-literature) and found your gap.
+The fastest way to find out whether the study it points to holds together is to **write its
+abstract before you run it.** Not the introduction, not a proposal — the ~250-word structured abstract, with the
+sections filled in as *plans*. If you cannot state the design, the sample, the analysis, and the
+contribution in a paragraph, the gaps you hit are exactly the gaps a reviewer (or your future
+self, six months in) will hit too. Writing it early is cheap; discovering it late is not.
+
+This is the logic behind **Registered Reports**, where a study is reviewed and accepted on its
+question and design *before any data exist* <Cite id="chambers-tzavella-2022" />, and behind
+**pre-registration**, where you timestamp the hypotheses and analysis plan up front so
+confirmatory and exploratory work stay separate <Cite id="nosek-2018" />. You do not need to
+submit a Registered Report to steal its best move: judge the study on the plan.
+
+## The structured abstract, re-slotted for planning
+
+Keep the front of a normal structured abstract exactly as-is. Then, because the results do not
+exist yet, replace the Results section with what you *expect the study to be worth* — and force
+that into two branches.
+
+| Section | What you write (as a plan) |
+| --- | --- |
+| **Background / objective** | The gap in one or two sentences, then the specific question or hypothesis. |
+| **Methods — design** | Observational, experimental, design-based; qualitative, quantitative, or mixed. |
+| **Methods — sample** | Who, how many, and how recruited. (Sample size is a *planning* decision — see below.) |
+| **Methods — measures / data** | What you collect and how you will analyze it — the analysis plan, written before data. |
+| **~~Results~~ → Expected contribution** | What the field gets if the study works — a guideline, a measure, a theory, a design. |
+| **Impact if results are POSITIVE** | The takeaway if the effect shows up / the hypothesis holds. |
+| **Impact if results are NEUTRAL or OPPOSITE** | The takeaway if it does *not* — a null, a small effect, a surprise. |
+
+That last split is the whole point.
+
+## Both branches have to carry a takeaway
+
+A study is **fragile** when it is only interesting if it "works." If the honest answer in the
+*Impact if NEUTRAL or OPPOSITE* box is "then we learned nothing" or "then we don't publish," you have
+designed a coin flip, not a study. The best experiments and studies have a useful takeaway
+**regardless of the direction of the outcome** — a null that is *interpretable* is a finding, not
+a failure.
+
+<Callout type="tip" title="The two-branch test">
+Write both branches before you collect a single data point. Then check:
+
+- If **Impact if NEUTRAL or OPPOSITE** is blank, trivial, or "we'd shelve it" → the design is fragile.
+  **Revise the question** until a null is informative (tighten the hypothesis, add a comparison,
+  add a qualitative strand — see below).
+- If **both** branches name a real, decision-relevant contribution → the study is genuinely
+  high-value: a surprising result is as useful as a confirmation.
+
+On the sheet, this is the **"Robust to outcome? (Y/N)"** flag — *Y* only when neither branch is empty.
+</Callout>
+
+<Reveal summary="See it filled in — the CS1 debugging-prompt study">
+**Objective.** Does a reflective "what have you already tried?" prompt change how intro-CS
+students seek help while debugging?
+
+**Design.** Convergent mixed methods — a quasi-experiment across two CS1 sections plus follow-up
+interviews.
+
+**Sample.** ~120 students across two sections; 12 students interviewed.
+
+**Measures / analysis.** Help-request rate (logistic regression) + reflexive thematic analysis of
+the interviews, joined in a single display.
+
+**Expected contribution.** A concrete, reusable CS1 lab-design guideline about reflective prompts.
+
+**Impact if POSITIVE.** The prompt raises productive help-seeking → ship the guideline and the
+prompt wording.
+
+**Impact if NEUTRAL or OPPOSITE.** No change in the rate — *but* the interviews explain **why** students
+route around the prompt (it reads as a gate, not an offer), which is itself a CS-education
+contribution and a redesign brief.
+
+**Robust to outcome?** **Yes** — the qualitative strand guarantees a takeaway even if the number
+is null.
+</Reveal>
+
+To draft your own, work top-down and stop the moment a box is hard to fill — that difficulty *is*
+the finding:
+
+<Steps>
+1. Write the **objective** as a single question. If it needs a paragraph, it is more than one study.
+2. Fill **design → sample → analysis** as commitments, not intentions ("logistic regression on help-request rate," not "some stats").
+3. Write **Expected contribution** as the artifact the field keeps.
+4. Write **Impact if POSITIVE**, then **Impact if NEUTRAL or OPPOSITE** — in that order, both non-trivial.
+5. Set **Robust to outcome?** If it is *No*, go back to step 1. Do not proceed to the timeline.
+</Steps>
+
+For very early, still-fuzzy ideas, a lighter one-pager can come first: the **Heilmeier Catechism**
+— eight plain-language questions (what are you trying to do, in no jargon? how is it done today,
+and what are the limits? what's new, and why will it work? who cares? what are the risks and the
+cost? how long? what are the mid-term and final "exams" for success?). See the
+[DARPA Heilmeier Catechism](https://www.darpa.mil/about/heilmeier-catechism). Once the answers
+stabilize, they collapse neatly into the abstract above.
+
+## Plan your analysis: qualitative, quantitative, or both
+
+Your analysis method is a *planning* decision, made when you write the abstract — not something you
+reach for once the data are sitting there. Let the **question** pick the method — open the one
+that matches yours:
+
+<Reveal summary="My question measures, compares, or generalizes — how often, how much, does X change Y">
+**Lean quantitative.** You need measures, a defensible sample size, and a pre-specified test —
+decide the analysis before you collect data. (Exploratory quantitative methods like factor
+analysis and clustering exist too, so "quantitative" is not always confirmatory.)
+</Reveal>
+
+<Reveal summary="My question is about meaning, process, or mechanism — how or why something happens, what it is like">
+**Lean qualitative.** Rigor rests on trustworthiness and thick description, not p-values, so a
+well-run qualitative study stands on its own at small n. Decide the coding approach up front —
+see [Choosing Your Path](/wiki/qualitative/choosing-your-path).
+</Reveal>
+
+<Reveal summary="I need a number AND the reason behind it">
+**Mixed methods** — but only if you decide the integration up front: which question each strand
+answers, which data feed each, the sequence and priority, and how you'll join them (a joint
+display). Otherwise you have two studies stapled together, not one.
+</Reveal>
+
+The reason a qualitative element so often makes a study **robust to outcome** is methodological:
+qualitative findings do not depend on statistical significance, so pairing a qualitative strand
+with a quantitative one **decouples the paper's value from the p-value.** When you integrate them
+in a joint display, you get one of three takeaways *no matter how the numbers land* — the strands
+**confirm** each other, **expand** on each other, or **disagree** (discordance) — and disagreement
+is frequently the most interesting result of all <Cite id="fetters-2013" />. In an
+explanatory-sequential design, a surprising or null quantitative effect becomes the *reason* for
+the qualitative phase ("the number was flat — the interviews tell us why"), turning a dead end
+into a contribution.
+
+<Callout type="note" title="Decide these up front (and record them on the sheet)">
+- The specific **research question for each strand** (they are not the same question).
+- Which **data** feed the qualitative strand and which feed the quantitative one.
+- **Sequence and priority** — convergent, explanatory-sequential, or exploratory-sequential; which strand leads.
+- The **integration plan** — the joint display you will build, decided now, not at write-up.
+</Callout>
+
+This lesson owns *deciding* the approach, not *doing* it. For the how-to, cross-link out and do
+not re-derive it here:
+
+- **How to choose and run a qualitative approach** (codebook vs. reflexive thematic analysis, and
+  who does what) → [Choosing Your Path](/wiki/qualitative/choosing-your-path).
+- **How much data is enough** — saturation and information power, which is how you justify
+  qualitative sample size on the timeline →
+  [Trustworthiness, Rigor & Saturation](/wiki/qualitative/trustworthiness-rigor-saturation).
+- **Which statistical test, and writing the analysis plan before data** → the **Quantitative
+  Analysis** module. **Integrating the strands** → the **Mixed Methods** module.
+  {/* TODO: hyperlink /wiki/quantitative/* and /wiki/mixed-methods/* once those modules ship;
+      they are underConstruction and their pages 404 in production today. */}
+
+<Callout type="warning" title="Two modules aren't published yet">
+The **Quantitative Analysis** and **Mixed Methods** modules are still under construction, so they
+have no live pages to link to yet. Use their names as a pointer for now; this lesson will link
+straight to them once they ship.
+</Callout>
+
+## Where this lives
+
+Everything above maps one-to-one onto **Tab 1 · Structured Abstract** of the companion sheet: one
+row per section, the two impact branches side by side, and the *Robust to outcome?* flag that goes
+red when the neutral-or-opposite branch is empty. Fill it in before you touch the
+[timeline](/wiki/project-management/timeline) — the plan is the input to the schedule, not the
+other way around.

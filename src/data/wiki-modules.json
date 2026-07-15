@@ -1,8 +1,15 @@
 [
   {
+    "slug": "project-management",
+    "title": "Project Management for Research",
+    "order": 1,
+    "icon": "📋",
+    "blurb": "Scope a problem, plan your analysis, build an evolving timeline, and track your own progress — the living documents you own and drive."
+  },
+  {
     "slug": "research-design",
     "title": "Research Design & Measurement",
-    "order": 1,
+    "order": 2,
     "icon": "🧭",
     "blurb": "Research questions, sampling, validity and reliability — the scaffolding under every study.",
     "underConstruction": true
@@ -10,21 +17,21 @@
   {
     "slug": "irb",
     "title": "IRB & Research Ethics",
-    "order": 2,
+    "order": 3,
     "icon": "🛡️",
     "blurb": "When you need IRB review, how to write a protocol, and how to keep human-subjects research ethical."
   },
   {
     "slug": "qualitative",
     "title": "Qualitative Analysis",
-    "order": 3,
+    "order": 4,
     "icon": "🗣️",
     "blurb": "Coding interviews and open-ended data, building codebooks, and reaching defensible themes."
   },
   {
     "slug": "quantitative",
     "title": "Quantitative Analysis",
-    "order": 4,
+    "order": 5,
     "icon": "📊",
     "blurb": "Descriptive stats, picking the right test, and reporting results you can trust.",
     "underConstruction": true
@@ -32,7 +39,7 @@
   {
     "slug": "mixed-methods",
     "title": "Mixed Methods",
-    "order": 5,
+    "order": 6,
     "icon": "🔀",
     "blurb": "Combining qualitative and quantitative strands — when to mix, and how to integrate what you find.",
     "underConstruction": true
@@ -40,7 +47,7 @@
   {
     "slug": "design",
     "title": "Design-Based Research",
-    "order": 6,
+    "order": 7,
     "icon": "📐",
     "blurb": "Building tools and studying them: prototyping, iteration, and design studies in real classrooms.",
     "underConstruction": true

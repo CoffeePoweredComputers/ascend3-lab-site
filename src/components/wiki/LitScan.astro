@@ -1,0 +1,103 @@
+---
+/**
+ * LitScan — a "read with a highlighter" passage. Shows an excerpt with two kinds of
+ * marks so students can see what active reading looks like: TERMS to learn and
+ * REFERENCES to chase (backward snowballing). Teaches step 3 of the lit-review walkthrough.
+ *
+ * Usage (inside the slot, mark spans with these classes):
+ *   <LitScan source="Illustrative passage">
+ *     …a <mark class="lit-term">term</mark> and a <mark class="lit-ref">(Author, Year)</mark>…
+ *   </LitScan>
+ */
+interface Props {
+  source?: string;
+}
+const { source } = Astro.props;
+---
+
+<figure class="lit-scan">
+  <figcaption class="lit-scan__legend">
+    <span class="lit-scan__key lit-scan__key--term">term I don't know → learn &amp; search it</span>
+    <span class="lit-scan__key lit-scan__key--ref">reference the authors lean on → chase it</span>
+  </figcaption>
+  <blockquote class="lit-scan__passage"><slot /></blockquote>
+  {source && <p class="lit-scan__source">{source}</p>}
+</figure>
+
+<style is:global>
+  .lit-scan {
+    margin: 1.5rem 0;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-base);
+  }
+  .lit-scan__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+  .lit-scan__key {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+  .lit-scan__key::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 3px;
+  }
+  .lit-scan__key--term::before { background: var(--lit-term-bg, #fde047); }
+  .lit-scan__key--ref::before {
+    background: transparent;
+    border-bottom: 2px solid var(--lit-ref-line, #2563eb);
+    border-radius: 0;
+    height: 0.9rem;
+  }
+  .lit-scan__passage {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+  .lit-scan__source {
+    margin: 0.7rem 0 0;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+  /* the two highlight kinds — usable in any lesson's prose */
+  mark.lit-term {
+    background: var(--lit-term-bg, #fde047);
+    /* always-dark ink on the mark, like a real highlighter — guarantees
+       contrast in dark mode instead of light-on-yellow */
+    color: #1e293b;
+    padding: 0.05em 0.25em;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  mark.lit-ref {
+    background: transparent;
+    color: inherit;
+    border-bottom: 2px solid var(--lit-ref-line, #2563eb);
+    font-weight: 600;
+  }
+  /* Theme hook: this site toggles a `.dark` class on <html> (see BaseLayout /
+     WikiLayout), so the palette keys off that — not prefers-color-scheme. */
+  :root {
+    --lit-term-bg: #fde047;
+    --lit-ref-line: #2563eb;
+  }
+  .dark {
+    --lit-term-bg: #facc15;
+    --lit-ref-line: #60a5fa;
+  }
+</style>

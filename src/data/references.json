@@ -6,7 +6,10 @@
     "apa": "Lincoln, Y. S., & Guba, E. G. (1985). Naturalistic inquiry. Sage.",
     "url": "https://us.sagepub.com/en-us/nam/naturalistic-inquiry/book842",
     "annotation": "Origin of the trustworthiness framework (credibility, transferability, dependability, confirmability). Cite when justifying rigor criteria as an alternative to validity/reliability.",
-    "tags": ["foundations", "trustworthiness"],
+    "tags": [
+      "foundations",
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -16,7 +19,9 @@
     "apa": "Miles, M. B., Huberman, A. M., & Saldaña, J. (2020). Qualitative data analysis: A methods sourcebook (4th ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/qualitative-data-analysis/book246128",
     "annotation": "The standard sourcebook for displays, matrices, and within-/cross-case analysis. Cite for systematic data management and visualization.",
-    "tags": ["foundations"],
+    "tags": [
+      "foundations"
+    ],
     "verified": true
   },
   {
@@ -26,7 +31,10 @@
     "apa": "Saldaña, J. (2021). The coding manual for qualitative researchers (4th ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/the-coding-manual-for-qualitative-researchers/book273583",
     "annotation": "The reference catalogue of first- and second-cycle coding methods. Cite to name and justify a specific coding technique.",
-    "tags": ["foundations", "reasoning"],
+    "tags": [
+      "foundations",
+      "reasoning"
+    ],
     "verified": true
   },
   {
@@ -37,7 +45,10 @@
     "doi": "10.4324/9780203793206",
     "url": "https://doi.org/10.4324/9780203793206",
     "annotation": "The founding statement of grounded theory and constant comparison. DOI applies to the Routledge reprint. Cite for the origins of inductive theory-building.",
-    "tags": ["foundations", "methodologies"],
+    "tags": [
+      "foundations",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -47,7 +58,10 @@
     "apa": "Corbin, J., & Strauss, A. (2015). Basics of qualitative research: Techniques and procedures for developing grounded theory (4th ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/basics-of-qualitative-research/book235578",
     "annotation": "The systematic/procedural strand of grounded theory (open/axial/selective coding). Cite for structured coding paradigms.",
-    "tags": ["foundations", "methodologies"],
+    "tags": [
+      "foundations",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -57,7 +71,10 @@
     "apa": "Charmaz, K. (2014). Constructing grounded theory (2nd ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/constructing-grounded-theory/book235960",
     "annotation": "The constructivist reframing of grounded theory. Cite when foregrounding co-construction and researcher reflexivity.",
-    "tags": ["foundations", "methodologies"],
+    "tags": [
+      "foundations",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -67,7 +84,10 @@
     "apa": "Patton, M. Q. (2015). Qualitative research & evaluation methods (4th ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/qualitative-research-evaluation-methods/book232962",
     "annotation": "Comprehensive reference on purposeful sampling and evaluation-oriented design. Cite for sampling logic and applied contexts.",
-    "tags": ["foundations", "methodologies"],
+    "tags": [
+      "foundations",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -78,7 +98,9 @@
     "doi": "10.1191/1478088706qp063oa",
     "url": "https://doi.org/10.1191/1478088706qp063oa",
     "annotation": "The field-defining six-phase thematic analysis paper. The default citation for any thematic analysis.",
-    "tags": ["thematic-analysis"],
+    "tags": [
+      "thematic-analysis"
+    ],
     "verified": true
   },
   {
@@ -89,7 +111,10 @@
     "doi": "10.1080/2159676X.2019.1628806",
     "url": "https://doi.org/10.1080/2159676X.2019.1628806",
     "annotation": "Introduces \"reflexive TA\" and distinguishes it from coding-reliability TA. Cite to specify the reflexive variant.",
-    "tags": ["thematic-analysis", "irr"],
+    "tags": [
+      "thematic-analysis",
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -100,7 +125,10 @@
     "doi": "10.1080/14780887.2020.1769238",
     "url": "https://doi.org/10.1080/14780887.2020.1769238",
     "annotation": "Quality criteria for reflexive TA and a critique of misapplications. Cite when defending TA quality.",
-    "tags": ["thematic-analysis", "trustworthiness"],
+    "tags": [
+      "thematic-analysis",
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -110,7 +138,9 @@
     "apa": "Braun, V., & Clarke, V. (2022). Thematic analysis: A practical guide. Sage.",
     "url": "https://us.sagepub.com/en-us/nam/thematic-analysis/book248481",
     "annotation": "The definitive practical manual for reflexive TA. Cite for step-by-step procedure.",
-    "tags": ["thematic-analysis"],
+    "tags": [
+      "thematic-analysis"
+    ],
     "verified": true
   },
   {
@@ -121,7 +151,9 @@
     "doi": "10.1177/0735275112457914",
     "url": "https://doi.org/10.1177/0735275112457914",
     "annotation": "The seminal argument that abduction, not pure induction, drives theory construction. Cite to justify an abductive stance.",
-    "tags": ["reasoning"],
+    "tags": [
+      "reasoning"
+    ],
     "verified": true
   },
   {
@@ -131,7 +163,9 @@
     "apa": "Tavory, I., & Timmermans, S. (2014). Abductive analysis: Theorizing qualitative research. University of Chicago Press.",
     "url": "https://press.uchicago.edu/ucp/books/book/chicago/A/bo18785878.html",
     "annotation": "Book-length treatment of abductive analysis. Cite for the full methodology.",
-    "tags": ["reasoning"],
+    "tags": [
+      "reasoning"
+    ],
     "verified": true
   },
   {
@@ -142,7 +176,9 @@
     "doi": "10.1177/1098214005283748",
     "url": "https://doi.org/10.1177/1098214005283748",
     "annotation": "The canonical statement of the \"general inductive approach.\" Cite for a pragmatic inductive coding workflow.",
-    "tags": ["reasoning"],
+    "tags": [
+      "reasoning"
+    ],
     "verified": true
   },
   {
@@ -153,7 +189,10 @@
     "doi": "10.1177/1049732305276687",
     "url": "https://doi.org/10.1177/1049732305276687",
     "annotation": "Distinguishes conventional (inductive), directed (deductive), and summative content analysis. Cite to position your content-analysis approach.",
-    "tags": ["reasoning", "methodologies"],
+    "tags": [
+      "reasoning",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -164,7 +203,9 @@
     "doi": "10.2307/2088165",
     "url": "https://doi.org/10.2307/2088165",
     "annotation": "Origin of \"sensitizing concepts.\" Cite when using loosely-defined theoretical concepts as analytic starting points.",
-    "tags": ["reasoning"],
+    "tags": [
+      "reasoning"
+    ],
     "verified": true
   },
   {
@@ -174,7 +215,9 @@
     "apa": "Stake, R. E. (1995). The art of case study research. Sage.",
     "url": "https://us.sagepub.com/en-us/nam/the-art-of-case-study-research/book4954",
     "annotation": "Interpretive/intrinsic case study. Cite for holistic, naturalistic case work.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -184,7 +227,9 @@
     "apa": "Yin, R. K. (2018). Case study research and applications: Design and methods (6th ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/case-study-research-and-applications/book250150",
     "annotation": "The post-positivist case-study design tradition. Cite for propositions, multiple-case logic, and rigor.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -194,7 +239,10 @@
     "apa": "Merriam, S. B., & Tisdell, E. J. (2016). Qualitative research: A guide to design and implementation (4th ed.). Jossey-Bass.",
     "url": "https://www.wiley.com/en-us/Qualitative+Research%3A+A+Guide+to+Design+and+Implementation%2C+4th+Edition-p-9781119003618",
     "annotation": "Education-friendly case study and general qualitative design. Cite in education contexts.",
-    "tags": ["methodologies", "education"],
+    "tags": [
+      "methodologies",
+      "education"
+    ],
     "verified": true
   },
   {
@@ -204,7 +252,9 @@
     "apa": "Clandinin, D. J., & Connelly, F. M. (2000). Narrative inquiry: Experience and story in qualitative research. Jossey-Bass.",
     "url": "https://www.wiley.com/en-us/Narrative+Inquiry%3A+Experience+and+Story+in+Qualitative+Research-p-9780787972769",
     "annotation": "Founding text of narrative inquiry. Cite for experience-centered, story-based research.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -214,7 +264,9 @@
     "apa": "Riessman, C. K. (2008). Narrative methods for the human sciences. Sage.",
     "url": "https://us.sagepub.com/en-us/nam/narrative-methods-for-the-human-sciences/book226139",
     "annotation": "Thematic, structural, and dialogic/performance narrative analysis. Cite for narrative analytic techniques.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -224,7 +276,9 @@
     "apa": "Smith, J. A., Flowers, P., & Larkin, M. (2022). Interpretative phenomenological analysis: Theory, method and research (2nd ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/interpretative-phenomenological-analysis/book250130",
     "annotation": "The authoritative IPA manual. Cite for idiographic, experiential phenomenology.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -235,7 +289,9 @@
     "doi": "10.4324/9780203413081",
     "url": "https://doi.org/10.4324/9780203413081",
     "annotation": "Origin of Framework analysis. DOI applies to the edited volume. Cite for the matrix-based framework approach.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -246,7 +302,9 @@
     "doi": "10.1186/1471-2288-13-117",
     "url": "https://doi.org/10.1186/1471-2288-13-117",
     "annotation": "The widely-cited modern operationalization of Framework analysis. Cite for a team-based, stepwise procedure.",
-    "tags": ["methodologies"],
+    "tags": [
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -256,7 +314,10 @@
     "apa": "Krippendorff, K. (2018). Content analysis: An introduction to its methodology (4th ed.). Sage.",
     "url": "https://us.sagepub.com/en-us/nam/content-analysis/book258450",
     "annotation": "The standard content-analysis methodology and home of Krippendorff's alpha. Cite for systematic content analysis.",
-    "tags": ["methodologies", "irr"],
+    "tags": [
+      "methodologies",
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -267,7 +328,9 @@
     "doi": "10.1207/s15327809jls0202_2",
     "url": "https://doi.org/10.1207/s15327809jls0202_2",
     "annotation": "Founding paper of design experiments. Cite for the origins of design-based research (DBR).",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -278,7 +341,9 @@
     "doi": "10.3102/0013189X032001005",
     "url": "https://doi.org/10.3102/0013189X032001005",
     "annotation": "The agenda-setting statement of DBR. Cite to define DBR.",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -289,7 +354,9 @@
     "doi": "10.1207/s15327809jls1301_1",
     "url": "https://doi.org/10.1207/s15327809jls1301_1",
     "annotation": "Influential framing of DBR's warrants. Cite for DBR's evidentiary claims.",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -300,7 +367,9 @@
     "doi": "10.1207/s15327809jls1301_2",
     "url": "https://doi.org/10.1207/s15327809jls1301_2",
     "annotation": "Methodological elaboration of design research. Cite for DBR methodology.",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -311,7 +380,9 @@
     "doi": "10.1207/s15327809jls0401_2",
     "url": "https://doi.org/10.1207/s15327809jls0401_2",
     "annotation": "The foundational method for analyzing video records of interaction in the learning sciences. Cite for video/interaction analysis.",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -322,7 +393,9 @@
     "doi": "10.3102/0013189X035006033",
     "url": "https://doi.org/10.3102/0013189X035006033",
     "annotation": "The AERA reporting standards. Cite for reporting expectations in education research.",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -333,7 +406,9 @@
     "doi": "10.3102/00028312032003465",
     "url": "https://doi.org/10.3102/00028312032003465",
     "annotation": "Foundational culturally relevant framing. Cite for culturally relevant/responsive methodology in education.",
-    "tags": ["education"],
+    "tags": [
+      "education"
+    ],
     "verified": true
   },
   {
@@ -344,7 +419,10 @@
     "doi": "10.1145/3359174",
     "url": "https://doi.org/10.1145/3359174",
     "annotation": "The definitive HCI/CSCW treatment of whether and when to use IRR; a meta-analysis finding IRR in ~1/9 of qualitative papers. Cite for reliability norms in HCI.",
-    "tags": ["hci", "irr"],
+    "tags": [
+      "hci",
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -355,7 +433,9 @@
     "doi": "10.1145/1124772.1124855",
     "url": "https://doi.org/10.1145/1124772.1124855",
     "annotation": "The classic critique of \"implications for design\" as the metric for ethnography in HCI. Cite on the value of ethnographic/theoretical contributions.",
-    "tags": ["hci"],
+    "tags": [
+      "hci"
+    ],
     "verified": true
   },
   {
@@ -365,7 +445,10 @@
     "apa": "Beyer, H., & Holtzblatt, K. (1998). Contextual design: Defining customer-centered systems. Morgan Kaufmann.",
     "url": "https://www.worldcat.org/oclc/37625315",
     "annotation": "Source of contextual inquiry and affinity diagramming (the KJ-method lineage). Cite for affinity diagramming/contextual design.",
-    "tags": ["hci", "methodologies"],
+    "tags": [
+      "hci",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -376,7 +459,10 @@
     "doi": "10.1007/978-1-4939-0378-8_2",
     "url": "https://doi.org/10.1007/978-1-4939-0378-8_2",
     "annotation": "Grounded theory adapted for HCI. Cite for GTM in HCI.",
-    "tags": ["hci", "methodologies"],
+    "tags": [
+      "hci",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -387,7 +473,10 @@
     "doi": "10.1145/1978942.1978960",
     "url": "https://doi.org/10.1145/1978942.1978960",
     "annotation": "A candid account of doing grounded theory in HCI. Cite for practical GTM guidance.",
-    "tags": ["hci", "methodologies"],
+    "tags": [
+      "hci",
+      "methodologies"
+    ],
     "verified": true
   },
   {
@@ -398,7 +487,9 @@
     "doi": "10.1145/1240624.1240704",
     "url": "https://doi.org/10.1145/1240624.1240704",
     "annotation": "Established research through design (RtD) in HCI. Cite to frame design as inquiry.",
-    "tags": ["hci"],
+    "tags": [
+      "hci"
+    ],
     "verified": true
   },
   {
@@ -409,7 +500,9 @@
     "doi": "10.1145/2207676.2208538",
     "url": "https://doi.org/10.1145/2207676.2208538",
     "annotation": "Influential argument on RtD's epistemology and rigor. Cite for RtD evaluation.",
-    "tags": ["hci"],
+    "tags": [
+      "hci"
+    ],
     "verified": true
   },
   {
@@ -420,7 +513,9 @@
     "doi": "10.2200/S00706ED1V01Y201602HCI034",
     "url": "https://doi.org/10.2200/S00706ED1V01Y201602HCI034",
     "annotation": "A practical synthesis of qualitative methods for HCI. Cite as an HCI-specific methods primer.",
-    "tags": ["hci"],
+    "tags": [
+      "hci"
+    ],
     "verified": true
   },
   {
@@ -431,7 +526,9 @@
     "doi": "10.1177/001316446002000104",
     "url": "https://doi.org/10.1177/001316446002000104",
     "annotation": "The original Cohen's kappa. Cite for chance-corrected agreement between two coders on nominal categories.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -442,7 +539,9 @@
     "doi": "10.1037/h0026256",
     "url": "https://doi.org/10.1037/h0026256",
     "annotation": "Weighted kappa. Cite when disagreements differ in severity (ordered categories).",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -453,7 +552,9 @@
     "doi": "10.1037/h0031619",
     "url": "https://doi.org/10.1037/h0031619",
     "annotation": "Fleiss' kappa. Cite for 3+ raters where raters are not fixed across items.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -464,7 +565,9 @@
     "doi": "10.1086/266577",
     "url": "https://doi.org/10.1086/266577",
     "annotation": "Scott's pi. Cite as the predecessor to kappa using a joint (rather than individual) chance distribution.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -475,7 +578,9 @@
     "doi": "10.1080/19312450709336664",
     "url": "https://doi.org/10.1080/19312450709336664",
     "annotation": "The accessible standard reference for Krippendorff's alpha (any measurement level, ≥2 coders, missing data). Cite when you need one flexible coefficient.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -486,7 +591,9 @@
     "doi": "10.1016/0895-4356(90)90158-L",
     "url": "https://doi.org/10.1016/0895-4356(90)90158-L",
     "annotation": "Defines the kappa paradox. Cite to explain why kappa can be low despite high observed agreement.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -497,7 +604,9 @@
     "doi": "10.1016/0895-4356(90)90159-M",
     "url": "https://doi.org/10.1016/0895-4356(90)90159-M",
     "annotation": "The companion \"resolution\" paper. Cite for the recommended positive/negative agreement diagnostics.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -508,7 +617,9 @@
     "doi": "10.1348/000711006X126600",
     "url": "https://doi.org/10.1348/000711006X126600",
     "annotation": "Introduces the AC1/AC2 statistics that resist the prevalence/paradox problem. Cite when prevalence is skewed.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -519,7 +630,9 @@
     "doi": "10.1037/0033-2909.86.2.420",
     "url": "https://doi.org/10.1037/0033-2909.86.2.420",
     "annotation": "The foundational ICC typology (six forms). Cite to choose an ICC model.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -530,7 +643,9 @@
     "doi": "10.1037/1082-989X.1.1.30",
     "url": "https://doi.org/10.1037/1082-989X.1.1.30",
     "annotation": "Extends and clarifies ICC inference. Cite alongside Shrout & Fleiss for ICC selection. (Correction in Psychological Methods, 1(4), 390.)",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -541,7 +656,9 @@
     "doi": "10.1016/j.jcm.2016.02.012",
     "url": "https://doi.org/10.1016/j.jcm.2016.02.012",
     "annotation": "The practical decision guide for the 10 ICC forms and interpretation bands. Cite for ICC selection and reporting.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -552,7 +669,9 @@
     "doi": "10.2307/2529310",
     "url": "https://doi.org/10.2307/2529310",
     "annotation": "Source of the widely-used magnitude bands (Slight/Fair/Moderate/Substantial/Almost Perfect). Cite when interpreting kappa/alpha — but note the thresholds are explicitly arbitrary heuristics.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -563,7 +682,9 @@
     "doi": "10.20982/tqmp.08.1.p023",
     "url": "https://doi.org/10.20982/tqmp.08.1.p023",
     "annotation": "A hands-on tutorial (with SPSS/R) for choosing and computing kappa and ICC. Cite for practical computation.",
-    "tags": ["irr"],
+    "tags": [
+      "irr"
+    ],
     "verified": true
   },
   {
@@ -574,7 +695,10 @@
     "doi": "10.1177/1609406919899220",
     "url": "https://doi.org/10.1177/1609406919899220",
     "annotation": "Reviews the arguments for/against intercoder reliability and gives practical guidelines. Cite to decide whether ICR fits your study.",
-    "tags": ["irr", "trustworthiness"],
+    "tags": [
+      "irr",
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -585,7 +709,9 @@
     "doi": "10.1177/1049732316654870",
     "url": "https://doi.org/10.1177/1049732316654870",
     "annotation": "Critical, practical treatment of member checking. Cite when designing respondent validation.",
-    "tags": ["trustworthiness"],
+    "tags": [
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -596,7 +722,9 @@
     "doi": "10.1177/1558689812437186",
     "url": "https://doi.org/10.1177/1558689812437186",
     "annotation": "Denzin's updated statement on triangulation. Cite for the concept's contemporary meaning.",
-    "tags": ["trustworthiness"],
+    "tags": [
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -607,7 +735,9 @@
     "doi": "10.1177/1525822X05279903",
     "url": "https://doi.org/10.1177/1525822X05279903",
     "annotation": "The most-cited empirical study of saturation; found saturation within the first twelve interviews. Cite for sample-size justification.",
-    "tags": ["trustworthiness"],
+    "tags": [
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -618,7 +748,9 @@
     "doi": "10.1007/s11135-017-0574-8",
     "url": "https://doi.org/10.1007/s11135-017-0574-8",
     "annotation": "Clarifies competing meanings of saturation. Cite to specify which saturation you mean.",
-    "tags": ["trustworthiness"],
+    "tags": [
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -629,7 +761,9 @@
     "doi": "10.1177/1049732315617444",
     "url": "https://doi.org/10.1177/1049732315617444",
     "annotation": "Proposes \"information power\" as an alternative to saturation. Cite for a more defensible sample-size rationale.",
-    "tags": ["trustworthiness"],
+    "tags": [
+      "trustworthiness"
+    ],
     "verified": true
   },
   {
@@ -640,7 +774,10 @@
     "doi": "10.1080/2159676X.2019.1704846",
     "url": "https://doi.org/10.1080/2159676X.2019.1704846",
     "annotation": "The reflexive-TA critique of saturation. Cite when rejecting saturation logic in interpretivist work.",
-    "tags": ["trustworthiness", "thematic-analysis"],
+    "tags": [
+      "trustworthiness",
+      "thematic-analysis"
+    ],
     "verified": true
   },
   {
@@ -650,7 +787,9 @@
     "apa": "National Commission for the Protection of Human Subjects of Biomedical and Behavioral Research. (1979). The Belmont Report: Ethical principles and guidelines for the protection of human subjects of research. U.S. Department of Health & Human Services.",
     "url": "https://www.hhs.gov/ohrp/regulations-and-policy/belmont-report/",
     "annotation": "The foundational U.S. statement of research ethics — respect for persons, beneficence, justice. Cite for the principles underlying IRB review.",
-    "tags": ["irb"],
+    "tags": [
+      "irb"
+    ],
     "verified": true
   },
   {
@@ -661,7 +800,113 @@
     "doi": "10.2307/3561468",
     "url": "https://doi.org/10.2307/3561468",
     "annotation": "The definitive scholarly account of the Tuskegee study and its ethical failures. Cite when invoking Tuskegee as motivation for human-subjects protections.",
-    "tags": ["irb"],
+    "tags": [
+      "irb"
+    ],
+    "verified": true
+  },
+  {
+    "id": "chambers-tzavella-2022",
+    "type": "article",
+    "cite": "Chambers & Tzavella, 2022",
+    "apa": "Chambers, C. D., & Tzavella, L. (2022). The past, present and future of Registered Reports. Nature Human Behaviour, 6(1), 29–42.",
+    "doi": "10.1038/s41562-021-01193-7",
+    "url": "https://doi.org/10.1038/s41562-021-01193-7",
+    "annotation": "The definitive overview of Registered Reports, where a study is peer-reviewed and accepted on its question and design before any data are collected. Cite for the principle that a study should be worth doing regardless of how the results turn out.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "nosek-2018",
+    "type": "article",
+    "cite": "Nosek et al., 2018",
+    "apa": "Nosek, B. A., Ebersole, C. R., DeHaven, A. C., & Mellor, D. T. (2018). The preregistration revolution. Proceedings of the National Academy of Sciences, 115(11), 2600–2606.",
+    "doi": "10.1073/pnas.1708274114",
+    "url": "https://doi.org/10.1073/pnas.1708274114",
+    "annotation": "Argues for committing hypotheses and an analysis plan in advance to keep confirmatory and exploratory work distinct. Cite when teaching students to write the analysis plan before collecting data.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "fetters-2013",
+    "type": "article",
+    "cite": "Fetters et al., 2013",
+    "apa": "Fetters, M. D., Curry, L. A., & Creswell, J. W. (2013). Achieving integration in mixed methods designs—Principles and practices. Health Services Research, 48(6pt2), 2134–2156.",
+    "doi": "10.1111/1475-6773.12117",
+    "url": "https://doi.org/10.1111/1475-6773.12117",
+    "annotation": "How to actually integrate qualitative and quantitative strands—connecting, building, merging, and joint displays—rather than reporting them side by side. Cite for why a joint display yields a takeaway (confirmation, expansion, or discordance) regardless of the statistical result.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "mccauley-2008",
+    "type": "article",
+    "cite": "McCauley et al., 2008",
+    "apa": "McCauley, R., Fitzgerald, S., Lewandowski, G., Murphy, L., Simon, B., Thomas, L., & Zander, C. (2008). Debugging: A review of the literature from an educational perspective. Computer Science Education, 18(2), 67–92.",
+    "doi": "10.1080/08993400802114581",
+    "url": "https://doi.org/10.1080/08993400802114581",
+    "annotation": "A review synthesizing decades of debugging-education research — a good 'anchor tome' to read deeply and snowball from. Cite as the map of the debugging-education area.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "fitzgerald-2008",
+    "type": "article",
+    "cite": "Fitzgerald et al., 2008",
+    "apa": "Fitzgerald, S., Lewandowski, G., McCauley, R., Murphy, L., Simon, B., Thomas, L., & Zander, C. (2008). Debugging: Finding, fixing and flailing, a multi-institutional study of novice debuggers. Computer Science Education, 18(2), 93–116.",
+    "doi": "10.1080/08993400802114508",
+    "url": "https://doi.org/10.1080/08993400802114508",
+    "annotation": "Multi-institution study of how novices actually debug (often 'flailing' without a plan). Cite for evidence on novice debugging behavior; a natural snowball from McCauley et al.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "loksa-2016",
+    "type": "article",
+    "cite": "Loksa et al., 2016",
+    "apa": "Loksa, D., Ko, A. J., Jernigan, W., Oleson, A., Mendez, C. J., & Burnett, M. M. (2016). Programming, problem solving, and self-awareness: Effects of explicit guidance. In Proceedings of the 2016 CHI Conference on Human Factors in Computing Systems (pp. 1449–1461). Association for Computing Machinery.",
+    "doi": "10.1145/2858036.2858252",
+    "url": "https://doi.org/10.1145/2858036.2858252",
+    "annotation": "Explicit metacognitive guidance improves novices' programming problem-solving. Cite as the basis for a metacognitive-prompt intervention.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "aleven-2003",
+    "type": "article",
+    "cite": "Aleven et al., 2003",
+    "apa": "Aleven, V., Stahl, E., Schworm, S., Fischer, F., & Wallace, R. (2003). Help seeking and help design in interactive learning environments. Review of Educational Research, 73(3), 277–320.",
+    "doi": "10.3102/00346543073003277",
+    "url": "https://doi.org/10.3102/00346543073003277",
+    "annotation": "Foundational review of help-seeking in tutoring systems — help offered is not the same as help used. Cite as an adjacent-domain analogy for CS help-seeking.",
+    "tags": [
+      "pm"
+    ],
+    "verified": true
+  },
+  {
+    "id": "karabenick-newman-2006",
+    "type": "book",
+    "cite": "Karabenick & Newman, 2006",
+    "apa": "Karabenick, S. A., & Newman, R. S. (Eds.). (2006). Help seeking in academic settings: Goals, groups, and contexts. Lawrence Erlbaum Associates.",
+    "doi": "10.4324/9780203726563",
+    "url": "https://doi.org/10.4324/9780203726563",
+    "annotation": "Anchor volume on academic help-seeking as a self-regulated learning strategy (help avoidance as a threat response). Cite for the motivation-psychology framing of help-seeking.",
+    "tags": [
+      "pm"
+    ],
     "verified": true
   }
 ]

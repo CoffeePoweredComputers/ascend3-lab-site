@@ -1,0 +1,119 @@
+---
+title: Build & Re-Plan an NSF-Style Timeline
+module: project-management
+order: 4
+description: Plan backward from the deadline, separate milestones you control from deadlines you don't, buffer every phase, and re-plan on a cadence instead of letting dates silently slip.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import SideBySide from '@wiki/SideBySide.astro';
+
+A research timeline is not a promise that the work will go as drawn. It is a *scaffold* — a shared
+picture of what has to happen, in what order, that you revise on purpose as reality comes in. The
+two mistakes are planning forward from today (which quietly assumes nothing goes wrong) and never
+re-planning (which lets the dates rot until they are fiction). This lesson fixes both.
+
+## Plan backward from the fixed end
+
+Start at the date you cannot move — the conference deadline, the internal journal deadline, the
+end of funding — and
+walk **backward**, asking at each step *"what has to be true before this?"* Backward planning
+surfaces the long-lead constraints that forward planning hides, and it forces the dependencies into
+the open:
+
+- You cannot analyze data you have not collected.
+- You cannot collect data before **IRB approval** — a hard gate, often with a revision cycle.
+- You cannot write the paper *at* the deadline; a strong draft has to exist weeks before it.
+
+<Callout type="tip" title="The IRB gate is a real phase, not paperwork">
+For human-subjects work, "IRB approved" is a milestone that blocks recruiting — and getting there
+can take one or more revision rounds. Put it on the timeline explicitly, early, with its own
+buffer. If you are unsure whether you need review or how long your path takes, work through the
+IRB module first: [Do I Need IRB Review?](/wiki/irb/do-i-need-irb) and
+[Find Your VT IRB Path](/wiki/irb/vt-irb-navigator), plus
+[Writing a Protocol](/wiki/irb/writing-a-protocol) for what the submission itself involves.
+</Callout>
+
+## Milestones vs. deadlines
+
+Every item on your timeline is one of two things, and confusing them is how schedules lie to you. A
+**milestone** is a state of completion *you control* ("the analysis pipeline reproduces Figure 2").
+A **deadline** is an external, fixed date *you don't* ("abstracts due March 1"). You plan around
+deadlines; you make progress through milestones.
+
+<SideBySide
+  leftLabel="Milestone — you control it"
+  rightLabel="Deadline — external & fixed"
+  rows={[
+    {
+      label: "What it is",
+      left: { title: "A verifiable state of done", body: "\"IRB approved,\" \"data collection complete,\" \"pipeline reproduces the figure.\"" },
+      right: { title: "A date someone else set", body: "Submission date, semester end, funding cliff, a participant cohort's availability." },
+    },
+    {
+      label: "How you treat it",
+      left: { title: "Define its 'done' precisely", body: "It is finished when a concrete, checkable condition is met — not when it 'feels close.'" },
+      right: { title: "Plan backward from it", body: "Fixed anchor. Everything upstream gets scheduled and buffered to land before it." },
+    },
+    {
+      label: "When it slips",
+      left: { title: "You re-plan the milestone", body: "Move it, re-scope it, or add resources — a decision you make and record." },
+      right: { title: "You absorb it with buffer", body: "The date won't move for you, so the buffer you built in is what saves the plan." },
+    },
+  ]}
+/>
+
+## Buffer every phase — on purpose
+
+Research is nonlinear: recruitment stalls, IRB comes back with edits, an analysis reveals you need
+more data. So every major phase gets a **named buffer** — plan on the order of **3–4 weeks** per
+big phase, more for anything involving other people or approvals. A buffer is not padding you hide;
+it is a line item you name, so when it gets used you *see* it get used. On the sheet, the timeline
+has a dedicated **Buffer (wks)** column for exactly this.
+
+## Draw it NSF-style
+
+Funding agencies read a lot of timelines, so their conventions are a good default. An NSF-style
+project timeline is a color-coded Gantt chart that a reviewer can parse in seconds:
+
+<Steps>
+1. **Rows are tasks, grouped by aim.** Sub-tasks sit under each aim (Aim 1: Setup & IRB, Aim 2: Data collection, Aim 3: Analysis, then Writing & submission), so structure mirrors the proposal.
+2. **Time runs horizontally at a consistent resolution.** Quarters (Q1–Q4) under merged Year headers for a multi-year project; months for a ~2-year one. Bars span the active periods.
+3. **Keep every time column the same width.** An 8-month task and a 24-month task must look proportional — unequal columns are the classic tell of a timeline nobody will trust.
+4. **Mark milestones and decisions with glyphs.** A diamond (◆) for a milestone or deliverable, a triangle (▲) for a go/no-go decision point where the project could change course.
+5. **Give it a color legend.** One fill color per aim/phase, in a boxed legend beside the grid, so the colors mean something.
+</Steps>
+
+<Callout type="note" title="The legend, in words">
+On **Tab 2** of the companion sheet: blue = Aim 1 (setup / IRB), green = Aim 2 (data collection),
+orange = Aim 3 (analysis), gray = writing & submission. ◆ = milestone / deliverable, ▲ = go/no-go
+decision, a bordered cell = a named buffer. The tab ships with a **filled-in example** at the top
+and an **identical blank template** below it — plan yours in the blank one.
+</Callout>
+
+## Re-plan on a cadence, not by drift
+
+Here is the habit that separates a timeline that helps from one that embarrasses you: **plan the
+near term in detail and the far term coarsely, then re-plan on a fixed schedule** as the unknowns
+resolve. This is "rolling-wave" planning — you are not pretending to know month 18 in month 1; you
+are committing to *revisit* the plan on purpose.
+
+- Pick a cadence — end of each month, or each sprint — and put the re-plan on the calendar.
+- At each re-plan, move dates deliberately and **write down what changed and why** in a **Re-Plan
+  Log** (date · what moved · why). Silent slippage is how a project loses three months without
+  anyone deciding to; a logged change is a decision you can defend.
+
+<Callout type="warning" title="A moved date is a decision, not a failure">
+Re-planning is the system working, not the plan breaking. The failure mode is a timeline that
+still shows dates everyone privately knows are wrong. Update it, log the reason, and bring the
+change to your next 1:1 — which is what the [status tracker](/wiki/project-management/status-tracking)
+is for.
+</Callout>
+
+## Where this lives
+
+**Tab 2 · Timeline** of the companion sheet holds all of this: the aim-grouped rows, the
+Depends-on and Buffer columns, the quarterly grid with a color legend, and both a worked example
+and a blank template. Build yours backward from the end date, then re-plan it on your cadence.
