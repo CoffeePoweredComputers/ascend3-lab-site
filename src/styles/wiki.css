@@ -1811,6 +1811,33 @@
 .wiki-review__actions button.wiki-review__approve { background: var(--color-secondary); color: #fff; border-color: var(--color-secondary); }
 .wiki-review__actions button.wiki-review__approve:hover { background: var(--color-secondary); filter: brightness(1.05); }
 
+/* ── News editor (edits news.json via PR) ───────────────────────────────────── */
+.wiki-review__newsform { display: grid; gap: 0.6rem; max-width: 44rem; }
+.wiki-review__newsform label { display: grid; gap: 0.25rem; font-size: 0.8rem; font-weight: 600; color: var(--color-text); }
+.wiki-review__newsform input,
+.wiki-review__newsform select,
+.wiki-review__newsform textarea {
+  padding: 6px 8px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  background: var(--color-surface-base); color: var(--color-text); font: inherit; font-size: 0.85rem;
+}
+.wiki-review__newsform code { font-size: 0.72rem; color: var(--color-text-muted); }
+.wiki-review__newsrow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.wiki-review__newsbar { display: flex; align-items: center; justify-content: flex-end; gap: 0.5rem; margin-top: 0.9rem; }
+.wiki-review__newsbar button {
+  padding: 5px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+  cursor: pointer; font-size: 0.78rem; font-weight: 600;
+  background: var(--color-surface-base); color: var(--color-text);
+}
+.wiki-review__newsbar button.wiki-review__prbtn { background: var(--color-secondary); color: #fff; border-color: var(--color-secondary); }
+.wiki-review__newsbar button.wiki-review__prbtn:hover { filter: brightness(1.05); }
+.wiki-review__newsnote { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 0.8rem; }
+.wiki-review__empty button {
+  margin-left: 0.4rem; padding: 3px 10px; border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm); background: var(--color-surface-base);
+  color: var(--color-text); cursor: pointer; font-size: 0.75rem;
+}
+@media (max-width: 560px) { .wiki-review__newsrow { grid-template-columns: 1fr; } }
+
 /* ── Mobile: dock the report composer as a bottom sheet ─────────────────────── */
 @media (max-width: 640px) {
   .wiki-report {

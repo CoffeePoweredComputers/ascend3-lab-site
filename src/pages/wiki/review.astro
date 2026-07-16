@@ -40,6 +40,9 @@ const configured = Boolean(
             <button type="button" data-tab="interest">
               Interest <span class="wiki-review__pill" data-interest-badge hidden></span>
             </button>
+            <button type="button" data-tab="news">
+              News <span class="wiki-review__pill" data-news-badge hidden></span>
+            </button>
           </div>
 
           <!-- Reports -->
@@ -80,6 +83,54 @@ const configured = Boolean(
           <div data-view="interest" hidden>
             <ul class="wiki-review__list" data-interest-list role="list"></ul>
             <p class="wiki-review__empty" data-interest-empty hidden>No one's expressed interest yet.</p>
+          </div>
+
+          <!-- News (edits src/data/news.json on master via a PR) -->
+          <div data-view="news" hidden>
+            <p class="wiki-review__newsnote" data-news-loading>Loading current news from GitHub…</p>
+            <p class="wiki-review__empty" data-news-loaderr hidden>
+              Couldn't load news.json from GitHub.
+              <button type="button" data-news-retry>Retry</button>
+            </p>
+
+            <div data-news-editor hidden>
+              <h2 class="wiki-review__subhead" data-news-formhead>Add an item</h2>
+              <form class="wiki-review__newsform" data-news-form>
+                <div class="wiki-review__newsrow">
+                  <label>Date <input type="date" name="date" required /></label>
+                  <label>Type
+                    <select name="type">
+                      <option value="publication">publication</option>
+                      <option value="talk">talk</option>
+                      <option value="grant">grant</option>
+                      <option value="general">general</option>
+                    </select>
+                  </label>
+                </div>
+                <label>Title <input type="text" name="title" required maxlength="120" /></label>
+                <label>Description <textarea name="description" rows="3" required></textarea></label>
+                <label>Links — one per line, as <code>Label | https://url</code>
+                  <textarea name="links" rows="2" placeholder="CHCI | https://hci.icat.vt.edu/"></textarea>
+                </label>
+                <div class="wiki-review__resolveactions">
+                  <button type="button" data-news-cancel hidden>Cancel edit</button>
+                  <button type="submit" data-news-submit>Add item</button>
+                </div>
+              </form>
+
+              <h2 class="wiki-review__subhead">Items</h2>
+              <ul class="wiki-review__list" data-news-list role="list"></ul>
+
+              <div class="wiki-review__newsbar" data-news-bar hidden>
+                <span class="wiki-review__count" data-news-summary></span>
+                <button type="button" data-news-discard>Discard changes</button>
+                <button type="button" class="wiki-review__prbtn" data-news-pr>Open PR…</button>
+              </div>
+              <p class="wiki-review__newsnote">
+                Changes ship as a pull request updating <code>src/data/news.json</code> — nothing
+                is public until the PR merges and the site deploys.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -443,6 +494,199 @@ const configured = Boolean(
         } catch (err) {
           toast(`Couldn't update: ${errMsg(err)}`, 'error');
           btn.removeAttribute('disabled');
+        }
+      });
+
+      // ── News (edits src/data/news.json on master via a PR) ──
+      interface NewsLink { text: string; url: string }
+      interface NewsItem { date: string; type: string; title: string; description: string; links: NewsLink[] }
+
+      const newsLoadingEl = box.querySelector<HTMLElement>('[data-news-loading]')!;
+      const newsLoadErrEl = box.querySelector<HTMLElement>('[data-news-loaderr]')!;
+      const newsEditorEl = box.querySelector<HTMLElement>('[data-news-editor]')!;
+      const newsListEl = box.querySelector<HTMLElement>('[data-news-list]')!;
+      const newsForm = box.querySelector<HTMLFormElement>('[data-news-form]')!;
+      const newsFormHead = box.querySelector<HTMLElement>('[data-news-formhead]')!;
+      const newsSubmitBtn = box.querySelector<HTMLButtonElement>('[data-news-submit]')!;
+      const newsCancelBtn = box.querySelector<HTMLButtonElement>('[data-news-cancel]')!;
+      const newsBar = box.querySelector<HTMLElement>('[data-news-bar]')!;
+      const newsSummary = box.querySelector<HTMLElement>('[data-news-summary]')!;
+      const newsBadge = box.querySelector<HTMLElement>('[data-news-badge]');
+      const newsPrBtn = box.querySelector<HTMLButtonElement>('[data-news-pr]')!;
+      const newsDiscardBtn = box.querySelector<HTMLButtonElement>('[data-news-discard]')!;
+      const newsRetryBtn = box.querySelector<HTMLButtonElement>('[data-news-retry]')!;
+
+      let newsBaseSha: string | undefined;
+      let newsWorking: NewsItem[] = [];
+      let newsChanges: string[] = [];
+      let newsEditing: number | null = null;
+      let newsLoaded = false;
+
+      const newsDirtyUi = () => {
+        newsBar.hidden = newsChanges.length === 0;
+        newsSummary.textContent = `${newsChanges.length} pending change${newsChanges.length === 1 ? '' : 's'}`;
+        if (newsBadge) {
+          newsBadge.textContent = String(newsChanges.length);
+          newsBadge.hidden = newsChanges.length === 0;
+        }
+      };
+
+      const newsRow = (n: NewsItem, i: number) => `<li class="wiki-review__item" data-i="${i}">
+        <div class="wiki-review__row">
+          <span class="wiki-review__type">${esc(n.date)} · ${esc(n.type)}</span>
+          <div class="wiki-review__actions">
+            <button type="button" data-nact="edit">Edit</button>
+            <button type="button" data-nact="remove">Remove</button>
+          </div>
+        </div>
+        <p class="wiki-review__note">${esc(n.title)}</p>
+        <p class="wiki-review__meta">${esc(n.description.length > 140 ? `${n.description.slice(0, 140)}…` : n.description)}${n.links.length ? ` · ${n.links.length} link${n.links.length === 1 ? '' : 's'}` : ''}</p>
+      </li>`;
+
+      const renderNews = () => {
+        newsListEl.innerHTML = newsWorking.map(newsRow).join('');
+        newsDirtyUi();
+      };
+
+      const newsResetForm = () => {
+        newsForm.reset();
+        (newsForm.elements.namedItem('date') as HTMLInputElement).value = new Date().toISOString().slice(0, 10);
+        newsEditing = null;
+        newsFormHead.textContent = 'Add an item';
+        newsSubmitBtn.textContent = 'Add item';
+        newsCancelBtn.hidden = true;
+      };
+
+      const parseLinks = (s: string): NewsLink[] =>
+        s.split('\n').map((l) => l.trim()).filter(Boolean).map((l) => {
+          const at = l.indexOf('|');
+          if (at < 1) throw new Error(`Link line needs “Label | URL”: “${l}”`);
+          const text = l.slice(0, at).trim();
+          const url = l.slice(at + 1).trim();
+          if (!/^https?:\/\//.test(url)) throw new Error(`Link URL must start with http(s):// — “${url}”`);
+          return { text, url };
+        });
+
+      const loadNews = async () => {
+        newsLoadingEl.hidden = false;
+        newsLoadErrEl.hidden = true;
+        newsEditorEl.hidden = true;
+        try {
+          const { readFileFromMaster, NEWS_JSON } = await import('@lib/annotate/pr');
+          const file = await readFileFromMaster(NEWS_JSON);
+          if (!file) throw new Error(`${NEWS_JSON} not found on master`);
+          newsBaseSha = file.sha;
+          newsWorking = JSON.parse(file.text) as NewsItem[];
+          newsChanges = [];
+          newsLoaded = true;
+          newsLoadingEl.hidden = true;
+          newsEditorEl.hidden = false;
+          newsResetForm();
+          renderNews();
+        } catch (err) {
+          newsLoadingEl.hidden = true;
+          newsLoadErrEl.hidden = false;
+          toast(`Couldn't load news: ${errMsg(err)}`, 'error');
+        }
+      };
+      newsRetryBtn.addEventListener('click', () => void loadNews());
+      // Lazy: fetch news.json from GitHub only when the tab is first opened
+      // (unauthenticated read — spends the 60/hr per-IP budget sparingly).
+      box.querySelector<HTMLElement>('[data-tab="news"]')?.addEventListener('click', () => {
+        if (!newsLoaded) void loadNews();
+      });
+
+      newsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fd = new FormData(newsForm);
+        try {
+          const item: NewsItem = {
+            date: ((fd.get('date') as string) || '').trim(),
+            type: (fd.get('type') as string) || 'general',
+            title: ((fd.get('title') as string) || '').trim(),
+            description: ((fd.get('description') as string) || '').trim(),
+            links: parseLinks((fd.get('links') as string) || ''),
+          };
+          if (!item.date || !item.title || !item.description) {
+            throw new Error('Date, title, and description are required.');
+          }
+          if (newsEditing !== null) {
+            newsWorking[newsEditing] = item;
+            newsChanges.push(`Edit: ${item.title}`);
+          } else {
+            newsWorking.unshift(item);
+            newsChanges.push(`Add: ${item.title}`);
+          }
+          // Keep the file's newest-first convention (stable for equal dates).
+          newsWorking.sort((a, b) => b.date.localeCompare(a.date));
+          newsResetForm();
+          renderNews();
+        } catch (err) {
+          toast(errMsg(err), 'error');
+        }
+      });
+
+      newsCancelBtn.addEventListener('click', () => newsResetForm());
+
+      newsListEl.addEventListener('click', (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLElement>('button[data-nact]');
+        if (!btn) return;
+        const i = Number(btn.closest<HTMLElement>('.wiki-review__item')?.dataset.i);
+        if (Number.isNaN(i) || !newsWorking[i]) return;
+        if (btn.dataset.nact === 'remove') {
+          newsChanges.push(`Remove: ${newsWorking[i].title}`);
+          newsWorking.splice(i, 1);
+          if (newsEditing === i) newsResetForm();
+          renderNews();
+          return;
+        }
+        // edit: load the item into the form
+        const n = newsWorking[i];
+        newsEditing = i;
+        (newsForm.elements.namedItem('date') as HTMLInputElement).value = n.date;
+        (newsForm.elements.namedItem('type') as HTMLSelectElement).value = n.type;
+        (newsForm.elements.namedItem('title') as HTMLInputElement).value = n.title;
+        (newsForm.elements.namedItem('description') as HTMLTextAreaElement).value = n.description;
+        (newsForm.elements.namedItem('links') as HTMLTextAreaElement).value =
+          n.links.map((l) => `${l.text} | ${l.url}`).join('\n');
+        newsFormHead.textContent = `Editing: ${n.title}`;
+        newsSubmitBtn.textContent = 'Save changes';
+        newsCancelBtn.hidden = false;
+        newsFormHead.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      newsDiscardBtn.addEventListener('click', () => void loadNews());
+
+      newsPrBtn.addEventListener('click', async () => {
+        if (newsChanges.length === 0) return;
+        newsPrBtn.disabled = true;
+        const label = newsPrBtn.textContent;
+        newsPrBtn.textContent = 'Opening PR…';
+        try {
+          const { openWikiPullRequest, NEWS_JSON } = await import('@lib/annotate/pr');
+          const content = `${JSON.stringify(newsWorking, null, 2)}\n`;
+          const pr = await openWikiPullRequest({
+            kind: 'news',
+            branchKey: 'news',
+            title: newsChanges.length === 1 ? `News: ${newsChanges[0]}` : `News: ${newsChanges.length} updates`,
+            body: [
+              'Updates `src/data/news.json`:',
+              '',
+              ...newsChanges.map((c) => `- ${c}`),
+              '',
+              '_Filed from the review dashboard._',
+            ].join('\n'),
+            files: [{ path: NEWS_JSON, content, baseSha: newsBaseSha }],
+          });
+          if (pr.drift.length) toast(pr.drift[0], 'error');
+          toast(`Opened PR #${pr.number} — merge it, then deploy.`, 'success', { href: pr.url, linkText: `#${pr.number} ↗` });
+          newsChanges = [];
+          newsDirtyUi();
+        } catch (err) {
+          toast(`Couldn't open the PR: ${errMsg(err)}`, 'error');
+        } finally {
+          newsPrBtn.disabled = false;
+          newsPrBtn.textContent = label;
         }
       });
 

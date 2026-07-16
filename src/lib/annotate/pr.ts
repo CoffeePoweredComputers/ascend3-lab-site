@@ -8,8 +8,9 @@
  * real gate; this file is just the plumbing.
  *
  * Safety that does NOT depend on branch protection:
- *  - a hard path allowlist (only wiki lesson MDX + the module registry may be
- *    written) so a bug or a malicious form can't smuggle a commit to config/rules;
+ *  - a hard path allowlist (only wiki lesson MDX, the module registry, and the
+ *    news data file may be written) so a bug or a malicious form can't smuggle
+ *    a commit to config/rules;
  *  - baseSha drift detection so an editor is warned when the file changed under
  *    them since they loaded it;
  *  - the module registry is merged against LIVE master (not a stale client copy)
@@ -21,10 +22,12 @@ import { getToken, resetToken } from './github';
 // ── path allowlist ───────────────────────────────────────────────────────────
 const WIKI_MDX_RE = /^src\/content\/wiki\/[A-Za-z0-9._/-]+\.mdx$/;
 const MODULES_JSON = 'src/data/wiki-modules.json';
+export const NEWS_JSON = 'src/data/news.json';
 
 function assertAllowedPath(path: string): void {
   if (path.includes('..')) throw new Error(`Refusing path traversal: ${path}`);
   if (path === MODULES_JSON) return;
+  if (path === NEWS_JSON) return;
   if (WIKI_MDX_RE.test(path)) return;
   throw new Error(`Refusing to write disallowed path: ${path}`);
 }
@@ -54,7 +57,7 @@ export interface ModuleUpdateInput {
 }
 
 export interface OpenPrInput {
-  kind: 'edit' | 'new-lesson' | 'new-module' | 'publish';
+  kind: 'edit' | 'new-lesson' | 'new-module' | 'publish' | 'news';
   /** Slug/module used to name the branch. */
   branchKey: string;
   title: string;
@@ -254,7 +257,7 @@ export async function openWikiPullRequest(input: OpenPrInput): Promise<OpenedPr>
   try {
     await call(`/issues/${pr.number}/labels`, {
       method: 'POST',
-      body: JSON.stringify({ labels: ['wiki', kind] }),
+      body: JSON.stringify({ labels: kind === 'news' ? ['news'] : ['wiki', kind] }),
     });
   } catch {
     /* labels are cosmetic; ignore failures */
