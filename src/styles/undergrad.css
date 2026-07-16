@@ -1,0 +1,283 @@
+/* ============================================
+   /undergrad — "Paper trail" info sections
+   The public sections are paper artifacts on the site's slate desk: a memo
+   (hero), a project charter, a taped message slip + week card, a margin-notes
+   sheet, a stapled reading list, and a manila folder whose contents are the
+   register-pad flipbook. Paper is STRUCTURE (rules, red margin, punched
+   holes, staples, tape) — never a cream reskin; every color derives from the
+   theme tokens so dark mode holds. Imported by src/pages/undergrad.astro.
+   ============================================ */
+
+/* ── Sheets ─────────────────────────────────── */
+.paper-sheet {
+  position: relative;
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgb(15 23 42 / 0.05),
+    0 14px 32px -18px rgb(15 23 42 / 0.22);
+}
+.paper-sheet__body { padding: 2rem 2.25rem 2.25rem 5.5rem; }
+.paper-sheet--plain .paper-sheet__body { padding: 2rem 2.25rem; }
+.paper-sheet--ruled .paper-sheet__body {
+  background:
+    linear-gradient(
+      to right,
+      transparent 62px,
+      color-mix(in srgb, var(--color-danger) 30%, transparent) 62px,
+      color-mix(in srgb, var(--color-danger) 30%, transparent) 63px,
+      transparent 63px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 30px,
+      color-mix(in srgb, var(--color-border) 65%, transparent) 30px 31px
+    );
+}
+/* punched holes down the left edge, same grammar as the register pad */
+.paper-sheet--holes::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background-image: radial-gradient(
+    circle 7px at 7px 50%,
+    var(--color-surface-page) 6px,
+    color-mix(in srgb, var(--color-text) 10%, transparent) 6.5px,
+    transparent 8px
+  );
+  background-size: 14px 84px;
+  background-repeat: repeat-y;
+  background-position: 0 28px;
+}
+
+/* ── Memo letterhead (hero) ─────────────────── */
+.paper-memo-head {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  row-gap: 0.3rem;
+  margin: 0 0 1.5rem;
+  padding: 0 6.5rem 1rem 0; /* right padding clears the stamp */
+  border-bottom: 2px solid var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+.paper-memo-head dt { color: var(--color-text); font-weight: 700; }
+.paper-memo-head dd { margin: 0; }
+
+.paper-stamp {
+  position: absolute;
+  top: 1.3rem;
+  right: 1.5rem;
+  rotate: -7deg;
+  padding: 0.35rem 0.7rem;
+  border: 3px double color-mix(in srgb, var(--color-danger) 55%, transparent);
+  border-radius: 4px;
+  color: color-mix(in srgb, var(--color-danger) 75%, transparent);
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.dark .paper-stamp { mix-blend-mode: normal; }
+
+/* ── Mono eyebrows ("Filed under · …") ──────── */
+.paper-eyebrow {
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ── Charter clauses (§1–§4) ────────────────── */
+.paper-clause {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+  padding: 1.05rem 0;
+}
+.paper-clause + .paper-clause {
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+.paper-clause__no {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-danger);
+}
+.paper-clause h3 {
+  margin-bottom: 0.2rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--color-text);
+}
+.paper-clause p {
+  max-width: 60ch;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Taped message slip (open house) ────────── */
+.paper-slip {
+  position: relative;
+  margin-top: 0.9rem; /* clearance for the tape */
+  max-width: 27rem;
+  rotate: -1.4deg;
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  box-shadow: 0 10px 24px -12px rgb(15 23 42 / 0.3);
+}
+.paper-slip::before {
+  /* tape */
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  translate: -50% 0;
+  rotate: 2deg;
+  width: 88px;
+  height: 22px;
+  background: color-mix(in srgb, var(--color-surface-alt) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  border-radius: 2px;
+}
+.paper-slip__head {
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+  border-radius: 3px 3px 0 0;
+  background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  color: color-mix(in srgb, var(--color-accent) 70%, var(--color-text));
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.paper-slip__body { padding: 0.9rem 1rem 1.1rem; font-size: 0.95rem; }
+
+/* ── Week card (studio schedule) ────────────── */
+.paper-weekcard {
+  overflow: hidden;
+  background: var(--color-surface-base);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+.paper-weekcard table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+.paper-weekcard th,
+.paper-weekcard td {
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+  text-align: left;
+}
+.paper-weekcard th {
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.paper-weekcard tr:last-child td { border-bottom: 0; }
+.paper-weekcard .is-hot td { background: var(--color-primary-light); }
+.paper-weekcard .is-hot .paper-weekcard__tag { color: var(--color-primary); font-weight: 700; }
+
+/* ── Margin-notes sheet (guidance) ──────────── */
+.paper-gloss-grid {
+  display: grid;
+  grid-template-columns: 1fr 15rem;
+  column-gap: 2rem;
+  row-gap: 1.35rem;
+}
+.paper-gloss-grid h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+.paper-gloss-grid > div > p { font-size: 0.95rem; color: var(--color-text-muted); }
+.paper-gloss {
+  align-self: center;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--color-surface-alt);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-text-muted) 75%, transparent);
+}
+
+/* ── Stapled reading list ───────────────────── */
+.paper-staples { position: relative; padding-top: 0.4rem; max-width: 34rem; }
+.paper-staples::before,
+.paper-staples::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--color-text-muted) 70%, var(--color-border));
+  box-shadow: 0 1px 1px rgb(15 23 42 / 0.4);
+}
+.paper-staples::before { left: 6px; rotate: -38deg; }
+.paper-staples::after { left: 30px; rotate: -38deg; }
+.paper-staples .paper-eyebrow { margin: 0 0 0.2rem 3.4rem; }
+.paper-staples ul { margin-left: 3.4rem; padding: 0.4rem 0 0; list-style: none; }
+.paper-staples li { padding: 0.3rem 0; font-size: 0.9rem; }
+
+/* ── Manila folder (the gated projects) ─────── */
+.paper-folder__tab {
+  display: inline-block;
+  padding: 0.45rem 1.2rem 0.35rem;
+  border: 1px solid var(--color-border);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.paper-folder__body {
+  border: 1px solid var(--color-border);
+  border-radius: 0 6px 6px 6px;
+  background: var(--color-surface-base);
+  padding: 1.5rem 1.5rem 1.75rem;
+}
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 760px) {
+  .paper-sheet__body { padding: 1.5rem 1.25rem 1.5rem 4.25rem; }
+  .paper-sheet--plain .paper-sheet__body { padding: 1.5rem 1.25rem; }
+  .paper-gloss-grid { grid-template-columns: 1fr; }
+  .paper-gloss { border-left: 0; padding-left: 0; }
+  .paper-folder__body { padding: 1rem 0.9rem 1.25rem; }
+}
+@media (max-width: 560px) {
+  .paper-stamp {
+    position: static;
+    display: inline-block;
+    rotate: -3deg;
+    margin-bottom: 0.9rem;
+  }
+  .paper-memo-head { padding-right: 0; }
+}

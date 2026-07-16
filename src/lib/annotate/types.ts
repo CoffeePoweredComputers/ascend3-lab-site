@@ -18,9 +18,9 @@ export interface Member {
   /** Admin-granted flag: shows the in-app editor UI. The REAL write gate is
    *  GitHub collaborator access, not this flag (see WIKI_EDITING_PLAN.md). */
   editor?: boolean;
-  /** Self-selected once, right after sign-up; a member may set this exactly
-   *  once via `setMyLevel` (see firestore.rules — self-update is restricted to
-   *  this single field, and only while unset). */
+  /** Self-selected academic level; a member may set or change it anytime via
+   *  `setMyLevel` (see firestore.rules — self-update is restricted to this
+   *  single field). */
   level?: MemberLevel;
   createdAt: Timestamp | null;
 }

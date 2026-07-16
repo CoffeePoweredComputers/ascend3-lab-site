@@ -48,6 +48,11 @@ const configured = Boolean(
       </button>
     </div>
 
+    <button type="button" class="wiki-auth__levelrow" data-auth-level-toggle aria-expanded="false">
+      <span data-auth-level-current></span>
+      <span class="wiki-auth__levelrow-hint" aria-hidden="true">change</span>
+    </button>
+
     <div class="wiki-auth__level">
       <p>Which best describes you?</p>
       <div class="wiki-auth__level-options">
@@ -123,6 +128,12 @@ const configured = Boolean(
         : m.status === 'member' ? 'member'
         : 'pending';
 
+    const LEVEL_LABEL: Record<string, string> = {
+      undergraduate: 'Undergraduate',
+      graduate: 'Graduate',
+      other: 'Other',
+    };
+
     // Set once a member is loaded, so the level-picker click handler knows who
     // to write for without threading it through every call site.
     let currentUid = '';
@@ -147,8 +158,23 @@ const configured = Boolean(
         setText('[data-auth-badge]', roleLabel);
         // Editors (admins are implicitly editors) get the "Propose content" link.
         w.dataset.editor = String(state === 'admin' || member?.editor === true);
-        // One-time prompt: only while signed in and level has never been set.
+        // First-run prompt: while signed in and level has never been set. Once
+        // set, the compact level row (with its "change" toggle) takes over.
         w.dataset.showLevel = String(!!member && !member.level);
+        w.dataset.hasLevel = String(!!member?.level);
+        delete w.dataset.levelOpen; // any repaint closes the change picker
+        setText('[data-auth-level-current]', member?.level ? LEVEL_LABEL[member.level] : '');
+        const toggle = w.querySelector<HTMLElement>('[data-auth-level-toggle]');
+        if (toggle) {
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute(
+            'aria-label',
+            member?.level ? `Change your level — currently ${LEVEL_LABEL[member.level]}` : 'Change your level',
+          );
+        }
+        w.querySelectorAll<HTMLButtonElement>('[data-auth-level]').forEach((btn) =>
+          btn.setAttribute('aria-pressed', String(!!member?.level && btn.dataset.authLevel === member.level)),
+        );
         const av = w.querySelector<HTMLImageElement>('[data-auth-avatar]');
         if (av) {
           const p = photo ?? member?.photoURL ?? '';
@@ -207,11 +233,12 @@ const configured = Boolean(
         const a = await auth();
         await a.setMyLevel(currentUid, level);
         const updated = { ...currentMember, level };
-        paint(stateFor(updated), updated);
+        paint(stateFor(updated), updated); // repaint also closes the change picker
         broadcast(null, updated);
       } catch {
-        btn.removeAttribute('disabled');
         showError("Couldn't save that — please try again.");
+      } finally {
+        btn.removeAttribute('disabled');
       }
     }
 
@@ -221,6 +248,15 @@ const configured = Boolean(
       w.querySelectorAll<HTMLButtonElement>('[data-auth-level]').forEach((btn) =>
         btn.addEventListener('click', () => doSetLevel(btn)),
       );
+      // "change" toggle on the compact level row — reopens the picker so a
+      // member can update their level anytime (rules allow only this field).
+      const toggle = w.querySelector<HTMLElement>('[data-auth-level-toggle]');
+      toggle?.addEventListener('click', () => {
+        const open = w.dataset.levelOpen === 'true';
+        if (open) delete w.dataset.levelOpen;
+        else w.dataset.levelOpen = 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+      });
     });
 
     // Reflect sign-in/out that happened elsewhere (e.g. the report composer).

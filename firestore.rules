@@ -51,12 +51,11 @@ service cloud.firestore {
         // A user cannot self-grant the editor flag; only an admin sets it (update).
         && request.resource.data.get('editor', false) == false;
 
-      // A member may set their own `level` exactly once (never change role/status/
+      // A member may set or change their own `level` anytime (never role/status/
       // anything else themselves) — everything besides that is admin-only.
       allow update: if isAdmin()
         || (isVtUser()
             && request.auth.uid == uid
-            && !('level' in resource.data)
             && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['level'])
             && request.resource.data.level in ['undergraduate', 'graduate', 'other']);
 

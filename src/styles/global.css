@@ -1116,7 +1116,8 @@ section[id]:not(#home) {
 }
 .wiki-auth__badge:empty { display: none; }
 
-/* One-time "which best describes you" prompt — shown only while level is unset. */
+/* "Which best describes you" picker — shown while level is unset (first-run
+   prompt), or reopened anytime via the compact level row's "change" toggle. */
 .wiki-auth__level {
   display: none;
   flex-direction: column;
@@ -1125,7 +1126,8 @@ section[id]:not(#home) {
   padding-top: 0.55rem;
   border-top: 1px solid var(--color-border);
 }
-.wiki-auth[data-show-level="true"] .wiki-auth__level { display: flex; }
+.wiki-auth[data-show-level="true"] .wiki-auth__level,
+.wiki-auth[data-level-open="true"] .wiki-auth__level { display: flex; }
 .wiki-auth__level p {
   font-size: 0.72rem;
   color: var(--color-text-muted);
@@ -1144,6 +1146,32 @@ section[id]:not(#home) {
   transition: border-color 0.12s, color 0.12s;
 }
 .wiki-auth__level-btn:hover { border-color: var(--color-primary); color: var(--color-text); }
+.wiki-auth__level-btn[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Compact level row — current level + "change", once a level is set. */
+.wiki-auth__levelrow {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.wiki-auth[data-has-level="true"] .wiki-auth__levelrow { display: inline-flex; }
+.wiki-auth__levelrow-hint {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.wiki-auth__levelrow:hover .wiki-auth__levelrow-hint { text-decoration: none; }
 
 /* Account menu — a tidy vertical list of destinations, gated by role. */
 .wiki-auth__menu {

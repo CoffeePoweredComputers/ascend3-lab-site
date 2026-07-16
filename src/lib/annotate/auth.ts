@@ -95,8 +95,8 @@ export async function getMember(uid: string): Promise<Member | null> {
   return snap.exists() ? { uid, ...(snap.data() as Omit<Member, 'uid'>) } : null;
 }
 
-/** Self-service, one-time only: a member sets their own academic level. Rejected
- *  by firestore.rules if `level` is already set or touches any other field. */
+/** Self-service: a member sets or changes their own academic level anytime.
+ *  firestore.rules rejects any update that touches other fields or an invalid value. */
 export function setMyLevel(uid: string, level: MemberLevel): Promise<void> {
   return updateDoc(doc(getDb(), 'members', uid), { level });
 }
