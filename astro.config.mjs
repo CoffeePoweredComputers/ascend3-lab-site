@@ -5,6 +5,8 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   integrations: [mdx()],
+  // The admin dashboard moved out of the wiki; keep old bookmarks working.
+  redirects: { '/wiki/review': '/admin' },
   image: {
     domains: [
       'scholar.googleusercontent.com',

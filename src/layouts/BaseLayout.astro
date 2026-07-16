@@ -9,9 +9,11 @@
 interface Props {
   title: string;
   description?: string;
+  /** Gated app shells (e.g. /admin) opt out of indexing. */
+  noindex?: boolean;
 }
 
-const { title, description = "ASCEND Lab — Advancing Support in Computing Education for Novice Developers, Data Scientists, and Designers at Virginia Tech." } = Astro.props;
+const { title, description = "ASCEND Lab — Advancing Support in Computing Education for Novice Developers, Data Scientists, and Designers at Virginia Tech.", noindex = false } = Astro.props;
 
 import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
@@ -24,6 +26,7 @@ import Footer from '../components/Footer.astro';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
 
     <script is:inline>
       (function() {

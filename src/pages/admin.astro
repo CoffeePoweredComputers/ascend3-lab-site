@@ -1,28 +1,38 @@
 ---
 /**
- * /wiki/review — admin dashboard: triage issue-reports + manage members.
+ * /admin — the site admin dashboard (moved from /wiki/review, which redirects
+ * here; the wiki was only ever one of its concerns).
  *
  * Static page, client-gated to admins (real enforcement is firestore.rules).
- * Two tabs:
- *  - Reports: live list, filter by status/type/lesson, change status, resolve
- *    with a PR link, "View in context" jump-to-highlight on the lesson.
+ * Four tabs:
+ *  - Reports: wiki issue-reports — filter, change status, resolve with a PR link.
  *  - Members: approve pending lab members, promote/revoke admin, remove.
+ *  - Interest: "Express interest" submissions from /undergrad.
+ *  - News: edit the homepage news feed (src/data/news.json) via a GitHub PR.
  * noindex — gated app shell.
  */
-import WikiLayout from '../../layouts/WikiLayout.astro';
-import { STATUS_ORDER, REPORT_TYPE_ORDER, TYPE_META, STATUS_META } from '../../lib/annotate/meta';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import { STATUS_ORDER, REPORT_TYPE_ORDER, TYPE_META, STATUS_META } from '../lib/annotate/meta';
+import '../styles/wiki.css';
 
 const configured = Boolean(
   import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
 );
+
+const NAV_ROUTES = [
+  { href: '/', label: 'ASCEND Home', icon: '🏔' },
+  { href: '/wiki', label: 'Lab Wiki', icon: '📚' },
+];
 ---
 
-<WikiLayout title="Review queue" noindex>
-  <article class="wiki-article py-12 lg:py-16">
-    <div class="wiki-prose">
-      <p class="font-mono text-sm text-primary mb-2">&gt; Admin</p>
-      <h1>Review queue</h1>
-      <p class="text-text-muted">Triage reported issues and manage lab members.</p>
+<BaseLayout title="Admin" description="ASCEND Lab admin dashboard." noindex>
+  <Navigation slot="nav" links={[]} logoHref="/" routeLinks={NAV_ROUTES} />
+  <section class="section">
+    <div class="container max-w-4xl">
+      <p class="font-mono text-sm text-primary mb-2">&gt; admin</p>
+      <h1 class="font-heading text-3xl lg:text-4xl font-bold mb-2">Admin dashboard</h1>
+      <p class="text-text-muted mb-8">Triage wiki reports, manage members, review interest, and post news.</p>
 
       <div class="wiki-review" data-state={configured ? 'loading' : 'notconfigured'}>
         <p class="wiki-review__msg wiki-review__loading">Loading…</p>
@@ -135,8 +145,8 @@ const configured = Boolean(
         </div>
       </div>
     </div>
-  </article>
-</WikiLayout>
+  </section>
+</BaseLayout>
 
 <script>
   import type { Annotation, AnnotationStatus, Member, Interest, InterestStatus } from '@lib/annotate/types';
