@@ -1,0 +1,85 @@
+---
+title: Validity
+module: quantitative
+order: 14
+group: "Measurement & IRT"
+description: From the content/criterion/construct trinity to the Standards' five evidence sources and Kane's argument — with a worked DCI validity argument.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import SideBySide from '@wiki/SideBySide.astro';
+
+Reliability asks *is the score consistent?* Validity asks the harder question: *does
+the score support the interpretation we want to make?* This lesson traces how the
+field's answer evolved, because all three eras still appear in papers — and reviewers
+increasingly expect the modern one.
+
+## Three eras in one table
+
+<SideBySide
+  leftLabel="The trinity (mid-1900s)"
+  rightLabel="The modern view"
+  rows={[
+    {
+      label: 'What validity is',
+      left: { title: 'Three types', body: 'Content, criterion, and construct validity — a checklist to satisfy.' },
+      right: { title: 'One thing, many evidence sources', body: 'Construct validity supported by multiple SOURCES of evidence (Messick); validation as ongoing argument (Kane).' },
+    },
+    {
+      label: 'The claim',
+      left: { title: '“The test is valid.”', body: 'A property of the instrument, settled once.' },
+      right: { title: '“Scores support interpretation X for use Y in population Z.”', body: 'A scoped claim with the evidence attached.' },
+    },
+    {
+      label: 'When it happens',
+      left: { title: 'Once, at development', body: 'Then everyone downstream inherits the stamp.' },
+      right: { title: 'Every new use reopens it', body: 'New population, new use, or any modification restarts the argument.' },
+    },
+  ]}
+/>
+
+Messick unified the types into one construct-centered view <Cite id="messick-1995" />;
+the **Standards** operationalized it as five *sources of evidence*
+<Cite id="aera-apa-ncme-2014" />; Kane framed validation as building and testing an
+explicit **interpretation/use argument** <Cite id="kane-2013" />. The best
+short introduction written for education researchers in a discipline like ours:
+Reeves & Marbach-Ad <Cite id="reeves-marbach-ad-2016" />.
+
+## The five sources, applied to the DCI
+
+1. **Content** — do the 20 items cover the debugging-ability blueprint, with nothing
+   construct-irrelevant? Evidence: expert panel review against the construct map;
+   the qualitative module's interview-grounded misconceptions as the item basis.
+2. **Response processes** — are students *doing debugging* when they answer, or
+   test-gaming? Evidence: think-alouds while solving items (the same skill the
+   [qualitative module](/wiki/qualitative/overview) teaches).
+3. **Internal structure** — do the items behave as one construct, reliably?
+   Evidence: the [item analysis](/wiki/quantitative/reliability-and-item-analysis),
+   dimensionality checks, [IRT calibration](/wiki/quantitative/irt-fundamentals), and
+   eventually [DIF](/wiki/quantitative/dif-and-fairness).
+4. **Relations to other variables** — do DCI scores correlate with things debugging
+   ability should touch (course performance, time-to-fix) and not with things it
+   shouldn't (reading speed)?
+5. **Consequences** — what happens when the score is used? If instructors placed
+   students by DCI score, whose interests would errors serve?
+
+<Callout type="note" title="Where the running example is honest about itself">
+The shipped pilot supplies evidence for source 3 only. A real DCI paper needs sources
+1 and 2 before the psychometrics mean anything — which is exactly the staged plan the
+[IRT walkthrough](/wiki/quantitative/irt-fundamentals) ends with, and why "we computed
+α" is never a validity argument by itself.
+</Callout>
+
+## Kane in one paragraph
+
+State the interpretation as a chain of claims — *scoring* (responses were scored
+correctly) → *generalization* (these 20 items stand in for the domain) →
+*extrapolation* (test behavior reflects real debugging) → *use* (decisions based on
+scores are warranted) — then collect evidence for the weakest link first. The chain
+makes explicit what "validated" hand-waves: every arrow is a place the argument can
+fail, and different uses stress different arrows <Cite id="kane-2013" />.
+
+No GenAI toolbox here, deliberately: assembling a validity argument is exactly the
+judgment an LLM's fluent overclaiming would counterfeit. Write this one yourself.

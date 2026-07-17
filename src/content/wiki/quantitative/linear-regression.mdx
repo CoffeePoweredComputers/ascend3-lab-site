@@ -1,0 +1,86 @@
+---
+title: Linear Regression
+module: quantitative
+order: 7
+group: "Regression & modeling"
+description: The general machine behind the tests — fitting, reading, and checking linear models.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import CodeTabs from '@wiki/CodeTabs.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Here's the secret the test-by-test view hides: the t-test, ANOVA, ANCOVA, and
+correlation are all **linear models** <Cite id="lindelov-2019" />. The ANCOVA you
+picked in [the last lesson's walkthrough](/wiki/quantitative/anova-and-categorical) *is*
+this lesson's `lm(post ~ pre + section)` — regression is not another test, it's the
+machine the tests are special cases of. Learn one machine, read every coefficient
+table for the rest of your career <Cite id="gelman-hill-vehtari-2020" />.
+
+## Reading a model
+
+```
+post = b0 + b1·pre + b2·section_sprint + error
+```
+
+- **b2** — the section difference *holding pre constant*: the adjusted effect.
+- **b1** — points of post per point of pre, other things equal.
+- **R²** — share of outcome variance the model captures (adjusted R² penalizes
+  parameter-stuffing).
+
+Each coefficient comes with an SE, a CI, and a t-statistic — the
+[reporting rules](/wiki/quantitative/effect-sizes-and-reporting) apply unchanged.
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+students <- dplyr::distinct(read.csv("debugging-study.csv"),
+                            student, section, pre, post)
+fit <- lm(post ~ pre + section, data = students)
+summary(fit); confint(fit)
+par(mfrow = c(2, 2)); plot(fit)      # the four diagnostic plots
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd, statsmodels.formula.api as smf
+
+students = (pd.read_csv("debugging-study.csv")
+              [["student", "section", "pre", "post"]].drop_duplicates())
+fit = smf.ols("post ~ pre + C(section)", data=students).fit()
+print(fit.summary())
+```
+
+  </Fragment>
+</CodeTabs>
+
+## Interactions
+
+`post ~ pre * section` lets the pre–post slope differ by section — "did SPRINT help
+weaker students more?" Center predictors before interacting them, and plot the two
+fitted lines; interaction coefficients are nearly unreadable raw <Cite id="mize-2019" />.
+
+## Checking the model (not the ritual)
+
+Diagnostics are *looking*, not testing <Cite id="hoekstra-etal-2012" />:
+
+- **Residuals vs fitted** — curvature means a missing term; a funnel means non-constant
+  variance (robust SEs help).
+- **QQ plot** — gross departures matter, wiggles don't.
+- **Influence** — one student shouldn't own the conclusion; check leverage/Cook's d.
+- **Ceiling** — a pile of 19s and 20s in post compresses everything; visible only if
+  you plot.
+
+<Callout type="note" title="Explaining vs predicting">
+Everything above serves *explanation* — unbiased, interpretable coefficients. If you
+ever only want *prediction* (who's at risk of failing?), different rules apply:
+regularization (ridge/lasso), held-out evaluation, and nobody reads the coefficients.
+Know which game you're playing; this module plays the first.
+</Callout>
+
+<GenAiToolbox id="lm-whats-wrong" />

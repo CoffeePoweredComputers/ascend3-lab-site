@@ -1,0 +1,79 @@
+---
+title: DIF & Fairness
+module: quantitative
+order: 17
+group: "Measurement & IRT"
+description: Impact vs DIF vs bias, the standard detection methods, and what real DIF findings in CS assessments look like.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import IccExplorer from '@wiki/IccExplorer.astro';
+import Reveal from '@wiki/Reveal.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Recall the [IRT walkthrough's](/wiki/quantitative/irt-fundamentals) final step: the
+lab head asked for DIF at N = 150, and the right answer was *defer, and say why*.
+This lesson is the method you deferred to.
+
+## Three words that are not synonyms
+
+- **Impact** — groups differ in average score. Not evidence of unfairness: real
+  ability differences (prior CS exposure, say) produce impact on a perfectly fair test.
+- **DIF (differential item functioning)** — students *matched on ability* succeed on
+  an item at different rates by group. The item behaves differently conditional on θ.
+- **Bias** — DIF *plus a substantive judgment* that the difference is
+  construct-irrelevant (culture-bound context, language load). Flagged DIF is a
+  hypothesis about bias, never a verdict.
+
+Confusing these produces both false alarms ("groups scored differently — the test is
+biased!") and false comfort ("no mean difference — the test is fair!"). Both
+inferences are wrong; item-level analysis conditional on ability is the tool.
+
+## What DIF looks like
+
+Two ICCs, one item. When the curves separate uniformly, the focal group needs more
+ability for the same success everywhere (**uniform DIF**); when they cross, the gap
+changes with θ (**non-uniform DIF**):
+
+<IccExplorer compare />
+
+## The standard detection methods
+
+| Method | Detects | Notes |
+| --- | --- | --- |
+| **Mantel–Haenszel** | uniform | matches on total score; the classic, with ETS's A/B/C effect-size bands |
+| **Logistic regression** | uniform + non-uniform | add group and group×score terms; effect-size gate on ΔR² |
+| **IRT-based** (likelihood ratio, Lord) | both | compares item parameters across groups; wants the largest samples |
+
+All share one loop: match on ability, test each item, **purify** (re-match excluding
+flagged items, re-test), then submit flags to *human judgment* about content. Working
+guidance: ~200 per group before flags stabilize — the walkthrough's arithmetic.
+
+## Real findings to calibrate on
+
+- An SCS1-derived exam carried three gender-DIF items — inside an otherwise
+  acceptable total score <Cite id="davidson-etal-2021" />. Item-level bias hides.
+- Bias can live *below* the item: differential distractor functioning — groups
+  matched on ability drawn to different wrong answers.
+- Fairness-first is possible: newer instruments run DIF during development, not as a
+  post-hoc audit — the direction of travel for the DCI plan.
+
+<Reveal summary="Check: the DCI shows impact by prior-experience group but no DIF. What can you claim?">
+That the *items* function equivalently across groups at matched ability — the score
+difference reflects whatever ability difference exists, as far as this evidence goes.
+You cannot claim the test is "fair" full stop (DIF is one fairness lens, on one
+grouping, with this sample's power), and you cannot claim the experience gap is
+innate — impact says nothing about *why* groups differ. Two careful sentences beat
+one sweeping one.
+</Reveal>
+
+<Callout type="note" title="The SEM cousin">
+For multi-item *scales*, the same question — does the instrument measure the same
+construct across groups? — is asked as **measurement invariance** via multi-group CFA
+(see the [SEM lesson](/wiki/quantitative/sem)). DIF is the item-level view, invariance
+the factor-level view, of one concern.
+</Callout>
+
+<GenAiToolbox id="dif-code" />

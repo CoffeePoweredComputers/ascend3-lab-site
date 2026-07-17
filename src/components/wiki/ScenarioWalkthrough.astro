@@ -1,0 +1,210 @@
+---
+/**
+ * ScenarioWalkthrough — a fixed-vignette "which analysis and why" trainer.
+ * Unlike DecisionTree (routes the reader's own study), the vignette determines
+ * the path: a linear step spine with a forced choice at each step. Picking an
+ * option reveals its verdict (Right read / Defensible / Trap) and feedback;
+ * after the first pick the other options become inspectable for comparison,
+ * then everyone continues on the same spine to a verdict card with a
+ * ready-to-adapt reporting sentence. No scoring, no persistence.
+ *
+ * Server-rendered cards toggled by vanilla JS (RoleWalkthrough pattern);
+ * without JS a <noscript> style unhides everything into a readable worked
+ * decision. Data lives in src/data/quant-scenarios.ts.
+ *
+ * Usage:
+ *   import { sectionsPrepost } from '../../data/quant-scenarios';
+ *   <ScenarioWalkthrough data={sectionsPrepost} />
+ */
+import type { Scenario } from '../../data/quant-scenarios';
+import { getReference } from '../../lib/references';
+
+interface Props {
+  data: Scenario;
+}
+const { data } = Astro.props;
+const stepCount = data.steps.length;
+
+const BADGE: Record<string, { label: string; tone: string }> = {
+  best: { label: 'Right read', tone: 'good' },
+  defensible: { label: 'Defensible', tone: 'warn' },
+  trap: { label: 'Trap', tone: 'alert' },
+};
+
+const moduleSlug = Astro.url.pathname.split('/').filter(Boolean)[1] ?? 'quantitative';
+const refLink = (id: string) => `/wiki/${moduleSlug}/references#ref-${id}`;
+---
+
+<div class="wiki-scn" data-scn>
+  <header class="wiki-scn__intro">
+    <p class="wiki-scn__kicker">Scenario walkthrough</p>
+    <p class="wiki-scn__title">{data.title}</p>
+    <p class="wiki-scn__vignette">{data.vignette}</p>
+    <ul class="wiki-scn__facts" aria-label="Key design facts">
+      {data.facts.map((f) => <li class="wiki-scn__fact">{f}</li>)}
+    </ul>
+    <button type="button" class="wiki-scn__start">Work through it →</button>
+  </header>
+
+  <div class="wiki-scn__stage" aria-live="polite">
+    {data.steps.map((step, si) => (
+      <article class="wiki-scn__step" data-step={si} hidden>
+        <p class="wiki-scn__progress">Question {si + 1} of {stepCount}</p>
+        <p class="wiki-scn__question">{step.question}</p>
+        <div class="wiki-scn__options" role="group" aria-label="Options">
+          {step.options.map((opt, oi) => (
+            <button type="button" class="wiki-scn__option" data-opt={oi} aria-pressed="false">
+              {opt.label}
+            </button>
+          ))}
+        </div>
+        <div class="wiki-scn__panels">
+          {step.options.map((opt, oi) => (
+            <div
+              class="wiki-scn__panel"
+              data-panel={oi}
+              role="group"
+              aria-label={`Feedback: ${opt.label}`}
+              tabindex="-1"
+              hidden
+            >
+              <span class={`wiki-tree__badge wiki-tree__badge--${BADGE[opt.verdict].tone}`}>
+                {BADGE[opt.verdict].label}
+              </span>
+              <span class="wiki-scn__pick-tag" hidden>your pick</span>
+              <p class="wiki-scn__feedback">{opt.feedback}</p>
+              {opt.whenRight && (
+                <p class="wiki-scn__whenright"><strong>When this is the right call:</strong> {opt.whenRight}</p>
+              )}
+            </div>
+          ))}
+        </div>
+        {step.note && <p class="wiki-scn__note" hidden>{step.note}</p>}
+        <div class="wiki-scn__nav">
+          <button type="button" class="wiki-scn__prev" disabled={si === 0}>← Back</button>
+          <button type="button" class="wiki-scn__continue" hidden>
+            {si === stepCount - 1 ? 'See the verdict →' : 'Continue →'}
+          </button>
+        </div>
+      </article>
+    ))}
+
+    <article class="wiki-scn__verdict" hidden>
+      <p class="wiki-scn__progress">Verdict</p>
+      <p class="wiki-scn__recommendation">{data.verdict.recommendation}</p>
+      <p class="wiki-scn__report-label">Reporting sentence — adapt the brackets, keep the shape:</p>
+      <p class="wiki-scn__report">{data.verdict.reportingSentence}</p>
+      <p class="wiki-scn__caveats-label">Caveats that belong in the write-up:</p>
+      <ul class="wiki-scn__caveats">
+        {data.verdict.caveats.map((c) => <li>{c}</li>)}
+      </ul>
+      {data.verdict.alternatives && (
+        <div class="wiki-scn__alts">
+          {data.verdict.alternatives.map((alt) => (
+            <details class="wiki-reveal">
+              <summary class="wiki-reveal__summary">
+                <span class="wiki-reveal__chevron" aria-hidden="true">▸</span>
+                {alt.label}
+              </summary>
+              <div class="wiki-reveal__body"><p>{alt.body}</p></div>
+            </details>
+          ))}
+        </div>
+      )}
+      <p class="wiki-tree__links-heading">Go deeper</p>
+      <ul class="wiki-tree__links">
+        {data.verdict.lessons.map((l) => (
+          <li><a class="wiki-tree__link" href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+      {data.verdict.citeIds && data.verdict.citeIds.length > 0 && (
+        <p class="wiki-scn__cites">
+          Sources: {data.verdict.citeIds.map((id, i) => (
+            <Fragment>{i > 0 ? ' · ' : ''}<a href={refLink(id)}>{getReference(id)?.cite ?? id}</a></Fragment>
+          ))}
+        </p>
+      )}
+    </article>
+  </div>
+
+  <button type="button" class="wiki-scn__restart" hidden>↺ Start over</button>
+
+  <noscript>
+    <style>
+      /* Without JS, degrade into a readable worked decision: all steps, all
+         feedback, and the verdict visible; interactive chrome hidden. */
+      .wiki-scn [hidden] { display: block !important; }
+      .wiki-scn .wiki-scn__pick-tag,
+      .wiki-scn .wiki-scn__start,
+      .wiki-scn .wiki-scn__nav,
+      .wiki-scn .wiki-scn__restart { display: none !important; }
+    </style>
+  </noscript>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-scn]').forEach((root) => {
+    const intro = root.querySelector<HTMLElement>('.wiki-scn__intro')!;
+    const start = root.querySelector<HTMLButtonElement>('.wiki-scn__start')!;
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.wiki-scn__step'));
+    const verdict = root.querySelector<HTMLElement>('.wiki-scn__verdict')!;
+    const restart = root.querySelector<HTMLButtonElement>('.wiki-scn__restart')!;
+    let current = -1;
+
+    function show(idx: number) {
+      steps.forEach((s, i) => (s.hidden = i !== idx));
+      verdict.hidden = idx !== steps.length;
+      current = idx;
+      if (idx === steps.length) restart.hidden = false;
+    }
+
+    steps.forEach((step, si) => {
+      const options = Array.from(step.querySelectorAll<HTMLButtonElement>('.wiki-scn__option'));
+      const panels = Array.from(step.querySelectorAll<HTMLElement>('.wiki-scn__panel'));
+      const note = step.querySelector<HTMLElement>('.wiki-scn__note');
+      const cont = step.querySelector<HTMLButtonElement>('.wiki-scn__continue')!;
+      const prev = step.querySelector<HTMLButtonElement>('.wiki-scn__prev')!;
+
+      options.forEach((btn, oi) => {
+        btn.addEventListener('click', () => {
+          const panel = panels[oi];
+          if (!step.classList.contains('is-resolved')) {
+            btn.setAttribute('aria-pressed', 'true');
+            panel.querySelector<HTMLElement>('.wiki-scn__pick-tag')!.hidden = false;
+            step.classList.add('is-resolved');
+            cont.hidden = false;
+            if (note) note.hidden = false;
+          }
+          panel.hidden = false;
+          panel.focus();
+        });
+      });
+
+      cont.addEventListener('click', () => show(si + 1));
+      prev.addEventListener('click', () => show(si - 1));
+    });
+
+    start.addEventListener('click', () => {
+      intro.classList.add('is-started');
+      show(0);
+      steps[0].querySelector<HTMLElement>('.wiki-scn__question')!.scrollIntoView({ block: 'nearest' });
+    });
+
+    restart.addEventListener('click', () => {
+      steps.forEach((step) => {
+        step.classList.remove('is-resolved');
+        step.querySelectorAll<HTMLButtonElement>('.wiki-scn__option').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        step.querySelectorAll<HTMLElement>('.wiki-scn__panel').forEach((p) => (p.hidden = true));
+        step.querySelectorAll<HTMLElement>('.wiki-scn__pick-tag').forEach((t) => (t.hidden = true));
+        const note = step.querySelector<HTMLElement>('.wiki-scn__note');
+        if (note) note.hidden = true;
+        step.querySelector<HTMLButtonElement>('.wiki-scn__continue')!.hidden = true;
+      });
+      intro.classList.remove('is-started');
+      restart.hidden = true;
+      verdict.hidden = true;
+      steps.forEach((s) => (s.hidden = true));
+      current = -1;
+    });
+  });
+</script>

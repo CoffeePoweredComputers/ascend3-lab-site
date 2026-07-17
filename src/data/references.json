@@ -908,5 +908,1131 @@
       "pm"
     ],
     "verified": true
+  },
+  {
+    "id": "sanders-etal-2019",
+    "type": "article",
+    "cite": "Sanders et al., 2019",
+    "apa": "Sanders, K., Sheard, J., Becker, B. A., Eckerdal, A., Hamouda, S., & Simon. (2019). Inferential statistics in computing education research: A methodological review. Proceedings of ICER '19, 177–185.",
+    "url": "https://doi.org/10.1145/3291279.3339408",
+    "annotation": "Reviewed 14 years of ICER: the field's 'big three' are the t-test, chi-squared, and Mann-Whitney, with frequent reporting flaws (missing df, effect sizes, assumption checks). Cite for what CER uses and gets wrong.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1145/3291279.3339408"
+  },
+  {
+    "id": "randolph-etal-2008",
+    "type": "article",
+    "cite": "Randolph et al., 2008",
+    "apa": "Randolph, J. J., Julnes, G., Sutinen, E., & Lehman, S. (2008). A methodological review of computer science education research. Journal of Information Technology Education: Research, 7, 135–162.",
+    "url": "https://www.jite.org/documents/Vol7/JITEv7p135-162Randolph322.pdf",
+    "annotation": "352 CER articles, 2000–2005: one-group posttest-only was the modal design, 38% of human-participant papers offered only anecdotal evidence, 86% convenience sampling. Cite when motivating comparison groups and honest sampling claims.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false
+  },
+  {
+    "id": "guerzhoy-2023",
+    "type": "article",
+    "cite": "Guerzhoy, 2023",
+    "apa": "Guerzhoy, M. (2023). \"Medium-n studies\" in computing education conferences. Koli Calling '23.",
+    "url": "https://arxiv.org/abs/2311.14679",
+    "annotation": "Class-sized samples are usually too small to detect typical effects; computing p-values for underpowered studies misleads. Cite in the power discussion.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false
+  },
+  {
+    "id": "robertson-2012",
+    "type": "article",
+    "cite": "Robertson, 2012",
+    "apa": "Robertson, J. (2012). Likert-type scales, statistical methods, and effect sizes. Communications of the ACM, 55(5), 6–7.",
+    "url": "https://doi.org/10.1145/2160718.2160721",
+    "annotation": "Short CACM piece on ordinal data mistreatment and missing effect sizes in HCI/CS venues. Cite for the Likert-as-interval problem.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1145/2160718.2160721"
+  },
+  {
+    "id": "kaptein-etal-2010",
+    "type": "article",
+    "cite": "Kaptein, Nass & Markopoulos, 2010",
+    "apa": "Kaptein, M. C., Nass, C., & Markopoulos, P. (2010). Powerful and consistent analysis of Likert-type rating scales. Proceedings of CHI '10, 2391–2394.",
+    "url": "https://doi.org/10.1145/1753326.1753686",
+    "annotation": "45% of CHI papers used Likert-type data but only 8% used non-parametric analysis. Cite for the scale of the ordinal-data problem.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1145/1753326.1753686"
+  },
+  {
+    "id": "sanders-vahrenhold-mccartney-2023",
+    "type": "article",
+    "cite": "Sanders, Vahrenhold & McCartney, 2023",
+    "apa": "Sanders, K., Vahrenhold, J., & McCartney, R. (2023). How do computing education researchers talk about threats and limitations? Proceedings of ICER '23.",
+    "url": "https://doi.org/10.1145/3568813.3600114",
+    "annotation": "Maps how CER papers discuss limitations onto internal/external/construct/statistical-conclusion validity. Cite when teaching limitations writing.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1145/3568813.3600114"
+  },
+  {
+    "id": "heckman-etal-2022",
+    "type": "article",
+    "cite": "Heckman et al., 2022",
+    "apa": "Heckman, S., Carver, J. C., Sherriff, M., & Al-Zubidy, A. (2022). A systematic literature review of empiricism and norms of reporting in computing education research literature. ACM Transactions on Computing Education, 22(1), Article 3.",
+    "url": "https://arxiv.org/abs/2107.01984",
+    "annotation": "427 papers: reporting gaps (missing RQs, participants, design details) block replication and meta-analysis. Cite for reporting norms.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false
+  },
+  {
+    "id": "ihantola-etal-2015",
+    "type": "article",
+    "cite": "Ihantola et al., 2015",
+    "apa": "Ihantola, P., Vihavainen, A., Ahadi, A., et al. (2015). Educational data mining and learning analytics in programming: Literature review and case studies. ITiCSE-WGR '15, 41–63.",
+    "url": "https://doi.org/10.1145/2858796.2858798",
+    "annotation": "The canonical EDM/LA-in-programming review. Cite as the further-reading pointer for what this module deliberately leaves out.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1145/2858796.2858798"
+  },
+  {
+    "id": "porter-lee-simon-2013",
+    "type": "article",
+    "cite": "Porter, Bailey Lee & Simon, 2013",
+    "apa": "Porter, L., Bailey Lee, C., & Simon, B. (2013). Halving fail rates using peer instruction: A study of four computer science courses. Proceedings of SIGCSE '13, 177–182.",
+    "url": "https://doi.org/10.1145/2445196.2445250",
+    "annotation": "Exemplar multi-course quasi-experiment with a large, practically meaningful effect. Cite as a design model.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1145/2445196.2445250"
+  },
+  {
+    "id": "michaeli-romeike-2019",
+    "type": "article",
+    "cite": "Michaeli & Romeike, 2019",
+    "apa": "Michaeli, T., & Romeike, R. (2019). Improving debugging skills in the classroom: The effects of teaching a systematic debugging process. Proceedings of WiPSCE '19.",
+    "url": "https://computingeducation.de/pub/2019_Michaeli-Romeike_WIPSCE19.pdf",
+    "annotation": "Quasi-experiment: explicit systematic-debugging instruction improved debugging performance and self-efficacy. The real-world twin of this module's running example.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false
+  },
+  {
+    "id": "gelman-hill-vehtari-2020",
+    "type": "book",
+    "cite": "Gelman, Hill & Vehtari, 2020",
+    "apa": "Gelman, A., Hill, J., & Vehtari, A. (2020). Regression and other stories. Cambridge University Press.",
+    "url": "https://avehtari.github.io/ROS-Examples/",
+    "annotation": "The modeling spine for lessons 7–10: regression as comparison, the divide-by-4 rule, multilevel thinking. Free PDF and code examples at the companion site.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true
+  },
+  {
+    "id": "lakens-2013",
+    "type": "article",
+    "cite": "Lakens, 2013",
+    "apa": "Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863.",
+    "url": "https://doi.org/10.3389/fpsyg.2013.00863",
+    "annotation": "The practical effect-size primer: which d, which eta-squared, and how to report them. Open access.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true,
+    "doi": "10.3389/fpsyg.2013.00863"
+  },
+  {
+    "id": "appelbaum-etal-2018",
+    "type": "article",
+    "cite": "Appelbaum et al., 2018",
+    "apa": "Appelbaum, M., Cooper, H., Kline, R. B., Mayo-Wilson, E., Nezu, A. M., & Rao, S. M. (2018). Journal article reporting standards for quantitative research in psychology: The APA Publications and Communications Board task force report. American Psychologist, 73(1), 3–25.",
+    "url": "https://doi.org/10.1037/amp0000191",
+    "annotation": "JARS-Quant: what a quantitative report must contain. Cite for the reporting checklist.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1037/amp0000191"
+  },
+  {
+    "id": "wasserstein-etal-2019",
+    "type": "article",
+    "cite": "Wasserstein, Schirm & Lazar, 2019",
+    "apa": "Wasserstein, R. L., Schirm, A. L., & Lazar, N. A. (2019). Moving to a world beyond \"p < 0.05\". The American Statistician, 73(sup1), 1–19.",
+    "url": "https://doi.org/10.1080/00031305.2019.1583913",
+    "annotation": "The ASA-adjacent editorial on retiring bright-line significance. Cite for estimation-first framing.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1080/00031305.2019.1583913"
+  },
+  {
+    "id": "norton-etal-2018",
+    "type": "article",
+    "cite": "Norton, Dowd & Maciejewski, 2018",
+    "apa": "Norton, E. C., Dowd, B. E., & Maciejewski, M. L. (2018). Odds ratios—current best practice and use. JAMA, 320(1), 84–85.",
+    "url": "https://doi.org/10.1001/jama.2018.6971",
+    "annotation": "Why odds ratios mislead when outcomes are common and why marginal effects communicate better. The core citation for the logistic-translation lesson.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1001/jama.2018.6971"
+  },
+  {
+    "id": "mize-2019",
+    "type": "article",
+    "cite": "Mize, 2019",
+    "apa": "Mize, T. D. (2019). Best practices for estimating, interpreting, and presenting nonlinear interaction effects. Sociological Science, 6, 81–117.",
+    "url": "https://doi.org/10.15195/v6.a4",
+    "annotation": "Predicted probabilities and marginal effects for nonlinear models, with worked figures. Open access.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true,
+    "doi": "10.15195/v6.a4"
+  },
+  {
+    "id": "arel-bundock-etal-2024",
+    "type": "article",
+    "cite": "Arel-Bundock, Greifer & Heiss, 2024",
+    "apa": "Arel-Bundock, V., Greifer, N., & Heiss, A. (2024). How to interpret statistical models using marginaleffects for R and Python. Journal of Statistical Software, 111(9), 1–32.",
+    "url": "https://doi.org/10.18637/jss.v111.i09",
+    "annotation": "The marginaleffects package paper — predictions, comparisons, slopes in both R and Python. Cite next to any AME code.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true,
+    "doi": "10.18637/jss.v111.i09"
+  },
+  {
+    "id": "mcneish-etal-2017",
+    "type": "article",
+    "cite": "McNeish, Stapleton & Silverman, 2017",
+    "apa": "McNeish, D., Stapleton, L. M., & Silverman, R. D. (2017). On the unnecessary ubiquity of hierarchical linear modeling. Psychological Methods, 22(1), 114–140.",
+    "url": "https://doi.org/10.1037/met0000078",
+    "annotation": "MLM is not the only fix for clustering: cluster-robust errors and GEE answer different questions. The backbone of the clustered-data lesson's model choice.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true,
+    "doi": "10.1037/met0000078"
+  },
+  {
+    "id": "theobald-2018",
+    "type": "article",
+    "cite": "Theobald, 2018",
+    "apa": "Theobald, E. (2018). Students are rarely independent: When, why, and how to use random effects in discipline-based education research. CBE—Life Sciences Education, 17(3), rm2.",
+    "url": "https://doi.org/10.1187/cbe.17-12-0280",
+    "annotation": "The audience-matched multilevel-models reading: nesting in classroom data and what to do about it. Open access.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true,
+    "doi": "10.1187/cbe.17-12-0280"
+  },
+  {
+    "id": "hubbard-etal-2010",
+    "type": "article",
+    "cite": "Hubbard et al., 2010",
+    "apa": "Hubbard, A. E., Ahern, J., Fleischer, N. L., et al. (2010). To GEE or not to GEE: Comparing population average and mixed models for estimating the associations between neighborhood risk factors and health. Epidemiology, 21(4), 467–474.",
+    "url": "https://doi.org/10.1097/EDE.0b013e3181caeb90",
+    "annotation": "The readable GEE-vs-mixed-models comparison: marginal vs conditional estimands. Cite when choosing between them.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1097/EDE.0b013e3181caeb90"
+  },
+  {
+    "id": "mcneish-stapleton-2016",
+    "type": "article",
+    "cite": "McNeish & Stapleton, 2016",
+    "apa": "McNeish, D. M., & Stapleton, L. M. (2016). Modeling clustered data with very few clusters. Multivariate Behavioral Research, 51(4), 495–518.",
+    "url": "https://doi.org/10.1080/00273171.2016.1167008",
+    "annotation": "What breaks when you have a handful of clusters and which small-sample corrections help. Cite for the two-sections honesty beat.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1080/00273171.2016.1167008"
+  },
+  {
+    "id": "mancl-derouen-2001",
+    "type": "article",
+    "cite": "Mancl & DeRouen, 2001",
+    "apa": "Mancl, L. A., & DeRouen, T. A. (2001). A covariance estimator for GEE with improved small-sample properties. Biometrics, 57(1), 126–134.",
+    "url": "https://doi.org/10.1111/j.0006-341X.2001.00126.x",
+    "annotation": "The standard small-sample sandwich correction for GEE. Cite when clusters number in the dozens.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1111/j.0006-341X.2001.00126.x"
+  },
+  {
+    "id": "sommet-morselli-2017",
+    "type": "article",
+    "cite": "Sommet & Morselli, 2017",
+    "apa": "Sommet, N., & Morselli, D. (2017). Keep calm and learn multilevel logistic modeling: A simplified three-step procedure using Stata, R, Mplus, and SPSS. International Review of Social Psychology, 30(1), 203–218.",
+    "url": "https://doi.org/10.5334/irsp.90",
+    "annotation": "Step-by-step multilevel logistic walkthrough with code in four packages. Open access.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.5334/irsp.90"
+  },
+  {
+    "id": "kline-2023",
+    "type": "book",
+    "cite": "Kline, 2023",
+    "apa": "Kline, R. B. (2023). Principles and practice of structural equation modeling (5th ed.). Guilford Press.",
+    "url": "https://www.guilford.com/books/Principles-and-Practice-of-Structural-Equation-Modeling/Rex-Kline/9781462551910",
+    "annotation": "The standard SEM textbook: specification, identification, estimation, fit. Cite as the depth reference behind the SEM lesson.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false
+  },
+  {
+    "id": "rosseel-2012",
+    "type": "article",
+    "cite": "Rosseel, 2012",
+    "apa": "Rosseel, Y. (2012). lavaan: An R package for structural equation modeling. Journal of Statistical Software, 48(2), 1–36.",
+    "url": "https://doi.org/10.18637/jss.v048.i02",
+    "annotation": "The lavaan paper — cite next to any lavaan syntax.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true,
+    "doi": "10.18637/jss.v048.i02"
+  },
+  {
+    "id": "hu-bentler-1999",
+    "type": "article",
+    "cite": "Hu & Bentler, 1999",
+    "apa": "Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives. Structural Equation Modeling, 6(1), 1–55.",
+    "url": "https://doi.org/10.1080/10705519909540118",
+    "annotation": "Source of the CFI ≥ .95 / RMSEA ≤ .06 conventions. Cite it — and cite Marsh et al. (2004) beside it.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1080/10705519909540118"
+  },
+  {
+    "id": "marsh-etal-2004",
+    "type": "article",
+    "cite": "Marsh, Hau & Wen, 2004",
+    "apa": "Marsh, H. W., Hau, K.-T., & Wen, Z. (2004). In search of golden rules: Comment on hypothesis-testing approaches to setting cutoff values for fit indexes and dangers in overgeneralizing Hu and Bentler's (1999) findings. Structural Equation Modeling, 11(3), 320–341.",
+    "url": "https://doi.org/10.1207/s15328007sem1103_2",
+    "annotation": "Why the fit-index cutoffs are not golden rules. Always pair with Hu & Bentler.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1207/s15328007sem1103_2"
+  },
+  {
+    "id": "hoekstra-etal-2012",
+    "type": "article",
+    "cite": "Hoekstra, Kiers & Johnson, 2012",
+    "apa": "Hoekstra, R., Kiers, H. A. L., & Johnson, A. (2012). Are assumptions of well-known statistical techniques checked, and why (not)? Frontiers in Psychology, 3, 137.",
+    "url": "https://doi.org/10.3389/fpsyg.2012.00137",
+    "annotation": "Researchers rarely check assumptions, and preliminary normality tests are a poor ritual. Cite in the assumptions discussion.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.3389/fpsyg.2012.00137"
+  },
+  {
+    "id": "lord-1967",
+    "type": "article",
+    "cite": "Lord, 1967",
+    "apa": "Lord, F. M. (1967). A paradox in the interpretation of group comparisons. Psychological Bulletin, 68(5), 304–305.",
+    "url": "https://doi.org/10.1037/h0025105",
+    "annotation": "Lord's paradox: with intact groups, covariate adjustment and change scores can disagree. Cite in the pre/post walkthrough.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1037/h0025105"
+  },
+  {
+    "id": "vanbreukelen-2006",
+    "type": "article",
+    "cite": "Van Breukelen, 2006",
+    "apa": "Van Breukelen, G. J. P. (2006). ANCOVA versus change from baseline had more power in randomized studies and more bias in nonrandomized studies. Journal of Clinical Epidemiology, 59(9), 920–925.",
+    "url": "https://doi.org/10.1016/j.jclinepi.2006.02.007",
+    "annotation": "ANCOVA vs gain scores, by design type. Cite alongside Lord (1967).",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1016/j.jclinepi.2006.02.007"
+  },
+  {
+    "id": "gaise-2016",
+    "type": "report",
+    "cite": "GAISE, 2016",
+    "apa": "GAISE College Report ASA Revision Committee. (2016). Guidelines for assessment and instruction in statistics education (GAISE) college report 2016. American Statistical Association.",
+    "url": "https://www.amstat.org/asa/files/pdfs/GAISE/GaiseCollege_Full.pdf",
+    "annotation": "Statistics-education consensus guidelines: teach statistics as investigation, foster multivariable thinking. Free.",
+    "tags": [
+      "quant"
+    ],
+    "verified": true
+  },
+  {
+    "id": "lindelov-2019",
+    "type": "report",
+    "cite": "Lindeløv, 2019",
+    "apa": "Lindeløv, J. K. (2019). Common statistical tests are linear models (or: how to teach stats). Online resource.",
+    "url": "https://lindeloev.github.io/tests-as-linear/",
+    "annotation": "One page showing t-tests, ANOVA, and correlations as linear models — the unity move the regression lesson makes. Free.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false
+  },
+  {
+    "id": "fincher-robins-2019",
+    "type": "book",
+    "cite": "Fincher & Robins, 2019",
+    "apa": "Fincher, S. A., & Robins, A. V. (Eds.). (2019). The Cambridge handbook of computing education research. Cambridge University Press.",
+    "url": "https://doi.org/10.1017/9781108654555",
+    "annotation": "The field handbook; chapters 5–6 (Haden) cover descriptive and inferential statistics for CER. Cite as the general methods reference.",
+    "tags": [
+      "quant"
+    ],
+    "verified": false,
+    "doi": "10.1017/9781108654555"
+  },
+  {
+    "id": "aera-apa-ncme-2014",
+    "type": "book",
+    "cite": "AERA, APA & NCME, 2014",
+    "apa": "American Educational Research Association, American Psychological Association, & National Council on Measurement in Education. (2014). Standards for educational and psychological testing. AERA.",
+    "url": "https://www.testingstandards.net/",
+    "annotation": "The authority on validity and fairness: five sources of validity evidence. The measurement block's constitution.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false
+  },
+  {
+    "id": "messick-1995",
+    "type": "article",
+    "cite": "Messick, 1995",
+    "apa": "Messick, S. (1995). Validity of psychological assessment: Validation of inferences from persons' responses and performances as scientific inquiry into score meaning. American Psychologist, 50(9), 741–749.",
+    "url": "https://doi.org/10.1037/0003-066X.50.9.741",
+    "annotation": "The unified view of construct validity. Cite for validity-as-one-thing.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1037/0003-066X.50.9.741"
+  },
+  {
+    "id": "kane-2013",
+    "type": "article",
+    "cite": "Kane, 2013",
+    "apa": "Kane, M. T. (2013). Validating the interpretations and uses of test scores. Journal of Educational Measurement, 50(1), 1–73.",
+    "url": "https://doi.org/10.1111/jedm.12000",
+    "annotation": "The argument-based approach: validity is an argument for an interpretation and use, not a property of a test.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1111/jedm.12000"
+  },
+  {
+    "id": "reeves-marbach-ad-2016",
+    "type": "article",
+    "cite": "Reeves & Marbach-Ad, 2016",
+    "apa": "Reeves, T. D., & Marbach-Ad, G. (2016). Contemporary test validity in theory and practice: A primer for discipline-based education researchers. CBE—Life Sciences Education, 15(1), rm1.",
+    "url": "https://doi.org/10.1187/cbe.15-08-0183",
+    "annotation": "The best audience-matched validity reading: modern validity theory written for discipline-based education researchers. Open access.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true,
+    "doi": "10.1187/cbe.15-08-0183"
+  },
+  {
+    "id": "sijtsma-2009",
+    "type": "article",
+    "cite": "Sijtsma, 2009",
+    "apa": "Sijtsma, K. (2009). On the use, the misuse, and the very limited usefulness of Cronbach's alpha. Psychometrika, 74(1), 107–120.",
+    "url": "https://doi.org/10.1007/s11336-008-9101-0",
+    "annotation": "Alpha does not measure unidimensionality and is routinely misused. Cite when introducing omega.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1007/s11336-008-9101-0"
+  },
+  {
+    "id": "mcneish-2018",
+    "type": "article",
+    "cite": "McNeish, 2018",
+    "apa": "McNeish, D. (2018). Thanks coefficient alpha, we'll take it from here. Psychological Methods, 23(3), 412–433.",
+    "url": "https://doi.org/10.1037/met0000144",
+    "annotation": "The alpha-to-omega argument in full. Cite for the modern default.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1037/met0000144"
+  },
+  {
+    "id": "boateng-etal-2018",
+    "type": "article",
+    "cite": "Boateng et al., 2018",
+    "apa": "Boateng, G. O., Neilands, T. B., Frongillo, E. A., Melgar-Quiñonez, H. R., & Young, S. L. (2018). Best practices for developing and validating scales for health, social, and behavioral research: A primer. Frontiers in Public Health, 6, 149.",
+    "url": "https://doi.org/10.3389/fpubh.2018.00149",
+    "annotation": "The checklist-style scale-development pipeline the instrument lesson follows. Open access.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true,
+    "doi": "10.3389/fpubh.2018.00149"
+  },
+  {
+    "id": "devellis-thorpe-2022",
+    "type": "book",
+    "cite": "DeVellis & Thorpe, 2022",
+    "apa": "DeVellis, R. F., & Thorpe, C. T. (2022). Scale development: Theory and applications (5th ed.). SAGE.",
+    "url": "https://collegepublishing.sagepub.com/products/scale-development-5-269114",
+    "annotation": "The survey-scale bible: item writing, response formats, reduction. Depth reference for scale building.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false
+  },
+  {
+    "id": "bandalos-2018",
+    "type": "book",
+    "cite": "Bandalos, 2018",
+    "apa": "Bandalos, D. L. (2018). Measurement theory and applications for the social sciences. Guilford Press.",
+    "url": "https://www.guilford.com/books/Measurement-Theory-and-Applications-for-the-Social-Sciences/Deborah-Bandalos/9781462532131",
+    "annotation": "The single-volume spine of the measurement block: CTT, reliability, validity, EFA/CFA, IRT, DIF, equating.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false
+  },
+  {
+    "id": "deayala-2022",
+    "type": "book",
+    "cite": "de Ayala, 2022",
+    "apa": "de Ayala, R. J. (2022). The theory and practice of item response theory (2nd ed.). Guilford Press.",
+    "url": "https://www.guilford.com/books/The-Theory-and-Practice-of-Item-Response-Theory/R-de-Ayala/9781462547753",
+    "annotation": "The IRT reference, model by model with software output. Cite for parameter estimation detail and sample-size demands.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false
+  },
+  {
+    "id": "embretson-reise-2000",
+    "type": "book",
+    "cite": "Embretson & Reise, 2000",
+    "apa": "Embretson, S. E., & Reise, S. P. (2000). Item response theory for psychologists. Lawrence Erlbaum.",
+    "url": "https://doi.org/10.4324/9781410605269",
+    "annotation": "The most readable conceptual IRT book — the 'new rules of measurement' framing the why-IRT lesson uses.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.4324/9781410605269"
+  },
+  {
+    "id": "baker-2001",
+    "type": "book",
+    "cite": "Baker, 2001",
+    "apa": "Baker, F. B. (2001). The basics of item response theory (2nd ed.). ERIC Clearinghouse on Assessment and Evaluation.",
+    "url": "https://eric.ed.gov/?id=ED458219",
+    "annotation": "Free, gentle, ICC-first introduction to IRT — the on-ramp reading for the IRT lessons.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true
+  },
+  {
+    "id": "chalmers-2012",
+    "type": "article",
+    "cite": "Chalmers, 2012",
+    "apa": "Chalmers, R. P. (2012). mirt: A multidimensional item response theory package for the R environment. Journal of Statistical Software, 48(6), 1–29.",
+    "url": "https://doi.org/10.18637/jss.v048.i06",
+    "annotation": "The mirt paper — cite next to any mirt code.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true,
+    "doi": "10.18637/jss.v048.i06"
+  },
+  {
+    "id": "wilson-2023",
+    "type": "book",
+    "cite": "Wilson, 2023",
+    "apa": "Wilson, M. (2023). Constructing measures: An item response modeling approach (2nd ed.). Routledge.",
+    "url": "https://www.routledge.com/Constructing-Measures-An-Item-Response-Modeling-Approach/Wilson/p/book/9781032261683",
+    "annotation": "Construct-map-driven instrument development (the BEAR Assessment System). The instrument lesson's design spine alongside Boateng.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true
+  },
+  {
+    "id": "adams-wieman-2011",
+    "type": "article",
+    "cite": "Adams & Wieman, 2011",
+    "apa": "Adams, W. K., & Wieman, C. E. (2011). Development and validation of instruments to measure learning of expert-like thinking. International Journal of Science Education, 33(9), 1289–1312.",
+    "url": "https://doi.org/10.1080/09500693.2010.512369",
+    "annotation": "DBER instrument development end to end, from interviews to validation. Cite as the discipline-based model.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true,
+    "doi": "10.1080/09500693.2010.512369"
+  },
+  {
+    "id": "willis-artino-2013",
+    "type": "article",
+    "cite": "Willis & Artino, 2013",
+    "apa": "Willis, G. B., & Artino, A. R. (2013). What do our respondents think we're asking? Using cognitive interviewing to improve medical education surveys. Journal of Graduate Medical Education, 5(3), 353–356.",
+    "url": "https://doi.org/10.4300/JGME-D-13-00154.1",
+    "annotation": "Short, free cognitive-interviewing primer for item validation. Open access.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.4300/JGME-D-13-00154.1"
+  },
+  {
+    "id": "boone-2016",
+    "type": "article",
+    "cite": "Boone, 2016",
+    "apa": "Boone, W. J. (2016). Rasch analysis for instrument development: Why, when, and how? CBE—Life Sciences Education, 15(4), rm4.",
+    "url": "https://doi.org/10.1187/cbe.16-04-0148",
+    "annotation": "Rasch for instrument developers, written for education researchers. Open access; pair with Planinic et al.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1187/cbe.16-04-0148"
+  },
+  {
+    "id": "planinic-etal-2019",
+    "type": "article",
+    "cite": "Planinic et al., 2019",
+    "apa": "Planinic, M., Boone, W. J., Susac, A., & Ivanjek, L. (2019). Rasch analysis in physics education research: Why measurement matters. Physical Review Physics Education Research, 15(2), 020111.",
+    "url": "https://doi.org/10.1103/PhysRevPhysEducRes.15.020111",
+    "annotation": "Worked Rasch analyses in a sister DBER field. Open access.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1103/PhysRevPhysEducRes.15.020111"
+  },
+  {
+    "id": "bloch-norman-2012",
+    "type": "article",
+    "cite": "Bloch & Norman, 2012",
+    "apa": "Bloch, R., & Norman, G. (2012). Generalizability theory for the perplexed: A practical introduction and guide: AMEE Guide No. 68. Medical Teacher, 34(11), 960–992.",
+    "url": "https://doi.org/10.3109/0142159X.2012.703791",
+    "annotation": "The one G-theory pointer: what it adds beyond alpha when raters and tasks both vary.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.3109/0142159X.2012.703791"
+  },
+  {
+    "id": "linacre-1994",
+    "type": "article",
+    "cite": "Linacre, 1994",
+    "apa": "Linacre, J. M. (1994). Sample size and item calibration stability. Rasch Measurement Transactions, 7(4), 328.",
+    "url": "https://www.rasch.org/rmt/rmt74m.htm",
+    "annotation": "The much-cited Rasch sample-size guidance (~100–250 for stable calibration). Cite in the model-choice discussion.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false
+  },
+  {
+    "id": "kolen-brennan-2014",
+    "type": "book",
+    "cite": "Kolen & Brennan, 2014",
+    "apa": "Kolen, M. J., & Brennan, R. L. (2014). Test equating, scaling, and linking: Methods and practices (3rd ed.). Springer.",
+    "url": "https://doi.org/10.1007/978-1-4939-0317-7",
+    "annotation": "The equating reference — cited as a pointer, not a reading; pre/post with overlapping items is secretly an equating problem.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1007/978-1-4939-0317-7"
+  },
+  {
+    "id": "tew-guzdial-2011",
+    "type": "article",
+    "cite": "Tew & Guzdial, 2011",
+    "apa": "Tew, A. E., & Guzdial, M. (2011). The FCS1: A language independent assessment of CS1 knowledge. Proceedings of SIGCSE '11, 111–116.",
+    "url": "https://doi.org/10.1145/1953163.1953200",
+    "annotation": "The original language-independent CS1 assessment. Never publicly released — which motivated the SCS1.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/1953163.1953200"
+  },
+  {
+    "id": "parker-etal-2016",
+    "type": "article",
+    "cite": "Parker, Guzdial & Engleman, 2016",
+    "apa": "Parker, M. C., Guzdial, M., & Engleman, S. (2016). Replication, validation, and use of a language independent CS1 knowledge assessment. Proceedings of ICER '16, 93–101.",
+    "url": "https://doi.org/10.1145/2960310.2960316",
+    "annotation": "The SCS1 — the CS1 knowledge assessment the instruments lesson's arc is built on.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true,
+    "doi": "10.1145/2960310.2960316"
+  },
+  {
+    "id": "xie-etal-2019",
+    "type": "article",
+    "cite": "Xie et al., 2019",
+    "apa": "Xie, B., Davidson, M. J., Li, M., & Ko, A. J. (2019). An item response theory evaluation of a language-independent CS1 knowledge assessment. Proceedings of SIGCSE '19, 699–705.",
+    "url": "https://doi.org/10.1145/3287324.3287370",
+    "annotation": "IRT re-analysis of the SCS1: some items measure a different construct, several are too hard. The model of re-examining a 'validated' instrument.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3287324.3287370"
+  },
+  {
+    "id": "davidson-etal-2021",
+    "type": "article",
+    "cite": "Davidson et al., 2021",
+    "apa": "Davidson, M. J., Wortzman, B., Ko, A. J., & Li, M. (2021). Investigating item bias in a CS1 exam with differential item functioning. Proceedings of SIGCSE '21, 1142–1148.",
+    "url": "https://faculty.washington.edu/ajko/papers/Davidson2021ItemBias.pdf",
+    "annotation": "Gender DIF found in an SCS1-derived exam: item-level bias hiding inside an acceptable total score. The DIF lesson's central case.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true
+  },
+  {
+    "id": "parker-guzdial-tew-2021",
+    "type": "article",
+    "cite": "Parker, Guzdial & Tew, 2021",
+    "apa": "Parker, M. C., Guzdial, M., & Tew, A. E. (2021). Uses, revisions, and the future of validated assessments in computing education: A case study of the FCS1 and SCS1. Proceedings of ICER '21.",
+    "url": "https://doi.org/10.1145/3446871.3469744",
+    "annotation": "A decade of ad-hoc shortening, subsetting, and translating the SCS1 — and why each invalidates the original validity argument. The reuse cautionary tale.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true,
+    "doi": "10.1145/3446871.3469744"
+  },
+  {
+    "id": "vieira-etal-2024",
+    "type": "article",
+    "cite": "Vieira et al., 2024",
+    "apa": "Vieira, C., Vásquez, M. F., Meza, F., Quintero-Manes, A., & Godoy, D. (2024). Identifying difficult questions and student difficulties in a Spanish version of a programming assessment instrument (SCS1). ACM Transactions on Computing Education.",
+    "url": "https://doi.org/10.1145/3665921",
+    "annotation": "Translation is adaptation: think-alouds revealed the Spanish SCS1 behaves differently. Cross-language validity evidence does not transfer for free.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3665921"
+  },
+  {
+    "id": "porter-etal-2019",
+    "type": "article",
+    "cite": "Porter et al., 2019",
+    "apa": "Porter, L., Zingaro, D., Liao, S. N., Taylor, C., Webb, K. C., Lee, C., & Clancy, M. (2019). BDSI: A validated concept inventory for basic data structures. Proceedings of ICER '19, 111–119.",
+    "url": "https://www.cs.swarthmore.edu/~kwebb/papers/BDSI.pdf",
+    "annotation": "Gold-standard concept-inventory process: faculty Delphi, 100+ student interviews, iterative drafts, statistical evaluation.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true
+  },
+  {
+    "id": "hamouda-etal-2017",
+    "type": "article",
+    "cite": "Hamouda et al., 2017",
+    "apa": "Hamouda, S., Edwards, S. H., Elmongui, H. G., Ernst, J. V., & Shaffer, C. A. (2017). A basic recursion concept inventory. Computer Science Education, 27(2), 121–148.",
+    "url": "https://people.cs.vt.edu/~shaffer/Papers/RecurTutorCIPublished.pdf",
+    "annotation": "Misconception-driven concept-inventory development — Virginia Tech work. The local model for the DCI running example.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": true
+  },
+  {
+    "id": "dorn-tew-2015",
+    "type": "article",
+    "cite": "Dorn & Tew, 2015",
+    "apa": "Dorn, B., & Tew, A. E. (2015). Empirical validation and application of the computing attitudes survey. Computer Science Education, 25(1), 1–36.",
+    "url": "https://doi.org/10.1080/08993408.2015.1014142",
+    "annotation": "Full re-validation of an attitude survey adapted from physics — the model for adapting affective instruments across disciplines.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1080/08993408.2015.1014142"
+  },
+  {
+    "id": "ramalingam-wiedenbeck-1998",
+    "type": "article",
+    "cite": "Ramalingam & Wiedenbeck, 1998",
+    "apa": "Ramalingam, V., & Wiedenbeck, S. (1998). Development and validation of scores on a computer programming self-efficacy scale and group analyses of novice programmer self-efficacy. Journal of Educational Computing Research, 19(4), 367–381.",
+    "url": "https://doi.org/10.2190/C670-Y3C8-LTJ1-CT3P",
+    "annotation": "The classic programming self-efficacy scale most later CS self-efficacy work adapts.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.2190/C670-Y3C8-LTJ1-CT3P"
+  },
+  {
+    "id": "tsai-etal-2019",
+    "type": "article",
+    "cite": "Tsai, Wang & Hsu, 2019",
+    "apa": "Tsai, M.-J., Wang, C.-Y., & Hsu, P.-F. (2019). Developing the computer programming self-efficacy scale for computer literacy education. Journal of Educational Computing Research, 56(8), 1345–1360.",
+    "url": "https://doi.org/10.1177/0735633117746747",
+    "annotation": "Programming self-efficacy scale with a Debug subscale — the closest thing to a validated debugging self-efficacy measure.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1177/0735633117746747"
+  },
+  {
+    "id": "yang-etal-2024",
+    "type": "article",
+    "cite": "Yang et al., 2024",
+    "apa": "Yang, Y., Baird, A., O'Rourke, E., Brennan, K., & Schneider, B. (2024). Decoding debugging instruction: A systematic literature review of debugging interventions. ACM Transactions on Computing Education.",
+    "url": "https://doi.org/10.1145/3690652",
+    "annotation": "Systematic review of debugging interventions 2010–2022: outcome measures are almost all ad hoc — there is no accepted validated debugging assessment. The DCI's reason to exist.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3690652"
+  },
+  {
+    "id": "decker-mcgill-2019",
+    "type": "article",
+    "cite": "Decker & McGill, 2019",
+    "apa": "Decker, A., & McGill, M. M. (2019). A topical review of evaluation instruments for computing education. Proceedings of SIGCSE '19, 558–564.",
+    "url": "https://doi.org/10.1145/3287324.3287393",
+    "annotation": "The instrument-landscape review behind csedresearch.org — search there before building your own.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3287324.3287393"
+  },
+  {
+    "id": "finnie-ansley-etal-2022",
+    "type": "article",
+    "cite": "Finnie-Ansley et al., 2022",
+    "apa": "Finnie-Ansley, J., Denny, P., Becker, B. A., Luxton-Reilly, A., & Prather, J. (2022). The robots are coming: Exploring the implications of OpenAI Codex on introductory programming. Proceedings of ACE '22, 10–19.",
+    "url": "https://doi.org/10.1145/3511861.3511863",
+    "annotation": "Codex outscored most CS1 students on exam questions. The opening evidence for the assessment-contamination warning.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3511861.3511863"
+  },
+  {
+    "id": "savelka-etal-2023",
+    "type": "article",
+    "cite": "Savelka et al., 2023",
+    "apa": "Savelka, J., Agarwal, A., Bogart, C., Song, Y., & Sakr, M. (2023). Can generative pre-trained transformers (GPT) pass assessments in higher education programming courses? Proceedings of ITiCSE '23.",
+    "url": "https://doi.org/10.1145/3587102.3588792",
+    "annotation": "GPT models passing programming-course assessments — unproctored instruments can no longer separate student ability from AI assistance.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3587102.3588792"
+  },
+  {
+    "id": "kuchemann-etal-2024",
+    "type": "article",
+    "cite": "Küchemann et al., 2024",
+    "apa": "Küchemann, S., Steinert, S., Kuhn, J., Avila, K., & Ruzika, S. (2024). Large language models—valid tools for concept inventory item generation? Reliability and validity of concept inventory items generated by ChatGPT. Frontiers in Psychology, 15, 1426209.",
+    "url": "https://doi.org/10.3389/fpsyg.2024.1426209",
+    "annotation": "LLM-drafted concept-inventory items approach — but do not equal — human quality; expert review stays mandatory.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.3389/fpsyg.2024.1426209"
+  },
+  {
+    "id": "macneil-etal-2024",
+    "type": "article",
+    "cite": "MacNeil et al., 2024",
+    "apa": "MacNeil, S., Denny, P., Tran, A., Leinonen, J., Bernstein, S., & Hellas, A. (2024). Imagining computing education assessment after generative AI. arXiv:2401.04601.",
+    "url": "https://arxiv.org/abs/2401.04601",
+    "annotation": "What assessment design can still mean when models solve the items. Cite in the contamination discussion.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false
+  },
+  {
+    "id": "prather-etal-2023",
+    "type": "article",
+    "cite": "Prather et al., 2023",
+    "apa": "Prather, J., Denny, P., Leinonen, J., et al. (2023). The robots are here: Navigating the generative AI revolution in computing education. ITiCSE-WGR '23.",
+    "url": "https://doi.org/10.1145/3623762.3633499",
+    "annotation": "The ITiCSE working-group survey of GenAI in computing education — the field's orientation document.",
+    "tags": [
+      "measurement"
+    ],
+    "verified": false,
+    "doi": "10.1145/3623762.3633499"
+  },
+  {
+    "id": "acm-genai-2023",
+    "type": "report",
+    "cite": "ACM, 2023",
+    "apa": "Association for Computing Machinery. (2023). ACM policy on authorship: Frequently asked questions (generative AI provisions).",
+    "url": "https://www.acm.org/publications/policies/frequently-asked-questions",
+    "annotation": "ACM's rules: generative AI cannot be an author; use must be disclosed in Acknowledgements; confidential material must not be uploaded.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "apa-genai-2023",
+    "type": "report",
+    "cite": "APA, 2023",
+    "apa": "American Psychological Association. (2023). APA Journals policy on generative AI: Additional guidance.",
+    "url": "https://www.apa.org/pubs/journals/resources/publishing-tips/policy-generative-ai",
+    "annotation": "APA's disclosure rules: report GenAI use in Method, cite the tool, AI is never an author.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "mcadoo-2023",
+    "type": "report",
+    "cite": "McAdoo, 2023",
+    "apa": "McAdoo, T. (2023). How to cite ChatGPT. APA Style Blog.",
+    "url": "https://apastyle.apa.org/blog/how-to-cite-chatgpt",
+    "annotation": "The APA Style mechanics for citing LLM output.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "vt-sirc-2023",
+    "type": "report",
+    "cite": "Virginia Tech SIRC, 2023",
+    "apa": "Virginia Tech Division of Scholarly Integrity and Research Compliance. (2023). Guidance: Using artificial intelligence during research activities.",
+    "url": "https://www.research.vt.edu/research-support/forms-guidance/sirc/guidance-using-artificial-intelligence-during-research-activities.html",
+    "annotation": "The lab's own institution on AI in research: participant data, confidentiality, and reviewer obligations. Read before any AI use touching study data.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "vt-doit-2025",
+    "type": "report",
+    "cite": "Virginia Tech DoIT, 2025",
+    "apa": "Virginia Tech Division of IT. (2025). Be judicious when sharing university data with publicly available AI tools.",
+    "url": "https://news.vt.edu/notices/2025/02/it-ai-best-practices.html",
+    "annotation": "VT's data-sharing notice: which tools are approved for university data and which are not.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "ptac-2013",
+    "type": "report",
+    "cite": "PTAC, 2013",
+    "apa": "Privacy Technical Assistance Center, U.S. Department of Education. (2013). Data de-identification: An overview of basic terms.",
+    "url": "https://studentprivacy.ed.gov/resources/data-de-identification-overview-basic-terms",
+    "annotation": "FERPA-adjacent de-identification: indirect identifiers and small cells count. 'I deleted the names' is not de-identified.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "nsf-2023",
+    "type": "report",
+    "cite": "NSF, 2023",
+    "apa": "U.S. National Science Foundation. (2023). Notice to the research community: Use of generative artificial intelligence technology in the NSF merit review process.",
+    "url": "https://www.nsf.gov/news/notice-to-the-research-community-on-ai",
+    "annotation": "NSF prohibits uploading proposals under review to non-approved GenAI tools. Reviewer confidentiality extends to AI.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "nih-2023",
+    "type": "report",
+    "cite": "NIH, 2023",
+    "apa": "National Institutes of Health. (2023). The use of generative artificial intelligence technologies is prohibited for the NIH peer review process (NOT-OD-23-149).",
+    "url": "https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-149.html",
+    "annotation": "NIH's parallel prohibition for peer review.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "walters-wilder-2023",
+    "type": "article",
+    "cite": "Walters & Wilder, 2023",
+    "apa": "Walters, W. H., & Wilder, E. I. (2023). Fabrication and errors in the bibliographic citations generated by ChatGPT. Scientific Reports, 13, 14045.",
+    "url": "https://doi.org/10.1038/s41598-023-41032-5",
+    "annotation": "Measured citation fabrication: a large share of GPT-generated references are invented, often pairing real authors with fake titles.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false,
+    "doi": "10.1038/s41598-023-41032-5"
+  },
+  {
+    "id": "chelli-etal-2024",
+    "type": "article",
+    "cite": "Chelli et al., 2024",
+    "apa": "Chelli, M., Descamps, J., Lavoué, V., et al. (2024). Hallucination rates and reference accuracy of ChatGPT and Bard for systematic reviews: Comparative analysis. Journal of Medical Internet Research, 26, e53164.",
+    "url": "https://doi.org/10.2196/53164",
+    "annotation": "Hallucination rates for LLM-suggested references in systematic-review tasks. Never cite what you have not retrieved.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false,
+    "doi": "10.2196/53164"
+  },
+  {
+    "id": "kabir-etal-2024",
+    "type": "article",
+    "cite": "Kabir et al., 2024",
+    "apa": "Kabir, S., Udo-Imeh, D. N., Kou, B., & Zhang, T. (2024). Is Stack Overflow obsolete? An empirical study of the characteristics of ChatGPT answers to Stack Overflow questions. Proceedings of CHI '24.",
+    "url": "https://doi.org/10.1145/3613904.3642596",
+    "annotation": "About half of ChatGPT programming answers contained errors — and readers overlooked them ~39% of the time. Rerun everything.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false,
+    "doi": "10.1145/3613904.3642596"
+  },
+  {
+    "id": "ruta-etal-2025",
+    "type": "article",
+    "cite": "Ruta et al., 2025",
+    "apa": "Ruta, M., et al. (2025). ChatGPT for univariate statistics: Validation of AI-assisted data analysis in healthcare research. Journal of Medical Internet Research, 27, e63550.",
+    "url": "https://www.jmir.org/2025/1/e63550",
+    "annotation": "Prompt specificity moved LLM statistical-analysis accuracy from 32.5% to 92.5%. The evidence behind schema-first prompting.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "chhikara-2025",
+    "type": "article",
+    "cite": "Chhikara, 2025",
+    "apa": "Chhikara, P. (2025). Mind the confidence gap: Overconfidence, calibration, and distractor effects in large language models. arXiv:2502.11028.",
+    "url": "https://arxiv.org/abs/2502.11028",
+    "annotation": "Models state high confidence while being wrong — stated confidence is not evidence.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "dobler-etal-2025",
+    "type": "article",
+    "cite": "Dobler et al., 2025",
+    "apa": "Dobler, C. C., et al. (2025). ChatGPT as a tool for biostatisticians: A tutorial on applications, opportunities, and pitfalls. Statistics in Medicine.",
+    "url": "https://doi.org/10.1002/sim.70263",
+    "annotation": "A statistician's-eye tutorial: where LLMs help with analysis and where competence remains the prerequisite.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false,
+    "doi": "10.1002/sim.70263"
+  },
+  {
+    "id": "smith-etal-2024",
+    "type": "article",
+    "cite": "Smith et al., 2024",
+    "apa": "Smith, A. M., et al. (2024). Ten simple rules for using large language models in science. PLOS Computational Biology, 20(1), e1011767.",
+    "url": "https://doi.org/10.1371/journal.pcbi.1011767",
+    "annotation": "The compact rules-of-engagement paper for LLMs in research workflows.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false,
+    "doi": "10.1371/journal.pcbi.1011767"
+  },
+  {
+    "id": "perkel-2023",
+    "type": "article",
+    "cite": "Perkel, 2023",
+    "apa": "Perkel, J. M. (2023). Six tips for better coding with ChatGPT. Nature, 618, 422–423.",
+    "url": "https://www.nature.com/articles/d41586-023-01833-0",
+    "annotation": "Practical LLM-assisted coding habits: small steps, tests, verification.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
+  },
+  {
+    "id": "glynn-2024",
+    "type": "article",
+    "cite": "Glynn, 2024",
+    "apa": "Glynn, A. (2024). Academ-AI: Documenting the undisclosed use of generative artificial intelligence in academic publishing. arXiv:2411.15218.",
+    "url": "https://arxiv.org/abs/2411.15218",
+    "annotation": "Undisclosed LLM use is being actively detected and catalogued in published papers. Disclose.",
+    "tags": [
+      "genai"
+    ],
+    "verified": false
   }
 ]

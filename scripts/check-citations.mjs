@@ -25,7 +25,12 @@ const unverified = refs.filter((r) => r.verified === false).map((r) => r.id);
 // Which references each module's /references page renders (must match the
 // <ReferenceList tags={…}> on each module's references.mdx). null = all refs.
 // A <Cite> only produces a working link if its ref appears on its module's page.
-const moduleFilter = { qualitative: null, irb: ['irb'], quantitative: ['quant'] };
+const moduleFilter = {
+  qualitative: ['foundations', 'trustworthiness', 'reasoning', 'methodologies', 'thematic-analysis', 'irr', 'education', 'hci'],
+  irb: ['irb'],
+  quantitative: ['quant', 'measurement', 'genai'],
+  'project-management': ['pm'],
+};
 const onModulePage = (ref, mod) => {
   const filter = mod in moduleFilter ? moduleFilter[mod] : null;
   return filter === null || ref.tags.some((t) => filter.includes(t));

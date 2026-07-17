@@ -1,0 +1,81 @@
+---
+title: "Inference: Samples, Uncertainty, and p-Values"
+module: quantitative
+order: 3
+group: "Inference"
+description: What a sample can tell you about a population, what a p-value is (and is not), and why class-sized studies are underpowered.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Reveal from '@wiki/Reveal.astro';
+import Cite from '@wiki/Cite.astro';
+
+Everything inferential rests on one move: treating your data as a **sample** from some
+larger **population** you actually care about, and quantifying how much your summary
+would wobble across samples you didn't draw.
+
+## Sampling variability, standard errors, confidence intervals
+
+Run the SPRINT study again with 40 *different* students and every number changes a
+little. The **standard error** is the size of that wobble; a **95% confidence
+interval** is the range of population values compatible with your data. The CI is the
+most honest single thing you can report: it carries the estimate *and* its precision.
+
+<Reveal summary="What does '95%' actually mean?">
+It's a statement about the procedure, not this one interval: across repeated studies,
+95% of intervals built this way would contain the true value. Any single interval
+either does or doesn't — you never find out which.
+</Reveal>
+
+**Who is the population, though?** In CER it's usually "students like these, in courses
+like this" — because 86% of CER studies use convenience samples <Cite id="randolph-etal-2008" />.
+That's fine *if the write-up says so*: claims scale with sampling, and "CS 2 students at
+one university who chose this section" is not "novice programmers."
+
+## The logic of a p-value
+
+Null hypothesis significance testing (NHST) answers one narrow question: *if there were
+truly no effect, how surprising would data like mine be?* The p-value is that
+surprisal — the probability, **under the null**, of a result at least this extreme.
+
+What a p-value is **not**:
+
+- Not the probability the null is true.
+- Not the probability your result replicates.
+- Not a measure of effect size — with a big sample, a trivial effect earns a tiny p.
+- Not a verdict: p = .049 and p = .051 are the same evidence <Cite id="wasserstein-etal-2019" />.
+
+<Callout type="note" title="Two ways to be wrong">
+**Type I** — the null is true, you reject it anyway (false alarm, rate set by α = .05).
+**Type II** — a real effect exists, your study misses it. The second one is the
+under-discussed epidemic in classroom research.
+</Callout>
+
+## Power: the class-sized-study problem
+
+**Power** is the probability of detecting an effect that's really there. It rises with
+sample size and effect size — and typical CER effects in course-sized samples leave
+studies badly underpowered. Detecting a medium effect (d = 0.5) at 80% power needs
+~64 students *per group*; a small effect (d = 0.2) needs ~394 per group. A two-section
+pilot cannot do that, and computing p-values for a study that couldn't have detected
+the effect misleads more than it informs <Cite id="guerzhoy-2023" />.
+
+What to do instead, in order of preference:
+
+1. **Design bigger** — multiple sections, multiple semesters, multi-institution.
+2. **Estimate, don't test** — report the effect size with its (wide) CI and say the
+   study is precision-limited.
+3. **Never** run ten underpowered tests and narrate the significant one — that's the
+   garden of forking paths, and a significant result from an underpowered study is
+   *more* likely to be exaggerated, not less.
+
+<Reveal summary="Quick check: a colleague's 2×20-student study found d = 1.1, p = .01. Believe the 1.1?">
+Be suspicious. With ~20 per group, only large effects can reach significance — so
+conditional on p &lt; .05, the estimate is inflated (a "winner's curse"). The direction
+may well be real; the magnitude is almost certainly overstated. Look for the CI: it
+probably spans from "modest" to "implausibly huge."
+</Reveal>
+
+Next: what to report so that readers can judge all of this for themselves — [effect
+sizes and honest reporting](/wiki/quantitative/effect-sizes-and-reporting).

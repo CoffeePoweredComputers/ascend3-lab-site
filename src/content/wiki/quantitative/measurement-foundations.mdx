@@ -1,0 +1,85 @@
+---
+title: Measurement Foundations
+module: quantitative
+order: 12
+group: "Measurement & IRT"
+description: Constructs, the true-score model, and why "the instrument is validated" is the field's favorite wrong sentence.
+estMinutes: 10
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import ProcessFlow from '@wiki/ProcessFlow.astro';
+import Reveal from '@wiki/Reveal.astro';
+
+Every number in this module so far came from an instrument — a test, a survey, a log.
+Measurement theory asks the prior question: *do those numbers mean what we need them
+to mean?* For a lab that does assessment work, this block is the center of gravity.
+
+## Constructs and latent variables
+
+"Debugging ability" cannot be observed. It's a **construct** — a theoretical variable
+we reach only through observable proxies: answers to items, time on task, self-report.
+A score is therefore an **inference**, and the whole game is keeping that inference
+defensible. Two ways it fails:
+
+- **Construct underrepresentation** — the instrument misses part of the construct
+  (a debugging test that's all *reading* and no *actually locating* bugs).
+- **Construct-irrelevant variance** — scores move for the wrong reasons (a "debugging"
+  item that mostly measures obscure language trivia, or test anxiety).
+
+**Levels of measurement** (nominal, ordinal, interval, ratio) tell you which
+arithmetic your scores support — the issue behind the
+[Likert discussion](/wiki/quantitative/glms-beyond-binary), now with its proper roots.
+
+## The true-score model
+
+Classical test theory (CTT) starts from one equation:
+
+> **X = T + E** — observed score = true score + error.
+
+From this modest model comes everything in the [next lesson](/wiki/quantitative/reliability-and-item-analysis):
+reliability is the share of observed-score variance that is true-score variance, and
+the **standard error of measurement** puts a ± band around every individual score.
+Note one built-in limitation the IRT lessons will fix: CTT's SEM is one number *for
+everyone*, as if the test were equally precise for your strongest and weakest
+students <Cite id="bandalos-2018" />.
+
+## "Validated" is not a property
+
+Say it precisely: **validity is a property of score *interpretations* for specific
+*uses* in specific *populations*** — not of instruments <Cite id="aera-apa-ncme-2014" />.
+"The SCS1 is validated" is the canonical wrong sentence; what exists is *validity
+evidence* for *certain uses* — and the [instruments lesson](/wiki/quantitative/instruments-in-practice)
+shows how that evidence eroded as people modified the SCS1. Anyone shortening,
+translating, or repurposing an instrument is starting a new validity argument, not
+inheriting the old one.
+
+<Reveal summary="Check yourself: 'we used a validated debugging self-efficacy scale, so our measures are solid.' What's wrong?">
+Three things. Validated *for whom* — the original population may not resemble intro-CS
+students. Validated *for what use* — a research instrument's evidence may not support
+individual decisions. And "validated" is not a state: it's an argument whose strength
+you must actually inspect (what evidence exists, of which kinds?). The sentence
+outsources judgment to a past-tense verb.
+</Reveal>
+
+## The running artifact: a Debugging Concept Inventory
+
+There is currently **no widely accepted validated debugging knowledge assessment** —
+a 2024 systematic review found debugging interventions measured almost entirely with
+ad-hoc researcher-made tasks <Cite id="yang-etal-2024" />. So this block builds one,
+step by step, on the shipped pilot data ([dci-pilot.csv](/templates/dci-pilot.csv)):
+
+<ProcessFlow steps={[
+  { label: "Define", detail: "Construct definition and blueprint — what is 'debugging ability' here, and what isn't it?" },
+  { label: "Draft", detail: "Items written from the qualitative module's interview findings — misconception-driven, the way the BDSI and VT's recursion inventory were built.", href: "/wiki/quantitative/instruments-in-practice" },
+  { label: "Screen", detail: "Pilot, then classical item analysis: difficulty, discrimination, distractors.", href: "/wiki/quantitative/reliability-and-item-analysis" },
+  { label: "Argue", detail: "Assemble validity evidence per the Standards' five sources.", href: "/wiki/quantitative/validity" },
+  { label: "Model", detail: "Rasch/IRT calibration sized to the sample; information, fit.", href: "/wiki/quantitative/irt-fundamentals" },
+  { label: "Check fairness", detail: "DIF when the sample can support it.", href: "/wiki/quantitative/dif-and-fairness" },
+]} />
+
+Real precedents for every step exist in CS ed — FCS1/SCS1, the BDSI, and Virginia
+Tech's own recursion inventory <Cite id="tew-guzdial-2011" /> <Cite id="porter-etal-2019" />
+<Cite id="hamouda-etal-2017" /> — and the instruments lesson returns to them as both
+models and cautionary tales.

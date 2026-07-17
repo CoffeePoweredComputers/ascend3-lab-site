@@ -1,0 +1,95 @@
+---
+title: Logistic Regression
+module: quantitative
+order: 8
+group: "Regression & modeling"
+description: Modeling pass/fail and fixed/not-fixed — and translating log-odds into sentences humans understand.
+estMinutes: 13
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import CodeTabs from '@wiki/CodeTabs.astro';
+import LogitTranslator from '@wiki/LogitTranslator.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Binary outcomes — passed/failed, retained/left, fixed/didn't — are CER's most common
+modeling target, and **logistic regression** is the workhorse. It models the
+*log-odds* of the outcome… and nobody thinks in log-odds. This lesson is half about
+fitting the model and half about the harder skill: **saying what it found**.
+
+## The model, quickly
+
+```
+log-odds(fixed) = b0 + b1·scaffold + b2·pre
+```
+
+Exponentiate a coefficient and you get an **odds ratio (OR)**: e^b1 = 1.9 means the
+scaffold multiplies the *odds* of fixing by 1.9, holding pre constant.
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+# One attempt per student here (E06 only) so plain logistic is legitimate —
+# all attempts at once needs the clustered-data lesson.
+one <- subset(read.csv("debugging-study.csv"), exercise == "E06")
+fit <- glm(fixed ~ section + pre, data = one, family = binomial)
+exp(cbind(OR = coef(fit), confint(fit)))       # odds ratios + CIs
+
+library(marginaleffects)
+avg_comparisons(fit, variables = "section")    # percentage-point effect (AME)
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd, statsmodels.formula.api as smf
+import numpy as np
+
+one = pd.read_csv("debugging-study.csv").query("exercise == 'E06'")
+fit = smf.logit("fixed ~ C(section) + pre", data=one).fit()
+print(np.exp(fit.params))            # odds ratios
+print(fit.get_margeff().summary())   # percentage-point effects (AME)
+```
+
+  </Fragment>
+</CodeTabs>
+
+## The translation problem
+
+An OR is *not* "times more likely" — that's risk-ratio language, and when the outcome
+is common the two diverge badly <Cite id="norton-etal-2018" />. Worse, the same OR
+means different real-world effects at different baselines. See it:
+
+<LogitTranslator />
+
+The honest reporting ladder, from technical to plain:
+
+1. **OR + CI** — for the table: "OR = 1.9, 95% CI [1.2, 3.0]."
+2. **Predicted probabilities** — for the text: "model-predicted fix rates were 68% vs
+   53%" <Cite id="mize-2019" />.
+3. **Average marginal effect (AME)** — for the abstract: "the scaffold raised the
+   chance of fixing by about 14 percentage points" <Cite id="arel-bundock-etal-2024" />.
+
+Rules of thumb: never write "X times more likely" for an OR; a quick ceiling on the
+probability change is the **divide-by-4 rule** (b1/4 is the max per-unit effect on
+probability) <Cite id="gelman-hill-vehtari-2020" />.
+
+<Callout type="warning" title="The misread in the wild">
+"OR = 1.86" reported as "86% more likely to pass" — with a common outcome the real
+risk increase might be ~15%. Reviewers increasingly catch this; instructors reading
+your abstract won't, which is exactly why you must.
+</Callout>
+
+**Multinomial** (3+ unordered categories) exists and generalizes this; you'll rarely
+need it before the [ordinal models](/wiki/quantitative/glms-beyond-binary) next lesson.
+
+<Callout type="note" title="Whole dataset? Not yet.">
+The full 462-attempt table has 12 rows per student — plain logistic's SEs would be
+fantasy. The [clustered-data walkthrough](/wiki/quantitative/clustered-data-mlm-gee)
+picks up exactly here.
+</Callout>
+
+<GenAiToolbox id="logistic-translate" />

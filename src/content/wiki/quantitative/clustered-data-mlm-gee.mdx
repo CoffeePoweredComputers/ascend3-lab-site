@@ -1,0 +1,101 @@
+---
+title: "Clustered Data: Multilevel Models & GEE"
+module: quantitative
+order: 10
+group: "Regression & modeling"
+description: Students inside sections, attempts inside students — two fixes with different meanings, and which sentence each one buys you.
+estMinutes: 13
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import CodeTabs from '@wiki/CodeTabs.astro';
+import ScenarioWalkthrough from '@wiki/ScenarioWalkthrough.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+import { attemptsGee } from '../../../data/quant-scenarios';
+
+Classroom data is nested: attempts inside students, students inside sections, sections
+inside semesters. Nested observations share things — a student's skill colors all 12
+of their attempts — so they are **not independent**, and every SE in this module so far
+assumed they were. Ignore that (**pseudoreplication**) and your CIs are too narrow,
+your p-values too confident <Cite id="theobald-2018" />.
+
+**How much does nesting matter?** The **intraclass correlation** — here, the share of
+outcome variance that lives *between* students — answers it. (Same "ICC" acronym as
+the agreement statistic in the [IRR lesson](/wiki/qualitative/inter-rater-reliability),
+and different again from the item characteristic curve coming in
+[IRT](/wiki/quantitative/irt-fundamentals). Three meanings, one abbreviation —
+context tells you which.)
+
+## Two fixes, two different claims
+
+- **Mixed-effects (multilevel) models** give each student their own intercept (and
+  maybe slope). Estimates are **conditional** — *for a given student* — and the model
+  extends naturally (crossed effects for exercises, students within sections)
+  <Cite id="gelman-hill-vehtari-2020" />.
+- **GEE** models the population average directly, with a working guess at the
+  within-student correlation and **robust (sandwich) SEs** that forgive a wrong guess.
+  Estimates are **marginal** — *across the student population*.
+
+For linear models the two roughly coincide. For **logistic** they genuinely don't:
+marginal ORs sit closer to 1 than conditional ORs, so *which model you fit changes the
+number you report* <Cite id="hubbard-etal-2010" />. Neither is "more correct" — they
+answer different questions, and cluster-robust SEs on a simple model are often a third
+honest option <Cite id="mcneish-etal-2017" />.
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+library(lme4); library(geepack)
+attempts <- read.csv("debugging-study.csv")
+
+# Conditional: mixed-effects logistic (random intercept per student)
+mm <- glmer(fixed ~ section + exercise + (1 | student),
+            data = attempts, family = binomial)
+
+# Marginal: GEE with exchangeable working correlation + robust SEs
+gee <- geeglm(fixed ~ section + exercise, id = factor(student),
+              data = attempts, family = binomial, corstr = "exchangeable")
+summary(gee)   # 40 clusters — small-sample-correct the SEs (Mancl–DeRouen)
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd, statsmodels.formula.api as smf
+import statsmodels.api as sm
+
+attempts = pd.read_csv("debugging-study.csv")
+
+mm = smf.mixedlm("fixed ~ C(section) + C(exercise)", attempts,
+                 groups=attempts.student).fit()          # linear approx.
+
+gee = smf.gee("fixed ~ C(section) + C(exercise)", "student", attempts,
+              family=sm.families.Binomial(),
+              cov_struct=sm.cov_struct.Exchangeable()).fit()
+print(gee.summary())
+```
+
+  </Fragment>
+</CodeTabs>
+
+## Honesty beats
+
+- **GEE wants clusters** — sandwich SEs behave from roughly 30–40 clusters up; correct
+  them below ~50 <Cite id="mancl-derouen-2001" />.
+- **Two sections is not a multilevel design.** With 2 clusters, "section" is a fixed
+  effect and nesting is a *limitation to write about*, not a model term
+  <Cite id="mcneish-stapleton-2016" />.
+- **Missingness differs**: mixed models tolerate MAR skipping; standard GEE leans on
+  MCAR. Students skipping harder exercises tilts the field toward the mixed model as
+  at least a sensitivity analysis.
+
+## Choose it yourself
+
+The full 462-attempt dataset, for real this time:
+
+<ScenarioWalkthrough data={attemptsGee} />
+
+<GenAiToolbox id="mlm-syntax" />

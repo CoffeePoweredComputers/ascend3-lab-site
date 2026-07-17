@@ -1,0 +1,83 @@
+---
+title: IRT in Practice
+module: quantitative
+order: 16
+group: "Measurement & IRT"
+description: Information and conditional precision, the assumptions that earn a calibration, scoring, and polytomous models for surveys.
+estMinutes: 14
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import IccExplorer from '@wiki/IccExplorer.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+The model is chosen; what does calibration actually buy you? Three things CTT can't
+deliver: precision that varies by ability, machinery for checking items individually,
+and item parameters that (approximately) survive changes of sample.
+
+## Information: where your test is precise
+
+Each item carries **information** concentrated near its difficulty; steeper items
+carry more of it. Toggle the dashed information curve and watch it track the slope:
+
+<IccExplorer showInfo />
+
+Summing item information gives the **test information function**, and the payoff line
+of the whole framework: **conditional SEM = 1/√information**. A test is only precise
+*where its information is* — the DCI, with difficulties centered near average θ,
+measures middling students well and says little about the extremes. (The published
+version of this exact finding: the SCS1 measures best at mid-ability and poorly at
+the low end its users often care about <Cite id="xie-etal-2019" />.) Choosing items to
+*place* information is how instrument revision becomes engineering instead of taste.
+
+## Scoring
+
+Once items are calibrated, a student's θ estimate comes from maximum likelihood
+(undefined for all-right/all-wrong response strings) or the Bayesian **EAP/MAP**
+estimators (defined everywhere, shrunk slightly toward the mean) — one line each is
+all you need until you build a CAT. Report θ with its *conditional* SE, not a single
+test-wide band.
+
+## The assumptions that earn the fit
+
+1. **Unidimensionality** — one dominant construct; checked with the factor tools from
+   [reliability screening](/wiki/quantitative/reliability-and-item-analysis), not assumed.
+2. **Local independence** — after accounting for θ, items are independent. The
+   CER-native violation: several items hanging off one shared code snippet (a
+   testlet). Check residual correlations (Q3); model or merge offenders.
+3. **Monotonicity** — P(correct) rises with θ; the pilot's mis-keyed i07 fails this
+   spectacularly, which is why screening caught it first.
+
+Item-level **fit statistics** (S-X², infit/outfit in the Rasch tradition) flag items
+the model can't explain — treat flags as *revision prompts*, not automatic deletions
+<Cite id="planinic-etal-2019" />.
+
+## Polytomous models: the survey side
+
+Likert items are ordered categories, and IRT handles them natively — no
+means-on-ordinal compromise. The **Graded Response Model** gives each item a set of
+threshold curves (the running example: the six-item debugging self-efficacy scale);
+the **Partial Credit Model** does the same for rubric scores. Same assumptions, same
+information logic, GRM-scale sample-size demands (~500 for comfort)
+<Cite id="deayala-2022" />.
+
+```r
+library(mirt)
+dci <- read.csv("dci-pilot.csv")[, -1]
+rasch <- mirt(dci, 1, itemtype = "Rasch")
+coef(rasch, simplify = TRUE, IRTpars = TRUE)   # b per item, with SEs
+itemfit(rasch)                                 # S-X2 flags
+plot(rasch, type = "info")                     # test information function
+```
+
+<Callout type="note" title="Equating, in one paragraph">
+Pre/post with two test forms is secretly an **equating** problem: raw scores from
+different forms aren't comparable until linked (common anchor items, calibrated on a
+shared scale). Full treatment: Kolen & Brennan <Cite id="kolen-brennan-2014" />. If
+you take one thing: reusing 5–6 anchor items across forms is what makes later linking
+*possible* — design it in now. Computerized adaptive testing is the same machinery
+pointed at item selection; know the term, skip the details.
+</Callout>
+
+<GenAiToolbox id="mirt-calibration" />

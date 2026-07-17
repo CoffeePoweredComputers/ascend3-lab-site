@@ -2,12 +2,13 @@
 title: Descriptive Statistics
 module: quantitative
 order: 2
-description: Summarizing data honestly before you test anything.
-estMinutes: 7
+description: Summarizing data honestly before you test anything — with the running example's time-to-fix data.
+estMinutes: 8
 ---
 
 import Reveal from '@wiki/Reveal.astro';
 import DistributionPlot from '@wiki/DistributionPlot.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
 
 Before any test, describe your data: central tendency, spread, and shape.
 
@@ -17,8 +18,12 @@ Before any test, describe your data: central tendency, spread, and shape.
 
 ## Shape changes everything
 
-The mean and median agree only when the data is symmetric. Switch the shape below and
-watch the **mean** (solid) chase the tail while the **median** (dashed) barely moves:
+Time-to-fix data is the classic case. In
+[debugging-study.csv](/templates/debugging-study.csv), minutes-to-fix has a mean of
+about 9.2 but a median of 6.7 — most fixes are quick, a long tail of stuck students
+drags the mean up, and a 30-minute timeout piles censored attempts at the cap. Switch
+the shape below and watch the **mean** (solid) chase the tail while the **median**
+(dashed) barely moves:
 
 <DistributionPlot />
 
@@ -36,9 +41,22 @@ which spread measure you pick should match your center:
 | **Range** | min to max | — | Very |
 
 Rule of thumb: report **mean ± SD** for roughly symmetric data, and **median (IQR)** when the
-distribution is skewed or has outliers — the same logic as choosing the center.
+distribution is skewed or has outliers — the same logic as choosing the center. For the
+running example's minutes: *median 6.7 (IQR …)*, not *mean 9.2 ± …*.
 
 <Reveal summary="When should I prefer the median over the mean?">
 When the distribution is skewed or has outliers. The mean is pulled toward extreme
 values; the median is robust to them, so it better represents a "typical" case.
+Time-on-task data is almost always in this category.
 </Reveal>
+
+## One more habit: know your unit
+
+`debugging-study.csv` has 462 rows but only 40 students — student-level columns
+(pre, post, self-efficacy) repeat on every attempt row. Summarize *students* on a
+one-row-per-student version, and *attempts* on the full table. Mixing the two silently
+weights students by how many exercises they attempted — a first taste of the
+independence problems the [clustered-data lesson](/wiki/quantitative/clustered-data-mlm-gee)
+takes seriously.
+
+<GenAiToolbox id="desc-code" />

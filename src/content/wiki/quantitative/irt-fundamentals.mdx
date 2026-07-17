@@ -1,0 +1,70 @@
+---
+title: IRT Fundamentals
+module: quantitative
+order: 15
+group: "Measurement & IRT"
+description: The item characteristic curve, Rasch/1PL/2PL/3PL, the Rasch-vs-IRT divide, and which model your N can actually pay for.
+estMinutes: 13
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import IccExplorer from '@wiki/IccExplorer.astro';
+import ScenarioWalkthrough from '@wiki/ScenarioWalkthrough.astro';
+import { dciIrt } from '../../../data/quant-scenarios';
+
+Classical test theory has three quiet limitations: item statistics depend on *which
+students* you piloted on, person scores depend on *which items* you happened to ask,
+and one SEM pretends the test is equally precise for everyone. **Item response
+theory** fixes all three by modeling the *encounter between a person and an item*
+<Cite id="embretson-reise-2000" />.
+
+## The item characteristic curve
+
+One item, one curve: the probability of answering correctly as a function of ability
+**θ**. Drag the parameters:
+
+<IccExplorer />
+
+- **b (difficulty)** slides the curve left–right — *where on the ability scale the
+  item works*. Persons and items share the θ scale: "this item's b is 1.2" and "this
+  student's θ is 1.2" are locations on the same ruler.
+- **a (discrimination)** sets the steepness — how sharply the item separates ability
+  near b.
+- **c (lower asymptote)** lifts the left tail — the "guessing" parameter, and *not*
+  simply 1/(number of options): it's estimated, badly, unless N is large.
+
+Two habits to install immediately: **θ is not percent-correct** (its zero is a
+convention — the scale's location and spread are arbitrary), and each curve is a
+*model claim* to be checked against data, not a fact.
+
+## The model ladder
+
+| Model | Free per item | Costs (respondents) | Buys you |
+| --- | --- | --- | --- |
+| **Rasch / 1PL** | b | ~100–250 <Cite id="linacre-1994" /> | common scale, raw score sufficiency, strict item-quality lens |
+| **2PL** | a, b | ~500 <Cite id="deayala-2022" /> | items weighted by discrimination |
+| **3PL** | a, b, c | ~1000+ | guessing floor — when you can afford it |
+
+**The Rasch-vs-IRT divide** is philosophical, not algebraic: the Rasch tradition
+treats the model as a *definition of measurement* — items that misfit are flawed and
+get fixed or dropped; the IRT tradition treats models as *descriptions* — if items
+vary in discrimination, estimate it. You will meet both camps in the literature;
+know that 1PL-vs-2PL fights are often this worldview fight in disguise
+<Cite id="boone-2016" />.
+
+<Callout type="warning" title="The lab-scale punchline">
+Course-sized samples (N &lt; 200) support **CTT or Rasch — not 2PL, not 3PL**. Fitting
+an under-resourced model produces parameters that won't replicate, and instrument
+revisions chasing them churn real damage. This single warning prevents more bad
+psychometrics than any formula in this block.
+</Callout>
+
+## Choose it yourself
+
+The DCI pilot: N = 150, 20 items, a deadline, and a lab head saying "run IRT":
+
+<ScenarioWalkthrough data={dciIrt} />
+
+Next lesson: what calibration gives you once the model is chosen — information,
+conditional precision, and the assumption checks that earn the fit.

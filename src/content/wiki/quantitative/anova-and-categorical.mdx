@@ -1,0 +1,92 @@
+---
+title: ANOVA & Categorical Outcomes
+module: quantitative
+order: 6
+group: "Comparing groups"
+description: Three or more groups, interactions, multiple comparisons, chi-square — and the module's first scenario walkthrough.
+estMinutes: 13
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import CodeTabs from '@wiki/CodeTabs.astro';
+import ScenarioWalkthrough from '@wiki/ScenarioWalkthrough.astro';
+import { sectionsPrepost } from '../../../data/quant-scenarios';
+
+## Three or more groups: ANOVA
+
+Comparing three course formats with three t-tests triples your false-alarm rate. A
+**one-way ANOVA** asks one question first — *do the group means differ at all?* — then
+**post-hoc tests** (Tukey's HSD handles the correction) tell you where. The rank-based
+analogue is **Kruskal–Wallis**.
+
+**Factorial** designs cross factors (format × prior experience), and the payoff is the
+**interaction**: does the format effect *depend on* experience? When an interaction is
+present, report simple effects (the format effect at each experience level), not the
+misleading main effects. Report η² or partial η² per
+[the checklist](/wiki/quantitative/effect-sizes-and-reporting) <Cite id="lakens-2013" />.
+
+**ANCOVA** — ANOVA with a covariate, most often the pre-test — is the precision move
+for pre/post designs, and (as the walkthrough below shows) it is really just
+[regression](/wiki/quantitative/linear-regression) wearing a costume.
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+students <- dplyr::distinct(read.csv("debugging-study.csv"),
+                            student, section, pre, post)
+fit <- aov(post ~ pre + section, data = students)   # ANCOVA
+summary(fit)
+effectsize::eta_squared(fit, partial = TRUE)
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd, pingouin as pg
+
+students = (pd.read_csv("debugging-study.csv")
+              [["student", "section", "pre", "post"]].drop_duplicates())
+pg.ancova(data=students, dv="post", covar="pre", between="section")
+```
+
+  </Fragment>
+</CodeTabs>
+
+## Categorical outcomes: chi-square and Fisher
+
+When the outcome is a category — fixed the bug / didn't — counts go in a table and the
+**chi-square test of independence** asks whether the proportions differ. Two cautions:
+
+- **Small cells** (expected counts under ~5, routine in class-sized data): use
+  **Fisher's exact test**.
+- **Effect size**: report the proportions themselves and their difference (or an odds
+  ratio) — a bare χ² and p says nothing about magnitude.
+
+Chi-square is one of CER's "big three" <Cite id="sanders-etal-2019" />, and its most
+common misuse in the wild is running it on *attempt-level* counts where the same
+student contributes many rows — the independence problem again, handled properly in
+[clustered data](/wiki/quantitative/clustered-data-mlm-gee).
+
+<Callout type="note" title="Where's the model version?">
+Chi-square on a 2×2 is the test-shaped view; [logistic regression](/wiki/quantitative/logistic-regression)
+is the model-shaped view of the same question, with covariates and CIs on an
+interpretable scale. Same fork as ANOVA vs regression.
+</Callout>
+
+## Choose it yourself
+
+You now know enough to make the module's first full decision. Every option gives
+feedback — traps included:
+
+<ScenarioWalkthrough data={sectionsPrepost} />
+
+The verdict card's ANCOVA-is-regression point is where the next lesson picks up.
+
+<Callout type="tip" title="GenAI note">
+The [two-groups lesson's prompt pattern](/wiki/quantitative/comparing-two-groups)
+(assumption checks + effect size demanded up front) transfers directly — swap the
+model line. No separate toolbox here.
+</Callout>

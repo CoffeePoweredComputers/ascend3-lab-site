@@ -1,0 +1,108 @@
+---
+title: "GLMs Beyond Binary: Ordinal & Counts"
+module: quantitative
+order: 9
+group: "Regression & modeling"
+description: One family portrait — ordinal models for Likert outcomes, Poisson and negative binomial for counts.
+estMinutes: 10
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import CodeTabs from '@wiki/CodeTabs.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Linear and logistic regression are two members of one family: **generalized linear
+models**. Pick a distribution for the outcome and a **link** connecting its mean to
+the linear predictor, and the machinery you already know carries over. Two more
+members cover most of what CER data throws at you.
+
+## Ordinal outcomes: the Likert question, answered properly
+
+"How confident are you debugging someone else's code?" (1–5) is **ordered** but the
+gaps aren't guaranteed equal — treating a single item as interval is the classic
+misstep (45% of CHI papers had Likert data; 8% analyzed it appropriately
+<Cite id="kaptein-etal-2010" />). The **proportional-odds (ordinal logistic) model**
+respects the ordering and reports ORs for being *in a higher category*:
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+library(MASS)
+students <- dplyr::distinct(read.csv("debugging-study.csv"),
+                            student, section, se1)
+fit <- polr(factor(se1, ordered = TRUE) ~ section,
+            data = students, Hess = TRUE)
+exp(cbind(OR = coef(fit), confint(fit)))
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+
+students = (pd.read_csv("debugging-study.csv")
+              [["student", "section", "se1"]].drop_duplicates())
+fit = OrderedModel(students.se1,
+                   pd.get_dummies(students.section, drop_first=True),
+                   distr="logit").fit()
+print(fit.summary())
+```
+
+  </Fragment>
+</CodeTabs>
+
+Translate exactly as in the [logistic lesson](/wiki/quantitative/logistic-regression):
+predicted category probabilities beat raw ORs for human readers.
+
+<Callout type="note" title="When Likert means are fine">
+A **multi-item scale score** (the mean of se1–se6) behaves close to interval and
+supports the usual linear tools — that's a measurement claim, and the
+[reliability lesson](/wiki/quantitative/reliability-and-item-analysis) is where it gets
+earned. Single items deserve ordinal treatment.
+</Callout>
+
+## Count outcomes: Poisson, then negative binomial
+
+Bugs found, forum posts, hint requests — non-negative integers with a floor at zero.
+**Poisson regression** (log link) is the starting point; its coefficients exponentiate
+to **rate ratios** ("SPRINT students found 1.4× as many bugs"). Its catch: Poisson
+assumes variance = mean, and real count data is almost always **overdispersed**
+(variance ≫ mean). The standard fix is the **negative binomial** model — same
+interpretation, honest SEs.
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+# bugs fixed per student across the semester
+per_student <- aggregate(fixed ~ student + section,
+                         data = read.csv("debugging-study.csv"), FUN = sum)
+pois <- glm(fixed ~ section, data = per_student, family = poisson)
+AER::dispersiontest(pois)             # overdispersed?
+nb <- MASS::glm.nb(fixed ~ section, data = per_student)
+exp(cbind(RR = coef(nb), confint(nb)))
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd, statsmodels.formula.api as smf
+
+per_student = (pd.read_csv("debugging-study.csv")
+                 .groupby(["student", "section"], as_index=False).fixed.sum())
+nb = smf.negativebinomial("fixed ~ C(section)", data=per_student).fit()
+print(nb.summary())
+```
+
+  </Fragment>
+</CodeTabs>
+
+An exposure offset (`offset(log(attempts))`) turns counts into rates when students had
+different numbers of opportunities — which, in this dataset, they did.
+
+<GenAiToolbox id="glm-errors" />

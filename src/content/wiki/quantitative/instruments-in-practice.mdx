@@ -1,0 +1,96 @@
+---
+title: Instruments in Practice
+module: quantitative
+order: 18
+group: "Measurement & IRT"
+description: The CS-ed instrument landscape, the SCS1 arc as a cautionary tale, when to build your own — and what GenAI does to test security.
+estMinutes: 14
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import Steps from '@wiki/Steps.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Everything in this block converges on two practical questions: *should we use an
+existing instrument, and if not, how do we build one that holds up?*
+
+## Search first
+
+Before building anything, search **csedresearch.org** — 150+ computing-education
+instruments catalogued with validation metadata <Cite id="decker-mcgill-2019" />. The
+landscape's landmarks: **FCS1/SCS1** (CS1 knowledge <Cite id="tew-guzdial-2011" />
+<Cite id="parker-etal-2016" />), **BDSI** (data structures, the gold-standard
+development process <Cite id="porter-etal-2019" />), VT's own **recursion inventory**
+<Cite id="hamouda-etal-2017" />, the **Computing Attitudes Survey**
+<Cite id="dorn-tew-2015" />, and programming self-efficacy scales — including the one
+with a Debug subscale <Cite id="ramalingam-wiedenbeck-1998" /> <Cite id="tsai-etal-2019" />.
+For debugging *knowledge* specifically, the honest answer is that no accepted
+validated assessment exists <Cite id="yang-etal-2024" /> — the gap the DCI running
+example lives in.
+
+## The SCS1 arc: how validity evidence ages
+
+The module's cautionary centerpiece, in five acts:
+
+1. **2016** — SCS1 released as a validated, language-independent CS1 assessment
+   <Cite id="parker-etal-2016" />. The field finally has a common ruler.
+2. **2019** — an IRT re-analysis finds three items measuring something else, several
+   too hard for the population, and precision concentrated mid-ability
+   <Cite id="xie-etal-2019" />. Stronger methods, sharper picture.
+3. **2021** — gender DIF surfaces in an SCS1-derived exam <Cite id="davidson-etal-2021" />.
+4. **2021** — a decade-of-use review: researchers routinely shortened, subsetted, and
+   translated the SCS1 — each modification quietly exiting the validity evidence
+   <Cite id="parker-guzdial-tew-2021" />.
+5. **2024** — a Spanish translation's think-alouds show students translating
+   pseudocode back to English: language-independence itself is population-dependent
+   <Cite id="vieira-etal-2024" />.
+
+The moral is not "the SCS1 was bad" — it's that *validity evidence is a living
+argument*: instruments need re-examination as methods, uses, and populations change,
+and **adaptation requires re-validation**. If you shorten it, translate it, or use it
+on a new population, you owe the argument new evidence.
+
+<Callout type="warning" title="The GenAI-era threat is to the argument itself">
+GPT-4-class models now outscore post-instruction undergraduates on CS1 exams and
+concept inventories <Cite id="finnie-ansley-etal-2022" /> <Cite id="savelka-etal-2023" />.
+Any **unproctored** administration therefore can't separate student ability from AI
+assistance — pre/post gains can be contaminated, and the *extrapolation* link of the
+validity argument (test behavior reflects real ability) breaks. Mitigations are
+design-level: proctored administrations, item banks with fresh forms (the equating
+you planned for), and rethinking what unproctored scores can claim
+<Cite id="macneil-etal-2024" /> <Cite id="prather-etal-2023" />.
+</Callout>
+
+## Building your own: the pipeline
+
+When the search comes up empty (as it did for debugging), the development pipeline is
+well-mapped <Cite id="boateng-etal-2018" /> <Cite id="wilson-2023" /> — and it starts
+long before statistics:
+
+<Steps>
+
+1. **Define the construct** — a construct map: what develops from novice to expert
+   debugging, and what is explicitly out of scope.
+2. **Draft items from evidence** — the [qualitative module's](/wiki/qualitative/overview)
+   interview findings supply the misconceptions; each distractor encodes one. This is
+   exactly how the BDSI (100+ student interviews) and the recursion inventory were
+   built <Cite id="porter-etal-2019" /> <Cite id="hamouda-etal-2017" />.
+3. **Expert review** — content-evidence panel against the blueprint <Cite id="adams-wieman-2011" />.
+4. **Think-alouds** — response-process evidence; students verbalize while solving
+   <Cite id="willis-artino-2013" />.
+5. **Pilot** — then the [item analysis](/wiki/quantitative/reliability-and-item-analysis)
+   you've already learned: p, discrimination, distractors, alpha/omega.
+6. **Dimensionality** — parallel analysis over the eigenvalue>1 rule; EFA and CFA on
+   *separate* samples.
+7. **Calibrate and argue** — [Rasch/IRT](/wiki/quantitative/irt-fundamentals) sized to
+   N, then assemble the [validity argument](/wiki/quantitative/validity), stating what
+   evidence is still owed (the DCI's deferred DIF, for instance).
+
+</Steps>
+
+Survey scales run the same pipeline with DeVellis as the standard companion
+<Cite id="devellis-thorpe-2022" /> — and one warning from the alpha lesson repeated,
+because it is the most common scale-building sin: do not delete items to chase alpha.
+
+<GenAiToolbox id="item-drafting" />

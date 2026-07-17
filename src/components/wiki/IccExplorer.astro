@@ -1,0 +1,172 @@
+---
+/**
+ * IccExplorer — the item characteristic curve, live. Sliders for
+ * discrimination (a), difficulty (b), and lower asymptote (c) drive a 3PL
+ * curve P(θ) = c + (1−c) / (1 + exp(−a(θ−b))); presets snap to 1PL/2PL/3PL.
+ *
+ * Props:
+ *   showInfo — overlay the item information curve (scaled), for the
+ *              information/precision lesson.
+ *   compare  — two-group mode for the DIF lesson: reference and focal curves
+ *              with independent a and b (c fixed at 0). Same machinery, two
+ *              parameter sets.
+ */
+interface Props {
+  showInfo?: boolean;
+  compare?: boolean;
+}
+const { showInfo = false, compare = false } = Astro.props;
+---
+
+<div class="wiki-icc" data-icc data-show-info={showInfo ? '1' : ''} data-compare={compare ? '1' : ''}>
+  {!compare && (
+    <div class="wiki-icc__presets">
+      <button type="button" class="wiki-icc__preset" data-preset="1,0,0">Rasch / 1PL</button>
+      <button type="button" class="wiki-icc__preset" data-preset="2.2,0,0">2PL (steep)</button>
+      <button type="button" class="wiki-icc__preset" data-preset="1.4,0,0.2">3PL (guessing)</button>
+    </div>
+  )}
+
+  <svg class="wiki-icc__plot" viewBox="0 0 600 300" role="img" aria-label="Item characteristic curve">
+    <line x1="50" y1="260" x2="580" y2="260" class="wiki-icc__axis" />
+    <line x1="50" y1="20" x2="50" y2="260" class="wiki-icc__axis" />
+    <line x1="50" y1="140" x2="580" y2="140" class="wiki-icc__grid" />
+    <text x="315" y="292" class="wiki-icc__label" text-anchor="middle">θ (ability, logits)</text>
+    <text x="18" y="145" class="wiki-icc__label" text-anchor="middle" transform="rotate(-90 18 145)">P(correct)</text>
+    <text x="46" y="265" class="wiki-icc__tick" text-anchor="end">0</text>
+    <text x="46" y="145" class="wiki-icc__tick" text-anchor="end">.5</text>
+    <text x="46" y="28" class="wiki-icc__tick" text-anchor="end">1</text>
+    <text x="50" y="274" class="wiki-icc__tick" text-anchor="middle">−4</text>
+    <text x="315" y="274" class="wiki-icc__tick" text-anchor="middle">0</text>
+    <text x="580" y="274" class="wiki-icc__tick" text-anchor="middle">+4</text>
+    <path class="wiki-icc__curve" data-curve="A" d="" />
+    <path class="wiki-icc__curve wiki-icc__curve--focal" data-curve="B" d="" hidden />
+    <path class="wiki-icc__info" data-info d="" hidden />
+    <line class="wiki-icc__bline" data-bline x1="0" x2="0" y1="20" y2="260" />
+  </svg>
+
+  {compare ? (
+    <div class="wiki-icc__controls">
+      <p class="wiki-icc__group"><span class="wiki-icc__swatch wiki-icc__swatch--ref"></span>Reference group</p>
+      <label class="wiki-icc__slider">a (discrimination) <span data-val="aA">1.20</span>
+        <input type="range" min="0.3" max="3" step="0.05" value="1.2" data-param="aA" />
+      </label>
+      <label class="wiki-icc__slider">b (difficulty) <span data-val="bA">0.00</span>
+        <input type="range" min="-3" max="3" step="0.1" value="0" data-param="bA" />
+      </label>
+      <p class="wiki-icc__group"><span class="wiki-icc__swatch wiki-icc__swatch--focal"></span>Focal group</p>
+      <label class="wiki-icc__slider">a (discrimination) <span data-val="aB">1.20</span>
+        <input type="range" min="0.3" max="3" step="0.05" value="1.2" data-param="aB" />
+      </label>
+      <label class="wiki-icc__slider">b (difficulty) <span data-val="bB">0.80</span>
+        <input type="range" min="-3" max="3" step="0.1" value="0.8" data-param="bB" />
+      </label>
+    </div>
+  ) : (
+    <div class="wiki-icc__controls">
+      <label class="wiki-icc__slider">a (discrimination) <span data-val="aA">1.00</span>
+        <input type="range" min="0.3" max="3" step="0.05" value="1" data-param="aA" />
+      </label>
+      <label class="wiki-icc__slider">b (difficulty) <span data-val="bA">0.00</span>
+        <input type="range" min="-3" max="3" step="0.1" value="0" data-param="bA" />
+      </label>
+      <label class="wiki-icc__slider">c (lower asymptote) <span data-val="cA">0.00</span>
+        <input type="range" min="0" max="0.35" step="0.01" value="0" data-param="cA" />
+      </label>
+    </div>
+  )}
+
+  <p class="wiki-icc__readout" data-readout></p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-icc]').forEach((root) => {
+    const compare = root.dataset.compare === '1';
+    const showInfo = root.dataset.showInfo === '1';
+    const X0 = 50, X1 = 580, Y0 = 260, Y1 = 20;
+    const px = (theta: number) => X0 + ((theta + 4) / 8) * (X1 - X0);
+    const py = (p: number) => Y0 - p * (Y0 - Y1);
+
+    const params: Record<string, number> = { aA: 1.2, bA: 0, cA: 0, aB: 1.2, bB: 0.8 };
+    root.querySelectorAll<HTMLInputElement>('[data-param]').forEach((inp) => {
+      params[inp.dataset.param!] = +inp.value;
+    });
+
+    const P = (theta: number, a: number, b: number, c: number) => c + (1 - c) / (1 + Math.exp(-a * (theta - b)));
+    // 3PL item information (reduces to a²PQ when c = 0).
+    const info = (theta: number, a: number, b: number, c: number) => {
+      const p = P(theta, a, b, c);
+      const q = 1 - p;
+      return a * a * (q / p) * ((p - c) / (1 - c)) ** 2;
+    };
+
+    const path = (fn: (t: number) => number, yscale: (v: number) => number) => {
+      const pts: string[] = [];
+      for (let i = 0; i <= 120; i++) {
+        const t = -4 + (8 * i) / 120;
+        pts.push(`${i === 0 ? 'M' : 'L'}${px(t).toFixed(1)},${yscale(fn(t)).toFixed(1)}`);
+      }
+      return pts.join(' ');
+    };
+
+    const curveA = root.querySelector<SVGPathElement>('[data-curve="A"]')!;
+    const curveB = root.querySelector<SVGPathElement>('[data-curve="B"]')!;
+    const infoPath = root.querySelector<SVGPathElement>('[data-info]')!;
+    const bline = root.querySelector<SVGLineElement>('[data-bline]')!;
+    const readout = root.querySelector<HTMLElement>('[data-readout]')!;
+
+    function render() {
+      const { aA, bA, cA, aB, bB } = params;
+      curveA.setAttribute('d', path((t) => P(t, aA, bA, compare ? 0 : cA), py));
+      if (compare) {
+        curveB.hidden = false;
+        curveB.setAttribute('d', path((t) => P(t, aB, bB, 0), py));
+        const gap = Math.abs(bB - bA);
+        readout.textContent =
+          aA === aB
+            ? `Same discrimination, difficulty gap ${gap.toFixed(1)} logits → uniform DIF: the focal group needs more ability for the same success, at every θ.`
+            : `Different discriminations → the curves cross: non-uniform DIF. The gap changes size (and can change sign) across θ.`;
+      } else {
+        if (showInfo) {
+          infoPath.hidden = false;
+          let max = 0;
+          for (let i = 0; i <= 120; i++) max = Math.max(max, info(-4 + (8 * i) / 120, aA, bA, cA));
+          infoPath.setAttribute('d', path((t) => info(t, aA, bA, cA) / (max || 1), (v) => py(v * 0.9)));
+        }
+        const atB = P(bA, aA, bA, cA);
+        readout.textContent =
+          `At θ = b = ${bA.toFixed(1)}, P(correct) = ${atB.toFixed(2)}` +
+          (cA > 0
+            ? ` — not .5: the lower asymptote lifts the whole curve, which is why c is not simply "1 over the number of options".`
+            : `. Steeper a → the item separates ability more sharply around b${showInfo ? ', and information concentrates there' : ''}.`);
+      }
+      bline.setAttribute('x1', String(px(bA)));
+      bline.setAttribute('x2', String(px(bA)));
+    }
+
+    root.querySelectorAll<HTMLInputElement>('[data-param]').forEach((inp) => {
+      inp.addEventListener('input', () => {
+        params[inp.dataset.param!] = +inp.value;
+        root.querySelector(`[data-val="${inp.dataset.param}"]`)!.textContent = (+inp.value).toFixed(2);
+        render();
+      });
+    });
+
+    root.querySelectorAll<HTMLButtonElement>('.wiki-icc__preset').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const [a, b, c] = (btn.dataset.preset || '').split(',').map(Number);
+        (['aA', 'bA', 'cA'] as const).forEach((k, i) => {
+          params[k] = [a, b, c][i];
+          const inp = root.querySelector<HTMLInputElement>(`[data-param="${k}"]`);
+          if (inp) {
+            inp.value = String([a, b, c][i]);
+            root.querySelector(`[data-val="${k}"]`)!.textContent = [a, b, c][i].toFixed(2);
+          }
+        });
+        render();
+      });
+    });
+
+    render();
+  });
+</script>

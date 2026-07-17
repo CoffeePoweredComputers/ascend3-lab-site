@@ -1,0 +1,47 @@
+---
+/**
+ * GenAiGroundRules — the module-wide LLM ground rules, rendered once in the
+ * quantitative overview under the #genai-ground-rules anchor. Every
+ * GenAiToolbox footer links back here. DON'T rules first, then DO rules;
+ * each rule carries its sources.
+ */
+import { groundRules } from '../../data/genai-toolbox';
+import { getReference } from '../../lib/references';
+
+const moduleSlug = Astro.url.pathname.split('/').filter(Boolean)[1] ?? 'quantitative';
+const refLink = (rid: string) => `/wiki/${moduleSlug}/references#ref-${rid}`;
+const donts = groundRules.filter((r) => r.kind === 'dont');
+const dos = groundRules.filter((r) => r.kind === 'do');
+---
+
+<div class="wiki-genai wiki-genai--rules" id="genai-ground-rules">
+  <p class="wiki-genai__title">
+    <span class="wiki-genai__glyph" aria-hidden="true">AI</span>
+    GenAI ground rules for this module
+  </p>
+  <p class="wiki-genai__task">
+    Every GenAI toolbox in these lessons assumes the rules below. They are not
+    style preferences — each traces to a policy or a measured failure mode.
+  </p>
+  {[
+    { label: 'Never', rules: donts, tone: 'dont' },
+    { label: 'Always', rules: dos, tone: 'do' },
+  ].map((group) => (
+    <Fragment>
+      <p class="wiki-genai__verify-label">{group.label}:</p>
+      <ul class={`wiki-genai__rulelist wiki-genai__rulelist--${group.tone}`}>
+        {group.rules.map((r) => (
+          <li>
+            {r.text}
+            {' '}
+            <span class="wiki-genai__rulecites">
+              {r.citeIds.map((rid, i) => (
+                <Fragment>{i > 0 ? ' · ' : ''}<a href={refLink(rid)}>{getReference(rid)?.cite ?? rid}</a></Fragment>
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </Fragment>
+  ))}
+</div>

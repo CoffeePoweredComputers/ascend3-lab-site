@@ -1,0 +1,79 @@
+---
+/**
+ * LogitTranslator — the odds-ratio-to-plain-language bridge. Set a baseline
+ * probability and an odds ratio; read off the new probability, the
+ * percentage-point change, and the risk ratio. The point: the same OR means
+ * different percentage-point effects at different baselines, which is why
+ * "times more likely" misreads an OR.
+ */
+---
+
+<div class="wiki-logit" data-logit>
+  <div class="wiki-logit__presets">
+    <button type="button" class="wiki-logit__preset" data-preset="53,1.9">Common outcome (53%, OR 1.9)</button>
+    <button type="button" class="wiki-logit__preset" data-preset="5,1.9">Rare outcome (5%, OR 1.9)</button>
+    <button type="button" class="wiki-logit__preset" data-preset="85,1.9">Near ceiling (85%, OR 1.9)</button>
+  </div>
+
+  <div class="wiki-logit__controls">
+    <label class="wiki-logit__slider">Baseline probability <span data-val="base">53%</span>
+      <input type="range" min="2" max="95" step="1" value="53" data-in="base" />
+    </label>
+    <label class="wiki-logit__slider">Odds ratio <span data-val="or">1.90</span>
+      <input type="range" min="-1.39" max="2.08" step="0.01" value="0.642" data-in="or" />
+    </label>
+  </div>
+
+  <div class="wiki-logit__bars" aria-hidden="true">
+    <div class="wiki-logit__barrow"><span class="wiki-logit__barlabel">Baseline</span><div class="wiki-logit__bar"><div class="wiki-logit__fill" data-bar="base"></div></div><span class="wiki-logit__barval" data-out="basePct">—</span></div>
+    <div class="wiki-logit__barrow"><span class="wiki-logit__barlabel">With OR</span><div class="wiki-logit__bar"><div class="wiki-logit__fill wiki-logit__fill--new" data-bar="new"></div></div><span class="wiki-logit__barval" data-out="newPct">—</span></div>
+  </div>
+
+  <p class="wiki-logit__readout" data-out="verdict"></p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-logit]').forEach((root) => {
+    const inBase = root.querySelector<HTMLInputElement>('[data-in="base"]')!;
+    const inOr = root.querySelector<HTMLInputElement>('[data-in="or"]')!;
+    const out = (k: string) => root.querySelector<HTMLElement>(`[data-out="${k}"]`)!;
+    const bar = (k: string) => root.querySelector<HTMLElement>(`[data-bar="${k}"]`)!;
+
+    function render() {
+      const p0 = +inBase.value / 100;
+      const or = Math.exp(+inOr.value); // slider is on the log scale
+      root.querySelector('[data-val="base"]')!.textContent = `${inBase.value}%`;
+      root.querySelector('[data-val="or"]')!.textContent = or.toFixed(2);
+
+      const odds1 = (p0 / (1 - p0)) * or;
+      const p1 = odds1 / (1 + odds1);
+      const pp = (p1 - p0) * 100;
+      const rr = p1 / p0;
+
+      out('basePct').textContent = `${(p0 * 100).toFixed(0)}%`;
+      out('newPct').textContent = `${(p1 * 100).toFixed(0)}%`;
+      bar('base').style.width = `${p0 * 100}%`;
+      bar('new').style.width = `${p1 * 100}%`;
+
+      const misread = ((or - 1) * 100).toFixed(0);
+      out('verdict').innerHTML =
+        `OR = ${or.toFixed(2)} moves ${(p0 * 100).toFixed(0)}% → <strong>${(p1 * 100).toFixed(0)}%</strong> ` +
+        `(${pp >= 0 ? '+' : ''}${pp.toFixed(0)} percentage points; ×${rr.toFixed(2)} as likely). ` +
+        (or > 1 && rr < or - 0.05
+          ? `Reading it as "${misread}% more likely" would claim ×${or.toFixed(2)} — the misread grows as the baseline rises.`
+          : `At low baselines OR ≈ risk ratio, which is exactly when "times more likely" is nearly harmless.`);
+    }
+
+    [inBase, inOr].forEach((inp) => inp.addEventListener('input', render));
+    root.querySelectorAll<HTMLButtonElement>('.wiki-logit__preset').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const [base, or] = (btn.dataset.preset || '').split(',').map(Number);
+        inBase.value = String(base);
+        inOr.value = String(Math.log(or).toFixed(3));
+        render();
+      });
+    });
+
+    render();
+  });
+</script>

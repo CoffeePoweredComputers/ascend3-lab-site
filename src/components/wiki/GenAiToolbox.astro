@@ -1,0 +1,88 @@
+---
+/**
+ * GenAiToolbox — a recurring aside teaching best-practice LLM use for the
+ * lesson's task: what the LLM is for here, an example schema-only prompt, a
+ * verify-before-trusting checklist (decorative glyphs — no state), and a
+ * cited known failure mode. All content is data-driven from
+ * src/data/genai-toolbox.ts so prompts can be reviewed in one place.
+ *
+ * Usage: <GenAiToolbox id="mirt-calibration" />
+ */
+import { genaiToolbox, DEFAULT_TOOL } from '../../data/genai-toolbox';
+import { getReference } from '../../lib/references';
+
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const entry = genaiToolbox[id];
+
+const moduleSlug = Astro.url.pathname.split('/').filter(Boolean)[1] ?? 'quantitative';
+const refLink = (rid: string) => `/wiki/${moduleSlug}/references#ref-${rid}`;
+---
+
+{!entry ? (
+  <p class="wiki-genai__missing">GenAiToolbox: unknown entry id “{id}” — check src/data/genai-toolbox.ts.</p>
+) : (
+  <aside class="wiki-genai" role="note" data-genai>
+    <p class="wiki-genai__title">
+      <span class="wiki-genai__glyph" aria-hidden="true">AI</span>
+      GenAI toolbox
+    </p>
+    <p class="wiki-genai__task">{entry.task}</p>
+    <p class="wiki-genai__tool">{entry.tool ?? DEFAULT_TOOL}</p>
+
+    <details class="wiki-genai__details">
+      <summary>Show example prompt</summary>
+      <div class="wiki-genai__promptwrap">
+        <button type="button" class="wiki-genai__copy" data-copy>Copy</button>
+        <pre class="wiki-genai__prompt">{entry.prompt}</pre>
+      </div>
+      {entry.promptNotes && (
+        <ul class="wiki-genai__notes">
+          {entry.promptNotes.map((n) => <li>{n}</li>)}
+        </ul>
+      )}
+    </details>
+
+    <p class="wiki-genai__verify-label">Verify before trusting:</p>
+    <ul class="wiki-genai__verify">
+      {entry.verify.map((v) => (
+        <li><span class="wiki-genai__box" aria-hidden="true">☐</span>{v}</li>
+      ))}
+    </ul>
+
+    <p class="wiki-genai__failure">
+      <strong>Known failure mode:</strong> {entry.failure}
+      {entry.failureCiteIds && entry.failureCiteIds.length > 0 && (
+        <Fragment>
+          {' '}
+          {entry.failureCiteIds.map((rid, i) => (
+            <Fragment>{i > 0 ? ' · ' : ''}<a href={refLink(rid)}>{getReference(rid)?.cite ?? rid}</a></Fragment>
+          ))}
+        </Fragment>
+      )}
+    </p>
+
+    <p class="wiki-genai__rules">
+      <a href="/wiki/quantitative/overview#genai-ground-rules">Ground rules apply →</a>
+    </p>
+  </aside>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-genai]').forEach((root) => {
+    const btn = root.querySelector<HTMLButtonElement>('[data-copy]');
+    const pre = root.querySelector<HTMLElement>('.wiki-genai__prompt');
+    if (!btn || !pre) return;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.textContent ?? '');
+        btn.textContent = 'Copied';
+        setTimeout(() => (btn.textContent = 'Copy'), 1500);
+      } catch {
+        btn.textContent = 'Select & copy manually';
+      }
+    });
+  });
+</script>

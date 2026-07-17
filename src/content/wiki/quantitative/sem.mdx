@@ -1,0 +1,97 @@
+---
+title: Structural Equation Modeling
+module: quantitative
+order: 11
+group: "Regression & modeling"
+description: Path models, mediation, CFA, and full SEM — regression's general case, with fit indices handled honestly.
+estMinutes: 14
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import Steps from '@wiki/Steps.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Regression predicts one outcome from observed variables. **SEM** generalizes both
+restrictions: chains of effects (X → M → Y), and **latent variables** measured by
+multiple indicators. It is the bridge between this block and the measurement block —
+the measurement half of SEM *is* factor analysis <Cite id="kline-2023" />.
+
+## Path models and mediation
+
+*Does SPRINT improve debugging by increasing systematic strategy use?* That's a
+**mediation** claim: instruction → strategy use → performance. A path model estimates
+the **indirect effect** (a×b) and the leftover **direct effect**; bootstrap CIs are
+the standard inference for the indirect path.
+
+<Callout type="warning" title="Mediation is a causal claim">
+The arrows encode assumptions the data can't verify — with observational data,
+"strategy use" and "performance" may share unmeasured causes. State the assumed
+ordering, justify it (theory, temporal order), and phrase conclusions conditionally.
+</Callout>
+
+## CFA: the measurement model
+
+**Confirmatory factor analysis** says: these six self-efficacy items measure one
+latent thing; here's how well each reflects it (**loadings**), and here's the latent
+variable cleaned of item-level noise. This is where reliability's ω comes from — and
+the internal-structure evidence the [validity lesson](/wiki/quantitative/validity)
+will file under the Standards.
+
+```r
+library(lavaan)
+students <- dplyr::distinct(read.csv("debugging-study.csv"),
+                            student, section, se1, se2, se3, se4, se5, se6, post)
+
+cfa_model <- 'efficacy =~ se1 + se2 + se3 + se4 + se5 + se6'
+cfa_fit <- cfa(cfa_model, data = students, ordered = TRUE)   # ordinal → WLSMV
+summary(cfa_fit, fit.measures = TRUE, standardized = TRUE)
+```
+
+Full SEM joins the two halves — latent variables in structural paths:
+
+```r
+sem_model <- '
+  efficacy =~ se1 + se2 + se3 + se4 + se5 + se6
+  efficacy ~ a * section
+  post     ~ b * efficacy + c * section + pre
+  indirect := a * b
+'
+sem_fit <- sem(sem_model, data = students, ordered = TRUE)
+```
+
+(lavaan syntax: `=~` "is measured by", `~` "is regressed on", `:=` defines the
+indirect effect <Cite id="rosseel-2012" />. Python's `semopy` exists; lavaan is the
+field standard.)
+
+## Fit indices, without the cargo cult
+
+χ² tests exact fit (and rejects everything at large n); **CFI/TLI** (≥ ~.95),
+**RMSEA** (≤ ~.06), and **SRMR** (≤ ~.08) are the conventional gauges
+<Cite id="hu-bentler-1999" /> — and the very next thing to know is that those cutoffs
+are *not* golden rules; they came from one simulation setting and misbehave elsewhere
+<Cite id="marsh-etal-2004" />. Report several indices, the residual patterns, and any
+modifications you made (each post-hoc modification is a forking path).
+
+**Measurement invariance** — does the six-item scale measure the *same construct* in
+both sections? Multi-group CFA with progressively constrained parameters answers it,
+and it is the SEM twin of [DIF](/wiki/quantitative/dif-and-fairness).
+
+<Callout type="note" title="Sample-size reality">
+SEM wants hundreds — common guidance starts at N ≈ 200, more with ordinal indicators
+and small loadings. At lab-study sizes, fit a path model with observed scale scores
+instead, and say why. The running example's N = 40 is a *teaching* dataset here; the
+snippets show machinery, not a publishable analysis.
+</Callout>
+
+<Steps>
+
+1. Draw the model first — boxes, circles, arrows — before any syntax.
+2. Count identification: parameters ≤ unique (co)variances (the df arithmetic).
+3. Fit the measurement model alone; fix it before adding structure.
+4. Fit the structural model; report full fit, estimates, CIs.
+5. Report every modification and what prompted it.
+
+</Steps>
+
+<GenAiToolbox id="sem-lavaan" />

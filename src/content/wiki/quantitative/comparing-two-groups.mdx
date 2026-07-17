@@ -1,0 +1,94 @@
+---
+title: Comparing Two Groups
+module: quantitative
+order: 5
+group: "Comparing groups"
+description: t-tests and their rank-based cousins — paired vs independent, Welch by default, and what Mann–Whitney actually tests.
+estMinutes: 10
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import CodeTabs from '@wiki/CodeTabs.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+Two-group comparisons are CER's bread and butter — the t-test is the single most used
+test at ICER <Cite id="sanders-etal-2019" />. The decisions that matter come *before*
+the test name:
+
+1. **Same students twice, or different students?** Pre vs post for one group is
+   **paired** (analyze the differences); SPRINT section vs control section is
+   **independent**.
+2. **Means, or ranks?** A t-test compares means. Mann–Whitney/Wilcoxon compare
+   *distributions* (stochastic dominance) — a different question, not a free
+   "non-normal t-test."
+
+## Welch by default
+
+The classic t-test assumes equal variances; Welch's version doesn't, costs essentially
+nothing when variances are equal, and protects you when they're not. There is no good
+reason to start with the pooled test.
+
+<Callout type="warning" title="Skip the normality-test ritual">
+Testing normality and switching tests based on the p-value distorts error rates and
+checks the wrong thing <Cite id="hoekstra-etal-2012" />. Plot the data; with n in the
+dozens, the central limit theorem protects mean comparisons against moderate skew. Pick
+rank-based methods a priori when the question is rank-like or the sample is small and
+heavy-tailed.
+</Callout>
+
+## The running example
+
+Did SPRINT students *gain* more than control students? One row per student, gain =
+post − pre, then an independent comparison of gains:
+
+<CodeTabs>
+  <Fragment slot="r">
+
+```r
+library(dplyr)
+students <- read.csv("debugging-study.csv") |>
+  distinct(student, section, pre, post) |>
+  mutate(gain = post - pre)
+
+t.test(gain ~ section, data = students)          # Welch by default in R
+effectsize::cohens_d(gain ~ section, data = students)
+wilcox.test(gain ~ section, data = students)     # rank-based companion
+```
+
+  </Fragment>
+  <Fragment slot="python">
+
+```python
+import pandas as pd, pingouin as pg
+
+students = (pd.read_csv("debugging-study.csv")
+              [["student", "section", "pre", "post"]]
+              .drop_duplicates())
+students["gain"] = students.post - students.pre
+
+sprint = students.query("section == 'sprint'").gain
+control = students.query("section == 'control'").gain
+pg.ttest(sprint, control)            # Welch + Cohen's d + CI in one table
+pg.mwu(sprint, control)              # rank-based companion
+```
+
+  </Fragment>
+</CodeTabs>
+
+Note the `distinct()` / `drop_duplicates()` step: the CSV is attempt-level, and running
+a t-test on 462 rows would count each student up to 12 times — the independence error
+the [clustered-data lesson](/wiki/quantitative/clustered-data-mlm-gee) is about.
+
+Report per [the checklist](/wiki/quantitative/effect-sizes-and-reporting): statistic,
+df, p, d with CI, group n's.
+
+## Paired, for completeness
+
+"Did the *SPRINT group* improve pre → post?" is a paired question — `t.test(post, pre,
+paired = TRUE)` on that group's rows. Notice it answers a weaker question than the
+between-group comparison: without the control it can't rule out practice effects or
+maturation. The [next lesson's walkthrough](/wiki/quantitative/anova-and-categorical)
+makes exactly this trap concrete.
+
+<GenAiToolbox id="ttest-assumptions" />

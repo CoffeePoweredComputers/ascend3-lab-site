@@ -1,0 +1,53 @@
+---
+/**
+ * ItemAnalysisTable — classical item statistics for the DCI pilot, sortable by
+ * column. The numbers come from src/data/quant-item-stats.json, which is
+ * generated from the shipped dci-pilot.csv by scripts/generate-quant-data.mjs —
+ * so this table always matches what a reader computes from the CSV themselves.
+ * Two items are deliberately broken; the lesson asks readers to find them
+ * before revealing which.
+ */
+import itemStats from '../../data/quant-item-stats.json';
+---
+
+<div class="wiki-items" data-items>
+  <table class="wiki-items__table">
+    <thead>
+      <tr>
+        <th><button type="button" data-sort="item" aria-label="Sort by item">Item <span aria-hidden="true">↕</span></button></th>
+        <th><button type="button" data-sort="p" aria-label="Sort by difficulty">p (proportion correct) <span aria-hidden="true">↕</span></button></th>
+        <th><button type="button" data-sort="rpb" aria-label="Sort by discrimination">Corrected item–total r <span aria-hidden="true">↕</span></button></th>
+      </tr>
+    </thead>
+    <tbody>
+      {itemStats.map((s) => (
+        <tr data-item={s.item} data-p={s.p} data-rpb={s.rpb}>
+          <td class="wiki-items__id">{s.item}</td>
+          <td>{s.p.toFixed(2)}</td>
+          <td>{s.rpb.toFixed(2)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <p class="wiki-items__hint">Click a column header to sort. Computed from <code>dci-pilot.csv</code> (N = 150).</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-items]').forEach((root) => {
+    const tbody = root.querySelector<HTMLTableSectionElement>('tbody')!;
+    const dirs: Record<string, number> = {};
+    root.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.sort!;
+        dirs[key] = -(dirs[key] || -1); // first click ascending
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.sort((a, b) => {
+          const av = key === 'item' ? a.dataset.item! : +a.dataset[key]!;
+          const bv = key === 'item' ? b.dataset.item! : +b.dataset[key]!;
+          return (av < bv ? -1 : av > bv ? 1 : 0) * dirs[key];
+        });
+        rows.forEach((r) => tbody.appendChild(r));
+      });
+    });
+  });
+</script>

@@ -1,0 +1,88 @@
+---
+title: Effect Sizes & Honest Reporting
+module: quantitative
+order: 4
+group: "Inference"
+description: Cohen's d and friends, why "significant" isn't "important", and the reporting checklist CER keeps failing.
+estMinutes: 12
+---
+
+import Callout from '@wiki/Callout.astro';
+import Reveal from '@wiki/Reveal.astro';
+import Cite from '@wiki/Cite.astro';
+import EffectSizeExplorer from '@wiki/EffectSizeExplorer.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+A p-value says an effect is probably not zero. An **effect size** says how big it is —
+which is the thing anyone deciding whether to adopt SPRINT actually needs. Reviews of
+ICER papers found effect sizes systematically missing <Cite id="sanders-etal-2019" />;
+this lesson is the fix.
+
+## The workhorses
+
+| Effect size | For | Reading it |
+| --- | --- | --- |
+| **Cohen's d** | two-group mean differences | difference in SD units |
+| **r** | associations | −1 … 1 |
+| **η² / partial η²** | ANOVA | share of variance |
+| **Odds ratio** | binary outcomes | see the [logistic lesson](/wiki/quantitative/logistic-regression) |
+
+Which d, which η², and how to convert between them: Lakens' primer is the standard
+practical reference <Cite id="lakens-2013" />.
+
+## What d = 0.5 actually looks like
+
+The labels "small / medium / large" hide how much two groups still overlap. Drag d:
+
+<EffectSizeExplorer />
+
+Even at d = 0.8 — "large" — the distributions share about two-thirds of their area.
+Group effects are claims about distributions, not about every student, and writing
+them that way ("a typical SPRINT student outscored about 66% of control students")
+communicates more honestly than a band label.
+
+<Callout type="warning" title="Benchmarks are context-free; your field isn't">
+Cohen offered .2/.5/.8 reluctantly, for psychology. In education interventions,
+d = 0.2 on a broad achievement measure can be a big deal. Compare against effects in
+*your* literature, not against the generic bands.
+</Callout>
+
+## The reporting checklist
+
+For every inferential claim, report: **the statistic, df, exact p, the effect size,
+and its 95% CI** — plus the n behind it <Cite id="appelbaum-etal-2018" />. In one line:
+
+> Welch's t(36.8) = 2.41, p = .021, d = 0.74, 95% CI [0.12, 1.36], n = 21/19.
+
+And the study-level facts CER papers most often omit <Cite id="heckman-etal-2022" />:
+research questions stated up front, who the participants were and how sampled, the
+design (comparison group? assignment?), and a limitations section that names threats
+honestly <Cite id="sanders-vahrenhold-mccartney-2023" />.
+
+## The CER pitfall checklist
+
+Documented, not hypothetical — check your draft against each:
+
+- **No comparison group** — the modal published design was one-group posttest-only
+  <Cite id="randolph-etal-2008" />.
+- **Anecdote as evidence** — "students liked it" is a quote, not a result.
+- **Missing effect sizes** — significance without magnitude <Cite id="sanders-etal-2019" />.
+- **Forking paths** — many analyses, one reported. Pre-specify or disclose all.
+- **Multiple comparisons** — ten tests at α = .05 ≈ 40% chance of a false positive;
+  correct, or better, ask fewer questions.
+- **Likert means without thought** — see [GLMs](/wiki/quantitative/glms-beyond-binary)
+  <Cite id="kaptein-etal-2010" />.
+- **Nesting ignored** — students inside sections aren't independent; see
+  [clustered data](/wiki/quantitative/clustered-data-mlm-gee).
+- **Unvalidated homegrown instruments** — see the entire
+  [measurement block](/wiki/quantitative/measurement-foundations).
+
+<Reveal summary="Practice: what's wrong with 'SPRINT works (p < .05)'?">
+Almost everything reportable is missing: no effect size (how much?), no CI (how
+precisely?), no test statistic or df (what analysis?), no n (what could it have
+detected?), and "works" is causal language a two-intact-section design can't carry.
+"The SPRINT section improved 1.5 points more than control (Welch's t(36.8) = 2.41,
+p = .021, d = 0.74, 95% CI [0.12, 1.36])" says what happened.
+</Reveal>
+
+<GenAiToolbox id="disclosure-draft" />

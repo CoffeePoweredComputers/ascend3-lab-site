@@ -1,0 +1,87 @@
+---
+title: Reliability & Item Analysis
+module: quantitative
+order: 13
+group: "Measurement & IRT"
+description: Alpha and omega, the SEM band around every score, and finding the DCI pilot's two broken items by hand.
+estMinutes: 14
+---
+
+import Callout from '@wiki/Callout.astro';
+import Cite from '@wiki/Cite.astro';
+import Reveal from '@wiki/Reveal.astro';
+import ItemAnalysisTable from '@wiki/ItemAnalysisTable.astro';
+import GenAiToolbox from '@wiki/GenAiToolbox.astro';
+
+**Reliability** is consistency: how much of the score is signal (true score) rather
+than noise. It caps everything downstream — an unreliable outcome measure attenuates
+every effect you try to estimate — and it is *necessary but not sufficient*: a
+perfectly consistent score can consistently measure the wrong thing.
+
+## The flavors
+
+- **Test–retest** — same students, same test, two occasions.
+- **Alternate forms** — two versions built to the same blueprint.
+- **Internal consistency** — do the items hang together *within* one sitting? This is
+  the one you'll compute weekly, so it gets the scrutiny below.
+
+## Alpha, omega, and what they don't say
+
+**Cronbach's α** is everywhere, and misread almost as often as it's reported
+<Cite id="sijtsma-2009" />:
+
+- α assumes every item measures the construct equally well (tau-equivalence) —
+  usually false, and then α *underestimates* reliability.
+- **High α does not mean unidimensional.** A two-construct item pile can produce a
+  lovely α. Dimensionality is checked with factor tools, never inferred from α.
+- **α-chasing** — deleting items to maximize "α if deleted" — capitalizes on chance
+  and narrows the construct. Don't tune the instrument to one sample's noise.
+
+**McDonald's ω**, computed from factor loadings, drops the equal-items assumption and
+is the modern default; report both while reviewers transition <Cite id="mcneish-2018" />.
+Two useful companions: **Spearman–Brown** predicts how reliability changes with test
+length (the honest answer to "can we shorten the survey?"), and the **standard error
+of measurement**, SEM = SD·√(1−reliability), turns reliability into the ± band around
+each student's score — the number that makes "α = .85" mean something.
+
+```r
+library(psych)
+dci <- read.csv("dci-pilot.csv")[, -1]   # drop id
+alpha(dci)          # alpha, item-total correlations, alpha-if-deleted
+omega(dci)          # omega from a factor model
+```
+
+## Classical item analysis: find the broken items
+
+For each item: **difficulty p** (proportion correct — really *easiness*: p = .95
+means nearly everyone got it), and **discrimination** — the corrected item–total
+correlation (does this item separate strong from weak students?). Healthy knowledge
+items usually live around p ≈ .3–.8 with corrected r ≥ .2.
+
+Two of the DCI pilot's 20 items are broken. Sort the table and find them before
+revealing:
+
+<ItemAnalysisTable />
+
+<Reveal summary="Which two — and what's wrong with each?">
+**i07** has a *negative* item–total correlation (−.32): stronger students get it
+*wrong* more often — the classic signature of a **mis-keyed answer** (the scoring key
+marks the wrong option correct). **i12** sits at p = .95 with near-zero
+discrimination: a **ceiling item** almost everyone answers correctly, which measures
+nothing about this population. The fix for i07 is a key check, not deletion; i12
+either gets harder or earns its keep as a warm-up item on an easier population.
+</Reveal>
+
+**Distractor analysis** goes one level deeper on multiple-choice items: each wrong
+option should attract *someone*, and should attract *weaker* students — a distractor
+that pulls strong students usually signals an ambiguous stem or a defensible
+"wrong" answer.
+
+<Callout type="note" title="This is the screening IRT can't replace">
+Latent models will happily fit broken items and hide the damage in strange parameter
+estimates. Classical screening is how you notice — which is why it comes first in the
+[IRT walkthrough](/wiki/quantitative/irt-fundamentals), and why jMetrik (a free GUI)
+is a perfectly respectable way to do all of this before you're fluent in R.
+</Callout>
+
+<GenAiToolbox id="alpha-omega" />

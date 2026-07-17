@@ -1,0 +1,92 @@
+---
+/**
+ * EffectSizeExplorer — two normal distributions and a Cohen's d slider. Drag d
+ * and read off the distribution overlap, the common-language effect size
+ * (P(random treated > random control)), and U3 (percent of the control group
+ * below the treated mean). The point: "significant" says none of this — d does.
+ */
+---
+
+<div class="wiki-esize" data-esize>
+  <div class="wiki-esize__presets">
+    <button type="button" class="wiki-esize__preset" data-preset="0.2">“Small” (d = 0.2)</button>
+    <button type="button" class="wiki-esize__preset" data-preset="0.5">“Medium” (d = 0.5)</button>
+    <button type="button" class="wiki-esize__preset" data-preset="0.8">“Large” (d = 0.8)</button>
+  </div>
+
+  <svg class="wiki-esize__plot" viewBox="0 0 600 240" role="img" aria-label="Two overlapping distributions">
+    <line x1="20" y1="210" x2="580" y2="210" class="wiki-icc__axis" />
+    <path class="wiki-esize__dist wiki-esize__dist--a" data-dist="a" d="" />
+    <path class="wiki-esize__dist wiki-esize__dist--b" data-dist="b" d="" />
+    <text x="300" y="232" class="wiki-icc__label" text-anchor="middle">outcome (SD units)</text>
+  </svg>
+
+  <label class="wiki-icc__slider wiki-esize__slider">Cohen's d <span data-val="d">0.50</span>
+    <input type="range" min="0" max="2" step="0.05" value="0.5" data-in="d" />
+  </label>
+
+  <div class="wiki-esize__stats">
+    <div class="wiki-kappa__stat"><span>Distribution overlap</span><span class="wiki-kappa__stat-val" data-out="ovl">—</span></div>
+    <div class="wiki-kappa__stat"><span>P(treated &gt; control)</span><span class="wiki-kappa__stat-val" data-out="cles">—</span></div>
+    <div class="wiki-kappa__stat"><span>Control below treated mean (U3)</span><span class="wiki-kappa__stat-val" data-out="u3">—</span></div>
+  </div>
+  <p class="wiki-esize__readout" data-out="verdict"></p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-esize]').forEach((root) => {
+    const input = root.querySelector<HTMLInputElement>('[data-in="d"]')!;
+    const out = (k: string) => root.querySelector<HTMLElement>(`[data-out="${k}"]`)!;
+
+    // Abramowitz–Stegun style Φ approximation — plenty for a visualization.
+    const phi = (x: number) => {
+      const t = 1 / (1 + 0.2316419 * Math.abs(x));
+      const dnorm = Math.exp((-x * x) / 2) / Math.sqrt(2 * Math.PI);
+      const p = dnorm * t * (0.31938153 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
+      return x >= 0 ? 1 - p : p;
+    };
+
+    const X0 = 20, X1 = 580, Y0 = 210, H = 180;
+    const px = (z: number) => X0 + ((z + 3) / 7) * (X1 - X0); // z from −3 … 4
+    const dens = (z: number, mu: number) => Math.exp(-((z - mu) ** 2) / 2) / Math.sqrt(2 * Math.PI);
+
+    function path(mu: number) {
+      const pts: string[] = [`M${px(-3)},${Y0}`];
+      for (let i = 0; i <= 140; i++) {
+        const z = -3 + (7 * i) / 140;
+        pts.push(`L${px(z).toFixed(1)},${(Y0 - (dens(z, mu) / 0.4) * H).toFixed(1)}`);
+      }
+      pts.push(`L${px(4)},${Y0} Z`);
+      return pts.join(' ');
+    }
+
+    const distA = root.querySelector<SVGPathElement>('[data-dist="a"]')!;
+    const distB = root.querySelector<SVGPathElement>('[data-dist="b"]')!;
+    distA.setAttribute('d', path(0));
+
+    function render() {
+      const d = +input.value;
+      root.querySelector('[data-val="d"]')!.textContent = d.toFixed(2);
+      distB.setAttribute('d', path(d));
+      const ovl = 2 * phi(-d / 2);
+      const cles = phi(d / Math.SQRT2);
+      const u3 = phi(d);
+      out('ovl').textContent = `${(ovl * 100).toFixed(0)}%`;
+      out('cles').textContent = `${(cles * 100).toFixed(0)}%`;
+      out('u3').textContent = `${(u3 * 100).toFixed(0)}%`;
+      out('verdict').textContent =
+        d === 0
+          ? 'Identical distributions: a coin flip on which group a random student from each “beats” the other.'
+          : `At d = ${d.toFixed(2)}, the distributions still share ${(ovl * 100).toFixed(0)}% of their area — a randomly chosen treated student outscores a control student ${(cles * 100).toFixed(0)}% of the time. Group effects are claims about distributions, not about every student.`;
+    }
+
+    input.addEventListener('input', render);
+    root.querySelectorAll<HTMLButtonElement>('.wiki-esize__preset').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        input.value = btn.dataset.preset!;
+        render();
+      });
+    });
+    render();
+  });
+</script>

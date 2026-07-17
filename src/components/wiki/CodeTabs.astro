@@ -1,0 +1,44 @@
+---
+/**
+ * CodeTabs — tabbed R / Python code panels (MeasureExplorer's toggle pattern).
+ * Put fenced code blocks into the named slots; when only the "r" slot is
+ * provided the component renders it plainly with no tab chrome.
+ *
+ * Usage:
+ *   <CodeTabs>
+ *     <Fragment slot="r">```r … ```</Fragment>
+ *     <Fragment slot="python">```python … ```</Fragment>
+ *   </CodeTabs>
+ */
+const hasPython = Astro.slots.has('python');
+---
+
+<div class="wiki-codetabs" data-codetabs>
+  {hasPython && (
+    <div class="wiki-codetabs__tabs" role="tablist" aria-label="Language">
+      <button type="button" class="wiki-codetabs__tab" role="tab" data-lang="r" aria-selected="true">R</button>
+      <button type="button" class="wiki-codetabs__tab" role="tab" data-lang="python" aria-selected="false">Python</button>
+    </div>
+  )}
+  <div class="wiki-codetabs__panel" data-lang-panel="r" role={hasPython ? 'tabpanel' : undefined}>
+    <slot name="r" />
+  </div>
+  {hasPython && (
+    <div class="wiki-codetabs__panel" data-lang-panel="python" role="tabpanel" hidden>
+      <slot name="python" />
+    </div>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-codetabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.wiki-codetabs__tab'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-lang-panel]'));
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+        panels.forEach((p) => (p.hidden = p.dataset.langPanel !== tab.dataset.lang));
+      });
+    });
+  });
+</script>
