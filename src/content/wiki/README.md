@@ -115,6 +115,26 @@ Narrative form: <Cite id="cohen-1960" bare /> introduced kappa.
 Render a tagged bibliography with `<ReferenceList tags={["irr"]} />` (omit `tags` for all).
 To add a source, append an object to `references.json` and cite it by `id`.
 
+### VT IRB / HRPP links
+
+The IRB Pathfinder (`irb/vt-irb-navigator.mdx`) hands out links to specific VT HRPP
+documents (protocol templates, consent forms, the determination form, …). Those live
+in **one place** — `src/data/vt-hrpp-links.json` — so no URL is duplicated across the
+lesson. Each entry is `{ title, url, note? }` and points at the actual `.docx`/`.doc`,
+not a generic index page.
+
+VT moves these files when it reorganizes its site, so run the link checker to catch
+rot before it ships:
+
+```
+npm run check:irb-links
+```
+
+It HTTP-checks every registry URL **and** any VT links in the IRB lesson prose, fails
+(exit 1) on anything that 404s, and warns if two entries share a URL. When a link
+breaks, find the current file on <https://www.research.vt.edu/sirc/hrpp/> and update
+`vt-hrpp-links.json`.
+
 Prev/next links are added automatically; you don't need to include them in the lesson.
 
 > The interactive components themselves are code (`src/components/wiki/`). To add a new

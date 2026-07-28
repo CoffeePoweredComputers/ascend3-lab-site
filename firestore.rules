@@ -5,7 +5,7 @@ rules_version = '2';
 // members/{uid} auth model.
 //
 // Enforcement model: these rules are the ONLY real access control. The client
-// UI (sign-in gating, the /wiki/review admin page) is cosmetic — a determined
+// UI (sign-in gating, the /admin and /wiki/admin pages) is cosmetic — a determined
 // user can call Firestore directly, so every read/write is checked here.
 //
 // Roles live in members/{uid}. `get()` reads bill one doc read per evaluation;

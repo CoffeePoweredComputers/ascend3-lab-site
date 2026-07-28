@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "check:citations": "node scripts/check-citations.mjs",
+    "check:irb-links": "node scripts/check-vt-hrpp-links.mjs",
     "build:pm-template": "node scripts/build-pm-template.mjs"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "@lezer/highlight": "^1.2.3",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
+    "astro-pagefind": "^2.0.1",
     "firebase": "^12.15.0",
     "js-yaml": "^5.2.1",
     "marked": "^18.0.5",

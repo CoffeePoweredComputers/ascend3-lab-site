@@ -39,8 +39,10 @@ const { title, description, estMinutes } = lesson.data;
 
 <WikiLayout title={title} description={description}>
   <article class="wiki-article py-12 lg:py-16">
-    <div class="wiki-prose">
-      <p class="font-mono text-sm text-primary mb-2">
+    {/* data-pagefind-body scopes the search index to lesson content only —
+        every page WITHOUT it (admin, edit, landing, homepage) is excluded. */}
+    <div class="wiki-prose" data-pagefind-body>
+      <p class="font-mono text-sm text-primary mb-2" data-pagefind-meta="module">
         &gt; {module?.title ?? lesson.data.module}
       </p>
       <h1>{title}</h1>
@@ -50,7 +52,7 @@ const { title, description, estMinutes } = lesson.data;
         </p>
       )}
 
-      <div class="wiki-editlink" data-editlink hidden>
+      <div class="wiki-editlink" data-editlink hidden data-pagefind-ignore>
         <a class="wiki-editlink__a" href={`/wiki/edit?slug=${lesson.id}`}>✎ Edit this page</a>
       </div>
 

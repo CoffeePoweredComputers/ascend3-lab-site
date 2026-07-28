@@ -22,6 +22,8 @@ firebase-debug.log
 *.swp
 *.swo
 *~
+# LibreOffice lock files (appear while a .xlsx template is open)
+.~lock.*#
 
 # OS
 .DS_Store

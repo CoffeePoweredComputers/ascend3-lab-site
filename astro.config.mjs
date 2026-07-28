@@ -2,11 +2,16 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import pagefind from 'astro-pagefind';
 
 export default defineConfig({
-  integrations: [mdx()],
-  // The admin dashboard moved out of the wiki; keep old bookmarks working.
-  redirects: { '/wiki/review': '/admin' },
+  integrations: [mdx(), pagefind()],
+  // Old admin URLs — wiki triage + publishing live at /wiki/admin; site-wide
+  // admin (members, interest, news) stays at /admin. Keep old bookmarks working.
+  redirects: {
+    '/wiki/review': '/wiki/admin',
+    '/wiki/publish': '/wiki/admin',
+  },
   image: {
     domains: [
       'scholar.googleusercontent.com',

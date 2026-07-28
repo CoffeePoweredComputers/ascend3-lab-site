@@ -125,14 +125,70 @@
   --pf-skeleton: var(--color-surface);
   --pf-skeleton-shine: var(--color-surface-alt);
   --pf-border-radius: var(--radius-md);
+  /* VS Code-style quick-open palette: drop from the top of the viewport with
+     no backdrop dim — border + shadow do the separation. Dense results list.
+     ≤640px keeps the component's built-in fullscreen behavior. */
+  --pf-modal-top: 0.75rem;
+  --pf-modal-max-width: 640px;
+  --pf-modal-max-height: min(60dvh, 560px);
+  --pf-modal-backdrop: transparent;
+  --pf-results-gap: 2px;
 }
-/* Divider under the results block, only while a search is active. At rest the
-   summary div exists but is empty; it gains text (a count or "No results…")
-   for any live query, so :not(:empty) tracks search state without JS. */
-.wiki-search__results:has(.pf-summary:not(:empty)) {
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
+@media (min-width: 641px) {
+  .wiki-search:is(*, #\#):is(*, #\#):is(*, #\#) dialog.pf-modal {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  .wiki-search:is(*, #\#):is(*, #\#):is(*, #\#) .pf-modal-header {
+    padding: 8px 10px;
+  }
+}
+/* When the sidebar is present (lg), center the palette over the CONTENT area
+   so it lines up with the command-bar field: a fixed dialog with auto side
+   margins centers inside its inset box, so shifting the left inset by the
+   sidebar width is all it takes. Width matches the field (64rem column minus
+   its 1.5rem side padding), clamped so it never overflows narrow desktops. */
+@media (min-width: 1024px) {
+  .wiki-search {
+    --pf-modal-max-width: min(61rem, calc(100vw - 340px - 2rem));
+    /* Drop the palette at the command-bar field's exact position/height so
+       opening it reads as the field expanding downward. */
+    --pf-modal-top: 0.5rem;
+    --pf-input-height: 2.5rem;
+  }
+  .wiki-search:is(*, #\#):is(*, #\#):is(*, #\#) dialog.pf-modal {
+    inset-inline-start: 340px;
+  }
+}
+/* The component ships `pagefind-modal-trigger { display: inline-block }` (a
+   later rule that beats its own grouped `display: block` reset by order), so
+   the trigger shrink-wraps like a toolbar button and its inner
+   `.pf-trigger-btn { width: 100% }` fills only that. Make it a real block in
+   our wrappers so the command-bar field spans the lesson column. Unarmored
+   (0,0,1) element rule — a plain descendant selector out-ranks it. */
+.wiki-search pagefind-modal-trigger {
+  display: block;
+  width: 100%;
+}
+
+/* Icon-only trigger in the mobile top bar: undo the component's full-width
+   input-shaped button so it sits square in the icon-button row. Pagefind's CSS
+   armors its selectors with three ID-level `:is(*, #\#)` chains (see the header
+   comment in pagefind-component-ui.css); repeat the trick to out-rank it. */
+.wiki-search--icon:is(*, #\#):is(*, #\#):is(*, #\#) .pf-trigger-btn {
+  width: auto;
+  height: auto;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+}
+.wiki-search--icon:is(*, #\#):is(*, #\#):is(*, #\#) .pf-trigger-btn:hover {
+  background: var(--color-surface);
+}
+.wiki-search--icon:is(*, #\#):is(*, #\#):is(*, #\#) .pf-trigger-icon {
+  width: 18px;
+  height: 18px;
 }
 
 

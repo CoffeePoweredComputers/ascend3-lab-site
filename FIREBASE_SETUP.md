@@ -52,12 +52,12 @@ hand — this is safer than shipping a temporarily-open rule.
 3. Firebase console → **Firestore** → `members` collection → open the doc with your UID
    → set `role: "admin"` and `status: "member"`.
 
-Reload the site — you're now an admin, and all further approvals happen in `/wiki/review`.
+Reload the site — you're now an admin, and all further approvals happen in `/admin` → Members.
 
 ## Security model (why it's safe)
 
-- The client UI (sign-in gating, the `/wiki/review` page) is **cosmetic**. `/wiki/review`
-  ships as a public static file; put no secrets in it.
+- The client UI (sign-in gating, the `/admin` and `/wiki/admin` pages) is **cosmetic**. They
+  ship as public static files; put no secrets in them.
 - **Firestore security rules are the only real enforcement.** Every read/write checks
   `@vt.edu` + verified email + member/admin role. A non-VT Google account can obtain a
   token but can read/write nothing.

@@ -1184,6 +1184,9 @@ section[id]:not(#home) {
 }
 .wiki-auth[data-state="member"] .wiki-auth__menu,
 .wiki-auth[data-state="admin"] .wiki-auth__menu { display: flex; }
+/* Menus whose only items are admin-gated (the main-site nav) stay fully hidden
+   for plain members — otherwise they'd render an empty bordered strip. */
+.wiki-auth[data-state="member"] .wiki-auth__menu--admin-only { display: none; }
 
 .wiki-auth__item {
   display: flex;
@@ -1202,7 +1205,7 @@ section[id]:not(#home) {
 .wiki-auth__item:hover svg { color: var(--color-primary); }
 
 /* Role-gated items: editors get "Propose content"; admins additionally get
-   "Publish" + "Review queue". Base rule hides them; state/editor reveals. */
+   "Wiki admin" + "Site admin". Base rule hides them; state/editor reveals. */
 .wiki-auth__item--editor,
 .wiki-auth__item--admin { display: none; }
 .wiki-auth[data-editor="true"] .wiki-auth__item--editor { display: flex; }

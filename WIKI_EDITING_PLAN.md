@@ -36,7 +36,7 @@ setup below.
 1. Deploy the hardened rules: `firebase deploy --only firestore:rules`.
 2. Enable the **GitHub auth provider** in Firebase (GitHub OAuth App; callback = Firebase auth
    handler). Also unblocks the issue-filer.
-3. Per editor: toggle **Make editor** in `/wiki/review` → Members **AND** add them as a GitHub
+3. Per editor: toggle **Make editor** in `/admin` → Members **AND** add them as a GitHub
    **collaborator** (write). Both are required — the flag shows the UI, the collaborator grant
    authorizes the PR.
 4. **Branch protection** on `master`: require a PR, require the **Wiki build check** status
@@ -44,7 +44,7 @@ setup below.
 
 **How it's used:** editor signs in → "Edit this page" appears on lessons → edit → *Open pull
 request* (authored by them). New content at `/wiki/new`; reveal hidden content at
-`/wiki/publish` (admin).
+`/wiki/admin` → Publish (admin).
 
 **Chosen model:** editor-native, collaborator-based (Option A). Editors are added as GitHub
 **collaborators** with **branch protection on `master`**, so their browser token can push a

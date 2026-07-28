@@ -1,0 +1,76 @@
+{
+  "protocol503": {
+    "title": "HRP-503 Human Research Protocol template",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/hrp-503-vt-protocol-template.docx",
+    "note": "The standard human-research protocol template (.docx)."
+  },
+  "protocol503a": {
+    "title": "HRP-503a Survey Research Protocol template",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/hrp-503a-vt-protocol-template.docx",
+    "note": "For surveys, questionnaires, interviews, and focus groups (.docx)."
+  },
+  "existingData": {
+    "title": "Existing Data Protocol template",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/research-protocol-existing-data.doc",
+    "note": "For secondary analysis of data that was already collected (.doc)."
+  },
+  "consentSbe": {
+    "title": "HRP-502 Social/Behavioral Informed Consent template",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/hrp-502-template-consent-document-sbe.docx",
+    "note": "The social/behavioral consent form — not the biomedical version (.docx)."
+  },
+  "infoSheet": {
+    "title": "Information Sheet for Studies Without Consent",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/information-sheet-for-studies-without-consent.docx",
+    "note": "For anonymous/online studies where documentation of consent is waived (.docx)."
+  },
+  "parentPermission": {
+    "title": "HRP-502p Parent Permission template",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/hrp-502p-template-parent%20permission-document.docx",
+    "note": "Parent/guardian permission — required when participants are minors (.docx)."
+  },
+  "assent": {
+    "title": "HRP-502a Assent template",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/hrp-502a-assent-template.docx",
+    "note": "The child assent form minors sign alongside parent permission (.docx)."
+  },
+  "determination": {
+    "title": "Human Subjects Research Determination Form",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/templates/human-subjects-research-determination-form.doc",
+    "note": "File this to get an official \"not human subjects research\" letter (.doc)."
+  },
+  "exemptTool": {
+    "title": "Exempt Assessment Tool & Protocol Builder",
+    "url": "https://www.research.vt.edu/content/dam/research_vt_edu/hrpp/files/general/exempt-assessment-tool-protocol-builder.docx",
+    "note": "Walks you through whether an exempt category fits your study (.docx)."
+  },
+  "training": {
+    "title": "CITI \"Basic Social & Behavioral Research\" training",
+    "url": "https://www.research.vt.edu/sirc/hrpp/training.html",
+    "note": "Required for everyone listed on the protocol, including students. Do this before you submit."
+  },
+  "portal": {
+    "title": "Submit in the IRB Protocol Management system",
+    "url": "https://secure.research.vt.edu/irb/",
+    "note": "VT login required — every submission goes through this portal."
+  },
+  "contact": {
+    "title": "HRPP office — questions & consultations",
+    "url": "https://www.research.vt.edu/sirc/hrpp/contacts.html",
+    "note": "irb@vt.edu · 540-231-3732 · virtual office hours are listed on the HRPP site."
+  },
+  "faq": {
+    "title": "Getting Started — Common Questions",
+    "url": "https://www.research.vt.edu/sirc/hrpp/getting-started-common-questions.html"
+  },
+  "ferpa": {
+    "title": "Forms & Guidance (FERPA, SOPs, checklists)",
+    "url": "https://www.research.vt.edu/research-support/forms-guidance/hrpp.html",
+    "note": "Using VT student education records usually needs Registrar permission and may need consent."
+  },
+  "policy": {
+    "title": "VT Policy 13040 — Human Subjects Research",
+    "url": "https://policies.vt.edu/13040.pdf",
+    "note": "Full-board submission deadlines tie to the monthly meeting schedule."
+  }
+}

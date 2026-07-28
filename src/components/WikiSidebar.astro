@@ -9,6 +9,7 @@
  */
 import { getWikiNav, lessonHref } from '../lib/wiki';
 import AuthWidget from './AuthWidget.astro';
+import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro';
 
 const nav = await getWikiNav();
 const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
@@ -104,13 +105,13 @@ const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesso
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
             <span>My reports</span>
           </a>
-          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-publish href="/wiki/publish">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 21h14"/></svg>
-            <span>Publish</span>
-          </a>
-          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-review href="/admin">
+          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-wikiadmin href="/wiki/admin">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.5 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.5"/></svg>
-            <span>Review queue</span>
+            <span>Wiki admin</span>
+          </a>
+          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-siteadmin href="/admin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg>
+            <span>Site admin</span>
           </a>
         </nav>
       </AuthWidget>
@@ -135,11 +136,27 @@ const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesso
   </div>
 </aside>
 
+<!-- ═══ DESKTOP COMMAND BAR ═══ -->
+<!-- VS Code-style Command Center: a slim fixed bar over the content area with
+     one centered pill. The palette drops top-aligned over it (see wiki.css),
+     so the pill reads as expanding into the palette. Plain <div>: the mobile
+     <header> below is the page's banner landmark; this holds a lone button. -->
+<div class="hidden lg:flex fixed top-0 left-[340px] right-0 z-30 h-14 items-center justify-center bg-white/60 dark:bg-surface-base/60 backdrop-blur-xl border-b border-border/50">
+  <!-- Mirrors .wiki-article (max-width 64rem + 1.5rem inline padding) so the
+       search field's edges line up with the lesson column beneath it. -->
+  <div class="wiki-search w-full max-w-5xl px-6">
+    <pagefind-modal-trigger instance="wiki-search" placeholder="Search the wiki"></pagefind-modal-trigger>
+  </div>
+</div>
+
 <!-- ═══ MOBILE TOP BAR ═══ -->
 <header class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-surface-base/70 backdrop-blur-xl border-b border-border/50">
   <div class="flex items-center justify-between px-4 py-3">
     <a href="/wiki" class="no-underline font-heading font-bold text-text">Lab Wiki</a>
     <div class="flex items-center gap-1">
+      <span class="wiki-search wiki-search--icon">
+        <pagefind-modal-trigger instance="wiki-search" compact hide-shortcut placeholder="Search the wiki"></pagefind-modal-trigger>
+      </span>
       <button type="button" id="wiki-theme-toggle-mobile" class="theme-toggle p-2 rounded-md text-text-muted hover:text-text hover:bg-surface" aria-label="Toggle dark mode">
         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1.75em" height="1.75em" fill="currentColor" stroke-linecap="round" class="theme-toggle__classic" viewBox="0 0 32 32">
           <clipPath id="wiki-cutout-m"><path d="M0-5h30a1 1 0 0 0 9 13v24H0Z" /></clipPath>
@@ -173,13 +190,13 @@ const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesso
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
             <span>My reports</span>
           </a>
-          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-publish href="/wiki/publish">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 21h14"/></svg>
-            <span>Publish</span>
-          </a>
-          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-review href="/admin">
+          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-wikiadmin href="/wiki/admin">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.5 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.5"/></svg>
-            <span>Review queue</span>
+            <span>Wiki admin</span>
+          </a>
+          <a class="wiki-auth__item wiki-auth__item--admin" data-auth-siteadmin href="/admin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M1 14h6"/><path d="M9 8h6"/><path d="M17 16h6"/></svg>
+            <span>Site admin</span>
           </a>
         </nav>
       </AuthWidget>
@@ -230,6 +247,25 @@ const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesso
     ))}
   </div>
 </header>
+
+<!-- ═══ SEARCH PALETTE ═══ -->
+<!-- One modal serves both triggers (desktop sidebar + mobile top bar): the
+     native <dialog> renders in the browser's top layer, above everything.
+     Styled as a VS Code-style quick-open palette (top-anchored, no backdrop
+     dim — see .wiki-search in wiki.css). Children are given explicitly to
+     omit the keyboard-hints footer the childless modal would self-compose. -->
+<div class="wiki-search">
+  <PagefindConfig instance="wiki-search" />
+  <pagefind-modal instance="wiki-search">
+    <pagefind-modal-header>
+      <pagefind-input instance="wiki-search" placeholder="Search the wiki"></pagefind-input>
+    </pagefind-modal-header>
+    <pagefind-modal-body>
+      <pagefind-summary instance="wiki-search"></pagefind-summary>
+      <pagefind-results instance="wiki-search"></pagefind-results>
+    </pagefind-modal-body>
+  </pagefind-modal>
+</div>
 
 <script>
   // ── Mobile menu ──

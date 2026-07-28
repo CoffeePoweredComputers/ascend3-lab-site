@@ -6,13 +6,17 @@
  * researcher needs for that path. Scoped to social/behavioral/computing
  * research only — no biomedical/animal/biosafety branches.
  *
- * Links point at stable HRPP landing/index pages (deep .docx URLs rot); the
- * specific template to grab is named in each link's `note`. All URLs were
- * verified to resolve. This is decision SUPPORT — only HRPP can officially
- * classify a study.
+ * Every resource link resolves to a SPECIFIC HRPP document or page, sourced
+ * once from ./vt-hrpp-links.json (the single source of truth — do not hard-code
+ * URLs here). Those deep .docx/.doc URLs can rot when VT reorganizes the HRPP
+ * site, so run `npm run check:irb-links` to verify they all still resolve. This
+ * is decision SUPPORT — only HRPP can officially classify a study.
  */
+import hrppLinksData from './vt-hrpp-links.json';
 
 export type NavLink = { title: string; url: string; note?: string };
+
+const L = hrppLinksData as Record<string, NavLink>;
 
 export type NavNode =
   | { text: string; options: { label: string; to: string }[] }
@@ -23,76 +27,22 @@ export type NavNode =
       links: NavLink[];
     };
 
-// ── Shared resources (defined once, composed into outcomes) ──────────────────
-const TRAINING: NavLink = {
-  title: 'CITI "Basic Social & Behavioral Research" training',
-  url: 'https://www.research.vt.edu/sirc/hrpp/training.html',
-  note: 'Required for everyone listed on the protocol, including students. Do this before you submit.',
-};
-const PORTAL: NavLink = {
-  title: 'Submit in the IRB Protocol Management system',
-  url: 'https://secure.research.vt.edu/irb/',
-  note: 'VT login required — every submission goes through this portal.',
-};
-const CONTACT: NavLink = {
-  title: 'HRPP office — questions & consultations',
-  url: 'https://www.research.vt.edu/sirc/hrpp/contacts.html',
-  note: 'irb@vt.edu · 540-231-3732 · virtual office hours are listed on the HRPP site.',
-};
-const FAQ: NavLink = {
-  title: 'Getting Started — Common Questions',
-  url: 'https://www.research.vt.edu/sirc/hrpp/getting-started-common-questions.html',
-};
-const DETERMINATION: NavLink = {
-  title: 'Human Subjects Research Determination Form',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'On the Templates page — file this to get an official "not human subjects research" letter.',
-};
-const EXEMPT_TOOL: NavLink = {
-  title: 'Exempt Assessment Tool & Protocol Builder',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'On the Templates page — walks you through whether an exempt category fits.',
-};
-const PROTOCOL_503: NavLink = {
-  title: 'HRP-503 Human Research Protocol template',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'The standard protocol template, on the Templates page.',
-};
-const PROTOCOL_503A: NavLink = {
-  title: 'HRP-503a Survey Research Protocol template',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'For surveys, questionnaires, interviews, and focus groups.',
-};
-const CONSENT_SBE: NavLink = {
-  title: 'HRP-502 Social/Behavioral Informed Consent template',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'Use the social/behavioral version — not the biomedical one.',
-};
-const INFO_SHEET: NavLink = {
-  title: 'Information Sheet for Studies Without Consent',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'For anonymous/online studies where documentation of consent is waived.',
-};
-const EXISTING_DATA: NavLink = {
-  title: 'Existing Data Protocol template',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'For secondary analysis of data that was already collected.',
-};
-const PARENT_PERMISSION: NavLink = {
-  title: 'Parent Permission & Assent templates',
-  url: 'https://www.research.vt.edu/sirc/hrpp/resources/templates.html',
-  note: 'HRP-502p and the assent templates — required when participants are minors.',
-};
-const FERPA: NavLink = {
-  title: 'Forms & Guidance (FERPA, SOPs, checklists)',
-  url: 'https://www.research.vt.edu/research-support/forms-guidance/hrpp.html',
-  note: 'Using VT student education records usually needs Registrar permission and may need consent.',
-};
-const POLICY: NavLink = {
-  title: 'VT Policy 13040 — Human Subjects Research',
-  url: 'https://policies.vt.edu/13040.pdf',
-  note: 'Full-board submission deadlines tie to the monthly meeting schedule.',
-};
+// ── Shared resources (each aliases one entry in the HRPP link registry) ──────
+const TRAINING = L.training;
+const PORTAL = L.portal;
+const CONTACT = L.contact;
+const FAQ = L.faq;
+const DETERMINATION = L.determination;
+const EXEMPT_TOOL = L.exemptTool;
+const PROTOCOL_503 = L.protocol503;
+const PROTOCOL_503A = L.protocol503a;
+const CONSENT_SBE = L.consentSbe;
+const INFO_SHEET = L.infoSheet;
+const EXISTING_DATA = L.existingData;
+const PARENT_PERMISSION = L.parentPermission;
+const ASSENT = L.assent;
+const FERPA = L.ferpa;
+const POLICY = L.policy;
 
 // CITI + portal + contact — every "needs submission" outcome shares these.
 const SUBMIT_TRIO: NavLink[] = [TRAINING, PORTAL, CONTACT];
@@ -221,7 +171,7 @@ export const irbNavNodes: Record<string, NavNode> = {
     tone: 'warn',
     summary:
       'Minors, prisoners, or your own graded students add protections. Minors cannot use the survey/interview exemption and need parent permission plus child assent; studying your own students raises coercion concerns. Contact HRPP early to confirm the path.',
-    links: [PROTOCOL_503, CONSENT_SBE, PARENT_PERMISSION, FERPA, ...SUBMIT_TRIO],
+    links: [PROTOCOL_503, CONSENT_SBE, PARENT_PERMISSION, ASSENT, FERPA, ...SUBMIT_TRIO],
   },
   'r-fullboard': {
     badge: 'Full Board Review',
