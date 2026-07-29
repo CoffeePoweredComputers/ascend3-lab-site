@@ -43,11 +43,12 @@
     {
       "id": "hudson",
       "name": "Hudson Mitchell-Pullman",
-      "role": "High School Researcher",
+      "role": "High-school dropout, Emergent Ventures",
       "photo": "/assets/people/hudson.jpg",
       "bio": "Human–AI interaction in CS education, focusing on end-user programming and behavior-driven specification.",
       "website": null,
-      "email": null
+      "email": null,
+      "institution": "San Francisco, CA"
     }
   ],
   "undergrad": [
