@@ -2,6 +2,13 @@
   {
     "date": "2026-07-29",
     "type": "publication",
+    "title": "One paper accepted to SIGCSE Virtual!",
+    "description": "Paper Title: Print(“¡Hola!”, “েকমন আেছন?”, “안녕”): A Systematic Review of Translanguaging & Language Mixing in CS Education. Congrats to Fariha Anjum on the first paper of her PhD!!",
+    "links": []
+  },
+  {
+    "date": "2026-07-29",
+    "type": "publication",
     "title": "One paper accepted to VL/HCC!",
     "description": "Paper Title: Exploring the Design Space of LLM-Based Programming Support in CS Education: A Scoping Review through the Lens of Assist. Congrats to Minsun Kim on the first publication of her PhD!!",
     "links": [
@@ -10,6 +17,13 @@
         "url": "https://arxiv.org/pdf/2607.21257"
       }
     ]
+  },
+  {
+    "date": "2026-03-01",
+    "type": "publication",
+    "title": "NSF SPLICE Mini-grant accepted!",
+    "description": "A 19k SPLICE mini-grant accepted to build datasets of student submission to natural language programming activities and adapt Purplex to SPLICE's interoperability standard.",
+    "links": []
   },
   {
     "date": "2026-02-01",
