@@ -1,7 +1,9 @@
 # Firebase setup — Lab Wiki annotation & review layer
 
 The wiki's sign-in / annotation / review features run on **Firebase Auth + Firestore**
-in project **`hamiltonfour`**. The static site is unchanged and unaffected until the
+in project **`ascend3-lab`** — the id in `.env` is authoritative, and `.firebaserc`
+must match it or `firebase deploy` silently publishes rules to the wrong project.
+The static site is unchanged and unaffected until the
 `PUBLIC_FIREBASE_*` env vars below are present at build time — with no config, the
 sign-in control simply doesn't render.
 
@@ -13,9 +15,9 @@ governed entirely by the Firestore security rules.
 
 ```
 PUBLIC_FIREBASE_API_KEY=...
-PUBLIC_FIREBASE_AUTH_DOMAIN=hamiltonfour.firebaseapp.com
-PUBLIC_FIREBASE_PROJECT_ID=hamiltonfour
-PUBLIC_FIREBASE_STORAGE_BUCKET=hamiltonfour.appspot.com
+PUBLIC_FIREBASE_AUTH_DOMAIN=ascend3-lab.firebaseapp.com
+PUBLIC_FIREBASE_PROJECT_ID=ascend3-lab
+PUBLIC_FIREBASE_STORAGE_BUCKET=ascend3-lab.appspot.com
 PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
 PUBLIC_FIREBASE_APP_ID=...
 ```
@@ -27,8 +29,9 @@ configuration** (register a Web App if none exists).
 
 1. **Authentication → Sign-in method** → enable **Google**; set a support email.
 2. **Authentication → Settings → Authorized domains** → add:
-   `hamiltonfour.web.app`, `hamiltonfour.firebaseapp.com`, any custom domain, and
-   `localhost` (for `npm run dev`). Popups fail silently on unlisted domains.
+   `ascend3.cs.vt.edu` (where the site actually runs), `ascend3-lab.web.app`,
+   `ascend3-lab.firebaseapp.com`, and `localhost` (for `npm run dev`). Popups fail
+   silently on unlisted domains.
 3. **Firestore Database** → create in **production mode**, region near VT (e.g. `nam5`).
 4. Register a **Web App** (step 1 above) to obtain the config for `.env`.
 
