@@ -490,6 +490,10 @@ const NAV_ROUTES = [
             href: done.url,
             linkText: `${done.sha.slice(0, 7)} ↗`,
           });
+          // Clear staged state on the commit itself, NOT on the reload below —
+          // if the reload fails the button must not stay armed over a stale base.
+          newsChanges = [];
+          newsDirtyUi();
           // Re-read master so the next edit this session bases off the new sha.
           await loadNews();
         } catch (err) {

@@ -111,9 +111,14 @@ function b64ToUtf8(b64: string): string {
 export async function readFileFromMaster(path: string, token?: string): Promise<MasterFile | null> {
   const headers: Record<string, string> = { Accept: 'application/vnd.github+json' };
   if (token) headers.Authorization = `Bearer ${token}`;
+  // no-store is load-bearing, not hygiene. Unauthenticated reads come back with
+  // `cache-control: public, max-age=60, s-maxage=60`, so a re-read in the minute
+  // after a commit can serve the PRE-commit sha from cache. The publish path
+  // compares that sha against an authenticated (privately cached) read, so a
+  // stale hit here reads as drift and blocks a legitimate second publish.
   const res = await fetch(
     `https://api.github.com/repos/${GITHUB_REPO}/contents/${encodeURI(path)}?ref=${GITHUB_BRANCH}`,
-    { headers },
+    { headers, cache: 'no-store' },
   );
   if (res.status === 404) return null;
   if (!res.ok) {
@@ -325,7 +330,8 @@ export async function commitNewsToMaster(input: {
   if (!current) throw new Error(`${NEWS_JSON} no longer exists on master.`);
   if (current.sha !== baseSha) {
     throw new Error(
-      'News was changed on master since you loaded it. Reload the News tab and re-apply your edit — publishing now would revert that change.',
+      'News was changed on master since you loaded it. Reload the News tab and re-apply your edit — publishing now would revert that change. ' +
+        `(loaded ${baseSha.slice(0, 7)}, master now ${current.sha.slice(0, 7)})`,
     );
   }
 
