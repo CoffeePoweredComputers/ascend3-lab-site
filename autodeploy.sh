@@ -8,11 +8,9 @@
 #   crontab -e
 #   */5 * * * * $HOME/ascend3-lab-site/autodeploy.sh >> $HOME/ascend3-autodeploy.log 2>&1
 #
-# ONE-TIME PREREQ — update.sh uses `sudo rsync`, which can't prompt under
-# cron. Allow that exact command without a password (sudo visudo):
-#
-#   <your-user> ALL=(root) NOPASSWD: /usr/bin/rsync -av --delete dist/ /var/www/ascend3/
-#
+# No sudo prereq: /var/www/ascend3 is owned by the deploying user and update.sh
+# rsyncs as that user. node/npm are at /usr/bin, so cron's minimal PATH finds
+# them without sourcing a profile.
 set -euo pipefail
 cd "$(dirname "$0")"
 

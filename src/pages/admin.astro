@@ -7,7 +7,8 @@
  * Three tabs:
  *  - Members: approve pending lab members, promote/revoke admin, remove.
  *  - Interest: "Express interest" submissions from /undergrad.
- *  - News: edit the homepage news feed (src/data/news.json) via a GitHub PR.
+ *  - News: edit the homepage news feed, committed straight to master
+ *    (src/data/news.json); autodeploy rebuilds within ~5 min.
  * noindex — gated app shell.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -110,11 +111,12 @@ const NAV_ROUTES = [
               <div class="wiki-review__newsbar" data-news-bar hidden>
                 <span class="wiki-review__count" data-news-summary></span>
                 <button type="button" data-news-discard>Discard changes</button>
-                <button type="button" class="wiki-review__prbtn" data-news-pr>Open PR…</button>
+                <button type="button" class="wiki-review__prbtn" data-news-pr>Publish</button>
               </div>
               <p class="wiki-review__newsnote">
-                Changes ship as a pull request updating <code>src/data/news.json</code> — nothing
-                is public until the PR merges and the site deploys.
+                Publishing commits <code>src/data/news.json</code> straight to <code>master</code> —
+                no review step. The site rebuilds automatically, so the item is live within about
+                five minutes.
               </p>
             </div>
           </div>
@@ -467,29 +469,31 @@ const NAV_ROUTES = [
         if (newsChanges.length === 0) return;
         newsPrBtn.disabled = true;
         const label = newsPrBtn.textContent;
-        newsPrBtn.textContent = 'Opening PR…';
+        newsPrBtn.textContent = 'Publishing…';
         try {
-          const { openWikiPullRequest, NEWS_JSON } = await import('@lib/annotate/pr');
-          const content = `${JSON.stringify(newsWorking, null, 2)}\n`;
-          const pr = await openWikiPullRequest({
-            kind: 'news',
-            branchKey: 'news',
-            title: newsChanges.length === 1 ? `News: ${newsChanges[0]}` : `News: ${newsChanges.length} updates`,
-            body: [
-              'Updates `src/data/news.json`:',
+          const { commitNewsToMaster } = await import('@lib/annotate/pr');
+          if (!newsBaseSha) throw new Error('News never finished loading — reload the tab.');
+          const summary =
+            newsChanges.length === 1 ? newsChanges[0] : `${newsChanges.length} updates`;
+          const done = await commitNewsToMaster({
+            content: `${JSON.stringify(newsWorking, null, 2)}\n`,
+            baseSha: newsBaseSha,
+            message: [
+              `News: ${summary}`,
               '',
               ...newsChanges.map((c) => `- ${c}`),
               '',
-              '_Filed from the review dashboard._',
+              'Published from the admin dashboard.',
             ].join('\n'),
-            files: [{ path: NEWS_JSON, content, baseSha: newsBaseSha }],
           });
-          if (pr.drift.length) toast(pr.drift[0], 'error');
-          toast(`Opened PR #${pr.number} — merge it, then deploy.`, 'success', { href: pr.url, linkText: `#${pr.number} ↗` });
-          newsChanges = [];
-          newsDirtyUi();
+          toast('Published — live in about 5 minutes.', 'success', {
+            href: done.url,
+            linkText: `${done.sha.slice(0, 7)} ↗`,
+          });
+          // Re-read master so the next edit this session bases off the new sha.
+          await loadNews();
         } catch (err) {
-          toast(`Couldn't open the PR: ${errMsg(err)}`, 'error');
+          toast(`Couldn't publish: ${errMsg(err)}`, 'error');
         } finally {
           newsPrBtn.disabled = false;
           newsPrBtn.textContent = label;
