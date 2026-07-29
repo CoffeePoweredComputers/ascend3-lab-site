@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-07-29",
+    "type": "publication",
+    "title": "One paper accepted to VL/HCC!",
+    "description": "Paper Title: Exploring the Design Space of LLM-Based Programming Support in CS Education: A Scoping Review through the Lens of Assist. Congrats to Minsun Kim on the first publication of her PhD!!",
+    "links": [
+      {
+        "text": "Link",
+        "url": "https://arxiv.org/pdf/2607.21257"
+      }
+    ]
+  },
+  {
     "date": "2026-02-01",
     "type": "talk",
     "title": "India Research Trip",
@@ -12,7 +24,10 @@
     "title": "Engineering Education Affiliate Faculty",
     "description": "David has been appointed as an affiliate faculty member of the Department of Engineering Education at Virginia Tech.",
     "links": [
-      { "text": "Department of Engineering Education", "url": "https://enge.vt.edu/" }
+      {
+        "text": "Department of Engineering Education",
+        "url": "https://enge.vt.edu/"
+      }
     ]
   },
   {
@@ -21,7 +36,10 @@
     "title": "CHCI Affiliate Faculty",
     "description": "David has been appointed as an affiliate faculty member of the Center for Human-Computer Interaction (CHCI) at Virginia Tech.",
     "links": [
-      { "text": "CHCI", "url": "https://hci.icat.vt.edu/" }
+      {
+        "text": "CHCI",
+        "url": "https://hci.icat.vt.edu/"
+      }
     ]
   },
   {
@@ -37,8 +55,14 @@
     "title": "Two Papers at ITiCSE 2025",
     "description": "Presented two papers at ITiCSE 2025 in the Netherlands. One was nominated for the conference's Best Paper Award.",
     "links": [
-      { "text": "ReDefining Code Comprehension", "url": "https://arxiv.org/pdf/2503.12207" },
-      { "text": "Counting the Trees in the Forest", "url": "https://arxiv.org/pdf/2503.12216" }
+      {
+        "text": "ReDefining Code Comprehension",
+        "url": "https://arxiv.org/pdf/2503.12207"
+      },
+      {
+        "text": "Counting the Trees in the Forest",
+        "url": "https://arxiv.org/pdf/2503.12216"
+      }
     ]
   },
   {
@@ -47,7 +71,10 @@
     "title": "Llama Impact Grant Awarded",
     "description": "David and collaborator Paul Denny have been awarded a Llama Impact Grant to pursue work on EiPL questions and Prompt problems.",
     "links": [
-      { "text": "press release", "url": "https://about.fb.com/news/2025/04/llama-impact-grant-recipients/" }
+      {
+        "text": "press release",
+        "url": "https://about.fb.com/news/2025/04/llama-impact-grant-recipients/"
+      }
     ]
   },
   {
@@ -56,7 +83,10 @@
     "title": "ACM TOCE Associate Editor",
     "description": "David has joined ACM Transactions on Computing Education as an Associate Editor.",
     "links": [
-      { "text": "ACM TOCE", "url": "https://dl.acm.org/journal/toce" }
+      {
+        "text": "ACM TOCE",
+        "url": "https://dl.acm.org/journal/toce"
+      }
     ]
   },
   {
@@ -79,8 +109,14 @@
     "title": "Two Papers Accepted to ITiCSE 2025",
     "description": "Two papers on EiPL questions accepted to ITiCSE 2025: \"ReDefining Code Comprehension\" and \"Counting the Trees in the Forest\". Pre-prints available on arXiv.",
     "links": [
-      { "text": "ReDefining Code Comprehension", "url": "https://arxiv.org/pdf/2503.12207" },
-      { "text": "Counting the Trees in the Forest", "url": "https://arxiv.org/pdf/2503.12216" }
+      {
+        "text": "ReDefining Code Comprehension",
+        "url": "https://arxiv.org/pdf/2503.12207"
+      },
+      {
+        "text": "Counting the Trees in the Forest",
+        "url": "https://arxiv.org/pdf/2503.12216"
+      }
     ]
   },
   {
@@ -103,7 +139,10 @@
     "title": "Paper Accepted to COMPUTE 2025",
     "description": "Our paper \"Explain in Plain Language Question with Indic Languages\" was accepted to COMPUTE 2025 and is available on arXiv.",
     "links": [
-      { "text": "arXiv", "url": "https://arxiv.org/abs/2409.20297" }
+      {
+        "text": "arXiv",
+        "url": "https://arxiv.org/abs/2409.20297"
+      }
     ]
   },
   {
