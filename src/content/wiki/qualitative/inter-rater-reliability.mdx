@@ -36,7 +36,14 @@ coefficient measures the wrong thing <Cite id="braun-clarke-2019" />. Use this g
       text: 'Is your analysis interpretivist/reflexive (themes are the researcher’s interpretation, not slots in a fixed scheme)?',
       options: [
         { label: 'Yes — reflexive/interpretivist', to: 'r-skip' },
-        { label: 'No — codebook/positivist', to: 'q2' },
+        { label: 'No — codebook/positivist', to: 'q-claim' },
+      ],
+    },
+    'q-claim': {
+      text: 'Are you making a reliability claim from independently coded data (e.g., prevalence/comparison reporting)?',
+      options: [
+        { label: 'Yes — we need a reliability claim', to: 'q2' },
+        { label: "No — codebook, but no reliability claim", to: 'r-codebook-no-irr' },
       ],
     },
     q2: {
@@ -65,6 +72,10 @@ coefficient measures the wrong thing <Cite id="braun-clarke-2019" />. Use this g
       result:
         'IRR is likely inappropriate. Report reflexivity, an audit trail, and rich theme definitions instead (see Lessons 7–8).',
     },
+    'r-codebook-no-irr': {
+      result:
+        'IRR is optional here. You can still use a codebook to organize analysis, but report your coding process transparently and avoid making a reproducibility/reliability claim.',
+    },
     'r-cohen': {
       result:
         "Cohen’s kappa (two coders, nominal). Scott’s pi or Krippendorff’s alpha are fine alternatives; alpha also handles missing data.",
@@ -87,6 +98,13 @@ coefficient measures the wrong thing <Cite id="braun-clarke-2019" />. Use this g
     },
   }}
 />
+
+<Callout type="note" title="Concrete example: codebook analysis without IRR">
+A team runs a **formative design study** and uses a shared codebook to organize interview
+evidence into design requirements. They code by discussion/consensus and report patterns as
+analytic insights, not prevalence estimates or reproducibility claims — so they can justify
+skipping κ/α while still documenting definitions, decisions, and an audit trail.
+</Callout>
 
 Each branch lands on a measure. Click one to see its equation, what the symbols mean, when
 to use it, and the source:
