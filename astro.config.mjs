@@ -20,7 +20,21 @@ export default defineConfig({
     ],
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      // Vite's public/ middleware serves files by exact path only — it never
+      // resolves <dir>/ to <dir>/index.html the way nginx does in production.
+      // Rewrite published slide-deck URLs so /slides/<slug>/ works in dev too.
+      {
+        name: 'slides-dir-index',
+        configureServer(server) {
+          server.middlewares.use((req, _res, next) => {
+            if (req.url?.startsWith('/slides/') && req.url.endsWith('/')) req.url += 'index.html';
+            next();
+          });
+        },
+      },
+    ],
     // Pre-bundle the lazily-imported Firebase modules at startup so Vite never
     // discovers them mid-session and re-optimizes (which invalidates already-served
     // chunks → "error loading dynamically imported module firebase_auth.js").
