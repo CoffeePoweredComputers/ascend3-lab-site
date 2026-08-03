@@ -1,0 +1,98 @@
+<section data-sid="frequent-testing:14" class="slide" id="slide-12">
+  <style>
+    /* step 1: labels appear in place, then the bars grow one at a time —
+       frequent first, baseline second — each % label fading in as its bar
+       lands. Widths are the data (7.5px per percentage point) — scaleX
+       animates the reveal without touching them. */
+    #slide-12 .s12-bar { transform-origin: left center; transition: transform .8s cubic-bezier(.16,.84,.3,1); }
+    #slide-12 .s12-b1 { transition-delay: .3s; }
+    #slide-12 .s12-b2 { transition-delay: 1.15s; }
+    #slide-12 .s12-bar span { transition: opacity .35s ease; }
+    #slide-12 .s12-b1 span { transition-delay: 1s; }
+    #slide-12 .s12-b2 span { transition-delay: 1.85s; }
+    #slide-12 .frag.is-pending .s12-bar { transform: scaleX(0); transition-delay: 0s; }
+    #slide-12 .frag.is-pending .s12-bar span { opacity: 0; transition-delay: 0s; }
+  </style>
+  <p class="kicker" data-sid="frequent-testing:1">Impact of testing frequency</p>
+  <h2 data-sid="frequent-testing:2" style="margin-bottom: var(--s-3);">Comparing Frequent and Infrequent Exams</h2>
+  <p data-sid="frequent-testing:7" class="cap" style="font-size: 42px">A quasi-experiment comparing frequently tested students in one semester with less frequently tested students in another.</p>
+  <div data-sid="frequent-testing:15" class="slide__body" style="display: flex; align-items: center; gap: var(--s-6);">
+    <div data-sid="frequent-testing:16" style="position: relative; display: flex; flex-direction: column; gap: var(--s-3);">
+      <div data-sid="frequent-testing:17">
+        <p class="word-label" data-sid="frequent-testing:3" style="font-size: 26px; color: var(--fg-1); margin: 0 0 var(--s-1);">Baseline — midterm + final</p>
+        <div data-sid="frequent-testing:4" style="display: flex; gap: 8px;">
+          <div data-sid="frequent-testing:18" class="seat"></div>
+          <div data-sid="frequent-testing:19" class="seat"></div>
+          <div data-sid="frequent-testing:20" class="seat" style="background: var(--accent-3);"></div>
+          <div data-sid="frequent-testing:21" class="seat"></div>
+          <div data-sid="frequent-testing:22" class="seat"></div>
+          <div data-sid="frequent-testing:23" class="seat"></div>
+          <div data-sid="frequent-testing:24" class="seat"></div>
+          <div data-sid="frequent-testing:25" class="seat" style="background: var(--accent-3);"></div>
+          <div data-sid="frequent-testing:26" class="seat"></div>
+          <div data-sid="frequent-testing:27" class="seat"></div>
+          <div data-sid="frequent-testing:28" class="seat"></div>
+          <div data-sid="frequent-testing:29" class="seat"></div>
+          <div data-sid="frequent-testing:30" class="seat"></div>
+          <div data-sid="frequent-testing:31" class="seat"></div>
+          <div data-sid="frequent-testing:32" class="seat" style="background: var(--accent-3);"></div>
+        </div>
+      </div>
+      <div data-sid="frequent-testing:33">
+        <p class="word-label" data-sid="frequent-testing:5" style="font-size: 26px; color: var(--fg-1); margin: 0 0 var(--s-1);">Frequent — quiz · exam, alternating</p>
+        <div data-sid="frequent-testing:6" style="display: flex; gap: 8px;">
+          <div data-sid="frequent-testing:34" class="seat"></div>
+          <div data-sid="frequent-testing:35" class="seat"></div>
+          <div data-sid="frequent-testing:36" class="seat" style="background: var(--accent-1);"></div>
+          <div data-sid="frequent-testing:37" class="seat"></div>
+          <div data-sid="frequent-testing:38" class="seat"></div>
+          <div data-sid="frequent-testing:39" class="seat" style="background: var(--accent-1);"></div>
+          <div data-sid="frequent-testing:40" class="seat"></div>
+          <div data-sid="frequent-testing:41" class="seat"></div>
+          <div data-sid="frequent-testing:42" class="seat" style="background: var(--accent-1);"></div>
+          <div data-sid="frequent-testing:43" class="seat"></div>
+          <div data-sid="frequent-testing:44" class="seat"></div>
+          <div data-sid="frequent-testing:45" class="seat" style="background: var(--accent-1);"></div>
+          <div data-sid="frequent-testing:46" class="seat"></div>
+          <div data-sid="frequent-testing:47" class="seat"></div>
+          <div data-sid="frequent-testing:48" class="seat" style="background: var(--accent-1);"></div>
+        </div>
+      </div>
+      <div class="frag" data-step="1" data-sid="frequent-testing:9" style="display: flex; flex-direction: column; gap: var(--s-2); margin-top: var(--s-3);">
+        <div data-sid="frequent-testing:49" style="display: flex; align-items: center; gap: var(--s-3);">
+          <span class="word-label" style="width: 220px; font-size: 26px;">Frequent</span>
+          <div data-sid="frequent-testing:50" class="s12-bar s12-b1" style="width: 600px; height: 52px; background: var(--accent-1); border-radius: var(--r-2); box-sizing: border-box; display: flex; align-items: center; justify-content: flex-end; padding-right: var(--s-2); color: var(--bg-0); font-size: 26px;"><span>≈80%</span></div>
+          <span class="badge badge--hot" style="font-size: 30px;">+9.1 to 13.5 pp</span>
+        </div>
+        <div data-sid="frequent-testing:51" style="display: flex; align-items: center; gap: var(--s-3);">
+          <span class="word-label" style="width: 220px; font-size: 26px; color: var(--fg-1);">Baseline</span>
+          <div data-sid="frequent-testing:52" class="s12-bar s12-b2" style="width: 548px; height: 52px; background: var(--accent-3); border-radius: var(--r-2); box-sizing: border-box; display: flex; align-items: center; justify-content: flex-end; padding-right: var(--s-2); color: var(--bg-0); font-size: 26px;"><span>≈73%</span></div>
+        </div>
+        <p data-sid="frequent-testing:64" class="cap" style="font-size: 24px; margin: 0;">bars are raw exam averages; the quoted gap is the regression estimate on code-writing questions</p>
+      </div>
+    </div>
+    <aside class="frag chain-col" data-step="2" data-anim="fade-up" data-sid="frequent-testing:11" style="width: auto; flex: 1; align-self: center;">
+      <div data-sid="frequent-testing:8" class="chain-link" style="height: 64px; font-size: 26px;">Findings</div>
+      <div data-sid="frequent-testing:60" class="panel" style="height: auto; width: 512.438px">
+        <ul data-sid="frequent-testing:61" class="scantron-list">
+          <li data-sid="frequent-testing:10" class="frag frag--dim" data-step="3">
+            <p data-sid="frequent-testing:13" class="word-label" style="font-size: 32px; color: var(--accent-2); margin: 0">STRESS ↓</p>
+            <p data-sid="frequent-testing:53" class="cap" style="font-size: 30px">More, smaller exams lowered reported test anxiety.</p>
+          </li>
+          <li data-sid="frequent-testing:54" class="frag frag--dim" data-step="4">
+            <p data-sid="frequent-testing:55" class="word-label" style="font-size: 32px; color: var(--accent-2); margin: 0; width: 407.81px; transform: translate(-8px, 0px)">perceived difficulty ↓</p>
+            <p data-sid="frequent-testing:56" class="cap" style="font-size: 30px">Same questions rated easier when spread across more exams.</p>
+          </li>
+          <li data-sid="frequent-testing:57" class="frag frag--dim" data-step="5">
+            <p data-sid="frequent-testing:58" class="word-label" style="font-size: 32px; color: var(--accent-2); margin: 0">textbook time ↑</p>
+            <p data-sid="frequent-testing:59" class="cap" style="font-size: 30px">More time reading, more earnest answers to exercises.</p>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+  <ul class="corner-cite" data-sid="frequent-testing:12" style="transform: translate(0px, 14px)">
+    <li data-sid="frequent-testing:62">Smith IV, D. H., Emeka, C., Fowler, M., West, M., &amp; Zilles, C. (2023). Investigating the effects of testing frequency on programming performance and <br>students’ behavior. <em>SIGCSE 2023</em>&nbsp;(pp. 757–763). ACM. https://doi.org/10.1145/3545945.3569821</li>
+    <li data-sid="frequent-testing:63">Bangert-Drowns, R. L., Kulik, J. A., &amp; Kulik, C.-L. C. (1991). Effects of frequent classroom testing. <em>The Journal of Educational Research, 85</em>(2), 89–99.</li>
+  </ul>
+</section>

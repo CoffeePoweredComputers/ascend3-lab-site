@@ -1,0 +1,147 @@
+<section data-sid="two-ways-b2-demand-axis:1" class="slide" id="slide-05b2">
+  <style>
+    /* Coverage grid: 300px construct column + 10 question columns of 64px.
+       The vertical rules are painted as a gradient, not as cell borders, so they
+       stay put while the .frag marks fade in on top. A highlighted row repeats the
+       same gradient: background-color paints *under* the image layer, so the row
+       tint slides in behind the rules instead of hiding them. */
+    #slide-05b2 .s05-grid,
+    #slide-05b2 .s05-row--under {
+      background-image: repeating-linear-gradient(to right, var(--fg-1) 0 2px, transparent 2px 64px);
+      background-position: 300px 0;
+      background-size: 640px 100%;
+      background-repeat: no-repeat;
+    }
+    #slide-05b2 .s05-grid { border: 2px solid var(--fg-1); border-top: none; }
+    /* Row pitch is derived, not chosen: the grid is sized to finish level with the
+       two chain columns beside it. Those stack to 450px (2 × 213 + a --s-3 gap), and
+       the grid spends 34px on the Q1–Q10 header and 16px on its own rules
+       (7 row tops + 1 bottom), which leaves 400px over 7 rows. */
+    #slide-05b2 .s05-row { position: relative; display: flex; height: 57px; border-top: 2px solid var(--fg-1); }
+    /* the three constructs the midterm under-represents */
+    #slide-05b2 .s05-row--under { background-color: var(--bg-1); }
+    #slide-05b2 .s05-head {
+      width: 300px; flex: none; box-sizing: border-box;
+      display: flex; align-items: center;
+      padding: 0 var(--s-2);
+      font-family: var(--font-display); font-size: 26px;
+    }
+    #slide-05b2 .s05-cell { width: 64px; flex: none; }
+    /* coverage mark — 36px glyph + 14px gutters keeps the 64px column pitch */
+    #slide-05b2 .s05-mark {
+      width: 36px; flex: none; margin: 0 14px; align-self: center;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--t-small); font-weight: bold; line-height: 1; color: var(--fg-0);
+    }
+    #slide-05b2 .s05-hrow { display: flex; height: 34px; align-items: flex-end; }
+    #slide-05b2 .s05-qh { width: 64px; flex: none; text-align: center; font-size: 22px; color: var(--fg-1); }
+    /* covers the question columns of a construct the midterm never asks about */
+    #slide-05b2 .s05-none {
+      position: absolute; left: 300px; right: 0; top: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-1);
+      font-size: 24px; color: var(--accent-1);
+    }
+    /* the grid, both chain columns and the takeaway strip together run past the
+       1080 stage at the .scantron-list default row padding — tighten the ruled rows
+       here rather than in deck.css, which the other scantron slides are tuned to */
+    #slide-05b2 .scantron-list li { padding-top: 6px; padding-bottom: 6px; }
+  </style>
+  <p data-sid="two-ways-b2-demand-axis:2" class="kicker">SOURCES OF ERROR IN ASSESSMENTS</p>
+  <h2 data-sid="two-ways-b2-demand-axis:3" style="margin-bottom: var(--s-2);">Ensuring effective coverage of your construct</h2>
+  <div data-sid="two-ways-b2-demand-axis:4" class="slide__body" style="display: flex; gap: var(--s-3); align-items: flex-start;">
+    <div data-sid="two-ways-b2-demand-axis:5" style="width: 944px; flex: none;">
+      
+      <div data-sid="two-ways-b2-demand-axis:23">
+
+        <div data-sid="two-ways-b2-demand-axis:15" class="s05-hrow">
+          <span style="width: 302px; flex: none;"></span>
+          <span class="s05-qh">Q1</span><span class="s05-qh">Q2</span><span class="s05-qh">Q3</span><span class="s05-qh">Q4</span><span class="s05-qh">Q5</span><span class="s05-qh">Q6</span><span class="s05-qh">Q7</span><span class="s05-qh">Q8</span><span class="s05-qh">Q9</span><span class="s05-qh">Q10</span>
+        </div>
+        <div data-sid="two-ways-b2-demand-axis:31" class="s05-grid">
+          <div data-sid="two-ways-b2-demand-axis:32" class="s05-row">
+            <div data-sid="two-ways-b2-demand-axis:16" class="s05-head">Information Recall</div>
+            <div data-sid="two-ways-b2-demand-axis:68" class="s05-mark frag" data-step="1">✗</div>
+            <div data-sid="two-ways-b2-demand-axis:69" class="s05-mark frag" data-step="1">✗</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+          </div>
+          <div data-sid="two-ways-b2-demand-axis:33" class="s05-row">
+            <div data-sid="two-ways-b2-demand-axis:17" class="s05-head">Writing Expressions</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span>
+            <div data-sid="two-ways-b2-demand-axis:70" class="s05-mark frag" data-step="2">✗</div>
+            <div data-sid="two-ways-b2-demand-axis:71" class="s05-mark frag" data-step="2">✗</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+          </div>
+          <div data-sid="two-ways-b2-demand-axis:34" class="s05-row">
+            <div data-sid="two-ways-b2-demand-axis:18" class="s05-head">Trace</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+            <div data-sid="two-ways-b2-demand-axis:72" class="s05-mark frag" data-step="3">✗</div>
+            <div data-sid="two-ways-b2-demand-axis:73" class="s05-mark frag" data-step="3">✗</div>
+            <div data-sid="two-ways-b2-demand-axis:74" class="s05-mark frag" data-step="3">✗</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+          </div>
+          <div data-sid="two-ways-b2-demand-axis:35" class="s05-row">
+            <div data-sid="two-ways-b2-demand-axis:19" class="s05-head">Explain</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+            <div data-sid="two-ways-b2-demand-axis:75" class="s05-mark frag" data-step="4">✗</div>
+            <div data-sid="two-ways-b2-demand-axis:76" class="s05-mark frag" data-step="4">✗</div>
+            <span class="s05-cell"></span>
+          </div>
+          <div data-sid="two-ways-b2-demand-axis:36" class="s05-row s05-row--under">
+            <div data-sid="two-ways-b2-demand-axis:20" class="s05-head">Write Functions</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+            <div data-sid="two-ways-b2-demand-axis:77" class="s05-mark frag" data-step="5">✗</div>
+          </div>
+          <div data-sid="two-ways-b2-demand-axis:37" class="s05-row s05-row--under">
+            <div data-sid="two-ways-b2-demand-axis:21" class="s05-head">Debug</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+            <div data-sid="two-ways-b2-demand-axis:78" class="s05-none frag" data-step="6">0 items</div>
+          </div>
+          <div data-sid="two-ways-b2-demand-axis:38" class="s05-row s05-row--under">
+            <div data-sid="two-ways-b2-demand-axis:22" class="s05-head">Decompose</div>
+            <span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span><span class="s05-cell"></span>
+            <div data-sid="two-ways-b2-demand-axis:79" class="s05-none frag" data-step="7">0 items</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-sid="two-ways-b2-demand-axis:7" style="flex: 1; display: flex; flex-direction: column; gap: var(--s-3);">
+      <div data-sid="two-ways-b2-demand-axis:11" class="frag chain-col" data-step="8" data-anim="fade-up" style="width: auto;">
+        <div data-sid="two-ways-b2-demand-axis:12" class="chain-link" style="height: 64px; font-size: 26px; transform: translate(0px, 3px)">Underrepresentation</div>
+        <div data-sid="two-ways-b2-demand-axis:59" class="panel" style="height: auto;">
+          <ul data-sid="two-ways-b2-demand-axis:13" class="scantron-list">
+            <li data-sid="two-ways-b2-demand-axis:60" class="is-marked">“too narrow” — scores invalidly low</li>
+            <li data-sid="two-ways-b2-demand-axis:61">debug, decompose, write — one or zero items</li>
+          </ul>
+        </div>
+      </div>
+      <div data-sid="two-ways-b2-demand-axis:8" class="frag chain-col" data-step="9" data-anim="fade-up" style="width: auto;">
+        <div data-sid="two-ways-b2-demand-axis:9" class="chain-link" style="height: 64px; font-size: 26px;">Irrelevant variance</div>
+        <div data-sid="two-ways-b2-demand-axis:63" class="panel" style="height: auto;">
+          <ul data-sid="two-ways-b2-demand-axis:10" class="scantron-list">
+            <li data-sid="two-ways-b2-demand-axis:64" class="is-marked">“too broad” — invalidly low or high</li>
+            <li data-sid="two-ways-b2-demand-axis:65">reading load, time pressure, option cues</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-sid="two-ways-b2-demand-axis:81" class="frag panel takeaway" data-step="10" data-anim="fade-up" style="flex: 0 0 138.095px; margin-top: var(--s-3); transform: translate(0px, 14.3687px)">
+    <p data-sid="two-ways-b2-demand-axis:82" class="word-label badge badge--hot takeaway__pill">Key takeaways</p>
+    <ul data-sid="two-ways-b2-demand-axis:83" class="takeaway__list">
+      <li data-sid="two-ways-b2-demand-axis:84" class="takeaway__item">
+        <p data-sid="two-ways-b2-demand-axis:85" class="word-label takeaway__lead" style="font-size: 32px">Classroom test or homework</p>
+        <p data-sid="two-ways-b2-demand-axis:86" class="takeaway__body">List every skill the course claims to teach (at that point) and then check each one has items.</p>
+      </li>
+      <li data-sid="two-ways-b2-demand-axis:87" class="takeaway__item">
+        <p data-sid="two-ways-b2-demand-axis:88" class="word-label takeaway__lead" style="font-size: 32px">Pre/post intervention test</p>
+        <p data-sid="two-ways-b2-demand-axis:89" class="takeaway__body">All the same considerations as a classroom test but you target the constructs you are measuring to coverage of your intervention.</p>
+      </li>
+    </ul>
+  </div>
+  <ul data-sid="two-ways-b2-demand-axis:14" class="corner-cite">
+    <li data-sid="two-ways-b2-demand-axis:80">Messick, S. (1995). Validity of psychological assessment: Validation of inferences from persons’ responses and performances as scientific inquiry into score meaning. <em>American Psychologist, 50</em>(9), 741–749.</li>
+  </ul>
+  <aside class="notes" data-sid="two-ways-b2-demand-axis:90">transition: now, within each of these topics, how do you think about making questions?
+</aside>
+</section>

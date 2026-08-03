@@ -1,0 +1,641 @@
+<section data-sid="cgbg-live:11" class="slide" id="slide-18">
+  <p class="kicker" data-sid="cgbg-live:80">Grading the prompt, not the code</p>
+  <h2 data-sid="cgbg-live:2" style="margin-bottom: var(--s-2);"><!-- --><!-- ^ a stray U+00A0 from a paste; commented out so the heading sits flush -->Code Generation Grading</h2>
+
+  <div data-sid="cgbg-live:12" class="slide__body" style="display: flex; flex-direction: column; gap: var(--s-2); min-height: 0;">
+
+    <div data-sid="cgbg-live:29" class="cgbg-chips" style="display: flex; gap: var(--s-2); align-items: center; flex-wrap: wrap;">
+      <div data-sid="cgbg-live:30" class="badge cgbg-chip" data-phase="1">① Prompt</div>
+      <div data-sid="cgbg-live:31" class="badge cgbg-chip" data-phase="2">② LLM generates code</div>
+      <div data-sid="cgbg-live:32" class="badge cgbg-chip" data-phase="3">③ Tests</div>
+      <div data-sid="cgbg-live:33" class="badge cgbg-chip" data-phase="4">④ Feedback</div>
+    </div>
+
+    <div data-sid="cgbg-live:34" class="cgbg-stage" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); flex: 1; min-height: 0;">
+
+      <div data-sid="cgbg-live:35" style="display: flex; flex-direction: column; gap: var(--s-2); min-height: 0;">
+
+        <div data-sid="cgbg-live:36" class="cgbg-why" style="flex: 0 0 116.895px">
+          <p data-sid="cgbg-live:38" class="cgbg-why__text">What prompt <span class="cgbg-why__hl">prompts</span> the students to prompt?</p>
+          <div data-sid="cgbg-live:1" class="cgbg-stim cgbg-code code--dark">
+            <div data-sid="cgbg-live:3" class="cgbg-stim__view cgbg-stim__code">
+              <div data-sid="cgbg-live:4"><span class="k">def</span> <span class="fn">foo</span>(x):</div>
+              <div data-sid="cgbg-live:5">    <span class="k">return</span> <span class="fn">max</span>(x) <span class="k">if</span> x <span class="k">else</span> <span class="lit">None</span></div>
+            </div>
+            <div data-sid="cgbg-live:6" class="cgbg-stim__view cgbg-stim__io">
+              <div data-sid="cgbg-live:7"><span class="fn">foo</span>([3, 1, 4, 1, 5])  →  <span class="lit">5</span></div>
+              <div data-sid="cgbg-live:8"><span class="fn">foo</span>([])  →  <span class="lit">None</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-sid="cgbg-live:39" class="panel cgbg-panel" data-phase="1">
+          <p data-sid="cgbg-live:40" class="word-label cgbg-label">① Student prompt</p>
+          <p data-sid="cgbg-live:41" class="cgbg-prompt"><span id="cgbg-prompt-text"></span><span class="cgbg-caret" aria-hidden="true"></span></p>
+        </div>
+
+        <div data-sid="cgbg-live:42" class="cgbg-llm" style="align-self: center; display: flex; flex-direction: column; align-items: center; gap: var(--s-1);">
+          <div data-sid="cgbg-live:43" class="cgbg-robot"><svg viewBox="0 0 100 100" aria-hidden="true">
+            <g fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fg-0);">
+              <line x1="50" y1="14" x2="50" y2="26"/>
+              <rect x="18" y="26" width="64" height="50" rx="14"/>
+              <line x1="32" y1="76" x2="32" y2="88"/>
+              <line x1="68" y1="76" x2="68" y2="88"/>
+              <line x1="40" y1="64" x2="60" y2="64"/>
+            </g>
+            <circle cx="50" cy="9" r="6" style="fill: var(--accent-2);"/>
+            <circle cx="36" cy="46" r="7" style="fill: var(--accent-2);"/>
+            <circle cx="64" cy="46" r="7" style="fill: var(--accent-2);"/>
+          </svg></div>
+          
+          <p data-sid="cgbg-live:45" class="cap">LLM generating ↓</p>
+        </div>
+
+        <div data-sid="cgbg-live:46" class="panel cgbg-panel" data-phase="2" style="flex: 0 0 267.257px; height: 285px">
+          <p data-sid="cgbg-live:47" class="word-label cgbg-label">② Generated code</p>
+          <div data-sid="cgbg-live:48" class="cgbg-code code--dark" style="min-height: 200px; transform: translate(0px, -5px)">
+            <div data-sid="cgbg-live:49" class="cgbg-line"><span class="k">def</span> <span class="fn">max_value</span>(numbers):</div>
+            <div data-sid="cgbg-live:50" class="cgbg-line">    <span class="k">if</span> <span class="k">not</span> numbers:</div>
+            <div data-sid="cgbg-live:51" class="cgbg-line">        <span class="k">return</span> <span class="lit">None</span></div>
+            <div data-sid="cgbg-live:52" class="cgbg-line">    <span class="k">return</span> <span class="fn">max</span>(numbers)</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-sid="cgbg-live:53" style="display: flex; flex-direction: column; gap: var(--s-2); min-height: 0;">
+
+        <div data-sid="cgbg-live:54" class="panel cgbg-panel" data-phase="3" style="flex: 1;">
+          <p data-sid="cgbg-live:55" class="word-label cgbg-label">③ Run unit tests</p>
+          <ul data-sid="cgbg-live:56" id="cgbg-tests" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--s-2);">
+            <li data-sid="cgbg-live:57" class="cgbg-test">
+              <div data-sid="cgbg-live:58" class="cgbg-test__body">
+                <p data-sid="cgbg-live:59" class="cgbg-test__name">test_basic</p>
+                <p data-sid="cgbg-live:60" class="cgbg-test__call">max_value([3, 1, 4, 1, 5])  →  5</p>
+              </div>
+              <div data-sid="cgbg-live:61" class="cgbg-test__status" aria-hidden="true"></div>
+            </li>
+            <li data-sid="cgbg-live:62" class="cgbg-test">
+              <div data-sid="cgbg-live:63" class="cgbg-test__body">
+                <p data-sid="cgbg-live:64" class="cgbg-test__name">test_empty</p>
+                <p data-sid="cgbg-live:65" class="cgbg-test__call">max_value([])  →  None</p>
+              </div>
+              <div data-sid="cgbg-live:66" class="cgbg-test__status" aria-hidden="true"></div>
+            </li>
+            <li data-sid="cgbg-live:67" class="cgbg-test">
+              <div data-sid="cgbg-live:68" class="cgbg-test__body">
+                <p data-sid="cgbg-live:69" class="cgbg-test__name">test_negative</p>
+                <p data-sid="cgbg-live:70" class="cgbg-test__call">max_value([-3, -1, -4])  →  -1</p>
+              </div>
+              <div data-sid="cgbg-live:71" class="cgbg-test__status" aria-hidden="true"></div>
+            </li>
+            <li data-sid="cgbg-live:72" class="cgbg-test">
+              <div data-sid="cgbg-live:73" class="cgbg-test__body">
+                <p data-sid="cgbg-live:74" class="cgbg-test__name">test_single</p>
+                <p data-sid="cgbg-live:75" class="cgbg-test__call">max_value([42])  →  42</p>
+              </div>
+              <div data-sid="cgbg-live:76" class="cgbg-test__status" aria-hidden="true"></div>
+            </li>
+          </ul>
+        </div>
+
+        <div data-sid="cgbg-live:77" class="cgbg-feedback" data-phase="4">
+          <p data-sid="cgbg-live:78" class="cgbg-feedback__text">✓ Submission accepted · prompt graded — feedback in seconds</p>
+        </div>
+      </div>
+    </div>
+
+    <div data-sid="cgbg-live:10" class="cgbg-outro">
+      <p data-sid="cgbg-live:13" class="cgbg-outro__kicker" style="color: #000000">ONE CORE IDEA · TWO OPEN QUESTIONS</p>
+      <div data-sid="cgbg-live:14" class="cgbg-outro__item">
+        <h3 data-sid="cgbg-live:15" class="cgbg-outro__q" style="color: #000000">What else can the <span class="cgbg-why__hl">stimulus</span> be?</h3>
+        <p data-sid="cgbg-live:16" class="cgbg-outro__sub" style="color: #000000">beyond code and input/output pairs — what else shows students what to elicit?</p>
+      </div>
+      <div data-sid="cgbg-live:17" class="cgbg-outro__item">
+        <h3 data-sid="cgbg-live:18" class="cgbg-outro__q" style="color: #000000; transform: translate(0px, 0px)">What can the <span class="cgbg-why__hl">process</span> tell us?</h3>
+        <p data-sid="cgbg-live:19" class="cgbg-outro__sub" style="color: #000000">what to capture while students work with the LLM — and how it folds into the grade</p>
+      </div>
+    </div>
+
+    <span class="frag" data-step="1" style="display: none;"></span>
+    <span class="frag" data-step="2" style="display: none;"></span>
+    <span class="frag" data-step="3" style="display: none;"></span>
+    <span class="frag" data-step="4" style="display: none;"></span>
+    <span class="frag" data-step="5" style="display: none;"></span>
+    <span class="frag" data-step="6" style="display: none;"></span>
+    <span class="frag" data-step="7" style="display: none;"></span>
+    <span class="frag" data-step="8" style="display: none;"></span>
+    <span class="frag" data-step="9" style="display: none;"></span>
+  </div>
+
+  <ul class="corner-cite" data-sid="cgbg-live:9">
+    <li data-sid="cgbg-live:81">Smith IV &amp; Zilles, ITiCSE 2024, Smith IV, Denny &amp; Fowler, L@S 2024</li>
+    
+    
+  </ul>
+
+  <style>
+    @keyframes cgbg-spin { to { transform: rotate(360deg); } }
+    @keyframes cgbg-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* phase chips — .badge supplies the pill; states recolor it from tokens */
+    #slide-18 .cgbg-chip {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--fg-1);
+      transition: background .28s ease, color .28s ease, box-shadow .28s ease;
+    }
+    #slide-18 .cgbg-chip.is-active {
+      background: var(--accent-2);
+      color: var(--bg-0);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-2) 30%, transparent);
+    }
+    #slide-18 .cgbg-chip.is-done {
+      background: color-mix(in srgb, var(--accent-1) 15%, var(--bg-0));
+      color: var(--accent-1);
+    }
+
+    #slide-18 .cgbg-panel { padding: var(--s-3); transition: box-shadow .28s ease, opacity .52s ease; }
+    #slide-18 .cgbg-panel.is-active { box-shadow: 0 0 0 4px var(--accent-2); }
+    #slide-18 .cgbg-label { font-size: 24px; color: var(--fg-1); margin: 0 0 var(--s-2); }
+
+    #slide-18 .cgbg-prompt {
+      font-family: ui-monospace, monospace;
+      font-size: 28px;
+      line-height: 1.45;
+      min-height: 84px;
+      margin: 0;
+    }
+    #slide-18 .cgbg-caret {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--accent-2);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      opacity: 0;
+    }
+    #slide-18 .cgbg-caret.is-typing { opacity: 1; animation: cgbg-blink .9s infinite; }
+
+    /* max-height sits on the resting state too: the finale animates it to 0, and
+       `none` → 0 is not interpolable — it would snap the column instead of easing */
+    #slide-18 .cgbg-llm {
+      opacity: .55;
+      max-height: 120px;
+      overflow: hidden;
+      transition: opacity .28s ease;
+    }
+    #slide-18 .cgbg-llm.is-on { opacity: 1; }
+    /* line-art robot — same stroked-SVG vocabulary as the rest of the deck */
+    #slide-18 .cgbg-robot { width: 54px; height: 54px; }
+    #slide-18 .cgbg-robot svg { display: block; width: 100%; height: 100%; }
+    #slide-18 .cgbg-spinner {
+      box-sizing: border-box;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 5px solid color-mix(in srgb, var(--accent-2) 25%, transparent);
+      border-top-color: var(--accent-2);
+      animation: cgbg-spin .9s linear infinite paused;
+    }
+    #slide-18 .cgbg-llm.is-on .cgbg-spinner { animation-play-state: running; }
+    #slide-18 .cgbg-spinner.is-done { animation: none; border-color: transparent; }
+    #slide-18 .cgbg-spinner.is-done::after {
+      content: "✓";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      color: var(--accent-1);
+      font-size: 34px;
+      font-weight: 700;
+    }
+
+    /* generated code — dark editor sheet, syntax tokens from .code--dark in
+       deck.css (same scheme as 06c); lines reveal one by one */
+    #slide-18 .cgbg-code {
+      box-sizing: border-box;
+      background: var(--fg-0);
+      border-radius: var(--r-2);
+      padding: var(--s-2) var(--s-3);
+      font-family: ui-monospace, monospace;
+      font-size: 28px;
+      line-height: 1.5;
+    }
+    #slide-18 .cgbg-line { display: none; white-space: pre; }
+    #slide-18 .cgbg-line.is-on { display: block; }
+
+    #slide-18 .cgbg-test {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--s-2);
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-0);
+      border-left: 8px solid var(--fg-1);
+      border-radius: var(--r-2);
+      transition: border-color .24s ease, background .24s ease;
+    }
+    #slide-18 .cgbg-test__body { min-width: 0; }
+    #slide-18 .cgbg-test__name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--fg-1);
+      margin: 0;
+    }
+    #slide-18 .cgbg-test__call {
+      font-family: ui-monospace, monospace;
+      font-size: 26px;
+      line-height: 1.3;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #slide-18 .cgbg-test__status {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--bg-1);
+      color: var(--fg-1);
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .24s ease, color .24s ease, transform .24s ease;
+    }
+    #slide-18 .cgbg-test__status::after { content: "·"; }
+    #slide-18 .cgbg-test.is-passed {
+      border-left-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0));
+    }
+    #slide-18 .cgbg-test.is-passed .cgbg-test__name { color: var(--accent-1); }
+    #slide-18 .cgbg-test.is-passed .cgbg-test__status {
+      background: var(--accent-1);
+      color: var(--bg-0);
+      transform: scale(1.05);
+    }
+    #slide-18 .cgbg-test.is-passed .cgbg-test__status::after { content: "✓"; }
+
+    #slide-18 .cgbg-feedback {
+      background: var(--accent-1);
+      color: var(--bg-0);
+      border-radius: var(--r-3);
+      padding: var(--s-2) var(--s-3);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .32s ease, transform .32s ease;
+    }
+    #slide-18 .cgbg-feedback.is-on { opacity: 1; transform: none; }
+    #slide-18 .cgbg-feedback__text { font-size: 30px; line-height: 1.25; margin: 0; }
+
+    /* finale — the construct takeaway; zero-height until step 5 so it takes no space */
+    #slide-18 .cgbg-why {
+      box-sizing: border-box;
+      display: grid;
+      align-items: center;
+      align-self: stretch;
+      border: 0 dashed var(--accent-2);
+      border-radius: var(--r-3);
+      background: color-mix(in srgb, var(--accent-2) 10%, var(--bg-0));
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 1.4s cubic-bezier(.4, 0, .2, 1), border-width 1.4s ease,
+                  opacity 1s ease;
+    }
+    /* the open ceiling must sit just above the box's real height (its inline
+       flex-basis), or the box finishes growing in the first fraction of the
+       transition and the rest animates a max-height nobody can see */
+    #slide-18.is-revealed .cgbg-why {
+      max-height: 120px;
+      border-width: 4px;
+      opacity: 1;
+    }
+    /* the gutter lives on the question text, not on the box: the stimulus sheet
+       shares the same grid cell and has to reach the dashed border */
+    #slide-18 .cgbg-why__text {
+      grid-area: 1 / 1;
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      line-height: 1.3;
+      text-align: center;
+      margin: 0;
+      padding: 0 var(--s-3);
+      transition: opacity .32s ease;
+    }
+    #slide-18 .cgbg-why__hl { color: var(--accent-2); }
+
+    /* steps 6–7 — the stimulus that prompts the prompt: a code segment to
+       explain (EiPL), then input/output pairs to reverse-engineer (Prompt
+       Problems). Question and stimulus share the why box's single grid cell
+       and cross-fade in place, so the box never grows or pushes layout. */
+    #slide-18.is-eipl .cgbg-why__text { opacity: 0; }
+    #slide-18 .cgbg-stim {
+      grid-area: 1 / 1;
+      display: grid;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0 var(--s-3);
+      pointer-events: none;
+      transition: max-height .46s cubic-bezier(.34, 1.56, .64, 1), padding .46s ease,
+                  opacity .32s ease;
+    }
+    #slide-18.is-eipl .cgbg-stim {
+      max-height: 200px;
+      opacity: 1;
+      padding: var(--s-2) var(--s-3);
+      pointer-events: auto;
+    }
+    #slide-18 .cgbg-stim__view { grid-area: 1 / 1; transition: opacity .32s ease; }
+    /* pre goes on the LINES, never the view: on the container it would render
+       the HTML indentation between the line divs as tall blank lines */
+    #slide-18 .cgbg-stim__view > div { white-space: pre; }
+    #slide-18 .cgbg-stim__io { opacity: 0; }
+    #slide-18.is-pp .cgbg-stim__code { opacity: 0; }
+    #slide-18.is-pp .cgbg-stim__io { opacity: 1; }
+    /* while a stimulus is up, the unit tests are the point — undim them */
+    #slide-18.is-eipl .cgbg-panel[data-phase="3"] { opacity: 1; }
+
+    /* finale: pipeline has run — collapse the LLM indicator, dim everything else */
+    #slide-18.is-revealed .cgbg-llm {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 1.4s cubic-bezier(.4, 0, .2, 1), opacity 1.1s ease;
+    }
+    #slide-18.is-revealed .cgbg-chips,
+    #slide-18.is-revealed .cgbg-panel,
+    #slide-18.is-revealed .cgbg-feedback {
+      opacity: .55;
+      pointer-events: none;
+      /* filter stays at .52s: .cgbg-chips sits outside .cgbg-stage, so this is the
+         rule that governs its step-8 blur — it has to match the stage's .52s */
+      transition: opacity 1.4s ease .2s, filter .52s ease;
+    }
+
+    /* click 8 — outro: the whole demo blurs back (same move as the reference
+       pipeline slide's finale) and the two research questions land on top */
+    #slide-18 .slide__body { position: relative; }
+    #slide-18 .cgbg-stage,
+    #slide-18 > .kicker,
+    #slide-18 > h2,
+    #slide-18 .corner-cite { transition: filter .52s ease, opacity .52s ease; }
+    #slide-18.is-outro .cgbg-chips,
+    #slide-18.is-outro .cgbg-stage,
+    #slide-18.is-outro > .kicker,
+    #slide-18.is-outro > h2,
+    #slide-18.is-outro .corner-cite {
+      filter: blur(22px);
+      opacity: .18;
+    }
+    #slide-18 .cgbg-outro {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-4);
+      text-align: center;
+      /* no scrim — the blurred, dimmed demo underneath IS the background. A wash
+         here only spans .slide__body, so its edge reads as a box under the text */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .52s ease .2s;
+    }
+    #slide-18.is-outro .cgbg-outro { opacity: 1; pointer-events: auto; }
+    /* click 9 — the second question steps in; opacity-only so its reserved
+       space keeps the first question from shifting */
+    #slide-18 .cgbg-outro__item + .cgbg-outro__item {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .32s ease, transform .32s ease;
+    }
+    #slide-18.is-outro2 .cgbg-outro__item + .cgbg-outro__item {
+      opacity: 1;
+      transform: none;
+    }
+    #slide-18 .cgbg-outro__kicker {
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--fg-1);
+      margin: 0;
+    }
+    #slide-18 .cgbg-outro__q {
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1.15;
+      margin: 0;
+    }
+    #slide-18 .cgbg-outro__sub {
+      font-size: var(--t-small);
+      line-height: 1.3;
+      color: var(--fg-1);
+      margin: var(--s-1) 0 0;
+    }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID = 'slide-18';
+    const PROMPT_TEXT = "Write a function that returns the maximum value in a list of numbers.";
+    const TYPING_MS = 28;
+    const CODE_LINE_MS = 180;
+    const TEST_TICK_MS = 280;
+
+    let timers = [];
+    let phaseCache = -1;
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function t(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function getScope() { return document.getElementById(SLIDE_ID); }
+
+    function resetAll(scope) {
+      clearAll();
+      phaseCache = -1;
+      const prompt  = scope.querySelector('#cgbg-prompt-text');
+      const caret   = scope.querySelector('.cgbg-caret');
+      const spinner = scope.querySelector('.cgbg-spinner');
+      const llm     = scope.querySelector('.cgbg-llm');
+      const fb      = scope.querySelector('.cgbg-feedback');
+      if (prompt) prompt.textContent = '';
+      if (caret)  caret.classList.remove('is-typing');
+      scope.querySelectorAll('.cgbg-line').forEach(l => l.classList.remove('is-on'));
+      if (llm) llm.classList.remove('is-on');
+      if (spinner) spinner.classList.remove('is-done');
+      scope.querySelectorAll('.cgbg-test').forEach(row => row.classList.remove('is-passed'));
+      if (fb) fb.classList.remove('is-on');
+      scope.querySelectorAll('.cgbg-chip').forEach(c => c.classList.remove('is-active', 'is-done'));
+      scope.querySelectorAll('.cgbg-panel').forEach(p => p.classList.remove('is-active'));
+    }
+
+    function setActivePanel(scope, phase) {
+      scope.querySelectorAll('.cgbg-panel').forEach(p => {
+        p.classList.toggle('is-active', parseInt(p.dataset.phase, 10) === phase);
+      });
+      scope.querySelectorAll('.cgbg-chip').forEach(c => {
+        const ph = parseInt(c.dataset.phase, 10);
+        // At the final phase (4 = feedback) the workflow has completed —
+        // mark every chip done, including the feedback chip itself.
+        if (phase >= 4) {
+          c.classList.remove('is-active');
+          c.classList.add('is-done');
+        } else {
+          c.classList.toggle('is-active', ph === phase);
+          c.classList.toggle('is-done', ph < phase);
+        }
+      });
+      const llm = scope.querySelector('.cgbg-llm');
+      if (llm) llm.classList.toggle('is-on', phase === 2);
+    }
+
+    function typePrompt(scope) {
+      const promptEl = scope.querySelector('#cgbg-prompt-text');
+      const caret    = scope.querySelector('.cgbg-caret');
+      promptEl.textContent = '';
+      caret.classList.add('is-typing');
+      let i = 0;
+      (function step() {
+        if (i <= PROMPT_TEXT.length) {
+          promptEl.textContent = PROMPT_TEXT.slice(0, i++);
+          t(step, TYPING_MS);
+        } else { caret.classList.remove('is-typing'); }
+      })();
+    }
+
+    function revealCodeLines(scope, allAtOnce) {
+      const lines   = scope.querySelectorAll('.cgbg-line');
+      const spinner = scope.querySelector('.cgbg-spinner');
+      lines.forEach(l => l.classList.remove('is-on'));
+      if (spinner) spinner.classList.remove('is-done');
+      if (allAtOnce) {
+        lines.forEach(l => l.classList.add('is-on'));
+        if (spinner) spinner.classList.add('is-done');
+        return;
+      }
+      let j = 0;
+      (function step() {
+        if (j < lines.length) {
+          lines[j].classList.add('is-on');
+          j++;
+          t(step, CODE_LINE_MS);
+        } else if (spinner) {
+          spinner.classList.add('is-done');
+        }
+      })();
+    }
+
+    function runTests(scope, allAtOnce) {
+      const tests = scope.querySelectorAll('.cgbg-test');
+      tests.forEach(row => row.classList.remove('is-passed'));
+      if (allAtOnce) { tests.forEach(row => row.classList.add('is-passed')); return; }
+      let k = 0;
+      (function step() {
+        if (k < tests.length) {
+          tests[k].classList.add('is-passed');
+          k++;
+          t(step, TEST_TICK_MS);
+        }
+      })();
+    }
+
+    function enterPhase(scope, phase) {
+      if (phase === phaseCache) return;
+      phaseCache = phase;
+      clearAll();
+      setActivePanel(scope, phase);
+      const promptEl = scope.querySelector('#cgbg-prompt-text');
+      if (phase >= 1) {
+        if (phase === 1) typePrompt(scope);
+        else if (!promptEl.textContent) promptEl.textContent = PROMPT_TEXT;
+      }
+      if (phase >= 2) {
+        const linesOn = scope.querySelectorAll('.cgbg-line.is-on').length > 0;
+        if (phase === 2) revealCodeLines(scope, false);
+        else if (!linesOn) revealCodeLines(scope, true);
+      }
+      if (phase >= 3) {
+        const anyPassed = Array.from(scope.querySelectorAll('.cgbg-test')).some(row => row.classList.contains('is-passed'));
+        if (phase === 3) runTests(scope, false);
+        else if (!anyPassed) runTests(scope, true);
+      }
+      const fb = scope.querySelector('.cgbg-feedback');
+      if (fb) fb.classList.toggle('is-on', phase >= 4);
+    }
+
+    function sync() {
+      const scope = getScope();
+      if (!scope) return;
+      if (!scope.classList.contains('is-active')) { resetAll(scope); return; }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      scope.classList.toggle('is-revealed', step >= 5);
+      scope.classList.toggle('is-eipl', step >= 6);
+      scope.classList.toggle('is-pp', step >= 7);
+      scope.classList.toggle('is-outro', step >= 8);
+      scope.classList.toggle('is-outro2', step >= 9);
+      if (step === 0) resetAll(scope);
+      else if (step <= 4) enterPhase(scope, step);
+      else enterPhase(scope, 4);
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+
+  // Step 2: make the robot hop. Independent of the phase state machine above
+  // so it can't disturb it. cancel() snaps the emoji back to its resting
+  // transform, so back-stepping below step 2 resets cleanly.
+  (function () {
+    const SLIDE_ID = 'slide-18';
+    let hop = null;
+    function getRobot() {
+      const scope = document.getElementById(SLIDE_ID);
+      return scope ? scope.querySelector('.cgbg-robot') : null;
+    }
+    function syncHop() {
+      const robot = getRobot();
+      if (!robot) return;
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      if (step === 2) {
+        if (hop) hop.cancel();
+        hop = robot.animate([
+          { transform: 'translateY(0)' },
+          { transform: 'translateY(-32px)', offset: 0.22 },
+          { transform: 'translateY(0)',     offset: 0.46 },
+          { transform: 'translateY(-15px)', offset: 0.66 },
+          { transform: 'translateY(0)',     offset: 0.84 },
+          { transform: 'translateY(-6px)',  offset: 0.93 },
+          { transform: 'translateY(0)' }
+        ], { duration: 1150, easing: 'cubic-bezier(.28,.84,.42,1)' });
+      } else if (hop) {
+        hop.cancel();
+        hop = null;
+      }
+    }
+    window.addEventListener('slides:loaded', syncHop);
+    window.addEventListener('deck:stepchange', syncHop);
+  })();
+  </script>
+
+  <aside data-sid="cgbg-live:79" class="notes">
+[~3min · 9 clicks]
+GenAI moves the skill from writing code to specifying and explaining it — so how do you grade a natural-language answer at scale? Code generation based grading.
+(1) The student's text — here a prompt — types in.
+(2) An LLM generates code from it.
+(3) That code runs against ordinary unit tests.
+(4) Pass or fail comes back as feedback — in seconds.
+(5) Everything fades back: what prompt prompts the prompt?
+(6) We could show students a segment of code and ask them to explain what it is doing — and infer that a good explanation is one that generates code that passes the unit test suite. (A two-line function fades in, replacing the question.)
+(7) Or show students input/output pairs and have them infer the operation being done, then generate a prompt that generates code that passes the tests. (Pairs replace the code.)
+Each of these tests, in its own way, a student's ability to reverse engineer or to create a prompt, respectively.
+(8) The demo blurs back — one mechanism, two open questions. First: what other stimuli beyond code and input/output pairs could indicate what students should elicit from the LLM?
+(9) Second: thinking back to output vs process — what data from the collaboration itself might we collect, and how do we fold it into the assessment?
+  </aside>
+</section>

@@ -1,0 +1,380 @@
+/* Deck layout + runtime states. The canvas is a fixed 1920×1080 stage (keep in
+   sync with "canvas" in studio.config.json); js/deck.js scales it to the
+   viewport with a transform — author everything in canvas pixels. */
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #07090d;
+  color: var(--fg-0);
+  font-family: var(--font-body, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- fixed canvas, scaled to the viewport via transform ---- */
+.deck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  background: var(--bg-0);
+}
+
+/* ---- slides: one visible at a time (js/deck.js toggles .is-active) ---- */
+.deck > section.slide { display: none; }
+.slide {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: var(--s-7) var(--s-8);
+  overflow: hidden;
+}
+.deck > section.slide.is-active { display: flex; }   /* must out-specify the hide rule above */
+
+/* default typography (canvas pixels) */
+.slide h1, .slide h2, .slide h3 { font-family: var(--font-display, inherit); }
+.slide h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 var(--s-4); }
+.slide h2 { font-size: var(--t-h2); line-height: 1.1; margin: 0 0 var(--s-4); }
+.slide h3 { font-size: var(--t-h3); line-height: 1.2; margin: 0 0 var(--s-3); }
+.slide p  { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+.slide ul, .slide ol { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+.slide li { margin: var(--s-2) 0; }
+.slide a { color: var(--accent-2); }
+.slide img { max-width: 100%; max-height: 100%; }
+
+.slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+.slide__number {
+  position: absolute;
+  right: var(--s-5);
+  bottom: var(--s-4);
+  font-size: var(--t-small);
+  color: var(--fg-1);
+}
+
+/* ---- step engine: .frag[data-step] reveal states, classes set by js/deck.js ---- */
+.frag { transition: opacity .35s ease, transform .35s ease; }
+.frag.is-pending { opacity: 0; }
+.frag.is-current,
+.frag.is-past { opacity: 1; }
+/* frag--dim: attention reveal — pending steps stay on stage, just muted */
+.frag--dim.is-pending { opacity: .25; }
+
+/* ---- speaker notes live inside the slide but never render ---- */
+aside.notes { display: none; }
+
+/* ---- dashed stand-in for an image not yet supplied (data-src = intended path) ---- */
+.img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 240px;
+  padding: var(--s-4);
+  border: 3px dashed var(--fg-1);
+  border-radius: var(--r-2);
+  color: var(--fg-1);
+  font-size: var(--t-small);
+  text-align: center;
+}
+.img-placeholder::after { content: attr(data-src); font-size: 24px; opacity: 0.65; }
+
+/* ---- shared components for the generated deck (slides 01–27) ---- */
+.slide .kicker {
+  font-family: var(--font-display);
+  font-size: 30px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--fg-1);
+  margin: 0 0 var(--s-3);
+}
+/* In-place citation block: the full APA entry for every source the slide draws on,
+   one bullet each. It spans the slide's width rather than hugging the left corner,
+   because a full entry needs the measure to wrap into. It stays absolutely
+   positioned in the bottom margin band — every slide body in this deck is
+   hand-tuned, and putting this into flow would reflow all of them at once.
+   Multi-source slides therefore run 3-6 lines here; check those for collisions. */
+.slide .corner-cite {
+  position: absolute;
+  left: var(--s-5);
+  right: var(--s-5);
+  bottom: var(--s-4);
+  margin: 0;
+  padding-left: var(--s-3);
+  font-size: var(--t-ref);
+  line-height: 1.3;
+  color: var(--fg-1);
+  overflow-wrap: anywhere;   /* DOIs have no natural break opportunity */
+}
+.slide .corner-cite li { margin: 0 0 var(--s-1); }
+.slide .corner-cite li:last-child { margin-bottom: 0; }
+.slide .badge {
+  display: inline-block;
+  padding: var(--s-1) var(--s-3);
+  border-radius: 999px;
+  background: var(--bg-1);
+  font-size: var(--t-small);
+  line-height: 1.3;
+  margin: 0;
+}
+.slide .badge--hot { background: var(--accent-1); color: var(--bg-0); }
+.slide .panel {
+  box-sizing: border-box;
+  background: var(--bg-1);
+  border-radius: var(--r-3);
+  padding: var(--s-4);
+}
+.slide .word-label {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.slide .big-num {
+  font-family: var(--font-display);
+  font-size: 200px;
+  line-height: 1;
+  color: var(--accent-1);
+}
+.slide .ghost { color: var(--fg-1); font-style: italic; opacity: .5; }
+.slide .chain-link {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 10px solid var(--fg-1);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.slide .chain-link--broken { border-style: dashed; border-color: var(--accent-1); }
+/* muted caption under a figure or stat; non-zero margins stay inline */
+.slide .cap { font-size: 28px; color: var(--fg-1); margin: 0; }
+/* cap promoted to primary ink — a stat tile's reading line */
+.slide .cap--ink { color: var(--fg-0); }
+/* study-slide stat tile lead: the accent figure; pair with .word-label for display caps */
+.slide .stat { font-size: var(--t-small); color: var(--accent-1); margin: 0; }
+/* plain arrow connector between staged blocks */
+.slide .arrow { font-size: var(--t-h2); color: var(--fg-1); }
+/* stacked-paper sheet — the grading-pile motif; size/rotation/overlap stay inline */
+.slide .sheet {
+  background: var(--bg-1);
+  border: 4px solid var(--fg-1);
+  border-radius: var(--r-1);
+}
+/* taxonomy ladder — ruled rows (Bloom's, SOLO, the leak); rung color stays inline */
+.slide .ladder {
+  border-left: 10px solid var(--fg-1);
+  border-right: 10px solid var(--fg-1);
+  border-bottom: 8px solid var(--fg-1);
+}
+.slide .ladder > p {
+  border-top: 8px solid var(--fg-1);
+  padding: var(--s-1) var(--s-2);
+  font-size: 28px;
+  margin: 0;
+}
+/* scantron answer bubble (title slide) */
+.slide .bubble {
+  width: 150px;
+  height: 96px;
+  border: 7px solid var(--accent-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 44px;
+  color: var(--accent-2);
+}
+/* speech balloon for "Explain" quotes; font-size stays inline */
+.slide .speech {
+  border: 8px solid var(--accent-2);
+  border-radius: var(--r-3) var(--r-3) var(--r-3) 0;
+  padding: var(--s-3);
+}
+/* seat-grid tile; non-default fill stays inline */
+.slide .seat { width: 70px; height: 70px; background: var(--bg-1); border-radius: var(--r-1); }
+/* test-tube bar (CGBG "Test" column) */
+.slide .tube { width: 42px; height: 110px; background: var(--accent-1); border-radius: 0 0 21px 21px; }
+/* chain column — link header + ruled card below (slide 04); header font-size stays inline */
+.slide .chain-col { width: 395px; text-align: center; }
+.slide .chain-col .chain-link {
+  height: 120px;
+  gap: var(--s-2);
+  padding: 0 var(--s-3);
+  border-radius: var(--r-3) var(--r-3) 0 0;
+}
+.slide .chain-col .chain-link svg { width: 62px; height: 62px; flex: none; }
+.slide .chain-col .panel {
+  margin-top: 0;
+  padding: var(--s-2) var(--s-3);
+  height: 260px;
+  border: 10px solid var(--fg-1);
+  border-top: none;
+  border-radius: 0 0 var(--r-3) var(--r-3);
+}
+/* key-takeaways box — a slide's closing panel: a hot badge tag straddling the
+   top edge, then one or more takeaway tiles side by side (or a single body
+   line). Pair with .panel and, where it should land on a step, .frag.
+   Vertical placement (margin-top) stays inline, per slide. */
+.slide .takeaway { position: relative; }
+.slide .takeaway__pill {
+  position: absolute;
+  top: 0;
+  left: var(--s-4);
+  transform: translateY(-50%);
+  padding: var(--s-1) var(--s-2);
+  font-size: var(--t-caption);
+}
+.slide .takeaway__list {
+  display: flex;
+  gap: var(--s-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.slide .takeaway__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  margin: 0;
+}
+/* the tile's eyebrow — names what the takeaway applies to */
+.slide .takeaway__lead { font-size: var(--t-caption); color: var(--accent-1); margin: 0; }
+.slide .takeaway__body { font-size: 30px; line-height: 1.4; margin: 0; }
+
+/* Three-column reference list. Entries are full APA, so they run several lines
+   each — three narrower columns pack them in the height a slide actually has,
+   where two wide ones overflow. overflow-wrap is for the DOIs: a bare URL has no
+   break opportunity and would otherwise punch out through the column edge. */
+.slide .ref-list {
+  columns: 3;
+  column-gap: var(--s-4);
+  font-size: var(--t-ref);
+  line-height: 1.3;
+  /* marker inside the line box: with `outside` in a multicolumn list the bullets
+     in columns 2 and 3 render past the column edge and get clipped */
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+/* break-inside keeps one reference whole rather than splitting it across a
+   column boundary, which reads as two half-citations */
+.slide .ref-list li { margin: 0 0 var(--s-1); break-inside: avoid; }
+@keyframes studio-drift {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(24px, -30px); }
+  66% { transform: translate(-18px, 20px); }
+}
+.slide .anim-drift { animation: studio-drift 7s ease-in-out infinite; }
+@keyframes studio-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+.slide .anim-pulse { animation: studio-pulse 2.6s ease-in-out infinite; }
+
+/* beamer-style section tracker — full-width scantron header band.
+   Markup is injected at runtime by js/tracker.js; edit sections there. */
+.slide .sec-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 88px;
+  box-sizing: border-box;
+  background: var(--bg-1);
+  border-bottom: 3px dashed var(--accent-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--s-6);
+}
+.slide .sec-track .st-sec {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.slide .sec-track em {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: 22px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg-1);
+  opacity: .6;
+}
+.slide .sec-track .st-sec.is-here em {
+  font-size: 30px;
+  color: var(--fg-0);
+  opacity: 1;
+}
+.slide .sec-track .st-sec span { display: flex; gap: 6px; }
+.slide .sec-track b {
+  box-sizing: border-box;
+  width: 17px;
+  height: 12px;
+  border: 3px solid var(--accent-2);
+  border-radius: 50%;
+  opacity: .4;
+}
+.slide .sec-track .st-sec.is-here b {
+  width: 21px;
+  height: 15px;
+  opacity: .9;
+}
+.slide .sec-track b.is-now { background: var(--fg-0); border-color: var(--fg-0); opacity: 1; }
+/* slides carrying the header band start their content lower, clear of the dashed rule */
+.slide:has(.sec-track) { padding-top: var(--s-8); }
+/* bulleted list styled as a scantron answer sheet — ruled rows, lettered bubbles.
+   Bubbles stay unfilled; .is-marked is kept in markup but no longer changes looks. */
+.slide .scantron-list { list-style: none; margin: 0; padding: 0; text-align: left; counter-reset: sc; }
+.slide .scantron-list li {
+  position: relative;
+  counter-increment: sc;
+  padding: 12px 0 12px 56px;
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.35;
+  border-bottom: 2px dotted var(--accent-2);
+}
+.slide .scantron-list li:last-child { border-bottom: none; }
+.slide .scantron-list li::before {
+  content: counter(sc, upper-alpha);
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 26px;
+  border: 3px solid var(--accent-2);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--accent-2);
+}
+/* hand-rolled syntax tokens for code exhibits — one vocabulary (k keyword ·
+   fn name · lit literal · cm comment), two schemes keyed to the sheet behind
+   the code. Dark ink sheets mix the accents toward bg-0 so tokens stay light;
+   cream sheets take the accents straight. */
+.slide .code--dark { color: var(--bg-0); }
+.slide .code--dark .k { color: color-mix(in srgb, var(--accent-2) 50%, var(--bg-0)); }
+.slide .code--dark .fn { color: color-mix(in srgb, var(--accent-1) 45%, var(--bg-0)); }
+.slide .code--dark .lit { color: color-mix(in srgb, var(--accent-3) 55%, var(--bg-0)); }
+.slide .code--dark .cm { font-style: italic; color: color-mix(in srgb, var(--bg-0) 45%, var(--fg-0)); }
+.slide .code--light .k { color: var(--accent-2); }
+.slide .code--light .fn { color: var(--accent-1); }
+.slide .code--light .lit { color: var(--accent-3); }
+.slide .code--light .cm { font-style: italic; color: var(--fg-1); }

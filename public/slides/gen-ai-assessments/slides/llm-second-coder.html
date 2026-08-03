@@ -1,0 +1,88 @@
+<section data-sid="llm-second-coder:1" class="slide" id="slide-17b">
+  <p data-sid="llm-second-coder:23" class="kicker">Taking a step back…</p>
+  <h2 data-sid="llm-second-coder:24" style="margin-bottom: var(--s-2); transform: translate(0px, -12px)">So far: the LLM as grader</h2>
+  <div data-sid="llm-second-coder:25" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-5);">
+    <div data-sid="llm-second-coder:26" style="display: flex; gap: var(--s-5); align-items: center;">
+      <div data-sid="llm-second-coder:27" class="panel" style="flex: 2; border: 8px solid var(--fg-0);">
+        <p data-sid="llm-second-coder:28" class="word-label stat">The hard cases</p>
+        <ul data-sid="llm-second-coder:41" style="margin: var(--s-2) 0 0;">
+          <li data-sid="llm-second-coder:29">Natural-language answers — the responses we historically couldn’t auto-grade easily</li>
+          <li data-sid="llm-second-coder:30">Other structured responses (e.g., code) which require rubrics to grade.</li>
+        </ul>
+      </div>
+      <div data-sid="llm-second-coder:31" class="frag" data-step="1" data-anim="fade-up" style="flex: 1; transform: translate(0px, -78.6194px)">
+        <p data-sid="llm-second-coder:32" class="word-label cap" style="font-size: 42px">already easy</p>
+        <ul data-sid="llm-second-coder:33" style="list-style: none; padding: 0; margin: var(--s-3) 0 0; font-size: var(--t-small); color: var(--fg-1);">
+          <li data-sid="llm-second-coder:34" style="margin: 0 0 var(--s-2); font-size: 42px; width: 633.562px"><span style="color: var(--accent-1);">✓</span> code writing <span style="opacity: .8;">→ unit tests, pass/fail</span></li>
+          <li data-sid="llm-second-coder:35" style="margin: 0 0 var(--s-2); font-size: 42px"><span style="color: var(--accent-1);">✓</span> code tracing <span style="opacity: .8;">→ expected output</span></li>
+          <li data-sid="llm-second-coder:36" style="margin: 0; font-size: 42px; width: 571.638px"><span style="color: var(--accent-1);">✓</span> multiple choice <span style="opacity: .8;">→ answer key</span></li>
+        </ul>
+      </div>
+    </div>
+    <span class="frag key-anchor" data-step="3" style="display: none;"></span>
+    <div data-sid="llm-second-coder:37" class="frag key-card" data-step="2" data-anim="fade-up">
+      <p data-sid="llm-second-coder:38" class="key-card__q" style="font-size: var(--t-body);">If leveraging models is a learning objective, how do we assess that?</p>
+      <p data-sid="llm-second-coder:39" class="key-card__a">Grade the student on their ability to get the model to do stuff!</p>
+    </div>
+  </div>
+  <style>
+    /* closing beat — the band is an exam item: the question lands at step 2,
+       then the cover strip fades away at step 3. The fade is driven by the
+       hidden .key-anchor frag earlier in the body, so the deck's step engine
+       owns the state and back-stepping re-covers it for free. */
+    #slide-17b .key-card {
+      box-sizing: border-box;
+      background: color-mix(in srgb, var(--accent-1) 10%, var(--bg-0));
+      border: 4px solid var(--accent-1);
+      border-radius: var(--r-3);
+      padding: var(--s-3) var(--s-5);
+      text-align: center;
+    }
+    #slide-17b .key-card__q {
+      font-size: var(--t-small);
+      color: var(--fg-0);
+      margin: 0;
+    }
+    /* the answer slip — cream paper laid on the band, answer in grader's ink */
+    #slide-17b .key-card__a {
+      position: relative;
+      overflow: hidden;
+      margin: var(--s-2) 0 0;
+      padding: var(--s-1) var(--s-3);
+      background: var(--bg-0);
+      border-radius: var(--r-2);
+      color: var(--accent-3);
+    }
+    /* the cover is chrome, not content — a pseudo-element so it never becomes
+       a selectable layer sitting between you and the answer text */
+    #slide-17b .key-card__a::after {
+      content: "ANSWER KEY";
+      box-sizing: border-box;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-1);
+      border: 3px dashed var(--accent-2);
+      border-radius: var(--r-2);
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      letter-spacing: .16em;
+      color: var(--fg-1);
+      transition: opacity .5s ease;
+    }
+    #slide-17b .key-anchor.is-current ~ .key-card .key-card__a::after,
+    #slide-17b .key-anchor.is-past ~ .key-card .key-card__a::after {
+      opacity: 0;
+    }
+  </style>
+
+  <aside data-sid="llm-second-coder:40" class="notes">
+[~50s · 3 clicks]
+Recap: so far the LLM has been the grader for two hard cases — natural-language responses, historically the hard thing to auto-grade in CS and beyond, and (just now) code writing, where a unit test's pass/fail isn't the grade and the rubric is.
+(1) Our other question formats were always easy to auto-grade: code runs against unit tests, a tracing problem has an input and an expected output, multiple choice has a key.
+(2) But think more broadly — put the question up: if leveraging these models effectively is itself a learning objective, how do we assess that? Give the room a beat to sit with it.
+(3) Uncover the answer key: grade the student on their ability to get the model to do stuff. The main mechanism is code generation, so build the autograding process around the code generated from the student's prompt — that's the next slide.
+  </aside>
+</section>

@@ -1,0 +1,113 @@
+<section data-sid="raw-generation:15" class="slide" id="slide-09">
+  <p class="kicker" data-sid="raw-generation:1">MCQs — the stems and the distractors</p>
+  <h2 data-sid="raw-generation:3" style="margin-bottom: var(--s-3);">Can GPT-4 write your MCQs?</h2>
+  <div data-sid="raw-generation:16" class="slide__body" style="display: flex; flex-direction: column; justify-content: flex-start; gap: var(--s-4);">
+    <div data-sid="raw-generation:2" style="display: flex; gap: var(--s-5); align-items: stretch;">
+      <figure class="panel mcq" data-sid="raw-generation:47" style="width: 780px; flex: none; transform: translate(0px, 0px)">
+
+        <div class="mcq__part mcq__part--stem frag frag--dim" data-step="1" data-sid="raw-generation:49">
+          <p class="mcq__tag" data-sid="raw-generation:50">the stem — what the question asks</p>
+          <p class="mcq__q" data-sid="raw-generation:51">What does <code>count_evens([1, 2, 3, 4])</code> return?</p>
+          <pre class="code--light" data-sid="raw-generation:52"><span class="k">def</span> <span class="fn">count_evens</span>(nums):
+    total = <span class="lit">0</span>
+    <span class="k">for</span> n <span class="k">in</span> nums:
+        <span class="k">if</span> n % <span class="lit">2</span> == <span class="lit">0</span>: total += <span class="lit">1</span>
+    <span class="k">return</span> total</pre>
+        </div>
+        <div class="mcq__part mcq__part--opts frag frag--dim" data-step="2" data-sid="raw-generation:53">
+          <p class="mcq__tag" data-sid="raw-generation:54">the options — one key, three distractors</p>
+          <ol class="scantron-list" data-sid="raw-generation:55">
+            <li class="mcq__opt" data-sid="raw-generation:56"><span class="mcq__val">0</span></li>
+            <li class="mcq__opt mcq__opt--key" data-sid="raw-generation:57"><span class="mcq__val">2</span></li>
+            <li class="mcq__opt" data-sid="raw-generation:58"><span class="mcq__val">6</span></li>
+            <li class="mcq__opt" data-sid="raw-generation:59"><span class="mcq__val">None</span></li>
+          </ol>
+        </div>
+      </figure>
+      <div data-sid="raw-generation:38" style="flex: 1; display: flex; flex-direction: column; gap: var(--s-2);">
+        <p class="panel s09-claim frag frag--dim" data-step="3" data-sid="raw-generation:63">Yes, and there are too many studies to list here — on whole MCQs, and on single parts of them.</p>
+        <p class="word-label s09-eyebrow frag frag--dim" data-step="4" data-sid="raw-generation:64">ways people actually do it</p>
+        <ol class="s09-ways frag frag--dim" data-step="4" data-sid="raw-generation:65">
+          <li data-sid="raw-generation:66">Ground the generator in your own course material with RAG.</li>
+          <li data-sid="raw-generation:67">Pick distractors from student answer logs — a whole class's mistakes, or one student's own.</li>
+          <li data-sid="raw-generation:68">Generate parallel variants of one item, so each section and retake gets a different form.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+  <ul class="corner-cite" data-sid="raw-generation:71">
+    <li data-sid="raw-generation:72">Doughty, J., Wan, Z., Bompelli, A., Qayum, J., Wang, T., Zhang, J., Zheng, Y., Doyle, A., Sridhar, P., Agarwal, A., Bogart, C., Keylor, E., Kultur, C., Savelka, J., &amp; Sakr, M. (2024). A comparative study of AI-generated (GPT-4) and human-crafted MCQs in programming education. In <em>Australian Computing Education Conference (ACE 2024)</em>. ACM. https://doi.org/10.1145/3636243.3636256</li>
+    <li data-sid="raw-generation:73">Hassany, M., Brusilovsky, P., Savelka, J., Lekshmi Narayanan, A. B., Akhuseyinoglu, K., Agarwal, A., &amp; Hendrawan, R. A. (2025). Generating effective distractors for introductory programming challenges: LLMs vs humans. In <em>LAK25: The 15th International Learning Analytics and Knowledge Conference</em> (pp. 484–493). ACM. https://doi.org/10.1145/3706468.3706529</li>
+    <li data-sid="raw-generation:74">Tran, A., Angelikas, K., Rama, E., Okechukwu, C., Smith IV, D. H., &amp; MacNeil, S. (2023). Generating multiple choice questions for computing courses using large language models. In <em>2023 IEEE Frontiers in Education Conference (FIE)</em>. IEEE.</li>
+  </ul>
+  <aside class="notes" data-sid="raw-generation:32">
+    <p data-sid="raw-generation:70"><strong>How to run this slide.</strong> Four steps, read left to right. The figure on the left is the vocabulary — say <em>stem</em>, <em>key</em>, <em>distractor</em> out loud on steps 1 and 2, because the rest of the section depends on those three words. Steps 3 and 4 are the right column: the “yes” box, then the three ways; the numbers that used to be on this slide are below, quote them rather than showing them. The three ways: <strong>(1) RAG</strong> — retrieve from your own notes, labs and readings so the item is about your course, not the model's idea of the topic. <strong>(2) Distractors from answer logs</strong> — the wrong answers your cohort already picks (general) or the ones a single student keeps picking (personalized); Hassany et al. is the evidence that this yardstick already sits in the LMS. <strong>(3) Parallel variants</strong> — one item, many surface forms, for retakes, sections and self-study banks; that is Tran et al.'s "isomorphic MCQs", and the note below has the numbers.</p>
+    <p data-sid="raw-generation:33"><strong>Backing study 1 — Doughty et al., ACE 2024</strong> (literature/Doughty2023-AIGeneratedVsHumanMCQs.pdf). 651 GPT-4 MCQs from 246 learning objectives across six Python courses, judged against 449 human-written items — 13 raters (6 CS instructors), a six-item rubric, 3,076 ratings. The prompt carried item-writing rules, Bloom’s definitions and worked examples; a BERT classifier picked each LO’s Bloom level and one of five question types. Verbatim: “We observed that the automatically generated MCQs appear to be noticeably better aligned with the LOs as compared to the human-crafted ones” — 82.9% vs 67.3%, Fisher exact p &lt; 10⁻⁹. Level with humans on clarity and code validity: 96.9% sufficient information, 98.2% unique options, 71.7% ≈ 71.0% valid code. The defect rate: 4.9% had more than one correct key (1.1% human), 4.0% gave the answer away in the stem (0.9% human), both significant by Fisher’s exact. Verbatim: “81.7% of all the generated MCQs passed all of the evaluation criteria. This suggests that less than 1 in 5 generated questions would require instructors’ edits.” <em>Crucially, these were scored by the authors’ rubric and never sat by students</em> — which is exactly the gap the Hassany study closes.</p>
+    <p data-sid="raw-generation:34"><strong>Backing study 2 — Hassany, Brusilovsky, Savelka, Lekshmi Narayanan, Akhuseyinoglu, Agarwal &amp; Hendrawan, LAK 2025</strong> (literature/Hassany2025-LLMvsHumanDistractors.pdf), “Generating Effective Distractors for Introductory Programming Challenges: LLMs vs Humans,” DOI 10.1145/3706468.3706529, CC BY. The method is the point: instead of an expert panel or a new classroom study, they evaluate LLM-generated distractors against <em>pre-existing student learning data</em> — PCEX program-construction challenges already answered by 1,071 students across 22 classes, Fall 2017 to Spring 2023. Five LLMs (OpenAI-o1, GPT-4, GPT-4o, GPT-4o-mini, Llama-3.1-8b) × three prompts.</p>
+    <p data-sid="raw-generation:75"><strong>Backing study 3 — Tran, Angelikas, Rama, Okechukwu, Smith IV &amp; MacNeil, FIE 2023</strong> (literature/macniel.pdf). This is the citation for way 3 on the right. Verbatim from the abstract: “We used two LLMs, GPT-3 and GPT-4, to generate isomorphic MCQs based on MCQs from the Canterbury Question Bank and an Introductory to Low-level C Programming Course” — <em>isomorphic</em> is their word for a parallel variant of an existing item, which is why this backs the variants line rather than the RAG or distractor lines. Three studies; the headline is that “GPT-4 correctly generated the answer for 78.5% of MCQs based only on the question stem,” against GPT-3 at 30.8% (Canterbury) and 36.7% (C course) — Table I's totals are GPT-3 .308/.367 vs GPT-4 .753/.900. <strong>Say the caveat with the number.</strong> Their own distractor analysis found the models sometimes emit a <em>second correct answer</em> as a distractor: GPT-3 11.1% and 10%, GPT-4 9.9% and 17.8% — GPT-4 is worse on that dataset, not better. Study 3 (n=90) found essentially no correlation between an item's discrimination score and the models' ability to generate an isomorphic version of it (Pearson .214 GPT-3, .119 GPT-4; Spearman .183 / .076), which the authors read as the distractors mattering more than stem clarity. Their conclusion, verbatim: “LLMs at their current state are not yet perfect at generating MCQs,” and instructors “would still need to carefully evaluate the correctness of the distractors and correct answer choices.” <em>Provenance caveat:</em> the copy in literature/ is a preprint-style PDF with no venue stamp or DOI — the FIE 2023 venue is per the presenter, so the slide entry carries no DOI.</p>
+    <p data-sid="raw-generation:35"><strong>What “functional” means — say the threshold if asked.</strong> A functional distractor is one plausible enough to pull students off the key. The literature default is 5% of examinees, but the authors raise it: PCEX challenges are self-study and retryable with 4 distractors, so “each option … has a 20% chance of being randomly picked at the first attempt, making the 5% thresholds too low for this distinction. In this study, we set the threshold at 25%.” That splits the 156 human-authored distractors into <strong>61 functional and 95 non-functional</strong>. GPT-4o was best, and “could generate 50% of all human-authored functional distractors.” Best single configuration was GPT-4o with prompt P2: 31 functional + 25 non-functional matched.</p>
+    <p data-sid="raw-generation:36"><strong>The buried finding, worth saying aloud.</strong> Verbatim: “the majority of pairs (including all pairs for GPT-4o) generated a larger (or equal) number of functional than nonfunctional distractors. In contrast, with the same 25% thresholds … humans authored noticeably more non-functional than functional distractors.” The humans wrote more duds than hits; the models didn’t. Second surprise: prompt P2, which let the model use its own sense of misconceptions, beat P3, which fed it a published misconception catalogue — “LLMs’ ‘own’ perception of misconceptions was more helpful than a human-produced catalog of misconceptions.”</p>
+    <p data-sid="raw-generation:37"><strong>Accuracy guard.</strong> The ~50% is a <em>match rate against human-authored distractors</em>, not a quality score. The authors are explicit that matching everything “should not be the ultimate goal of such generation tasks; rather, the focus should be on generating more functional distractors,” and that the novel non-matched distractors “require further evaluation” — real-world classroom effectiveness is left to future work. Don’t claim the LLM distractors are better; claim the yardstick is cheap and already sitting in the LMS.</p>
+    <p data-sid="raw-generation:60"><strong>Provenance of the item on the left — say “reconstructed” if anyone asks.</strong> The <code>count_evens</code> trace and its four options are <strong>ours</strong>, an illustration rather than data: neither paper publishes a worked item with per-option response rates. It is built to the two papers’ own definitions. The stem-plus-code half is what Doughty’s pipeline generates from a learning objective — that is the half Doughty's raters judged GPT-4 does well. The options half is one key and three distractors, scored against Hassany et al.’s 25% threshold. <strong>The per-option pick rates have come off the slide — say them rather than show them, and only if someone asks.</strong> They were ours too: <code>6</code> is the one distractor that clears the threshold (summing the even values instead of counting them — a real novice slip; about 31% would take it), while <code>0</code> and <code>None</code> are the filler an instructor writes to fill four slots. One functional distractor out of three is the paper’s actual ratio: 61 functional across 156 distractors is about 1.6 per item. <em>Walkthrough — four steps, and nothing ever dims back down:</em> everything starts at a quarter opacity, then step 1 brings up the stem, step 2 the options, step 3 the “yes” box, step 4 the three ways. Each stays at full once it lands, so by the last step the whole slide is lit and you can point anywhere on it while you take questions.</p>
+  </aside>
+  <style>
+    /* Right column — the takeaway, then the ways people act on it. It sits
+       second so the slide reads left to right: name the parts of an MCQ first,
+       then say what the field does with them. No figures here on purpose —
+       the study numbers are the speaker's, not the slide's, and live in the
+       notes below. */
+    #slide-09 .s09-claim { font-size: var(--t-small); line-height: 1.25; margin: 0; padding: var(--s-3); }
+    #slide-09 .s09-eyebrow { font-size: var(--t-caption); color: var(--accent-2); margin: 0; }
+    #slide-09 .s09-ways { font-size: var(--t-small); line-height: 1.3; margin: 0; padding-left: 1.2em; }
+    #slide-09 .s09-ways li { margin: 0 0 var(--s-2); }
+    #slide-09 .s09-ways li:last-child { margin-bottom: 0; }
+    #slide-09 .s09-ways li::marker { font-family: var(--font-display); color: var(--accent-1); }
+    /* The three full APA entries ride the deck-wide .corner-cite band, which is
+       absolutely positioned in the bottom margin. That band is the reason the
+       figure below is tightened: at var(--t-ref) the three entries run six lines
+       (~172px), so the body row has to finish above them. If you re-add anything
+       to either column, check this seam first — corner-cite does not push. */
+
+    /* Left — one item taken apart, the half under discussion lit. Each half is
+       its own .frag, so the step engine's .is-current / .is-past land directly
+       on it; .frag--dim keeps the other half on stage but muted, so the item
+       always reads as one item rather than arriving in pieces. Height is left to
+       the content (no inline height) so the row tracks whichever column is taller. */
+    #slide-09 .mcq { display: flex; flex-direction: column; gap: var(--s-1); margin: 0; padding: var(--s-2); }
+    #slide-09 .mcq__part {
+      border-left: 6px solid transparent;
+      border-radius: var(--r-2);
+      padding: var(--s-1);
+      transition: opacity .35s ease, border-color .35s ease, background-color .35s ease;
+    }
+    #slide-09 .mcq__tag { font-size: var(--t-small); color: var(--fg-1); margin: 0 0 var(--s-1); }
+    #slide-09 .mcq__q { font-size: 28px; line-height: 1.3; margin: 0 0 var(--s-1); }
+    #slide-09 .mcq pre { margin: 0; font-size: var(--t-caption); line-height: 1.2; white-space: pre-wrap; }
+    /* the option rows lose the deck's default row padding — the 1.35 line-height
+       already gives them air, and the ~64px it buys back is what keeps the
+       figure clear of the citation band */
+    #slide-09 .scantron-list li { padding-top: 0; padding-bottom: 0; font-size: 26px; }
+    #slide-09 .mcq__val { font-family: var(--font-display); }
+    /* the key is marked, the three distractors are not — that is the whole
+       point of the panel, so it is not an annotation and it stays */
+    #slide-09 .mcq__opt--key .mcq__val { color: var(--accent-1); }
+    #slide-09 .mcq__opt--key .mcq__val::after { content: " ✓"; }
+
+    /* The walkthrough, four steps: 1 the stem, 2 the options, 3 the claim,
+       4 the ways. Every one of them is a .frag--dim, so it waits at .25 and
+       goes to full on its own step — and nothing ever dims again, because
+       deck.css puts .is-current and .is-past both at opacity 1. Do not add an
+       .is-past rule that lowers opacity: that re-fades a thing already shown,
+       which is the one behaviour this build is not allowed to have. */
+    #slide-09 .mcq__part.is-current,
+    #slide-09 .mcq__part.is-past {
+      border-color: var(--accent-2);
+      background: var(--bg-0);
+    }
+    /* Step 2 lights the options block and nothing else — the per-option pick
+       rates and the dimming of the two nobody chose were removed on purpose.
+       The four options read as four equal options; which ones were duds is
+       the speaker's line, and the numbers are in the notes above. */
+  </style>
+</section>

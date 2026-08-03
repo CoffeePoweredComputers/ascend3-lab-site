@@ -1,0 +1,201 @@
+<section data-sid="items-earn-their-keep:10" class="slide" id="slide-06">
+  <style>
+    #slide-06 .s06-m { display: none; }
+    #slide-06 #s06-curve, #slide-06 #s06-b-line, #slide-06 #s06-a-line { transition: d 1s ease-in-out; }
+    #slide-06 #s06-b-dot { transition: cx 1s ease-in-out, cy 1s ease-in-out; }
+    #slide-06 #s06-b-label, #slide-06 #s06-a-label { transition: transform 1s ease-in-out; }
+    /* step 3 — low difficulty */
+    #slide-06 .s06-m3.is-current ~ div #s06-curve { d: path("M70,340 C160,330 250,70 710,58"); }
+    #slide-06 .s06-m3.is-current ~ div #s06-b-line { d: path("M204,410 L204,238"); }
+    #slide-06 .s06-m3.is-current ~ div #s06-b-dot { cx: 204px; cy: 238px; }
+    #slide-06 .s06-m3.is-current ~ div #s06-b-label { transform: translate(-186px, -60px); }
+    #slide-06 .s06-m3.is-current ~ div #s06-a-line { d: path("M114,316 L294,160"); }
+    #slide-06 .s06-m3.is-current ~ div #s06-a-label { transform: translate(-280px, 160px); }
+    /* step 4 — high difficulty */
+    #slide-06 .s06-m4.is-current ~ div #s06-curve { d: path("M70,400 C480,398 590,120 710,95"); }
+    #slide-06 .s06-m4.is-current ~ div #s06-b-line { d: path("M523,410 L523,236"); }
+    #slide-06 .s06-m4.is-current ~ div #s06-b-dot { cx: 523px; cy: 236px; }
+    #slide-06 .s06-m4.is-current ~ div #s06-b-label { transform: translate(127px, 0); }
+    #slide-06 .s06-m4.is-current ~ div #s06-a-line { d: path("M433,311 L613,161"); }
+    #slide-06 .s06-m4.is-current ~ div #s06-a-label { transform: translate(-110px, -90px); }
+    /* step 5 — median difficulty, high discrimination */
+    #slide-06 .s06-m5.is-current ~ div #s06-curve { d: path("M70,398 C380,396 400,64 710,58"); }
+    #slide-06 .s06-m5.is-current ~ div #s06-b-line { d: path("M390,410 L390,230"); }
+    #slide-06 .s06-m5.is-current ~ div #s06-b-dot { cx: 390px; cy: 230px; }
+    #slide-06 .s06-m5.is-current ~ div #s06-b-label { transform: translate(0, 0); }
+    #slide-06 .s06-m5.is-current ~ div #s06-a-line { d: path("M305,317 L475,143"); }
+    /* step 6 — low discrimination */
+    #slide-06 .s06-m6.is-current ~ div #s06-curve { d: path("M70,350 C290,320 470,180 710,140"); }
+    #slide-06 .s06-m6.is-current ~ div #s06-b-line { d: path("M401,410 L401,241"); }
+    #slide-06 .s06-m6.is-current ~ div #s06-b-dot { cx: 401px; cy: 241px; }
+    #slide-06 .s06-m6.is-current ~ div #s06-b-label { transform: translate(11px, 0); }
+    #slide-06 .s06-m6.is-current ~ div #s06-a-line { d: path("M291,288 L511,194"); }
+    #slide-06 .s06-m6.is-current ~ div #s06-a-label { transform: translate(-5px, 50px); }
+    #slide-06 .s06-imp.is-past { opacity: 0; }
+    /* the four takeaway cards read as one centered unit; the caption is ruled
+       off from the bubble row above it. Keep the title's size as-is — growing it
+       would push the bubble row off the distribution curve behind the cards. */
+    #slide-06 .s06-imp { text-align: center; }
+    /* every card title reserves two lines: the step-5 title wraps, and
+       without a fixed box its bubble row lands lower than the others',
+       making the dots jump down during the crossfade */
+    #slide-06 .s06-imp .word-label { min-height: 88px; }
+    #slide-06 .s06-cap {
+      margin: var(--s-3) 0 0;
+      padding-top: var(--s-2);
+      border-top: 3px dashed var(--accent-2);
+      font-size: var(--t-small);
+    }
+    #slide-06 .s06-band { transition: x 1s ease-in-out, width 1s ease-in-out; }
+    #slide-06 .s06-m4.is-current ~ div #s06-band1 { x: 508px; width: 31px; }
+    #slide-06 .s06-m4.is-current ~ div #s06-band2 { x: 539px; width: 31px; }
+    #slide-06 .s06-m4.is-current ~ div #s06-band3 { x: 570px; width: 31px; }
+    #slide-06 .s06-m4.is-current ~ div #s06-band4 { x: 601px; width: 31px; }
+    #slide-06 .s06-m5.is-current ~ div #s06-band1 { x: 316px; width: 79px; }
+    #slide-06 .s06-m5.is-current ~ div #s06-band2 { x: 395px; width: 79px; }
+    #slide-06 .s06-m5.is-current ~ div #s06-band3 { x: 474px; width: 79px; }
+    #slide-06 .s06-m5.is-current ~ div #s06-band4 { x: 553px; width: 79px; }
+    #slide-06 .s06-m6.is-current ~ div #s06-band1 { x: 60px; width: 64px; }
+    #slide-06 .s06-m6.is-current ~ div #s06-band2 { x: 252px; width: 128px; }
+    #slide-06 .s06-m6.is-current ~ div #s06-band3 { x: 444px; width: 64px; }
+    #slide-06 .s06-m6.is-current ~ div #s06-band4 { x: 572px; width: 60px; }
+    /* step 7 — a range of difficulties: the single item's annotations step
+       aside, a family of curves fans out of the main median curve (their
+       markup default d IS the median shape, so they emerge from it), the
+       bands spread over the whole ability distribution, and a coverage bar
+       grows from the center of the ability line to its full span (no s06-m7
+       curve rule: the main curve falls back to its default median shape). */
+    #slide-06 #s06-fam path { transition: d 1s ease-in-out; }
+    #slide-06 #s06-cov { transition: x 1s ease-in-out, width 1s ease-in-out; }
+    #slide-06 .s06-m7.is-current ~ div #s06-ind-b,
+    #slide-06 .s06-m7.is-current ~ div #s06-ind-a { opacity: 0; }
+    #slide-06 .s06-m7.is-current ~ div #s06-f1 { d: path("M70,340 C160,330 250,70 710,58"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-f2 { d: path("M70,385 C255,383 330,66 710,58"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-f3 { d: path("M70,398 C430,396 520,74 710,60"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-f4 { d: path("M70,402 C520,400 600,96 710,66"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-f5 { d: path("M70,300 C130,290 210,62 710,56"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-f6 { d: path("M70,390 C300,388 380,68 710,59"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-f7 { d: path("M70,404 C560,402 640,150 710,112"); }
+    #slide-06 .s06-m7.is-current ~ div #s06-band1 { x: 11px; width: 153px; }
+    #slide-06 .s06-m7.is-current ~ div #s06-band2 { x: 164px; width: 152px; }
+    #slide-06 .s06-m7.is-current ~ div #s06-band3 { x: 316px; width: 152px; }
+    #slide-06 .s06-m7.is-current ~ div #s06-band4 { x: 468px; width: 153px; }
+    #slide-06 .s06-m7.is-current ~ div #s06-cov { x: 11px; width: 610px; }
+  </style>
+  <p class="kicker" data-sid="items-earn-their-keep:1">Item quality — IRT</p>
+  <h2 data-sid="items-earn-their-keep:25">Psychometrics: Identifying "good" questions</h2>
+  <div data-sid="items-earn-their-keep:11" class="slide__body" style="display: flex; gap: var(--s-6); align-items: center;">
+    <i class="frag s06-m s06-m3" data-step="3"></i>
+    <i class="frag s06-m s06-m4" data-step="4"></i>
+    <i class="frag s06-m s06-m5" data-step="5"></i>
+    <i class="frag s06-m s06-m6" data-step="6"></i>
+    <i class="frag s06-m s06-m7" data-step="7"></i>
+    <div data-sid="items-earn-their-keep:2" style="flex: 1.3; position: relative;">
+      <p data-sid="items-earn-their-keep:26" style="font-size: 32px; color: var(--fg-1); margin: 0; position: absolute; left: -46px; top: 50%; writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg)">P(correct)</p>
+      <svg viewBox="0 0 760 460" style="width: 100%;">
+        <line x1="50" y1="410" x2="730" y2="410" stroke-width="6" style="stroke: var(--fg-1);"/>
+        <line x1="50" y1="410" x2="50" y2="70" stroke-width="6" style="stroke: var(--fg-1);"/>
+        <text x="26" y="90" font-size="22" style="fill: var(--fg-1);">1</text>
+        <text x="26" y="416" font-size="22" style="fill: var(--fg-1);">0</text>
+        <g id="s06-theta-ticks">
+          <line x1="70" y1="410" x2="70" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <line x1="177" y1="410" x2="177" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <line x1="283" y1="410" x2="283" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <line x1="390" y1="410" x2="390" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <line x1="497" y1="410" x2="497" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <line x1="603" y1="410" x2="603" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <line x1="710" y1="410" x2="710" y2="422" stroke-width="4" style="stroke: var(--fg-1);"/>
+          <text x="70" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">−3</text>
+          <text x="177" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">−2</text>
+          <text x="283" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">−1</text>
+          <text x="390" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">0</text>
+          <text x="497" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">1</text>
+          <text x="603" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">2</text>
+          <text x="710" y="448" font-size="22" text-anchor="middle" style="fill: var(--fg-1);">3</text>
+        </g>
+        <path id="s06-curve" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="11" style="stroke: var(--fg-0);"/>
+        <g id="s06-ind-b" class="frag" data-step="1">
+          <path id="s06-b-line" d="M390,410 L390,230" fill="none" stroke-width="5" stroke-dasharray="10 10" style="stroke: var(--accent-3);"/>
+          <circle id="s06-b-dot" cx="390" cy="230" r="12" style="fill: var(--accent-3);"/>
+          <g id="s06-b-label">
+            <text x="395" y="330" font-size="28" style="fill: var(--accent-3);">b — difficulty</text>
+            <text x="395" y="362" font-size="21" style="fill: var(--fg-1);">where P(correct) = ½</text>
+          </g>
+        </g>
+        <g id="s06-ind-a" class="frag" data-step="2">
+          <path id="s06-a-line" d="M300,311 L480,149" fill="none" stroke-width="12" style="stroke: var(--accent-1);"/>
+          <g id="s06-a-label">
+            <text x="500" y="210" font-size="28" style="fill: var(--accent-1);">a — discrimination</text>
+            <text x="500" y="240" font-size="21" style="fill: var(--fg-1);">the slope at b</text>
+          </g>
+        </g>
+        <g id="s06-fam" class="frag" data-step="7">
+          <path id="s06-f1" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+          <path id="s06-f2" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+          <path id="s06-f3" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+          <path id="s06-f4" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+          <path id="s06-f5" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+          <path id="s06-f6" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+          <path id="s06-f7" d="M70,395 C345,393 435,70 710,60" fill="none" stroke-width="6" style="stroke: var(--accent-2); opacity: .7;"/>
+        </g>
+      </svg>
+      <p data-sid="items-earn-their-keep:5" style="font-size: 32px; color: var(--fg-1); margin: 0; text-align: center">ability θ</p>
+    </div>
+    <div data-sid="items-earn-their-keep:3" style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--s-4);">
+      <p data-sid="items-earn-their-keep:4" style="font-family: var(--font-display); font-style: italic; font-size: 36px; margin: 0;">P(correct) = 1 / (1 + e<sup>−a(θ − b)</sup>)</p>
+      <div data-sid="items-earn-their-keep:6" style="position: relative; height: 518px;">
+        <div data-sid="items-earn-their-keep:7" class="frag panel s06-imp" data-step="3" style="position: absolute; inset: 0;">
+          <p data-sid="items-earn-their-keep:12" class="word-label" style="font-size: 30px; color: var(--accent-3); margin: 0 0 var(--s-2);">Low difficulty</p>
+          <svg viewBox="0 0 632 34" style="width: 100%; margin-top: 108px;">
+            <circle cx="28" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/>
+            <circle cx="92" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="156" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="220" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="284" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="348" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="412" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="476" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="540" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="604" cy="17" r="12" style="fill: var(--accent-1);"/>
+          </svg>
+          <p data-sid="items-earn-their-keep:13" class="s06-cap">nearly everyone gets it — it separates only lower-performing students.</p>
+        </div>
+        <div data-sid="items-earn-their-keep:14" class="frag panel s06-imp" data-step="4" style="position: absolute; inset: 0;">
+          <p data-sid="items-earn-their-keep:15" class="word-label" style="font-size: 30px; color: var(--accent-3); margin: 0 0 var(--s-2);">High difficulty</p>
+          <svg viewBox="0 0 632 34" style="width: 100%; margin-top: 108px;">
+            <circle cx="28" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="92" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="156" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="220" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="284" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="348" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="412" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="476" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/>
+            <circle cx="540" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="604" cy="17" r="12" style="fill: var(--accent-1);"/>
+          </svg>
+          <p data-sid="items-earn-their-keep:16" class="s06-cap">only higher-performing students get it — it separates the top.</p>
+        </div>
+        <div data-sid="items-earn-their-keep:17" class="frag panel s06-imp" data-step="5" style="position: absolute; inset: 0;">
+          <p data-sid="items-earn-their-keep:18" class="word-label" style="font-size: 30px; color: var(--accent-3); margin: 0 0 var(--s-2);">Median difficulty, <span style="color: var(--accent-1);">high discrimination</span></p>
+          <svg viewBox="0 0 632 34" style="width: 100%; margin-top: 108px;">
+            <circle cx="28" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="92" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="156" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="220" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="284" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/>
+            <line x1="316" y1="0" x2="316" y2="34" stroke-width="4" stroke-dasharray="6 6" style="stroke: var(--fg-0);"/>
+            <circle cx="348" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="412" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="476" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="540" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="604" cy="17" r="12" style="fill: var(--accent-1);"/>
+          </svg>
+          <p data-sid="items-earn-their-keep:19" class="s06-cap">a clean split at the cutpoint — one item, real information.</p>
+        </div>
+        <div data-sid="items-earn-their-keep:20" class="frag panel s06-imp" data-step="6" style="position: absolute; inset: 0;">
+          <p data-sid="items-earn-their-keep:21" class="word-label" style="font-size: 30px; color: var(--accent-1); margin: 0 0 var(--s-2);">Low discrimination</p>
+          <svg viewBox="0 0 632 34" style="width: 100%; margin-top: 108px;">
+            <circle cx="28" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="92" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="156" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="220" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="284" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="348" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="412" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="476" cy="17" r="12" style="fill: var(--accent-1);"/><circle cx="540" cy="17" r="12" fill="none" stroke-width="4" style="stroke: var(--fg-1);"/><circle cx="604" cy="17" r="12" style="fill: var(--accent-1);"/>
+          </svg>
+          <p data-sid="items-earn-their-keep:22" class="s06-cap">correctness barely tracks ability — the item tells you little.</p>
+        </div>
+        <div data-sid="items-earn-their-keep:9" class="frag panel s06-imp" data-step="7" style="position: absolute; inset: 0;">
+          <p data-sid="items-earn-their-keep:23" class="word-label" style="font-size: 30px; color: var(--accent-3); margin: 0 0 var(--s-2);">A range of difficulties</p>
+          <p data-sid="items-earn-their-keep:24" class="s06-cap" style="margin-top: 182px; transform: translate(0px, 20px)">We want a spread of question difficulties to get good estimations across ability levels.</p>
+        </div>
+        <svg id="s06-dist" class="frag" data-step="3" viewBox="0 0 632 96" style="position: absolute; left: 32px; right: 32px; top: 140px;">
+          <defs>
+            <clipPath id="s06-dist-clip"><path d="M11,92 C130,90 208,12 316,12 C424,12 502,90 621,92 Z"/></clipPath>
+          </defs>
+          <g clip-path="url(#s06-dist-clip)" style="opacity: .35;">
+            <rect id="s06-band1" class="s06-band" x="60" y="0" width="143" height="96" style="fill: var(--accent-1);"/>
+            <rect id="s06-band2" class="s06-band" x="203" y="0" width="143" height="96" style="fill: var(--accent-1);"/>
+            <rect id="s06-band3" class="s06-band" x="346" y="0" width="143" height="96" style="fill: var(--accent-1);"/>
+            <rect id="s06-band4" class="s06-band" x="489" y="0" width="143" height="96" style="fill: var(--accent-1);"/>
+          </g>
+          <path d="M11,92 C130,90 208,12 316,12 C424,12 502,90 621,92" fill="none" stroke-width="3" style="stroke: var(--fg-1);"/>
+          <rect id="s06-cov" class="frag" data-step="7" x="316" y="86" width="0" height="10" rx="5" style="fill: var(--accent-1);"/>
+          <text x="11" y="32" font-size="20" style="fill: var(--fg-1);">← low ability</text>
+          <text x="621" y="32" font-size="20" text-anchor="end" style="fill: var(--fg-1);">high ability →</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

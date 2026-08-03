@@ -1,0 +1,93 @@
+<section data-sid="our-fields-timeline:11" class="slide" id="slide-10">
+  <style>
+    /* Priming → completion exhibit (Sarsa ICER 2022, Appendix C), shown nearly
+       verbatim. The two code sheets carry the story; text elsewhere stays minimal. */
+    #slide-10 .s10-pane { padding: var(--s-2) var(--s-3); display: flex; flex-direction: column; }
+    #slide-10 .s10-lab { font-size: 24px; color: var(--accent-1); margin: 0 0 var(--s-1); }
+    /* code sheet: paper (bg-0) on the raised panel; sized below the token scale
+       like 06's code samples — it is an exhibit, not body copy */
+    #slide-10 .s10-code {
+      flex: 1;
+      margin: 0;
+      padding: var(--s-2) var(--s-3);
+      background: var(--bg-0);
+      border-radius: var(--r-2);
+      font-size: 19px;
+      line-height: 1.32;
+      overflow: hidden;
+    }
+    #slide-10 .s10-m { color: var(--fg-1); }  /* the --marker-- scaffolding, muted */
+    /* the one knob turned ("ice hockey") and its echo in the generated name */
+    #slide-10 .s10-k { background: color-mix(in srgb, var(--accent-1) 24%, transparent); }
+    /* the print/return blur — ties the exhibit to the 31% tile */
+    #slide-10 .s10-warn { background: color-mix(in srgb, var(--accent-3) 30%, transparent); }
+    #slide-10 .s10-cur { color: var(--accent-1); }  /* where the model takes over */
+    #slide-10 .s10-tile { flex: 1; text-align: center; }
+    #slide-10 .s10-n { font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-1); margin: 0 0 var(--s-1); }
+    #slide-10 .s10-n--sour { color: var(--accent-3); }  /* the weak link reads as caution */
+  </style>
+  <p class="kicker" data-sid="our-fields-timeline:1">Raw generation, whole exercises</p>
+  <h2 data-sid="our-fields-timeline:2" style="margin-bottom: var(--s-2);">Can Codex write your exercises?</h2>
+  <div data-sid="our-fields-timeline:12" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-2); padding-top: var(--s-3);">
+    <div data-sid="our-fields-timeline:3" style="display: flex; align-items: stretch; gap: var(--s-3);">
+      <div data-sid="our-fields-timeline:10" class="panel s10-pane" style="flex: 1;">
+        <p data-sid="our-fields-timeline:17" class="word-label s10-lab">The priming — one worked exercise</p>
+        <pre data-sid="our-fields-timeline:31" class="s10-code code--light">"""Exercise 1
+<span class="s10-m">--Keywords--</span>  cars, function, parameters, conditional
+<span class="s10-m">--Problem statement--</span>
+Write a function called speeding_check that takes a
+single parameter speed and prints out "You are fined
+for $200" if the speed is above 120, ⋯
+<span class="s10-m">--Sample solution--</span>  <span class="k">def</span> speeding_check(speed): ⋯
+<span class="s10-m">--Tests--</span>  <span class="k">class</span> Test(unittest.TestCase): ⋯
+
+"""Exercise 2
+<span class="s10-m">--Keywords--</span>  <span class="s10-k">ice hockey</span>
+<span class="s10-m">--Problem statement--</span><span class="s10-cur">▌</span></pre>
+      </div>
+      <div data-sid="our-fields-timeline:32" class="frag arrow" data-step="1" data-anim="fade" style="align-self: center;">→</div>
+      <div data-sid="our-fields-timeline:20" class="frag panel s10-pane" data-step="1" data-anim="slide-right" style="flex: 1.1;">
+        <p data-sid="our-fields-timeline:5" class="word-label s10-lab">The completion — a whole new exercise, verbatim</p>
+        <pre data-sid="our-fields-timeline:33" class="s10-code code--light">Write a function called <span class="s10-k">ice_hockey_check</span> that takes
+a single parameter called score and <span class="s10-warn">prints out</span> "You
+are awarded a penalty for unsportsmanlike conduct"
+if the score is greater than 5 and otherwise prints
+"All good, keep playing".
+<span class="s10-m">--Sample solution--</span>
+<span class="k">def</span> ice_hockey_check(score):
+    <span class="k">if</span> score &gt; <span class="lit">5</span>:
+        <span class="s10-warn">return</span> "You are awarded a penalty for ⋯"
+    <span class="k">else</span>: <span class="s10-warn">return</span> "All good, keep playing"
+<span class="s10-m">--Tests--</span>
+assertEquals(ice_hockey_check(5), 'All good, keep playing')
+assertEquals(ice_hockey_check(6), 'You are awarded a ⋯')</pre>
+      </div>
+    </div>
+    <div data-sid="our-fields-timeline:34" class="frag" data-step="2" data-anim="fade-up" style="display: flex; gap: var(--s-4); align-items: flex-start;">
+      <div data-sid="our-fields-timeline:35" class="s10-tile">
+        <p data-sid="our-fields-timeline:36" class="s10-n">75%</p>
+        <p data-sid="our-fields-timeline:37" class="cap">sensible problems</p>
+      </div>
+      <div data-sid="our-fields-timeline:38" class="s10-tile">
+        <p data-sid="our-fields-timeline:39" class="s10-n">82%</p>
+        <p data-sid="our-fields-timeline:40" class="cap">novel — none found online</p>
+      </div>
+      <div data-sid="our-fields-timeline:41" class="s10-tile">
+        <p data-sid="our-fields-timeline:42" class="s10-n">90%</p>
+        <p data-sid="our-fields-timeline:43" class="cap">sample solutions ran</p>
+      </div>
+      <div data-sid="our-fields-timeline:44" class="s10-tile" style="flex: 1.2;">
+        <p data-sid="our-fields-timeline:45" class="s10-n s10-n--sour">31%</p>
+        <p data-sid="our-fields-timeline:46" class="cap">suites passed · print ≠ return</p>
+      </div>
+    </div>
+    <div data-sid="our-fields-timeline:29" class="frag panel takeaway" data-step="3" data-anim="fade-up" style="align-self: center; margin-top: var(--s-1); padding: var(--s-3) var(--s-4) var(--s-2); text-align: center;">
+      <p data-sid="our-fields-timeline:47" class="word-label badge badge--hot takeaway__pill">Key takeaway</p>
+      <p data-sid="our-fields-timeline:8" class="takeaway__body">And that was Codex, in 2022!</p>
+      
+    </div>
+  </div>
+  <ul class="corner-cite" data-sid="our-fields-timeline:9">
+    <li data-sid="our-fields-timeline:48">Sarsa, S., Denny, P., Hellas, A., &amp; Leinonen, J. (2022). Automatic generation of programming exercises and code explanations using large language models. In <em>Proceedings of the 2022 ACM Conference on International Computing Education Research V.1 (ICER 2022)</em> (pp. 27–43). ACM. https://doi.org/10.1145/3501385.3543957 — 240 exercises generated, 120 hand-audited</li>
+  </ul>
+</section>

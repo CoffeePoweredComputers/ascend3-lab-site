@@ -1,0 +1,178 @@
+<section data-sid="the-pile:10" class="slide" id="slide-14" style="justify-content: center; align-items: center; text-align: center;">
+  <style>
+    /* scantron lead-ins — the claim each line makes carries the deck accent;
+       the elaboration after the em dash stays body ink */
+    #slide-14 .lead-in { color: var(--accent-1); }
+
+    /* The pile — graded exams drifted along the bottom edge. One camera governs
+       the whole drift: a page is 220x130, i.e. a portrait sheet seen from
+       standing height and foreshortened to .46 of its true height. Everything
+       follows from that:
+         - every sheet is the same page, so depth is scale() alone, and a sheet
+           carries its own marks with it as it shrinks;
+         - transform-origin is the near edge, so `bottom` is where the page
+           meets the floor whatever its scale — they share one ground plane
+           instead of floating at their own sizes;
+         - sheets are emitted back-to-front (paint order is depth order), so a
+           nearer page always overlaps the ones behind it;
+         - ink lying on a page is squashed by that same .46.
+       Placement (left/bottom/rotate/scale) stays inline, per .sheet in deck.css.
+       Rotation stays inside +/-12deg: in-plane rotation of an already
+       foreshortened rectangle is a cheat, and past that the pages stop reading
+       as lying flat. */
+    #slide-14 .pile .sheet {
+      position: absolute;
+      box-sizing: border-box;
+      width: 220px;
+      height: 130px;
+      transform-origin: 50% 100%;
+    }
+    #slide-14 .pile__defs { position: absolute; width: 0; height: 0; }
+    /* the student's pencil — answer scrawl, drawn already-foreshortened */
+    #slide-14 .pile__scrawl {
+      position: absolute;
+      left: var(--s-2);
+      bottom: var(--s-2);
+      width: 150px;
+      height: 56px;
+      fill: none;
+      stroke: var(--fg-1);
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: .5;
+    }
+    /* the grader's pen — upper-right corner of the page, squashed onto it */
+    #slide-14 .pile__grade {
+      position: absolute;
+      top: var(--s-1);
+      right: var(--s-2);
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1;
+      color: var(--accent-3);
+      transform: scaleY(.46);
+      transform-origin: 100% 0;
+    }
+  </style>
+  <p class="kicker" data-sid="the-pile:1" style="font-size: 36px">Where that leaves us</p>
+  <ol data-sid="the-pile:2" class="scantron-list" style="width: 1240px;">
+    <li data-sid="the-pile:3" class="frag frag--dim" data-step="1" style="font-size: var(--t-small)"><strong class="lead-in">We know what an assessment has to do</strong> — responses, scores, and the claims they support.</li>
+    <li data-sid="the-pile:4" class="frag frag--dim" data-step="2" style="font-size: var(--t-small)"><strong class="lead-in">We can generate the items</strong> — better every year, with plenty left to investigate.</li>
+    <li data-sid="the-pile:6" class="frag frag--dim" data-step="3" style="font-size: var(--t-small)"><strong class="lead-in">And we want to test more often</strong> — more exams, second chances, more items each.</li>
+  </ol>
+  <h1 class="frag" data-step="4" data-anim="fade-up" data-sid="the-pile:5" style="margin: var(--s-6) 0 var(--s-3);">So who grades it all and who gives the feedback?</h1>
+  <p class="frag" data-step="5" data-anim="fade-up" data-sid="the-pile:11" style="font-size: var(--t-h3); color: var(--accent-1); margin: 0;">Hint: GenAI can help!</p>
+  <!-- the pile itself — .sheet drift littering the bottom edge, cropped by the
+       stage so it reads as "more where that came from". Three depth bands, far
+       to near; the band nearest the viewer hangs off the stage entirely. The
+       drift stays shallow under the centre of the stage so it never climbs into
+       the closing line, and deepens toward both edges where nothing competes. -->
+  <figure class="frag pile" data-step="4" data-anim="fade-up" data-sid="the-pile:12" style="position: absolute; left: 0; bottom: 0; width: 1920px; height: 300px; margin: 0;">
+    <svg class="pile__defs" data-sid="the-pile:17" aria-hidden="true">
+      <defs>
+        <g id="pile-scrawl-a">
+          <path d="M4 11q11-6 22 0t22 0t22 0t22 0t22 0t22 0"/>
+          <path d="M4 29q11 6 22 0t22 0t22 0t22 0t22 0"/>
+          <path d="M4 47q11-6 22 0t22 0t22 0"/>
+        </g>
+        <g id="pile-scrawl-b">
+          <path d="M4 13q11 6 22 0t22 0t22 0t22 0t22 0"/>
+          <path d="M4 33q11-6 22 0t22 0t22 0t22 0"/>
+          <path d="M100 41l9 9 17-19"/>
+        </g>
+        <g id="pile-scrawl-c">
+          <path d="M4 14q11 6 22 0t22 0t22 0t22 0t22 0"/>
+          <path d="M8 14h116"/>
+          <path d="M4 36q11-6 22 0t22 0t22 0t22 0t22 0"/>
+          <path d="M4 52q11 6 22 0t22 0"/>
+        </g>
+      </defs>
+    </svg>
+
+    <!-- far band -->
+    <div data-sid="the-pile:18" class="sheet" style="left: 1788px; bottom: 143px; transform: rotate(6deg) scale(.62);"></div>
+    <div data-sid="the-pile:19" class="sheet" style="left: 1666px; bottom: 155px; transform: rotate(-9deg) scale(.60);"></div>
+    <div data-sid="the-pile:20" class="sheet" style="left: 1548px; bottom: 135px; transform: rotate(12deg) scale(.64);">
+      <svg data-sid="the-pile:21" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-a"/></svg>
+      <p data-sid="the-pile:22" class="pile__grade">B+</p>
+    </div>
+    <div data-sid="the-pile:23" class="sheet" style="left: 1430px; bottom: 151px; transform: rotate(-5deg) scale(.61);"></div>
+    <div data-sid="the-pile:24" class="sheet" style="left: 1310px; bottom: 139px; transform: rotate(8deg) scale(.63);"></div>
+    <div data-sid="the-pile:25" class="sheet" style="left: 480px; bottom: 149px; transform: rotate(-11deg) scale(.62);"></div>
+    <div data-sid="the-pile:26" class="sheet" style="left: 372px; bottom: 141px; transform: rotate(10deg) scale(.66);">
+      <svg data-sid="the-pile:27" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-c"/></svg>
+      <p data-sid="the-pile:28" class="pile__grade">A−</p>
+    </div>
+    <div data-sid="the-pile:29" class="sheet" style="left: 252px; bottom: 157px; transform: rotate(-4deg) scale(.61);"></div>
+    <div data-sid="the-pile:30" class="sheet" style="left: 134px; bottom: 137px; transform: rotate(6deg) scale(.65);"></div>
+    <div data-sid="the-pile:13" class="sheet" style="left: 16px; bottom: 153px; transform: rotate(-8deg) scale(.62);"></div>
+
+    <!-- middle band -->
+    <div data-sid="the-pile:31" class="sheet" style="left: 1716px; bottom: 68px; transform: rotate(9deg) scale(.76);">
+      <svg data-sid="the-pile:32" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-b"/></svg>
+      <p data-sid="the-pile:33" class="pile__grade">C</p>
+    </div>
+    <div data-sid="the-pile:34" class="sheet" style="left: 1596px; bottom: 58px; transform: rotate(-4deg) scale(.79);"></div>
+    <div data-sid="the-pile:35" class="sheet" style="left: 1462px; bottom: 72px; transform: rotate(11deg) scale(.75);"></div>
+    <div data-sid="the-pile:36" class="sheet" style="left: 1330px; bottom: 60px; transform: rotate(-8deg) scale(.78);"></div>
+    <div data-sid="the-pile:37" class="sheet" style="left: 1196px; bottom: -16px; transform: rotate(5deg) scale(.82);">
+      <svg data-sid="the-pile:38" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-a"/></svg>
+      <p data-sid="the-pile:39" class="pile__grade">A</p>
+    </div>
+    <div data-sid="the-pile:40" class="sheet" style="left: 1052px; bottom: -26px; transform: rotate(-9deg) scale(.84);"></div>
+    <div data-sid="the-pile:41" class="sheet" style="left: 908px; bottom: -18px; transform: rotate(6deg) scale(.81);">
+      <svg data-sid="the-pile:42" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-c"/></svg>
+      <p data-sid="the-pile:43" class="pile__grade">B</p>
+    </div>
+    <div data-sid="the-pile:44" class="sheet" style="left: 764px; bottom: -20px; transform: rotate(-5deg) scale(.83);"></div>
+    <div data-sid="the-pile:45" class="sheet" style="left: 620px; bottom: -24px; transform: rotate(9deg) scale(.82);"></div>
+    <div data-sid="the-pile:46" class="sheet" style="left: 440px; bottom: 62px; transform: rotate(-7deg) scale(.79);">
+      <svg data-sid="the-pile:47" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-b"/></svg>
+      <p data-sid="the-pile:48" class="pile__grade">A+</p>
+    </div>
+    <div data-sid="the-pile:49" class="sheet" style="left: 316px; bottom: 74px; transform: rotate(4deg) scale(.75);"></div>
+    <div data-sid="the-pile:50" class="sheet" style="left: 192px; bottom: 56px; transform: rotate(-12deg) scale(.80);"></div>
+    <div data-sid="the-pile:14" class="sheet" style="left: 68px; bottom: 70px; transform: rotate(7deg) scale(.77);"></div>
+
+    <!-- near band — hangs off the stage, so only the top of each page shows -->
+    <div data-sid="the-pile:51" class="sheet" style="left: 1780px; bottom: -18px; transform: rotate(5deg) scale(.95);">
+      <svg data-sid="the-pile:52" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-a"/></svg>
+      <p data-sid="the-pile:53" class="pile__grade">B−</p>
+    </div>
+    <div data-sid="the-pile:54" class="sheet" style="left: 1650px; bottom: -34px; transform: rotate(-7deg) scale(1);"></div>
+    <div data-sid="the-pile:55" class="sheet" style="left: 1512px; bottom: -22px; transform: rotate(10deg) scale(.93);">
+      <svg data-sid="the-pile:56" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-b"/></svg>
+      <p data-sid="the-pile:57" class="pile__grade">A</p>
+    </div>
+    <div data-sid="the-pile:58" class="sheet" style="left: 1378px; bottom: -40px; transform: rotate(-3deg) scale(1.03);"></div>
+    <div data-sid="the-pile:59" class="sheet" style="left: 1240px; bottom: -42px; transform: rotate(7deg) scale(.97);">
+      <svg data-sid="the-pile:60" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-c"/></svg>
+      <p data-sid="the-pile:61" class="pile__grade">C+</p>
+    </div>
+    <div data-sid="the-pile:62" class="sheet" style="left: 1100px; bottom: -50px; transform: rotate(-8deg) scale(1.02);"></div>
+    <div data-sid="the-pile:63" class="sheet" style="left: 962px; bottom: -38px; transform: rotate(4deg) scale(.98);">
+      <svg data-sid="the-pile:64" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-a"/></svg>
+      <p data-sid="the-pile:65" class="pile__grade">B</p>
+    </div>
+    <div data-sid="the-pile:66" class="sheet" style="left: 820px; bottom: -50px; transform: rotate(-6deg) scale(1.04);"></div>
+    <div data-sid="the-pile:67" class="sheet" style="left: 682px; bottom: -44px; transform: rotate(9deg) scale(.96);">
+      <svg data-sid="the-pile:68" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-b"/></svg>
+      <p data-sid="the-pile:69" class="pile__grade">A−</p>
+    </div>
+    <div data-sid="the-pile:70" class="sheet" style="left: 542px; bottom: -34px; transform: rotate(-4deg) scale(.94);"></div>
+    <div data-sid="the-pile:71" class="sheet" style="left: 400px; bottom: -38px; transform: rotate(8deg) scale(1.01);">
+      <svg data-sid="the-pile:72" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-c"/></svg>
+      <p data-sid="the-pile:73" class="pile__grade">D</p>
+    </div>
+    <div data-sid="the-pile:74" class="sheet" style="left: 258px; bottom: -24px; transform: rotate(-9deg) scale(.96);"></div>
+    <div data-sid="the-pile:15" class="sheet" style="left: 118px; bottom: -42px; transform: rotate(6deg) scale(1.03);">
+      <svg data-sid="the-pile:75" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-a"/></svg>
+      <p data-sid="the-pile:76" class="pile__grade">B+</p>
+    </div>
+    <div data-sid="the-pile:16" class="sheet" style="left: -8px; bottom: -20px; transform: rotate(-5deg) scale(.99);">
+      <svg data-sid="the-pile:77" class="pile__scrawl" viewBox="0 0 150 56"><use href="#pile-scrawl-b"/></svg>
+      <p data-sid="the-pile:78" class="pile__grade">A</p>
+    </div>
+  </figure>
+</section>

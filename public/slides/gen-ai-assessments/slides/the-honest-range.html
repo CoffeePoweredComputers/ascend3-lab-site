@@ -1,0 +1,137 @@
+<section data-sid="the-honest-range:10" class="slide" id="slide-15">
+  <p class="kicker" data-sid="the-honest-range:1">LLM grading, generally</p>
+  <h2 data-sid="the-honest-range:2" style="margin-bottom: var(--s-2);">How well do LLM graders agree with humans?</h2>
+  <p data-sid="the-honest-range:7" class="cap" style="font-size: 42px; flex: 0 0 89.2951px; line-height: 50px">A systematic review of 49 studies, 2018–2024 with LLMs grading real student work, each study measuring agreement with human graders.</p>
+  <div data-sid="the-honest-range:11" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-2);">
+    <div data-sid="the-honest-range:4" style="position: relative; display: flex; align-self: flex-start; gap: var(--s-5); align-items: center; font-size: var(--t-caption); color: var(--fg-1); transform: translate(0px, 84px)">
+      <span><span style="display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-2); vertical-align: -2px;"></span> essay · 27 studies</span>
+      <span><span style="display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--accent-3); vertical-align: -2px;"></span> short answer · 13</span>
+      <span><span style="display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--fg-1); vertical-align: -2px;"></span> open-ended · 1</span>
+      <svg class="legend-box" aria-hidden="true" style="position: absolute; left: calc(-1 * var(--s-3)); top: calc(-1 * var(--s-2)); width: calc(100% + 2 * var(--s-3)); height: calc(100% + 2 * var(--s-2)); overflow: visible; pointer-events: none;">
+        <rect width="100%" height="100%" pathLength="1" fill="none" stroke-width="3" stroke-dasharray="1" stroke-dashoffset="1" style="stroke: var(--accent-1); rx: var(--r-3); filter: drop-shadow(0 0 8px var(--accent-1));"/>
+      </svg>
+    </div>
+    <div data-sid="the-honest-range:12" style="position: relative;">
+      <svg viewBox="0 0 1560 430" style="width: 100%; display: block;">
+        <rect x="290" y="80" width="400" height="284" style="fill: var(--fg-1); opacity: .06;"/>
+        <rect x="1090" y="80" width="390" height="284" style="fill: var(--fg-1); opacity: .06;"/>
+        <line x1="290" y1="80" x2="290" y2="364" stroke-width="2" stroke-dasharray="6 8" style="stroke: var(--fg-1); opacity: .35;"/>
+        <line x1="690" y1="80" x2="690" y2="364" stroke-width="2" stroke-dasharray="6 8" style="stroke: var(--fg-1); opacity: .35;"/>
+        <line x1="1090" y1="80" x2="1090" y2="364" stroke-width="2" stroke-dasharray="6 8" style="stroke: var(--fg-1); opacity: .35;"/>
+        <text x="185" y="106" font-size="22" letter-spacing="3" text-anchor="middle" style="fill: var(--fg-1);">LOW</text>
+        <text x="490" y="106" font-size="22" letter-spacing="3" text-anchor="middle" style="fill: var(--fg-1);">MODERATE</text>
+        <text x="890" y="106" font-size="22" letter-spacing="3" text-anchor="middle" style="fill: var(--fg-1);">GOOD</text>
+        <text x="1285" y="106" font-size="22" letter-spacing="3" text-anchor="middle" style="fill: var(--fg-1);">EXCELLENT</text>
+        <line x1="80" y1="364" x2="1480" y2="364" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="80" y1="364" x2="80" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="280" y1="364" x2="280" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="480" y1="364" x2="480" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="680" y1="364" x2="680" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="880" y1="364" x2="880" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="1080" y1="364" x2="1080" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="1280" y1="364" x2="1280" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <line x1="1480" y1="364" x2="1480" y2="376" stroke-width="3" style="stroke: var(--fg-1);"/>
+        <text x="80" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.3</text>
+        <text x="280" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.4</text>
+        <text x="480" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.5</text>
+        <text x="680" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.6</text>
+        <text x="880" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.7</text>
+        <text x="1080" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.8</text>
+        <text x="1280" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">0.9</text>
+        <text x="1480" y="408" font-size="24" text-anchor="middle" style="fill: var(--fg-1);">1.0</text>
+        <g stroke-width="2" style="stroke: var(--bg-0);">
+          <circle cx="240" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="420" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="460" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="600" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="620" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="620" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="840" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="940" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="980" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="980" cy="328" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1000" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1000" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1020" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1020" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1040" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1040" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1060" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1060" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1100" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1100" cy="328" r="9" style="fill: var(--fg-1);"/>
+          <circle cx="1100" cy="304" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1120" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1140" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1140" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1160" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1160" cy="328" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1180" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1180" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1180" cy="304" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1200" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1240" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1240" cy="328" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1280" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1300" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1340" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1360" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1380" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1400" cy="352" r="9" style="fill: var(--accent-3);"/>
+          <circle cx="1420" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1440" cy="352" r="9" style="fill: var(--accent-2);"/>
+          <circle cx="1460" cy="352" r="9" style="fill: var(--accent-3);"/>
+        </g>
+      </svg>
+    </div>
+    <p data-sid="the-honest-range:16" class="cap" style="text-align: center; transform: translate(0px, -36px)">each dot = one study’s agreement with human graders — usually quadratic-weighted κ or correlation r</p>
+    <div class="frag panel takeaway" data-step="2" data-anim="fade-up" data-sid="the-honest-range:5" style="align-self: center; padding: var(--s-3) var(--s-4) 0p; text-align: center; transform: translate(0px, -42.7859px); width: 1749.74px; flex: 0 0 93.4093px; height: 128px">
+      <p data-sid="the-honest-range:19" class="word-label badge badge--hot takeaway__pill">Key takeaway</p>
+      <p data-sid="the-honest-range:17" class="takeaway__body" style="font-size: 36px; transform: translate(0px, 30px)">Around 85% of studies land “good” or better — the top end is earned by clear rubrics and fine-tuning.</p>
+      
+      
+    </div>
+  </div>
+  <ul class="corner-cite" data-sid="the-honest-range:8">
+    <li data-sid="the-honest-range:20">Emirtekin, E. (2025). Large language model-powered automated assessment: A systematic review. <em>Applied Sciences, 15</em>(10), 5683. https://doi.org/10.3390/app15105683</li>
+  </ul>
+  <div class="frag" data-step="1" data-sid="the-honest-range:18" data-ss-anchor hidden></div>
+  <script>
+  // Step 1: draw the attention box around the legend row. The rect's
+  // stroke-dashoffset ATTRIBUTE is the hidden state; forwards-filling WAAPI
+  // animations override it while drawn, and cancel() snaps back to hidden —
+  // so leaving the slide always resets cleanly. The rect is re-looked-up on
+  // every sync because the studio can swap this slide's DOM in place.
+  (function () {
+    const SLIDE_ID = 'slide-15';
+    let rect = null, anim = null, shown = false;
+    function sync() {
+      const scope = document.getElementById(SLIDE_ID);
+      const r = scope ? scope.querySelector('.legend-box rect') : null;
+      if (!r) return;
+      if (r !== rect) { rect = r; anim = null; shown = false; }
+      const active = scope.classList.contains('is-active');
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      const want = active && step >= 1;
+      if (want === shown) return;
+      shown = want;
+      if (anim) anim.cancel();
+      if (want) {
+        anim = rect.animate(
+          [{ strokeDashoffset: '1' }, { strokeDashoffset: '0' }],
+          { duration: 700, easing: 'ease-in-out', fill: 'forwards' }
+        );
+      } else if (active) {
+        anim = rect.animate(
+          [{ strokeDashoffset: '0' }, { strokeDashoffset: '1' }],
+          { duration: 400, easing: 'ease-in-out', fill: 'forwards' }
+        );
+      } else {
+        anim = null;
+      }
+    }
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+</section>

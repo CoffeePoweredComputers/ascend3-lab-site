@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-08-03",
+    "type": "talk",
+    "title": "Slides: Assessment in the Age of GenAI",
+    "description": "A browser-viewable slide deck on how generative AI has disrupted traditional CS assessment — item generation, testing strategies, GenAI grading, and where the field goes from here.",
+    "links": [
+      {
+        "text": "View slides",
+        "url": "/slides/gen-ai-assessments/"
+      }
+    ]
+  },
+  {
     "date": "2026-07-29",
     "type": "publication",
     "title": "One paper accepted to SIGCSE Virtual!",

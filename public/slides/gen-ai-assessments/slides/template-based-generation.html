@@ -1,0 +1,98 @@
+<section data-sid="template-based-generation:1" class="slide" id="slide-08b">
+  <p class="kicker" data-sid="template-based-generation:2">Before LLMs — template-based AIG</p>
+  <h2 data-sid="template-based-generation:3" style="margin-bottom: var(--s-3); transform: translate(0px, -23px)">Template based item generation</h2>
+  <div data-sid="template-based-generation:4" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-4);">
+    <div data-sid="template-based-generation:5" style="display: flex; gap: var(--s-5); align-items: center;">
+      <ol class="stages" data-sid="template-based-generation:6" style="flex: 1;">
+        <li class="frag" data-step="1" data-anim="slide-right" data-sid="template-based-generation:7">
+          <p class="stage__name" data-sid="template-based-generation:25"><span class="stage__n">Stage 1</span>Cognitive model</p>
+          <p class="stage__time" data-sid="template-based-generation:26" style="--w: 100%;">3 hours</p>
+          <p class="cap cap--ink" data-sid="template-based-generation:27">Experts in the domain and item authoring gather information on the tasks</p>
+        </li>
+        <li class="frag" data-step="2" data-anim="slide-right" data-sid="template-based-generation:8">
+          <p class="stage__name" data-sid="template-based-generation:28"><span class="stage__n">Stage 2</span>Item model</p>
+          <p class="stage__time" data-sid="template-based-generation:29" style="--w: 67%;">2 hours</p>
+          <pre class="stage__model code--light" data-sid="template-based-generation:30">A <span class="lit">[AGE]</span>-year-old <span class="lit">[SEX]</span> on postoperative
+day <span class="lit">[DAY]</span> after <span class="lit">[PROCEDURE]</span> has <span class="lit">[FINDING]</span>.
+What is the most likely cause of the fever?
+<span class="cm">// each slot holds a list of legal values</span></pre>
+        </li>
+        <li class="frag" data-step="3" data-anim="slide-right" data-sid="template-based-generation:9">
+          <p class="stage__name" data-sid="template-based-generation:31"><span class="stage__n">Stage 3 · IGOR</span>Item generation</p>
+          <p class="stage__time" data-sid="template-based-generation:32" style="--w: 33%;">1 hour</p>
+          <p class="cap cap--ink" data-sid="template-based-generation:33" style="flex: 0 0 663.486px">The system then builds <em>every</em> combination of slot values, then removes the ones the constraints forbid</p>
+        </li>
+      </ol>
+      <p class="frag arrow" data-step="4" data-anim="fade-up" data-sid="template-based-generation:34" style="margin: 0;">→</p>
+      <figure class="frag yield" data-step="4" data-anim="fade-up" data-sid="template-based-generation:10">
+        <p class="big-num" data-sid="template-based-generation:11">1,248</p>
+        <figcaption class="cap" data-sid="template-based-generation:12" style="font-size: 32px">unique items from a single item model, generated in 6 hours</figcaption>
+      </figure>
+    </div>
+    <div class="frag panel takeaway" data-step="5" data-anim="fade-up" data-sid="template-based-generation:13" style="align-self: center; padding: var(--s-3) var(--s-4) var(--s-2); text-align: center; transform: translate(0px, 0.8542px); width: 1697.61px; flex: 0 0 89.8095px">
+      <p class="word-label badge badge--hot takeaway__pill" data-sid="template-based-generation:14">Key takeaway</p>
+      <p class="takeaway__body" data-sid="template-based-generation:15" style="font-size: 32px; transform: translate(0px, 5px)">Templating item generation approaches front load the work to give a bank of similar questions testing the same construct</p>
+      
+    </div>
+  </div>
+  <aside class="notes" data-sid="template-based-generation:17">
+    <p data-sid="template-based-generation:18"><strong>Source.</strong> Gierl, Lai &amp; Turner 2012, <em>Medical Education</em> 46(8) 757–765, DOI 10.1111/j.1365-2923.2012.04289.x. Not in literature/ — verified against the open Medical Council of Canada copy (mcc.ca). Companion: Gierl &amp; Lai 2013, <em>EM:IP</em> 32(3) 36–50, free at ncme.org.</p>
+    <p data-sid="template-based-generation:19"><strong>The numbers, verbatim.</strong> “From a single item model, 1248 unique items were generated for our Postoperative Fever example.” The figure appears three times in the paper (abstract, Results Stage 3, Discussion). Timing, verbatim: “The 1248 items generated in this example required 6 hours to produce across our three-stage method: Stage 1 (3 hours); Stage 2 (2 hours), and Stage 3 (1 hour).” <em>Do not convert that to an items-per-hour rate</em> — the paper states no such rate, and the derived figure does not survive checking.</p>
+    <p data-sid="template-based-generation:35"><strong>What on this slide is drawn from the paper, and what is not.</strong> From the paper: the three stage names and their order (the 2012 paper puts the cognitive model first), the timings 3 h / 2 h / 1 h, and 1,248. The bars encode only those three timings against a shared baseline — they are the reason “6 hours” decomposes rather than a claim about volume. <em>The item model in Stage 2 is schematic and ours.</em> The paper’s worked example is a Postoperative Fever model, but we do not hold its element lists, so the five bracketed slots and the wording were written here to match the paper’s own definition — a stem, elements with legal values, constraints between them. Say “schematic” if asked. Deliberately not drawn: any before/after pruning ratio. The paper reports the 1,248 that survived and no count of the combinations IGOR generated first, so a funnel would be an invented figure.</p>
+    <p data-sid="template-based-generation:20"><strong>IGOR.</strong> Item GeneratOR, a JAVA program. Verbatim: “IGOR is an ‘iterator’, meaning that it contains algorithms for combining elements, subject to the logical constraints in the item model, to generate items. Given item model input, IGOR first generates a set of all possible items. Then, IGOR checks the constraints for each item and removes all illogical element combinations.” Enumerate and prune — pure combinatorics plus constraint filtering. This is the sharpest available contrast with the LLM era: there is no statistical or neural model anywhere in the pipeline. Gierl &amp; Lai frame it as a combinatorial problem that “any linear programming method can be used to solve.”</p>
+    <p data-sid="template-based-generation:21"><strong>Say “generated,” never “validated.”</strong> No psychometric field data were collected in this paper, and the companion module warns: “the psychometric properties (e.g., item difficulty) of these items must still be evaluated. Item quality is typically determined through a field or pilot testing process.” Scale for reference: the 2013 module reports 256 items from a 1-layer surgery model and 16,384 from an n-layer model — quote those only with the words “items were generated,” since the module’s own self-test reports different (unconstrained) figures for the same two models.</p>
+    <p data-sid="template-based-generation:22"><strong>Two traps if questioned.</strong> (1) Gierl publishes two conflicting step orderings — the 2013 EM:IP module puts the <em>item model</em> first, the 2012 Medical Education paper puts the <em>cognitive model</em> first — so avoid asserting one canonical arrow. The cognitive model belongs to <em>strong-theory</em> AIG only; weak theory doesn’t use one (weak/strong theory is Drasgow, Luecht &amp; Bennett 2006). (2) “Sibling” is Gierl &amp; Lai’s 2013 term, not the 2012 paper’s. The field’s own pejorative for 1-layer output is worth a laugh: isomorphs “are referred to pejoratively by many test development specialists as ‘clones,’ ‘ghost’ items or ‘Franken-items.’”</p>
+    <p data-sid="template-based-generation:23"><strong>The economic motive</strong> (second-hand — Rudner, cited in Gierl): a single high-stakes licensure item costs US$1500–2000 to write by hand, so a ~2,000-item bank runs US$3–4 million. That is why anyone built this. Counterpoint for later: template AIG frequently fails its own isomorphism premise — Fu et al. 2022 (EM:IP) found only 9 of 23 templates produced psychometrically equivalent instances without revision.</p>
+  </aside>
+  <ul class="corner-cite" data-sid="template-based-generation:24">
+    <li data-sid="template-based-generation:36">Gierl, Lai &amp; Turner 2012, Medical Education 46(8) — automatic item generation with IGOR</li>
+  </ul>
+  <style>
+    /* the three-stage method as a process, read downwards: what the stage is
+       called, how long it took, and the artifact it hands to the next stage.
+       The time bars share one 200px baseline, so 3 h / 2 h / 1 h is a real
+       3:2:1 comparison — the expert work is front-loaded and generation is the
+       cheap end. Nothing else on the slide is drawn to scale; the paper reports
+       no intermediate combination count, so there is no funnel to draw. */
+    #slide-08b .stages { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-3); }
+    #slide-08b .stages > li { margin: 0; display: flex; align-items: center; gap: var(--s-3); }
+    #slide-08b .stage__name {
+      flex: none;
+      width: 300px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      line-height: 1.15;
+    }
+    #slide-08b .stage__n { display: block; font-size: var(--t-caption); color: var(--fg-1); }
+    /* --w is the one thing that varies per stage: the hours, as bar width */
+    #slide-08b .stage__time { flex: none; width: 200px; margin: 0; font-size: var(--t-caption); color: var(--fg-1); }
+    #slide-08b .stage__time::before {
+      content: "";
+      display: block;
+      width: var(--w);
+      height: var(--s-2);
+      margin-bottom: var(--s-1);
+      border-radius: var(--r-1);
+      background: var(--accent-2);
+    }
+    /* both stage descriptions sit on one size, set here rather than inline so
+       the two rows can't drift apart as the copy is edited */
+    #slide-08b .stages .cap { flex: 1; font-size: var(--t-small); }
+    /* the item model itself — monospace, so the slots read as slots */
+    #slide-08b .stage__model {
+      flex: 1;
+      margin: 0;
+      padding: var(--s-2) var(--s-3);
+      border-radius: var(--r-2);
+      background: var(--bg-1);
+      font-size: var(--t-caption);
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    #slide-08b .stage__model .lit { padding: 0 var(--s-1); border-radius: var(--r-1); background: var(--bg-0); }
+    /* the yield: the number sits at the end of the pipeline, not beside it */
+    #slide-08b .yield { flex: none; width: 340px; margin: 0; text-align: center; }
+    #slide-08b .yield .big-num { font-size: var(--t-h1); margin: 0 0 var(--s-2); }
+  </style>
+</section>

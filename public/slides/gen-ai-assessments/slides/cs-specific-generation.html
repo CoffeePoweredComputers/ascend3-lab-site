@@ -1,0 +1,111 @@
+<section data-sid="cs-specific-generation:1" class="slide" id="slide-09b">
+  <p class="kicker" data-sid="cs-specific-generation:2">CS-specific generation</p>
+  <h2 data-sid="cs-specific-generation:3" style="margin-bottom: var(--s-3);">Auto-generating Computing Questions</h2>
+  <div data-sid="cs-specific-generation:4" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-3);">
+    <div data-sid="cs-specific-generation:21" style="display: flex; gap: var(--s-5); align-items: stretch; flex: 1; min-height: 0;">
+    <ul class="scantron-list" data-sid="cs-specific-generation:5" style="flex: 1.1;">
+      <li class="frag frag--dim" data-step="1" data-sid="cs-specific-generation:6"><span class="appr__type">Programming exercises</span><span class="appr__cite">Sarsa et al., ICER 2022</span><span class="appr__did">Codex, primed with one worked example</span><span class="appr__found">75% judged sensible, but only 31% of sample solutions passed their own generated tests</span></li>
+      <li class="frag frag--dim" data-step="2" data-sid="cs-specific-generation:7"><span class="appr__type">Code tracing</span><span class="appr__cite">Fan et al., Findings of EMNLP 2023</span><span class="appr__did">GPT-4, zero-shot, straight from the snippet</span><span class="appr__found">Experts judged generated question as being as good as AI and could not reliably differentiate between them</span></li>
+      <li class="frag frag--dim" data-step="3" data-sid="cs-specific-generation:9"><span class="appr__type">Debugging</span><span class="appr__cite">Pădurean et al., SIGCSE TS 2025</span><span class="appr__did">LLM injects the bug into an existing program</span><span class="appr__found">LLM generated exercise did not differ in terms of difficulty compared to instructor-written exercises</span></li>
+    </ul>
+    <div class="panel ex-stack" data-sid="cs-specific-generation:22" style="flex: 1;">
+      <figure class="ex-card frag" data-step="1" data-sid="cs-specific-generation:23">
+        <figcaption class="ex-card__label word-label" data-sid="cs-specific-generation:24">A · Programming exercise <span class="ex-card__src">Sarsa Table 7 · solution ours</span></figcaption>
+        <p class="ex-card__q" data-sid="cs-specific-generation:25">Write a class called Person that has a list of friends. It has methods to add a friend and remove a friend. Write a function called find_pals that … will list the friends of this person.</p>
+        <pre class="ex-card__a code--light" data-sid="cs-specific-generation:26"><span class="k">class</span> <span class="fn">Person</span>:
+    <span class="k">def</span> <span class="fn">__init__</span>(self):
+        self.friends = []
+    <span class="k">def</span> <span class="fn">add_friend</span>(self, f):
+        self.friends.append(f)
+
+<span class="k">def</span> <span class="fn">find_pals</span>(person):
+    <span class="k">return</span> person.friends</pre>
+      </figure>
+      <figure class="ex-card frag" data-step="2" data-sid="cs-specific-generation:27">
+        <figcaption class="ex-card__label word-label" data-sid="cs-specific-generation:28">B · Code tracing <span class="ex-card__src">Fan Table 4 · snippet ours</span></figcaption>
+        <pre class="code--light" data-sid="cs-specific-generation:29"><span class="k">public static int</span> <span class="fn">redo</span>(<span class="k">int</span> i, <span class="k">int</span> j) {
+    <span class="k">if</span> (i &lt;= <span class="lit">0</span>) <span class="k">return</span> <span class="lit">0</span>;
+    <span class="k">return</span> <span class="lit">1</span> + <span class="fn">redo</span>(i - j, j);
+}</pre>
+        <p class="ex-card__q" data-sid="cs-specific-generation:30">If the input values are i = 8 and j = 2, what will be the output of the function?</p>
+        <p class="ex-card__a" data-sid="cs-specific-generation:31"><strong>Answer</strong> 4 — i falls 8 → 6 → 4 → 2 → 0, one count per subtraction.</p>
+      </figure>
+      <figure class="ex-card frag" data-step="3" data-sid="cs-specific-generation:37">
+        <figcaption class="ex-card__label word-label" data-sid="cs-specific-generation:38">C · Debugging exercise <span class="ex-card__src">Pădurean Fig. 1 · verbatim</span></figcaption>
+        <p class="ex-card__q" data-sid="cs-specific-generation:39">Define a function called SumPositiveValues() … The function should return the sum of all positive integers in the input array.</p>
+        <pre class="code--light" data-sid="cs-specific-generation:40"><span class="k">int</span> sum = <span class="lit">0</span>;
+<span class="k">for</span> (<span class="k">int</span> i = <span class="lit">0</span>; i &lt; length; i++)
+    <span class="k">if</span> (values[i] &lt; <span class="lit">0</span>)   <span class="cm">// the bug</span>
+        sum += values[i];
+<span class="k">return</span> sum;</pre>
+        <p class="ex-card__a" data-sid="cs-specific-generation:41"><strong>Answer — a failing test case</strong> {1, -2, 3} → buggy -2, correct 4.</p>
+      </figure>
+    </div>
+    </div>
+  </div>
+  <aside class="notes" data-sid="cs-specific-generation:14">
+    <p data-sid="cs-specific-generation:15"><strong>A — Sarsa, Denny, Hellas &amp; Leinonen, ICER 2022</strong> (literature/sarsa.pdf), DOI 10.1145/3501385.3543957. 240 exercises generated with OpenAI Codex by priming with a single worked exercise plus keywords; a random half (n=120) was hand-audited. Verbatim: “75.0% were sensible, 81.8% were novel, and 76.7% had a matching sample solution.” The machine-checkable part was the weak link — 84.6% (203/240) had a sample solution, 89.7% (182/203) of those ran, 170/240 had automated tests, but of the 165 with both, only <strong>51 (30.9%)</strong> had a solution that passed its own generated tests. Most failures weren’t logic: the solution printed where the test expected a return. Note the deck previously carried this as a full priming→completion exhibit (slides/our-fields-timeline.html, still on disk, now out of the manifest) — pull it up if anyone wants to see an actual prompt.</p>
+    <p data-sid="cs-specific-generation:16"><strong>B — Fan, Zhang, Paquette &amp; Zhang, Findings of EMNLP 2023</strong>, pp. 7406–7421 (literature/Fan2023-LLMCodeTracingQuestions.pdf). 176 code-snippet/question pairs, 158 from CSAwesome (Runestone, AP CS A–aligned Java) plus 18 from YouTube; four CS graduate students each rated 44 randomly selected snippets. Verbatim: “Approximately 56% (99 out of 176) of GPT4-generated questions were mistakenly identified by experts as human-generated, and about 20% (35 out of 176) of human-authored questions were misattributed to the GPT4.” The authors read the asymmetry as evaluator bias toward crediting quality to humans. <em>The counter-intuitive bit is worth saying:</em> “Contrary to our expectations, the experiment showed that the few-shot method introduced a significant bias towards the example questions, thus narrowing the diversity in the generated questions. Consequently, we opted for the zero-shot generation.” More prompt engineering made it worse. On the rating criteria humans still won narrowly on three of four (relevance to LO, clarity, difficulty appropriateness); relevance to the snippet showed no significant difference.</p>
+    <p data-sid="cs-specific-generation:17"><strong>Cut from this slide: Refute questions</strong> — Agarwal, Kumar, Raman &amp; Karkare, CompEd 2023, DOI 10.1145/3576882.3617916. Dropped because <strong>no model generates anything</strong> in it, so it does not belong on a slide about generation methods. A Refute question “asks students for a counter-example which proves that a given code fragment is an incorrect solution for a given task,” and the items come from data, not a model: from 6 code-writing questions in a Fall 2015 C course their autograder had logged 13,847 executable student snapshots, of which 10,574 were buggy; the contribution is an automated filter over that pool, evaluated by surveying 56 experienced instructors, tutors and TAs, then seeded into a public repository via CodeCheck. The LLM is the <em>motivation</em>, not the generator: refute skills “assume greater significance with the emergence of generative AI technologies capable of writing code that is plausible (at least to novice programmers) but not always correct.” Keep this in the pocket — it is the right answer if someone asks why refute questions are missing, and the right slide for it would be one about mining student data rather than generating items. <em>Caveat on the source:</em> not in literature/ — verified from the publisher abstract via Crossref/Semantic Scholar, never from full text.</p>
+    <p data-sid="cs-specific-generation:18"><strong>D — Pădurean, Denny &amp; Singla, BugSpotter, SIGCSE TS 2025</strong>; arXiv:2411.14303v2 (literature/Padurean2025-BugSpotterDebuggingExercises.pdf). Two stages, verbatim: “(a) code generation using LLMs and (b) validation of the exercise through execution.” Four checks against the problem’s existing test suite: discard if the fixed code C_F or buggy code C_B fails to compile; C_F must solve the problem against the full suite; C_B “should fail at least one of the test cases in the test suite, either by raising a runtime error or by producing an output different from the expected one”; discard anything over a time limit. Yield: 10 candidate tuples per problem at temperature 0.7, SuccOf10 aggregate means 5.33 (stderr 0.7) GPT-4o and 6.11 (stderr 1.1) GPT-3.5 — <em>GPT-3.5 scored higher</em>, which the authors read as evidence it can power the system cheaply without loss of quality. Deployment: “a laboratory task in a large introductory C programming course involving 741 students, taught at the University of Auckland.” Comparison to instructor-written exercises: “all p-values exceed 0.05, with the lowest p-value being 0.065, indicating no significant difference between the two sources.” <strong>Accuracy guard:</strong> that is a null result — no detected difference, not demonstrated equivalence; the paper reports no equivalence test. Students interact by writing failing test cases, so the exercise doubles as a testing exercise.</p>
+    <p data-sid="cs-specific-generation:19"><strong>The line to land as C reveals.</strong> Three generation methods, and only one of them was ever tried on students. Sarsa: the authors’ own audit. Fan: four expert raters. Only BugSpotter put the generated items in front of students — 741 of them — and measured what happened. Say it as a null result, not equivalence: no detected difference from the instructor’s exercises, and the paper ran no equivalence test. That is the handoff to Tan — and note the irony it sets up: in CS the cheapest possible check (run the tests) is sitting right there, which makes “only 10 of 60 studies mention validity” a story about negligence rather than difficulty.</p>
+    <p data-sid="cs-specific-generation:42"><strong>Provenance of the three exhibit cards</strong> (right-hand panel, one per step — say “reconstructed” if anyone asks). <em>A:</em> the problem statement is verbatim from Sarsa Table 7 (the ‘speeding_check’ prime crossed with the contextual concept ‘relationships’ and the programming concept ‘class’), cut after the third sentence and elided inside it — the full third sentence reads “Write a function called find_pals that takes a single parameter called person and that will list the friends of this person”; the Python solution beside it is <strong>ours</strong> — the paper publishes sample solutions only for the four priming exercises in Appendix A, not for this generated one. <em>B:</em> the question is verbatim from Fan Table 4, zero-shot column, item 3, minus its second sentence (“Please trace through the code step-by-step and explain your reasoning.”); the paper publishes the generated questions but not the snippets behind them, so the four-line <code>redo</code> method is <strong>ours</strong>, reverse-engineered to be consistent with the few-shot calls Table 4 shows (redo(9,3), redo(0,5), redo(27,3)) — the traced answer for i=8, j=2 is 4. <em>C:</em> verbatim from Pădurean Figure 1 — specification (1a, with the parameter clause elided: “which is passed two inputs: an array of integers, and an integer indicating how many elements are in the array”, both of which are visible in the code anyway), the bug from the buggy code (1b, braces stripped for space), and the failing test case from the test-case design (1c, which also gives length = 3). C is the only card where the question, the code and the answer all come from the paper — the same asymmetry the row order builds to.</p>
+  </aside>
+  
+  <style>
+    /* four registers per approach, after the SOLO rung pattern: bold display type,
+       muted inline citation, the method, then the finding on an accent-ruled sub-line.
+       The scantron letter bubbles and their gutter are suppressed on this slide —
+       plain ruled rows only. */
+    #slide-09b .scantron-list { display: flex; flex-direction: column; justify-content: center; }
+    #slide-09b .scantron-list li { padding: var(--s-1) 0; }
+    #slide-09b .scantron-list li::before { content: none; }
+    #slide-09b .appr__type { font-family: var(--font-display); font-weight: 700; font-size: var(--t-small); }
+    #slide-09b .appr__cite { margin-left: var(--s-2); font-size: var(--t-caption); color: var(--fg-1); }
+    #slide-09b .appr__did { display: block; font-size: var(--t-small); color: var(--fg-1); }
+    #slide-09b .appr__found {
+      display: block;
+      margin-top: var(--s-1);
+      padding-left: var(--s-2);
+      border-left: 4px solid var(--accent-2);
+      font-size: var(--t-small);
+    }
+    /* right-hand exhibit — one worked item per step. Cards are stacked in place
+       and only the current one is shown, so the panel swaps rather than piles
+       up; the last card is exempt, so it stays put if a closing step is added. */
+    #slide-09b .ex-stack { position: relative; }
+    #slide-09b .ex-card {
+      position: absolute;
+      inset: var(--s-4);
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    #slide-09b .ex-card:not(:last-of-type).is-past { opacity: 0; }
+    #slide-09b .ex-card__label { font-size: var(--t-caption); margin: 0; }
+    #slide-09b .ex-card__src {
+      margin-left: var(--s-2);
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--fg-1);
+    }
+    /* card prose reads at the same size as the list beside it, so the exhibit is
+       not fine print. Code stays a step smaller: pre-wrap is on, and at --t-small
+       the widest line in cards B and C would wrap mid-statement. --t-detail (a 28px
+       step between caption and small) is not in tokens.css yet; until it lands the
+       code falls back to caption size. Both quotes are trimmed to this budget. */
+    #slide-09b .ex-card p { font-size: var(--t-small); line-height: 1.4; margin: 0; }
+    #slide-09b .ex-card pre {
+      margin: 0;
+      padding: var(--s-2);
+      border-radius: var(--r-2);
+      background: var(--bg-0);
+      font-size: var(--t-detail, var(--t-caption));
+      line-height: 1.35;
+      white-space: pre-wrap;
+    }
+    /* the answer half of the card, ruled like the list's finding line */
+    #slide-09b .ex-card__a { border-left: 4px solid var(--accent-1); padding-left: var(--s-2); }
+  </style>
+</section>

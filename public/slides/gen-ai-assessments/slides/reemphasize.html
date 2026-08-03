@@ -1,0 +1,175 @@
+<section data-sid="reemphasize:1" class="slide" id="slide-22">
+  <style>
+    /* Straight run vs. closed circuit — the two regimes as one figure.
+       Row 1 is an open line: an empty term, one heavy exam, then a wall, so
+       the score is the last thing that happens. Row 2 is that same line closed
+       on itself — the return path under the nodes carries the student back
+       into the next exam, which makes each one formative.
+       Colours follow slide 12 so the two slides agree: infrequent takes
+       accent-3, frequent takes accent-1. */
+    #slide-22 .s22-fig { display: flex; flex-direction: column; gap: var(--s-4); margin: 0; }
+    #slide-22 .s22-row { display: flex; align-items: center; gap: var(--s-3); }
+    #slide-22 .s22-cond { width: 290px; flex: none; font-size: var(--t-small); color: var(--fg-1); margin: 0; }
+
+    /* the empty term: a dashed run carrying its own label, ending in an arrowhead */
+    #slide-22 .s22-run {
+      position: relative;
+      flex: 1;
+      align-self: stretch;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 0;
+      padding-top: var(--s-1);
+      font-size: var(--t-caption);
+      line-height: 1.2;
+    }
+    #slide-22 .s22-run::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      border-top: 4px dashed var(--fg-1);
+    }
+    #slide-22 .s22-run::after {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 18px solid var(--fg-1);
+    }
+
+    /* exam papers on the track — .sheet supplies the stock, this the geometry */
+    #slide-22 .s22-node {
+      box-sizing: border-box;
+      height: 88px;
+      padding: 0 var(--s-3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #slide-22 .s22-node p { margin: 0; line-height: 1.2; }
+    #slide-22 .s22-node .word-label { font-size: var(--t-small); }
+    /* the high-stakes paper: wider and heavier-ruled than the ones in the loop */
+    #slide-22 .s22-node--final { width: 340px; flex: none; border: 8px solid var(--accent-3); }
+    #slide-22 .s22-node--exam { border-color: var(--accent-1); }
+    /* the wall the straight run ends against */
+    #slide-22 .s22-wall { width: 14px; height: 88px; flex: none; background: var(--fg-0); border-radius: var(--r-1); }
+    #slide-22 .s22-after { width: 260px; flex: none; line-height: 1.25; }
+
+    /* the circuit: nodes left to right, then the path back underneath */
+    #slide-22 .s22-cycle {
+      position: relative;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: var(--s-2);
+      margin-bottom: 46px;
+    }
+    #slide-22 .s22-cycle .s22-node { flex: 1; }
+    #slide-22 .s22-arrow { font-size: var(--t-h3); line-height: 1; flex: none; color: var(--accent-1); }
+    #slide-22 .s22-return {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      height: 32px;
+      border: 8px solid var(--accent-1);
+      border-top: none;
+      border-radius: 0 0 var(--r-3) var(--r-3);
+      /* revealed end state of the draw-on wipe below. The insets are negative on
+         three sides so the finished path keeps the parts that sit outside this
+         box: the arrowhead (top -18px, left -17px) and the label (hangs below). */
+      clip-path: inset(-32px 0 -64px -24px);
+      transition: clip-path .9s ease .3s;
+    }
+    /* arrowhead closing the circuit — a border triangle, so it lands on an exact
+       pixel over the left riser whatever the body font resolves to */
+    #slide-22 .s22-return::after {
+      content: "";
+      position: absolute;
+      left: -17px;
+      top: -18px;
+      border-left: 13px solid transparent;
+      border-right: 13px solid transparent;
+      border-bottom: 20px solid var(--accent-1);
+    }
+    #slide-22 .s22-return__label {
+      position: absolute;
+      left: 50%;
+      bottom: -20px;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 0 var(--s-2);
+      background: var(--bg-0);
+      color: var(--accent-1);
+      font-size: var(--t-small);
+      white-space: nowrap;
+    }
+    /* Row 2 draws its loop instead of just fading in: the circuit sweeps open
+       right to left, the way the return path actually runs, so it grows out from
+       under "Revise", wraps under the nodes and lands on the arrowhead pointing
+       back into "Exam". The arrowhead and the label are both inside .s22-return,
+       so they ride the same sweep. The delay lets the row's fade-up land first;
+       the pending state is untransitioned so stepping back just resets it. */
+    #slide-22 .s22-row.is-pending .s22-return {
+      clip-path: inset(-32px 0 -64px calc(100% + 24px));
+      transition: none;
+    }
+  </style>
+  <p class="kicker" data-sid="reemphasize:2">One response — my positionality</p>
+  <h2 data-sid="reemphasize:3" style="margin-bottom: var(--s-2);">Best practices in exams</h2>
+  <div data-sid="reemphasize:4" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-4);">
+    <figure data-sid="reemphasize:13" class="s22-fig">
+      <div data-sid="reemphasize:14" class="frag s22-row" data-step="1" data-anim="slide-right">
+        <p data-sid="reemphasize:15" class="word-label s22-cond">Infrequent</p>
+        <p data-sid="reemphasize:16" class="cap s22-run" style="font-size: 28px">Weeks of teaching with no graded signal</p>
+        <div data-sid="reemphasize:17" class="sheet s22-node s22-node--final">
+          <p data-sid="reemphasize:18" class="word-label">EXAM</p>
+          <p data-sid="reemphasize:19" class="cap">one attempt</p>
+        </div>
+        <div data-sid="reemphasize:20" class="s22-wall"></div>
+        <p data-sid="reemphasize:21" class="cap s22-after" style="font-size: 30px">Students may never act on the result.</p>
+      </div>
+      <div data-sid="reemphasize:22" class="frag s22-row" data-step="2" data-anim="fade-up" style="transform: translate(-2px, 0px)">
+        <p data-sid="reemphasize:23" class="word-label s22-cond">Frequent</p>
+        <div data-sid="reemphasize:24" class="s22-cycle">
+          <div data-sid="reemphasize:25" class="sheet s22-node s22-node--exam">
+            <p data-sid="reemphasize:26" class="word-label">Exam</p>
+            <p data-sid="reemphasize:27" class="cap">lower stakes, more often</p>
+          </div>
+          <span class="arrow s22-arrow">→</span>
+          <div data-sid="reemphasize:28" class="sheet s22-node">
+            <p data-sid="reemphasize:29" class="word-label">Feedback</p>
+            <p data-sid="reemphasize:30" class="cap">marked and returned</p>
+          </div>
+          <span class="arrow s22-arrow">→</span>
+          <div data-sid="reemphasize:31" class="sheet s22-node">
+            <p data-sid="reemphasize:32" class="word-label">Revise</p>
+            <p data-sid="reemphasize:33" class="cap">study what was missed</p>
+          </div>
+          <div data-sid="reemphasize:34" class="s22-return">
+            <p data-sid="reemphasize:35" class="s22-return__label" style="transform: translate(-50%, 6px)">each result feeds the next exam</p>
+          </div>
+        </div>
+      </div>
+    </figure>
+    <p data-sid="reemphasize:5" class="frag word-label cap" data-step="3" data-anim="fade-up">If the weight moves back to exams, move it through best practices — not one high-stakes final</p>
+    <div data-sid="reemphasize:6" style="display: flex; gap: var(--s-4); align-items: stretch;">
+      <div class="frag panel" data-step="4" data-anim="fade-up" data-sid="reemphasize:7" style="flex: 1;">
+        <p data-sid="reemphasize:8" class="word-label stat">Frequent testing</p>
+        <p data-sid="reemphasize:9" style="font-size: var(--t-small); margin: var(--s-2) 0 0; transform: translate(0px, 0px)">Shifts summative tests into a more formative instrument through the <strong>testing effect</strong>.</p>
+      </div>
+      <div class="frag panel" data-step="5" data-anim="fade-up" data-sid="reemphasize:10" style="flex: 1;">
+        <p data-sid="reemphasize:11" class="word-label stat">Second-chance testing</p>
+        <p data-sid="reemphasize:12" style="font-size: var(--t-small); margin: var(--s-2) 0 0; transform: translate(0px, 0px)">Further leverages the <strong>testing effect</strong> and <strong>test potentiated learning</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>

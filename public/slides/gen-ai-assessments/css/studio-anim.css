@@ -1,0 +1,12 @@
+/* slide-studio: entrance animations, layered on the .frag step system.
+   Safe to delete this file (and its <link> in index.html) to remove them. */
+.frag[data-anim].is-pending        { opacity: 0; }
+.frag[data-anim="fade"].is-pending        { }
+.frag[data-anim="fade-up"].is-pending     { transform: translateY(28px); }
+.frag[data-anim="fade-down"].is-pending   { transform: translateY(-28px); }
+.frag[data-anim="slide-left"].is-pending  { transform: translateX(44px); }
+.frag[data-anim="slide-right"].is-pending { transform: translateX(-44px); }
+.frag[data-anim="scale-up"].is-pending    { transform: scale(0.92); }
+.frag[data-anim="scale-down"].is-pending  { transform: scale(1.06); }
+.frag[data-anim].is-current,
+.frag[data-anim].is-past           { opacity: 1; transform: none; }

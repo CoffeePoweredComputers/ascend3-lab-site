@@ -1,0 +1,76 @@
+/* Design tokens — the deck's visual vocabulary. Slides should prefer these
+   (var(--accent-1), var(--s-5), var(--t-h2)) over raw values so restyling the
+   whole deck is a one-file edit. All sizes are canvas pixels (1920×1080). */
+
+/* Bundled text face — fixed-canvas layouts break under font substitution
+   (Palatino/Georgia don't exist on Linux; every browser picks a different
+   stand-in), so the deck ships its own serif. Files live next to this sheet;
+   still fully offline. Liberation Serif, SIL OFL 1.1. */
+@font-face {
+  font-family: 'Liberation Serif';
+  src: url('fonts/LiberationSerif-Regular.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: 'Liberation Serif';
+  src: url('fonts/LiberationSerif-Bold.woff2') format('woff2');
+  font-weight: bold; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: 'Liberation Serif';
+  src: url('fonts/LiberationSerif-Italic.woff2') format('woff2');
+  font-weight: normal; font-style: italic; font-display: block;
+}
+@font-face {
+  font-family: 'Liberation Serif';
+  src: url('fonts/LiberationSerif-BoldItalic.woff2') format('woff2');
+  font-weight: bold; font-style: italic; font-display: block;
+}
+
+:root {
+  /* text */
+  --fg-0: #26221b;              /* primary text */
+  --fg-1: #5c5749;              /* muted text, captions, slide numbers */
+
+  /* surfaces */
+  --bg-0: #f7f3e8;              /* slide background */
+  --bg-1: #dce8f3;              /* raised panels / tiles */
+
+  /* accents */
+  --accent-1: #147a42;          /* primary highlight */
+  --accent-2: #2e6da4;          /* links, secondary highlight */
+  --accent-3: #9a5f0e;          /* tertiary / success */
+
+  /* fonts — bundled face first so text metrics are identical in every
+     browser/OS; the old system names stay as fallbacks (no web fonts) */
+  --font-body: 'Liberation Serif', Palatino, 'Palatino Linotype', serif;
+  --font-display: 'Liberation Serif', Georgia, 'Times New Roman', serif;   /* headings; often a serif/display stack */
+  /* pen/handwriting annotations — print-hand faces first, casual then script;
+     ends at generic cursive, which some systems map to a plain sans */
+  --font-hand: 'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Marker Felt',
+    'Ink Free', 'Comic Neue', 'Comic Relief', 'Comic Sans MS', 'Z003', cursive;
+
+  /* spacing scale */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 48px;
+  --s-6: 64px;
+  --s-7: 96px;
+  --s-8: 128px;
+
+  /* type scale */
+  --t-h1: 120px;
+  --t-h2: 80px;
+  --t-h3: 56px;
+  --t-body: 48px;
+  --t-small: 36px;
+  --t-caption: 24px;            /* eyebrows, tags, axis labels — below --t-small */
+  --t-ref: 20px;                /* full APA reference entries — read up close, not from the back */
+
+  /* corner radii */
+  --r-1: 2px;
+  --r-2: 6px;
+  --r-3: 12px;
+}

@@ -1,0 +1,122 @@
+<section class="slide" id="slide-06c" data-sid="solo-taxonomy:1">
+  <p class="kicker" data-sid="solo-taxonomy:2">Taxonomies — SOLO</p>
+  <h2 data-sid="solo-taxonomy:3">How we evaluate responses</h2>
+  <div data-sid="solo-taxonomy:10" class="slide__body" style="display: flex; gap: var(--s-4);">
+    <div class="panel" data-sid="solo-taxonomy:6" style="flex: 1 1 0; padding: var(--s-3); height: 537.533px">
+      <p data-sid="solo-taxonomy:18" style="font-size: var(--t-small); color: var(--fg-1); margin: 0 0 var(--s-1);">Example: Student explaining a code segment</p>
+      <ul data-sid="solo-taxonomy:19" class="scantron-list">
+        <li class="frag" data-step="1" data-anim="fade-up" data-sid="solo-taxonomy:22"><span class="rung__term">Prestructural</span><span class="rung__def">misses the point</span><span class="rung__ex">“it’s a loop with an if.”</span></li>
+        <li class="frag" data-step="2" data-anim="fade-up" data-sid="solo-taxonomy:23"><span class="rung__term">Unistructural</span><span class="rung__def">one relevant aspect</span><span class="rung__ex">“it compares numbers.”</span></li>
+        <li class="frag" data-step="3" data-anim="fade-up" data-sid="solo-taxonomy:20"><span class="rung__term">Multistructural</span><span class="rung__def">parts, unlinked</span><span class="rung__ex">“loops, compares, updates max.”</span></li>
+        <li class="frag" data-step="4" data-anim="fade-up" data-sid="solo-taxonomy:21"><span class="rung__term">Relational</span><span class="rung__def">parts integrated</span><span class="rung__ex">“returns the biggest number.”</span></li>
+        <li class="frag" data-step="5" data-anim="fade-up" data-sid="solo-taxonomy:24"><span class="rung__term">Extended abstract</span><span class="rung__def">generalized</span><span class="rung__ex">“a linear scan, like sum or min.”</span></li>
+      </ul>
+    </div>
+    <div data-sid="solo-taxonomy:17" class="editor" style="flex: 1 1 0; height: 538.657px">
+      <div data-sid="solo-taxonomy:9" class="editor__bar"><span class="editor__dot"></span><span class="editor__dot"></span><span class="editor__dot"></span><span class="editor__file">stats.py</span></div>
+      <div data-sid="solo-taxonomy:25" class="editor__body" style="flex: 0 0 429.447px">
+<pre data-sid="solo-taxonomy:26" class="code-sample code--dark"><span class="cl"><span class="k">class</span> <span class="fn">Stats</span>:</span><span
+class="cl">    <span class="k">def</span> <span class="fn">__init__</span>(<span class="k">self</span>, nums):</span><span
+class="cl">        <span class="k">self</span>.nums = nums</span><span
+class="cl"></span><span
+class="cl">    <span class="k">def</span> <span class="fn">total</span>(<span class="k">self</span>):</span><span
+class="cl">        <span class="k">return</span> <span class="lit">sum</span>(<span class="k">self</span>.nums)</span><span
+class="cl"></span><span
+class="cl hl">    <span class="cm"># explain this method</span></span><span
+class="cl hl">    <span class="k">def</span> <span class="fn">biggest</span>(<span class="k">self</span>):</span><span
+class="cl hl">        m = <span class="k">self</span>.nums[<span class="lit">0</span>]</span><span
+class="cl hl">        <span class="k">for</span> n <span class="k">in</span> <span class="k">self</span>.nums:</span><span
+class="cl hl">            <span class="k">if</span> n &gt; m:</span><span
+class="cl hl">                m = n</span><span
+class="cl hl">        <span class="k">return</span> m</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="frag panel takeaway" data-step="6" data-anim="fade-up" data-sid="solo-taxonomy:27" style="flex: 0 0 138.848px; margin-top: var(--s-3); transform: translate(0px, 24.3681px); height: 135px">
+    <p data-sid="solo-taxonomy:28" class="word-label badge badge--hot takeaway__pill">Key takeaways</p>
+    <ul data-sid="solo-taxonomy:29" class="takeaway__list" style="height: 95.3905px">
+      <li data-sid="solo-taxonomy:30" class="takeaway__item">
+        <p data-sid="solo-taxonomy:31" class="word-label takeaway__lead" style="font-size: 32px; transform: translate(1px, 0px)">CLASSROOM TEST OR HOMEWORK</p>
+        <p data-sid="solo-taxonomy:32" class="takeaway__body" style="font-size: 32px; transform: translate(0px, -6px)">Score the rung each response reaches, not just right/wrong.</p>
+      </li>
+      <li data-sid="solo-taxonomy:33" class="takeaway__item">
+        <p data-sid="solo-taxonomy:34" class="word-label takeaway__lead" style="font-size: 32px">Pre/post intervention test</p>
+        <p data-sid="solo-taxonomy:35" class="takeaway__body" style="font-size: 32px; transform: translate(0px, -5px)">Success is responses climbing rungs from pre to post.</p>
+      </li>
+    </ul>
+  </div>
+  <ul class="corner-cite" data-sid="solo-taxonomy:8" style="transform: translate(0px, 23px)">
+    <li data-sid="solo-taxonomy:36" style="transform: translate(0px, 10px)">Biggs, J. B., &amp; Collis, K. F. (1982). <em>Evaluating the quality of learning: The SOLO taxonomy (Structure of the Observed Learning Outcome)</em>. Academic Press.</li>
+    <li data-sid="solo-taxonomy:37">Lister, R., Simon, B., Thompson, E., Whalley, J. L., &amp; Prasad, C. (2006). Not seeing the forest for the trees: Novice programmers and the SOLO taxonomy. In <em>ITiCSE '06</em> (pp. 118–122). ACM.</li>
+  </ul>
+
+  <style>
+    /* tighter heading gaps and rows so the rungs, editor and takeaways all fit the stage */
+    #slide-06c .kicker { margin-bottom: var(--s-1); }
+    #slide-06c h2 { margin-bottom: var(--s-3); }
+    #slide-06c .scantron-list li { font-size: 30px; padding-top: 4px; padding-bottom: 4px; }
+    /* three registers per rung: bold display term, muted definition, mono student quote */
+    #slide-06c .rung__term { font-family: var(--font-display); font-weight: 700; font-size: 30px; }
+    #slide-06c .rung__def { margin-left: var(--s-2); font-size: 30px; color: var(--fg-1); }
+    #slide-06c .rung__ex {
+      display: block;
+      margin-top: 4px;
+      padding-left: var(--s-2);
+      border-left: 4px solid var(--accent-2);
+      font-family: ui-monospace, monospace;
+      font-size: 26px;
+    }
+
+    /* mock editor window — every color mixed from tokens, no literals */
+    #slide-06c .editor {
+      display: flex;
+      flex-direction: column;
+      background: var(--fg-0);
+      border-radius: var(--r-3);
+      overflow: hidden;
+      text-align: left;
+    }
+    #slide-06c .editor__bar {
+      display: flex;
+      align-items: center;
+      gap: var(--s-1);
+      padding: var(--s-2) var(--s-3);
+      background: color-mix(in srgb, var(--bg-0) 10%, var(--fg-0));
+    }
+    #slide-06c .editor__dot { width: 18px; height: 18px; border-radius: 50%; }
+    #slide-06c .editor__dot:nth-of-type(1) { background: var(--accent-3); }
+    #slide-06c .editor__dot:nth-of-type(2) { background: var(--accent-1); }
+    #slide-06c .editor__dot:nth-of-type(3) { background: var(--accent-2); }
+    #slide-06c .editor__file {
+      margin-left: var(--s-2);
+      font-family: ui-monospace, monospace;
+      font-size: 24px;
+      color: color-mix(in srgb, var(--bg-0) 55%, var(--fg-0));
+    }
+    #slide-06c .editor__body { flex: 1; padding: var(--s-1) 0 var(--s-2); }
+
+    #slide-06c .code-sample {
+      margin: 0;
+      font-family: ui-monospace, monospace;
+      font-size: 24px;
+      line-height: 1.35;
+      counter-reset: ln;
+    }
+    #slide-06c .code-sample .cl { display: block; padding-right: var(--s-3); }
+    #slide-06c .code-sample .cl::before {
+      counter-increment: ln;
+      content: counter(ln);
+      display: inline-block;
+      width: 56px;
+      margin-right: var(--s-3);
+      text-align: right;
+      color: color-mix(in srgb, var(--bg-0) 40%, var(--fg-0));
+    }
+    /* the excerpt the item asks the student to explain */
+    #slide-06c .code-sample .hl { background: color-mix(in srgb, var(--accent-2) 26%, transparent); }
+    #slide-06c .code-sample .hl::before { color: color-mix(in srgb, var(--accent-2) 55%, var(--bg-0)); }
+    /* syntax token colors come from the shared .code--dark scheme in deck.css */
+  </style>
+  <aside class="notes" data-sid="solo-taxonomy:38">transition: once we have run these questions on say, an exam, how do we go about identifying if these questions were any good in a statistical sense
+ </aside>
+</section>

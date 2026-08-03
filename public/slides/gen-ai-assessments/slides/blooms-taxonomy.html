@@ -1,0 +1,160 @@
+<section class="slide" id="slide-06b" data-sid="blooms-taxonomy:1">
+  <style>
+    /* Worked-example swap: six Q→A cards share one grid cell; the .frag step
+       classes decide which one shows. A past card yields to the current one —
+       except the top rung, which stays as the resting state after the climb. */
+    #slide-06b .s06b-stack { display: grid; }
+    #slide-06b .s06b-stack > .s06b-ex { grid-area: 1 / 1; }
+    #slide-06b .s06b-ex.is-past { opacity: 0; }
+    #slide-06b .s06b-ex[data-step="6"].is-past { opacity: 1; }
+    /* the ladder rung lights up green while its example is on stage — same
+       dark-green-on-light pairing as .badge--hot, so the climb is legible
+       from the back of the room */
+    #slide-06b .ladder > p.is-current { background: var(--accent-1); color: var(--bg-0); }
+    #slide-06b .s06b-ex { display: flex; flex-direction: column; gap: var(--s-2); }
+    /* the card's level title carries the rung name — bold so it leads the card */
+    #slide-06b .s06b-lvl { font-size: var(--t-caption); color: var(--accent-1); margin: 0; font-weight: bold; }
+    /* one exam-item card per example: a raised bg-1 panel in a printed accent-2
+       frame, lifted clear of the cream slide. The paper moves inward — every
+       inset (code block, sketch box) is bg-0, so the card reads as a clipboard
+       holding sheets rather than a sheet on a sheet */
+    #slide-06b .s06b-ex.panel { background: var(--bg-1); border: 3px solid var(--accent-2); }
+    #slide-06b .s06b-q {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 30px;
+      line-height: 1.4;
+    }
+    /* the code (or option set) the item refers to — a cream sheet inset into the card */
+    #slide-06b .s06b-code {
+      margin: 0;
+      padding: var(--s-2) var(--s-3);
+      background: var(--bg-0);
+      border-radius: var(--r-2);
+      font-size: 24px;
+      line-height: 1.5;
+    }
+    #slide-06b .s06b-mc li { padding: 8px 0 8px 52px; font-size: 26px; }
+    /* Q6's answer is drawn, not typed — a pen-blue sketch of the design */
+    #slide-06b .s06b-sketch { display: block; width: 100%; height: auto; }
+    #slide-06b .s06b-sketch rect, #slide-06b .s06b-sketch circle,
+    #slide-06b .s06b-sketch line { fill: none; stroke: var(--accent-2); stroke-width: 2.5; }
+    /* the sketch's enclosing shapes take the same cream fill as .s06b-code, so a
+       drawn box and a printed one are the same inset; the connectors stay unfilled */
+    #slide-06b .s06b-sketch rect, #slide-06b .s06b-sketch circle { fill: var(--bg-0); }
+    #slide-06b .s06b-sketch text { fill: var(--accent-2); font-family: monospace; text-anchor: middle; }
+    /* the written-in response pins to the sheet's bottom rule */
+    #slide-06b .s06b-a {
+      margin: 0;
+      margin-top: auto;
+      padding-top: var(--s-2);
+      border-top: 2px dotted var(--accent-2);
+      font-size: 28px;
+      line-height: 1.4;
+      font-style: italic;
+      color: var(--accent-2);
+    }
+  </style>
+  <p class="kicker" data-sid="blooms-taxonomy:2">Taxonomies — Bloom’s</p>
+  <h2 data-sid="blooms-taxonomy:3">Creating questions to target skill categories</h2>
+  <div data-sid="blooms-taxonomy:10" class="slide__body" style="display: flex; gap: var(--s-6); align-items: center;">
+    <div data-sid="blooms-taxonomy:4" style="flex: 1;">
+      <div data-sid="blooms-taxonomy:11" class="ladder">
+        <p data-sid="blooms-taxonomy:12" class="frag" data-step="6" data-anim="slide-right" style="font-size: 32px">6 · <strong>Create</strong> — make something new</p>
+        <p data-sid="blooms-taxonomy:13" class="frag" data-step="5" data-anim="slide-right" style="font-size: 32px">5 · <strong>Evaluate</strong> — judge against criteria</p>
+        <p data-sid="blooms-taxonomy:14" class="frag" data-step="4" data-anim="slide-right" style="font-size: 32px">4 · <strong>Analyze</strong> — take it apart</p>
+        <p data-sid="blooms-taxonomy:15" class="frag" data-step="3" data-anim="slide-right" style="font-size: 32px">3 · <strong>Apply</strong> — use a procedure on new input</p>
+        <p data-sid="blooms-taxonomy:16" class="frag" data-step="2" data-anim="slide-right" style="font-size: 32px">2 · <strong>Understand</strong> — put it in your own words</p>
+        <p data-sid="blooms-taxonomy:17" class="frag" data-step="1" data-anim="slide-right" style="font-size: 32px">1 · <strong>Remember</strong> — recall a stated fact</p>
+      </div>
+    </div>
+    <div data-sid="blooms-taxonomy:18" style="width: 640px; display: flex; flex-direction: column; gap: var(--s-4);">
+      <div data-sid="blooms-taxonomy:24" class="s06b-stack">
+        <div data-sid="blooms-taxonomy:25" class="frag s06b-ex panel" data-step="1" data-anim="fade">
+          <p data-sid="blooms-taxonomy:26" class="word-label s06b-lvl">1 · Remember</p>
+          <p data-sid="blooms-taxonomy:27" class="s06b-q">Q1. <code>len(scores)</code> returns…</p>
+          <ul data-sid="blooms-taxonomy:5" class="scantron-list s06b-mc">
+            <li data-sid="blooms-taxonomy:9">the largest score</li>
+            <li data-sid="blooms-taxonomy:49">the number of items in the list</li>
+            <li data-sid="blooms-taxonomy:50">the last score</li>
+            <li data-sid="blooms-taxonomy:51">the sum of the scores</li>
+          </ul>
+          <p data-sid="blooms-taxonomy:28" class="s06b-a">B — one stated fact, straight from memory.</p>
+        </div>
+        <div data-sid="blooms-taxonomy:29" class="frag s06b-ex panel" data-step="2" data-anim="fade">
+          <p data-sid="blooms-taxonomy:30" class="word-label s06b-lvl">2 · Understand</p>
+          <p data-sid="blooms-taxonomy:31" class="s06b-q">Q2. In one sentence, what does this loop do?</p>
+          <pre data-sid="blooms-taxonomy:52" class="s06b-code code--light">total = <span class="lit">0</span>
+<span class="k">for</span> s <span class="k">in</span> scores:
+    total += s</pre>
+          <p data-sid="blooms-taxonomy:32" class="s06b-a">It folds every score into a running total — the idea, restated in your own words.</p>
+        </div>
+        <div data-sid="blooms-taxonomy:33" class="frag s06b-ex panel" data-step="3" data-anim="fade">
+          <p data-sid="blooms-taxonomy:34" class="word-label s06b-lvl">3 · Apply</p>
+          <p data-sid="blooms-taxonomy:35" class="s06b-q">Q3. Rewrite this loop to sum only the even-indexed scores.</p>
+          <pre data-sid="blooms-taxonomy:53" class="s06b-code code--light"><span class="k">for</span> s <span class="k">in</span> scores:
+    total += s</pre>
+          <p data-sid="blooms-taxonomy:36" class="s06b-a"><code>for s in scores[::2]: total += s</code> — known procedure, new input.</p>
+        </div>
+        <div data-sid="blooms-taxonomy:37" class="frag s06b-ex panel" data-step="4" data-anim="fade">
+          <p data-sid="blooms-taxonomy:38" class="word-label s06b-lvl">4 · Analyze</p>
+          <p data-sid="blooms-taxonomy:39" class="s06b-q">Q4. This works, but it is O(n²). Why?</p>
+          <pre data-sid="blooms-taxonomy:54" class="s06b-code code--light"><span class="k">for</span> s <span class="k">in</span> scores:
+    <span class="k">if</span> scores.<span class="fn">count</span>(s) > <span class="lit">1</span>:
+        flagged.<span class="fn">append</span>(s)</pre>
+          <p data-sid="blooms-taxonomy:40" class="s06b-a">Taken apart: <code>count()</code> rescans the list on every pass — a loop hidden inside the loop.</p>
+        </div>
+        <div data-sid="blooms-taxonomy:41" class="frag s06b-ex panel" data-step="5" data-anim="fade" style="width: 638.171px">
+          <p data-sid="blooms-taxonomy:42" class="word-label s06b-lvl">5 · Evaluate</p>
+          <p data-sid="blooms-taxonomy:43" class="s06b-q">Q5. Which version is preferable?</p>
+          <pre data-sid="blooms-taxonomy:55" class="s06b-code code--light">A: total = <span class="fn">sum</span>(scores)
+B: total = <span class="fn">sum</span>(<span class="fn">check</span>(s) <span class="k">for</span> s <span class="k">in</span> scores)</pre>
+          <p data-sid="blooms-taxonomy:44" class="s06b-a">B — equal totals, but it fails loudly on a bad score. Judged against criteria.</p>
+        </div>
+        <div data-sid="blooms-taxonomy:45" class="frag s06b-ex panel" data-step="6" data-anim="fade">
+          <p data-sid="blooms-taxonomy:46" class="word-label s06b-lvl">6 · Create</p>
+          <p data-sid="blooms-taxonomy:47" class="s06b-q">Q6. Design a gradebook API that can drop each student’s lowest score.</p>
+          <p data-sid="blooms-taxonomy:48" class="s06b-a">e</p>
+          <svg class="s06b-sketch" viewBox="0 0 560 140" role="img" aria-label="Sketched API design: POST /scores into a Score model, through a drop-lowest rule, out via GET /grade">
+            <defs>
+              <marker id="s06b-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0 L8 4 L0 8" style="fill: none; stroke: var(--accent-2); stroke-width: 1.8;"/>
+              </marker>
+            </defs>
+            <g transform="rotate(-1.2 280 70)">
+              <rect x="6" y="48" width="130" height="44" rx="10"/>
+              <text x="71" y="76" font-size="17">POST /scores</text>
+              <line x1="136" y1="70" x2="174" y2="70" marker-end="url(#s06b-arr)"/>
+              <rect x="178" y="34" width="124" height="72" rx="10"/>
+              <text x="240" y="62" font-size="19">Score</text>
+              <text x="240" y="88" font-size="14">pts · dropped</text>
+              <line x1="302" y1="70" x2="335" y2="70" marker-end="url(#s06b-arr)"/>
+              <circle cx="372" cy="70" r="33"/>
+              <text x="372" y="66" font-size="15">drop</text>
+              <text x="372" y="84" font-size="15">lowest</text>
+              <line x1="405" y1="70" x2="436" y2="70" marker-end="url(#s06b-arr)"/>
+              <rect x="440" y="48" width="114" height="44" rx="10"/>
+              <text x="497" y="76" font-size="17">GET /grade</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frag panel takeaway" data-step="7" data-anim="fade-up" data-sid="blooms-taxonomy:6" style="flex: none; margin-top: var(--s-4); width: 1669.77px">
+    <p data-sid="blooms-taxonomy:23" class="word-label badge badge--hot takeaway__pill">Key takeaways</p>
+    <ul data-sid="blooms-taxonomy:19" class="takeaway__list">
+      <li data-sid="blooms-taxonomy:20" class="takeaway__item">
+        <p data-sid="blooms-taxonomy:7" class="word-label takeaway__lead" style="font-size: 32px">CLASSROOM TEST OR HOMEWORK</p>
+        <p data-sid="blooms-taxonomy:22" class="takeaway__body" style="font-size: 32px">Sample a range of rungs</p>
+      </li>
+      <li data-sid="blooms-taxonomy:21" class="takeaway__item">
+        <p data-sid="blooms-taxonomy:56" class="word-label takeaway__lead" style="font-size: 32px">Pre/post intervention test</p>
+        <p data-sid="blooms-taxonomy:57" class="takeaway__body" style="font-size: 32px">Target the rung(s) the intervention was designed to move.</p>
+      </li>
+    </ul>
+  </div>
+  
+  <aside class="notes" data-sid="blooms-taxonomy:58">Transition: once you hvae responses, what do you do? how do you think about evaluating responses, particularly those beyond simple questions where there is a clear single correct solution
+  </aside>
+</section>

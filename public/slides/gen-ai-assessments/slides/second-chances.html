@@ -1,0 +1,77 @@
+<section data-sid="second-chances:13" class="slide" id="slide-13">
+  <style>
+    /* pending retake tiles pose as plain week tiles (visible, seat blue), then
+       step 1 washes them to the lighter exam tint. The tint derives from
+       --accent-1 so a deck restyle recolors exams and retakes together */
+    #slide-13 .s13-exam { background: var(--accent-1); }
+    #slide-13 .s13-retake { background: color-mix(in srgb, var(--accent-1) 35%, var(--bg-0)); transition: background-color .8s ease; }
+    #slide-13 .s13-retake.is-pending { opacity: 1; background: var(--bg-1); }
+    /* faint accent halo breathing behind the revealed retake tiles. Only the
+       schedule tiles (.frag) glow — not the legend swatch — and it stays off
+       while pending so it can't give away which weeks are retakes */
+    #slide-13 .s13-retake.frag { animation: s13-retake-glow 2.6s ease-in-out infinite; }
+    #slide-13 .s13-retake.frag.is-pending { animation: none; }
+    @keyframes s13-retake-glow {
+      0%, 100% { box-shadow: 0 0 8px 0 color-mix(in srgb, var(--accent-1) 15%, transparent); }
+      50%      { box-shadow: 0 0 20px 3px color-mix(in srgb, var(--accent-1) 40%, transparent); }
+    }
+  </style>
+  <p class="kicker" data-sid="second-chances:1">Frequent &amp; second-chance testing</p>
+  <h2 data-sid="second-chances:30" style="margin-bottom: var(--s-3);">The second-chance exam</h2>
+  <p data-sid="second-chances:31" class="cap" style="font-size: var(--t-small); transform: translate(0px, -14px)">An optional, fresh version of the exam offered after the first attempt, with a policy combining the two scores. Two studies asked: does the safety net sap effort — or calm nerves?</p>
+  <div data-sid="second-chances:14" class="slide__body" style="display: flex; flex-direction: column; justify-content: center; gap: var(--s-5);">
+    <div data-sid="second-chances:15" style="align-self: center; display: flex; flex-direction: column; gap: var(--s-2);">
+      <p class="word-label" data-sid="second-chances:39" style="font-size: 26px; color: var(--fg-1); margin: 0;">The frequent testing schedule</p>
+      <div data-sid="second-chances:40" style="display: flex; gap: var(--s-1);">
+        <div data-sid="second-chances:41" class="seat"></div>
+        <div data-sid="second-chances:42" class="seat"></div>
+        <div data-sid="second-chances:43" class="seat s13-exam"></div>
+        <div data-sid="second-chances:44" class="seat s13-retake frag" data-step="1"></div>
+        <div data-sid="second-chances:45" class="seat"></div>
+        <div data-sid="second-chances:46" class="seat"></div>
+        <div data-sid="second-chances:47" class="seat s13-exam"></div>
+        <div data-sid="second-chances:48" class="seat s13-retake frag" data-step="1"></div>
+        <div data-sid="second-chances:49" class="seat"></div>
+        <div data-sid="second-chances:50" class="seat"></div>
+        <div data-sid="second-chances:51" class="seat s13-exam"></div>
+        <div data-sid="second-chances:52" class="seat s13-retake frag" data-step="1"></div>
+        <div data-sid="second-chances:53" class="seat"></div>
+        <div data-sid="second-chances:54" class="seat"></div>
+        <div data-sid="second-chances:55" class="seat s13-exam"></div>
+        <div data-sid="second-chances:56" class="seat s13-retake frag" data-step="1"></div>
+        <div data-sid="second-chances:57" class="seat"></div>
+        <div data-sid="second-chances:58" class="seat"></div>
+        <div data-sid="second-chances:59" class="seat s13-exam"></div>
+        <div data-sid="second-chances:60" class="seat s13-retake frag" data-step="1"></div>
+      </div>
+      <div data-sid="second-chances:61" style="display: flex; align-items: center; gap: var(--s-6);">
+        <div data-sid="second-chances:62" style="display: flex; align-items: center; gap: var(--s-2);">
+          <div data-sid="second-chances:63" class="seat s13-exam" style="width: 28px; height: 28px;"></div>
+          <p data-sid="second-chances:32" class="cap">attempt 1 — the regular exam</p>
+        </div>
+        <div data-sid="second-chances:64" class="frag" data-step="1" data-anim="fade" style="display: flex; align-items: center; gap: var(--s-2);">
+          <div data-sid="second-chances:65" class="seat s13-retake" style="width: 28px; height: 28px;"></div>
+          <p data-sid="second-chances:34" class="cap">optional retake — a fresh version, later</p>
+        </div>
+      </div>
+    </div>
+    <div data-sid="second-chances:35" class="frag" data-step="2" data-anim="fade-up" style="display: flex; align-items: center; justify-content: center; gap: var(--s-3);">
+      <p data-sid="second-chances:38" class="cap" style="font-size: 36px; flex: 0 0 424.485px">Weighing the second exam:</p>
+      <p data-sid="second-chances:36" class="badge" style="flex: 0 0 520.105px">“90-10”: the retake recovers points</p>
+      <p data-sid="second-chances:37" class="badge" style="flex: 0 0 424.762px">“insurance”: can’t lose points</p>
+    </div>
+    <div data-sid="second-chances:22" style="display: flex; gap: var(--s-5);">
+      <div class="frag panel" data-step="3" data-anim="fade-up" data-sid="second-chances:8" style="flex: 1;">
+        <p data-sid="second-chances:23" class="word-label" style="font-size: 34px; color: var(--accent-1); margin: 0 0 var(--s-1);">EARNEST FIRST ATTEMTS</p>
+        <p data-sid="second-chances:24" style="font-size: 32px; color: var(--fg-1); margin: 0">retake available — first attempts stay strong due in part to the policy on how the second exam score is counted.</p>
+      </div>
+      <div class="frag panel" data-step="4" data-anim="fade-up" data-sid="second-chances:9" style="flex: 1;">
+        <p data-sid="second-chances:25" class="word-label" style="font-size: 34px; color: var(--accent-1); margin: 0 0 var(--s-1);">Anxiety ↓</p>
+        <p data-sid="second-chances:26" style="font-size: 32px; color: var(--fg-1); margin: 0">students report lower test anxiety with a second chance waiting</p>
+      </div>
+    </div>
+  </div>
+  <ul class="corner-cite" data-sid="second-chances:11">
+    <li data-sid="second-chances:66">Emeka, Zilles et al. &amp; Emeka, Smith IV et al., ASEE 2023</li>
+  </ul>
+</section>
