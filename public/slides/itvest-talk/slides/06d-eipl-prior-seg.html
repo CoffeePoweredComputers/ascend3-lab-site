@@ -1,0 +1,107 @@
+<section data-sid="06d-eipl-prior-seg:1" class="slide" id="slide-06d">
+  <div data-sid="06d-eipl-prior-seg:2" class="slide__eyebrow">EiPL · prior work · segmentation</div>
+  <h2 data-sid="06d-eipl-prior-seg:3" class="slide__title">Distinguishing <span class="gradient-text">high level from low level</span></h2>
+
+  <style>
+    #slide-06d .seg-low,
+    #slide-06d .seg-high {
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: transparent;
+      color: inherit;
+      font-weight: inherit;
+      transition: background 0.45s ease, color 0.45s ease, font-weight 0.45s ease;
+    }
+    /* Keep segment TEXT visible from the start; only the highlight fades in. */
+    #slide-06d .frag.seg-low.is-pending,
+    #slide-06d .frag.seg-high.is-pending { opacity: 1; }
+
+    #slide-06d .frag.seg-low.is-current,
+    #slide-06d .frag.seg-low.is-past {
+      background: rgba(239, 68, 68, 0.22);
+      color: #fda4af;
+      font-weight: 600;
+    }
+    #slide-06d .frag.seg-high.is-current,
+    #slide-06d .frag.seg-high.is-past {
+      background: rgba(34, 197, 94, 0.18);
+      color: #86efac;
+      font-weight: 600;
+    }
+  </style>
+
+  <div data-sid="06d-eipl-prior-seg:4" class="slide__body" style="display:flex; flex-direction:column; gap:18px;">
+
+    <!-- Row 1: 2-col grid (code | responses) -->
+    <div data-sid="06d-eipl-prior-seg:5" style="display:grid; grid-template-columns:640px 1fr; gap:32px; align-items:stretch;">
+
+      <!-- LEFT: EiPL question card (borrowed from 06c) -->
+      <div data-sid="06d-eipl-prior-seg:6" style="display:flex; flex-direction:column; gap:14px;">
+        <div data-sid="06d-eipl-prior-seg:7" style="font-family:'JetBrains Mono', monospace; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-2);">A typical EiPL question</div>
+        <div data-sid="06d-eipl-prior-seg:8" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column;">
+          <div data-sid="06d-eipl-prior-seg:9" style="font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1); margin-bottom:8px;">prompt</div>
+          <div data-sid="06d-eipl-prior-seg:10" style="font-size:20px; color:var(--fg-1); font-style:italic; margin-bottom:14px;">"Describe what this function does."</div>
+          <pre data-sid="06d-eipl-prior-seg:11" style="font-family:'JetBrains Mono', monospace; font-size:18px; line-height:1.55; color:var(--fg-0); margin:0; white-space:pre; background:rgba(0,0,0,0.3); border-radius:6px; padding:16px 20px;"><span style="color:var(--syntax-purple); font-weight:600;">def</span> <span style="color:var(--syntax-blue);">f</span>(xs):
+    a = <span style="color:var(--syntax-blue);">max</span>(xs)
+    b = <span style="color:var(--syntax-blue);">min</span>(xs)
+    <span style="color:var(--syntax-purple); font-weight:600;">return</span> a - b</pre>
+        </div>
+      </div>
+
+      <!-- RIGHT: two response cards -->
+      <div data-sid="06d-eipl-prior-seg:12" style="display:flex; flex-direction:column; gap:14px;">
+        <div data-sid="06d-eipl-prior-seg:13" style="font-family:'JetBrains Mono', monospace; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fg-2);">Two ways students respond</div>
+
+        <!-- Low-level response -->
+        <div data-sid="06d-eipl-prior-seg:14" style="position:relative; flex:1; background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--err); border-radius:14px; padding:18px 26px; display:flex; flex-direction:column; gap:10px;">
+          <div data-sid="06d-eipl-prior-seg:15" style="font-family:'JetBrains Mono', monospace; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:var(--err);">low-level</div>
+          <div data-sid="06d-eipl-prior-seg:16" style="font-size:26px; font-weight:700; line-height:1.3;">describes the code&rsquo;s <em>implementation</em></div>
+
+          <div data-sid="06d-eipl-prior-seg:17" class="frag" data-step="1" style="background:var(--bg-2); border:1px solid var(--border-1); border-radius:8px; padding:18px 22px; font-size:22px; line-height:1.6; color:var(--fg-0);">
+            "It <span class="frag seg-low" data-step="2">calls max on the list</span>, <span class="frag seg-low" data-step="2">calls min on the list</span>, and <span class="frag seg-low" data-step="2">subtracts them</span>."
+          </div>
+
+          <div data-sid="06d-eipl-prior-seg:18" class="frag" data-step="2" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:var(--err); font-weight:700; line-height:1.5;">
+            &rarr; <strong>3 segments</strong>, one per line of code
+          </div>
+        </div>
+
+        <!-- High-level response -->
+        <div data-sid="06d-eipl-prior-seg:19" style="position:relative; flex:1; background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--ok); border-radius:14px; padding:18px 26px; display:flex; flex-direction:column; gap:10px;">
+          <div data-sid="06d-eipl-prior-seg:20" style="font-family:'JetBrains Mono', monospace; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ok);">high-level</div>
+          <div data-sid="06d-eipl-prior-seg:21" style="font-size:26px; font-weight:700; line-height:1.3;">describes the code&rsquo;s <em>purpose</em></div>
+
+          <div data-sid="06d-eipl-prior-seg:22" class="frag" data-step="1" style="background:var(--bg-2); border:1px solid var(--border-1); border-radius:8px; padding:18px 22px; font-size:22px; line-height:1.6; color:var(--fg-0);">
+            "<span class="frag seg-high" data-step="2">Returns the range of the list.</span>"
+          </div>
+
+          <div data-sid="06d-eipl-prior-seg:23" class="frag" data-step="2" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:var(--ok); font-weight:700; line-height:1.5;">
+            &rarr; <strong>1 segment</strong>, the whole function
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row 2: description panel -->
+    <div data-sid="06d-eipl-prior-seg:24" class="frag" data-step="3" style="padding:14px 26px; background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--accent-2); border-radius:12px;">
+      <p data-sid="06d-eipl-prior-seg:25" style="font-size:22px; color:var(--fg-0); line-height:1.45; margin:0;">
+        Use an LLM to segment the response and align each segment to the code it talks about. <strong>Number of segments</strong> becomes a clear, transparent signal &mdash; a mechanism that <span class="gradient-text" style="font-weight:700;">operationalizes low- vs high-level</span> for students.
+      </p>
+    </div>
+
+    <!-- Row 3: pilot callout -->
+    <div data-sid="06d-eipl-prior-seg:26" class="frag" data-step="4" style="padding:10px 24px; background:rgba(99,102,241,0.06); border:1px solid rgba(99,102,241,0.3); border-left:4px solid var(--accent-1); border-radius:12px;">
+      <div data-sid="06d-eipl-prior-seg:27" style="font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1); margin-bottom:4px;">spring 2026</div>
+      <p data-sid="06d-eipl-prior-seg:28" style="font-size:20px; color:var(--fg-0); line-height:1.4; margin:0;">
+        Piloting segmentation-based feedback in a CS1 course this semester.
+      </p>
+    </div>
+
+  </div>
+
+  <ol data-sid="06d-eipl-prior-seg:29" class="slide__footnotes">
+    <li data-sid="06d-eipl-prior-seg:30" style="width: 1138.01px; max-width: 1000px"><span class="num">1</span>Smith IV, Fowler, Denny, &amp; Zilles (2025). Counting the Trees in the Forest: Evaluating Prompt Segmentation for Classifying Code Comprehension Level. <em>ITiCSE 2025</em>.</li>
+  </ol>
+  <div data-sid="06d-eipl-prior-seg:31" class="slide__number"></div>
+</section>

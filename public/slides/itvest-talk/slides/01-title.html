@@ -1,0 +1,115 @@
+<!-- Title slide as a self-demonstration: a plain-language prompt types itself
+     out, and the talk title "generates" from it word by word — the thesis
+     (you write natural language, the artifact appears) enacted before a word
+     is spoken. Pure CSS, keyed off .is-active so it replays on every entry
+     (inactive slides are display:none, which resets the animations).
+
+     Timeline: prompt types 0.2-1.6s → title words pop 1.65-2.4s → subtitle
+     2.15s → author strip 2.45s. Fully settled under 3s; the only thing left
+     moving is the caret blink — calm enough to sit on while people file in. -->
+<section data-sid="01-title:1" class="slide" id="slide-01">
+  <div data-sid="01-title:2" class="t-wrap">
+    <p data-sid="01-title:8" class="t-prompt" aria-hidden="true"><span class="t-prompt__mark">&#10095;</span><span class="t-prompt__text">write a talk about teaching programming in plain language</span><span class="t-prompt__caret"></span></p>
+
+    <h1 data-sid="01-title:3" class="t-title">
+      <span class="t-w" style="--i:0">Programming</span>
+      <span class="t-w" style="--i:1">in</span>
+      <span class="t-w gradient-text" style="--i:2">Plain Language</span>
+    </h1>
+    <p data-sid="01-title:4" class="t-sub t-late" style="--d:2.15s">
+      Preparing Novice Programmers for the Age of Human-GenAI Collaborative Coding
+    </p>
+
+    <div data-sid="01-title:5" class="t-meta t-late" style="--d:2.45s">
+      <span><b>David H. Smith IV</b></span>
+      <span>Virginia Tech</span>
+      <span>dhsmith4@vt.edu</span>
+      <span>ascend3.cs.vt.edu</span>
+    </div>
+  </div>
+
+  <style>
+    /* NB: no `position` override here — .slide is already position:absolute;
+       inset:0 from deck.css. An ID-level `position:relative` would win and
+       collapse the slide to content height. */
+    #slide-01 { overflow: hidden; }
+    #slide-01 .t-wrap {
+      position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      height: 100%; max-width: 1640px;
+      /* the slide reserves more bottom padding (140px) than top (72px), so a
+         plain center sits high — this re-centers on the full 1080 canvas */
+      padding-top: var(--s-7);
+    }
+
+    /* ---- the prompt line: types out in mono, caret keeps blinking ---- */
+    #slide-01 .t-prompt {
+      display: flex; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 30px; color: var(--fg-2);
+      margin: 0 0 40px;
+    }
+    #slide-01 .t-prompt__mark { color: var(--accent-1-text); margin-right: 16px; font-weight: 700; }
+    #slide-01 .t-prompt__text {
+      display: inline-block; overflow: hidden; white-space: nowrap;
+      width: 0;
+    }
+    /* 57 characters — steps() must match or the reveal stutters */
+    #slide-01.is-active .t-prompt__text { animation: t-type 1.4s steps(57) 0.2s forwards; }
+    @keyframes t-type { to { width: 57ch; } }
+    #slide-01 .t-prompt__caret {
+      display: inline-block; width: 14px; height: 34px;
+      margin-left: 6px; background: var(--accent-2);
+    }
+    #slide-01.is-active .t-prompt__caret { animation: t-blink 1.1s steps(1) infinite 1.8s; }
+    @keyframes t-blink { 50% { opacity: 0; } }
+
+    /* ---- the title "generates" word by word, like streamed output ---- */
+    #slide-01 .t-title {
+      font-size: 108px; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.025em; max-width: 1500px; margin: 0;
+      color: var(--fg-0);
+    }
+    #slide-01 .t-w {
+      display: inline-block;
+      opacity: 0; transform: translateY(22px);
+    }
+    #slide-01.is-active .t-w {
+      animation: t-pop 0.5s var(--ease) forwards;
+      animation-delay: calc(1.65s + var(--i) * 0.14s);
+    }
+    @keyframes t-pop { to { opacity: 1; transform: none; } }
+
+    /* ---- subtitle + author strip land last ---- */
+    #slide-01 .t-sub {
+      font-size: 36px; color: var(--fg-1);
+      margin: 28px 0 0; max-width: 1500px; line-height: 1.35;
+    }
+    #slide-01 .t-meta {
+      margin-top: var(--s-8); display: flex; gap: var(--s-7);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--t-h4); color: var(--fg-2);
+    }
+    #slide-01 .t-meta b { color: var(--fg-1); font-weight: 500; }
+    #slide-01 .t-late { opacity: 0; transform: translateY(14px); }
+    #slide-01.is-active .t-late {
+      animation: t-pop 0.5s var(--ease) forwards;
+      animation-delay: var(--d);
+    }
+
+    /* motion off / print: land on the finished slide, nothing hidden */
+    @media (prefers-reduced-motion: reduce), print {
+      #slide-01 .t-prompt__text { width: 57ch !important; animation: none !important; }
+      #slide-01 .t-prompt__caret { animation: none !important; }
+      #slide-01 .t-w, #slide-01 .t-late {
+        animation: none !important; opacity: 1 !important; transform: none !important;
+      }
+    }
+  </style>
+
+  <aside data-sid="01-title:7" class="notes">
+[hold while people file in — the slide runs itself, settled in ~3s]
+The gag IS the thesis: a plain-language prompt gets typed, and the talk title generates from it, word by word, the way model output streams. If anyone asks about it later, that's the whole talk in one visual — the prompt is now the program.
+  </aside>
+  <div data-sid="01-title:6" class="slide__number"></div>
+</section>

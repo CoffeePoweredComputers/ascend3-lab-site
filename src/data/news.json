@@ -1,9 +1,21 @@
 [
   {
+    "date": "2026-08-14",
+    "type": "talk",
+    "title": "Talk at IT-vest: Code-generation Based Grading",
+    "description": "Slides from David's talk at IT-vest, \"Code-generation Based Grading: EiPL and Prompt Problems\" — scalable, formative practice for prompting and code comprehension, where students' natural-language responses are turned into code and run against unit tests.",
+    "links": [
+      {
+        "text": "View slides",
+        "url": "/slides/itvest-talk/"
+      }
+    ]
+  },
+  {
     "date": "2026-08-03",
     "type": "talk",
-    "title": "Slides: Assessment in the Age of GenAI",
-    "description": "A browser-viewable slide deck on how generative AI has disrupted traditional CS assessment — item generation, testing strategies, GenAI grading, and where the field goes from here.",
+    "title": "Talk at LearnLab: Assessment in the Age of GenAI",
+    "description": "David gave a talk at the LearnLab CER Summer School on how generative AI has disrupted traditional CS assessment — item generation, testing strategies, GenAI grading, and where the field goes from here.",
     "links": [
       {
         "text": "View slides",

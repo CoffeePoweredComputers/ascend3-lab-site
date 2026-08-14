@@ -1,0 +1,143 @@
+<section data-sid="11-decomp-diagrams:1" class="slide" id="slide-11">
+  <div data-sid="11-decomp-diagrams:2" class="slide__eyebrow">Visual prompting · early evidence</div>
+  <h2 data-sid="11-decomp-diagrams:3" class="slide__title">Decomposition diagrams <span class="gradient-text">as prompts</span></h2>
+
+  <div data-sid="11-decomp-diagrams:4" class="slide__body" style="display:flex; flex-direction:column; gap:20px;">
+
+    <p data-sid="11-decomp-diagrams:5" class="lede" style="font-size:30px; max-width:1700px; line-height:1.4;">
+      Multimodal GenAI can take a hand-drawn diagram directly. We tested whether student-drawn decompositions can act as prompts on their own — no rewriting in text.<sup class="cite">1</sup>
+    </p>
+
+    <div data-sid="11-decomp-diagrams:6" class="split frag" data-step="1" style="gap:32px;">
+      <div data-sid="11-decomp-diagrams:7" style="display:flex; flex-direction:column; gap:14px;">
+        <div data-sid="11-decomp-diagrams:8" class="tile tile--err" style="padding:18px 24px;">
+          <span class="tile__label">text-based prompting</span>
+          <div data-sid="11-decomp-diagrams:9" class="tile__body" style="font-family:'JetBrains Mono', monospace; font-size:24px; color:var(--fg-0); margin-top:6px;">
+            Mental model → Diagram <span style="color:var(--fg-2); font-style:italic;">(intermediate)</span> → Text → Code
+          </div>
+        </div>
+        <div data-sid="11-decomp-diagrams:10" class="tile" style="padding:18px 24px; border-color:var(--border-2); background:var(--bg-3);">
+          <span class="tile__label">visual prompting</span>
+          <div data-sid="11-decomp-diagrams:11" class="tile__body" style="font-family:'JetBrains Mono', monospace; font-size:24px; color:var(--fg-0); margin-top:6px;">
+            Mental model → Diagram → <span class="gradient-text" style="font-weight:700;">Code</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-sid="11-decomp-diagrams:12" style="background:white; border-radius:8px; padding:6px;">
+        <img data-sid="11-decomp-diagrams:13" src="data/materials/figures/decomp-004.png" alt="Student-drawn decomposition for Evil Hangman" style="display:block; width:100%; height:auto; max-height:280px; object-fit:contain;">
+      </div>
+    </div>
+
+    <!-- Analysis pipeline -->
+    <div data-sid="11-decomp-diagrams:14" class="frag" data-step="2" style="display:flex; flex-direction:column; align-items:center; gap:22px; margin-top:8px;">
+      <div data-sid="11-decomp-diagrams:15" style="font-family:'JetBrains Mono', monospace; font-size:24px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--fg-0);">Analysis pipeline &middot; n=133 CS1 students &middot; Evil Hangman</div>
+
+      <div data-sid="11-decomp-diagrams:16" class="pipeline-row">
+        <div data-sid="11-decomp-diagrams:17" class="pl-stage">
+          <div data-sid="11-decomp-diagrams:18" class="pl-stage__icon">&#9998;</div>
+          <div data-sid="11-decomp-diagrams:19" class="pl-stage__label">Student<br>diagram</div>
+        </div>
+        <div data-sid="11-decomp-diagrams:20" class="pl-arrow">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams:21" class="pl-stage">
+          <div data-sid="11-decomp-diagrams:22" class="pl-stage__icon">&#129302;</div>
+          <div data-sid="11-decomp-diagrams:23" class="pl-stage__label">GPT-4.1<br>generated</div>
+        </div>
+        <div data-sid="11-decomp-diagrams:24" class="pl-arrow">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams:25" class="pl-stage">
+          <div data-sid="11-decomp-diagrams:26" class="pl-stage__icon" style="font-family:'JetBrains Mono', monospace;">{ }</div>
+          <div data-sid="11-decomp-diagrams:27" class="pl-stage__label">Code<br>generated</div>
+        </div>
+        <div data-sid="11-decomp-diagrams:28" class="pl-arrow">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams:29" class="pl-stage">
+          <div data-sid="11-decomp-diagrams:30" class="pl-stage__icon">&#128065;</div>
+          <div data-sid="11-decomp-diagrams:31" class="pl-stage__label">Human<br>review</div>
+        </div>
+        <div data-sid="11-decomp-diagrams:32" class="pl-arrow pl-arrow--big">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams:33" class="pl-final">
+          <div data-sid="11-decomp-diagrams:34" class="pl-final__num">81%</div>
+          <div data-sid="11-decomp-diagrams:35" class="pl-final__label">extracted<br>successfully</div>
+        </div>
+      </div>
+
+      <p data-sid="11-decomp-diagrams:36" style="font-size:26px; font-style:italic; color:var(--fg-0); line-height:1.45; text-align:center; max-width:1500px; margin:0;">
+        Formative work: ad-hoc diagrams from students implementing Evil Hangman, fed directly to an LLM. We checked whether the functions in the diagram appeared in the generated code.
+      </p>
+    </div>
+
+  </div>
+
+  <style>
+    #slide-11 .pipeline-row {
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: nowrap; justify-content: center;
+    }
+    #slide-11 .pl-stage {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      padding: 20px 18px;
+      background: var(--bg-2);
+      border: 2px solid var(--border-2);
+      border-radius: 12px;
+      min-width: 150px;
+    }
+    #slide-11 .pl-stage__icon {
+      font-size: 38px; line-height: 1; color: var(--fg-0);
+    }
+    #slide-11 .pl-stage__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--fg-0);
+      text-align: center; line-height: 1.3;
+    }
+    #slide-11 .pl-arrow {
+      font-size: 34px; color: var(--fg-2); font-weight: 700;
+    }
+    #slide-11 .pl-arrow--big {
+      color: var(--accent-2); font-size: 40px;
+    }
+    #slide-11 .pl-final {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 18px 26px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.22), rgba(236,72,153,0.22));
+      border: 2.5px solid var(--accent-2);
+      border-radius: 14px;
+      min-width: 170px;
+    }
+    /* The 81% is the headline number on this slide. It was painted with the
+       DARK-theme values of --accent-1-text/--accent-2-text baked in as literals,
+       which washes out to near-invisible pale pink on the light ground the deck
+       ships with. --grad-text is the token for exactly this (deck.css:114) and
+       carries its own light-theme stops. */
+    #slide-11 .pl-final__num {
+      font-size: 56px; font-weight: 900; line-height: 1;
+      background: var(--grad-text);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    #slide-11 .pl-final__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--fg-0);
+      text-align: center; line-height: 1.3;
+    }
+  </style>
+
+  <ol data-sid="11-decomp-diagrams:37" class="slide__footnotes">
+    <li data-sid="11-decomp-diagrams:38"><span class="num">1</span>Smith IV, Monisha, Vadaparty, Porter, &amp; Zingaro (2026). Drawing Your Programs: Exploring the Applications of Visual-Prompting with GenAI for Teaching and Assessment. <em>arXiv:2602.10529</em>.</li>
+  </ol>
+
+  <aside data-sid="11-decomp-diagrams:40" class="notes">
+[1:10 · 2 clicks · closes Branch 2 — the warrant for 11b]
+Say the number honestly. 81% is FUNCTION-EXTRACTION accuracy: we took ad-hoc decomposition diagrams from 133 CS1 students doing Evil Hangman, fed them straight to GPT-4.1, and checked by hand whether the functions the student drew showed up in the generated code. Four out of five did.
+That is not "the model grades diagrams correctly 81% of the time" — don't say that. It's the precondition: the model reads a messy student drawing reliably enough to act on it. Grading and feedback are what that makes possible, and that's the work in flight.
+Formative, no control condition, one problem. Say so before someone asks.
+  </aside>
+  <div data-sid="11-decomp-diagrams:39" class="slide__number"></div>
+</section>

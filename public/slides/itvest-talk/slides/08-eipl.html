@@ -1,0 +1,43 @@
+<section class="slide" id="slide-08">
+  <div class="slide__eyebrow">Act II · activity 01</div>
+  <h2 class="slide__title">Explain in Plain Language <span style="color:var(--fg-2); font-weight:300;">/ EiPE</span></h2>
+  <div class="slide__body">
+    <div class="split" style="height:auto;">
+      <div>
+        <p class="lede" style="font-size:32px; margin-bottom:48px;">
+          Students describe, in natural language, <em>what a given piece of code does</em>.
+        </p>
+
+        <div class="tile frag" data-step="1" style="margin-bottom:24px;">
+          <span class="tile__label">the trick</span>
+          <div class="tile__body" style="font-size:24px; color:var(--fg-0);">A description is <strong>correct</strong> if an LLM can generate functionally equivalent code from it.<sup class="cite">1</sup></div>
+        </div>
+
+        <div class="tile frag tile--ok" data-step="2">
+          <span class="tile__label">why it works at scale</span>
+          <div class="tile__body" style="font-size:22px;">Immediate feedback · ease of question authoring · no per-question human labeling.<sup class="cite">2</sup></div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <div class="tile frag tile--err" data-step="3">
+          <span class="tile__label">multistructural</span>
+          <div class="tile__body" style="font-size:20px;">"It loops through the list. It checks each value. It returns the largest."</div>
+        </div>
+        <div class="tile frag tile--ok" data-step="4">
+          <span class="tile__label">relational</span>
+          <div class="tile__body" style="font-size:20px;">"It returns the largest value in the list."</div>
+        </div>
+        <p class="body-p frag" data-step="5" style="font-size:20px; color:var(--fg-1);">
+          Relational responses grade most reliably; we use LLM-based segmentation against the SOLO taxonomy to distinguish them.<sup class="cite">3</sup>
+        </p>
+      </div>
+    </div>
+  </div>
+  <ol class="slide__footnotes">
+    <li><span class="num">1</span>EiPL → code-gen autograding (Smith IV et al.).</li>
+    <li><span class="num">2</span>Fowler et al. SIGCSE 2021.</li>
+    <li><span class="num">3</span>SOLO segmentation pipeline.</li>
+  </ol>
+  <div class="slide__number"></div>
+</section>

@@ -1,0 +1,141 @@
+<!-- THE HINGE, made literal. The restructure turned the whole talk on the CGBG
+     input box, and this slide used to assert that in words without ever showing
+     one. Now the box is on screen: panel (1) lifted straight out of
+     05c-cgbg-animation, scaled up, with the same blinking caret.
+
+     The beat is the CLEARING. Step 1 types "written English." into the box —
+     which is what every activity so far has put there. Step 2 wipes it and leaves
+     the caret blinking on nothing, and the question lands under an empty box.
+     13c then shows the same box twice, filled two other ways.
+
+     Script follows this deck's convention: read window.deck.state.step, listen on
+     slides:loaded + deck:stepchange, reset whenever the slide is not active. -->
+<section data-sid="13b-act3:1" class="slide" id="slide-13b">
+  <div data-sid="13b-act3:2" class="slide__eyebrow">A turn in the road</div>
+
+  <div data-sid="13b-act3:3" class="slide__body" style="display:flex; flex-direction:column; justify-content:center; gap:44px;">
+
+    <h2 data-sid="13b-act3:4" style="font-size:64px; font-weight:800; line-height:1.15; letter-spacing:-0.02em; max-width:1700px; margin:0;">
+      Everything so far put the same thing in that box &mdash;
+    </h2>
+
+    <div data-sid="13b-act3:5" class="hinge-panel">
+      <div data-sid="13b-act3:6" class="hinge-panel__label">&#9312;&nbsp; Student prompt</div>
+      <div data-sid="13b-act3:7" class="hinge-panel__field"><span data-sid="13b-act3:8" id="hinge-text"></span><span data-sid="13b-act3:9" id="hinge-caret" class="hinge-caret"></span></div>
+    </div>
+
+    <p data-sid="13b-act3:10" class="frag hinge-question" data-step="2">
+      What else could a student <span class="hinge-question__key">&ldquo;prompt with&rdquo;</span>?
+    </p>
+  </div>
+
+  <style>
+    #slide-13b .hinge-panel {
+      background: var(--bg-2);
+      border: 1px solid var(--border-1);
+      border-radius: 14px;
+      padding: 30px 38px;
+      max-width: 1500px;
+    }
+    #slide-13b .hinge-panel__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-2-text);
+      margin-bottom: 18px;
+    }
+    #slide-13b .hinge-panel__field {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 46px; line-height: 1.35; color: var(--fg-0);
+      min-height: 1.35em;
+    }
+    #slide-13b .hinge-caret {
+      display: inline-block;
+      width: 3px; height: 0.95em;
+      background: var(--accent-2);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: hinge-blink 0.9s steps(1, end) infinite;
+    }
+    @keyframes hinge-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+    /* step 2 — the setup line and the box soften back and the question lands
+       centered on top. Same move as 11b-visual-prompting-A's step 4, but gentler:
+       the box should still read as a box behind the question, not dissolve. */
+    #slide-13b .slide__body > h2,
+    #slide-13b .hinge-panel { transition: filter .52s ease, opacity .52s ease; }
+    #slide-13b.is-outro .slide__body > h2,
+    #slide-13b.is-outro .hinge-panel {
+      filter: blur(8px);
+      opacity: .28;
+    }
+    /* out of flow always, so nothing shifts when it arrives */
+    #slide-13b .hinge-question {
+      /* centred by offset, NOT flex — a flex container turns each run of text
+         around the inline emphasis into its own item and eats the spaces. */
+      position: absolute;
+      left: 0; right: 0; top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      white-space: nowrap;   /* the question reads as one line, never broken */
+      margin: 0;
+      padding: 0 var(--s-6);
+      font-size: calc(var(--t-h2) * 1.2);  /* between h2 and h1 — h1 breaks the single line */
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--fg-0);
+      pointer-events: none;
+      transition: opacity .52s ease .2s;
+    }
+    #slide-13b .hinge-question.is-pending { opacity: 0; }
+    #slide-13b .hinge-question__key { color: var(--accent-1-text); font-weight: 700; }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID = 'slide-13b';
+    const TEXT     = 'written English.';
+    const TYPING_MS = 55;
+    let timers = [];
+    const clearAll = () => { timers.forEach(clearTimeout); timers = []; };
+    const t = (fn, ms) => { timers.push(setTimeout(fn, ms)); };
+
+    function sync() {
+      const scope = document.getElementById(SLIDE_ID);
+      if (!scope) return;
+      const field = scope.querySelector('#hinge-text');
+      if (!field) return;
+      clearAll();
+
+      const active = scope.classList.contains('is-active');
+      const step   = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+
+      // Step 2 is the outro: the rest of the slide blurs back behind the question.
+      scope.classList.toggle('is-outro', active && step >= 2);
+
+      // Empty only at step 0 (nothing typed yet). Once typed the text STAYS —
+      // the step-2 blur is what retires it, so wiping the box as well read as a
+      // glitch. Jumping straight to step 2 (deep link) fills it without typing.
+      if (!active || step < 1) { field.textContent = ''; return; }
+      if (step > 1) { field.textContent = TEXT; return; }
+
+      let i = 0;
+      (function type() {
+        if (i <= TEXT.length) { field.textContent = TEXT.slice(0, i++); t(type, TYPING_MS); }
+      })();
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <aside data-sid="13b-act3:11" class="notes">
+[0:25 · 2 clicks · THE HINGE — the talk turns here]
+Look at the box. Four activities, one grading pipeline, and every single time the thing the student put in that box was —
+(1) — written English.
+(2) [box softens back] That was never a requirement. It was a default, and we never argued for it. So: what else could go there?
+Let the question sit for a beat before clicking on.
+  </aside>
+  <div data-sid="13b-act3:12" class="slide__number"></div>
+</section>

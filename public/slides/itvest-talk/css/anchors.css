@@ -1,0 +1,784 @@
+/* ===== Anchor visual #1: Bipartite map ===== */
+.bipartite {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) 220px minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
+  width: 100%;
+}
+.bipartite__col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+}
+.bipartite__col-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  margin-bottom: var(--s-3);
+  padding-left: 6px;
+}
+
+/* --- Activity tile (left column) --- */
+
+.bipartite__col--acts .tile {
+  position: relative;
+  padding: 11px 16px;
+  overflow: hidden;
+  transition:
+    border-color 240ms var(--ease),
+    background 240ms var(--ease),
+    box-shadow 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+/* Top stripe: always rendered, opacity-faded. Lets the stripe ease in/out
+   rather than popping with the ::before pseudo-element. */
+.bipartite__col--acts .tile::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--act, transparent);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  opacity: 0;
+  transition: opacity 240ms var(--ease);
+  pointer-events: none;
+  z-index: 1;
+}
+.bipartite__col--acts .tile__label {
+  margin-bottom: 4px;
+  font-size: 10px;
+  padding: 2px 8px;
+  transition:
+    background 240ms var(--ease),
+    border-color 240ms var(--ease),
+    color 240ms var(--ease);
+}
+.bipartite__col--acts .tile__title {
+  font-size: 18px;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+.bipartite__col--acts .tile__body {
+  display: none;
+}
+.bipartite__col--acts .tile.frag.is-current .tile__body {
+  display: block;
+  font-size: 12px;
+  color: var(--fg-2);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* per-activity color comes from data-act on the tile */
+.bipartite__col--acts .tile[data-act="eipl"]   { --act: var(--act-eipl); }
+.bipartite__col--acts .tile[data-act="prompt"] { --act: var(--act-prompt); }
+.bipartite__col--acts .tile[data-act="probe"]  { --act: var(--act-probe); }
+.bipartite__col--acts .tile[data-act="refute"] { --act: var(--act-refute); }
+.bipartite__col--acts .tile[data-act="decomp"] { --act: var(--act-decomp); }
+.bipartite__col--acts .tile[data-act="erd"]    { --act: var(--act-erd); }
+
+/* INCOMING state — applies a 240ms delay so the new highlight only appears
+   after the previous one has fully faded out. Removing .is-current uses the
+   base selectors (no delay), so old highlight leaves immediately. */
+.bipartite__col--acts .tile.frag.is-current {
+  background: var(--bg-3);
+  border-color: var(--act, var(--border-2));
+  box-shadow: 0 0 0 1px var(--act, transparent), 0 6px 24px rgba(0,0,0,0.35);
+  transform: translateY(-1px);
+  transition-delay: 240ms;
+}
+.bipartite__col--acts .tile.frag.is-current::before {
+  opacity: 1;
+  transition-delay: 240ms;
+}
+.bipartite__col--acts .tile.frag.is-current .tile__label {
+  background: color-mix(in srgb, var(--act) 18%, var(--bg-3));
+  border-color: color-mix(in srgb, var(--act) 40%, var(--bg-3));
+  color: var(--act);
+  transition-delay: 240ms;
+}
+
+/* Accordion example panel inside activity tiles.
+   Outgoing collapse: 240ms, 0 delay.
+   Incoming expand:   240ms, 240ms delay (waits for old to finish collapsing). */
+.bipartite__col--acts .tile .tile__example {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 240ms var(--ease),
+    opacity 180ms var(--ease),
+    margin-top 180ms var(--ease);
+  margin-top: 0;
+}
+.bipartite__col--acts .tile.frag.is-current .tile__example {
+  max-height: 640px;
+  opacity: 1;
+  margin-top: 10px;
+  transition-delay: 240ms;
+}
+/* Lock the active tile to a fixed minimum height so sub-phase content
+   reveals (typing, chip fade-in, probe steps) don't grow/shrink the box
+   — keeps the SVG arrows from re-anchoring as the user steps through.
+   Per-tile overrides live in the slide's own <style>. */
+.bipartite__col--acts .tile.frag.is-current {
+  min-height: 380px;
+}
+/* Keep the feedback grid mounted (display:grid) so revealing chips doesn't
+   change the section's height. Use visibility/opacity for the show animation. */
+.bipartite__col--acts .tile .ex-feedback-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 200ms var(--ease), visibility 200ms;
+}
+.bipartite__col--acts .tile .ex-feedback-grid.is-on {
+  visibility: visible;
+  opacity: 1;
+}
+/* Loading spinner shouldn't push grid down — float it absolutely. */
+.bipartite__col--acts .tile .ex-feedback-loading {
+  position: absolute;
+}
+.tile__example .ex-feedback { position: relative; min-height: 60px; }
+
+/* Three explicit sections inside an expanded tile */
+.tile__example .ex-section {
+  padding: 12px 0;
+  border-top: 1px solid var(--border-1);
+}
+.tile__example .ex-section:first-child {
+  padding-top: 6px;
+  border-top: none;
+}
+.tile__example .ex-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--act, var(--accent-2-text));
+  margin-bottom: 8px;
+}
+
+/* Stimulus content */
+.tile__example .ex-prompt {
+  font-style: italic;
+  font-size: 16px;
+  color: var(--fg-1);
+  margin-bottom: 10px;
+  line-height: 1.45;
+}
+.tile__example .ex-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  color: var(--fg-0);
+  line-height: 1.55;
+  white-space: pre;
+  overflow: hidden;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border-1);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.tile__example .ex-code .kw  { color: var(--syntax-purple); }
+.tile__example .ex-code .fn  { color: var(--syntax-blue); }
+.tile__example .ex-code .str { color: var(--syntax-green); }
+.tile__example .ex-code .num { color: var(--syntax-orange); }
+
+/* Input section */
+.tile__example .ex-input {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border-1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--fg-0);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.tile__example .ex-submit {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent-1), #8b5cf6);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+  cursor: default;
+  text-align: center;
+}
+
+/* Feedback pills — left-edge green bar, caption above value.
+   Use a block container so the "feedback" label stacks ABOVE the grid of
+   chips (instead of being pushed left while the chips float right). */
+.tile__example .ex-feedback {
+  display: block;
+}
+.tile__example .ex-check {
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-left: 3px solid var(--ok);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.tile__example .ex-check__cap {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-2);
+  margin-bottom: 2px;
+}
+.tile__example .ex-check__val {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ok);
+}
+
+/* --- Skills column (right) — square grid of skimmable tiles --- */
+.bipartite__col--skills .skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+.bipartite__col--skills .skill-tile {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: 12px;
+  /* Extra left padding reserves a clear channel for stains so they don't
+     overlap the icon/title. */
+  padding: 14px 12px 12px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  transition:
+    background 240ms var(--ease),
+    border-color 240ms var(--ease),
+    box-shadow 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+.bipartite__col--skills .skill-tile__icon {
+  width: 28px;
+  height: 28px;
+  color: var(--fg-2);
+  transition: color 240ms var(--ease), filter 240ms var(--ease);
+}
+.bipartite__col--skills .skill-tile__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-1);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  transition: color 240ms var(--ease), font-weight 240ms var(--ease);
+}
+.bipartite__col--skills .skill-tile__led {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-2);
+  transition: background 240ms var(--ease), box-shadow 240ms var(--ease);
+}
+/* When a skill receives any active source, hide the legacy LED — the
+   stains carry the activation signal now. */
+.bipartite__col--skills .skill-tile.is-skill-active .skill-tile__led {
+  display: none;
+}
+/* Color-stain stubs that visually continue each incoming arrow into the
+   tile, one per source. Positioned by JS at the matching arrow y-offset. */
+.bipartite__col--skills .skill-tile {
+  overflow: hidden;
+}
+.bipartite__col--skills .skill-tile__stain {
+  position: absolute;
+  left: 0;
+  width: 14px;
+  height: 6px;
+  border-radius: 0 3px 3px 0;
+  background: var(--fg-3);
+  box-shadow: 0 0 8px currentColor;
+  pointer-events: none;
+  transition: opacity 240ms var(--ease);
+}
+.bipartite__col--skills .skill-tile__stain[data-act="eipl"]   { background: var(--act-eipl);   color: var(--act-eipl); }
+.bipartite__col--skills .skill-tile__stain[data-act="prompt"] { background: var(--act-prompt); color: var(--act-prompt); }
+.bipartite__col--skills .skill-tile__stain[data-act="probe"]  { background: var(--act-probe);  color: var(--act-probe); }
+.bipartite__col--skills .skill-tile__stain[data-act="refute"] { background: var(--act-refute); color: var(--act-refute); }
+.bipartite__col--skills .skill-tile__stain[data-act="decomp"] { background: var(--act-decomp); color: var(--act-decomp); }
+.bipartite__col--skills .skill-tile__stain[data-act="erd"]    { background: var(--act-erd);    color: var(--act-erd); }
+/* × N count badge for skills hit by 2+ active sources. */
+.bipartite__col--skills .skill-tile .src-count {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg-2);
+  letter-spacing: -0.02em;
+  pointer-events: none;
+}
+.bipartite__col--skills .skill-tile.is-skill-active {
+  background: var(--bg-3);
+  border-color: var(--act, var(--accent-2-text));
+  box-shadow: 0 0 0 1px var(--act, var(--accent-2)), 0 0 18px color-mix(in srgb, var(--act, var(--accent-2)) 28%, transparent);
+  transform: translateY(-2px);
+  transition-delay: 240ms;
+}
+.bipartite__col--skills .skill-tile.is-skill-active .skill-tile__icon {
+  color: var(--act, var(--accent-2-text));
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--act, var(--accent-2)) 60%, transparent));
+  transition-delay: 240ms;
+}
+.bipartite__col--skills .skill-tile.is-skill-active .skill-tile__title {
+  color: var(--fg-0);
+  font-weight: 700;
+  transition-delay: 240ms;
+}
+.bipartite__col--skills .skill-tile.is-skill-active .skill-tile__led {
+  background: var(--act, var(--accent-2));
+  box-shadow: 0 0 10px var(--act, var(--accent-2));
+  transition-delay: 240ms;
+}
+
+/* Click cue + walkthrough sub-phase highlights on activity tiles.
+   The active section gets a colored left-edge bar and a tinted label.
+   Driven by .sub-stimulus / .sub-input / .sub-feedback classes set by
+   the per-slide walkthrough script. */
+.bipartite__col--acts .tile { cursor: pointer; }
+
+.bipartite__col--acts .tile .ex-section {
+  position: relative;
+  transition: padding-left 280ms var(--ease), background 280ms var(--ease);
+}
+.bipartite__col--acts .tile .ex-section .ex-label {
+  transition: color 280ms var(--ease), text-shadow 280ms var(--ease);
+}
+.bipartite__col--acts .tile.sub-stimulus .ex-section.ex-stimulus,
+.bipartite__col--acts .tile.sub-input    .ex-section.ex-input,
+.bipartite__col--acts .tile.sub-feedback .ex-section.ex-feedback {
+  padding-left: 12px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--act) 8%, transparent), transparent 60%);
+  border-radius: 6px;
+}
+.bipartite__col--acts .tile.sub-stimulus .ex-section.ex-stimulus::before,
+.bipartite__col--acts .tile.sub-input    .ex-section.ex-input::before,
+.bipartite__col--acts .tile.sub-feedback .ex-section.ex-feedback::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: var(--act, var(--accent-2));
+  border-radius: 2px;
+}
+.bipartite__col--acts .tile.sub-stimulus .ex-section.ex-stimulus .ex-label,
+.bipartite__col--acts .tile.sub-input    .ex-section.ex-input    .ex-label,
+.bipartite__col--acts .tile.sub-feedback .ex-section.ex-feedback .ex-label {
+  text-shadow: 0 0 10px color-mix(in srgb, var(--act) 50%, transparent);
+}
+
+/* Tiny sub-phase chip — shows which of the 3 phases is current. Lives in
+   the tile's top-right corner whenever a sub-phase class is active. */
+.bipartite__col--acts .tile.sub-stimulus::after,
+.bipartite__col--acts .tile.sub-input::after,
+.bipartite__col--acts .tile.sub-feedback::after {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--act, var(--accent-2-text));
+  padding: 4px 10px;
+  background: color-mix(in srgb, var(--act, var(--accent-2)) 14%, var(--bg-3));
+  border: 1px solid color-mix(in srgb, var(--act, var(--accent-2)) 35%, transparent);
+  border-radius: 999px;
+  z-index: 2;
+}
+.bipartite__col--acts .tile.sub-stimulus::after { content: "1 / 3 · stimulus"; }
+.bipartite__col--acts .tile.sub-input::after    { content: "2 / 3 · input"; }
+.bipartite__col--acts .tile.sub-feedback::after { content: "3 / 3 · feedback"; }
+
+/* The "input" response is hidden initially; gets typed in by walkthrough JS */
+.bipartite__col--acts .tile .ex-input-typing {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--fg-0);
+  min-height: 22px;
+  line-height: 1.4;
+}
+.bipartite__col--acts .tile .ex-input-typing::after {
+  content: "▎";
+  color: var(--act, var(--accent-2-text));
+  margin-left: 2px;
+  animation: cgbg-blink 0.9s infinite;
+  opacity: 0;
+}
+.bipartite__col--acts .tile .ex-input-typing.is-typing::after { opacity: 1; }
+
+/* Feedback loading + reveal */
+.bipartite__col--acts .tile .ex-feedback-loading {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--act, var(--accent-1));
+}
+.bipartite__col--acts .tile .ex-feedback-loading.is-on { display: flex; }
+.bipartite__col--acts .tile .ex-feedback-loading::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--act) 40%, transparent);
+  border-top-color: var(--act);
+  animation: ex-spinner 0.8s linear infinite;
+}
+@keyframes ex-spinner {
+  to { transform: rotate(360deg); }
+}
+.bipartite__col--acts .tile .ex-feedback-grid {
+  display: none;
+}
+.bipartite__col--acts .tile .ex-feedback-grid.is-on { display: grid; }
+.bipartite__col--acts .tile .ex-feedback-grid .ex-check {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+}
+.bipartite__col--acts .tile .ex-feedback-grid .ex-check.is-on {
+  opacity: 1;
+  transform: translateY(0);
+  /* When the result snaps in (✓ / ✗), give it a quick grow-and-settle pop. */
+  animation: ex-check-pop 340ms var(--ease) both;
+}
+@keyframes ex-check-pop {
+  0%   { transform: scale(0.8); }
+  55%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* --- legacy ghost orphan styling still used elsewhere; keep, but bipartite no longer uses --- */
+.bipartite__col--skills .tile {
+  position: relative;
+  padding: 13px 18px 13px 30px;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: 10px;
+  transition:
+    background 240ms var(--ease),
+    border-color 240ms var(--ease),
+    box-shadow 240ms var(--ease),
+    transform 240ms var(--ease);
+}
+.bipartite__col--skills .tile__title {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--fg-1);
+  transition: color 240ms var(--ease), font-weight 240ms var(--ease);
+}
+/* LED indicator — small dot on the left edge of each skill tile.
+   Dim by default; glows in the source activity's color when active. */
+.bipartite__col--skills .tile::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border-2);
+  transform: translateY(-50%);
+  transition: background 240ms var(--ease), box-shadow 240ms var(--ease);
+}
+.bipartite__col--skills .tile.is-skill-active {
+  background: var(--bg-3);
+  border-color: var(--act, var(--accent-2-text));
+  box-shadow: 0 0 0 1px var(--act, var(--accent-2)), 0 0 18px color-mix(in srgb, var(--act, var(--accent-2)) 28%, transparent);
+  transform: translateX(2px);
+  transition-delay: 240ms;
+}
+.bipartite__col--skills .tile.is-skill-active::before {
+  background: var(--act, var(--accent-2));
+  box-shadow: 0 0 10px var(--act, var(--accent-2));
+  transition-delay: 240ms;
+}
+.bipartite__col--skills .tile.is-skill-active .tile__title {
+  color: var(--fg-0);
+  font-weight: 600;
+  transition-delay: 240ms;
+}
+
+/* Orphan skill tile (Code writing) */
+.bipartite__col--skills .tile--ghost {
+  border-style: dashed;
+  background: rgba(239, 68, 68, 0.04);
+  border-color: rgba(239, 68, 68, 0.45);
+}
+.bipartite__col--skills .tile--ghost .tile__title {
+  color: var(--fg-3);
+  font-style: italic;
+}
+.bipartite__col--skills .tile--ghost::before {
+  background: var(--err);
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+}
+.bipartite__col--skills .tile--ghost .tile__label {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--err-text);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-bottom: 4px;
+}
+
+/* --- Bipartite middle (SVG arrows) --- */
+.bipartite__mid { position: relative; min-height: 480px; }
+.bipartite__svg {
+  position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;
+}
+.arrow-path {
+  fill: none;
+  stroke: var(--border-1);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.18;
+  transition:
+    stroke 240ms var(--ease),
+    stroke-width 240ms var(--ease),
+    opacity 240ms var(--ease);
+}
+.arrow-path.is-active {
+  stroke-width: 3.5;
+  opacity: 1;
+  transition-delay: 240ms;
+}
+.arrow-path[data-from="eipl"].is-active   { stroke: var(--act-eipl); }
+.arrow-path[data-from="prompt"].is-active { stroke: var(--act-prompt); }
+.arrow-path[data-from="probe"].is-active  { stroke: var(--act-probe); }
+.arrow-path[data-from="refute"].is-active { stroke: var(--act-refute); }
+.arrow-path[data-from="decomp"].is-active { stroke: var(--act-decomp); }
+.arrow-path[data-from="erd"].is-active    { stroke: var(--act-erd); }
+
+/* ===== Anchor visual #2: Abstraction ladder ===== */
+.ladder {
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  padding-left: var(--s-5);
+}
+.ladder::before {
+  content: "";
+  position: absolute;
+  left: 8px; top: 8px; bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent-2) 0%, var(--accent-1) 100%);
+  border-radius: 2px;
+  opacity: 0.45;
+}
+.rung {
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-md);
+  padding: 10px var(--s-5);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-5);
+  position: relative;
+}
+.rung::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--s-5) * -1 + 6px);
+  top: 50%;
+  width: var(--s-4);
+  height: 2px;
+  background: var(--border-1);
+  transform: translateY(-50%);
+}
+.rung__name {
+  font-weight: 700;
+  font-size: 28px;
+  min-width: 240px;
+  line-height: 1.15;
+}
+.rung__caption {
+  color: var(--fg-1);
+  font-size: 20px;
+  line-height: 1.4;
+}
+.rung.frag.is-current {
+  border-color: var(--border-2);
+  background: var(--bg-3);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.rung.frag.is-current::before { background: var(--accent-2); height: 3px; }
+
+.rung--cluster { display: block; background: var(--bg-1); }
+.rung--cluster .rung__cluster-head {
+  display: flex; align-items: baseline; gap: var(--s-5);
+}
+.rung--cluster .rung__pills {
+  display: flex; gap: var(--s-3); flex-wrap: wrap; margin-top: var(--s-3);
+}
+.rung--cluster .rung__pill {
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-pill);
+  padding: 8px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fg-1);
+}
+
+.rung--break {
+  background: transparent;
+  border: none;
+  padding: var(--s-3) 0;
+  border-radius: 0;
+  margin: var(--s-2) 0;
+  display: block;
+}
+.rung--break::before { display: none; }
+.rung--break .break-line {
+  display: flex; align-items: center; gap: var(--s-4);
+}
+.rung--break .break-line .line {
+  flex: 1; height: 1px; border-top: 1px dashed var(--border-2);
+}
+.rung--break .break-line .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: var(--fg-2);
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+.rung--nl {
+  background: var(--bg-3);
+  border-color: var(--border-2);
+  box-shadow: 0 0 0 1px var(--border-2), 0 0 60px var(--accent-glow);
+  padding: var(--s-5);
+}
+.rung--nl .rung__name { font-size: 36px; }
+.rung--nl::before { background: var(--accent-2); height: 3px; }
+
+/* ===== Anchor visual #3: Repertoire diagram ===== */
+.repertoire-wrap {
+  display: flex; justify-content: center; align-items: center;
+  width: 100%; height: 100%;
+}
+.repertoire {
+  position: relative;
+  width: 880px;
+  height: 720px;
+}
+.rep-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 1;
+}
+.rep-line {
+  stroke: var(--border-2);
+  stroke-width: 2;
+  fill: none;
+  transition: stroke var(--t-med) var(--ease), stroke-width var(--t-med) var(--ease);
+}
+.rep-line.is-active { stroke: url(#grad-accent); stroke-width: 3; }
+.rep-node {
+  position: absolute;
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--r-lg);
+  padding: var(--s-4) var(--s-5);
+  text-align: center;
+  min-width: 220px;
+  z-index: 2;
+}
+.rep-node__label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+  margin-bottom: var(--s-2);
+}
+.rep-node__body { font-size: 22px; color: var(--fg-0); line-height: 1.4; }
+.rep-node__multi {
+  display: flex; gap: var(--s-3); justify-content: center;
+  flex-wrap: wrap; margin-top: var(--s-2); font-size: 18px; color: var(--fg-1);
+}
+.rep-node__mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px; color: var(--syntax-teal);
+}
+.rep-node.frag.is-current {
+  border-color: var(--border-2);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  transform: translate(var(--tx, -50%), var(--ty, -50%)) scale(1.04);
+}
+
+.rep-center {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--grad);
+  border: none;
+  padding: var(--s-5) var(--s-6);
+  min-width: 200px;
+  --tx: -50%; --ty: -50%;
+}
+/* Inner pill keeps the gradient ring as decoration while giving the label
+   a guaranteed-AAA dark surface to sit on. */
+.rep-center .rep-node__label {
+  display: inline-block;
+  color: var(--fg-0);
+  background: var(--bg-0);
+  padding: 4px 14px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.14em;
+}
+.rep-center .rep-node__body { font-weight: 700; font-size: 28px; color: white; }
+
+.rep-nl     { top: 0; left: 50%; transform: translateX(-50%); --tx: -50%; --ty: 0; }
+.rep-diagram { top: 50%; right: 0; transform: translateY(-50%); --tx: 0; --ty: -50%; }
+.rep-code   { bottom: 0; left: 50%; transform: translateX(-50%); --tx: -50%; --ty: 0; }
+.rep-domain { top: 50%; left: 0; transform: translateY(-50%); --tx: 0; --ty: -50%; }
+
+.svg-defs { position: absolute; width: 0; height: 0; }

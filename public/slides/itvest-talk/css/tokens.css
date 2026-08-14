@@ -1,0 +1,144 @@
+:root {
+  /* backgrounds */
+  --bg-0: #0b0e14;
+  --bg-1: #11151c;
+  --bg-2: #1a1f2b;
+  --bg-3: #232938;
+
+  /* borders */
+  --border-1: #414c63;
+  --border-2: #556180;
+
+  /* foreground — values chosen to clear WCAG AAA against bg-1/bg-2 at body sizes.
+     fg-1 carries body text (~7:1 needed); fg-2 captions/footnotes; fg-3 incidental. */
+  --fg-0: #ffffff;
+  --fg-1: #e6edf3;
+  --fg-2: #c5cdd9;
+  --fg-3: #9aa3b2;
+
+  /* accent — saturated values used for gradients/strokes/decoration only.
+     Use the -text variants below whenever the color is rendering as text. */
+  --accent-1: #6366f1;
+  --accent-2: #ec4899;
+  --accent-1-text: #a5b4fc;
+  --accent-2-text: #f9a8d4;
+  --accent-glow: rgba(99, 102, 241, 0.32);
+  --grad: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  --grad-text: linear-gradient(135deg, var(--accent-1-text), var(--accent-2-text));
+
+  /* semantic */
+  --ok: #4ade80;
+  --warn: #f59e0b;
+  --err: #ef4444;
+  --err-text: #fca5a5;
+  --info: #06b6d4;
+
+  /* syntax */
+  --syntax-blue: #79bfff;
+  --syntax-teal: #4fd1c5;
+  --syntax-green: #98c379;
+  --syntax-purple: #d8b4fe;
+  --syntax-yellow: #e5c07b;
+  --syntax-orange: #e2ab74;
+
+  /* per-activity accent colors. Lightened where the token is used as text
+     (eipl/prompt/refute labels); probe/decomp/erd already clear AAA. */
+  --act-eipl:   #c4b5fd;
+  --act-prompt: #93c5fd;
+  --act-probe:  #34d399;
+  --act-refute: #fda4af;
+  --act-decomp: #fbbf24;
+  --act-erd:    #22d3ee;
+
+  /* type scale (relative to 1920x1080 stage) */
+  --t-h1: 104px;
+  --t-h2: 72px;
+  --t-h3: 40px;
+  --t-h4: 36px;
+  --t-body: 28px;
+  --t-caption: 22px;
+  --t-mono: 26px;
+  --t-label: 16px;
+
+  /* spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 32px;
+  --s-6: 48px;
+  --s-7: 64px;
+  --s-8: 96px;
+  --s-9: 128px;
+  --s-10: 192px;
+
+  /* radii */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  /* timing */
+  --t-fast: 180ms;
+  --t-med: 240ms;
+  --t-slow: 360ms;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ===== Light theme — toggled with the `t` key / corner button (js/theme.js).
+   Only color-role tokens are overridden; type/spacing/radii/timing inherit.
+   Text-role tokens (fg, -text variants, syntax, act) are darkened to clear
+   WCAG contrast on white; decoration-only tokens keep their saturated hues. */
+:root.theme-light {
+  /* backgrounds — elevation is white-on-gray instead of lighter-on-dark */
+  --bg-0: #eef1f5;
+  --bg-1: #ffffff;
+  --bg-2: #e7ebf2;
+  --bg-3: #d9e0ea;
+
+  /* borders */
+  --border-1: #b6c0d0;
+  --border-2: #8fa0b7;
+
+  /* foreground */
+  --fg-0: #101828;
+  --fg-1: #2b3648;
+  --fg-2: #3f4a5c;
+  --fg-3: #5b6575;
+
+  /* accent — saturated pair unchanged (fine on white); text variants darkened.
+     Heading gradient gets its own brighter stops: h1/h2 are large text (3:1
+     floor), so 600-weights (6.3/4.6 on white) keep the brand vivid where the
+     AAA-dark inline-text variants would read navy→maroon. */
+  --accent-1-text: #3730a3;
+  --accent-2-text: #9d174d;
+  --accent-glow: rgba(99, 102, 241, 0.22);
+  --grad-text: linear-gradient(135deg, #4f46e5, #db2777);
+
+  /* semantic — 4.5:1 is a floor, not a target: past ~8:1 on white every hue
+     collapses toward black. ok sits at 5.0:1 and still reads green. */
+  --ok: #15803d;
+  --warn: #b45309;
+  --err: #dc2626;
+  --err-text: #991b1b;
+  --info: #0e7490;
+
+  /* syntax — ≥4.5:1 on white AND on the light .ex-code panel (see anchors.css);
+     700/800-weights hold their hue where the previous 900s read near-black */
+  --syntax-blue: #1d4ed8;
+  --syntax-teal: #115e59;
+  --syntax-green: #166534;
+  --syntax-purple: #7e22ce;
+  --syntax-yellow: #854d0e;
+  --syntax-orange: #9a3412;
+
+  /* per-activity accents — one perceptual weight across the set (OKLCH L≈49-56,
+     4.5-7:1 on white), matching decomp/erd which were already right. The old
+     900-weights killed the hue coding: four near-blacks next to amber + teal. */
+  --act-eipl:   #6d28d9;
+  --act-prompt: #1d4ed8;
+  --act-probe:  #047857;
+  --act-refute: #be123c;
+  --act-decomp: #b45309;
+  --act-erd:    #0e7490;
+}

@@ -1,0 +1,180 @@
+<!-- MERGE of what were slides 11-13, rebuilt diagram-first:
+       17c-english-bias-18    (0:40, 2 steps)
+       18-code-switching...   (1:00, 3 steps)
+       19-transprogramming-18 (1:05, 4 steps)
+     2:45 and nine clicks becomes ~1:00 and two. All three originals stay on disk.
+
+     The first attempt at this merge kept all three arguments as prose and was a
+     wall of text. This version keeps ONE line on screen and lets the diagram be
+     the slide. Everything else — the English-bias setup, the code-switching foil,
+     the Tai quote — moved into the speaker notes to be said, not read.
+
+     The diagram is scaled up hard from the version in 19-transprogramming-18:
+     node labels were 14px there, which is half this deck's 22px floor and
+     unreadable past the third row. Overrides are scoped to #slide-19c so the
+     smaller original still renders correctly in index-full.html.
+
+     REORDERED (term-last): the coined word made a non-intuitive opener, so the
+     title now promises the accessible thing ("Program in the language you
+     think in"), the walkthrough runs unchanged as clicks 1-2, and click 3
+     lands a definition bar at the bottom that finally names it
+     TRANSPROGRAMMING. Diagram height 660 -> 580 paid for the bar. -->
+<section data-sid="19c-transprogramming:1" class="slide" id="slide-19c">
+  <div data-sid="19c-transprogramming:2" class="slide__eyebrow">The answer</div>
+  <!-- The coined term does NOT open the slide: the title promises the
+       accessible thing the walkthrough shows, and the term is named at the
+       BOTTOM on the final click, after the audience has seen what it means. -->
+  <h2 data-sid="19c-transprogramming:3" class="slide__title">Program in the language <span class="gradient-text">you think in</span></h2>
+
+  <div data-sid="19c-transprogramming:4" class="slide__body" style="display:flex; flex-direction:column;">
+
+
+
+    <div data-sid="19c-transprogramming:6" class="repertoire-wrap" style="flex:1; min-height:0;">
+      <div data-sid="19c-transprogramming:7" class="repertoire" style="width:1100px; height:590px;">
+        <svg class="rep-svg" viewBox="0 0 1100 590">
+          <line class="rep-line" x1="550" y1="295" x2="550" y2="100"/>
+          <line class="rep-line" x1="550" y1="295" x2="550" y2="490"/>
+          <line class="rep-line frag" data-step="2" x1="550" y1="295" x2="170" y2="295"/>
+          <line class="rep-line frag" data-step="2" x1="550" y1="295" x2="930" y2="295"/>
+        </svg>
+
+        <div data-sid="19c-transprogramming:8" class="rep-node rep-nl">
+          <div data-sid="19c-transprogramming:9" class="rep-node__label">Natural language</div>
+          <div data-sid="19c-transprogramming:10" class="rep-node__body rep-was frag" data-step="1">in English</div>
+          <div data-sid="19c-transprogramming:28" class="rep-node__body rep-now frag" data-step="1">in any language</div>
+          <div data-sid="19c-transprogramming:11" class="rep-node__multi">
+            <span>EN</span><span class="g-hi frag" data-step="1">&#2361;&#2367;&#2306;</span><span class="g-bn frag" data-step="1">&#2476;&#2494;&#2434;</span><span class="g-ko frag" data-step="1">&#54620;</span><span class="frag" data-step="1">ES</span>
+          </div>
+        </div>
+
+        <div data-sid="19c-transprogramming:12" class="rep-node rep-code">
+          <div data-sid="19c-transprogramming:13" class="rep-node__label">Code</div>
+          <div data-sid="19c-transprogramming:14" class="rep-node__mono">def f(x): ...</div>
+        </div>
+
+        <div data-sid="19c-transprogramming:15" class="rep-node rep-domain frag" data-step="2">
+          <div data-sid="19c-transprogramming:16" class="rep-node__label">Domain notation</div>
+          <div data-sid="19c-transprogramming:17" class="rep-node__body rep-node__art">[A] &#9472;&#9671;&#9472; [B]</div>
+        </div>
+
+        <div data-sid="19c-transprogramming:18" class="rep-node rep-diagram frag" data-step="2">
+          <div data-sid="19c-transprogramming:19" class="rep-node__label">Diagrams</div>
+          <div data-sid="19c-transprogramming:20" class="rep-node__body rep-node__art">[main]<br>&nbsp;&#9500;&#9472; a<br>&nbsp;&#9492;&#9472; b</div>
+        </div>
+
+        <!-- The hub asserts the claim: code, notation and diagrams are not
+             alternatives TO language, they are language. That is a stronger read
+             of Tai than "they all express meaning" — and it is the one the rest
+             of the talk needs, since the fork treats another language and a
+             drawing as the same kind of move.
+
+             Known tension: the top spoke is also called "Natural language", so
+             the diagram reads Natural language -> Language. The geometry carries
+             the part/whole relation, but if it lands as a taxonomy error, rename
+             the spoke (the eyebrow "in any language" already does the work). -->
+        <div data-sid="19c-transprogramming:21" class="rep-node rep-center">
+          <div data-sid="19c-transprogramming:22" class="rep-node__body">Language</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- click 3 — the payoff: only NOW does the thing get its name -->
+    <div data-sid="19c-transprogramming:29" class="tp-def frag" data-step="3" data-anim="fade-up">
+      <span data-sid="19c-transprogramming:30" class="tp-def__term">Transprogramming</span>
+      <span data-sid="19c-transprogramming:31" class="tp-def__text">programming with your <strong>whole</strong> repertoire &mdash; any natural language, code, notation, drawings <span class="tp-def__cite">(Tai, 2024)</span></span>
+    </div>
+
+  </div>
+
+  <style>
+    /* Scaled for a room. The shared .rep-* rules in anchors.css were written at
+       14-22px for a denser slide; here the diagram IS the slide, so everything
+       goes up to or past this deck's 22px floor. Scoped to #slide-19c so
+       19-transprogramming-18 keeps its original scale in index-full.html. */
+    /* vertical padding trimmed 26 -> 20 (and the canvas grown 580 -> 590):
+       the top node stacks two body lines plus the chip row, and at 26px it
+       ran to within ~13px of the hub — this buys a real ~38px gap */
+    #slide-19c .rep-node     { min-width: 320px; padding: 20px 34px; }
+    #slide-19c .rep-node__label { font-size: 24px; margin-bottom: 10px; }
+    #slide-19c .rep-node__body  { font-size: 28px; }
+    #slide-19c .rep-node__multi { font-size: 32px; gap: 22px; margin-top: 10px; color: var(--fg-0); }
+    #slide-19c .rep-node__mono  { font-size: 26px; }
+    #slide-19c .rep-node__art   { font-family: 'JetBrains Mono', monospace; font-size: 24px; line-height: 1.45; }
+    #slide-19c .rep-line     { stroke-width: 3; }
+
+    /* Step 1 rewrites the natural-language node in place instead of revealing it:
+       the slide arrives with "in English" (what 13b just typed into the box) and
+       only EN in the script row, then the strike sweeps across and the rest of
+       the repertoire arrives. Both body lines and all five chips stay in flow at
+       step 0 — hidden with opacity, never display:none — so nothing reflows and
+       the node never jumps toward the hub. */
+    #slide-19c .rep-was { position: relative; opacity: .45; }
+    #slide-19c .rep-was.is-pending { opacity: 1; }
+    #slide-19c .rep-was::after {
+      content: "";
+      position: absolute; left: -8px; right: -8px; top: 52%;
+      height: 3px; background: var(--accent-2);
+      transform-origin: left center;
+      transition: transform var(--t-med) var(--ease);
+    }
+    #slide-19c .rep-was.is-pending::after { transform: scaleX(0); }
+    #slide-19c .rep-now.is-pending,
+    #slide-19c .rep-node__multi .frag.is-pending { opacity: 0; }
+
+    #slide-19c .rep-center            { padding: 30px 52px; }
+    #slide-19c .rep-center .rep-node__body { font-size: 42px; font-weight: 800; }
+
+    /* the definition bar. Diagram height dropped 660 -> 580 to make this fit
+       under the tracker's 112px top padding; the wrap centers the diagram in
+       whatever is left above the bar. */
+    #slide-19c .tp-def {
+      display: flex; align-items: baseline; gap: 18px;
+      align-self: center;
+      margin-top: 8px;
+      padding: 18px 30px;
+      background: var(--bg-2);
+      border: 1px solid var(--border-1);
+      border-left: 5px solid var(--accent-1);
+      border-radius: var(--r-lg);
+    }
+    #slide-19c .tp-def__term {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent-1-text);
+      white-space: nowrap;
+    }
+    #slide-19c .tp-def__text { font-size: 26px; line-height: 1.35; color: var(--fg-1); }
+    #slide-19c .tp-def__text strong { color: var(--fg-0); }
+    #slide-19c .tp-def__cite { font-size: 20px; color: var(--fg-3); }
+  </style>
+
+  <ol data-sid="19c-transprogramming:23" class="slide__footnotes">
+    <li data-sid="19c-transprogramming:24" style="padding-left:0; text-indent:0;">Wei, L. (2018). Translanguaging as a practical theory of language. Applied Linguistics 39(1).</li>
+    <li data-sid="19c-transprogramming:25" style="padding-left:0; text-indent:0;">Tai, K. W. H. (2024). Transprogramming in the primary-level programming lessons. Applied Linguistics, amae076.</li>
+  </ol>
+
+  <aside data-sid="19c-transprogramming:26" class="notes">
+[1:00 · 3 clicks · the theory — this was three slides; the argument is SPOKEN, the slide is the diagram. The TERM comes last: walkthrough first, name at the bottom on the final click.]
+
+SETUP (before click 1, over the title):
+Programming has been an English-language activity. The keywords are English. Stack Overflow, MDN, the docs — English first, translations lag by years. It would be easy to assume natural-language programming just inherits that. It doesn't: these models are trained on text in hundreds of languages. English is a default now, not a requirement. [Guo, CHI 2018, if asked.]
+
+THE FOIL (still before click 1 — this is what makes "one repertoire" mean anything):
+Applied linguistics has two accounts of how multilinguals work. The older one is code-switching: separate language systems, and you toggle between them like changing radio stations. Translanguaging says that's wrong — there are no separate systems. There's one repertoire, and you select features from it without regard for where the named-language boundaries fall. That's the framing I find more powerful, and honestly more interesting. [Auer for code-switching; Wei 2018 is footnote 1.]
+
+OPEN ON (step 0): the slide arrives carrying the previous one — natural language, in English, and code. That is the whole repertoire as we have been treating it.
+
+(1) [English is struck out] It was never a requirement. Any language. — Tai extends exactly that into the programming classroom: "leveraging diverse linguistic and SEMIOTIC repertoires, along with programming languages and representations." Semiotic is the word doing the work.
+
+(2) And notation. And diagrams. All of it one repertoire, not separate tools.
+
+LAND THE HUB after click 2 — it is the claim, and it is the contestable one:
+Everything on this diagram is LANGUAGE. Not "four things that happen to express meaning" — four registers of one linguistic repertoire. That is why a student writing a prompt in Marathi and a student sketching a decomposition are doing the same kind of thing, and it is why the next slide can treat them as two options on one axis rather than two unrelated features.
+If someone pushes back that a diagram isn't language: that's the argument, and it's Tai's, not mine — semiotic repertoire. Happy to take it in Q&A.
+
+(3) [the definition bar lands] And this move has a name: TRANSPROGRAMMING — Tai's term. Programming by drawing on your whole repertoire: any natural language, code, notation, drawings. I deliberately didn't open with the word — you've just watched what it means.
+  </aside>
+  <div data-sid="19c-transprogramming:27" class="slide__number"></div>
+</section>

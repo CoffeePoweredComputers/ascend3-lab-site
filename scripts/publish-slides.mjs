@@ -51,11 +51,16 @@ if (fs.existsSync(target)) {
   fs.rmSync(target, { recursive: true });
 }
 
-const RUNTIME = ['index.html', 'css', 'js', 'slides', 'assets'];
+// data/materials/figures: slide images in decks that keep figures under data/
+// (the rest of data/ is authoring material and stays behind).
+const RUNTIME = ['index.html', 'css', 'js', 'slides', 'assets', 'data/materials/figures'];
 fs.mkdirSync(target, { recursive: true });
 for (const entry of RUNTIME) {
   const src = path.join(deckDir, entry);
-  if (fs.existsSync(src)) fs.cpSync(src, path.join(target, entry), { recursive: true });
+  if (!fs.existsSync(src)) continue;
+  const dst = path.join(target, entry);
+  fs.mkdirSync(path.dirname(dst), { recursive: true });
+  fs.cpSync(src, dst, { recursive: true });
 }
 
 const title = fs.readFileSync(path.join(target, 'index.html'), 'utf8')

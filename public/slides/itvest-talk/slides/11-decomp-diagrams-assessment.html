@@ -1,0 +1,243 @@
+<!-- Decomposition-diagrams slide, restyled in the learn-lab-assessment design
+     language: cream ground, Palatino/Georgia serif, green/blue/ochre accents,
+     tight 2-6px radii. Content is unchanged from 11-decomp-diagrams.html.
+
+     All styling is scoped to #slide-11a and self-contained, so reverting is one
+     manifest line: swap back to '11-decomp-diagrams.html'.
+
+     NOTE: this slide deliberately does NOT respond to the deck's light/dark
+     toggle — the assessment palette is a single committed look, so the colours
+     are literal rather than var(--...) tokens. Pressing `t` recolours the other
+     22 slides around it and leaves this one cream. -->
+<section data-sid="11-decomp-diagrams-assessment:1" class="slide" id="slide-11a">
+  <div data-sid="11-decomp-diagrams-assessment:2" class="slide__eyebrow">Visual prompting &middot; early evidence</div>
+  <h2 data-sid="11-decomp-diagrams-assessment:3" class="slide__title">Decomposition diagrams <em>as prompts</em></h2>
+
+  <div data-sid="11-decomp-diagrams-assessment:4" class="slide__body" style="display:flex; flex-direction:column; gap:20px;">
+
+    <p data-sid="11-decomp-diagrams-assessment:5" class="lede">
+      Multimodal GenAI can take a hand-drawn diagram directly. We tested whether student-drawn decompositions can act as prompts on their own &mdash; no rewriting in text.<sup class="cite">1</sup>
+    </p>
+
+    <div data-sid="11-decomp-diagrams-assessment:6" class="split frag" data-step="1" style="gap:32px;">
+      <div data-sid="11-decomp-diagrams-assessment:7" style="display:flex; flex-direction:column; gap:14px;">
+        <div data-sid="11-decomp-diagrams-assessment:8" class="a-tile a-tile--muted">
+          <span class="a-label">text-based prompting</span>
+          <div data-sid="11-decomp-diagrams-assessment:9" class="a-flow">
+            Mental model &rarr; Diagram <span class="a-aside">(intermediate)</span> &rarr; Text &rarr; Code
+          </div>
+        </div>
+        <div data-sid="11-decomp-diagrams-assessment:10" class="a-tile a-tile--lead">
+          <span class="a-label">visual prompting</span>
+          <div data-sid="11-decomp-diagrams-assessment:11" class="a-flow">
+            Mental model &rarr; Diagram &rarr; <strong>Code</strong>
+          </div>
+        </div>
+      </div>
+
+      <div data-sid="11-decomp-diagrams-assessment:12" class="a-figframe">
+        <img data-sid="11-decomp-diagrams-assessment:13" src="data/materials/figures/decomp-004.png" alt="Student-drawn decomposition for Evil Hangman">
+      </div>
+    </div>
+
+    <!-- Analysis pipeline -->
+    <div data-sid="11-decomp-diagrams-assessment:14" class="frag" data-step="2" style="display:flex; flex-direction:column; align-items:center; gap:20px; margin-top:4px;">
+      <div data-sid="11-decomp-diagrams-assessment:15" class="a-pipehead">Analysis pipeline &middot; n=133 CS1 students &middot; Evil Hangman</div>
+
+      <div data-sid="11-decomp-diagrams-assessment:16" class="pipeline-row">
+        <div data-sid="11-decomp-diagrams-assessment:17" class="pl-stage">
+          <div data-sid="11-decomp-diagrams-assessment:18" class="pl-stage__icon">&#9998;</div>
+          <div data-sid="11-decomp-diagrams-assessment:19" class="pl-stage__label">Student<br>diagram</div>
+        </div>
+        <div data-sid="11-decomp-diagrams-assessment:20" class="pl-arrow">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams-assessment:21" class="pl-stage">
+          <div data-sid="11-decomp-diagrams-assessment:22" class="pl-stage__icon">&#129302;</div>
+          <div data-sid="11-decomp-diagrams-assessment:23" class="pl-stage__label">GPT-4.1<br>generated</div>
+        </div>
+        <div data-sid="11-decomp-diagrams-assessment:24" class="pl-arrow">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams-assessment:25" class="pl-stage">
+          <div data-sid="11-decomp-diagrams-assessment:26" class="pl-stage__icon pl-stage__icon--code">{ }</div>
+          <div data-sid="11-decomp-diagrams-assessment:27" class="pl-stage__label">Code<br>generated</div>
+        </div>
+        <div data-sid="11-decomp-diagrams-assessment:28" class="pl-arrow">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams-assessment:29" class="pl-stage">
+          <div data-sid="11-decomp-diagrams-assessment:30" class="pl-stage__icon">&#128065;</div>
+          <div data-sid="11-decomp-diagrams-assessment:31" class="pl-stage__label">Human<br>review</div>
+        </div>
+        <div data-sid="11-decomp-diagrams-assessment:32" class="pl-arrow pl-arrow--big">&rarr;</div>
+
+        <div data-sid="11-decomp-diagrams-assessment:33" class="pl-final">
+          <div data-sid="11-decomp-diagrams-assessment:34" class="pl-final__num">81%</div>
+          <div data-sid="11-decomp-diagrams-assessment:35" class="pl-final__label">extracted<br>successfully</div>
+        </div>
+      </div>
+
+      <p data-sid="11-decomp-diagrams-assessment:36" class="a-caption">
+        Formative work: ad-hoc diagrams from students implementing Evil Hangman, fed directly to an LLM. We checked whether the functions in the diagram appeared in the generated code.
+      </p>
+    </div>
+
+  </div>
+
+  <style>
+    /* ═══ learn-lab-assessment palette, applied literally (not via tokens, so it
+       stays put when the deck's theme toggle fires). ═══
+         ink      #26221b   muted #5c5749
+         ground   #f7f3e8   panel #dce8f3
+         green    #147a42   blue  #2e6da4   ochre #9a5f0e
+         display  Georgia   body  Palatino                                   */
+
+    #slide-11a {
+      background: #f7f3e8;
+      color: #26221b;
+      font-family: Palatino, 'Palatino Linotype', serif;
+    }
+
+    #slide-11a .slide__eyebrow {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 26px;
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      color: #9a5f0e;
+    }
+
+    #slide-11a .slide__title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 68px;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: #26221b;
+      margin-bottom: 24px;
+    }
+    #slide-11a .slide__title em { font-style: italic; color: #147a42; }
+
+    #slide-11a .lede {
+      font-size: 34px;
+      line-height: 1.42;
+      color: #26221b;
+      max-width: 1700px;
+      margin: 0;
+    }
+    #slide-11a .cite { color: #2e6da4; font-size: 0.6em; }
+
+    /* ── the two flow tiles ── */
+    #slide-11a .a-tile {
+      padding: 20px 26px;
+      background: #ffffff;
+      border: 1px solid #cfc7b4;
+      border-radius: 6px;
+    }
+    #slide-11a .a-tile--muted { border-left: 5px solid #9a5f0e; }
+    #slide-11a .a-tile--lead  { border-left: 5px solid #147a42; background: #dce8f3; }
+
+    #slide-11a .a-label {
+      display: inline-block;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 24px;
+      color: #5c5749;
+      margin-bottom: 8px;
+    }
+    #slide-11a .a-flow {
+      font-family: Palatino, 'Palatino Linotype', serif;
+      font-size: 28px;
+      line-height: 1.35;
+      color: #26221b;
+    }
+    #slide-11a .a-flow strong { color: #147a42; }
+    #slide-11a .a-aside { color: #5c5749; font-style: italic; }
+
+    /* ── the student figure ── */
+    #slide-11a .a-figframe {
+      background: #ffffff;
+      border: 1px solid #cfc7b4;
+      border-radius: 6px;
+      padding: 8px;
+    }
+    #slide-11a .a-figframe img {
+      display: block; width: 100%; height: auto;
+      max-height: 252px; object-fit: contain;
+    }
+
+    /* ── pipeline ── */
+    #slide-11a .a-pipehead {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 26px;
+      font-style: italic;
+      letter-spacing: 0.04em;
+      color: #5c5749;
+    }
+    #slide-11a .pipeline-row {
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: nowrap; justify-content: center;
+    }
+    #slide-11a .pl-stage {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      padding: 15px 18px;
+      background: #ffffff;
+      border: 1px solid #b9b09b;
+      border-radius: 6px;
+      min-width: 150px;
+    }
+    #slide-11a .pl-stage__icon { font-size: 38px; line-height: 1; color: #26221b; }
+    #slide-11a .pl-stage__icon--code {
+      font-family: Georgia, serif; color: #2e6da4; font-weight: 700;
+    }
+    #slide-11a .pl-stage__label {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 23px; font-weight: 400;
+      letter-spacing: 0.02em;
+      color: #26221b;
+      text-align: center; line-height: 1.3;
+    }
+    #slide-11a .pl-arrow { font-size: 34px; color: #9a8f78; }
+    #slide-11a .pl-arrow--big { color: #147a42; font-size: 40px; }
+
+    #slide-11a .pl-final {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 16px 26px;
+      background: #dce8f3;
+      border: 2px solid #147a42;
+      border-radius: 6px;
+      min-width: 170px;
+    }
+    #slide-11a .pl-final__num {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 58px; font-weight: 700; line-height: 1;
+      color: #147a42;
+    }
+    #slide-11a .pl-final__label {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 21px; color: #26221b;
+      text-align: center; line-height: 1.3;
+    }
+
+    #slide-11a .a-caption {
+      font-size: 26px; font-style: italic; line-height: 1.4;
+      text-align: center; max-width: 1500px; margin: 0;
+      color: #5c5749;
+    }
+
+    /* ── chrome ── */
+    #slide-11a .slide__footnotes {
+      border-top: 1px solid #cfc7b4;
+      color: #5c5749;
+      font-family: Palatino, 'Palatino Linotype', serif;
+      font-size: 21px;
+    }
+    #slide-11a .slide__footnotes .num {
+      color: #2e6da4; font-family: Georgia, serif; font-weight: 700;
+    }
+    #slide-11a .slide__number { color: #5c5749; font-family: Georgia, serif; }
+  </style>
+
+  <ol data-sid="11-decomp-diagrams-assessment:37" class="slide__footnotes">
+    <li data-sid="11-decomp-diagrams-assessment:38" style="max-width:1560px;"><span class="num">1</span>Smith IV, Monisha, Vadaparty, Porter, &amp; Zingaro (2026). Drawing Your Programs: Exploring the Applications of Visual-Prompting with GenAI for Teaching and Assessment. <em>arXiv:2602.10529</em>.</li>
+  </ol>
+  <div data-sid="11-decomp-diagrams-assessment:39" class="slide__number"></div>
+</section>

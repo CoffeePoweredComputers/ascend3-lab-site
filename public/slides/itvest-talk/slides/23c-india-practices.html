@@ -1,0 +1,468 @@
+<!-- The SHAPE of Fariha's research program, drawn instead of written: two
+     studies as two streams — theory (indigo) and fieldwork (pink), the deck's
+     standing pairing — feeding one design-question node. The TALK LEADS WITH
+     THE QUESTION (see notes), so the node is lit from the land and the two
+     studies draw in on the clicks as the two things we must understand to
+     answer it.
+
+     Along each stream, tokens flow into the node: borrowed concepts ride the
+     theory stream, language names ride the field stream — Devanagari and
+     Bengali in their own script (both Noto faces are loaded in index.html for
+     the transprogramming slides), the rest in Latin so nothing can tofu on
+     stage. That's the content of both studies shown as motion, not bullets.
+
+     COPY IS DELIBERATELY THIN — each study card carries a mono label and its
+     question, nothing else: study 1's payload is the preprint QR, study 2's
+     is a language-quilt map of India, Pakistan, Bangladesh + Nepal (states filled
+     by its dominant language; built by tools/southasia_langmap.py from
+     Natural Earth 50m admin-1). Attribution is structural, as before: the
+     portrait is the first column. The eyebrow is retired deck-wide
+     (deck.css), so the caption is the only place Fariha's name renders — do
+     not remove it.
+
+     No JS: the deck's frag classes drive everything. Each stream draws when
+     its study card's frag goes current/past (via :has()); the node glows on
+     slide entry. Streams re-arm automatically because inactive slides are
+     display:none, which resets CSS animations.
+
+     Continuity with 23a (the slide before): same indigo→pink gradient, same
+     draw-on stroke idiom, and the title echoes its "Ten stops, one question".
+
+     TODO — the preprint QR slot renders a dashed placeholder until there is a
+     URL. Drop the code at data/materials/figures/people/qr/lit-review.svg and
+     swap .pp-qr__slot for an <img data-sid="23c-india-practices:10"> (recipe: 23a's writeup QR, white plate). -->
+<section data-sid="23c-india-practices:1" class="slide" id="slide-23c">
+  <div data-sid="23c-india-practices:2" class="slide__eyebrow">The lab&rsquo;s work &middot; Fariha Anjum Shifa</div>
+  <h2 data-sid="23c-india-practices:3" class="slide__title">Two studies, <span class="gradient-text">one design question</span></h2>
+
+  <div data-sid="23c-india-practices:4" class="slide__body" style="display:grid; grid-template-columns:340px 1fr; gap:48px; align-items:start; min-height:0;">
+
+    <figure data-sid="23c-india-practices:5" class="pp-who">
+      <img data-sid="23c-india-practices:6" src="data/materials/figures/people/fariha.jpg" alt="Fariha Anjum Shifa" style="width:320px; height:320px;">
+      <figcaption data-sid="23c-india-practices:7" class="pp-who__meta">
+        <div data-sid="23c-india-practices:8" class="pp-who__name">Fariha Anjum Shifa</div>
+        <div data-sid="23c-india-practices:9" class="pp-who__role">PhD &middot; translanguaging</div>
+      </figcaption>
+    </figure>
+
+    <div data-sid="23c-india-practices:11" class="pc-diagram">
+
+      <!-- streams underlay; coordinates are the diagram's own 1340x680 box.
+           pathLength="1000" normalizes both paths so the draw-on dasharray
+           needs no JS measurement. -->
+      <svg data-sid="23c-india-practices:52" class="pc-svg" viewBox="0 0 1340 680" aria-hidden="true">
+        <path id="pc-stream-t" class="pc-stream pc-stream--t" pathLength="1000"
+              d="M570,124 C700,124 790,285 908,325"/>
+        <path id="pc-stream-f" class="pc-stream pc-stream--f" pathLength="1000"
+              d="M570,490 C700,490 800,405 908,352"/>
+
+        <!-- what CS Ed borrows, riding the theory stream. Tokens alternate
+             between two lanes (y -14 / +32) so long words never collide. -->
+        <g class="pc-flow pc-flow--t">
+          <g class="pc-tok pc-tok--t"><text y="-14">translanguaging</text>
+            <animateMotion dur="9s" repeatCount="indefinite" begin="0s" rotate="0"><mpath xlink:href="#pc-stream-t" href="#pc-stream-t"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="9s" begin="0s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--t"><text y="32">code-switching</text>
+            <animateMotion dur="9s" repeatCount="indefinite" begin="-2.25s" rotate="0"><mpath xlink:href="#pc-stream-t" href="#pc-stream-t"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="9s" begin="-2.25s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--t"><text y="-14">L1 &#8596; L2 transfer</text>
+            <animateMotion dur="9s" repeatCount="indefinite" begin="-4.5s" rotate="0"><mpath xlink:href="#pc-stream-t" href="#pc-stream-t"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="9s" begin="-4.5s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--t"><text y="32">scaffolding</text>
+            <animateMotion dur="9s" repeatCount="indefinite" begin="-6.75s" rotate="0"><mpath xlink:href="#pc-stream-t" href="#pc-stream-t"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="9s" begin="-6.75s" repeatCount="indefinite"/></g>
+        </g>
+
+        <!-- the classroom's languages, riding the field stream into the
+             question — the same patchwork the study-2 map shows in place -->
+        <g class="pc-flow pc-flow--f">
+          <g class="pc-tok pc-tok--f"><text y="-14">&#2361;&#2367;&#2306;&#2342;&#2368;</text>
+            <animateMotion dur="10.8s" repeatCount="indefinite" begin="0s" rotate="0"><mpath xlink:href="#pc-stream-f" href="#pc-stream-f"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="10.8s" begin="0s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--f"><text y="32">Telugu</text>
+            <animateMotion dur="10.8s" repeatCount="indefinite" begin="-1.8s" rotate="0"><mpath xlink:href="#pc-stream-f" href="#pc-stream-f"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="10.8s" begin="-1.8s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--f"><text y="-14">&#2476;&#2494;&#2434;&#2482;&#2494;</text>
+            <animateMotion dur="10.8s" repeatCount="indefinite" begin="-3.6s" rotate="0"><mpath xlink:href="#pc-stream-f" href="#pc-stream-f"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="10.8s" begin="-3.6s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--f"><text y="32">English</text>
+            <animateMotion dur="10.8s" repeatCount="indefinite" begin="-5.4s" rotate="0"><mpath xlink:href="#pc-stream-f" href="#pc-stream-f"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="10.8s" begin="-5.4s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--f"><text y="-14">&#2350;&#2352;&#2366;&#2336;&#2368;</text>
+            <animateMotion dur="10.8s" repeatCount="indefinite" begin="-7.2s" rotate="0"><mpath xlink:href="#pc-stream-f" href="#pc-stream-f"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="10.8s" begin="-7.2s" repeatCount="indefinite"/></g>
+          <g class="pc-tok pc-tok--f"><text y="32">Tamil</text>
+            <animateMotion dur="10.8s" repeatCount="indefinite" begin="-9s" rotate="0"><mpath xlink:href="#pc-stream-f" href="#pc-stream-f"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.88;1" dur="10.8s" begin="-9s" repeatCount="indefinite"/></g>
+        </g>
+      </svg>
+
+      <!-- UNDERSTAND THE THEORY — click 1 -->
+      <article data-sid="23c-india-practices:13" class="tile pc-card pc-card--t frag" data-step="1" data-anim="slide-right">
+        <div data-sid="23c-india-practices:72" class="pc-card__txt">
+          <p data-sid="23c-india-practices:53" class="pc-card__label" style="font-size: 28px">Study 1 &middot; lit review</p>
+          <p data-sid="23c-india-practices:63" class="pc-card__q" style="font-size: 32px">What theories of language &amp; its role in learning exist?</p>
+        </div>
+        <div data-sid="23c-india-practices:49" class="pp-qr">
+          <div data-sid="23c-india-practices:50" class="pp-qr__slot">QR</div>
+          <div data-sid="23c-india-practices:51" class="pp-qr__label">preprint</div>
+        </div>
+      </article>
+
+      <!-- UNDERSTAND THE PRACTICE — click 2. The card IS a map: every Indian
+           state / Pakistani province filled by its dominant language, so the
+           patch count makes the "many languages" argument without a single
+           bullet. Geometry is real (Natural Earth 50m admin-1, projected with
+           23a's recipe) and generated by tools/southasia_langmap.py into the
+           LANGMAP markers — do not hand-edit the paths. Label + question sit
+           in normal flow above the map; the counts live in the footnote and
+           the spoken notes, not on the map. -->
+      <article data-sid="23c-india-practices:23" class="tile pc-card pc-card--f pc-card--map frag" data-step="2" data-anim="fade-up">
+        <div data-sid="23c-india-practices:68" class="pc-map__head">
+          <p data-sid="23c-india-practices:54" class="pc-card__label" style="font-size: 28px">Study 2 &middot; faculty interviews</p>
+          <p data-sid="23c-india-practices:64" class="pc-card__q" style="font-size: 32px">How are instructors already navigating this?</p>
+        </div>
+        <div data-sid="23c-india-practices:71" class="pc-map__frame">
+        <svg data-sid="23c-india-practices:65" class="pc-map__svg" viewBox="0 0 560 280" role="img"
+             aria-label="Map of India, Pakistan, Bangladesh, and Nepal with each state or province colored by its dominant language">
+            <!-- LANGMAP:BEGIN (generated by tools/southasia_langmap.py) -->
+            <g class="lm">
+            <g class="lm-ctx">
+              <path d="M381.0,80.1L382.7,80.7L382.1,83.3L383.3,84.7L381.7,85.5L379.8,83.5L381.0,80.1Z"/>
+              <path d="M375.4,79.5L377.8,80.3L379.8,79.2L381.0,80.1L379.4,85.0L377.2,85.3L375.4,79.5Z"/>
+              <path d="M373.2,79.4L375.4,79.5L377.0,82.9L376.8,85.6L373.9,84.8L373.2,79.4Z"/>
+              <path d="M360.2,86.3L361.9,83.3L364.2,86.0L363.1,88.1L360.2,86.3Z"/>
+              <path d="M359.0,87.4L360.2,86.3L363.9,87.7L363.4,89.3L364.2,90.1L362.0,90.2L359.0,87.4Z"/>
+              <path d="M367.3,91.3L363.4,89.4L363.9,86.9L366.2,86.6L365.6,87.2L367.4,88.7L367.3,91.3Z"/>
+              <path d="M368.2,91.1L367.4,90.4L370.4,90.1L372.0,86.9L377.1,90.5L372.1,89.6L368.2,91.1Z"/>
+              <path d="M377.5,90.6L373.5,87.7L375.3,85.4L376.9,85.5L378.9,89.2L377.5,90.6Z"/>
+              <path d="M386.2,89.4L384.6,90.4L377.4,90.3L378.9,89.2L380.4,90.1L384.9,86.6L386.2,89.4Z"/>
+              <path d="M383.3,84.7L385.3,84.6L386.2,86.3L381.5,88.6L380.6,85.2L383.3,84.7Z"/>
+              <path d="M362.9,82.2L364.6,80.1L365.7,80.8L365.1,82.0L367.8,84.2L366.2,87.5L364.3,82.2L362.9,82.2Z"/>
+              <path d="M362.2,83.3L364.3,82.2L365.3,87.1L363.9,86.9L362.2,83.3Z"/>
+              <path d="M364.6,80.1L369.9,77.0L374.2,78.3L372.1,80.8L370.6,80.2L369.3,81.7L366.6,82.4L365.1,82.1L365.7,80.8L364.6,80.1Z"/>
+              <path d="M295.6,245.3L298.1,248.3L297.3,249.6L299.2,249.7L299.6,251.7L298.1,252.6L295.6,251.0L295.5,246.6L294.2,246.0L295.6,245.3Z"/>
+              <path d="M293.2,241.3L295.9,245.2L294.3,245.8L293.4,244.2L291.6,244.2L291.3,245.3L289.5,245.6L290.1,242.6L293.2,241.3Z"/>
+              <path d="M289.0,243.4L288.5,241.8L289.7,241.1L288.5,240.0L293.1,241.3L289.0,243.4Z"/>
+              <path d="M287.4,248.9L287.4,245.8L289.7,243.2L289.5,245.6L291.3,246.5L288.5,248.1L288.5,249.4L287.4,248.9Z"/>
+              <path d="M286.7,260.2L285.7,252.0L286.3,250.9L285.9,253.8L286.8,253.9L287.4,248.9L288.4,249.3L287.8,250.7L289.4,253.3L287.3,257.4L287.6,260.2L286.7,260.2Z"/>
+              <path d="M286.9,262.9L286.7,260.2L289.2,259.8L289.6,262.8L286.9,262.9Z"/>
+              <path d="M288.0,267.5L287.3,264.6L289.6,264.2L291.2,267.6L290.5,268.5L288.0,267.5Z"/>
+              <path d="M291.2,271.6L288.9,270.2L288.0,267.5L292.1,268.0L292.0,268.8L291.2,268.5L291.2,271.6Z"/>
+              <path d="M294.0,271.5L291.2,271.6L291.2,268.5L293.4,268.2L294.0,271.5Z"/>
+              <path d="M302.0,266.9L298.9,269.5L293.5,271.0L293.5,268.7L295.8,269.3L296.6,267.6L298.2,268.3L301.2,266.3L302.0,266.9Z"/>
+              <path d="M302.5,258.6L303.5,262.4L302.0,266.9L300.1,258.7L298.6,260.5L297.9,257.8L296.6,258.2L296.1,256.3L298.9,256.3L301.7,259.1L302.5,258.6Z"/>
+              <path d="M299.6,251.7L302.5,257.7L301.7,259.1L301.5,258.0L298.2,256.2L298.8,251.7L299.6,251.7Z"/>
+              <path d="M370.5,87.4L368.8,87.5L366.8,85.6L369.6,83.1L369.0,82.4L370.5,80.3L372.1,80.8L373.2,79.4L373.0,82.6L371.2,84.6L372.2,86.7L370.5,87.4Z"/>
+              <path d="M367.4,86.3L369.8,87.8L369.0,90.3L367.4,90.4L366.2,87.5L367.4,86.3Z"/>
+              <path d="M379.9,83.6L381.2,86.1L378.6,89.2L376.9,85.5L379.4,85.0L379.9,83.6Z"/>
+              <path d="M372.4,82.8L373.4,82.1L373.9,84.8L375.2,85.7L374.5,87.3L372.0,86.9L371.2,84.6L372.4,82.8Z"/>
+              <path d="M295.7,265.3L294.9,267.0L295.8,269.3L291.4,267.8L289.6,263.8L295.7,265.3Z"/>
+              <path d="M295.6,268.7L295.3,266.0L295.7,265.3L296.7,266.3L296.8,264.3L298.1,262.8L297.3,261.1L300.1,258.7L301.2,266.3L300.0,267.7L296.6,267.6L295.6,268.7Z"/>
+              <path d="M290.5,263.9L289.4,261.0L291.4,259.2L292.5,261.1L291.6,262.7L292.2,264.0L290.5,263.9Z"/>
+              <path d="M298.4,260.2L297.3,261.1L298.2,262.4L296.4,266.6L294.8,265.4L294.5,263.3L296.3,260.6L296.1,257.3L296.6,258.2L297.9,257.8L298.4,260.2Z"/>
+              <path d="M294.3,253.8L295.0,254.2L294.4,256.6L296.1,256.3L296.1,258.4L293.4,259.2L292.1,255.7L294.3,253.8Z"/>
+              <path d="M294.6,254.2L294.6,251.5L295.7,250.9L297.9,252.6L298.8,251.7L298.0,256.9L294.5,256.7L294.6,254.2Z"/>
+              <path d="M291.5,259.5L287.6,260.2L287.3,257.4L289.3,254.4L289.0,252.2L291.9,254.5L292.8,258.4L291.5,259.5Z"/>
+              <path d="M295.6,251.0L292.2,255.5L291.5,253.6L288.1,251.9L287.8,250.7L288.5,248.1L290.0,248.0L290.9,249.2L293.4,247.0L293.0,246.3L294.7,245.9L296.1,249.8L295.6,251.0Z"/>
+              <path d="M293.3,264.7L292.1,264.4L291.6,262.7L292.7,263.1L294.3,260.2L295.9,261.9L294.5,263.3L294.8,264.4L293.3,264.7Z"/>
+              <path d="M294.2,246.0L290.9,249.2L289.5,247.4L291.3,246.5L291.4,244.2L293.4,244.2L294.2,246.0Z"/>
+              <path d="M291.9,262.4L291.9,259.1L296.1,258.4L296.1,260.8L294.3,260.2L292.7,263.1L291.9,262.4Z"/>
+            </g>
+              <path class="lm-st" style="fill:#6e99c4" data-lang="Ladakhi" data-state="Ladakh" d="M270.3,14.8L272.2,14.9L271.9,16.8L274.3,22.4L279.8,25.1L277.8,27.1L278.6,32.5L283.7,34.3L282.7,36.6L285.0,38.9L280.6,42.0L279.0,41.9L277.7,39.7L274.3,41.1L274.9,38.6L272.0,39.9L269.6,36.4L266.8,37.7L264.5,37.0L259.6,32.2L257.6,31.5L257.0,28.9L250.6,24.6L250.4,23.0L253.8,23.4L255.8,21.9L260.9,21.3L264.1,18.2L270.3,14.8Z"/>
+              <path class="lm-st" style="fill:#8b8fa8" data-lang="many" data-state="Arunachal Pradesh" d="M420.4,71.4L421.7,71.4L422.9,73.8L420.5,76.3L426.8,76.7L428.8,78.1L428.8,80.9L425.0,83.5L427.0,88.0L423.7,85.6L419.2,86.5L411.9,91.7L411.4,88.3L414.2,86.3L418.1,85.5L416.2,82.5L417.7,80.1L406.0,83.4L403.7,83.1L400.4,87.9L397.4,89.2L391.2,88.1L386.2,89.4L385.7,84.8L382.2,83.9L382.0,81.3L385.1,82.4L387.5,81.2L390.2,81.3L391.5,80.1L391.0,78.8L395.3,77.0L396.2,74.8L401.2,74.1L401.7,72.7L404.6,71.1L404.1,70.0L406.6,68.6L412.9,71.0L415.9,68.3L419.2,68.1L421.0,69.1L419.4,70.4L419.6,71.8L420.4,71.4Z"/>
+              <path class="lm-st" style="fill:#c46e80" data-lang="Shina" data-state="Northern Areas" d="M255.5,6.4L255.0,10.2L257.0,12.1L260.2,11.3L264.2,18.2L260.9,21.3L255.8,21.9L253.8,23.4L250.0,22.8L248.8,20.3L245.9,20.4L243.4,18.1L237.2,17.3L237.6,14.6L233.8,13.9L232.0,11.5L227.4,11.3L227.8,8.3L231.2,6.3L231.9,4.4L238.4,4.2L237.1,2.7L239.7,3.3L244.8,1.3L246.5,2.5L248.3,1.8L250.4,2.5L251.0,4.1L253.4,4.1L255.5,6.4Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Sikkim" d="M360.3,86.0L359.0,87.4L353.8,87.4L353.1,86.5L354.0,80.5L357.9,79.1L359.6,79.9L359.1,84.1L360.3,86.0Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="West Bengal" d="M359.0,87.4L362.0,90.2L368.2,91.1L368.4,92.8L365.5,97.8L362.2,96.2L360.8,93.6L361.3,95.4L358.4,95.1L358.4,93.8L356.2,92.0L355.6,93.3L357.1,94.3L354.4,96.2L353.7,98.2L357.4,101.7L359.3,101.7L361.0,103.5L360.6,104.6L356.6,104.4L355.7,107.2L354.0,106.8L353.2,109.2L356.9,112.0L359.0,112.3L357.5,117.9L359.3,119.2L358.7,121.3L360.9,121.7L359.9,123.7L361.8,130.9L361.7,132.7L360.4,132.4L361.9,135.4L360.0,134.2L358.8,135.8L359.3,131.0L358.2,132.6L358.4,130.4L357.7,136.0L357.1,132.6L356.8,135.4L355.8,134.6L355.6,135.6L355.2,133.9L355.1,136.0L354.7,130.7L352.3,128.5L354.4,131.4L352.0,134.3L348.8,135.5L346.5,132.6L345.2,133.0L344.8,131.6L342.5,130.5L343.7,129.5L342.8,127.3L340.1,125.3L340.9,123.6L335.9,122.1L335.4,119.4L337.1,118.2L339.0,119.5L343.3,117.2L343.9,115.5L346.3,116.4L346.9,114.4L348.7,114.6L350.3,113.2L351.0,109.6L352.3,109.4L351.0,102.6L353.6,101.8L351.4,98.1L355.5,94.3L353.8,92.7L354.4,90.8L353.0,86.8L356.0,88.0L359.0,87.4Z"/>
+              <path class="lm-st" style="fill:#c4a76e" data-lang="Assamese" data-state="Assam" d="M368.2,91.1L372.1,89.6L375.1,90.7L380.8,89.8L384.6,90.4L391.2,88.1L397.5,89.1L400.4,87.9L403.7,83.1L406.0,83.4L412.4,80.9L417.8,80.1L416.2,82.5L418.1,85.5L414.0,86.4L404.6,93.1L404.0,92.6L401.3,98.4L399.2,98.0L396.4,101.3L397.4,103.3L394.6,107.9L394.0,111.2L392.3,111.6L391.7,110.6L389.4,113.7L387.3,112.5L387.3,107.2L389.4,107.3L388.7,106.0L392.1,104.1L390.3,101.8L391.0,100.8L388.6,99.4L386.9,100.1L387.7,96.7L384.0,96.6L382.9,98.0L382.2,97.1L379.2,99.7L379.0,98.5L377.7,98.8L377.2,97.9L370.4,97.7L368.8,99.8L369.3,101.0L367.7,102.3L367.9,97.6L366.5,96.0L367.9,94.5L368.2,91.1Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Chittagong" d="M390.7,138.2L390.2,138.7L388.2,136.9L387.4,137.4L388.1,143.1L385.2,137.0L385.8,134.7L384.0,130.6L384.8,128.5L383.8,130.1L381.4,124.3L380.0,126.1L378.9,125.9L379.5,126.7L378.5,127.6L375.6,125.4L374.2,119.6L378.3,112.7L380.1,112.7L378.5,118.0L380.0,122.6L380.6,121.2L382.2,124.0L383.9,122.7L383.5,121.1L385.1,119.2L384.9,117.2L387.6,117.3L390.7,138.2Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Uttarakhand" d="M289.9,57.7L296.3,60.8L291.1,64.7L290.2,69.5L288.0,73.6L286.6,72.4L283.6,72.6L280.5,70.0L279.3,70.4L277.7,68.8L279.4,67.6L273.6,63.0L273.1,65.4L270.5,65.6L269.8,62.8L271.4,60.6L268.4,59.0L270.4,58.1L269.5,55.7L271.3,52.5L274.4,51.4L279.7,52.9L279.1,51.5L280.6,49.9L283.3,53.7L289.5,55.8L289.9,57.7Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Karnali" d="M301.2,59.0L305.1,59.7L305.6,62.1L311.1,65.6L314.3,66.3L317.8,69.9L316.3,73.2L310.6,72.9L307.3,70.4L305.0,71.5L300.9,70.8L300.1,68.7L302.1,68.3L302.5,63.5L300.2,63.5L298.4,61.6L299.4,59.4L301.2,59.0Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Mahakali" d="M296.2,60.9L296.7,64.6L294.3,65.6L295.3,67.6L292.5,70.5L292.1,75.1L288.4,72.0L290.0,70.1L291.1,64.7L296.2,60.9Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Seti" d="M296.9,62.4L302.4,63.4L302.6,66.3L302.1,68.3L300.1,68.7L300.7,70.2L299.5,71.3L300.9,73.3L299.7,72.1L296.2,71.8L298.5,74.1L296.6,76.6L292.7,74.4L292.1,71.4L295.3,67.6L294.2,65.7L296.6,64.8L296.9,62.4Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Dhawalagiri" d="M320.1,68.8L321.9,69.5L322.4,72.1L318.9,73.9L318.1,76.6L318.8,78.0L317.3,80.0L313.2,77.9L311.7,75.5L313.7,73.6L316.3,73.2L318.0,69.5L320.1,68.8Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Gandaki" d="M322.4,72.1L327.2,75.3L330.1,74.9L326.6,81.6L325.4,81.0L323.3,82.1L320.7,80.8L316.1,80.5L318.8,78.0L318.1,76.6L318.9,73.9L322.4,72.1Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Bagmati" d="M329.4,77.1L333.6,77.8L334.3,77.1L337.3,81.0L334.5,85.6L331.0,84.6L330.3,82.8L326.0,82.2L329.4,77.1Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Janakpur" d="M338.1,78.6L338.5,80.0L341.2,80.4L341.6,82.2L338.8,85.2L338.5,86.6L340.0,87.1L339.7,88.8L338.0,89.5L338.0,92.2L335.4,92.5L333.7,90.0L331.6,90.8L332.9,86.8L332.3,85.8L335.4,84.9L338.1,78.6Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Sagarmatha" d="M342.2,79.1L344.8,80.4L344.3,87.7L344.7,89.5L346.4,89.5L344.6,92.6L342.6,93.8L338.0,92.2L338.0,89.5L339.7,88.8L340.0,87.1L338.5,86.6L338.7,85.4L341.3,83.0L341.0,79.9L342.2,79.1Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Bhojpur" d="M344.9,80.4L346.2,81.5L350.5,81.6L348.6,85.2L351.0,86.8L348.8,88.9L350.4,90.8L349.7,94.1L347.4,94.4L345.8,93.9L345.3,92.3L344.4,92.9L346.4,89.5L344.7,89.5L344.3,87.7L344.9,80.4Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Mechi" d="M351.7,80.8L354.4,81.4L352.8,87.7L354.4,91.1L352.9,94.2L352.0,93.4L350.2,93.8L350.3,90.7L348.8,88.9L351.0,86.8L348.6,85.5L348.8,84.0L351.7,80.8Z"/>
+              <path class="lm-st" style="fill:#8b8fa8" data-lang="many" data-state="Nagaland" d="M411.9,91.7L410.2,93.3L411.1,97.0L408.1,101.7L406.3,101.8L406.4,100.1L404.4,101.6L399.9,101.5L398.6,104.3L397.3,103.5L396.4,101.3L399.2,98.0L401.3,98.4L404.0,92.6L404.6,93.1L411.3,88.4L411.9,91.7Z"/>
+              <path class="lm-st" style="fill:#c46eae" data-lang="Meitei" data-state="Manipur" d="M407.1,102.2L406.3,104.3L407.5,105.9L402.7,116.2L393.5,113.9L394.6,107.9L397.3,103.5L398.6,104.3L399.9,101.5L404.4,101.6L406.4,100.1L406.1,101.6L407.1,102.2Z"/>
+              <path class="lm-st" style="fill:#95c46e" data-lang="Mizo" data-state="Mizoram" d="M396.1,114.5L397.2,117.8L396.7,122.4L395.9,123.4L394.9,123.0L394.3,125.5L395.1,129.9L393.9,130.4L393.4,132.3L391.1,130.8L390.2,132.4L387.6,118.2L388.0,112.7L389.5,113.6L391.7,110.6L392.3,111.6L393.8,111.3L393.5,113.9L396.1,114.5Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Tripura" d="M387.6,117.4L384.9,117.2L383.2,123.5L381.8,123.6L380.6,121.2L380.0,122.6L378.5,117.2L380.4,113.9L383.4,112.7L384.4,113.5L384.7,111.8L386.8,110.1L388.2,113.1L387.6,117.4Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Sylhet" d="M386.8,110.1L386.3,111.5L384.7,111.8L384.5,113.4L382.5,112.9L379.9,114.8L380.1,112.7L378.7,112.6L379.2,108.9L376.7,106.3L376.9,104.7L385.8,104.5L388.0,105.4L389.5,107.1L387.3,107.0L386.8,110.1Z"/>
+              <path class="lm-st" style="fill:#6e7cc4" data-lang="Khasi" data-state="Meghalaya" d="M388.7,106.0L385.8,104.5L372.3,104.8L367.8,103.6L367.7,102.5L370.4,97.7L377.2,97.9L377.7,98.8L379.0,98.5L379.2,99.7L382.2,97.1L382.9,98.0L384.0,96.6L387.6,96.7L386.9,100.1L388.6,99.4L391.0,100.8L390.3,101.8L392.1,104.1L388.7,106.0Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Dhaka" d="M367.7,102.6L367.8,103.6L372.3,104.8L376.9,104.7L376.7,106.3L378.4,107.1L379.4,111.5L377.5,113.3L376.7,115.9L375.5,116.1L374.9,119.1L373.2,118.4L373.8,120.1L371.3,119.4L374.0,121.0L373.9,122.8L371.5,123.7L370.5,122.9L368.7,124.6L366.7,122.5L366.0,119.4L363.7,117.1L364.0,115.5L366.8,116.1L367.8,114.1L367.6,108.5L366.5,106.4L367.7,102.6Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Rangpur" d="M367.7,102.3L366.7,104.7L363.5,104.6L354.1,99.3L354.3,96.3L357.1,94.3L355.6,93.3L356.1,92.1L358.4,93.8L358.4,95.1L361.3,95.4L360.3,94.0L361.5,94.1L363.9,97.4L365.6,97.7L366.5,95.5L367.9,97.6L367.7,102.3Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Rajshahi" d="M359.0,113.1L358.6,111.9L354.0,110.4L353.2,109.2L354.0,106.8L355.6,107.2L356.6,104.4L360.6,104.6L361.0,103.5L366.7,104.7L367.9,113.3L366.8,116.1L362.5,115.4L360.9,113.4L359.0,113.1Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Khulna" d="M361.7,131.0L359.9,123.7L360.9,121.7L358.7,121.3L359.3,119.2L357.5,117.9L359.0,113.1L364.0,115.5L363.7,117.2L366.0,119.4L366.7,122.5L369.0,125.0L369.1,128.1L367.7,131.5L368.3,133.2L366.9,133.7L366.4,132.8L366.9,134.0L365.8,134.7L366.3,129.3L365.5,132.3L365.0,129.6L365.0,134.1L364.2,134.4L364.0,132.4L363.0,135.3L361.7,131.0Z"/>
+              <path class="lm-st" style="fill:#c4796e" data-lang="Pashto" data-state="K.P." d="M236.5,2.6L238.5,4.2L231.9,4.4L231.2,6.3L227.8,8.3L227.4,11.3L232.0,11.5L233.8,13.9L237.6,14.6L237.1,17.2L240.2,17.9L239.9,19.7L237.0,21.2L236.4,22.9L234.9,22.9L235.5,27.8L233.8,29.0L230.7,30.2L229.5,28.3L228.5,29.1L226.7,27.7L225.1,28.4L225.1,29.9L223.4,30.0L220.9,33.4L220.7,36.0L218.5,34.4L218.8,36.2L216.6,36.8L215.9,38.3L217.9,41.5L214.2,47.7L214.0,50.2L213.3,51.4L210.2,51.8L207.5,43.7L210.7,40.9L211.7,41.1L210.0,38.0L214.0,34.9L210.9,32.9L213.1,31.4L215.9,31.4L216.2,30.1L220.2,30.9L220.0,31.7L221.9,31.0L222.0,29.7L219.3,30.2L218.1,27.9L217.8,26.5L220.7,24.0L221.5,21.2L218.7,19.7L220.2,17.5L219.4,16.5L219.9,14.4L216.4,10.0L220.0,6.5L221.4,7.0L224.6,4.2L236.5,2.6Z"/>
+              <path class="lm-st" style="fill:#c4796e" data-lang="Pashto" data-state="F.A.T.A." d="M215.4,23.0L218.7,19.7L221.4,21.0L220.7,24.0L217.8,26.6L219.3,30.1L221.0,29.2L221.9,31.0L220.0,31.7L220.2,30.9L216.2,30.1L215.9,31.4L213.1,31.4L210.9,32.9L214.0,34.9L210.0,38.0L211.7,41.1L210.7,40.9L207.5,43.7L210.3,52.1L208.9,53.3L208.8,49.8L207.1,51.0L205.5,44.7L201.3,45.7L200.7,41.2L202.3,39.5L203.0,36.0L206.9,35.4L209.3,33.7L205.9,27.7L211.2,28.4L215.4,27.5L216.0,24.7L214.7,23.4L215.4,23.0Z"/>
+              <path class="lm-st" style="fill:#6ec492" data-lang="Balochi" data-state="Baluchistan" d="M198.6,48.3L201.3,45.7L205.5,44.7L207.1,51.0L208.8,49.8L208.9,55.5L207.5,56.7L206.4,60.1L207.3,60.6L205.7,64.1L203.7,65.7L203.4,67.5L204.8,68.9L201.5,75.0L201.9,75.8L194.5,76.1L190.1,79.8L185.8,81.2L184.3,83.8L183.9,92.1L186.2,98.6L182.3,105.7L180.0,106.9L180.3,104.1L177.5,100.6L175.2,102.0L177.2,101.3L178.5,102.6L176.5,102.0L164.3,103.3L163.5,104.6L159.0,103.2L159.5,102.2L158.6,102.2L158.7,103.1L154.8,102.9L154.2,104.4L146.3,103.8L145.1,105.3L143.2,104.2L139.8,105.9L140.2,104.5L138.6,104.3L140.6,95.4L144.1,94.3L145.4,92.5L151.3,92.0L152.7,87.7L151.5,86.4L148.0,86.4L148.2,77.9L141.1,75.3L132.6,63.8L145.9,67.8L154.7,67.0L158.9,67.9L162.1,66.3L166.6,66.6L176.7,63.6L177.4,54.6L181.3,51.5L185.4,52.1L188.8,51.0L187.2,49.3L190.4,48.4L191.8,46.7L194.7,47.6L194.1,47.1L195.0,46.8L197.2,48.7L198.6,48.3Z"/>
+              <path class="lm-st" style="fill:#ab6ec4" data-lang="Punjabi" data-state="Punjab" d="M250.0,42.3L249.9,43.9L243.9,46.7L244.4,49.9L243.5,52.4L244.8,53.2L238.2,59.4L239.0,61.0L234.3,63.2L230.7,70.9L226.1,73.3L222.0,80.4L213.1,82.5L211.3,79.9L208.5,80.9L206.8,80.0L204.8,75.9L201.9,75.8L201.5,75.0L204.8,68.9L203.4,67.5L203.7,65.7L205.6,64.2L207.2,60.8L206.4,60.1L208.9,55.5L209.0,52.6L211.5,51.1L213.3,51.4L217.8,41.6L216.4,39.9L216.3,37.1L218.7,36.3L218.5,34.4L220.7,36.0L220.9,33.4L223.4,30.0L225.1,29.9L225.1,28.4L227.4,27.6L228.5,29.1L229.5,28.3L230.7,30.0L229.9,31.4L231.8,31.1L232.6,32.2L233.9,30.5L232.3,29.5L235.5,27.8L236.5,35.6L242.2,38.5L244.9,37.9L245.0,41.1L250.0,42.3Z"/>
+              <path class="lm-st" style="fill:#ab6ec4" data-lang="Punjabi" data-state="Punjab" d="M249.9,43.9L250.0,42.3L251.6,42.6L254.6,40.8L254.9,41.6L252.5,43.0L252.2,44.6L254.7,45.5L257.1,51.1L258.6,50.2L260.7,51.9L260.6,53.7L262.4,55.3L261.3,56.0L263.0,58.1L262.9,59.5L261.8,58.9L260.0,60.5L260.9,60.9L260.0,61.9L259.0,61.0L257.3,61.5L257.5,63.7L256.0,64.7L251.2,64.3L249.5,66.4L248.3,63.2L238.5,62.7L239.2,61.1L238.1,59.5L242.0,54.8L244.8,53.2L243.5,52.4L244.4,49.9L243.9,46.7L249.9,43.9Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Rajasthan" d="M218.9,81.2L222.2,80.4L226.1,73.3L230.7,70.9L234.3,63.2L239.0,60.8L238.5,62.7L243.6,63.1L244.4,68.4L246.2,67.8L248.2,69.2L250.7,69.1L252.3,74.4L256.3,78.5L255.2,79.0L255.5,81.3L257.3,81.5L256.9,79.6L258.3,79.5L258.1,78.3L260.2,80.2L262.5,78.0L262.9,82.7L266.0,81.7L266.5,83.9L269.1,86.9L267.8,87.9L269.6,88.7L267.0,90.6L269.6,89.3L273.9,89.4L272.5,91.5L264.8,95.3L259.6,99.7L260.1,102.1L261.9,103.2L266.7,102.5L266.9,104.8L262.5,106.0L262.0,107.6L264.3,109.8L262.2,109.9L262.6,113.3L257.1,111.7L255.5,115.1L252.4,116.4L251.5,114.9L254.1,113.9L254.1,108.5L249.1,108.4L249.0,107.0L250.8,107.0L249.5,106.9L250.1,105.6L247.5,107.3L246.0,106.7L247.4,108.0L246.6,109.0L245.8,108.0L245.2,110.2L246.3,111.0L245.3,112.5L247.3,114.4L247.0,117.7L243.6,121.0L245.3,122.0L242.0,123.2L239.1,120.4L236.4,119.7L236.3,118.2L234.2,116.6L234.2,113.9L233.3,114.6L232.1,113.4L233.1,111.6L232.0,110.4L230.5,111.6L227.6,110.3L226.9,111.0L225.2,109.6L225.8,109.2L223.6,108.6L215.5,108.8L212.3,102.6L212.2,100.2L209.1,100.0L207.6,98.0L208.2,92.8L202.7,90.7L203.5,87.1L209.7,79.9L211.5,80.0L213.1,82.5L218.9,81.2Z"/>
+              <path class="lm-st" style="fill:#c4c46e" data-lang="Sindhi" data-state="Sind" d="M208.5,80.9L203.2,87.6L202.7,90.7L208.2,92.8L207.6,98.0L209.1,100.0L212.2,100.2L212.3,102.6L215.6,108.8L214.7,109.7L215.7,111.2L213.1,112.8L211.5,112.4L211.5,111.1L210.3,111.3L206.7,113.3L198.0,112.0L197.5,112.7L196.8,111.9L196.6,115.1L192.0,115.6L192.0,117.4L190.8,115.3L190.8,116.8L189.5,115.5L189.3,116.4L187.7,116.5L187.9,115.4L186.5,115.7L186.9,114.2L185.0,113.2L185.5,111.8L183.8,109.3L184.6,108.2L179.8,107.5L182.5,105.5L186.1,98.9L186.1,96.4L183.9,92.1L184.3,83.8L185.8,81.2L190.1,79.8L195.6,75.9L204.8,75.9L206.8,80.0L208.5,80.9Z"/>
+              <path class="lm-st" style="fill:#6eabc4" data-lang="Gujarati" data-state="Gujarat" d="M215.0,111.7L215.5,108.8L223.6,108.6L225.8,109.2L225.2,109.6L226.9,111.0L227.6,110.3L230.5,111.6L232.0,110.4L233.1,111.6L232.1,113.4L233.3,114.6L234.2,113.9L234.2,116.6L236.3,118.2L236.4,119.7L240.1,121.1L243.1,124.9L242.3,126.7L239.7,127.7L241.4,128.8L239.9,129.4L240.5,132.6L237.9,133.6L237.4,135.6L238.0,136.4L241.8,136.3L236.9,139.4L235.8,139.2L238.3,141.1L238.7,142.8L237.0,144.7L234.9,143.3L234.3,143.9L235.0,144.9L234.4,148.0L231.7,148.3L231.8,146.6L230.4,147.4L230.9,148.5L228.9,148.9L230.9,143.0L229.7,139.7L228.2,139.9L229.1,139.1L227.8,137.5L232.4,134.3L227.6,135.1L229.1,132.2L227.2,132.4L227.8,130.5L230.5,129.7L227.0,130.2L226.4,129.0L224.4,129.8L225.7,130.2L225.7,131.5L224.0,132.1L223.4,132.7L224.5,133.6L223.6,133.1L223.1,133.9L225.6,135.4L224.0,139.1L216.2,142.9L212.9,143.3L207.4,139.5L198.4,129.6L199.4,128.0L200.5,129.8L208.4,127.3L211.0,122.6L210.1,124.0L208.0,123.5L203.6,125.6L197.7,123.3L194.1,119.6L194.0,118.1L197.4,115.8L193.4,118.4L191.9,118.2L192.9,117.7L192.0,116.9L192.8,115.3L196.6,115.1L196.8,111.9L205.1,113.4L211.2,111.1L212.0,112.7L215.0,111.7Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Himachal Pradesh" d="M275.0,40.6L275.6,43.2L277.9,45.5L277.9,51.2L279.9,52.8L274.4,51.4L271.4,52.4L269.5,55.7L270.4,58.1L268.5,59.3L265.5,58.5L264.8,56.4L260.7,53.8L260.7,52.0L258.6,50.2L257.1,51.1L254.7,45.5L252.2,44.5L252.5,43.0L254.9,41.6L254.1,37.2L260.0,34.5L266.6,37.7L269.6,36.4L272.0,39.9L274.8,38.5L274.1,40.8L275.0,40.6Z"/>
+              <path class="lm-st" style="fill:#c46e92" data-lang="Kashmiri" data-state="Jammu and Kashmir" d="M245.3,41.2L245.0,38.0L242.2,38.5L241.9,36.6L239.3,34.7L240.7,32.2L239.2,30.0L241.6,28.2L238.7,27.6L239.3,25.9L237.6,24.6L238.8,22.2L241.7,21.1L249.5,22.3L251.3,25.4L257.0,28.9L257.6,31.5L259.6,32.2L261.7,34.8L258.9,34.8L255.3,37.4L254.1,37.1L255.0,39.8L251.6,42.6L245.3,41.2Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Bihar" d="M350.2,93.8L353.1,94.2L354.6,92.6L355.4,93.7L351.3,98.2L353.6,101.8L351.2,102.3L351.3,104.2L349.2,103.3L347.4,104.5L345.9,106.2L345.3,109.7L341.6,109.9L340.5,111.8L337.2,108.3L334.8,108.1L333.0,110.4L329.4,111.8L327.1,110.5L324.5,112.1L320.8,109.2L316.7,110.2L316.7,108.3L315.4,107.2L315.6,104.0L321.8,99.7L322.8,100.5L325.5,99.4L320.5,95.6L322.1,94.0L320.0,92.6L323.8,91.7L321.2,89.4L319.2,84.9L321.4,84.2L325.3,85.8L325.8,88.4L331.0,91.0L333.7,90.0L335.4,92.5L339.1,92.1L342.6,93.8L345.3,92.3L345.8,93.9L347.4,94.4L350.2,93.8Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Narayani" d="M331.6,90.8L325.7,88.4L325.3,85.8L321.4,84.2L320.0,84.8L320.0,84.0L321.4,84.0L325.4,81.0L327.1,82.7L330.3,82.8L330.9,84.5L332.8,85.4L331.6,90.8Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Lumbini" d="M320.0,84.8L319.4,85.7L315.6,84.6L314.8,85.8L310.5,84.4L309.8,82.6L313.8,77.8L316.9,79.4L316.4,80.7L323.8,82.0L320.0,84.8Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Uttar Pradesh" d="M309.8,82.6L310.5,84.4L314.8,85.8L315.6,84.6L319.7,85.8L321.2,89.4L323.8,91.7L320.0,92.6L322.1,94.0L320.5,95.6L325.6,99.2L322.8,100.5L321.8,99.7L315.3,104.4L316.7,110.2L315.7,110.5L316.1,111.7L314.2,115.2L312.0,115.5L310.3,114.2L311.0,109.7L310.2,108.5L306.8,109.3L306.0,107.5L304.0,107.2L300.6,104.3L299.6,105.2L298.2,104.6L297.0,106.9L294.3,106.2L294.9,104.2L293.9,105.4L292.7,104.8L290.5,106.0L291.5,104.5L289.7,102.5L286.8,104.0L287.0,104.8L282.9,105.5L283.6,103.5L282.5,104.0L282.5,102.9L282.3,104.7L280.2,104.6L280.0,103.6L278.9,104.5L279.1,101.4L276.1,103.7L277.7,109.1L279.8,111.1L278.5,112.9L275.9,111.2L274.9,112.2L273.3,107.3L274.9,104.5L273.9,102.6L274.9,101.3L278.0,100.5L280.4,93.6L279.4,91.3L273.5,90.2L273.3,89.1L269.6,89.3L267.0,90.6L269.6,88.6L267.9,88.0L269.1,86.9L266.3,83.3L266.0,81.7L268.1,80.4L268.1,77.9L265.4,72.9L264.5,65.6L269.1,59.2L271.4,60.6L269.8,62.8L270.5,65.6L273.1,65.4L273.6,63.0L279.4,67.6L277.7,68.8L279.3,70.4L280.5,70.0L283.6,72.6L286.6,72.4L287.9,73.6L288.8,72.9L292.1,75.1L292.6,74.1L303.2,81.3L304.6,80.8L307.6,82.8L309.8,82.6Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Rapti" d="M309.8,82.6L307.6,82.8L304.8,80.8L305.8,79.9L304.0,76.3L304.7,74.5L305.9,74.6L309.0,71.4L313.7,73.6L311.6,75.9L313.2,77.6L312.5,80.5L309.8,82.6Z"/>
+              <path class="lm-st" style="fill:#6ec475" data-lang="Nepali" data-state="Bheri" d="M304.8,80.8L303.2,81.3L298.6,78.9L296.6,76.6L298.5,73.9L296.2,71.8L299.8,72.2L300.5,73.5L299.5,71.3L300.7,70.2L303.1,71.5L306.7,70.4L309.0,71.4L304.4,74.8L304.5,78.6L305.8,79.9L304.8,80.8Z"/>
+              <path class="lm-st" style="fill:#79c46e" data-lang="Pahari" data-state="Azad Kashmir" d="M249.4,22.3L242.2,21.1L238.8,22.2L237.6,24.6L239.3,25.9L238.5,27.4L241.6,28.2L239.2,30.0L240.7,32.2L239.3,34.7L241.9,36.6L242.1,37.8L236.5,35.6L234.9,22.9L236.4,22.9L237.0,21.2L239.6,20.2L240.2,18.3L243.2,18.1L245.9,20.4L248.8,20.3L249.4,22.3Z"/>
+              <path class="lm-st" style="fill:#7c6ec4" data-lang="Telugu" data-state="Andhra Pradesh" d="M290.4,206.0L289.3,204.1L288.6,205.3L290.2,206.4L288.4,205.8L286.3,208.5L283.6,207.6L281.3,210.0L277.8,209.9L275.5,213.5L274.3,213.3L273.9,211.7L275.7,211.6L276.5,208.0L275.0,207.6L274.9,205.3L272.4,204.7L272.5,203.0L270.2,202.2L267.4,204.4L266.9,203.1L264.9,202.5L264.8,203.8L263.5,203.8L262.8,200.3L266.9,202.7L266.4,200.7L267.6,200.1L266.9,198.8L266.8,199.7L264.8,198.7L264.4,199.7L263.0,199.5L263.2,197.7L261.7,196.4L261.9,192.2L264.0,193.0L264.8,191.8L263.5,188.6L264.5,187.2L264.0,185.4L265.6,184.6L272.7,185.8L273.9,184.0L278.3,184.0L280.2,182.2L281.7,182.3L282.2,179.4L286.3,178.0L287.8,178.9L289.4,175.5L293.0,177.4L291.3,175.0L295.1,175.2L295.7,174.0L299.6,172.4L302.4,167.7L307.0,166.6L307.9,162.4L309.6,165.0L310.8,163.2L312.8,163.6L312.7,161.4L315.7,159.5L314.9,158.3L316.1,158.5L316.2,157.6L317.4,157.1L319.8,159.9L321.9,160.1L326.8,156.9L321.5,164.4L316.1,167.6L314.4,170.5L307.4,174.7L306.4,176.3L307.3,176.4L306.8,179.3L302.4,181.5L298.3,181.5L296.3,186.3L295.4,184.1L294.7,186.8L293.6,185.2L290.4,187.0L288.5,192.2L289.7,196.8L288.5,199.9L289.2,199.7L290.4,206.0Z"/>
+              <path class="lm-st" style="fill:#c4956e" data-lang="Odia" data-state="Odisha" d="M348.8,135.5L345.9,136.5L343.9,138.6L344.7,142.6L344.0,142.8L345.3,143.5L340.3,149.6L338.1,148.3L339.8,149.9L332.4,152.5L333.3,150.6L332.3,150.5L329.7,154.1L330.7,152.6L331.9,152.3L331.4,153.2L333.4,152.3L327.0,157.2L324.4,158.0L323.2,159.9L319.8,160.0L317.4,157.1L316.2,157.6L316.1,158.5L314.9,158.3L315.7,159.5L312.7,161.4L312.7,163.6L310.8,163.2L309.5,165.0L307.9,162.4L307.0,166.6L299.4,168.6L300.6,164.7L306.2,158.8L304.6,151.6L302.9,149.9L303.9,148.6L306.8,151.1L310.1,150.9L310.0,149.6L307.7,149.0L307.1,142.0L308.1,142.1L309.7,139.5L313.6,139.8L315.6,137.9L316.9,131.2L320.2,128.9L320.3,127.5L323.1,129.4L329.2,127.8L328.6,131.2L330.5,131.9L332.0,130.8L335.1,131.1L335.5,132.3L336.6,131.3L336.3,127.8L337.2,127.3L344.7,131.5L345.2,133.0L346.5,132.6L348.8,135.5Z"/>
+              <path class="lm-st" style="fill:#8e6ec4" data-lang="Bengali" data-state="Barisal" d="M373.0,123.0L373.7,124.4L372.3,125.6L374.3,129.4L372.9,131.5L372.5,129.7L370.6,133.9L369.6,132.7L371.2,130.4L368.8,132.2L368.3,129.8L369.4,127.9L368.4,126.0L370.5,122.9L371.5,123.7L373.0,123.0ZM375.7,127.9L376.1,130.6L374.6,132.2L374.0,125.6L375.7,127.9Z"/>
+              <path class="lm-st" style="fill:#6ec4ae" data-lang="Marathi" data-state="Maharashtra" d="M237.0,186.8L233.8,179.8L232.9,170.6L230.7,165.0L231.9,164.6L230.6,163.8L230.5,162.4L231.4,162.9L230.1,160.3L231.3,160.6L230.5,159.2L231.8,158.1L231.0,156.8L229.4,158.7L229.5,155.5L231.7,156.4L229.4,155.0L230.3,153.6L229.0,153.6L228.4,150.9L228.9,148.9L232.5,149.3L234.4,148.0L234.8,143.3L237.0,144.7L238.6,143.0L238.3,141.1L235.8,139.2L236.9,139.4L241.9,136.2L237.9,136.4L237.9,133.6L242.7,132.0L244.3,135.1L250.1,137.6L256.3,137.7L256.5,139.5L258.0,140.2L260.7,139.1L262.3,135.7L266.5,134.1L268.2,134.7L267.8,137.5L271.2,137.4L274.9,135.4L275.4,136.4L278.4,136.6L282.1,134.7L284.6,136.2L289.6,135.3L291.4,137.4L293.6,137.8L291.7,140.7L292.6,141.7L292.1,144.3L293.3,145.1L293.2,146.7L291.6,147.5L292.6,149.1L291.4,151.4L292.5,151.2L295.4,154.3L294.0,156.0L292.8,154.9L291.4,156.1L290.3,160.8L287.4,159.8L287.8,154.6L286.5,153.1L284.7,153.8L282.2,153.1L281.6,154.2L278.2,151.5L274.6,150.5L274.3,154.1L273.2,156.0L270.8,155.7L269.9,157.9L271.2,159.7L268.3,162.5L268.2,164.3L265.9,163.0L264.5,165.2L263.0,165.6L261.1,169.5L259.9,168.9L258.2,170.3L258.4,172.6L255.1,172.8L252.5,171.6L252.6,175.9L248.9,176.8L247.2,176.1L244.8,179.1L241.4,179.7L242.0,181.9L243.3,182.5L242.0,186.5L239.3,187.7L238.0,186.2L237.0,186.8Z"/>
+              <path class="lm-st" style="fill:#c46ec0" data-lang="Konkani" data-state="Goa" d="M240.1,194.0L237.6,189.5L239.1,189.8L237.8,189.1L238.3,188.4L237.4,188.6L238.1,187.3L237.0,187.3L238.0,186.2L239.1,187.7L241.3,187.7L241.6,192.8L240.1,194.0Z"/>
+              <path class="lm-st" style="fill:#a7c46e" data-lang="Kannada" data-state="Karnataka" d="M246.3,212.5L247.0,211.5L246.0,211.6L245.4,204.7L243.4,201.5L242.9,197.6L240.2,194.7L241.3,194.2L240.1,194.0L241.4,193.4L241.9,190.5L241.3,187.7L240.2,187.2L242.1,186.4L243.2,183.2L241.4,179.7L244.8,179.1L247.2,176.1L248.9,176.8L252.6,175.9L252.6,171.5L255.1,172.8L258.5,172.5L258.2,170.3L259.9,168.9L261.1,169.5L263.0,165.6L266.3,163.0L267.3,164.5L268.5,164.4L268.8,167.3L267.1,170.2L269.3,170.7L266.8,173.7L267.4,178.8L265.9,180.4L268.2,181.6L267.4,184.8L264.0,185.4L264.5,187.2L263.5,188.6L264.8,191.8L264.0,193.0L261.9,192.2L261.7,196.4L263.2,197.7L263.0,199.5L267.5,199.3L266.4,200.7L266.9,202.7L262.8,200.3L263.5,203.9L264.8,203.8L264.9,202.5L267.8,204.3L271.4,202.1L271.2,203.2L272.6,203.2L272.4,204.7L274.9,205.3L275.0,207.6L276.4,207.9L275.7,211.6L274.7,211.2L273.7,212.5L270.3,211.7L267.5,216.9L269.7,217.6L269.2,219.4L267.1,220.9L263.1,220.8L262.3,222.4L259.0,222.0L256.2,219.5L254.3,219.5L250.7,216.6L249.7,213.9L246.3,212.5Z"/>
+              <path class="lm-st" style="fill:#6e8ec4" data-lang="Malayalam" data-state="Kerala" d="M249.3,218.9L247.0,212.4L249.7,213.9L250.7,216.6L254.1,219.4L256.2,219.5L258.8,221.4L257.5,223.2L260.1,224.9L259.3,226.0L261.4,225.8L261.1,228.2L262.9,229.7L262.5,233.8L265.7,234.0L265.3,240.0L267.0,241.2L265.1,245.2L266.0,249.3L265.0,251.3L260.1,246.0L261.1,245.2L259.9,245.7L258.6,242.4L257.6,236.9L258.5,240.7L259.7,240.6L257.1,235.6L257.6,234.4L256.9,234.6L253.5,224.6L250.0,219.7L250.8,219.8L249.8,219.1L250.7,217.9L249.3,218.9Z"/>
+              <path class="lm-st" style="fill:#c46e75" data-lang="Tamil" data-state="Tamil Nadu" d="M286.9,229.5L286.9,234.1L282.5,234.2L282.3,236.2L279.4,240.3L280.3,242.5L282.8,242.5L283.7,243.8L279.9,242.8L275.2,244.3L273.4,246.3L272.3,250.8L268.4,253.2L264.7,251.4L266.0,249.3L265.1,245.2L267.0,241.2L265.3,240.0L266.0,234.8L265.3,233.5L263.5,234.6L262.5,233.8L262.9,229.7L261.1,228.2L261.4,225.8L259.3,226.0L260.1,224.9L257.7,223.7L257.6,222.6L259.6,221.6L262.3,222.4L263.1,220.8L267.1,220.9L269.2,219.4L269.7,217.6L267.5,216.9L270.3,211.7L275.3,213.6L277.8,209.9L281.3,210.0L283.8,207.5L286.3,208.5L288.5,205.8L290.9,207.4L289.4,215.0L286.9,219.5L285.4,219.3L286.6,220.6L286.7,224.4L285.5,225.2L286.7,224.8L286.9,226.4L286.9,228.0L285.7,228.6L286.9,229.5Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Jharkhand" d="M315.2,113.6L316.0,110.3L320.8,109.2L324.5,112.1L327.1,110.5L329.4,111.8L334.0,109.9L334.8,108.1L337.2,108.3L340.5,111.8L341.6,109.9L345.3,109.7L346.0,106.1L349.2,103.3L351.2,104.0L352.1,106.6L352.3,109.4L351.0,109.6L350.3,113.2L348.7,114.6L346.9,114.4L346.9,116.1L343.9,115.5L343.3,117.2L339.0,119.5L337.1,118.2L335.4,119.3L335.9,122.1L340.9,123.6L340.1,125.3L342.8,127.3L343.7,129.5L342.4,130.3L337.2,127.3L336.3,127.8L336.6,131.3L335.5,132.3L335.1,131.1L332.0,130.8L330.5,131.9L328.6,131.2L329.2,127.8L323.1,129.4L320.3,127.5L323.3,123.7L321.6,123.5L320.8,122.2L320.5,117.9L318.7,118.3L316.7,114.1L315.2,113.6Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Delhi" d="M265.4,72.4L266.4,75.5L265.3,76.2L262.7,75.5L263.3,72.8L265.4,72.4Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Madhya Pradesh" d="M274.5,89.9L279.4,91.3L280.5,94.4L278.0,100.5L274.9,101.3L273.9,102.6L274.9,104.5L273.3,107.3L274.8,112.1L275.9,111.2L278.5,112.9L279.8,111.1L277.7,109.1L276.1,103.7L279.1,101.4L279.0,104.6L280.0,103.6L280.2,104.6L282.3,104.7L282.5,102.9L282.5,104.0L283.6,103.5L282.8,105.4L286.5,104.9L290.4,102.5L291.5,104.5L290.5,106.0L292.7,104.8L293.9,105.4L294.9,104.2L294.3,106.2L297.0,106.9L298.2,104.6L299.6,105.2L300.6,104.3L304.0,107.2L306.0,107.5L306.8,109.3L310.1,108.5L311.0,109.7L309.8,113.2L310.9,114.8L309.6,116.2L301.3,115.9L301.3,119.2L303.8,119.2L305.9,120.8L305.6,122.2L303.9,123.1L301.5,127.4L297.6,128.1L294.1,134.4L293.6,137.8L291.4,137.4L289.6,135.3L284.6,136.2L282.1,134.7L278.4,136.6L275.4,136.4L274.9,135.4L271.2,137.4L267.8,137.5L268.2,134.7L266.5,134.1L262.3,135.7L260.7,139.1L258.0,140.2L256.5,139.5L256.3,137.7L249.2,137.4L243.6,134.6L242.7,132.0L240.5,132.6L239.9,129.4L241.4,128.8L239.7,127.7L242.4,126.6L243.1,125.0L242.0,123.2L245.3,122.0L243.6,121.0L247.0,117.7L247.3,114.4L245.3,112.5L246.3,111.0L245.2,110.2L245.8,108.0L246.6,109.0L247.4,108.0L246.0,106.7L247.5,107.3L250.1,105.6L249.5,106.9L250.8,107.0L249.0,107.0L249.1,108.4L254.1,108.5L254.1,113.9L251.5,114.9L252.4,116.4L255.5,115.1L257.1,111.7L262.6,113.3L262.2,109.9L264.3,109.8L262.0,107.6L262.5,106.0L266.9,104.8L266.7,102.5L263.1,103.4L260.9,102.8L259.9,99.0L274.5,89.9Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Chhattisgarh" d="M313.2,115.6L315.2,113.6L316.6,114.1L318.7,118.3L320.5,117.9L320.8,122.2L323.4,124.5L320.5,127.1L320.2,128.9L317.0,131.0L315.6,137.9L313.6,139.8L309.7,139.5L308.1,142.1L307.2,142.0L307.7,149.0L310.0,149.6L310.1,150.9L306.8,151.1L305.1,149.1L303.3,149.2L302.9,150.2L304.6,151.6L304.6,153.8L305.7,154.7L306.2,158.9L300.6,164.7L299.4,168.6L296.5,168.9L295.9,165.7L294.1,165.5L293.5,163.0L290.2,160.5L291.4,156.1L292.8,154.9L294.0,156.0L295.4,154.2L292.5,151.2L291.4,151.4L292.6,149.1L291.6,147.5L293.2,146.7L293.3,145.1L292.1,144.3L291.8,139.7L293.6,138.2L294.1,134.4L297.6,128.1L301.5,127.4L303.9,123.1L305.5,122.5L305.4,120.3L302.4,118.8L301.3,119.2L301.3,115.9L308.4,116.8L310.9,114.8L313.2,115.6Z"/>
+              <path class="lm-st" style="fill:#6ec4c0" data-lang="Hindi" data-state="Haryana" d="M262.2,54.5L264.8,56.4L265.5,58.5L268.5,59.4L265.6,62.8L264.2,66.5L265.5,72.1L263.4,72.7L262.4,75.0L267.5,76.2L268.1,80.4L263.0,82.9L263.3,78.8L262.5,78.0L260.2,80.2L258.1,78.3L258.3,79.5L256.9,79.6L257.3,81.5L255.5,81.3L255.2,79.0L256.3,78.5L252.3,74.4L250.7,69.1L248.2,69.2L246.2,67.8L244.4,68.4L244.3,64.7L243.1,64.7L243.6,63.1L246.0,62.7L249.1,64.1L249.4,66.4L251.2,64.3L256.0,64.7L257.5,63.7L257.4,61.4L260.0,61.9L261.6,59.0L263.0,59.4L262.2,54.5Z"/>
+              <path class="lm-st" style="fill:#7c6ec4" data-lang="Telugu" data-state="Telangana" d="M268.2,164.3L268.3,162.5L271.2,159.7L269.9,157.9L270.8,155.7L273.2,156.0L274.3,154.1L274.6,150.5L278.2,151.5L281.6,154.2L282.2,153.1L284.7,153.8L286.5,153.1L287.8,154.6L287.4,159.8L292.9,162.2L294.1,165.4L295.9,165.7L296.4,168.8L302.6,168.1L300.0,172.0L295.1,175.2L291.3,175.0L293.0,177.4L289.4,175.5L287.8,178.9L286.3,178.0L282.2,179.4L281.6,182.4L280.2,182.2L278.1,184.1L273.9,184.0L272.7,185.8L267.4,184.8L268.2,181.5L265.9,180.4L267.4,178.8L266.8,173.7L269.3,170.7L267.1,170.2L268.9,167.5L268.2,164.3Z"/>
+            </g>
+            <!-- LANGMAP:END -->
+        </svg>
+        </div>
+      </article>
+
+      <!-- the node both streams feed — lit from the land, because the talk
+           opens with this question and the studies are the answer's inputs -->
+      <div data-sid="23c-india-practices:59" class="pc-node">
+        <div data-sid="23c-india-practices:46" class="pc-node__live">
+          <p data-sid="23c-india-practices:61" class="pc-node__head">How do we design tools &amp; pedagogy</p>
+          <p data-sid="23c-india-practices:62" class="pc-node__sub">for <strong>linguistically diverse</strong> classrooms?</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    /* ---------- who ---------- */
+    #slide-23c .pp-who { display: flex; flex-direction: column; gap: var(--s-3); }
+    #slide-23c .pp-who img {
+      display: block;
+      object-fit: cover;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border-2);
+    }
+    #slide-23c .pp-who__meta { display: flex; flex-direction: column; gap: var(--s-1); }
+    #slide-23c .pp-who__name {
+      font-size: var(--t-h4); font-weight: 700; line-height: 1.15; color: var(--fg-0);
+    }
+    #slide-23c .pp-who__role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--t-caption);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+    }
+
+    /* ---------- diagram frame ----------
+       Fixed 680px height so the SVG viewBox maps 1:1 to CSS pixels — stream
+       endpoints and card anchors share one coordinate space, nothing drifts. */
+    #slide-23c .pc-diagram { position: relative; height: 680px; min-width: 0; }
+    #slide-23c .pc-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* ---------- cards ---------- */
+    #slide-23c .pc-card {
+      position: absolute; left: 0; width: 560px;
+      padding: var(--s-4) var(--s-4);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    #slide-23c .pc-card--t { top: 10px; border-left: 5px solid var(--accent-1); }
+    /* hangs 20px past the diagram box on purpose — breathing room under the
+       study-1 card; the slide's bottom padding absorbs it */
+    #slide-23c .pc-card--f { bottom: -20px; border-left: 5px solid var(--accent-2); }
+    #slide-23c .pc-card__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--fg-2); margin: 0;
+    }
+    #slide-23c .pc-chips {
+      list-style: none; margin: 0; padding: 0;
+      display: flex; flex-direction: column; gap: var(--s-2);
+    }
+    #slide-23c .pc-chip {
+      width: max-content; max-width: 100%;
+      font-size: 22px; line-height: 1.3; color: var(--fg-1);
+      background: var(--bg-3);
+      border: 1px solid var(--border-1);
+      border-radius: 10px;
+      padding: 7px 14px;
+    }
+    #slide-23c .pc-chip strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800; color: var(--accent-2-text);
+    }
+    #slide-23c .pc-card--t .pc-chip { border-left: 3px solid var(--accent-1); }
+    #slide-23c .pc-card--f .pc-chip { border-left: 3px solid var(--accent-2); }
+    #slide-23c .pc-card__q {
+      font-size: 24px; font-weight: 600; line-height: 1.3;
+      color: var(--fg-0); margin: 0;
+    }
+
+    /* ---------- preprint QR (placeholder until the code exists) ---------- */
+    /* the QR is the card's payload now that the chips are gone — sized to be
+       scannable from a few rows back, label at chip weight */
+    /* study 1 runs text | QR side by side to stay short — the map card below
+       needs the column's height */
+    #slide-23c .pc-card--t { flex-direction: row; align-items: flex-start; gap: var(--s-4); }
+    #slide-23c .pc-card__txt {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    #slide-23c .pp-qr {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; flex: 0 0 auto;
+    }
+    #slide-23c .pp-qr__slot {
+      width: 150px; height: 150px; flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px dashed var(--border-2);
+      border-radius: var(--r-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px; letter-spacing: 0.14em; color: var(--fg-3);
+    }
+    #slide-23c .pp-qr__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-1-text);
+    }
+
+    /* ---------- the study-2 language quilt ----------
+       Header in normal flow ABOVE the map; the 560x280 viewBox maps 1:1 to
+       the frame below it, so geography stays where the coordinates say.
+       State fills are baked hex (decoration, one palette both themes);
+       context countries and borders theme via tokens. */
+    #slide-23c .pc-card--map {
+      display: flex; flex-direction: column; gap: 0;
+      padding: 0; overflow: hidden;
+      height: 420px;
+    }
+    #slide-23c .pc-map__head { padding: 14px 20px 10px; }
+    #slide-23c .pc-map__head p { margin: 0; }
+    #slide-23c .pc-map__head .pc-card__label { margin-bottom: 6px; }
+    #slide-23c .pc-map__frame { position: relative; height: 280px; margin-top: auto; }
+    #slide-23c .pc-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #slide-23c .lm path { stroke: var(--bg-1); stroke-width: 0.6; stroke-linejoin: round; }
+    /* context countries render their admin-1 pieces as one silent fill — no
+       strokes, or their internal province lines would read as content */
+    #slide-23c .lm-ctx path { fill: var(--bg-3); stroke: none; }
+    #slide-23c .lm-st { opacity: 0.92; }
+
+    /* ---------- streams ----------
+       Solid, unlike 23a's dotted flight route: that line is travel, these are
+       flow. Draw-on runs against the normalized pathLength, no JS measuring. */
+    #slide-23c .pc-stream {
+      fill: none; stroke-width: 4; stroke-linecap: round;
+      opacity: 0.65;
+      stroke-dasharray: 1000; stroke-dashoffset: 1000;
+      transition: opacity 0.5s ease;
+    }
+    #slide-23c .pc-stream--t { stroke: var(--accent-1); }
+    #slide-23c .pc-stream--f { stroke: var(--accent-2); }
+    /* each stream draws when its study's frag lands (positive matches only:
+       before deck.js applies state classes, nothing must look drawn) */
+    #slide-23c:has(.pc-card--t.is-current) .pc-stream--t,
+    #slide-23c:has(.pc-card--t.is-past)    .pc-stream--t,
+    #slide-23c:has(.pc-card--f.is-current) .pc-stream--f,
+    #slide-23c:has(.pc-card--f.is-past)    .pc-stream--f {
+      animation: pc-draw 900ms var(--ease) 150ms forwards;
+    }
+    @keyframes pc-draw { to { stroke-dashoffset: 0; } }
+
+    /* ---------- flow tokens ----------
+       Halo (paint-order stroke) is 23a's cartographic knockout, so tokens stay
+       legible crossing their own stream. The field stack lists the Noto faces
+       explicitly — Devanagari and Bengali tokens must not fall to system tofu. */
+    #slide-23c .pc-flow { opacity: 0; transition: opacity 0.6s ease; }
+    #slide-23c:has(.pc-card--t.is-current) .pc-flow--t,
+    #slide-23c:has(.pc-card--t.is-past)    .pc-flow--t,
+    #slide-23c:has(.pc-card--f.is-current) .pc-flow--f,
+    #slide-23c:has(.pc-card--f.is-past)    .pc-flow--f { opacity: 1; transition-delay: 0.9s; }
+    #slide-23c .pc-tok text {
+      font-family: 'Inter', 'Noto Sans Devanagari', 'Noto Sans Bengali', sans-serif;
+      font-size: 23px; font-weight: 600;
+      text-anchor: middle;
+      paint-order: stroke fill;
+      stroke: var(--bg-1); stroke-width: 6px; stroke-linejoin: round;
+    }
+    #slide-23c .pc-tok--t text { fill: var(--accent-1-text); }
+    #slide-23c .pc-tok--f text { fill: var(--accent-2-text); }
+
+    /* ---------- the node ----------
+       Lit from the land: the talk opens on this question, and the studies
+       stream into it. No transform animation on it — translateY(-50%) is the
+       node's centering and must not be overridden by a keyframe. */
+    #slide-23c .pc-node {
+      position: absolute; left: 905px; top: 50%;
+      transform: translateY(-50%);
+      width: 415px; min-height: 240px;
+      box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 24px;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--grad) border-box;
+    }
+    #slide-23c.is-active .pc-node { animation: pc-glow 700ms var(--ease) 250ms forwards; }
+    @keyframes pc-glow {
+      0%   { box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+      60%  { box-shadow: 0 0 72px var(--accent-glow); }
+      100% { box-shadow: 0 0 44px var(--accent-glow); }
+    }
+    #slide-23c .pc-node__live { padding: var(--s-4) var(--s-5); text-align: center; }
+    #slide-23c .pc-node__head {
+      font-size: 34px; font-weight: 800; line-height: 1.2;
+      color: var(--fg-0); margin: 0 0 var(--s-2);
+    }
+    #slide-23c .pc-node__sub {
+      font-size: 26px; line-height: 1.35; color: var(--fg-2); margin: 0;
+    }
+    #slide-23c .pc-node__sub strong { color: var(--fg-0); font-weight: 700; }
+
+    @media (prefers-reduced-motion: reduce) {
+      /* streams still appear per-step, just without the draw — jump straight
+         to drawn whenever a stream's frag state would have animated it */
+      #slide-23c .pc-stream { animation: none !important; }
+      #slide-23c:has(.pc-card--t.is-current) .pc-stream--t,
+      #slide-23c:has(.pc-card--t.is-past)    .pc-stream--t,
+      #slide-23c:has(.pc-card--f.is-current) .pc-stream--f,
+      #slide-23c:has(.pc-card--f.is-past)    .pc-stream--f { stroke-dashoffset: 0; }
+      #slide-23c .pc-flow { display: none; }
+      #slide-23c .pc-node { animation: none !important; }
+    }
+
+    /* print shows fragment-final state (deck.css forces frags visible), but
+       the class-driven stream draws never ran there — land them statically
+       and drop the SMIL tokens, which would print as a pile at the origin */
+    @media print {
+      #slide-23c .pc-stream { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1; }
+      #slide-23c .pc-flow { display: none; }
+    }
+  </style>
+
+  
+  <aside data-sid="23c-india-practices:18" class="notes">
+[0:45 · 2 clicks · closes Branch I]
+Lead with the node on the right — this is Fariha's program, and it starts from the general question: how do we design tools and pedagogy for linguistically diverse classrooms? Answering it takes understanding two things.
+
+(1) The theory. What theories of language and its role in learning already exist? Applied linguistics, second-language acquisition and multilingual education have been at this for fifty years, and computing education has borrowed almost none of it — the question is what actually transfers when the thing being learned is code rather than an essay. Those borrowed concepts are what's flowing down the indigo stream. The review is a preprint — QR's on the slide.
+
+(2) The practice. How are instructors already navigating this space — in computing classrooms in countries like India and Pakistan, where many different languages are spoken? The map is the argument: every state and province wears its own dominant language — 121 languages in India by the census, around seventy in Pakistan — and the quilt doesn't stop at the border (both Punjabs are one color). Interviews with CS faculty; phenomenography, so what we're after is the qualitatively different ways instructors CONCEPTUALIZE linguistic diversity, not a tally of which languages get spoken. And this is not bilingual teaching: one classroom can hold six first languages, an English-medium mandate, and an instructor whose own strongest language is neither — those are the languages flowing down the pink stream.
+
+Close on the node again: both studies feed the same design question — which natural language, and whose, is a pedagogy question and a tool-design question, not a footnote.
+  </aside>
+  <div data-sid="23c-india-practices:19" class="slide__number"></div>
+</section>

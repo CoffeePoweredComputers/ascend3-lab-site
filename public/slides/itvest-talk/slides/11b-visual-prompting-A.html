@@ -1,0 +1,700 @@
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Ported from gen_ai_assessments/slides/visual-prompting.html (slide 22).
+     The animation and step machine are unchanged from the port; the layout has
+     since diverged: Monisha's attribution is a structural left column (23c's
+     .pp-who idiom, as Fariha's) and the sheet renders at --sk-scale to pay
+     for it. Identity was rewritten at port time (data-sid prefix,
+     #slide-18b -> #slide-11ba).
+
+     PORTING NOTE: the source leans on its own deck's tokens, which exist here
+     under the SAME NAMES but with DIFFERENT VALUES (--s-2 is 16px there and 8px
+     here), plus several that don't exist here at all (--t-small, --t-ref,
+     --r-1..3). Only those geometry tokens are redeclared on the section below —
+     a naive copy would render at half spacing.
+
+     Colours come from this deck's tokens.css, so the slide themes with the
+     rest of the deck (light/dark `t` toggle included). Only the source's
+     spacing/type/radius tokens are redeclared, because the 520px drawing is
+     laid out against them.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section data-sid="11b-visual-prompting-A:1" class="slide" id="slide-11ba">
+  <p data-sid="11b-visual-prompting-A:2" class="kicker">So what else can the stimulus be?</p>
+  <h2 data-sid="11b-visual-prompting-A:3" style="margin-bottom: var(--s-2);">The prompt doesn’t have to be text!</h2>
+
+  <div data-sid="11b-visual-prompting-A:4" class="slide__body" style="position: relative; display: flex; gap: var(--s-5); min-height: 0;">
+
+    <figure data-sid="11b-visual-prompting-A:54" class="vp-credit">
+      <img data-sid="11b-visual-prompting-A:55" class="vp-credit__photo" src="data/materials/figures/people/monisha.jpg" alt="S. Moonwara A. Monisha">
+      <figcaption data-sid="11b-visual-prompting-A:56" class="vp-credit__cap">
+        <div data-sid="11b-visual-prompting-A:57" class="vp-credit__role">Work by</div>
+        <div data-sid="11b-visual-prompting-A:58" class="vp-credit__name">S. Moonwara A. Monisha</div>
+      </figcaption>
+    </figure>
+
+    <div data-sid="11b-visual-prompting-A:5" class="vp-row" style="display: flex; gap: var(--s-4); flex: 1; min-height: 0;">
+
+      <figure data-sid="11b-visual-prompting-A:6" class="vp-figure" style="width: calc(980px * var(--sk-scale)); margin: 0; display: flex; flex-direction: column; gap: var(--s-3);">
+        <div data-sid="11b-visual-prompting-A:59" class="sk-wrap">
+        <div data-sid="11b-visual-prompting-A:7" class="sk-sheet">
+          <svg class="sk-svg" viewBox="0 0 980 560" aria-hidden="true">
+        <g class="sk-boxink" data-box="0">
+        <path class="ink ink--main" pathLength="1" d="M310.9,25.9 C480.1,26.6 603.9,26.2 670.3,25.4 M681.2,36.7 C680.0,72.7 679.9,90.0 680.6,113.5 M670.4,122.5 C505.1,125.5 412.0,123.8 309.7,122.3 M301.1,110.6 C301.1,71.6 300.2,52.3 298.8,37.1 M299.1,38.8 C307.3,31.2 310.4,30.4 315.5,27.2 M680.5,109.2 C671.7,115.2 669.1,117.6 665.7,120.6"/>
+        <path class="ink ink--over" pathLength="1" d="M309.4,26.4 C474.9,31.2 570.3,28.8 669.8,26.0 M680.1,35.6 C678.7,70.4 679.2,92.7 678.7,112.5 M669.3,121.4 C478.5,118.3 388.8,119.2 309.3,121.8 M299.6,110.8 C298.7,68.4 299.0,51.3 300.1,36.5 M679.9,40.2 C672.0,33.2 668.7,29.0 666.9,25.2 M300.5,108.5 C307.3,114.9 309.9,118.6 314.6,121.6"/>
+        </g>
+        <g class="sk-boxink" data-box="1">
+        <path class="ink ink--main" pathLength="1" d="M27.3,209.9 C158.4,214.2 238.5,211.8 291.3,210.1 M301.8,221.6 C299.5,274.8 300.3,297.6 303.8,319.5 M291.9,328.4 C166.0,329.1 91.6,328.9 28.0,328.0 M18.2,318.8 C15.7,263.0 17.4,241.3 17.2,218.3 M18.1,224.7 C24.6,217.7 28.6,214.1 32.4,209.2 M300.6,314.6 C295.7,321.0 291.9,325.4 288.6,327.0"/>
+        <path class="ink ink--over" pathLength="1" d="M28.3,210.1 C175.9,212.9 217.4,211.9 291.8,210.2 M301.1,219.0 C301.3,269.1 300.8,291.9 302.9,319.2 M292.0,327.3 C169.9,330.3 75.4,328.6 28.9,328.9 M16.8,317.0 C16.9,271.8 16.2,248.6 17.0,219.6 M302.7,223.4 C294.0,215.5 290.6,212.4 287.1,209.7 M16.9,315.0 C25.1,320.9 27.7,324.0 33.1,326.8"/>
+        </g>
+        <g class="sk-boxink" data-box="2">
+        <path class="ink ink--main" pathLength="1" d="M357.0,209.7 C482.1,207.1 556.0,207.6 620.9,210.1 M633.5,218.8 C632.3,269.5 631.4,299.3 630.5,319.5 M623.4,328.4 C495.4,329.6 410.9,329.3 358.7,328.7 M348.5,317.1 C349.2,265.3 348.8,245.3 349.8,219.8 M346.6,224.7 C355.3,217.5 358.2,214.4 360.7,209.6 M631.6,314.9 C625.6,320.0 622.3,323.3 617.7,329.4"/>
+        <path class="ink ink--over" pathLength="1" d="M357.8,209.8 C490.7,214.9 548.2,213.3 621.0,210.4 M632.1,221.1 C631.6,266.8 632.8,292.4 632.5,319.2 M622.0,327.8 C475.3,323.7 427.7,325.4 357.2,327.6 M349.2,317.7 C348.7,267.8 348.2,241.3 347.5,219.4 M633.5,223.9 C624.2,216.1 621.1,212.6 618.1,208.7 M349.3,314.2 C355.3,321.8 358.7,325.1 361.7,327.4"/>
+        </g>
+        <g class="sk-boxink" data-box="3">
+        <path class="ink ink--main" pathLength="1" d="M689.3,209.8 C823.6,215.4 879.0,211.9 952.8,208.7 M962.6,221.9 C963.4,275.3 963.1,294.5 960.5,318.3 M952.1,326.7 C803.8,325.6 761.7,326.3 689.3,327.2 M679.2,317.5 C677.5,268.1 676.4,240.1 678.4,218.3 M677.9,223.9 C683.6,216.5 688.9,211.9 692.8,208.5 M961.8,315.4 C954.3,320.7 950.9,324.0 946.9,328.0"/>
+        <path class="ink ink--over" pathLength="1" d="M687.2,209.6 C820.7,209.6 879.8,209.7 951.3,209.4 M963.2,219.9 C963.3,270.2 963.2,298.5 962.0,318.8 M952.5,327.9 C814.3,328.0 747.5,328.1 687.8,327.3 M679.2,317.3 C678.6,263.8 678.8,247.7 676.9,218.8 M961.3,223.8 C955.9,216.1 951.8,214.0 948.8,211.4 M677.4,313.4 C686.1,322.0 689.3,326.3 690.9,328.1"/>
+        </g>
+        <path class="ink ink--main" pathLength="1" d="M301.4,40.2 C299.7,44.1 299.0,46.5 297.9,49.0 M290.9,54.5 C285.4,54.2 284.2,54.3 281.7,53.8 M274.1,48.8 C272.5,44.3 271.8,41.6 271.9,39.9 M273.6,30.7 C277.6,28.0 280.0,26.4 281.7,26.6 M290.0,25.3 C294.3,28.9 296.5,29.7 298.6,30.6 M21.1,223.2 C19.2,228.3 19.2,230.3 18.6,231.9 M11.3,238.6 C5.9,238.7 4.3,238.2 1.8,238.4 M-5.8,233.0 C-7.5,228.1 -8.0,226.6 -8.2,223.8 M-5.2,214.5 C-2.2,212.1 -1.2,210.7 0.8,209.8 M9.9,209.8 C14.8,212.6 16.3,214.4 17.8,216.1 M479.5,125.9 C301.1,165.8 248.6,180.9 159.2,203.1 M159.3,203.5 C167.1,205.1 170.3,205.0 173.1,206.3 M350.4,224.4 C349.8,228.2 349.2,230.9 347.2,232.4 M341.3,238.8 C336.2,238.4 334.1,238.2 331.8,238.6 M323.5,231.9 C322.4,227.8 321.6,226.7 320.6,224.2 M324.6,215.8 C327.4,213.0 329.7,210.6 331.6,209.4 M341.6,210.6 C344.8,212.6 346.2,213.6 347.2,214.3 M480.5,124.9 C485.1,169.0 487.9,189.4 491.8,205.6 M490.5,203.2 C492.0,197.3 492.2,195.2 494.2,192.7 M681.0,223.7 C679.0,228.3 678.9,231.1 678.8,232.4 M670.5,238.8 C665.9,238.8 663.9,238.1 660.9,238.8 M653.3,233.0 C653.0,228.3 651.9,226.1 651.6,224.8 M654.7,215.8 C657.6,212.2 659.3,211.2 662.3,210.4 M671.0,208.8 C674.1,212.9 676.8,213.6 677.8,215.1 M481.0,126.7 C648.0,169.2 723.6,185.1 820.3,204.9 M819.9,204.7 C813.8,198.9 811.5,197.7 810.6,195.2 M819.3,371.0 C873.3,398.8 893.8,409.2 914.1,418.6 M915.2,420.3 C872.3,440.8 843.1,455.4 819.4,466.2 M820.3,469.1 C775.7,444.2 748.7,429.6 725.2,418.1 M726.8,418.4 C768.5,395.4 799.4,381.3 820.1,373.2 M818.5,332.3 C818.8,354.9 819.3,365.6 821.6,375.6 M820.8,374.6 C823.0,368.3 824.8,364.8 825.8,362.1 M726.9,415.6 C642.0,381.9 583.5,357.4 547.9,343.8 M547.8,343.9 C552.0,348.8 554.8,351.5 557.1,352.9 M820.8,470.0 C820.1,493.8 819.8,503.8 819.5,515.4 M819.5,513.7 C822.4,507.5 823.4,505.5 824.2,502.4 M110.1,411.9 C113.3,421.3 114.5,424.9 115.4,428.4 M113.2,447.2 C107.2,455.1 105.0,459.1 102.5,461.6 M88.1,471.9 C78.7,472.6 72.2,473.4 68.7,474.2 M51.1,468.5 C46.7,461.7 41.4,457.5 39.6,454.2 M32.8,437.6 C33.4,429.8 33.1,425.1 34.7,419.6 M43.6,403.7 C50.8,398.1 54.9,395.7 57.6,393.5 M75.2,390.2 C84.9,392.6 88.8,393.8 92.2,393.7 M93.2,394.1 C87.3,394.3 84.4,394.8 81.6,395.0 M549.3,491.2 Q542.7,511.0 499.0,511.1 M433.2,515.5 Q391.2,520.9 372.7,502.8 M336.8,477.2 Q308.4,462.0 336.8,446.8 M372.7,421.2 Q391.2,403.1 433.2,408.5 M499.0,412.9 Q542.7,413.0 549.3,432.8"/>
+        <path class="ink ink--over" pathLength="1" d="M297.9,48.3 C294.2,52.0 292.2,53.1 289.9,54.9 M282.1,53.6 C277.8,51.4 275.9,50.1 273.3,49.0 M271.2,40.1 C272.5,35.9 273.9,32.5 274.8,31.2 M280.9,24.9 C285.3,25.3 288.3,25.5 290.4,25.1 M297.4,30.6 C299.9,36.4 300.6,37.6 301.6,39.8 M17.5,233.5 C13.4,235.8 12.5,236.7 11.0,239.1 M1.4,237.5 C-1.9,235.6 -3.7,234.8 -6.1,232.1 M-9.2,224.2 C-8.0,220.2 -6.6,217.5 -6.4,215.8 M1.1,209.4 C6.0,209.7 8.4,210.0 10.7,209.5 M18.7,215.9 C19.1,219.6 20.2,222.1 20.2,223.8 M480.5,125.4 C307.8,168.9 254.1,181.1 160.5,204.0 M159.2,202.9 C165.6,199.7 167.8,197.3 169.8,195.4 M348.7,232.2 C344.2,235.8 342.0,237.2 341.1,238.0 M331.6,238.9 C327.5,235.8 326.0,234.3 323.8,232.6 M320.9,223.9 C322.4,219.6 323.5,217.6 323.9,214.6 M331.6,209.1 C335.4,209.9 339.2,209.3 341.0,209.9 M348.0,214.6 C349.5,219.8 350.3,221.8 350.1,224.7 M480.2,126.2 C484.0,168.6 486.7,186.8 489.0,203.5 M490.4,204.6 C486.9,199.0 485.6,195.3 483.2,192.2 M677.4,232.5 C674.7,235.6 673.0,236.4 670.3,239.0 M660.9,237.7 C657.4,235.6 655.6,233.9 654.3,232.5 M650.7,224.0 C651.8,219.9 653.7,217.0 654.4,214.4 M660.5,208.9 C666.9,209.9 669.1,209.4 670.7,210.6 M677.9,215.2 C679.2,220.2 680.1,221.9 680.6,224.4 M480.3,125.7 C642.0,167.5 757.2,191.9 820.1,203.3 M819.4,204.7 C813.9,205.5 810.0,205.8 806.5,207.1 M818.7,372.9 C868.6,396.1 892.5,408.1 914.9,419.1 M915.5,419.2 C860.8,447.5 847.6,453.9 819.5,468.1 M818.9,467.4 C776.4,444.3 742.5,428.7 725.1,419.0 M724.0,418.9 C774.8,394.8 793.7,386.0 821.0,372.5 M821.3,332.9 C820.1,354.9 819.6,365.9 820.7,374.3 M819.4,374.0 C817.4,368.7 816.6,365.2 814.4,361.1 M725.8,415.2 C634.5,374.8 599.4,363.1 547.0,343.3 M549.0,342.9 C554.4,343.7 557.7,344.0 560.6,342.6 M820.3,469.3 C820.0,494.1 820.5,502.9 819.2,514.2 M820.1,514.9 C816.6,507.8 816.2,505.1 815.2,501.6 M116.2,429.9 C115.1,437.8 113.3,443.2 112.3,447.0 M101.9,462.9 C95.2,466.5 90.0,469.8 87.7,472.7 M68.8,474.2 C59.5,470.4 56.8,469.3 51.3,468.5 M39.6,454.1 C34.9,445.4 33.7,441.4 32.0,438.1 M32.8,420.8 C38.2,412.2 40.3,406.7 42.7,404.0 M56.6,393.1 C65.7,391.2 71.2,390.9 74.7,389.8 M93.5,394.3 C89.0,389.7 88.1,387.7 87.5,385.2 M568.0,462.0 Q585.9,480.3 549.3,491.2 M499.0,511.1 Q470.2,526.1 433.2,515.5 M372.7,502.8 Q330.9,497.0 336.8,477.2 M336.8,446.8 Q330.9,427.0 372.7,421.2 M433.2,408.5 Q470.2,397.9 499.0,412.9 M549.3,432.8 Q585.9,443.7 568.0,462.0"/>
+          </svg>
+        <div data-sid="11b-visual-prompting-A:8" class="sk-num" style="left:286px; top:40px; transform:translate(-50%,-50%) rotate(-0.66deg);">1</div>
+        <div data-sid="11b-visual-prompting-A:9" class="sk-prose" style="left:318px; top:44px; transform:translate(0,0) rotate(0.55deg);">define a function that runs the<br>whole review session</div>
+        <div data-sid="11b-visual-prompting-A:10" class="sk-num" style="left:6px; top:224px; transform:translate(-50%,-50%) rotate(0.33deg);">2</div>
+        <div data-sid="11b-visual-prompting-A:11" class="sk-prose" style="left:36px; top:220px; transform:translate(0,0) rotate(0.11deg);">define a function<br>that loads the cards<br>from a file</div>
+        <div data-sid="11b-visual-prompting-A:12" class="sk-num" style="left:336px; top:224px; transform:translate(-50%,-50%) rotate(-0.11deg);">3</div>
+        <div data-sid="11b-visual-prompting-A:13" class="sk-prose" style="left:366px; top:220px; transform:translate(0,0) rotate(-0.33deg);">define a function<br>that picks the ones<br>due today</div>
+        <div data-sid="11b-visual-prompting-A:18" class="sk-num" style="left:666px; top:224px; transform:translate(-50%,-50%) rotate(-0.55deg);">4</div>
+        <div data-sid="11b-visual-prompting-A:19" class="sk-prose" style="left:696px; top:220px; transform:translate(0,0) rotate(0.66deg);">define a function<br>that shows a card<br>and reads the answer</div>
+        <div data-sid="11b-visual-prompting-A:20" class="sk-prose sk-prose--c" style="left:820px; top:420px; transform:translate(-50%,-50%) rotate(0.44deg);">got it<br>right?</div>
+        <div data-sid="11b-visual-prompting-A:21" class="sk-note" style="left:690px; top:452px; transform:translate(-50%,-50%) rotate(0.22deg);">no &rarr; tomorrow</div>
+        <div data-sid="11b-visual-prompting-A:22" class="sk-note" style="left:700px; top:500px; transform:translate(-50%,-50%) rotate(0.00deg);">yes &rarr; in 3 days</div>
+        <div data-sid="11b-visual-prompting-A:23" class="sk-note" style="left:150px; top:500px; transform:translate(-50%,-50%) rotate(-0.22deg);">repeat while cards are due</div>
+        <div data-sid="11b-visual-prompting-A:24" class="sk-prose sk-prose--c" style="left:450px; top:462px; transform:translate(-50%,-50%) rotate(-0.44deg);">ideal: nothing<br>left due</div>
+        <div data-sid="11b-visual-prompting-A:29" class="sk-note" style="left:300px; top:545px; transform:translate(-50%,-50%) rotate(-0.66deg);">&#10035; what if two are due the same day?</div>
+        </div>
+        </div>
+
+        <!-- step 1 has no visible payload of its own — it's the click that
+             shrinks the big drawn sheet aside (the step machine drops
+             .is-intro). Declared explicitly, 23a's idiom. -->
+        <span data-sid="11b-visual-prompting-A:70" class="frag" data-step="1" style="display: none;"></span>
+
+        <p data-sid="11b-visual-prompting-A:15" class="frag panel vp-read" data-step="2" data-anim="fade">
+          <svg class="vp-robot" viewBox="0 0 100 100" aria-hidden="true">
+            <g fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fg-0);">
+              <line x1="50" y1="14" x2="50" y2="26"></line>
+              <rect x="18" y="26" width="64" height="50" rx="14"></rect>
+              <line x1="32" y1="76" x2="32" y2="88"></line>
+              <line x1="68" y1="76" x2="68" y2="88"></line>
+              <line x1="40" y1="64" x2="60" y2="64"></line>
+            </g>
+            <circle cx="50" cy="9" r="6" style="fill: var(--accent-2);"></circle>
+            <circle cx="36" cy="46" r="7" style="fill: var(--accent-2);"></circle>
+            <circle cx="64" cy="46" r="7" style="fill: var(--accent-2);"></circle>
+          </svg>
+          A multimodal (text, vision, speech) model reads the image.</p>
+
+        <!-- generation follows straight from the reading, so it sits under
+             the robot card rather than across in the testing panel -->
+        <div data-sid="11b-visual-prompting-A:60" class="vp-gen frag" data-step="3" data-anim="fade-up">
+          <p data-sid="11b-visual-prompting-A:27" class="word-label vp-label">Generate a program</p>
+          <ul data-sid="11b-visual-prompting-A:28" class="vp-fns">
+            <li data-sid="11b-visual-prompting-A:30" class="vp-fn">load_cards()</li>
+            <li data-sid="11b-visual-prompting-A:31" class="vp-fn">cards_due_today()</li>
+            <li data-sid="11b-visual-prompting-A:32" class="vp-fn">ask_card()</li>
+            <li data-sid="11b-visual-prompting-A:33" class="vp-fn">update_card()</li>
+            <li data-sid="11b-visual-prompting-A:34" class="vp-fn">save_dates()</li>
+          </ul>
+        </div>
+      </figure>
+
+      <div data-sid="11b-visual-prompting-A:25" class="vp-out" style="flex: 1; display: flex; flex-direction: column; gap: var(--s-1); min-height: 0;">
+        <!-- this is the TESTING panel — generation lives under the robot card
+             on the left. Each testing mechanism is its own click: the
+             behavioral suite runs when the panel lands (step 3), the rubric
+             judges on the next (step 4). Frags are opacity-based
+             (studio-anim.css), so the rubric's space is reserved and nothing
+             reflows on reveal. -->
+        <div data-sid="11b-visual-prompting-A:26" class="panel vp-panel frag" data-step="4" data-anim="fade-up">
+          <p data-sid="11b-visual-prompting-A:36" class="word-label vp-label">Behavioral test suite</p>
+          <ul data-sid="11b-visual-prompting-A:37" class="vp-tests">
+            <li data-sid="11b-visual-prompting-A:38" class="vp-test">a card answered right comes back later</li>
+            <li data-sid="11b-visual-prompting-A:39" class="vp-test">a card answered wrong comes back sooner</li>
+            <li data-sid="11b-visual-prompting-A:40" class="vp-test">the session ends when nothing is due</li>
+          </ul>
+          <div data-sid="11b-visual-prompting-A:35" class="vp-route frag" data-step="5" data-anim="fade-up">
+            <p data-sid="11b-visual-prompting-A:16" class="word-label vp-label">Or judge the drawing against a rubric</p>
+            <ul data-sid="11b-visual-prompting-A:17" class="vp-rubric">
+              <li data-sid="11b-visual-prompting-A:44" class="vp-rub">each responsibility gets its own box</li>
+              <li data-sid="11b-visual-prompting-A:49" class="vp-rub">the branch covers both right and wrong</li>
+              <li data-sid="11b-visual-prompting-A:50" class="vp-rub vp-rub--flag">no box says what happens when two cards are due at once &mdash; returned as feedback</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The blur step. Its job changed with the restructure: it used to say
+         "other drawings become other artifacts" (generation). It now turns the
+         slide toward assessment, because these are diagrams CS education already
+         assigns and already grades by hand. 11-decomp-diagrams follows with the
+         warrant that a model reads them reliably enough for that to work. -->
+    <div data-sid="11b-visual-prompting-A:41" class="frag vp-more" data-step="6" data-anim="fade">
+      <p data-sid="11b-visual-prompting-A:42" class="word-label vp-more__label">And these are diagrams we already assign</p>
+      <ul data-sid="11b-visual-prompting-A:43" class="vp-more__list">
+        <li data-sid="11b-visual-prompting-A:51" class="vp-more__item">
+          <!-- two entities joined by a relationship diamond -->
+          <svg data-sid="11b-visual-prompting-A:65" class="vp-more__icon" viewBox="0 0 96 48" aria-hidden="true">
+            <rect x="2" y="14" width="26" height="20" rx="3"></rect>
+            <rect x="68" y="14" width="26" height="20" rx="3"></rect>
+            <path d="M48 12 L60 24 L48 36 L36 24 Z"></path>
+            <path d="M28 24 H36 M60 24 H68"></path>
+          </svg>
+          <div data-sid="11b-visual-prompting-A:68" class="vp-more__kind">ER diagrams</div>
+          
+        </li>
+        <li data-sid="11b-visual-prompting-A:52" class="vp-more__item">
+          <!-- a class box: name compartment over attributes -->
+          <svg data-sid="11b-visual-prompting-A:66" class="vp-more__icon" viewBox="0 0 96 48" aria-hidden="true">
+            <rect x="26" y="4" width="44" height="40" rx="3"></rect>
+            <path d="M26 18 H70 M34 27 H62 M34 35 H54"></path>
+          </svg>
+          <div data-sid="11b-visual-prompting-A:61" class="vp-more__kind">UML</div>
+          
+        </li>
+        <li data-sid="11b-visual-prompting-A:53" class="vp-more__item">
+          <!-- one job splitting into two, the shape of the sheet on this slide -->
+          <svg data-sid="11b-visual-prompting-A:67" class="vp-more__icon" viewBox="0 0 96 48" aria-hidden="true">
+            <rect x="34" y="2" width="28" height="14" rx="3"></rect>
+            <rect x="6" y="32" width="28" height="14" rx="3"></rect>
+            <rect x="62" y="32" width="28" height="14" rx="3"></rect>
+            <path d="M48 16 V24 M20 24 H76 M20 24 V32 M76 24 V32"></path>
+          </svg>
+          <div data-sid="11b-visual-prompting-A:63" class="vp-more__kind">Decomposition sketches</div>
+          
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ul data-sid="11b-visual-prompting-A:45" class="corner-cite">
+    <li data-sid="11b-visual-prompting-A:47">Smith IV, D. H., Monisha, S. M. A., Vadaparty, A., Porter, L., &amp; Zingaro, D. (2026). <em>Drawing your programs: Exploring the applications of visual-prompting with GenAI for teaching and assessment</em> (arXiv:2602.10529).</li>
+  </ul>
+
+  <style>
+    /* ════ 1. the assessment deck's token set, scoped to this slide ════
+       Same names as this deck's globals, different values. Redeclaring them
+       here means every var() below resolves to assessment values and no other
+       slide is affected. */
+    #slide-11ba {
+      /* The source deck's geometry, which this layout is tuned to: its spacing
+         scale is double this deck's (--s-2 is 16px there, 8px here) and it uses
+         --t-small/--t-ref/--r-1..3, which don't exist here. Colours are NOT
+         redeclared — they fall through to tokens.css so this slide themes with
+         the rest of the deck. */
+      --s-1: 8px;  --s-2: 16px; --s-3: 24px; --s-4: 32px;
+      --s-5: 48px; --s-6: 64px; --s-7: 96px; --s-8: 128px;
+      --t-small: 36px; --t-ref: 20px;
+      --r-1: 2px; --r-2: 6px; --r-3: 12px;
+      --font-display: 'Inter', sans-serif;
+      /* the drawn sheet letters in Caveat (loaded in index.html); the old
+         nine-face fallback stack is gone — none of it existed on this machine */
+      --font-hand: 'Caveat', cursive;
+
+      /* the source pads 96/128; horizontal drops to 96 here because the
+         portrait column needs the width — the sheet itself gives the rest
+         back by rendering at --sk-scale (below) instead of full size */
+      --sk-scale: 0.78;
+      padding: var(--s-7);
+    }
+
+    /* ════ 2. base typography the source deck provides and this one doesn't ════
+       This deck styles .slide__title, not bare h2, so the heading would fall
+       back to Inter at browser-default size without these. */
+    #slide-11ba h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--t-h2);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 var(--s-4);
+      color: var(--fg-0);
+    }
+    #slide-11ba p { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+    #slide-11ba ul { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+    #slide-11ba li { margin: var(--s-2) 0; }
+    #slide-11ba .slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+
+    /* ════ 3. shared component classes, lifted from the source deck.css ════ */
+    #slide-11ba .kicker {
+      font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-1-text); margin: 0 0 var(--s-3);
+    }
+    #slide-11ba .panel {
+      box-sizing: border-box; background: var(--bg-1);
+      border-radius: var(--r-lg); padding: var(--s-4); border: 1px solid var(--border-1);
+    }
+    #slide-11ba .word-label {
+      font-family: 'JetBrains Mono', monospace; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+    #slide-11ba .cap { font-size: 28px; color: var(--fg-1); margin: 0; }
+    #slide-11ba .corner-cite {
+      position: absolute; left: var(--s-5); right: var(--s-5); bottom: var(--s-4);
+      margin: 0; padding-left: var(--s-3); font-size: var(--t-ref);
+      line-height: 1.3; color: var(--fg-1); overflow-wrap: anywhere; list-style: none;
+    }
+    #slide-11ba .corner-cite li { margin: 0; }
+
+    /* attribution, in slide 23c's .pp-who idiom — the portrait IS the first
+       column of the body, as Fariha's is on 23c, so the slide reads "her
+       work" structurally rather than via a corner chip. 300px (vs 23c's 320)
+       because the sheet + routes panel still have to share the row.
+       NOTE: the gaps below resolve against this slide's SCOPED tokens
+       (--s-2 = 16px here, not the deck's 8px). */
+    #slide-11ba .vp-credit {
+      flex: 0 0 300px;
+      align-self: flex-start;
+      margin: 0;
+      display: flex; flex-direction: column; gap: var(--s-2);
+    }
+    #slide-11ba .vp-credit__photo {
+      display: block;
+      width: 300px; height: 300px; object-fit: cover;
+      border-radius: var(--r-lg); border: 1px solid var(--border-2);
+    }
+    #slide-11ba .vp-credit__cap { display: flex; flex-direction: column; gap: var(--s-1); }
+    #slide-11ba .vp-credit__role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--t-caption);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+    }
+    #slide-11ba .vp-credit__name {
+      font-size: var(--t-h4); font-weight: 700; line-height: 1.15;
+      color: var(--fg-0);
+    }
+
+
+    /* ══ the drawn sheet ══════════════════════════════════════════════════
+       Graphite on mottled paper, not coloured ink on flat cream. Geometry is
+       generated by tools/sketchgen.py using Rough.js's line algorithm: every
+       stroke is a bowed cubic bezier drawn twice, and box corners overshoot so
+       the outline never closes. See decomp-004.png for the real thing. */
+    /* The sheet's geometry (SVG paths + absolutely-positioned handwriting) is
+       generated at 980x560 and can't reflow, so the whole thing scales as one
+       unit: .sk-wrap reserves the scaled footprint in the layout, and the
+       sheet inside it keeps its native coordinates under a scale() transform. */
+    #slide-11ba .sk-wrap {
+      width: calc(980px * var(--sk-scale));
+      height: calc(560px * var(--sk-scale));
+    }
+    #slide-11ba .sk-sheet {
+      position: relative;
+      width: 980px; height: 560px;
+      box-sizing: border-box;
+      background: #f4f1ea;
+      border-radius: 3px;
+      box-shadow: 0 2px 0 rgba(255,255,255,.5) inset;
+      transform: scale(var(--sk-scale)) rotate(-0.45deg);
+      transform-origin: top left;
+      overflow: hidden;
+    }
+    /* paper grain — a faint noise wash, so the sheet isn't a flat rectangle */
+    #slide-11ba .sk-sheet::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'>\
+<filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/>\
+</filter><rect width='180' height='180' filter='url(%23g)' opacity='0.5'/></svg>");
+      opacity: .16; mix-blend-mode: multiply;
+    }
+    #slide-11ba .sk-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* ══ the entry flourish ═══════════════════════════════════════════════
+       On landing (step 0) the sheet fills the whole area right of the
+       portrait — 980x560 at 1.32 ≈ 1294x739, inside the ~1380x790 the body
+       offers — draws itself (13c's dashoffset trick, but every stroke in
+       PARALLEL so the sketch scribbles in fast, ~1s) and HOLDS there. The
+       shrink to the resting --sk-scale spot is click 1's whole payload: the
+       step machine drops .is-intro and the sheet's transform transition
+       carries it down. Cold deep-links to step>=1 never get .is-intro, and
+       display:none resets mean no transition fires on cold entry — they
+       land straight on the final state.
+       All strokes carry pathLength="1", so the dash math needs no JS
+       measuring; dasharray is "1 2" from offset 1.02 (not 1) or the round
+       linecap prints a dot at the pen-down point before the draw starts.
+       Right-side overlap during the big beat is fine: everything there is a
+       pending frag at step 0, opacity 0. */
+    #slide-11ba { --sk-scale-big: 1.32; }
+    #slide-11ba .sk-sheet { transition: transform 0.7s var(--ease); }
+    #slide-11ba.is-intro .sk-sheet {
+      transform: scale(var(--sk-scale-big)) rotate(-0.45deg);
+    }
+    #slide-11ba.is-intro .ink {
+      stroke-dasharray: 1 2;
+      stroke-dashoffset: 1.02;
+      animation: vp11ba-intro-draw 0.95s linear forwards;
+    }
+    #slide-11ba.is-intro .ink--over { animation-delay: 0.12s; }
+    @keyframes vp11ba-intro-draw { to { stroke-dashoffset: 0; } }
+    #slide-11ba.is-intro .sk-prose,
+    #slide-11ba.is-intro .sk-note,
+    #slide-11ba.is-intro .sk-num {
+      animation: vp11ba-intro-hand 0.5s ease-out 0.55s backwards;
+    }
+    @keyframes vp11ba-intro-hand { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11ba .sk-sheet { transition: none; }
+      #slide-11ba.is-intro .sk-prose,
+      #slide-11ba.is-intro .sk-note,
+      #slide-11ba.is-intro .sk-num { animation: none !important; }
+      /* with the draw animation gone the intro dash rules would leave the
+         ink at offset 1.02 = invisible — land it drawn instead */
+      #slide-11ba.is-intro .ink { animation: none !important; stroke-dashoffset: 0; }
+    }
+
+    #slide-11ba .ink { fill: none; stroke: #3f3f3f; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-11ba .ink--main { stroke-width: 2.2; opacity: .92; }
+    #slide-11ba .ink--over { stroke-width: 1.5; opacity: .5; }   /* the retrace pass */
+
+    /* the scan lights each function box in turn, as it used to light .vp-box */
+    #slide-11ba .sk-boxink .ink { transition: stroke .3s ease, opacity .3s ease; }
+    #slide-11ba .sk-boxink.is-lit .ink--main { stroke: var(--accent-1); stroke-width: 2.8; opacity: 1; }
+    #slide-11ba .sk-boxink.is-lit .ink--over { stroke: var(--accent-1); opacity: .55; }
+
+    /* ── handwriting ──────────────────────────────────────────────────────
+       Caveat. The old --font-hand stack listed nine faces this machine does
+       not have and fell through to Z003, a formal chancery script, which is
+       most of why the previous sketch read wrong. */
+    #slide-11ba .sk-prose, #slide-11ba .sk-note, #slide-11ba .sk-caps, #slide-11ba .sk-num {
+      position: absolute;
+      font-family: 'Caveat', cursive;
+      color: #33312e;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    #slide-11ba .sk-prose {
+      font-size: 30px; font-weight: 500; line-height: 1.22;
+      white-space: normal; max-width: 350px;
+      transition: color .3s ease, background .3s ease;
+    }
+    #slide-11ba .sk-prose--c { text-align: center; max-width: 210px; }
+    #slide-11ba .sk-prose.is-lit {
+      color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 15%, transparent);
+    }
+    #slide-11ba .sk-note { font-size: 26px; font-weight: 500; color: #4a4844; }
+    #slide-11ba .sk-caps {
+      font-size: 30px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    }
+    #slide-11ba .sk-num { font-size: 25px; font-weight: 700; }
+
+    /* the scan is chrome, not content */
+    @keyframes vp11ba-scan { from { transform: translateY(-70px); } to { transform: translateY(560px); } }
+    #slide-11ba .sk-sheet::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 70px;
+      opacity: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom,
+        transparent,
+        color-mix(in srgb, var(--accent-1) 26%, transparent),
+        transparent);
+      border-bottom: 3px solid var(--accent-1);
+    }
+    #slide-11ba.is-scanning .sk-sheet::after { opacity: 1; animation: vp11ba-scan 2.4s cubic-bezier(.42, 0, .3, 1) forwards; }
+
+    #slide-11ba .vp-read {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-2) var(--s-3);
+      /* t-body, not the source's t-small (36px) — the generate-a-program
+         section now stacks under this card and the column has to clear the
+         stage bottom */
+      font-size: var(--t-body);
+      line-height: 1.25;
+      margin: 0;
+    }
+    #slide-11ba .vp-robot { display: block; flex: none; width: 64px; height: 64px; }
+    @keyframes vp11ba-hop {
+      0%   { transform: translateY(0); }
+      22%  { transform: translateY(-14px); }
+      46%  { transform: translateY(0); }
+      66%  { transform: translateY(-7px); }
+      84%  { transform: translateY(0); }
+      93%  { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+    #slide-11ba.is-scanning .vp-robot { animation: vp11ba-hop 1.15s cubic-bezier(.28, .84, .42, 1); }
+
+    /* one notch smaller than the old 1.2 — the testing panel lost ~70px of
+       width to the portrait column, and each behavioral test has to stay on
+       a single line */
+    #slide-11ba { --vp-row-size: calc(var(--t-caption) * 1.1); }
+    #slide-11ba .vp-panel { padding: var(--s-2) var(--s-3); }
+    /* the two routes share one panel — a rule, not a second border, divides them */
+    #slide-11ba .vp-route {
+      margin-top: var(--s-3);
+      padding-top: var(--s-3);
+      border-top: 1px solid var(--border-1);
+    }
+    #slide-11ba .vp-label { font-size: var(--t-caption); color: var(--fg-1); margin: 0 0 var(--s-1); }
+    #slide-11ba .vp-gen { margin: 0; }
+    #slide-11ba .vp-fns {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-1) var(--s-2);
+    }
+    /* bg-1, not bg-0: these pills sit on the slide ground under the robot
+       card, where the panel pills (tests/rubric) sit on a bg-1 panel */
+    #slide-11ba .vp-fn {
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-1);
+      border-left: 6px solid var(--accent-1);
+      border-radius: var(--r-2);
+      font-family: ui-monospace, monospace;
+      font-size: var(--vp-row-size);
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    #slide-11ba .vp-fn.is-on { opacity: 1; transform: none; }
+
+    #slide-11ba .vp-tests,
+    #slide-11ba .vp-rubric {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+      min-height: 0;
+    }
+    #slide-11ba .vp-test,
+    #slide-11ba .vp-rub {
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-0);
+      border-left: 6px solid var(--fg-1);
+      border-radius: var(--r-2);
+      font-size: var(--vp-row-size);
+      line-height: 1.3;
+      transition: border-color .24s ease, background .24s ease;
+    }
+    #slide-11ba .vp-test::before,
+    #slide-11ba .vp-rub::before { content: "· "; color: var(--fg-1); }
+    #slide-11ba .vp-test.is-passed,
+    #slide-11ba .vp-rub.is-marked {
+      border-left-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0));
+    }
+    #slide-11ba .vp-test.is-passed::before,
+    #slide-11ba .vp-rub.is-marked::before { content: "✓ "; color: var(--accent-1); }
+    #slide-11ba .vp-rub--flag.is-marked {
+      border-left-color: var(--accent-3);
+      background: color-mix(in srgb, var(--accent-3) 10%, var(--bg-0));
+    }
+    #slide-11ba .vp-rub--flag.is-marked::before { content: "! "; color: var(--accent-3); }
+
+    /* click 4 — the demo blurs back and the takeaway lands centered on top */
+    #slide-11ba .vp-row,
+    #slide-11ba > .kicker,
+    #slide-11ba > h2,
+    #slide-11ba .vp-credit,
+    #slide-11ba .corner-cite { transition: filter .52s ease, opacity .52s ease; }
+    #slide-11ba.is-outro .vp-row,
+    #slide-11ba.is-outro > .kicker,
+    #slide-11ba.is-outro > h2,
+    #slide-11ba.is-outro .vp-credit,
+    #slide-11ba.is-outro .corner-cite {
+      filter: blur(26px);
+      opacity: .16;
+    }
+    #slide-11ba .vp-more {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-4);
+      text-align: center;
+      pointer-events: none;
+      transition: opacity .52s ease .2s;
+    }
+    #slide-11ba .vp-more.is-current,
+    #slide-11ba .vp-more.is-past { pointer-events: auto; }
+    #slide-11ba .vp-more__label {
+      font-size: var(--t-h3);
+      color: var(--accent-1);
+      margin: 0;
+      white-space: nowrap;
+    }
+    /* the spoken point is the header; the types are just the list under it */
+    #slide-11ba .vp-more__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: var(--s-4);
+    }
+    /* one pill per diagram kind: the name, and one example under it */
+    #slide-11ba .vp-more__item {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--s-1);
+      padding: var(--s-3) var(--s-5);
+      background: var(--bg-2);
+      border: 1px solid var(--border-1);
+      /* --r-pill would bow the sides into the text now that the pill is three
+         rows tall; --r-lg keeps the same soft edge without the crowding */
+      border-radius: var(--r-lg);
+    }
+    #slide-11ba .vp-more__icon {
+      display: block;
+      width: 96px; height: 48px;
+      fill: none;
+      stroke: var(--accent-1);
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    #slide-11ba .vp-more__kind {
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--accent-1);
+    }
+    #slide-11ba .vp-more__eg {
+      font-size: var(--t-body);
+      line-height: 1.2;
+      color: var(--fg-2);
+    }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID = 'slide-11ba';
+
+    let timers = [];
+    let stepCache = -1;
+    const clearAll = () => { timers.forEach(clearTimeout); timers = []; };
+    const t = (fn, ms) => timers.push(setTimeout(fn, ms));
+
+    // Every beat runs in one of three modes: 'off', 'animate' (we just arrived
+    // on its step), or 'on' (we're past it, or deep-linked in cold — land on
+    // the finished state without replaying). The deck is random-access, so
+    // every step has to be reachable cold as well as in sequence.
+    function litBoxes(scope, mode) {
+      const divs = [...scope.querySelectorAll('.sk-prose:not(.sk-prose--c)')];
+      const inks = [...scope.querySelectorAll('.sk-boxink')];
+      divs.forEach(d => d.classList.remove('is-lit'));
+      inks.forEach(k => k.classList.remove('is-lit'));
+      if (mode === 'off') return;
+      const on = i => {
+        if (divs[i]) divs[i].classList.add('is-lit');
+        if (inks[i]) inks[i].classList.add('is-lit');
+      };
+      if (mode === 'on') { divs.forEach((_, i) => on(i)); return; }
+      // trails the scan beam down the sheet. The beam runs 2.4s on
+      // cubic-bezier(.42,0,.3,1) from y=-70: it crosses box 0 (~y75) at
+      // ~660ms and boxes 1-3 (~y270) at ~1000ms. Box 0 was 450 — it lit
+      // BEFORE the beam arrived (visibly so when the click lands during the
+      // shrink beat); 800 puts it ~140ms behind the beam like the others.
+      const when = [800, 1250, 1400, 1550];
+      divs.forEach((_, i) => t(() => on(i), when[i] || 1550));
+    }
+
+    // the two testing mechanisms are separate beats: the functions land with
+    // the panel (genFns, step 2), the behavioral suite runs on its own click
+    // (runTests, step 3), and the rubric judges on the next (route2, step 4)
+    function genFns(scope, mode) {
+      const fns = [...scope.querySelectorAll('.vp-fn')];
+      fns.forEach(f => f.classList.remove('is-on'));
+      if (mode === 'off') return;
+      if (mode === 'on') { fns.forEach(f => f.classList.add('is-on')); return; }
+      fns.forEach((f, i) => t(() => f.classList.add('is-on'), 200 + i * 180));
+    }
+
+    function runTests(scope, mode) {
+      const tests = [...scope.querySelectorAll('.vp-test')];
+      tests.forEach(r => r.classList.remove('is-passed'));
+      if (mode === 'off') return;
+      if (mode === 'on') { tests.forEach(r => r.classList.add('is-passed')); return; }
+      tests.forEach((r, i) => t(() => r.classList.add('is-passed'), 250 + i * 300));
+    }
+
+    function route2(scope, mode) {
+      const rows = [...scope.querySelectorAll('.vp-rub')];
+      rows.forEach(r => r.classList.remove('is-marked'));
+      if (mode === 'off') return;
+      if (mode === 'on') { rows.forEach(r => r.classList.add('is-marked')); return; }
+      rows.forEach((r, i) => t(() => r.classList.add('is-marked'), 250 + i * 350));
+    }
+
+    function sync() {
+      const scope = document.getElementById(SLIDE_ID);
+      if (!scope) return;
+      if (!scope.classList.contains('is-active')) {
+        clearAll();
+        stepCache = -1;
+        scope.classList.remove('is-scanning', 'is-outro', 'is-intro');
+        litBoxes(scope, 'off'); genFns(scope, 'off'); runTests(scope, 'off'); route2(scope, 'off');
+        return;
+      }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      // the entry flourish (draw big, then shrink) exists only while sitting
+      // on step 0; any other step — including cold deep-links — is final-state
+      scope.classList.toggle('is-intro', step < 1);
+      scope.classList.toggle('is-scanning', step === 2);
+      scope.classList.toggle('is-outro', step >= 6);
+      if (step === stepCache) return;
+      clearAll();
+      stepCache = step;
+      litBoxes(scope, step < 2 ? 'off' : (step === 2 ? 'animate' : 'on'));
+      genFns(scope, step < 3 ? 'off' : (step === 3 ? 'animate' : 'on'));
+      runTests(scope, step < 4 ? 'off' : (step === 4 ? 'animate' : 'on'));
+      route2(scope, step < 5 ? 'off' : (step === 5 ? 'animate' : 'on'));
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <aside data-sid="11b-visual-prompting-A:46" class="notes">
+[~60s · 6 clicks]
+(On landing the sketch draws itself full-size and HOLDS there — talk over the big drawing.)
+Multimodal models let us ask students to produce visual artifacts and assess those artifacts directly. Here's the kind of artifact we mean — a student's drawn decomposition of a word-guessing game.
+(1) The sheet shrinks aside to make room for what the model does with it.
+(2) A multimodal model reads the photograph as-is — no transcription step, no context about the assignment.
+(3) Route one starts: the model generates a runnable program from the drawing — the functions the student drew become the functions of the program.
+(4) Then that program runs against a behavioral test suite. The drawing is graded by whether the design it describes actually works.
+(5) Route two: no program at all — the model judges the drawing itself against a rubric, and what the rubric catches goes back to the student as written feedback.
+(6) The demo blurs back. Nothing here is specific to decomposition diagrams — ER diagrams, UML, design sketches. And note what that opens up: these are artifacts we already assign and already grade by hand. If the model reads them well enough to build from, it reads them well enough to give feedback on.
+
+SAY THE NUMBER HERE — the evidence slide that used to follow was dropped as a duplicate, so this is the only place it lands:
+"We took ad-hoc decomposition diagrams from 133 CS1 students doing Evil Hangman, fed them straight to GPT-4.1, and checked by hand whether the functions the student drew showed up in the generated code. Four out of five did — 81%."
+Frame it honestly: that is FUNCTION-EXTRACTION accuracy, not grading accuracy. It's the precondition — the model reads a messy student drawing reliably enough to act on it. Grading and feedback are what that makes possible, and that's the work in flight. Formative, no control condition, one problem; say so before someone asks.
+[Smith IV, Monisha, Vadaparty, Porter & Zingaro (2026), arXiv:2602.10529 — already cited in the corner of this slide.]
+(If asked about the pilot: 133 intro Python students, 50 minutes, one sheet of paper — 81.2% of diagrams had their function structure fully extracted, r = .776 between functions drawn and functions generated.)
+  </aside>
+  <div data-sid="11b-visual-prompting-A:48" class="slide__number"></div>
+</section>

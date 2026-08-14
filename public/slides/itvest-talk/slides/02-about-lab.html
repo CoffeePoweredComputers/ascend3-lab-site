@@ -1,0 +1,139 @@
+<!-- Borrowed from pres_translanguaging_everywhere, which ships DARK. This deck
+     ships light, and the slide was authored against the older type scale, so
+     three things had to change and nothing else did:
+
+     TYPE. It ran at 12 / 14 / 18 / 19 / 23px against this deck's 22px floor
+     (plan-18min.md:212) — the same retune 06g-purplex needed. Every size is a
+     token now, and the layout was rebuilt to afford them: the acronym used to
+     be a 9-line column stealing half the width, which forced the areas into a
+     narrow stack and everything down to caption size. It is one line beside
+     the wordmark now, so the three areas run full-width at title/body size and
+     the team faces get room.
+
+     LOGO. The borrowed asset, ascend-logo-dark.svg, renders its wordmark white
+     — all but invisible on this deck's white ground. ascend-logo.svg, pulled
+     from ascend3.cs.vt.edu/assets, is the same artwork rendering dark. Both
+     ship and the wrapper carries one per theme; see the style block for why
+     swapping beats plating or filtering, and for the feColorMatrix trap.
+
+     NO TITLE, by design: the wordmark is the heading, and .slide__eyebrow is
+     hidden deck-wide. Same shape as 06g-purplex. -->
+<section data-sid="02-about-lab:1" class="slide" id="slide-02">
+  <div data-sid="02-about-lab:2" class="slide__eyebrow">Who · what · where</div>
+
+  <div data-sid="02-about-lab:3" class="slide__body" style="display:flex; flex-direction:column; gap:var(--s-5);">
+
+    <!-- Logo lockup — wordmark plus the expansion on one line, so the acronym
+         costs a band of height instead of a whole column. One asset per theme,
+         CSS picks; see the style block. -->
+    <div data-sid="02-about-lab:4" class="lab-logo">
+      <img data-sid="02-about-lab:5" class="lab-logo__light" src="data/materials/figures/ascend-logo.svg" alt="ASCEND lab logo" style="height:104px; width:auto;">
+      <img data-sid="02-about-lab:65" class="lab-logo__dark" src="data/materials/figures/ascend-logo-dark.svg" alt="" aria-hidden="true" style="height:104px; width:auto;">
+      <p data-sid="02-about-lab:10" class="acro"><span class="cap">A</span>dvancing <span class="cap">S</span>upport in <span class="cap">C</span>omputing <span class="cap">E</span>ducation for <span class="cap">N</span>ovice <span class="cap">D</span>evelopers · <span class="cap cap--2">D</span>ata Scientists · <span class="cap cap--3">D</span>esigners</p>
+    </div>
+
+    <!-- The three disciplines, across the full width — reveal at step 1 -->
+    <div data-sid="02-about-lab:19" class="frag" data-step="1" style="display:flex; flex-direction:column; gap:var(--s-3); flex:1; min-height:0;">
+      <div data-sid="02-about-lab:20" class="lab-label">Areas of expertise</div>
+      <div data-sid="02-about-lab:21" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--s-4); flex:1;">
+        <div data-sid="02-about-lab:22" class="tile lab-area" style="border-left:4px solid var(--accent-1);">
+          <div data-sid="02-about-lab:23" class="tile__title">Learning Sciences, Cognitive Science &amp; Educational Psychology</div>
+          <div data-sid="02-about-lab:24" class="tile__body">How learning happens and rigorous psychometrics to measure it.</div>
+        </div>
+        <div data-sid="02-about-lab:25" class="tile lab-area" style="border-left:4px solid var(--accent-2);">
+          <div data-sid="02-about-lab:26" class="tile__title">Computing Education Research</div>
+          <div data-sid="02-about-lab:27" class="tile__body">The domain where we ground the work — and where our questions come from.</div>
+        </div>
+        <div data-sid="02-about-lab:28" class="tile lab-area" style="border-left:4px solid var(--syntax-teal);">
+          <div data-sid="02-about-lab:29" class="tile__title">Human–Computer Interaction</div>
+          <div data-sid="02-about-lab:30" class="tile__body">How novices interact with computing systems, and tools to help them succeed.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student face badges — reveal at step 2 -->
+    <div data-sid="02-about-lab:31" class="frag" data-step="2" style="display:flex; flex-direction:column; gap:var(--s-3);">
+      <div data-sid="02-about-lab:32" class="lab-label">The team you'll hear about today</div>
+      <div data-sid="02-about-lab:33" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:var(--s-3);">
+        <div data-sid="02-about-lab:34" class="lab-badge"><img data-sid="02-about-lab:35" src="data/materials/figures/people/monisha.jpg" alt="Moonwara"><div data-sid="02-about-lab:37" class="lab-badge__name">Moonwara</div></div>
+        <div data-sid="02-about-lab:39" class="lab-badge"><img data-sid="02-about-lab:40" src="data/materials/figures/people/fariha.jpg" alt="Fariha"><div data-sid="02-about-lab:42" class="lab-badge__name">Fariha</div></div>
+        <div data-sid="02-about-lab:44" class="lab-badge"><img data-sid="02-about-lab:45" src="data/materials/figures/people/minsun.jpg" alt="Minsun"><div data-sid="02-about-lab:47" class="lab-badge__name">Minsun</div></div>
+        <div data-sid="02-about-lab:49" class="lab-badge"><img data-sid="02-about-lab:50" src="data/materials/figures/people/hudson.jpg" alt="Hudson"><div data-sid="02-about-lab:52" class="lab-badge__name">Hudson</div></div>
+        <div data-sid="02-about-lab:54" class="lab-badge"><img data-sid="02-about-lab:55" src="data/materials/figures/people/ben.jpg" alt="Ben"><div data-sid="02-about-lab:57" class="lab-badge__name">Ben</div></div>
+        <div data-sid="02-about-lab:59" class="lab-badge"><img data-sid="02-about-lab:60" src="data/materials/figures/people/vanshika.jpg" alt="Vanshika"><div data-sid="02-about-lab:62" class="lab-badge__name">Vanshika</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <style>
+    /* Two inks of the same artwork, one per theme. Do NOT read the fill values
+       in either file to work out which is which — both run the wordmark through
+       an inverting feColorMatrix, so the source colors are the opposite of what
+       lands. Rendered: ascend-logo.svg comes out dark (white ground only),
+       ascend-logo-dark.svg comes out white (dark ground only); each is nearly
+       invisible on the other. Swapping the asset rather than plating or
+       filtering one keeps the shield's green/red/blue marks as drawn.
+       Dark is the default so a failed .theme-light class can't blank the logo. */
+    #slide-02 .lab-logo { display: flex; align-items: center; gap: var(--s-5); }
+    #slide-02 .lab-logo__light { display: none; }
+    :root.theme-light #slide-02 .lab-logo__dark  { display: none; }
+    :root.theme-light #slide-02 .lab-logo__light { display: block; }
+
+    /* The two mini section headers */
+    #slide-02 .lab-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--t-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-2);
+    }
+
+    /* Acronym expansion — one line beside the wordmark. The cap letter is the
+       accent (three inks for the three D audiences), the rest is body copy. */
+    #slide-02 .acro {
+      font-size: var(--t-h4);
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--fg-1);
+      letter-spacing: 0.01em;
+    }
+    #slide-02 .acro .cap {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--accent-1-text);
+    }
+    #slide-02 .acro .cap--2 { color: var(--accent-2-text); }
+    #slide-02 .acro .cap--3 { color: var(--syntax-teal); }
+
+    /* Areas tiles: three across, equal height, copy at deck body size */
+    #slide-02 .lab-area {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #slide-02 .lab-area .tile__title { font-size: var(--t-h4); margin-bottom: var(--s-3); }
+    #slide-02 .lab-area .tile__body  { font-size: var(--t-body); }
+
+    #slide-02 .lab-badge {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: var(--s-2);
+      padding: var(--s-2) var(--s-2);
+      background: var(--bg-2);
+      border: 1px solid var(--border-1);
+      border-radius: var(--r-md);
+    }
+    #slide-02 .lab-badge img {
+      width: 148px; height: 148px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--border-2);
+    }
+    #slide-02 .lab-badge__name {
+      font-size: var(--t-body); font-weight: 700; color: var(--fg-0); line-height: 1.15;
+    }
+  </style>
+
+  <div data-sid="02-about-lab:64" class="slide__number"></div>
+</section>

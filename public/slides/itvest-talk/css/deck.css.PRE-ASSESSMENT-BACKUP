@@ -1,0 +1,178 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+a { color: var(--accent-1-text); text-decoration: none; }
+
+/* Stage: scales the 1920x1080 deck to viewport.
+   JS computes an explicit translate(px) + scale() so we don't rely on flex
+   centering of a child that may be larger than its parent. */
+.stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--bg-0);
+}
+
+.deck {
+  position: absolute;
+  top: 0; left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  background: var(--bg-1);
+  overflow: hidden;
+}
+
+/* Slides — bottom padding reserves room for .slide__footnotes + .slide__number */
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 72px 96px 140px;
+  display: none;
+  flex-direction: column;
+  background: var(--bg-1);
+}
+
+.slide.is-active { display: flex; }
+
+/* Room-legible scale: eyebrow/footnote/number sizes match the ITiCSE cut of this
+   same theme (pres_purplex_iticse), which was retuned upward for a live room.
+   14px slide numbers and 18px eyebrows read as noise past the third row. */
+.slide__eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-1-text);
+  margin-bottom: var(--s-4);
+}
+
+.slide__title {
+  color: var(--fg-0);
+  font-size: var(--t-h2);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: var(--s-5);
+}
+
+.slide__title--big {
+  font-size: var(--t-h1);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.slide__body { flex: 1; min-height: 0; }
+
+.slide__footnotes {
+  position: absolute;
+  bottom: 32px;
+  left: 96px;
+  right: 96px;
+  border-top: 1px solid var(--border-1);
+  padding-top: 16px;
+  font-size: 20px;
+  color: var(--fg-2);
+  line-height: 1.55;
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.slide__footnotes li { padding-left: 28px; text-indent: -28px; max-width: 480px; }
+.slide__footnotes .num {
+  color: var(--accent-1-text); font-weight: 700;
+  font-family: 'JetBrains Mono', monospace; margin-right: 8px;
+}
+
+.slide__number {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  color: var(--fg-2);
+}
+
+/* Speaker notes live inside the slide markup but never render. Borrowed slides
+   carry <aside class="notes"> with time budgets; without this they paint. */
+aside.notes { display: none; }
+
+/* Gradient text utility — uses lighter -text variants so headings clear AAA
+   large at the dimmest point of the gradient. */
+.gradient-text {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Fragment states — the heart of the step-through system */
+.frag {
+  transition:
+    opacity var(--t-med) var(--ease),
+    transform var(--t-med) var(--ease),
+    border-color var(--t-med) var(--ease),
+    box-shadow var(--t-med) var(--ease),
+    background var(--t-med) var(--ease),
+    color var(--t-med) var(--ease);
+}
+.frag.is-pending { opacity: 0.22; }
+.frag.is-current { /* component-specific styles applied here */ }
+.frag.is-past { opacity: 1; }
+
+/* Multilingual font helpers */
+.g-bn { font-family: 'Noto Sans Bengali', sans-serif; }
+.g-hi { font-family: 'Noto Sans Devanagari', sans-serif; }
+.g-ko { font-family: 'Noto Sans KR', sans-serif; }
+
+/* Letterbox background */
+body::before {
+  content: ""; position: fixed; inset: 0; background: var(--bg-0); z-index: -1;
+}
+
+/* Print: each slide is one page at fragment-final state */
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  html, body, .stage { overflow: visible; height: auto; width: auto; }
+  .stage { display: block; position: static; }
+  .deck { transform: none !important; width: 1920px; height: auto; }
+  .slide { display: flex !important; page-break-after: always; position: relative; height: 1080px; }
+  .frag { opacity: 1 !important; }
+  .frag.is-pending { opacity: 1 !important; }
+}
+
+/* ---- theme toggle button (js/theme.js) ---- */
+#theme-toggle {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 40;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  color: var(--fg-2);
+  border: 1px solid var(--border-1);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.35;
+  transition: opacity var(--t-fast) ease;
+}
+#theme-toggle:hover { opacity: 1; }
+/* presenting fullscreen: keep the frame clean — the `t` key still works */
+:fullscreen #theme-toggle { display: none; }
+@media print { #theme-toggle { display: none; } }

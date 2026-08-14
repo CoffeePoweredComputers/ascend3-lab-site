@@ -1,0 +1,132 @@
+<section data-sid="13-platform-synthesis:1" class="slide" id="slide-13">
+  <div data-sid="13-platform-synthesis:2" class="slide__eyebrow">Purplex · everything at once</div>
+  <h2 data-sid="13-platform-synthesis:3" class="slide__title">The set of activities provides <span class="gradient-text">good skills coverage</span></h2>
+
+  <!-- Skill icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="ic-comprehension-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 4C5 4 5 8 5 12s0 8 3 8M16 4c3 0 3 4 3 8s0 8-3 8"/>
+      </symbol>
+      <symbol id="ic-spec-write-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h7M9 8h3"/>
+      </symbol>
+      <symbol id="ic-spec-interp-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/>
+      </symbol>
+      <symbol id="ic-spec-debug-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="13" rx="5" ry="6"/><path d="M12 7V4M9 5l-2-2M15 5l2-2M3 13h4M17 13h4M5 18l3-2M19 18l-3-2"/>
+      </symbol>
+      <symbol id="ic-result-interp-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>
+      </symbol>
+      <symbol id="ic-decomp-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+        <path d="M12 7v5M12 12L5 17M12 12L19 17M12 12v5"/>
+      </symbol>
+      <symbol id="ic-testing-13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 12l4 4 6-8"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div data-sid="13-platform-synthesis:4" class="slide__body" style="display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:24px;">
+    <div data-sid="13-platform-synthesis:5" class="bipartite" style="max-width:1820px; width:100%; min-height:760px;">
+
+      <div data-sid="13-platform-synthesis:6" class="bipartite__col bipartite__col--acts">
+        <div data-sid="13-platform-synthesis:7" class="bipartite__col-head">Activities</div>
+        <div data-sid="13-platform-synthesis:8" class="tile" data-id="eipl"   data-act="eipl"><span class="tile__label">eipl</span><div data-sid="13-platform-synthesis:9" class="tile__title">Explain in Plain Language</div></div>
+        <div data-sid="13-platform-synthesis:10" class="tile" data-id="prompt" data-act="prompt"><span class="tile__label">prompt</span><div data-sid="13-platform-synthesis:11" class="tile__title">Prompt Problems</div></div>
+        <div data-sid="13-platform-synthesis:12" class="tile" data-id="probe"  data-act="probe"><span class="tile__label">probe</span><div data-sid="13-platform-synthesis:13" class="tile__title">Probeable</div></div>
+        <div data-sid="13-platform-synthesis:14" class="tile" data-id="refute" data-act="refute"><span class="tile__label">refute</span><div data-sid="13-platform-synthesis:15" class="tile__title">Refute</div></div>
+        <div data-sid="13-platform-synthesis:16" class="tile" data-id="decomp" data-act="decomp"><span class="tile__label">new</span><div data-sid="13-platform-synthesis:17" class="tile__title">Decomp Diagrams</div></div>
+      </div>
+
+      <div data-sid="13-platform-synthesis:18" class="bipartite__mid">
+        <svg class="bipartite__svg" preserveAspectRatio="none" data-arrow-mode="sticky">
+          <!-- Static is-active; no data-step so applyArrowSteps leaves the class alone.
+               Geometry still recomputes on stepchange/resize via layoutArrows. -->
+          <path class="arrow-path is-active" data-from="eipl"   data-to="sk-codecomp"></path>
+          <path class="arrow-path is-active" data-from="eipl"   data-to="sk-specwrite"></path>
+          <path class="arrow-path is-active" data-from="prompt" data-to="sk-specwrite"></path>
+          <path class="arrow-path is-active" data-from="prompt" data-to="sk-decomp"></path>
+          <path class="arrow-path is-active" data-from="prompt" data-to="sk-resultinterp"></path>
+          <path class="arrow-path is-active" data-from="probe"  data-to="sk-resultinterp"></path>
+          <path class="arrow-path is-active" data-from="probe"  data-to="sk-specinterp"></path>
+          <path class="arrow-path is-active" data-from="probe"  data-to="sk-testing"></path>
+          <path class="arrow-path is-active" data-from="refute" data-to="sk-specinterp"></path>
+          <path class="arrow-path is-active" data-from="refute" data-to="sk-resultinterp"></path>
+          <path class="arrow-path is-active" data-from="refute" data-to="sk-specdebug"></path>
+          <path class="arrow-path is-active" data-from="refute" data-to="sk-testing"></path>
+          <path class="arrow-path is-active" data-from="decomp" data-to="sk-decomp"></path>
+          <path class="arrow-path is-active" data-from="decomp" data-to="sk-specwrite"></path>
+          <path class="arrow-path is-active" data-from="decomp" data-to="sk-resultinterp"></path>
+        </svg>
+      </div>
+
+      <div data-sid="13-platform-synthesis:19" class="bipartite__col bipartite__col--skills">
+        <div data-sid="13-platform-synthesis:20" class="bipartite__col-head">Skills</div>
+        <div data-sid="13-platform-synthesis:21" class="skills-grid">
+          <div data-sid="13-platform-synthesis:22" class="skill-tile" data-id="sk-codecomp"><svg class="skill-tile__icon"><use href="#ic-comprehension-13"/></svg><div data-sid="13-platform-synthesis:23" class="skill-tile__title">Code comprehension</div><span class="skill-tile__led"></span></div>
+          <div data-sid="13-platform-synthesis:24" class="skill-tile" data-id="sk-specwrite"><svg class="skill-tile__icon"><use href="#ic-spec-write-13"/></svg><div data-sid="13-platform-synthesis:25" class="skill-tile__title">Spec writing</div><span class="skill-tile__led"></span></div>
+          <div data-sid="13-platform-synthesis:26" class="skill-tile" data-id="sk-specinterp"><svg class="skill-tile__icon"><use href="#ic-spec-interp-13"/></svg><div data-sid="13-platform-synthesis:27" class="skill-tile__title">Spec interpretation</div><span class="skill-tile__led"></span></div>
+          <div data-sid="13-platform-synthesis:28" class="skill-tile" data-id="sk-specdebug"><svg class="skill-tile__icon"><use href="#ic-spec-debug-13"/></svg><div data-sid="13-platform-synthesis:29" class="skill-tile__title">Spec debugging</div><span class="skill-tile__led"></span></div>
+          <div data-sid="13-platform-synthesis:30" class="skill-tile" data-id="sk-resultinterp"><svg class="skill-tile__icon"><use href="#ic-result-interp-13"/></svg><div data-sid="13-platform-synthesis:31" class="skill-tile__title">Result interpretation</div><span class="skill-tile__led"></span></div>
+          <div data-sid="13-platform-synthesis:32" class="skill-tile" data-id="sk-decomp"><svg class="skill-tile__icon"><use href="#ic-decomp-13"/></svg><div data-sid="13-platform-synthesis:33" class="skill-tile__title">Decomposition</div><span class="skill-tile__led"></span></div>
+          <div data-sid="13-platform-synthesis:34" class="skill-tile" data-id="sk-testing"><svg class="skill-tile__icon"><use href="#ic-testing-13"/></svg><div data-sid="13-platform-synthesis:35" class="skill-tile__title">Testing</div><span class="skill-tile__led"></span></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <style>
+    /* Presentation-mode upsizing — scoped to slide 13 only. */
+    #slide-13 .bipartite { gap: 24px; }
+    #slide-13 .bipartite__col { gap: 14px; }
+    #slide-13 .bipartite__col-head { font-size: 18px; letter-spacing: 0.16em; }
+    #slide-13 .bipartite__col--acts .tile {
+      padding: 18px 22px; min-height: 92px;
+    }
+    /* Drop the little category pill labels. */
+    #slide-13 .bipartite__col--acts .tile .tile__label { display: none; }
+    #slide-13 .bipartite__col--acts .tile .tile__title {
+      font-size: 26px; line-height: 1.2; margin-top: 0;
+      color: #ffffff; font-weight: 700;
+    }
+    #slide-13 .skills-grid { gap: 14px; }
+    #slide-13 .skill-tile {
+      aspect-ratio: auto;
+      min-height: 160px; padding: 14px 14px 14px 22px;
+    }
+    #slide-13 .skill-tile__icon { width: 34px; height: 34px; }
+    #slide-13 .skill-tile__title {
+      font-size: 16px; line-height: 1.25;
+      color: #ffffff; font-weight: 700;
+      overflow-wrap: break-word;
+    }
+    #slide-13 .skill-tile__led { width: 11px; height: 11px; }
+    /* Narrower stains so they don't eat into the text area. */
+    #slide-13 .skill-tile__stain {
+      width: 10px !important;
+    }
+
+    /* Soft white glow on active skill tiles — replaces colored stain+count badges.
+       Keep tile background SOLID (don't override the default --bg-1). */
+    #slide-13 .skill-tile,
+    #slide-13 .skill-tile.is-skill-active {
+      background: var(--bg-1);
+    }
+    #slide-13 .skill-tile.is-skill-active {
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.55), 0 0 28px rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.45);
+    }
+    #slide-13 .skill-tile.is-skill-active .skill-tile__led { display: none; }
+    /* Keep the colored arrow stains so the per-activity lines extend into
+       each skill tile (matching slide 16's visual). Drop only the count badge. */
+    #slide-13 .src-count { display: none !important; }
+  </style>
+
+  <div data-sid="13-platform-synthesis:36" class="slide__number"></div>
+</section>

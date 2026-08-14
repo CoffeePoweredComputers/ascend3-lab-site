@@ -1,0 +1,266 @@
+<section data-sid="09d-refute-live:1" class="slide" id="slide-09d">
+  <div data-sid="09d-refute-live:2" class="slide__eyebrow">Activity · 03 · claim &rarr; counterexample</div>
+  <h2 data-sid="09d-refute-live:3" class="slide__title">Refute Problems</h2>
+
+  <div data-sid="09d-refute-live:4" class="slide__body" style="display:grid; grid-template-columns:1.05fr 1fr; gap:36px; align-items:start;">
+
+    <!-- LEFT: the activity, as the student sees it -->
+    <div data-sid="09d-refute-live:5" class="tile tile--feature" style="padding:36px; --act: var(--act-refute);">
+      <div data-sid="09d-refute-live:6" style="height:4px; background:var(--act); border-radius:4px 4px 0 0; margin:-36px -36px 24px;"></div>
+      <span data-sid="09d-refute-live:25" class="tile__label" style="background: var(--bg-3); border-color: color-mix(in srgb, var(--act) 40%, var(--bg-3)); color: var(--act); font-size: 24px">Refute · claim → counterexample</span>
+      
+<div data-sid="09d-refute-live:7" class="tile__body" style="font-size: 32px; margin: 14px 0 24px">Students get code and a <em>claim</em> about its behaviour — and must find an input that proves the claim wrong.<sup class="cite">1,2</sup></div>
+
+      <div data-sid="09d-refute-live:34" style="height:1px; background:var(--border-1); margin:0 -36px 24px;"></div>
+
+      <div data-sid="09d-refute-live:8" style="position:relative; background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+        <div data-sid="09d-refute-live:10" style="font-size: 32px; color: var(--fg-0); font-style: italic; height: 43.4094px">"This function <span class="ref-strike">always returns a positive value</span>."<span class="ref-stamp" aria-hidden="true">refuted</span></div>
+      </div>
+      <div data-sid="09d-refute-live:36" style="background: var(--bg-1); border: 1px solid var(--border-1); border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; font-size: 32px">
+        
+<pre data-sid="09d-refute-live:11" style="font-family: 'JetBrains Mono', monospace; font-size: 32px; color: var(--fg-0); margin: 0; line-height: 1.5"><span style="color:var(--syntax-purple);">def</span> <span style="color:var(--syntax-blue);">baz</span>(a, b):
+  <span style="color:var(--syntax-purple);">return</span> a - b</pre>
+      </div>
+      <div data-sid="09d-refute-live:12" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:14px 20px; display:grid; grid-template-columns:1fr auto; column-gap:16px; align-items:center;">
+        <div data-sid="09d-refute-live:13" id="ref-label" style="font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--act); margin-bottom:8px;">test the claim · run an input</div>
+        <div data-sid="09d-refute-live:14" class="pcall" style="font-size: 32px"><span style="color:var(--syntax-blue);">baz</span><span>(a&nbsp;=</span><span class="pcall__chip" id="ref-a"></span><span>,&nbsp;b&nbsp;=</span><span class="pcall__chip" id="ref-b"></span><span>)</span><span style="margin-left:0.35em;">→</span><span class="pcall__ret" id="ref-ret">?</span></div>
+        <span class="pcall__btn" id="ref-btn" aria-hidden="true" style="grid-column:2; grid-row:1 / span 2; align-self:stretch; margin:-14px -20px -14px 0; padding:0 40px; font-size:26px; border-radius:0 7px 7px 0;">Run</span>
+      </div>
+      <div data-sid="09d-refute-live:35" class="pcall__note" id="ref-note" style="display: block; margin: 12px 0 0; padding: 10px 20px; min-height: 1.35em; font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700; border-radius: 12px;"></div>
+
+    </div>
+
+    <!-- RIGHT: how it's graded, what it builds -->
+    <div data-sid="09d-refute-live:15" style="display:flex; flex-direction:column; gap:20px;">
+      <div data-sid="09d-refute-live:16" class="tile tile--ok frag" data-step="3" style="flex: 0 0 337.914px">
+        <span data-sid="09d-refute-live:26" class="tile__label" style="font-size: 26px">graded by · execution — no LLM</span>
+        <div data-sid="09d-refute-live:17" class="tile__body" style="font-size:32px;">
+          <ul data-sid="09d-refute-live:9" style="margin:0 0 10px; padding-left:1.1em; display:flex; flex-direction:column; gap:6px;">
+            <li data-sid="09d-refute-live:28">Run the student's input</li>
+            <li data-sid="09d-refute-live:29">Check the output contradicts the claim</li>
+          </ul>
+          — <strong>deterministic</strong>; the counterexample is its own proof.
+        </div>
+      </div>
+      <div data-sid="09d-refute-live:18" class="tile frag" data-step="4" style="flex: 0 0 306.199px">
+        <span data-sid="09d-refute-live:27" class="tile__label" style="font-size: 26px">WHAT SKILLS IT BUILDS</span>
+        <div data-sid="09d-refute-live:19" class="tile__body" style="font-size:32px; color:var(--fg-0);">
+          <ul data-sid="09d-refute-live:30" style="margin:0 0 10px; padding-left:1.1em; display:flex; flex-direction:column; gap:6px;">
+            <li data-sid="09d-refute-live:31" contenteditable="false">Building tests that falsify behaviour</li>
+            <li data-sid="09d-refute-live:32">Reading code <em>against</em> a claim</li>
+            <li data-sid="09d-refute-live:33" contenteditable="false">Connection between natural language descriptions of code and code itself</li>
+          </ul><br></div>
+      </div>
+    </div>
+
+    <!-- step registration for the deck; the tester animation is driven by JS below -->
+    <span class="frag" data-step="1" style="display:none;"></span>
+    <span class="frag" data-step="2" style="display:none;"></span>
+
+  </div>
+
+  <style>
+    [data-sid="09d-refute-live:1"] .ref-strike { position: relative; transition: color 300ms var(--ease); }
+    [data-sid="09d-refute-live:1"] .ref-strike::after {
+      content: ''; position: absolute; left: 0; top: 55%; height: 3px; width: 0;
+      background: var(--err); transition: width 420ms var(--ease);
+    }
+    [data-sid="09d-refute-live:1"].is-refuted .ref-strike { color: var(--fg-2); }
+    [data-sid="09d-refute-live:1"].is-refuted .ref-strike::after { width: 100%; }
+
+    [data-sid="09d-refute-live:1"] .ref-stamp {
+      position: absolute; top: -16px; right: -12px; padding: 4px 18px;
+      border: 3px solid var(--err); border-radius: 8px; color: var(--err);
+      font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 800;
+      letter-spacing: 0.14em; text-transform: uppercase; font-style: normal;
+      opacity: 0; transform: rotate(-6deg) scale(1.7);
+      transition: opacity 240ms var(--ease), transform 300ms cubic-bezier(0.2, 1.4, 0.4, 1);
+    }
+    [data-sid="09d-refute-live:1"].is-refuted .ref-stamp { opacity: 1; transform: rotate(-6deg) scale(1); }
+
+    /* verdict pill under the call row, EiPL-verdict style: the JS-set text
+       colour (warn/err) themes the border + tint via currentColor; padding
+       and min-height reserve the space so nothing jumps when it lands */
+    [data-sid="09d-refute-live:1"] #ref-note {
+      border: 1px solid currentColor;
+      background: color-mix(in srgb, currentColor 10%, transparent);
+      transform: translateY(8px);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    [data-sid="09d-refute-live:1"] #ref-note.is-on { transform: translateY(0); }
+
+    /* run button is full-bleed into the box's right edge; press = depress + flash */
+    [data-sid="09d-refute-live:1"] .pcall__btn {
+      transition: transform 140ms var(--ease), filter 140ms var(--ease), box-shadow 140ms var(--ease);
+    }
+    [data-sid="09d-refute-live:1"] .pcall__btn.is-pressed {
+      transform: scale(0.96);
+      filter: brightness(1.5);
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 28px rgba(91, 33, 182, 0.6);
+    }
+    /* on white a 28px 0.6-alpha glow reads as a bruise, not light — tighter + fainter */
+    :root.theme-light [data-sid="09d-refute-live:1"] .pcall__btn.is-pressed {
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 14px rgba(91, 33, 182, 0.3);
+    }
+
+    /* the return value is boxed like the argument chips and pops in with a
+       glow; the JS-set text colour themes the tint via currentColor */
+    [data-sid="09d-refute-live:1"] .pcall__ret {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2.1em; height: 1.5em; padding: 0 0.45em; margin-left: 0.4em;
+      background: color-mix(in srgb, currentColor 14%, var(--bg-1));
+      border: 1px solid color-mix(in srgb, currentColor 55%, transparent);
+      border-radius: 8px;
+      opacity: 0.3; transform: scale(0.92);
+      transition: opacity 220ms var(--ease), transform 220ms var(--ease), box-shadow 220ms var(--ease);
+    }
+    [data-sid="09d-refute-live:1"] .pcall__ret.is-on {
+      opacity: 1; transform: scale(1);
+      box-shadow: 0 0 20px color-mix(in srgb, currentColor 40%, transparent);
+    }
+  </style>
+
+  <script>
+  (function () {
+    // Scope by data-sid, not #slide-09d — section ids aren't guaranteed unique.
+    const SECTION_SEL = '[data-sid="09d-refute-live:1"]';
+    const TYPE_MS = 300;   // per character into an argument chip
+    const PRESS_MS = 500;  // run button held down
+
+    let timers = [];
+    let cache = -1;
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function t(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function scope() { return document.querySelector(SECTION_SEL); }
+
+    function els(s) {
+      return {
+        label: s.querySelector('#ref-label'),
+        a: s.querySelector('#ref-a'),
+        b: s.querySelector('#ref-b'),
+        ret: s.querySelector('#ref-ret'),
+        note: s.querySelector('#ref-note'),
+        btn: s.querySelector('#ref-btn'),
+      };
+    }
+
+    function typeChip(chip, str, done) {
+      chip.textContent = '';
+      chip.classList.add('is-typing');
+      let i = 0;
+      (function step() {
+        if (i < str.length) { chip.textContent += str[i++]; t(step, TYPE_MS); }
+        else { chip.classList.remove('is-typing'); if (done) done(); }
+      })();
+    }
+
+    function setRet(e, text, color, noteHtml, noteColor) {
+      e.ret.textContent = text;
+      e.ret.style.color = color || 'var(--fg-0)';
+      e.ret.classList.toggle('is-on', text !== '?');
+      e.note.innerHTML = noteHtml || '';
+      e.note.style.color = noteColor || 'var(--fg-2)';
+      e.note.classList.toggle('is-on', !!noteHtml);
+    }
+
+    function setRefuted(on) {
+      const s = scope();
+      if (s) s.classList.toggle('is-refuted', !!on);
+    }
+
+    // Full state for each try, applied instantly — used when a step is
+    // reached backwards or by hash-jump, so no animation replays half-way.
+    function snap(e, tryNo) {
+      e.a.classList.remove('is-typing'); e.b.classList.remove('is-typing');
+      e.btn.classList.remove('is-pressed');
+      if (tryNo === 0) {
+        e.label.textContent = 'test the claim · run an input';
+        e.a.textContent = ''; e.b.textContent = '';
+        setRet(e, '?'); setRefuted(false);
+      } else if (tryNo === 1) {
+        e.label.textContent = 'test the claim · try 1';
+        e.a.textContent = '5'; e.b.textContent = '3';
+        setRet(e, '2', 'var(--fg-0)', '↻ positive — the claim survives', 'var(--warn)');
+        setRefuted(false);
+      } else {
+        e.label.textContent = 'test the claim · try 2';
+        e.a.textContent = '3'; e.b.textContent = '5';
+        setRet(e, '-2', 'var(--err-text)', '✗ -2 &lt; 0 — claim refuted', 'var(--err-text)');
+        setRefuted(true);
+      }
+    }
+
+    function runTry(e, tryNo) {
+      const vals = tryNo === 1 ? ['5', '3'] : ['3', '5'];
+      e.label.textContent = 'test the claim · try ' + tryNo;
+      e.a.textContent = ''; e.b.textContent = '';
+      setRet(e, '?');
+      typeChip(e.a, vals[0], () => typeChip(e.b, vals[1], () => {
+        t(() => {
+          e.btn.classList.add('is-pressed');
+          t(() => {
+            e.btn.classList.remove('is-pressed');
+            if (tryNo === 1) {
+              setRet(e, '2', 'var(--fg-0)', '↻ positive — the claim survives', 'var(--warn)');
+            } else {
+              setRet(e, '-2', 'var(--err-text)', '✗ -2 &lt; 0 — claim refuted', 'var(--err-text)');
+              t(() => setRefuted(true), 320);
+            }
+          }, PRESS_MS);
+        }, 400);
+      }));
+    }
+
+    function render(step) {
+      const s = scope(); if (!s) return;
+      const e = els(s);
+      if (step === cache) return;
+      const prev = cache;
+      cache = step;
+      clearAll();
+      if (step <= 0) { snap(e, 0); return; }
+
+      switch (step) {
+        case 1:
+          setRefuted(false);
+          runTry(e, 1);
+          break;
+        case 2:
+          // Animate only when arriving forwards; snap when stepping back from 3+.
+          if (prev >= 0 && prev < 2) { setRefuted(false); runTry(e, 2); }
+          else snap(e, 2);
+          break;
+        default: // 3, 4 — tester holds its final state while the tiles reveal
+          snap(e, 2);
+          break;
+      }
+    }
+
+    function sync() {
+      const s = scope(); if (!s) return;
+      if (!s.classList.contains('is-active')) { clearAll(); cache = -1; snap(els(s), 0); return; }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      render(step);
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <ol data-sid="09d-refute-live:20" class="slide__footnotes">
+    <li data-sid="09d-refute-live:21"><span class="num">1</span>Kumar · ICER 2021.</li>
+    
+  </ol>
+
+  <aside data-sid="09d-refute-live:23" class="notes">
+[0:35 · by end 3:55]
+Third type — and note the grading changes here. Refute: here's code, here's a claim about it. The claim is wrong; prove it.
+(step 1) Students test the claim by running inputs — 5 and 3 gives 2. Positive; the claim survives that one.
+(step 2) But 3 and 5 gives minus 2. One counterexample and the claim is dead.
+(step 3) Grading is pure execution — no LLM anywhere. Run the input, check the contradiction.
+(step 4) This is the skill of not trusting a plausible explanation — which is most of working with GenAI.
+  </aside>
+  <div data-sid="09d-refute-live:24" class="slide__number" style="font-size: 20px"></div>
+
+  </section>

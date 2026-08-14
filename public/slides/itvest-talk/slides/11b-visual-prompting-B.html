@@ -1,0 +1,473 @@
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Ported from gen_ai_assessments/slides/visual-prompting.html (slide 22).
+     Markup, animation and step machine are unchanged; only the identity was
+     rewritten (data-sid prefix, #slide-18b -> #slide-11bb).
+
+     PORTING NOTE: the source leans on its own deck's tokens, which exist here
+     under the SAME NAMES but with DIFFERENT VALUES (--s-2 is 16px there and 8px
+     here), plus several that don't exist here at all (--t-small, --t-ref,
+     --r-1..3). Only those geometry tokens are redeclared on the section below —
+     a naive copy would render at half spacing.
+
+     Colours come from this deck's tokens.css, so the slide themes with the
+     rest of the deck (light/dark `t` toggle included). Only the source's
+     spacing/type/radius tokens are redeclared, because the 520px drawing is
+     laid out against them.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section data-sid="11b-visual-prompting-B:1" class="slide" id="slide-11bb">
+  <p data-sid="11b-visual-prompting-B:2" class="kicker">So what else can the stimulus be?</p>
+  <h2 data-sid="11b-visual-prompting-B:3" style="margin-bottom: var(--s-2);">The prompt doesn&rsquo;t have to be text</h2>
+
+  <div data-sid="11b-visual-prompting-B:4" class="slide__body" style="position: relative; display: flex; flex-direction: column; min-height: 0;">
+    <div data-sid="11b-visual-prompting-B:5" class="vp-row" style="display: flex; gap: var(--s-4); flex: 1; min-height: 0;">
+
+      <figure data-sid="11b-visual-prompting-B:6" class="vp-figure" style="width: 980px; margin: 0; display: flex; flex-direction: column; gap: var(--s-1);">
+        <div data-sid="11b-visual-prompting-B:7" class="sk-sheet">
+          <svg class="sk-svg" viewBox="0 0 980 560" aria-hidden="true">
+        <g class="sk-boxink" data-box="0">
+        <path class="ink ink--main" d="M39.7,99.1 C186.0,98.2 257.3,99.3 314.7,99.4 M325.2,109.3 C326.7,165.8 325.3,190.6 324.1,212.6 M315.6,222.1 C168.9,219.1 104.0,219.3 39.7,221.5 M29.7,212.5 C31.1,157.2 30.2,139.3 31.4,110.1 M30.7,115.1 C37.1,106.4 40.4,103.6 45.4,99.4 M325.7,209.4 C318.1,216.0 315.4,217.9 311.6,222.2"/>
+        <path class="ink ink--over" d="M39.3,99.8 C168.4,104.2 235.5,102.7 315.3,100.5 M326.5,109.1 C325.1,160.1 326.1,193.9 326.8,212.7 M316.6,221.3 C173.5,221.1 119.0,221.3 40.9,222.4 M29.3,212.4 C31.8,163.4 30.0,139.0 29.8,110.3 M326.7,115.2 C320.3,106.9 314.9,103.0 311.9,98.8 M30.8,209.3 C37.2,213.8 40.9,218.3 44.5,221.9"/>
+        </g>
+        <g class="sk-boxink" data-box="1">
+        <path class="ink ink--main" d="M379.4,98.9 C534.9,95.8 576.7,97.7 654.7,99.7 M664.3,110.3 C663.8,161.1 665.9,184.8 664.7,211.3 M656.7,222.8 C506.3,221.1 461.2,221.1 380.0,223.3 M368.4,213.0 C369.0,166.1 369.3,138.2 370.9,109.3 M369.1,114.4 C376.6,106.0 379.8,104.3 382.5,99.4 M665.9,206.8 C659.4,214.7 655.4,218.6 651.3,222.8"/>
+        <path class="ink ink--over" d="M380.6,99.9 C508.3,97.4 599.4,98.6 655.3,99.9 M664.7,110.5 C664.5,158.0 665.0,188.4 667.3,212.2 M656.6,221.1 C514.0,223.4 435.5,222.6 380.6,221.7 M370.9,211.2 C371.6,159.7 369.8,134.7 370.0,109.4 M667.5,113.0 C658.5,106.2 656.4,104.7 651.1,100.5 M369.0,208.8 C377.4,214.9 380.8,219.2 382.7,221.2"/>
+        </g>
+        <g class="sk-boxink" data-box="2">
+        <path class="ink ink--main" d="M379.4,299.7 C511.5,303.2 581.3,301.4 656.0,300.6 M666.9,308.4 C665.2,358.0 664.6,384.2 666.3,412.6 M656.1,422.8 C515.4,423.6 443.3,423.8 380.4,421.7 M370.3,412.4 C368.7,362.4 369.2,337.7 370.3,311.4 M370.8,313.3 C377.3,307.2 380.7,303.9 384.8,300.0 M667.1,407.7 C659.1,415.8 655.0,418.3 650.5,421.5"/>
+        <path class="ink ink--over" d="M379.4,300.4 C523.3,296.3 595.5,298.7 656.1,299.6 M665.7,310.3 C664.7,365.8 665.5,386.4 666.0,411.4 M655.6,421.6 C529.6,426.9 432.5,424.1 380.4,422.2 M368.7,412.8 C368.4,361.5 369.5,329.5 371.1,310.0 M667.3,315.1 C659.0,306.6 655.5,303.0 651.8,300.4 M369.3,409.4 C377.1,413.4 382.2,419.7 383.2,423.4"/>
+        </g>
+        <g class="sk-boxink" data-box="3">
+        <path class="ink ink--main" d="M41.1,300.6 C172.6,301.5 256.5,300.7 315.1,301.1 M326.5,310.4 C325.3,365.3 325.4,383.8 325.3,413.2 M315.7,420.8 C166.9,419.5 101.4,419.8 41.0,421.2 M31.2,412.7 C29.9,361.5 30.1,340.1 28.4,311.2 M29.0,315.1 C36.4,308.2 39.5,303.3 43.9,301.3 M326.5,408.3 C319.8,413.7 314.3,418.1 311.5,423.0"/>
+        <path class="ink ink--over" d="M40.8,299.4 C187.7,295.0 249.6,296.5 315.6,299.2 M327.3,309.6 C327.0,356.2 327.0,384.1 325.1,412.5 M316.2,421.3 C161.1,420.0 118.8,420.1 39.1,422.8 M29.8,413.2 C30.3,362.3 30.1,338.8 28.9,311.2 M324.7,314.0 C319.5,307.9 315.2,302.8 311.8,298.8 M30.4,406.8 C35.9,414.6 42.0,419.0 44.6,422.7"/>
+        </g>
+        <path class="ink ink--main" d="M107.8,15.0 C120.3,13.5 125.4,14.0 132.1,13.9 M131.6,12.4 C131.1,32.7 131.8,38.4 131.9,47.7 M133.0,48.1 C138.8,48.3 143.5,47.2 146.1,48.4 M147.0,46.2 C134.2,61.2 125.1,70.4 118.9,76.0 M119.4,75.3 C105.8,59.3 97.6,53.5 93.7,46.4 M92.4,48.6 C101.2,47.1 103.3,48.9 107.9,49.2 M109.3,48.2 C108.1,31.3 107.9,20.3 107.1,12.5 M35.7,114.1 C33.5,118.7 33.1,121.6 32.4,123.3 M24.2,127.4 C20.1,128.3 17.3,128.0 16.3,127.9 M8.5,122.1 C5.9,118.4 5.1,115.5 4.4,114.1 M7.5,105.9 C11.5,102.0 13.2,101.4 14.8,99.7 M24.3,99.5 C29.3,102.4 30.8,103.9 32.7,105.2 M375.7,114.9 C373.0,119.3 372.7,120.8 372.6,123.6 M365.2,129.1 C360.0,128.9 357.6,128.5 355.7,127.4 M347.6,122.0 C346.1,118.7 345.9,116.2 345.7,114.2 M347.3,105.7 C351.4,102.4 354.4,100.2 355.8,99.6 M365.5,100.1 C368.4,102.4 370.5,104.3 372.7,104.8 M375.7,313.6 C373.6,318.2 372.6,320.0 371.7,323.7 M364.6,328.0 C360.4,328.1 357.6,328.9 356.2,327.6 M347.7,323.4 C346.7,318.0 345.2,315.5 344.5,313.9 M347.2,305.0 C351.5,303.0 353.0,301.2 355.0,299.0 M364.9,299.0 C368.7,302.3 370.9,304.1 372.3,305.6 M35.6,314.0 C33.2,318.8 33.0,320.2 31.6,323.4 M24.6,328.7 C20.4,327.7 16.5,328.5 15.2,327.4 M7.7,323.6 C6.4,319.3 5.9,315.8 5.9,313.1 M7.1,304.9 C11.6,302.3 13.2,301.2 15.3,300.0 M25.6,299.6 C29.0,302.8 30.4,304.4 32.4,306.0 M329.3,160.5 C345.1,160.2 357.1,160.9 364.1,160.5 M364.3,159.7 C358.3,156.6 354.5,155.5 353.2,155.3 M518.8,226.8 C517.6,262.0 517.2,276.0 517.0,294.6 M518.8,294.6 C521.1,287.0 522.2,284.1 522.5,281.4 M364.5,360.1 C347.1,359.5 338.1,359.8 333.0,358.1 M331.2,359.2 C337.6,362.4 340.9,364.5 344.9,366.4 M808.4,178.2 C859.4,205.3 878.7,215.0 897.0,224.7 M898.7,225.6 C852.7,248.9 831.1,261.0 810.3,271.4 M811.1,271.1 C765.3,248.4 742.8,237.7 722.1,224.8 M720.2,227.8 C770.1,198.2 794.6,186.9 809.3,181.2 M671.8,159.7 C726.6,177.4 756.2,187.6 780.0,195.1 M781.0,195.3 C774.7,190.9 773.3,190.1 771.1,186.5 M838.2,191.2 C856.8,177.6 871.6,167.8 879.4,159.8 M880.3,159.4 C873.4,160.6 870.5,162.5 866.8,161.6 M838.6,263.8 C857.8,278.4 871.3,289.5 879.0,297.4 M879.2,296.1 C876.6,290.2 875.5,287.0 873.8,283.7 M728.6,399.3 C731.6,413.7 733.2,419.0 733.8,425.3 M722.3,450.1 C709.2,457.1 703.1,461.0 698.2,463.6 M670.7,459.1 C659.5,449.3 654.7,444.8 650.7,440.8 M646.9,414.2 C652.1,401.9 655.2,395.6 658.1,389.5 M682.6,377.3 C696.4,378.3 705.1,379.5 711.0,381.0 M710.1,380.3 C705.0,380.7 701.1,381.3 698.1,381.2 M301.0,507.0 Q294.3,525.3 249.8,525.5 M182.9,529.5 Q140.2,534.6 121.4,517.8 M84.9,494.1 Q56.0,480.0 84.9,465.9 M121.4,442.2 Q140.2,425.4 182.9,430.5 M249.8,434.5 Q294.3,434.7 301.0,453.0"/>
+        <path class="ink ink--over" d="M108.8,13.2 C120.1,13.3 125.5,13.3 131.9,13.2 M131.4,15.0 C131.5,30.1 131.4,41.0 132.4,47.3 M131.6,48.3 C139.6,48.7 143.2,48.6 147.1,46.8 M146.1,48.9 C132.5,63.8 124.2,70.2 119.0,75.6 M120.3,76.4 C103.6,61.1 98.8,54.6 92.3,49.3 M93.1,48.7 C99.5,48.7 105.3,47.9 108.6,49.2 M107.4,47.6 C108.2,29.7 108.0,20.6 108.2,13.3 M31.2,123.2 C28.4,125.5 26.5,126.8 25.3,127.4 M15.2,128.2 C10.6,125.0 9.7,123.6 8.5,123.5 M5.2,114.1 C6.8,109.8 6.8,107.3 8.8,105.3 M16.1,100.4 C20.5,100.1 22.4,99.9 24.7,100.2 M32.5,104.4 C34.1,109.6 34.7,111.5 35.3,113.8 M372.6,122.4 C368.0,125.9 366.5,127.1 364.9,127.5 M355.1,128.0 C351.7,125.3 349.9,124.1 347.4,122.1 M345.8,113.3 C346.7,110.2 346.6,107.4 346.9,104.3 M354.7,100.5 C359.6,99.9 363.0,99.7 363.8,99.1 M372.6,105.2 C373.6,110.5 374.4,111.5 374.9,113.8 M372.0,323.4 C368.9,325.9 366.9,326.9 364.9,327.6 M355.0,327.7 C351.9,325.8 349.7,324.4 348.6,321.9 M344.3,314.0 C346.0,309.7 347.6,307.4 348.3,304.6 M355.4,300.0 C360.0,299.4 362.7,299.8 363.8,300.5 M371.3,305.5 C373.8,309.5 374.0,311.7 375.4,314.8 M31.6,322.4 C28.2,325.6 26.3,326.7 24.6,327.7 M15.4,328.3 C12.0,325.2 9.6,324.6 7.2,321.9 M4.7,314.2 C6.8,309.7 6.8,307.4 8.3,304.5 M14.6,298.9 C20.4,299.5 21.6,299.3 24.9,300.4 M31.7,304.4 C33.6,309.8 34.3,312.1 35.2,314.9 M330.3,159.1 C348.6,160.7 356.6,159.8 364.1,159.3 M363.0,159.3 C357.5,162.5 355.0,164.4 352.4,166.0 M517.1,227.2 C518.4,257.8 518.3,280.1 518.3,294.0 M518.1,295.0 C515.8,288.3 513.6,285.3 512.4,282.7 M363.8,359.3 C346.3,359.3 339.7,359.2 330.7,359.7 M331.2,359.1 C337.3,357.2 341.8,356.0 343.1,354.3 M810.8,179.1 C852.3,202.5 880.5,217.3 898.8,225.8 M897.3,226.9 C854.2,248.4 828.6,261.6 810.9,272.8 M809.0,271.1 C762.9,247.4 746.6,240.2 723.1,226.6 M722.4,226.8 C771.1,201.3 788.2,191.9 808.8,179.6 M673.1,159.9 C733.2,182.0 755.7,187.9 779.1,194.7 M779.4,197.1 C773.1,197.3 769.4,196.9 766.6,197.8 M838.8,190.6 C860.8,174.7 871.4,165.8 878.8,159.3 M880.5,160.1 C877.2,165.1 875.4,167.9 872.5,171.3 M837.8,261.7 C858.9,277.8 868.4,286.3 880.0,294.9 M880.8,295.2 C873.4,293.8 870.9,293.0 867.5,293.4 M734.2,425.3 C727.7,437.2 724.4,445.6 721.9,450.6 M698.2,462.3 C684.8,461.6 677.9,460.7 670.6,460.5 M651.4,440.0 C648.8,427.8 647.8,421.1 645.7,412.8 M658.0,388.8 C669.9,383.0 678.0,378.9 684.0,376.8 M710.2,380.2 C707.4,376.4 705.8,374.3 704.5,371.4 M320.0,480.0 Q338.2,496.9 301.0,507.0 M249.8,525.5 Q220.5,539.4 182.9,529.5 M121.4,517.8 Q78.9,512.4 84.9,494.1 M84.9,465.9 Q78.9,447.6 121.4,442.2 M182.9,430.5 Q220.5,420.6 249.8,434.5 M301.0,453.0 Q338.2,463.1 320.0,480.0"/>
+          </svg>
+        <div class="sk-caps" style="left:200px; top:30px; transform:translate(0,0) rotate(-0.66deg);">INPUT: cards.txt</div>
+        <div class="sk-num" style="left:20px; top:114px; transform:translate(-50%,-50%) rotate(0.55deg);">1</div>
+        <div class="sk-prose" style="left:50px; top:118px; transform:translate(0,0) rotate(0.33deg);">define a function<br>that loads the cards<br>from the file</div>
+        <div class="sk-num" style="left:360px; top:114px; transform:translate(-50%,-50%) rotate(0.11deg);">2</div>
+        <div class="sk-prose" style="left:390px; top:118px; transform:translate(0,0) rotate(-0.11deg);">define a function<br>that picks the ones<br>due today</div>
+        <div class="sk-num" style="left:360px; top:314px; transform:translate(-50%,-50%) rotate(-0.33deg);">3</div>
+        <div class="sk-prose" style="left:390px; top:318px; transform:translate(0,0) rotate(-0.55deg);">define a function<br>that shows it and<br>reads the answer</div>
+        <div class="sk-num" style="left:20px; top:314px; transform:translate(-50%,-50%) rotate(0.66deg);">4</div>
+        <div class="sk-prose" style="left:50px; top:318px; transform:translate(0,0) rotate(0.44deg);">define a function<br>that saves the<br>new dates</div>
+        <div class="sk-prose sk-prose--c" style="left:810px; top:226px; transform:translate(-50%,-50%) rotate(0.22deg);">got it<br>right?</div>
+        <div class="sk-note" style="left:862px; top:150px; transform:translate(-50%,-50%) rotate(0.00deg);">yes &rarr; +3 days</div>
+        <div class="sk-note" style="left:862px; top:300px; transform:translate(-50%,-50%) rotate(-0.22deg);">no &rarr; tomorrow</div>
+        <div class="sk-note" style="left:690px; top:490px; transform:translate(-50%,-50%) rotate(-0.44deg);">repeat while due</div>
+        <div class="sk-prose sk-prose--c" style="left:200px; top:480px; transform:translate(-50%,-50%) rotate(-0.66deg);">ideal: empty<br>queue</div>
+        <div class="sk-note" style="left:470px; top:545px; transform:translate(-50%,-50%) rotate(0.55deg);">&#10035; two due at once? &mdash; ???</div>
+        </div>
+        <figcaption data-sid="11b-visual-prompting-B:14" class="cap">One student&rsquo;s drawn decomposition of a flashcard app.</figcaption>
+        <p data-sid="11b-visual-prompting-B:15" class="frag panel vp-read" data-step="1" data-anim="fade">
+          <svg class="vp-robot" viewBox="0 0 100 100" aria-hidden="true">
+            <g fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fg-0);">
+              <line x1="50" y1="14" x2="50" y2="26"></line>
+              <rect x="18" y="26" width="64" height="50" rx="14"></rect>
+              <line x1="32" y1="76" x2="32" y2="88"></line>
+              <line x1="68" y1="76" x2="68" y2="88"></line>
+              <line x1="40" y1="64" x2="60" y2="64"></line>
+            </g>
+            <circle cx="50" cy="9" r="6" style="fill: var(--accent-2);"></circle>
+            <circle cx="36" cy="46" r="7" style="fill: var(--accent-2);"></circle>
+            <circle cx="64" cy="46" r="7" style="fill: var(--accent-2);"></circle>
+          </svg>
+          A multimodal (text, vision, speech) model reads the image.</p>
+      </figure>
+
+      <div data-sid="11b-visual-prompting-B:25" class="vp-out" style="flex: 1; display: flex; flex-direction: column; gap: var(--s-1); min-height: 0;">
+        <div data-sid="11b-visual-prompting-B:26" class="panel vp-panel frag" data-step="2" data-anim="fade-up">
+          <p data-sid="11b-visual-prompting-B:27" class="word-label vp-label">Generate a program, then test it</p>
+          <ul data-sid="11b-visual-prompting-B:28" class="vp-fns">
+            <li class="vp-fn">load_cards()</li>
+            <li class="vp-fn">cards_due_today()</li>
+            <li class="vp-fn">ask_card()</li>
+            <li class="vp-fn">update_card()</li>
+            <li class="vp-fn">save_dates()</li>
+          </ul>
+          <p data-sid="11b-visual-prompting-B:36" class="word-label vp-label" style="margin-top: var(--s-2);">Behavioral test suite</p>
+          <ul data-sid="11b-visual-prompting-B:37" class="vp-tests">
+            <li class="vp-test">a card answered right comes back later</li>
+            <li class="vp-test">a card answered wrong comes back sooner</li>
+            <li class="vp-test">the session ends when nothing is due</li>
+          </ul>
+        </div>
+        <div data-sid="11b-visual-prompting-B:35" class="panel vp-panel frag" data-step="3" data-anim="fade-up">
+          <p data-sid="11b-visual-prompting-B:16" class="word-label vp-label">Or judge the drawing against a rubric</p>
+          <ul data-sid="11b-visual-prompting-B:17" class="vp-rubric">
+            <li class="vp-rub">each responsibility gets its own box</li>
+            <li class="vp-rub">the branch covers both right and wrong</li>
+            <li class="vp-rub vp-rub--flag">no box says what happens when two cards are due at once &mdash; returned as feedback</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-sid="11b-visual-prompting-B:41" class="frag vp-more" data-step="4" data-anim="fade">
+      <p data-sid="11b-visual-prompting-B:42" class="word-label vp-more__label">Other drawn artifacts</p>
+      <p data-sid="11b-visual-prompting-B:43" class="vp-more__text">An <strong class="vp-more__key">ER diagram</strong> becomes a schema you can query. <br>A <strong class="vp-more__key">UML diagram</strong> becomes objects you can instantiate. <br>A <strong class="vp-more__key">rough sketch</strong> becomes an early design which can be critiqued.</p>
+    </div>
+  </div>
+
+  <ul data-sid="11b-visual-prompting-B:45" class="corner-cite">
+    <li data-sid="11b-visual-prompting-B:47">Smith IV, D. H., Monisha, S. M. A., Vadaparty, A., Porter, L., &amp; Zingaro, D. (2026). <em>Drawing your programs: Exploring the applications of visual-prompting with GenAI for teaching and assessment</em> (arXiv:2602.10529).</li>
+  </ul>
+
+  <style>
+    /* ════ 1. the assessment deck's token set, scoped to this slide ════
+       Same names as this deck's globals, different values. Redeclaring them
+       here means every var() below resolves to assessment values and no other
+       slide is affected. */
+    #slide-11bb {
+      /* The source deck's geometry, which this layout is tuned to: its spacing
+         scale is double this deck's (--s-2 is 16px there, 8px here) and it uses
+         --t-small/--t-ref/--r-1..3, which don't exist here. Colours are NOT
+         redeclared — they fall through to tokens.css so this slide themes with
+         the rest of the deck. */
+      --s-1: 8px;  --s-2: 16px; --s-3: 24px; --s-4: 32px;
+      --s-5: 48px; --s-6: 64px; --s-7: 96px; --s-8: 128px;
+      --t-small: 36px; --t-ref: 20px;
+      --r-1: 2px; --r-2: 6px; --r-3: 12px;
+      --font-display: 'Inter', sans-serif;
+      /* the drawn sheet letters in Caveat (loaded in index.html); the old
+         nine-face fallback stack is gone — none of it existed on this machine */
+      --font-hand: 'Caveat', cursive;
+
+      /* the source pads 96/128; keep that or the 520px sheet runs out of room */
+      padding: var(--s-7) var(--s-8);
+    }
+
+    /* ════ 2. base typography the source deck provides and this one doesn't ════
+       This deck styles .slide__title, not bare h2, so the heading would fall
+       back to Inter at browser-default size without these. */
+    #slide-11bb h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--t-h2);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 var(--s-4);
+      color: var(--fg-0);
+    }
+    #slide-11bb p { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+    #slide-11bb ul { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+    #slide-11bb li { margin: var(--s-2) 0; }
+    #slide-11bb .slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+
+    /* ════ 3. shared component classes, lifted from the source deck.css ════ */
+    #slide-11bb .kicker {
+      font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-1-text); margin: 0 0 var(--s-3);
+    }
+    #slide-11bb .panel {
+      box-sizing: border-box; background: var(--bg-1);
+      border-radius: var(--r-lg); padding: var(--s-4); border: 1px solid var(--border-1);
+    }
+    #slide-11bb .word-label {
+      font-family: 'JetBrains Mono', monospace; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+    #slide-11bb .cap { font-size: 28px; color: var(--fg-1); margin: 0; }
+    #slide-11bb .corner-cite {
+      position: absolute; left: var(--s-5); right: var(--s-5); bottom: var(--s-4);
+      margin: 0; padding-left: var(--s-3); font-size: var(--t-ref);
+      line-height: 1.3; color: var(--fg-1); overflow-wrap: anywhere; list-style: none;
+    }
+    #slide-11bb .corner-cite li { margin: 0; }
+
+
+    /* ══ the drawn sheet ══════════════════════════════════════════════════
+       Graphite on mottled paper, not coloured ink on flat cream. Geometry is
+       generated by tools/sketchgen.py using Rough.js's line algorithm: every
+       stroke is a bowed cubic bezier drawn twice, and box corners overshoot so
+       the outline never closes. See decomp-004.png for the real thing. */
+    #slide-11bbb .sk-sheet {
+      position: relative;
+      width: 980px; height: 560px;
+      box-sizing: border-box;
+      background: #f4f1ea;
+      border-radius: 3px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.28), 0 2px 0 rgba(255,255,255,.5) inset;
+      transform: rotate(-0.45deg);
+      overflow: hidden;
+    }
+    /* paper grain — a faint noise wash, so the sheet isn't a flat rectangle */
+    #slide-11bbb .sk-sheet::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'>\
+<filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/>\
+</filter><rect width='180' height='180' filter='url(%23g)' opacity='0.5'/></svg>");
+      opacity: .16; mix-blend-mode: multiply;
+    }
+    #slide-11bbb .sk-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    #slide-11bbb .ink { fill: none; stroke: #3f3f3f; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-11bbb .ink--main { stroke-width: 2.2; opacity: .92; }
+    #slide-11bbb .ink--over { stroke-width: 1.5; opacity: .5; }   /* the retrace pass */
+
+    /* the scan lights each function box in turn, as it used to light .vp-box */
+    #slide-11bbb .sk-boxink .ink { transition: stroke .3s ease, opacity .3s ease; }
+    #slide-11bbb .sk-boxink.is-lit .ink--main { stroke: var(--accent-1); stroke-width: 2.8; opacity: 1; }
+    #slide-11bbb .sk-boxink.is-lit .ink--over { stroke: var(--accent-1); opacity: .55; }
+
+    /* ── handwriting ──────────────────────────────────────────────────────
+       Caveat. The old --font-hand stack listed nine faces this machine does
+       not have and fell through to Z003, a formal chancery script, which is
+       most of why the previous sketch read wrong. */
+    #slide-11bbb .sk-prose, #slide-11bbb .sk-note, #slide-11bbb .sk-caps, #slide-11bbb .sk-num {
+      position: absolute;
+      font-family: 'Caveat', cursive;
+      color: #33312e;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    #slide-11bbb .sk-prose {
+      font-size: 30px; font-weight: 500; line-height: 1.22;
+      white-space: normal; max-width: 250px;
+      transition: color .3s ease, background .3s ease;
+    }
+    #slide-11bbb .sk-prose--c { text-align: center; max-width: 210px; }
+    #slide-11bbb .sk-prose.is-lit {
+      color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 15%, transparent);
+    }
+    #slide-11bbb .sk-note { font-size: 26px; font-weight: 500; color: #4a4844; }
+    #slide-11bbb .sk-caps {
+      font-size: 30px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    }
+    #slide-11bbb .sk-num { font-size: 25px; font-weight: 700; }
+
+    /* the scan is chrome, not content */
+    @keyframes vp11bb-scan { from { transform: translateY(-70px); } to { transform: translateY(560px); } }
+    #slide-11bb .sk-sheet::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 70px;
+      opacity: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom,
+        transparent,
+        color-mix(in srgb, var(--accent-1) 26%, transparent),
+        transparent);
+      border-bottom: 3px solid var(--accent-1);
+    }
+    #slide-11bb.is-scanning .sk-sheet::after { opacity: 1; animation: vp11bb-scan 2.4s cubic-bezier(.42, 0, .3, 1) forwards; }
+
+    #slide-11bb .vp-read {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-2) var(--s-3);
+      font-size: var(--t-small);
+      line-height: 1.25;
+      margin: 0;
+    }
+    #slide-11bb .vp-robot { display: block; flex: none; width: 64px; height: 64px; }
+    @keyframes vp11bb-hop {
+      0%   { transform: translateY(0); }
+      22%  { transform: translateY(-14px); }
+      46%  { transform: translateY(0); }
+      66%  { transform: translateY(-7px); }
+      84%  { transform: translateY(0); }
+      93%  { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+    #slide-11bb.is-scanning .vp-robot { animation: vp11bb-hop 1.15s cubic-bezier(.28, .84, .42, 1); }
+
+    #slide-11bb { --vp-row-size: calc(var(--t-caption) * 1.2); }
+    #slide-11bb .vp-panel { padding: var(--s-2) var(--s-3); }
+    #slide-11bb .vp-label { font-size: var(--t-caption); color: var(--fg-1); margin: 0 0 var(--s-1); }
+    #slide-11bb .vp-fns {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: var(--s-1);
+    }
+    #slide-11bb .vp-fn {
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-0);
+      border-left: 6px solid var(--accent-1);
+      border-radius: var(--r-2);
+      font-family: ui-monospace, monospace;
+      font-size: var(--vp-row-size);
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    #slide-11bb .vp-fn.is-on { opacity: 1; transform: none; }
+
+    #slide-11bb .vp-tests,
+    #slide-11bb .vp-rubric {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+      min-height: 0;
+    }
+    #slide-11bb .vp-test,
+    #slide-11bb .vp-rub {
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-0);
+      border-left: 6px solid var(--fg-1);
+      border-radius: var(--r-2);
+      font-size: var(--vp-row-size);
+      line-height: 1.3;
+      transition: border-color .24s ease, background .24s ease;
+    }
+    #slide-11bb .vp-test::before,
+    #slide-11bb .vp-rub::before { content: "· "; color: var(--fg-1); }
+    #slide-11bb .vp-test.is-passed,
+    #slide-11bb .vp-rub.is-marked {
+      border-left-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0));
+    }
+    #slide-11bb .vp-test.is-passed::before,
+    #slide-11bb .vp-rub.is-marked::before { content: "✓ "; color: var(--accent-1); }
+    #slide-11bb .vp-rub--flag.is-marked {
+      border-left-color: var(--accent-3);
+      background: color-mix(in srgb, var(--accent-3) 10%, var(--bg-0));
+    }
+    #slide-11bb .vp-rub--flag.is-marked::before { content: "! "; color: var(--accent-3); }
+
+    /* click 4 — the demo blurs back and the takeaway lands centered on top */
+    #slide-11bb .vp-row,
+    #slide-11bb > .kicker,
+    #slide-11bb > h2,
+    #slide-11bb .corner-cite { transition: filter .52s ease, opacity .52s ease; }
+    #slide-11bb.is-outro .vp-row,
+    #slide-11bb.is-outro > .kicker,
+    #slide-11bb.is-outro > h2,
+    #slide-11bb.is-outro .corner-cite {
+      filter: blur(26px);
+      opacity: .16;
+    }
+    #slide-11bb .vp-more {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-2);
+      text-align: center;
+      pointer-events: none;
+      transition: opacity .52s ease .2s;
+    }
+    #slide-11bb .vp-more.is-current,
+    #slide-11bb .vp-more.is-past { pointer-events: auto; }
+    #slide-11bb .vp-more__label {
+      font-size: var(--t-caption);
+      color: var(--accent-1);
+      margin: 0;
+      white-space: nowrap;
+    }
+    #slide-11bb .vp-more__text {
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1.25;
+      max-width: 1200px;
+      margin: 0;
+    }
+    #slide-11bb .vp-more__key { color: var(--accent-1); }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID = 'slide-11bb';
+
+    let timers = [];
+    let stepCache = -1;
+    const clearAll = () => { timers.forEach(clearTimeout); timers = []; };
+    const t = (fn, ms) => timers.push(setTimeout(fn, ms));
+
+    // Every beat runs in one of three modes: 'off', 'animate' (we just arrived
+    // on its step), or 'on' (we're past it, or deep-linked in cold — land on
+    // the finished state without replaying). The deck is random-access, so
+    // every step has to be reachable cold as well as in sequence.
+    function litBoxes(scope, mode) {
+      const divs = [...scope.querySelectorAll('.sk-prose:not(.sk-prose--c)')];
+      const inks = [...scope.querySelectorAll('.sk-boxink')];
+      divs.forEach(d => d.classList.remove('is-lit'));
+      inks.forEach(k => k.classList.remove('is-lit'));
+      if (mode === 'off') return;
+      const on = i => {
+        if (divs[i]) divs[i].classList.add('is-lit');
+        if (inks[i]) inks[i].classList.add('is-lit');
+      };
+      if (mode === 'on') { divs.forEach((_, i) => on(i)); return; }
+      const when = [450, 1250, 1400, 1550];   // trails the scan beam down the sheet
+      divs.forEach((_, i) => t(() => on(i), when[i] || 1550));
+    }
+
+    function route1(scope, mode) {
+      const fns = [...scope.querySelectorAll('.vp-fn')];
+      const tests = [...scope.querySelectorAll('.vp-test')];
+      fns.forEach(f => f.classList.remove('is-on'));
+      tests.forEach(r => r.classList.remove('is-passed'));
+      if (mode === 'off') return;
+      if (mode === 'on') {
+        fns.forEach(f => f.classList.add('is-on'));
+        tests.forEach(r => r.classList.add('is-passed'));
+        return;
+      }
+      fns.forEach((f, i) => t(() => f.classList.add('is-on'), 200 + i * 180));
+      tests.forEach((r, i) => t(() => r.classList.add('is-passed'), 1050 + i * 300));
+    }
+
+    function route2(scope, mode) {
+      const rows = [...scope.querySelectorAll('.vp-rub')];
+      rows.forEach(r => r.classList.remove('is-marked'));
+      if (mode === 'off') return;
+      if (mode === 'on') { rows.forEach(r => r.classList.add('is-marked')); return; }
+      rows.forEach((r, i) => t(() => r.classList.add('is-marked'), 250 + i * 350));
+    }
+
+    function sync() {
+      const scope = document.getElementById(SLIDE_ID);
+      if (!scope) return;
+      if (!scope.classList.contains('is-active')) {
+        clearAll();
+        stepCache = -1;
+        scope.classList.remove('is-scanning', 'is-outro');
+        litBoxes(scope, 'off'); route1(scope, 'off'); route2(scope, 'off');
+        return;
+      }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      scope.classList.toggle('is-scanning', step === 1);
+      scope.classList.toggle('is-outro', step >= 4);
+      if (step === stepCache) return;
+      clearAll();
+      stepCache = step;
+      litBoxes(scope, step < 1 ? 'off' : (step === 1 ? 'animate' : 'on'));
+      route1(scope, step < 2 ? 'off' : (step === 2 ? 'animate' : 'on'));
+      route2(scope, step < 3 ? 'off' : (step === 3 ? 'animate' : 'on'));
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <aside data-sid="11b-visual-prompting-B:46" class="notes">
+[~60s · 4 clicks]
+Multimodal models let us ask students to produce visual artifacts and assess those artifacts directly. Here's the kind of artifact we mean — a student's drawn decomposition of a word-guessing game.
+(1) A multimodal model reads the photograph as-is — no transcription step, no context about the assignment.
+(2) Route one: the model generates a runnable program from the drawing, and that program runs against a behavioral test suite. The drawing is graded by whether the design it describes actually works.
+(3) Route two: no program at all — the model judges the drawing itself against a rubric, and what the rubric catches goes back to the student as written feedback.
+(4) The demo blurs back — nothing here is specific to decomposition diagrams: an ER diagram becomes a schema you can query, a UML diagram becomes objects you can instantiate.
+(If asked about the pilot: 133 intro Python students, 50 minutes, one sheet of paper — 81.2% of diagrams had their function structure fully extracted, r = .776 between functions drawn and functions generated.)
+  </aside>
+  <div data-sid="11b-visual-prompting-B:48" class="slide__number"></div>
+</section>

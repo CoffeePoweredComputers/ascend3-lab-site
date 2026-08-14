@@ -1,0 +1,53 @@
+<section data-sid="06b-eipl-promptp-intro:1" class="slide" id="slide-06b">
+  <div data-sid="06b-eipl-promptp-intro:2" class="slide__eyebrow">Activities · introduction</div>
+  <h2 data-sid="06b-eipl-promptp-intro:3" class="slide__title">Two activities, <span class="gradient-text">two directions</span></h2>
+
+  <div data-sid="06b-eipl-promptp-intro:4" class="slide__body">
+    <p data-sid="06b-eipl-promptp-intro:5" class="lede" style="margin-bottom:40px; max-width:1600px;">
+      The same code-generation-based grading loop powers two activities that face in opposite directions.
+    </p>
+
+    <div data-sid="06b-eipl-promptp-intro:6" style="display:grid; grid-template-columns:1fr 1fr; gap:32px; height:auto;">
+
+      <div data-sid="06b-eipl-promptp-intro:7" class="tile tile--feature frag" data-step="1" style="padding:36px; --act: var(--act-eipl);">
+        <div data-sid="06b-eipl-promptp-intro:8" style="height:4px; background:var(--act); border-radius:4px 4px 0 0; margin:-36px -36px 24px;"></div>
+        <span class="tile__label" style="background:color-mix(in srgb, var(--act) 18%, var(--bg-3)); border-color:color-mix(in srgb, var(--act) 40%, var(--bg-3)); color:var(--act);">EiPL · code → description</span>
+        <div data-sid="06b-eipl-promptp-intro:9" class="tile__title" style="font-size:32px; margin-bottom:14px;">Explain in Plain Language</div>
+        <div data-sid="06b-eipl-promptp-intro:10" class="tile__body" style="font-size:20px; margin-bottom:20px;">Students see a piece of code and describe what it does. A correct description is one an LLM can turn back into functionally equivalent code.</div>
+
+        <div data-sid="06b-eipl-promptp-intro:11" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+          <div data-sid="06b-eipl-promptp-intro:12" style="font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--act); margin-bottom:8px;">stimulus</div>
+          <pre data-sid="06b-eipl-promptp-intro:13" style="font-family:'JetBrains Mono', monospace; font-size:15px; color:var(--fg-0); margin:0; line-height:1.5;"><span style="color:var(--syntax-purple);">def</span> <span style="color:var(--syntax-blue);">f</span>(xs):
+  <span style="color:var(--syntax-purple);">return</span> <span style="color:var(--syntax-blue);">max</span>(xs) - <span style="color:var(--syntax-blue);">min</span>(xs)</pre>
+        </div>
+        <div data-sid="06b-eipl-promptp-intro:14" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:12px 20px;">
+          <div data-sid="06b-eipl-promptp-intro:15" style="font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--act); margin-bottom:6px;">expected response</div>
+          <div data-sid="06b-eipl-promptp-intro:16" style="font-size:16px; color:var(--fg-0); font-style:italic;">"Returns the range of the list."</div>
+        </div>
+      </div>
+
+      <div data-sid="06b-eipl-promptp-intro:17" class="tile tile--feature frag" data-step="2" style="padding:36px; --act: var(--act-prompt);">
+        <div data-sid="06b-eipl-promptp-intro:18" style="height:4px; background:var(--act); border-radius:4px 4px 0 0; margin:-36px -36px 24px;"></div>
+        <span class="tile__label" style="background:color-mix(in srgb, var(--act) 18%, var(--bg-3)); border-color:color-mix(in srgb, var(--act) 40%, var(--bg-3)); color:var(--act);">Prompt Problems · examples → description</span>
+        <div data-sid="06b-eipl-promptp-intro:19" class="tile__title" style="font-size:32px; margin-bottom:14px;">Prompt Problems</div>
+        <div data-sid="06b-eipl-promptp-intro:20" class="tile__body" style="font-size:20px; margin-bottom:20px;">Students see input/output examples and write the prompt that gets an LLM to produce code matching the behavior.</div>
+
+        <div data-sid="06b-eipl-promptp-intro:21" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+          <div data-sid="06b-eipl-promptp-intro:22" style="font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--act); margin-bottom:8px;">stimulus</div>
+          <pre data-sid="06b-eipl-promptp-intro:23" style="font-family:'JetBrains Mono', monospace; font-size:15px; color:var(--fg-0); margin:0; line-height:1.6;"><span style="color:var(--syntax-blue);">f</span>(<span style="color:var(--syntax-green);">"hello"</span>)  →  <span style="color:var(--syntax-green);">"HELLO"</span>
+<span style="color:var(--syntax-blue);">f</span>(<span style="color:var(--syntax-green);">"World"</span>)  →  <span style="color:var(--syntax-green);">"WORLD"</span></pre>
+        </div>
+        <div data-sid="06b-eipl-promptp-intro:24" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:12px 20px;">
+          <div data-sid="06b-eipl-promptp-intro:25" style="font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--act); margin-bottom:6px;">expected response</div>
+          <div data-sid="06b-eipl-promptp-intro:26" style="font-size:16px; color:var(--fg-0); font-style:italic;">"Convert the input string to uppercase."</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p data-sid="06b-eipl-promptp-intro:27" class="body-p frag" data-step="3" style="margin-top:32px; font-size:30px; line-height:1.4; color:var(--fg-0); max-width:1700px;">
+      Both are graded by feeding the student's description to an LLM and checking whether the resulting code passes the unit tests.
+    </p>
+  </div>
+  <div data-sid="06b-eipl-promptp-intro:28" class="slide__number"></div>
+</section>

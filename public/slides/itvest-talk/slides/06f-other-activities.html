@@ -1,0 +1,194 @@
+<!-- Rebuilt as annotations on the pipeline instead of three prose tiles.
+     The old version described three "families" in 89 words while sitting directly
+     on top of a chip strip that already drew the pipeline those families vary —
+     the slide was re-explaining its own diagram in paragraphs.
+
+     Now each family hangs off the stage it varies, one per step: 01 drops into (1)
+     from above, then 02 rises into (2) from below, then 03 rises into (3) and (4)
+     together. Each card is one phrase — the enumeration of what varies lives in
+     the speaker notes, not on the wall. 01/02 are content-width and span two
+     tracks so their titles never wrap; 02 moved below the line to buy that room.
+
+     Geometry is a 4-column grid, one column per pipeline stage, so the browser
+     computes chip widths and nothing needs hand-placed coordinates. Rows:
+       1 card above · 2 stub · 3 the pipeline · 4 stubs · 5 cards below
+     The connector stubs are plain divs, not SVG, so they inherit tokens directly. -->
+<section data-sid="06f-other-activities:1" class="slide" id="slide-06f">
+  <div data-sid="06f-other-activities:2" class="slide__eyebrow">Beyond these four</div>
+  <h2 data-sid="06f-other-activities:3" class="slide__title">Many <span class="gradient-text">families of questions</span></h2>
+
+  <div data-sid="06f-other-activities:4" class="slide__body" style="display:flex; flex-direction:column; justify-content:center;">
+
+    <p data-sid="06f-other-activities:5" style="font-size:32px; line-height:1.4; color:var(--fg-1); margin:0 0 40px; max-width:1720px;">
+      You&rsquo;ve seen four. The same pipeline powers many more.
+    </p>
+
+    <div data-sid="06f-other-activities:6" class="fam">
+
+      <!-- row 1 — what varies at the input end. Cards are content-width and
+           span two tracks so their titles never wrap: 01 sits over (1), 02
+           moved BELOW the line under (2) so both can be wide at once. -->
+      <div data-sid="06f-other-activities:7" class="fam-card fam-card--a fam-card--snug frag" data-step="1" style="grid-column:1 / span 2; grid-row:1; justify-self:start;">
+        <svg data-sid="06f-other-activities:30" class="fam-card__icon" viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fg-0);">
+            <path d="M8,50 C28,24 72,24 92,50 C72,76 28,76 8,50 Z"/>
+            <circle cx="50" cy="50" r="15"/>
+          </g>
+          <circle cx="50" cy="50" r="6" style="fill: var(--fam);"/>
+        </svg>
+        <div data-sid="06f-other-activities:9" class="fam-card__title">What we show them</div>
+      </div>
+
+      <div data-sid="06f-other-activities:11" class="fam-card fam-card--b fam-card--below fam-card--snug frag" data-step="2" style="grid-column:1 / span 2; grid-row:5; justify-self:end;">
+        <svg data-sid="06f-other-activities:31" class="fam-card__icon" viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fg-0);">
+            <rect x="12" y="20" width="76" height="46" rx="14"/>
+            <path d="M34,66 L28,84 L52,66"/>
+          </g>
+          <circle cx="34" cy="43" r="5" style="fill: var(--fam);"/>
+          <circle cx="50" cy="43" r="5" style="fill: var(--fam);"/>
+          <circle cx="66" cy="43" r="5" style="fill: var(--fam);"/>
+        </svg>
+        <div data-sid="06f-other-activities:13" class="fam-card__title">How they answer</div>
+      </div>
+
+      <!-- row 2 — connector down into stage 1 (02's connector now rises from
+           row 4, since its card lives below the line) -->
+      <div data-sid="06f-other-activities:15" class="fam-stub frag" data-step="1" style="grid-column:1; grid-row:2;"></div>
+      <div data-sid="06f-other-activities:16" class="fam-stub frag" data-step="2" style="grid-column:2; grid-row:4;"></div>
+
+      <!-- row 3 — the pipeline itself, on a spine -->
+      <div data-sid="06f-other-activities:17" class="fam-spine" style="grid-column:1 / span 4; grid-row:3;"></div>
+      <div data-sid="06f-other-activities:18" class="chip-13" data-phase="1" style="grid-column: 1; grid-row: 3; font-size: 32px"><span class="chip-13__num">1</span>question prompt</div>
+      <div data-sid="06f-other-activities:19" class="chip-13" data-phase="2" style="grid-column: 2; grid-row: 3; font-size: 32px"><span class="chip-13__num">2</span>student prompt</div>
+      <div data-sid="06f-other-activities:20" class="chip-13" data-phase="3" style="grid-column: 3; grid-row: 3; font-size: 32px"><span class="chip-13__num">3</span>tests</div>
+      <div data-sid="06f-other-activities:21" class="chip-13" data-phase="4" style="grid-column: 4; grid-row: 3; font-size: 32px"><span class="chip-13__num">4</span>feedback</div>
+
+      <!-- row 4 — connectors up out of stages 3 and 4 -->
+      <div data-sid="06f-other-activities:22" class="fam-stub frag" data-step="3" style="grid-column:3; grid-row:4;"></div>
+      <div data-sid="06f-other-activities:23" class="fam-stub frag" data-step="3" style="grid-column:4; grid-row:4;"></div>
+
+      <!-- row 5 — what varies at the grading end -->
+      <div data-sid="06f-other-activities:24" class="fam-card fam-card--c fam-card--below frag" data-step="3" style="grid-column:3 / span 2; grid-row:5;">
+        <svg data-sid="06f-other-activities:32" class="fam-card__icon" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="36" fill="none" stroke-width="6" stroke-linecap="round" style="stroke: var(--fg-0);"/>
+          <path d="M33,52 L45,64 L68,38" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fam);"/>
+        </svg>
+        <div data-sid="06f-other-activities:26" class="fam-card__title">How we grade it</div>
+      </div>
+
+    </div>
+  </div>
+
+  <aside data-sid="06f-other-activities:28" class="notes">
+[0:40 · 3 clicks · opening out before the platform slide]
+Four problem types isn't a ceiling, it's what we've built. Three things vary independently, and they vary at different points in the SAME pipeline.
+
+(1) What we put in front of the student — code, examples, a sketch, a behaviour description, half an implementation. Each one trains a different habit. And how the student answers back — which is most of this talk: natural language in any language, diagrams, structured templates.
+
+(2) And at the other end, how we judge it. We use test correctness because it's cheap, but it's the crudest signal on the list. Segmentation, abstraction level, how many times they revised, how far the prompt sits from an expert's — all sitting there unused.
+
+The pipeline is the reusable thing. Which is why it needs somewhere to live.
+  </aside>
+
+  <style>
+    /* One column per pipeline stage; the browser sizes the chips. */
+    #slide-06f .fam {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: var(--s-3);
+      justify-items: center;
+      align-items: center;
+    }
+
+    /* Cards carry their family colour two ways — the edge that faces the
+       pipeline and the accent inside the icon. Flat bg-2 ground: the old
+       gradient wash and the 140px ghost numeral are gone; the icon says
+       what the numeral only counted. --fam is the only thing the modifiers
+       below change. */
+    #slide-06f .fam-card {
+      --fam: var(--border-2);
+      position: relative;
+      display: flex; align-items: center; gap: var(--s-4);
+      background: var(--bg-2);
+      border: 1px solid var(--border-1);
+      border-bottom: 6px solid var(--fam);
+      border-radius: var(--r-lg);
+      padding: var(--s-5) var(--s-4);
+      width: 100%;
+      align-self: end;
+    }
+    /* The bar always faces the pipeline: cards above point down, 03 points up. */
+    #slide-06f .fam-card--below {
+      border-bottom: 1px solid var(--border-1);
+      border-top: 6px solid var(--fam);
+      align-self: start;
+    }
+    #slide-06f .fam-card--a { --fam: var(--accent-1); }
+    #slide-06f .fam-card--b { --fam: var(--accent-2); }
+    #slide-06f .fam-card--c { --fam: var(--info); }
+    /* content-width cards (01, 02): sized by their one-line title, placed
+       along the spine by justify-self instead of filling a track */
+    #slide-06f .fam-card--snug { width: max-content; max-width: 100%; }
+
+    #slide-06f .fam-card__icon { flex: 0 0 auto; width: 56px; height: 56px; display: block; }
+    #slide-06f .fam-card__title {
+      position: relative;
+      font-size: var(--t-h3); font-weight: 800; color: var(--fg-0);
+      line-height: 1.15; letter-spacing: -0.02em;
+      /* one line, always — the cards span two tracks / size to content now,
+         so there is room and a wrap would just look broken */
+      white-space: nowrap;
+    }
+
+    /* Connectors. Plain divs rather than SVG so they take tokens directly and
+       cannot drift out of alignment with a grid the browser is sizing. */
+    #slide-06f .fam-stub { width: 3px; height: 40px; background: var(--border-2); }
+
+    /* The pipeline sits on a spine that runs the full width behind the chips. */
+    #slide-06f .fam-spine {
+      width: 100%; height: 3px; background: var(--border-1);
+      z-index: 0; align-self: center;
+    }
+    #slide-06f .chip-13 {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      /* line-height 1: mono ascent/descent are asymmetric, so anything taller
+         makes equal padding read as off-center */
+      line-height: 1;
+      padding: 18px 26px; background: var(--bg-2);
+      border: 1px solid var(--border-1); border-radius: var(--r-pill);
+      font-family: 'JetBrains Mono', monospace; font-size: 24px; color: var(--fg-1);
+      font-weight: 700; white-space: nowrap;
+      transition: background 280ms var(--ease), border-color 280ms var(--ease),
+                  color 280ms var(--ease), box-shadow 280ms var(--ease);
+    }
+    /* The circle is drawn here, not a ①-style glyph: those come from fallback
+       fonts with off-baseline metrics and never sit centered. em units track
+       the chip's font-size wherever it is overridden. */
+    #slide-06f .chip-13__num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5em; height: 1.5em; flex: 0 0 auto;
+      border: 0.09em solid currentColor; border-radius: var(--r-pill);
+      font-size: 0.72em; line-height: 1;
+    }
+
+    /* One stage per step: (1), then (2), then (3) and (4) together.
+       Flat opaque fill — a translucent one let the spine read through. */
+    #slide-06f:has(.frag[data-step="1"].is-current) .chip-13[data-phase="1"],
+    #slide-06f:has(.frag[data-step="1"].is-past)    .chip-13[data-phase="1"],
+    #slide-06f:has(.frag[data-step="2"].is-current) .chip-13[data-phase="2"],
+    #slide-06f:has(.frag[data-step="2"].is-past)    .chip-13[data-phase="2"],
+    #slide-06f:has(.frag[data-step="3"].is-current) .chip-13[data-phase="3"],
+    #slide-06f:has(.frag[data-step="3"].is-past)    .chip-13[data-phase="3"],
+    #slide-06f:has(.frag[data-step="3"].is-current) .chip-13[data-phase="4"],
+    #slide-06f:has(.frag[data-step="3"].is-past)    .chip-13[data-phase="4"] {
+      background: var(--accent-1-text);
+      border-color: var(--accent-1-text);
+      color: var(--bg-0);
+      box-shadow: 0 0 0 1px var(--accent-1-text), 0 0 18px var(--accent-glow);
+    }
+  </style>
+
+  <div data-sid="06f-other-activities:29" class="slide__number"></div>
+</section>

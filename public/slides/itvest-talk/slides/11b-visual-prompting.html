@@ -1,0 +1,456 @@
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Ported from gen_ai_assessments/slides/visual-prompting.html (slide 22).
+     Markup, animation and step machine are unchanged; only the identity was
+     rewritten (data-sid prefix, #slide-18b -> #slide-11b).
+
+     PORTING NOTE: the source leans on its own deck's tokens, which exist here
+     under the SAME NAMES but with DIFFERENT VALUES (--s-2 is 16px there and 8px
+     here), plus several that don't exist here at all (--t-small, --t-ref,
+     --r-1..3). Only those geometry tokens are redeclared on the section below —
+     a naive copy would render at half spacing.
+
+     Colours come from this deck's tokens.css, so the slide themes with the
+     rest of the deck (light/dark `t` toggle included). Only the source's
+     spacing/type/radius tokens are redeclared, because the 520px drawing is
+     laid out against them.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section data-sid="11b-visual-prompting:1" class="slide" id="slide-11b">
+  <p data-sid="11b-visual-prompting:2" class="kicker">So what else can the stimulus be?</p>
+  <h2 data-sid="11b-visual-prompting:3" style="margin-bottom: var(--s-2);">The prompt doesn&rsquo;t have to be text</h2>
+
+  <div data-sid="11b-visual-prompting:4" class="slide__body" style="position: relative; display: flex; flex-direction: column; min-height: 0;">
+    <div data-sid="11b-visual-prompting:5" class="vp-row" style="display: flex; gap: var(--s-4); flex: 1; min-height: 0;">
+
+      <figure data-sid="11b-visual-prompting:6" class="vp-figure" style="width: 880px; margin: 0; display: flex; flex-direction: column; gap: var(--s-1);">
+        <div data-sid="11b-visual-prompting:7" class="vp-stage" style="position: relative; height: 520px;">
+          <svg data-sid="11b-visual-prompting:8" class="vp-wires" viewBox="0 0 880 520" aria-hidden="true">
+            <defs>
+              <!-- pen wobble: the paths are drawn slightly askew, then the noise
+                   displacement roughens every stroke like ink on paper -->
+              <filter id="vp11b-rough" x="-5%" y="-5%" width="110%" height="110%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.032" numOctaves="2" seed="11" result="n"/>
+                <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <g filter="url(#vp11b-rough)">
+              <path class="vp-ink-box" d="M293 32 L587 29 L589 87 L291 90 Z"/>
+              <path class="vp-ink-box" d="M13 223 L287 221 L289 278 L11 281 Z"/>
+              <path class="vp-ink-box" d="M303 221 L577 219 L579 277 L301 279 Z"/>
+              <path class="vp-ink-box" d="M593 223 L867 220 L869 278 L591 281 Z"/>
+              <path d="M440 90 C438 113 442 135 440 158"/>
+              <path d="M150 160 C343 165 537 154 730 160"/>
+              <path d="M150 162 C148 179 152 196 150 210"/><path d="M143 200 L150 213 L157 201"/>
+              <path d="M440 162 C442 179 438 196 440 210"/><path d="M433 200 L440 213 L447 201"/>
+              <path d="M730 162 C732 179 728 196 730 210"/><path d="M723 200 L730 213 L737 201"/>
+              <path d="M440 282 C444 326 435 370 440 410" class="vp-wires__soft"/>
+              <path class="vp-ink-note" d="M303 420 L661 417 L663 466 L301 469 Z"/>
+            </g>
+          </svg>
+          <div data-sid="11b-visual-prompting:9"  class="vp-box" style="left: 290px; top: 28px; width: 300px; transform: translate(-3px, 0px)">play_evil_hangman()</div>
+          <div data-sid="11b-visual-prompting:10" class="vp-box" style="left: 10px; top: 220px; width: 280px; transform: translate(0px, -5px)">pick_word_set()</div>
+          <div data-sid="11b-visual-prompting:11" class="vp-box" style="left: 300px; top: 220px; width: 280px; transform: translate(-2px, -5px)">filter_by_guess()</div>
+          <div data-sid="11b-visual-prompting:12" class="vp-box" style="left: 590px; top: 220px; width: 280px; transform: translate(-8px, -5px)">render_state()</div>
+          <div data-sid="11b-visual-prompting:13" class="vp-note" style="left: 300px; top: 418px; width: 360px;">letters guessed so far &rarr;</div>
+        </div>
+        <figcaption data-sid="11b-visual-prompting:14" class="cap">One student&rsquo;s drawn decomposition of a word-guessing game.</figcaption>
+        <p data-sid="11b-visual-prompting:15" class="frag panel vp-read" data-step="1" data-anim="fade">
+          <svg class="vp-robot" viewBox="0 0 100 100" aria-hidden="true">
+            <g fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke: var(--fg-0);">
+              <line x1="50" y1="14" x2="50" y2="26"></line>
+              <rect x="18" y="26" width="64" height="50" rx="14"></rect>
+              <line x1="32" y1="76" x2="32" y2="88"></line>
+              <line x1="68" y1="76" x2="68" y2="88"></line>
+              <line x1="40" y1="64" x2="60" y2="64"></line>
+            </g>
+            <circle cx="50" cy="9" r="6" style="fill: var(--accent-2);"></circle>
+            <circle cx="36" cy="46" r="7" style="fill: var(--accent-2);"></circle>
+            <circle cx="64" cy="46" r="7" style="fill: var(--accent-2);"></circle>
+          </svg>
+          A multimodal (text, vision, speech) model reads the image.</p>
+      </figure>
+
+      <div data-sid="11b-visual-prompting:25" class="vp-out" style="flex: 1; display: flex; flex-direction: column; gap: var(--s-1); min-height: 0;">
+        <div data-sid="11b-visual-prompting:26" class="panel vp-panel frag" data-step="2" data-anim="fade-up">
+          <p data-sid="11b-visual-prompting:27" class="word-label vp-label">Generate a program, then test it</p>
+          <ul data-sid="11b-visual-prompting:28" class="vp-fns">
+            <li data-sid="11b-visual-prompting:29" class="vp-fn">play_evil_hangman()</li>
+            <li data-sid="11b-visual-prompting:30" class="vp-fn">pick_word_set()</li>
+            <li data-sid="11b-visual-prompting:31" class="vp-fn">filter_by_guess()</li>
+            <li data-sid="11b-visual-prompting:32" class="vp-fn">render_state()</li>
+          </ul>
+          <p data-sid="11b-visual-prompting:36" class="word-label vp-label" style="margin-top: var(--s-2);">Behavioral test suite</p>
+          <ul data-sid="11b-visual-prompting:37" class="vp-tests">
+            <li data-sid="11b-visual-prompting:38" class="vp-test">the word set never collapses early</li>
+            <li data-sid="11b-visual-prompting:39" class="vp-test">a guessed letter narrows the set</li>
+            <li data-sid="11b-visual-prompting:40" class="vp-test">the game ends on the last word</li>
+          </ul>
+        </div>
+        <div data-sid="11b-visual-prompting:35" class="panel vp-panel frag" data-step="3" data-anim="fade-up">
+          <p data-sid="11b-visual-prompting:16" class="word-label vp-label">Or judge the drawing against a rubric</p>
+          <ul data-sid="11b-visual-prompting:17" class="vp-rubric">
+            <li data-sid="11b-visual-prompting:18" class="vp-rub">each responsibility gets its own box</li>
+            <li data-sid="11b-visual-prompting:19" class="vp-rub">the loop reaches every part of the game</li>
+            <li data-sid="11b-visual-prompting:20" class="vp-rub vp-rub--flag">no box decides when the game ends &mdash; returned as feedback</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div data-sid="11b-visual-prompting:41" class="frag vp-more" data-step="4" data-anim="fade">
+      <p data-sid="11b-visual-prompting:42" class="word-label vp-more__label">Other drawn artifacts</p>
+      <p data-sid="11b-visual-prompting:43" class="vp-more__text">An <strong class="vp-more__key">ER diagram</strong> becomes a schema you can query. <br>A <strong class="vp-more__key">UML diagram</strong> becomes objects you can instantiate. <br>A <strong class="vp-more__key">rough sketch</strong> becomes an early design which can be critiqued.</p>
+    </div>
+  </div>
+
+  <ul data-sid="11b-visual-prompting:45" class="corner-cite">
+    <li data-sid="11b-visual-prompting:47">Smith IV, D. H., Monisha, S. M. A., Vadaparty, A., Porter, L., &amp; Zingaro, D. (2026). <em>Drawing your programs: Exploring the applications of visual-prompting with GenAI for teaching and assessment</em> (arXiv:2602.10529).</li>
+  </ul>
+
+  <style>
+    /* ════ 1. the assessment deck's token set, scoped to this slide ════
+       Same names as this deck's globals, different values. Redeclaring them
+       here means every var() below resolves to assessment values and no other
+       slide is affected. */
+    #slide-11b {
+      /* The source deck's geometry, which this layout is tuned to: its spacing
+         scale is double this deck's (--s-2 is 16px there, 8px here) and it uses
+         --t-small/--t-ref/--r-1..3, which don't exist here. Colours are NOT
+         redeclared — they fall through to tokens.css so this slide themes with
+         the rest of the deck. */
+      --s-1: 8px;  --s-2: 16px; --s-3: 24px; --s-4: 32px;
+      --s-5: 48px; --s-6: 64px; --s-7: 96px; --s-8: 128px;
+      --t-small: 36px; --t-ref: 20px;
+      --r-1: 2px; --r-2: 6px; --r-3: 12px;
+      --font-display: 'Inter', sans-serif;
+      /* pen annotations stay a hand face — that's the drawing's whole point */
+      --font-hand: 'Segoe Print', 'Bradley Hand', 'Chalkboard SE', 'Marker Felt',
+        'Ink Free', 'Comic Neue', 'Comic Relief', 'Comic Sans MS', 'Z003', cursive;
+
+      /* the source pads 96/128; keep that or the 520px sheet runs out of room */
+      padding: var(--s-7) var(--s-8);
+    }
+
+    /* ════ 2. base typography the source deck provides and this one doesn't ════
+       This deck styles .slide__title, not bare h2, so the heading would fall
+       back to Inter at browser-default size without these. */
+    #slide-11b h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--t-h2);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 var(--s-4);
+      color: var(--fg-0);
+    }
+    #slide-11b p { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+    #slide-11b ul { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+    #slide-11b li { margin: var(--s-2) 0; }
+    #slide-11b .slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+
+    /* ════ 3. shared component classes, lifted from the source deck.css ════ */
+    #slide-11b .kicker {
+      font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-1-text); margin: 0 0 var(--s-3);
+    }
+    #slide-11b .panel {
+      box-sizing: border-box; background: var(--bg-1);
+      border-radius: var(--r-lg); padding: var(--s-4); border: 1px solid var(--border-1);
+    }
+    #slide-11b .word-label {
+      font-family: 'JetBrains Mono', monospace; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+    #slide-11b .cap { font-size: 28px; color: var(--fg-1); margin: 0; }
+    #slide-11b .corner-cite {
+      position: absolute; left: var(--s-5); right: var(--s-5); bottom: var(--s-4);
+      margin: 0; padding-left: var(--s-3); font-size: var(--t-ref);
+      line-height: 1.3; color: var(--fg-1); overflow-wrap: anywhere; list-style: none;
+    }
+    #slide-11b .corner-cite li { margin: 0; }
+
+    /* ════ 4. the slide's own styles, verbatim from the source ════
+       the drawing is paper — cream sheet, pen-blue strokes: the ink (boxes,
+       wires, the note's border) lives in the SVG under a noise filter, and the
+       divs on top carry only the text. The output panels stay bg-1, so "drawn
+       by a human" and "produced by a machine" are two different surfaces. */
+    #slide-11b .vp-stage {
+      box-sizing: border-box;
+      overflow: hidden;
+      background: var(--bg-0);
+      border: 3px solid color-mix(in srgb, var(--fg-1) 32%, transparent);
+      border-radius: var(--r-3);
+    }
+    #slide-11b .vp-wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #slide-11b .vp-wires path {
+      fill: none;
+      stroke: var(--accent-2);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    #slide-11b .vp-ink-box { fill: var(--bg-0); transition: stroke .3s ease; }
+    #slide-11b .vp-ink-box.is-lit { stroke: var(--accent-1); stroke-width: 4; }
+    #slide-11b .vp-ink-note { stroke-dasharray: 11 9; }
+    #slide-11b .vp-wires__soft { stroke-dasharray: 7 9; opacity: .7; }
+
+    #slide-11b .vp-box {
+      position: absolute;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60px;
+      padding: 0 var(--s-2);
+      border-radius: var(--r-2);
+      font-family: var(--font-hand);  /* pen text, not machine text */
+      font-size: var(--t-caption);
+      color: var(--accent-2);
+      transition: color .3s ease, background .3s ease;
+    }
+    /* lit = the scan has reached this box — a highlighter wash over the ink */
+    #slide-11b .vp-box.is-lit {
+      color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 14%, transparent);
+    }
+    #slide-11b .vp-note {
+      position: absolute;
+      box-sizing: border-box;
+      padding: var(--s-1) var(--s-2);
+      font-family: var(--font-hand);
+      font-size: var(--t-caption);
+      font-style: italic;
+      color: var(--accent-2);
+    }
+
+    /* the scan is chrome, not content */
+    @keyframes vp11b-scan { from { transform: translateY(-70px); } to { transform: translateY(520px); } }
+    #slide-11b .vp-stage::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 70px;
+      opacity: 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom,
+        transparent,
+        color-mix(in srgb, var(--accent-1) 26%, transparent),
+        transparent);
+      border-bottom: 3px solid var(--accent-1);
+    }
+    #slide-11b.is-scanning .vp-stage::after { opacity: 1; animation: vp11b-scan 2.4s cubic-bezier(.42, 0, .3, 1) forwards; }
+
+    #slide-11b .vp-read {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      padding: var(--s-2) var(--s-3);
+      font-size: var(--t-small);
+      line-height: 1.25;
+      margin: 0;
+    }
+    #slide-11b .vp-robot { display: block; flex: none; width: 64px; height: 64px; }
+    @keyframes vp11b-hop {
+      0%   { transform: translateY(0); }
+      22%  { transform: translateY(-14px); }
+      46%  { transform: translateY(0); }
+      66%  { transform: translateY(-7px); }
+      84%  { transform: translateY(0); }
+      93%  { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+    #slide-11b.is-scanning .vp-robot { animation: vp11b-hop 1.15s cubic-bezier(.28, .84, .42, 1); }
+
+    #slide-11b { --vp-row-size: calc(var(--t-caption) * 1.2); }
+    #slide-11b .vp-panel { padding: var(--s-2) var(--s-3); }
+    #slide-11b .vp-label { font-size: var(--t-caption); color: var(--fg-1); margin: 0 0 var(--s-1); }
+    #slide-11b .vp-fns {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: max-content max-content;
+      gap: var(--s-1);
+    }
+    #slide-11b .vp-fn {
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-0);
+      border-left: 6px solid var(--accent-1);
+      border-radius: var(--r-2);
+      font-family: ui-monospace, monospace;
+      font-size: var(--vp-row-size);
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateX(-14px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    #slide-11b .vp-fn.is-on { opacity: 1; transform: none; }
+
+    #slide-11b .vp-tests,
+    #slide-11b .vp-rubric {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-1);
+      min-height: 0;
+    }
+    #slide-11b .vp-test,
+    #slide-11b .vp-rub {
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      background: var(--bg-0);
+      border-left: 6px solid var(--fg-1);
+      border-radius: var(--r-2);
+      font-size: var(--vp-row-size);
+      line-height: 1.3;
+      transition: border-color .24s ease, background .24s ease;
+    }
+    #slide-11b .vp-test::before,
+    #slide-11b .vp-rub::before { content: "· "; color: var(--fg-1); }
+    #slide-11b .vp-test.is-passed,
+    #slide-11b .vp-rub.is-marked {
+      border-left-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0));
+    }
+    #slide-11b .vp-test.is-passed::before,
+    #slide-11b .vp-rub.is-marked::before { content: "✓ "; color: var(--accent-1); }
+    #slide-11b .vp-rub--flag.is-marked {
+      border-left-color: var(--accent-3);
+      background: color-mix(in srgb, var(--accent-3) 10%, var(--bg-0));
+    }
+    #slide-11b .vp-rub--flag.is-marked::before { content: "! "; color: var(--accent-3); }
+
+    /* click 4 — the demo blurs back and the takeaway lands centered on top */
+    #slide-11b .vp-row,
+    #slide-11b > .kicker,
+    #slide-11b > h2,
+    #slide-11b .corner-cite { transition: filter .52s ease, opacity .52s ease; }
+    #slide-11b.is-outro .vp-row,
+    #slide-11b.is-outro > .kicker,
+    #slide-11b.is-outro > h2,
+    #slide-11b.is-outro .corner-cite {
+      filter: blur(26px);
+      opacity: .16;
+    }
+    #slide-11b .vp-more {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-2);
+      text-align: center;
+      pointer-events: none;
+      transition: opacity .52s ease .2s;
+    }
+    #slide-11b .vp-more.is-current,
+    #slide-11b .vp-more.is-past { pointer-events: auto; }
+    #slide-11b .vp-more__label {
+      font-size: var(--t-caption);
+      color: var(--accent-1);
+      margin: 0;
+      white-space: nowrap;
+    }
+    #slide-11b .vp-more__text {
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1.25;
+      max-width: 1200px;
+      margin: 0;
+    }
+    #slide-11b .vp-more__key { color: var(--accent-1); }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID = 'slide-11b';
+
+    let timers = [];
+    let stepCache = -1;
+    const clearAll = () => { timers.forEach(clearTimeout); timers = []; };
+    const t = (fn, ms) => timers.push(setTimeout(fn, ms));
+
+    // Every beat runs in one of three modes: 'off', 'animate' (we just arrived
+    // on its step), or 'on' (we're past it, or deep-linked in cold — land on
+    // the finished state without replaying). The deck is random-access, so
+    // every step has to be reachable cold as well as in sequence.
+    function litBoxes(scope, mode) {
+      const divs = [...scope.querySelectorAll('.vp-box')];
+      const inks = [...scope.querySelectorAll('.vp-ink-box')];
+      divs.forEach(d => d.classList.remove('is-lit'));
+      inks.forEach(k => k.classList.remove('is-lit'));
+      if (mode === 'off') return;
+      const on = i => {
+        if (divs[i]) divs[i].classList.add('is-lit');
+        if (inks[i]) inks[i].classList.add('is-lit');
+      };
+      if (mode === 'on') { divs.forEach((_, i) => on(i)); return; }
+      const when = [450, 1250, 1400, 1550];   // trails the scan beam down the sheet
+      divs.forEach((_, i) => t(() => on(i), when[i] || 1550));
+    }
+
+    function route1(scope, mode) {
+      const fns = [...scope.querySelectorAll('.vp-fn')];
+      const tests = [...scope.querySelectorAll('.vp-test')];
+      fns.forEach(f => f.classList.remove('is-on'));
+      tests.forEach(r => r.classList.remove('is-passed'));
+      if (mode === 'off') return;
+      if (mode === 'on') {
+        fns.forEach(f => f.classList.add('is-on'));
+        tests.forEach(r => r.classList.add('is-passed'));
+        return;
+      }
+      fns.forEach((f, i) => t(() => f.classList.add('is-on'), 200 + i * 180));
+      tests.forEach((r, i) => t(() => r.classList.add('is-passed'), 1050 + i * 300));
+    }
+
+    function route2(scope, mode) {
+      const rows = [...scope.querySelectorAll('.vp-rub')];
+      rows.forEach(r => r.classList.remove('is-marked'));
+      if (mode === 'off') return;
+      if (mode === 'on') { rows.forEach(r => r.classList.add('is-marked')); return; }
+      rows.forEach((r, i) => t(() => r.classList.add('is-marked'), 250 + i * 350));
+    }
+
+    function sync() {
+      const scope = document.getElementById(SLIDE_ID);
+      if (!scope) return;
+      if (!scope.classList.contains('is-active')) {
+        clearAll();
+        stepCache = -1;
+        scope.classList.remove('is-scanning', 'is-outro');
+        litBoxes(scope, 'off'); route1(scope, 'off'); route2(scope, 'off');
+        return;
+      }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      scope.classList.toggle('is-scanning', step === 1);
+      scope.classList.toggle('is-outro', step >= 4);
+      if (step === stepCache) return;
+      clearAll();
+      stepCache = step;
+      litBoxes(scope, step < 1 ? 'off' : (step === 1 ? 'animate' : 'on'));
+      route1(scope, step < 2 ? 'off' : (step === 2 ? 'animate' : 'on'));
+      route2(scope, step < 3 ? 'off' : (step === 3 ? 'animate' : 'on'));
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <aside data-sid="11b-visual-prompting:46" class="notes">
+[~60s · 4 clicks]
+Multimodal models let us ask students to produce visual artifacts and assess those artifacts directly. Here's the kind of artifact we mean — a student's drawn decomposition of a word-guessing game.
+(1) A multimodal model reads the photograph as-is — no transcription step, no context about the assignment.
+(2) Route one: the model generates a runnable program from the drawing, and that program runs against a behavioral test suite. The drawing is graded by whether the design it describes actually works.
+(3) Route two: no program at all — the model judges the drawing itself against a rubric, and what the rubric catches goes back to the student as written feedback.
+(4) The demo blurs back — nothing here is specific to decomposition diagrams: an ER diagram becomes a schema you can query, a UML diagram becomes objects you can instantiate.
+(If asked about the pilot: 133 intro Python students, 50 minutes, one sheet of paper — 81.2% of diagrams had their function structure fully extracted, r = .776 between functions drawn and functions generated.)
+  </aside>
+  <div data-sid="11b-visual-prompting:48" class="slide__number"></div>
+</section>

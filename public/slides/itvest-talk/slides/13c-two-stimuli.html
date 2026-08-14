@@ -1,0 +1,381 @@
+<!-- THE FORK. Second half of the box spine: 13b showed the box empty, this shows
+     the same box twice, filled two different ways. Same panel treatment, same
+     caret, so the audience reads them as the same slot rather than two new ideas.
+
+     Left types the SAME prompt 05c-cgbg-animation typed in English — "write a
+     function that returns the largest number in a list" — in Devanagari. The
+     callback is the argument: identical task, identical pipeline, different
+     language in the box.
+
+     Right SKETCHES a decomposition live: box → arrow → boxes draw themselves
+     directly in the panel, IN THEME — accent-2 ink on bg-2, Caveat lettering
+     in accent-2-text. The labels tease the flashcard app, so when
+     11b-visual-prompting-A's full paper decomposition arrives two slides later
+     it reads as "the thing from the fork, drawn out".
+
+     What makes it read as SKETCHED rather than drafted:
+       · hachure fills (Rough.js-style -41° scanline hatching) fading in as a
+         wash when each box completes;
+       · sketchgen's pen cranked (roughness 2.8 / bowing 2.6 / overshoot 7 vs
+         the 11b-A sheet's 1.9/1.7/4) — this is a quick doodle, not a careful
+         student diagram.
+     The ink holds still once it lands: no line boil, no wobble, no pencil.
+     Ink geometry comes from tools/sketchgen.py (Pen seeds "13c-*"); if the
+     layout changes, REGENERATE rather than nudging coordinates — the reveal
+     needs the main pass as ONE PATH PER STROKE in pen order, which sketchgen's
+     emit_paths doesn't produce. Dash patterns reset at every subpath, so a
+     compound path would reveal every stroke at once instead of one after
+     another.
+
+     This slot previously held decomp-004.png, a real student scan; the speaker
+     line "that's a real student's diagram, not a mock-up" left with it.
+
+     TRANSLATION UNVERIFIED BY A NATIVE SPEAKER. 19b-multilingual credits
+     Dr. Rachana Patil (PCCOE) for this deck's Devanagari — worth a check before
+     this is presented in a room where people read it. -->
+<section data-sid="13c-two-stimuli:1" class="slide" id="slide-13c">
+  <div data-sid="13c-two-stimuli:2" class="slide__eyebrow">Two things we can act on</div>
+  <h2 data-sid="13c-two-stimuli:3" class="slide__title">So there are <span class="gradient-text">two stimuli</span> to work with</h2>
+
+  <div data-sid="13c-two-stimuli:4" class="slide__body" style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:stretch; min-height:0;">
+
+    <!-- LEFT — the same prompt, another language -->
+    <div data-sid="13c-two-stimuli:5" class="frag fk-col" data-step="1">
+      <div data-sid="13c-two-stimuli:6" class="fk-panel">
+        <div data-sid="13c-two-stimuli:7" class="fk-panel__label">&#9312;&nbsp; Student prompt</div>
+        <div data-sid="13c-two-stimuli:8" class="fk-panel__field g-hi"><span data-sid="13c-two-stimuli:9" id="fk-text"></span><span data-sid="13c-two-stimuli:10" id="fk-caret" class="fk-caret"></span></div>
+      </div>
+      <div data-sid="13c-two-stimuli:11" class="fk-cap" style="color:var(--accent-1-text);">another natural language</div>
+    </div>
+
+    <!-- RIGHT — the same slot, a drawing appearing in it -->
+    <div data-sid="13c-two-stimuli:12" class="frag fk-col" data-step="2">
+      <div data-sid="13c-two-stimuli:13" class="fk-panel">
+        <div data-sid="13c-two-stimuli:14" class="fk-panel__label">&#9312;&nbsp; Student prompt</div>
+        <div data-sid="13c-two-stimuli:15" class="fk-panel__art">
+          <div data-sid="13c-two-stimuli:16" class="fk-draw">
+            <svg class="fk-ink-svg" viewBox="0 0 720 345" role="img"
+                   aria-label="A hand-drawn decomposition diagram: a box labeled flashcards, with arrows down to two boxes labeled load cards and quiz me">
+                <!-- ink, generated (see header comment): per shape a hachure
+                     fill plus the main pass as ONE PATH PER STROKE in pen
+                     order — dash patterns reset at every subpath, so a compound
+                     path would reveal every stroke at once instead of one after
+                     another. The retrace (fk-ink-over) only ever appears whole,
+                     so it stays joined. -->
+                <g class="fk-shape" id="fk-s-b1">
+                  <path class="fk-hachure" d="M250.2,44.8 C257.2,36.8 259.8,34.0 264.5,30.8 M290.0,29.7 C271.6,48.9 258.5,59.4 249.2,64.7 M250.0,86.5 C278.7,59.6 296.6,43.5 314.2,32.2 M337.8,31.2 C298.4,64.2 282.2,78.4 260.5,95.9 M286.2,97.5 C329.5,61.7 341.0,52.0 362.8,31.7 M387.8,31.0 C350.0,65.9 329.6,81.2 309.5,96.6 M335.5,97.1 C374.9,60.7 396.7,43.0 409.8,31.4 M435.7,29.8 C396.4,67.1 383.6,78.0 360.5,96.1 M383.4,95.9 C422.6,61.6 440.2,47.9 460.4,31.7 M469.5,42.6 C442.4,68.4 423.6,82.2 409.0,96.2 M432.7,95.8 C450.9,80.4 461.8,70.7 469.6,63.9 M470.5,86.2 C463.3,91.8 460.8,93.2 458.4,96.5"/>
+                  <path class="fk-ink-main" d="M253.4,24.7 C352.1,30.0 413.5,27.7 469.9,24.1"/>
+                  <path class="fk-ink-main" d="M461.0,28.0 C469.9,33.5 472.2,37.5 475.6,39.7"/>
+                  <path class="fk-ink-main" d="M475.6,33.4 C476.8,63.6 475.1,81.1 477.2,92.8"/>
+                  <path class="fk-ink-main" d="M477.2,88.5 C466.8,95.2 465.4,98.4 461.0,102.2"/>
+                  <path class="fk-ink-main" d="M465.7,100.8 C357.3,107.7 309.8,104.3 253.8,101.1"/>
+                  <path class="fk-ink-main" d="M257.7,102.8 C250.5,96.5 249.8,91.5 246.6,89.8"/>
+                  <path class="fk-ink-main" d="M244.2,93.5 C244.6,62.2 246.3,48.1 247.7,32.4"/>
+                  <path class="fk-ink-main" d="M245.8,40.5 C251.4,33.6 255.0,29.1 257.3,24.3"/>
+                  <path class="fk-ink-over" d="M253.7,24.8 C358.9,26.4 416.1,26.6 468.9,24.4 M475.2,32.7 C475.5,65.4 474.8,75.3 476.4,94.5 M468.7,100.3 C347.4,96.4 308.3,98.7 252.9,103.7 M246.4,96.1 C244.9,62.2 245.1,52.1 246.3,33.2"/>
+                </g>
+                <g class="fk-shape" id="fk-s-a1">
+                  <path class="fk-ink-main" d="M313.7,109.7 C253.9,161.6 219.3,194.9 194.3,217.4"/>
+                  <path class="fk-ink-main" d="M197.2,218.4 C203.1,216.1 207.3,214.9 210.4,214.0"/>
+                  <path class="fk-ink-main" d="M194.5,216.4 C199.7,209.8 200.4,207.4 201.0,204.3"/>
+                  <path class="fk-ink-over" d="M314.7,108.8 C258.4,166.7 233.1,187.2 196.9,216.5"/>
+                </g>
+                <g class="fk-shape" id="fk-s-b2">
+                  <path class="fk-hachure" d="M70.1,258.9 C76.9,250.5 81.6,248.5 84.5,245.0 M109.2,246.0 C86.9,263.0 80.5,269.6 70.9,279.1 M70.6,301.5 C100.1,274.0 118.4,257.2 133.6,243.7 M156.4,245.8 C120.8,276.3 102.1,294.1 80.5,311.5 M106.2,310.7 C144.2,282.6 163.4,262.7 182.2,245.0 M206.4,243.8 C172.0,276.6 152.0,293.2 131.7,310.4 M154.8,310.3 C197.2,277.2 208.8,265.4 230.1,244.2 M254.7,243.8 C213.4,284.8 198.7,296.1 180.2,310.5 M204.6,310.8 C237.7,279.6 261.5,259.0 279.9,245.1 M291.2,257.0 C260.8,281.0 240.1,298.8 227.0,310.6 M253.3,311.5 C274.9,293.7 281.5,286.6 290.7,277.5 M289.6,300.3 C284.4,304.5 279.0,309.2 275.8,310.2"/>
+                  <path class="fk-ink-main" d="M73.8,242.4 C182.5,237.3 239.5,236.4 285.8,238.7"/>
+                  <path class="fk-ink-main" d="M279.8,240.0 C288.9,248.0 291.9,250.9 297.0,252.2"/>
+                  <path class="fk-ink-main" d="M293.3,245.8 C295.6,278.0 295.8,296.5 294.5,311.3"/>
+                  <path class="fk-ink-main" d="M293.2,300.5 C288.8,308.7 284.0,310.7 283.2,317.4"/>
+                  <path class="fk-ink-main" d="M289.2,315.8 C175.0,321.2 127.7,318.9 74.3,317.5"/>
+                  <path class="fk-ink-main" d="M78.0,317.0 C71.3,308.1 67.7,305.5 64.4,301.1"/>
+                  <path class="fk-ink-main" d="M65.6,310.2 C66.8,274.2 67.3,261.2 65.5,247.3"/>
+                  <path class="fk-ink-main" d="M64.7,256.0 C72.5,246.6 76.9,243.2 79.2,241.6"/>
+                  <path class="fk-ink-over" d="M72.2,241.8 C173.7,246.1 247.9,243.9 289.6,240.7 M296.5,248.1 C294.5,275.4 295.0,295.3 294.5,310.8 M288.0,315.9 C187.1,314.7 120.6,315.1 71.8,314.8 M65.4,308.0 C64.0,277.4 63.9,264.4 65.4,248.8"/>
+                </g>
+                <g class="fk-shape" id="fk-s-a2">
+                  <path class="fk-ink-main" d="M404.0,105.9 C462.6,155.3 496.5,187.7 521.9,215.5"/>
+                  <path class="fk-ink-main" d="M524.6,218.2 C522.2,211.2 518.8,207.0 517.3,204.6"/>
+                  <path class="fk-ink-main" d="M525.5,219.5 C515.9,214.8 512.4,214.0 509.1,212.0"/>
+                  <path class="fk-ink-over" d="M403.6,106.6 C462.8,155.9 496.8,190.0 523.0,217.6"/>
+                </g>
+                <g class="fk-shape" id="fk-s-b3">
+                  <path class="fk-hachure" d="M429.4,256.6 C437.8,250.6 440.0,247.5 443.6,244.6 M469.5,243.6 C447.8,263.1 439.5,270.9 429.1,278.7 M428.7,300.0 C459.6,273.5 476.7,259.2 492.9,244.9 M517.7,245.5 C478.7,276.9 460.3,294.9 441.2,310.1 M466.9,310.3 C504.2,281.5 522.4,264.7 541.3,244.8 M567.8,245.0 C530.0,279.3 508.2,296.8 491.9,309.6 M515.8,311.0 C549.8,279.9 575.7,258.5 590.7,243.7 M614.6,243.9 C578.1,277.2 557.4,295.7 538.5,311.0 M564.7,311.9 C601.9,279.8 625.3,258.7 640.0,245.7 M648.7,256.8 C619.7,281.2 602.3,297.2 588.7,311.8 M613.0,309.6 C630.1,296.9 640.6,286.7 651.1,279.3 M650.5,300.5 C642.6,305.7 641.2,307.8 638.2,310.2"/>
+                  <path class="fk-ink-main" d="M429.8,239.9 C537.4,239.1 602.9,240.3 649.3,240.6"/>
+                  <path class="fk-ink-main" d="M640.1,239.2 C648.2,248.5 649.9,251.3 654.8,253.6"/>
+                  <path class="fk-ink-main" d="M653.5,245.6 C654.4,273.5 653.7,294.9 652.7,310.7"/>
+                  <path class="fk-ink-main" d="M657.2,301.4 C649.5,308.0 644.0,310.9 639.1,317.8"/>
+                  <path class="fk-ink-main" d="M647.5,317.1 C531.3,315.0 491.3,317.1 434.2,317.7"/>
+                  <path class="fk-ink-main" d="M440.2,314.9 C431.3,309.6 426.4,304.8 426.5,303.5"/>
+                  <path class="fk-ink-main" d="M426.1,308.5 C424.9,276.6 426.1,262.3 426.8,244.6"/>
+                  <path class="fk-ink-main" d="M425.3,255.0 C433.2,247.8 434.9,244.6 439.0,241.2"/>
+                  <path class="fk-ink-over" d="M432.3,240.6 C531.9,240.6 597.5,240.5 649.2,239.0 M656.1,248.9 C654.1,278.0 653.6,293.7 653.9,308.3 M648.9,315.1 C527.6,316.1 489.4,316.6 431.9,317.3 M424.0,307.6 C425.7,277.1 425.8,264.0 426.9,247.0"/>
+                </g>
+                <!-- hand lettering; base tilt lives in CSS -->
+                <text id="fk-l1" class="fk-hand" x="360" y="80">flashcards</text>
+                <text id="fk-l2" class="fk-hand" x="180" y="294">load cards</text>
+                <text id="fk-l3" class="fk-hand" x="540" y="294">quiz me</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div data-sid="13c-two-stimuli:17" class="fk-cap" style="color:var(--accent-2-text);">a drawing</div>
+    </div>
+
+  </div>
+
+  <style>
+    #slide-13c .fk-col {
+      display: flex; flex-direction: column; gap: 20px;
+      min-height: 0; justify-content: center;
+    }
+    #slide-13c .fk-panel {
+      background: var(--bg-2);
+      border: 1px solid var(--border-1);
+      border-radius: 14px;
+      padding: 26px 32px;
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    #slide-13c .fk-panel__label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-2-text);
+      margin-bottom: 18px;
+      flex: 0 0 auto;
+    }
+    #slide-13c .fk-panel__field {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 34px; line-height: 1.5; color: var(--fg-0);
+      min-height: 4.5em;
+    }
+    /* The sketch occupies the same slot the text does, so the two panels read
+       as one control filled two ways. */
+    #slide-13c .fk-panel__art {
+      min-height: 4.5em;
+      display: flex; align-items: center; justify-content: center;
+      min-width: 0;
+    }
+
+    /* ── the drawing stage: no paper, the panel itself is the surface ────────
+       Ink and lettering use the deck's accent-2 (the right branch's colour,
+       same as the caption under the panel), so the sketch themes light/dark
+       with everything else. The paper version of this artifact belongs to
+       11b-visual-prompting-A, two slides later. */
+    #slide-13c .fk-draw { width: 100%; max-width: 780px; }
+    #slide-13c .fk-ink-svg { display: block; width: 100%; height: auto; }
+
+    /* sketchgen's two passes: the main strokes are revealed one by one; when a
+       shape lands (.is-drawn) its retrace + hachure wash fade in behind them. */
+    #slide-13c .fk-ink-main {
+      fill: none; stroke: var(--accent-2); stroke-width: 3.2;
+      stroke-linecap: round; stroke-linejoin: round; opacity: .95;
+    }
+    #slide-13c .fk-ink-over {
+      fill: none; stroke: var(--accent-2); stroke-width: 2;
+      stroke-linecap: round;
+      opacity: 0; transition: opacity .45s ease;
+    }
+    #slide-13c .fk-shape.is-drawn .fk-ink-over { opacity: .45; }
+    #slide-13c .fk-hachure {
+      fill: none; stroke: var(--accent-2); stroke-width: 2;
+      stroke-linecap: round;
+      opacity: 0; transition: opacity .55s ease;
+    }
+    #slide-13c .fk-shape.is-drawn .fk-hachure { opacity: .22; }
+
+    #slide-13c .fk-hand {
+      font-family: 'Caveat', cursive;
+      font-size: 46px; font-weight: 600; fill: var(--accent-2-text);
+      text-anchor: middle;
+      opacity: 0; transition: opacity .4s ease;
+      transform-box: fill-box; transform-origin: center;
+      transform: rotate(var(--a, 0deg));
+    }
+    #slide-13c #fk-l1 { --a: -0.7deg; }
+    #slide-13c #fk-l2 { --a: 0.5deg; }
+    #slide-13c #fk-l3 { --a: -0.4deg; }
+    #slide-13c .fk-hand.is-on { opacity: 1; }
+
+    #slide-13c .fk-cap {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-align: center;
+    }
+    #slide-13c .fk-caret {
+      display: inline-block;
+      width: 3px; height: 0.95em;
+      background: var(--accent-2);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: fk-blink 0.9s steps(1, end) infinite;
+    }
+    @keyframes fk-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID  = 'slide-13c';
+    // The same task 05c types in English, in Devanagari:
+    // "write a function that returns the largest number in a list"
+    const TEXT      = 'एक फ़ंक्शन लिखें जो सूची में सबसे बड़ी संख्या लौटाए';
+    const TYPING_MS = 45;
+    let timers = [];
+    const clearAll = () => { timers.forEach(clearTimeout); timers = []; };
+    const t = (fn, ms) => { timers.push(setTimeout(fn, ms)); };
+
+    function sync() {
+      const scope = document.getElementById(SLIDE_ID);
+      if (!scope) return;
+      const field = scope.querySelector('#fk-text');
+      if (!field) return;
+      clearAll();
+
+      const active = scope.classList.contains('is-active');
+      const step   = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+
+      if (!active || step < 1) { field.textContent = ''; return; }
+      // Once step 2 lands the left panel is past; show its text complete rather
+      // than retyping it every time the audience steps back and forth.
+      if (step > 1) { field.textContent = TEXT; return; }
+
+      let i = 0;
+      (function type() {
+        if (i <= TEXT.length) { field.textContent = TEXT.slice(0, i++); t(type, TYPING_MS); }
+      })();
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+
+  // ── the sketch draws itself (step 2) ───────────────────────────────────────
+  // One rAF timeline over the shapes in PLAN: each main stroke is revealed in
+  // pen order by driving stroke-dashoffset, with a short beat between strokes
+  // so the hand reads as lifting. When a shape's last stroke finishes it gets
+  // .is-drawn (retrace + hachure fade in, label pops) and then holds still.
+  (function () {
+    const SLIDE_ID = 'slide-13c';
+    const SPEED    = 1.35;  // reveal speed, px/ms of stroke
+    const BEAT     = 70;    // pause between strokes, ms
+    const DELAY    = 380;   // let the panel's frag transition land first
+    const PLAN = [
+      { shape: 'fk-s-b1', label: 'fk-l1' },
+      { shape: 'fk-s-a1' },
+      { shape: 'fk-s-b2', label: 'fk-l2' },
+      { shape: 'fk-s-a2' },
+      { shape: 'fk-s-b3', label: 'fk-l3' },
+    ];
+    const REDUCED = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let raf = 0, t0 = 0, schedule = null, played = false;
+
+    const $ = id => document.getElementById(id);
+    const ease = k => k < 0.5 ? 2 * k * k : 1 - 2 * (1 - k) * (1 - k);
+    // strokes in DOM order — the order the generator emitted them, which is
+    // the order they get drawn
+    const strokesOf = p => {
+      const g = $(p.shape);
+      return g ? [...g.querySelectorAll('.fk-ink-main')] : [];
+    };
+
+    function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; schedule = null; }
+
+    function land(p) {
+      const g = $(p.shape); if (g) g.classList.add('is-drawn');
+      const l = p.label && $(p.label); if (l) l.classList.add('is-on');
+    }
+
+    function reset() {
+      stop(); played = false;
+      PLAN.forEach(p => {
+        strokesOf(p).forEach(m => {
+          // +2 keeps the round linecap from rendering a dot at full offset; the
+          // 4000 fallback covers engines that can't measure display:none paths.
+          const len = (m.getTotalLength() || 4000) + 2;
+          m.style.strokeDasharray = len;
+          m.style.strokeDashoffset = len;
+        });
+        const g = $(p.shape); if (g) g.classList.remove('is-drawn');
+        const l = p.label && $(p.label); if (l) l.classList.remove('is-on');
+      });
+    }
+
+    // Full drawing, no motion: reduced-motion and cold deep links land here.
+    function finish() {
+      stop(); played = true;
+      PLAN.forEach(p => {
+        strokesOf(p).forEach(m => { m.style.strokeDashoffset = 0; });
+        land(p);
+      });
+    }
+
+    function build() {
+      let t = DELAY; const segs = [];
+      PLAN.forEach(p => {
+        const list = strokesOf(p);
+        list.forEach((m, i) => {
+          const len = m.getTotalLength();
+          m.style.strokeDasharray = len + 2;
+          m.style.strokeDashoffset = len + 2;
+          const dur = Math.max(45, len / SPEED);
+          // only the shape's last stroke lands it (retrace, hachure, label)
+          segs.push({ el: m, len, t0: t, t1: t + dur,
+                      plan: i === list.length - 1 ? p : null });
+          t += dur + BEAT;
+        });
+      });
+      return { segs, total: t };
+    }
+
+    function frame(now) {
+      if (!schedule) return;
+      const t = now - t0;
+      for (const s of schedule.segs) {
+        if (t >= s.t1) {          // behind us — pin its end state and move on
+          s.el.style.strokeDashoffset = 0;
+          if (s.plan) land(s.plan);
+          continue;
+        }
+        if (t < s.t0) break;      // not started yet
+        s.el.style.strokeDashoffset =
+          (s.len + 2) * (1 - ease((t - s.t0) / (s.t1 - s.t0)));
+        break;
+      }
+      if (t >= schedule.total) { stop(); played = true; return; }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (REDUCED) { finish(); return; }
+      schedule = build();
+      if (!schedule.segs.length) return;
+      played = true;
+      t0 = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+
+    function sync() {
+      const s = $(SLIDE_ID); if (!s) return;
+      const active = s.classList.contains('is-active');
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      if (!active || step < 2) { reset(); return; }
+      if (raf || played) return;  // mid-sketch, or the sketch is already drawn
+      start();
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <aside data-sid="13c-two-stimuli:18" class="notes">
+[0:25 · 2 clicks · the fork — the talk splits here]
+Same box. Two things that could go in it.
+(1) Another natural language. That is literally the prompt you saw typed in English on the pipeline slide, in Devanagari — same task, same grading, different language. That's the next three slides.
+(2) Or a drawing. Multimodal models read images, so the decomposition a student sketches — watch it draw — can BE the prompt. That's the two after those.
+Signpost, not argument. Keep moving.
+  </aside>
+  <div data-sid="13c-two-stimuli:19" class="slide__number"></div>
+</section>

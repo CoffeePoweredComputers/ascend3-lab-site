@@ -1,0 +1,254 @@
+<section data-sid="23a-india-route:1" class="slide" id="slide-23a">
+  <div data-sid="23a-india-route:2" class="slide__eyebrow">My current work &middot; India trip &middot; Jan 2&ndash;25, 2026</div>
+  <h2 data-sid="23a-india-route:3" class="slide__title">Sharing these problem types in India</h2>
+
+  <div data-sid="23a-india-route:4" class="slide__body" style="display:grid; grid-template-columns:790px 1fr; gap:44px; align-items:center; min-height:0;">
+
+    <!-- ═══════════ MAP ═══════════
+         Outline: real boundary geometry (Natural Earth via world.geo.json),
+         projected equirectangular at standard parallel 21°N. Stops: gazetteer
+         coordinates, projected through the SAME transform, so no pin can drift
+         relative to the coastline. Validated: Mumbai 2.4px and Kochi 0.5px from
+         the coast, Bengaluru 86px inland, Vizag 1.1px from the coast — the
+         geography is real, not drawn. -->
+    <div data-sid="23a-india-route:5" id="ir-mapwrap" style="display:flex; align-items:center; justify-content:center; height:100%;">
+      <!-- viewBox is padded laterally so leader labels live INSIDE the SVG box.
+           Relying on overflow:visible clipped them against the slide edge. -->
+      <svg id="ir-map" viewBox="-210 -10 1320 1080" style="width:100%; height:100%; max-height:770px;" aria-label="Map of India showing ten stops visited, connected by a dotted flight route">
+
+        <defs>
+          <!-- Reveal mask: a solid stroke whose dashoffset animates to 0, so the
+               dotted route appears to grow out behind the aircraft. -->
+          <mask id="ir-reveal">
+            <rect x="0" y="0" width="1048" height="1057" fill="black"/>
+            <path id="ir-revealstroke" fill="none" stroke="white" stroke-width="26"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  d="M215.1,641.3 Q337.4,429.4 331.8,184.9 Q320.3,184.2 310.1,189.6 Q356.2,465.2 538.7,676.7 Q418.1,735.1 345.3,847.7 Q460.2,613.2 436.6,353.2 Q283.6,638.0 300.8,960.9 Q383.3,912.5 428.6,828.3 Q346.6,707.1 213.6,646.0 Q202.9,630.9 185.9,623.6"/>
+          </mask>
+          <linearGradient id="ir-routegrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6366f1"/>
+            <stop offset="100%" stop-color="#ec4899"/>
+          </linearGradient>
+        </defs>
+
+        <!-- India outline — 131 real boundary vertices -->
+        <path id="ir-border" d="M354.6,24.0 L391.3,67.0 L387.9,96.9 L401.5,115.6 L400.4,134.3 L375.8,129.4 L385.4,169.8 L419.0,193.0 L466.6,218.6 L444.9,235.3 L431.6,269.5 L464.7,283.4 L497.0,301.4 L541.6,322.0 L588.5,326.7 L608.2,345.3 L634.7,348.8 L675.8,357.4 L704.3,356.8 L708.3,342.3 L703.8,319.0 L706.4,303.2 L727.3,295.5 L730.1,324.3 L730.9,331.7 L762.0,345.6 L783.5,339.9 L812.4,342.3 L840.3,341.2 L842.7,318.7 L828.8,307.0 L856.4,302.4 L887.5,275.2 L926.9,251.8 L955.6,260.8 L980.0,245.4 L996.1,268.2 L984.5,283.6 L1021.4,289.1 L1024.0,303.0 L1012.0,309.7 L1014.8,332.2 L990.4,325.6 L946.1,350.9 L947.1,371.9 L928.2,402.7 L926.5,420.5 L911.2,450.7 L884.5,442.4 L883.2,480.3 L875.4,492.8 L879.0,508.4 L862.2,517.1 L844.1,458.9 L834.7,459.0 L829.1,482.5 L810.4,463.5 L820.9,442.6 L836.2,440.5 L852.0,409.5 L832.3,403.2 L800.6,403.8 L768.0,398.7 L765.0,373.2 L748.6,371.4 L721.5,355.6 L709.5,380.5 L734.2,399.9 L712.8,413.5 L705.2,426.9 L726.2,436.7 L720.4,458.8 L732.3,486.3 L737.6,516.5 L732.7,529.9 L709.4,529.4 L667.2,537.1 L669.2,564.6 L650.9,586.3 L601.7,611.0 L563.4,654.1 L537.7,677.2 L503.6,701.2 L503.5,718.1 L486.5,727.1 L455.6,740.2 L439.7,742.2 L429.4,770.1 L436.5,817.8 L438.3,848.2 L423.8,883.0 L423.7,945.3 L406.0,947.0 L390.4,975.0 L400.8,987.1 L369.6,997.5 L358.1,1022.4 L344.4,1032.9 L312.0,998.7 L296.1,947.4 L283.0,910.4 L271.0,893.1 L252.8,857.9 L244.4,812.0 L238.4,789.1 L207.3,738.8 L193.1,667.8 L182.9,620.9 L183.0,576.5 L176.4,542.2 L126.6,564.1 L102.5,559.7 L57.8,515.3 L74.2,502.0 L64.1,487.7 L24.0,456.6 L46.8,432.1 L122.1,432.2 L115.3,400.7 L96.1,382.1 L92.2,353.9 L69.8,337.5 L107.5,299.1 L147.2,301.8 L183.0,263.4 L204.5,226.2 L237.7,189.4 L237.1,163.3 L266.3,142.1 L238.7,124.0 L226.8,99.2 L214.7,67.1 L231.5,51.3 L283.4,60.3 L321.5,54.8 Z"/>
+
+        <!-- The dotted route, revealed through the mask -->
+        <path id="ir-route" mask="url(#ir-reveal)" fill="none"
+              stroke="url(#ir-routegrad)" stroke-width="5"
+              stroke-linecap="round" stroke-dasharray="1 17"
+              d="M215.1,641.3 Q337.4,429.4 331.8,184.9 Q320.3,184.2 310.1,189.6 Q356.2,465.2 538.7,676.7 Q418.1,735.1 345.3,847.7 Q460.2,613.2 436.6,353.2 Q283.6,638.0 300.8,960.9 Q383.3,912.5 428.6,828.3 Q346.6,707.1 213.6,646.0 Q202.9,630.9 185.9,623.6"/>
+
+        <!-- Stops. cx/cy come straight from the projection; do not hand-nudge. -->
+        <g id="ir-pins">
+          <g class="ir-pin" data-k="pccoe"  style="--i:0"><circle cx="215.1" cy="641.3" r="11"/></g>
+          <g class="ir-pin" data-k="shimla" style="--i:1"><circle cx="331.8" cy="184.9" r="11"/></g>
+          <g class="ir-pin" data-k="ropar"  style="--i:2"><circle cx="310.1" cy="189.6" r="11"/></g>
+          <g class="ir-pin" data-k="vizag"  style="--i:3"><circle cx="538.7" cy="676.7" r="11"/></g>
+          <g class="ir-pin" data-k="iisc"   style="--i:4"><circle cx="345.3" cy="847.7" r="11"/></g>
+          <g class="ir-pin" data-k="kanpur" style="--i:5"><circle cx="436.6" cy="353.2" r="11"/></g>
+          <g class="ir-pin" data-k="kochi"  style="--i:6"><circle cx="300.8" cy="960.9" r="11"/></g>
+          <g class="ir-pin" data-k="krea"   style="--i:7"><circle cx="428.6" cy="828.3" r="11"/></g>
+          <g class="ir-pin" data-k="flame"  style="--i:8"><circle cx="213.6" cy="646.0" r="11"/></g>
+          <g class="ir-pin" data-k="iitb"   style="--i:9"><circle cx="185.9" cy="623.6" r="11"/></g>
+        </g>
+
+        <!-- Leader lines + labels, placed clear of the outline -->
+        <g id="ir-labels">
+          <g class="ir-lab" data-k="ropar"  style="--i:2"><line x1="310.1" y1="189.6" x2="120" y2="122"/><text x="108" y="116" text-anchor="end">IIT Ropar</text><text x="108" y="152" text-anchor="end" class="sub">Rupnagar</text></g>
+          <g class="ir-lab" data-k="shimla" style="--i:1"><line x1="331.8" y1="184.9" x2="560" y2="112"/><text x="572" y="106">Shimla</text><text x="572" y="142" class="sub">Himachal</text></g>
+          <g class="ir-lab" data-k="kanpur" style="--i:5"><line x1="436.6" y1="353.2" x2="672" y2="286"/><text x="684" y="280">IIT Kanpur</text><text x="684" y="316" class="sub">Uttar Pradesh</text></g>
+          <g class="ir-lab" data-k="iitb"   style="--i:9"><line x1="185.9" y1="623.6" x2="-16" y2="562"/><text x="-28" y="556" text-anchor="end">IIT Bombay</text><text x="-28" y="592" text-anchor="end" class="sub">Mumbai</text></g>
+          <g class="ir-lab" data-k="pccoe"  style="--i:0"><line x1="215.1" y1="641.3" x2="-16" y2="686"/><text x="-28" y="680" text-anchor="end">PCCOE</text><text x="-28" y="716" text-anchor="end" class="sub">Pimpri</text></g>
+          <g class="ir-lab" data-k="flame"  style="--i:8"><line x1="213.6" y1="646.0" x2="-16" y2="806"/><text x="-28" y="800" text-anchor="end">FLAME</text><text x="-28" y="836" text-anchor="end" class="sub">Lavale, Pune</text></g>
+          <g class="ir-lab" data-k="vizag"  style="--i:3"><line x1="538.7" y1="676.7" x2="700" y2="600"/><text x="712" y="594">Vizag</text><text x="712" y="630" class="sub">Andhra Pradesh</text></g>
+          <g class="ir-lab" data-k="krea"   style="--i:7"><line x1="428.6" y1="828.3" x2="660" y2="778"/><text x="672" y="772">Krea</text><text x="672" y="808" class="sub">Sri City</text></g>
+          <g class="ir-lab" data-k="iisc"   style="--i:4"><line x1="345.3" y1="847.7" x2="620" y2="908"/><text x="632" y="902">IISc</text><text x="632" y="938" class="sub">Bengaluru</text></g>
+          <g class="ir-lab" data-k="kochi"  style="--i:6"><line x1="300.8" y1="960.9" x2="110" y2="988"/><text x="98" y="982" text-anchor="end">Kochi</text><text x="98" y="1018" text-anchor="end" class="sub">Kerala</text></g>
+        </g>
+
+        <!-- Step 1 carries the flight; it has no visible payload, so declare it
+             explicitly rather than relying on deck.js inferring maxStep. -->
+        <!-- The aircraft. Rides the route via offset-path; offset-rotate:auto
+             keeps the nose pointed along the direction of travel. -->
+        <g id="ir-plane">
+          <path d="M0,-13 L4,-3 L20,4 L20,8 L3,5 L2,13 L7,17 L7,20 L0,18 L-7,20 L-7,17 L-2,13 L-3,5 L-20,8 L-20,4 L-4,-3 Z"
+                transform="rotate(90)"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- ═══════════ RIGHT: why ═══════════ -->
+    <div data-sid="23a-india-route:6" style="display:flex; flex-direction:column; gap:26px; min-width:0;">
+
+      <p data-sid="23a-india-route:7" style="font-size:var(--t-h4); line-height:1.4; color:var(--fg-0); margin:0; font-style:italic;">
+        How do you teach programming where the <strong style="font-style:normal;">medium of instruction</strong> and the <strong style="font-style:normal;">students&rsquo; first languages</strong> don&rsquo;t line up?
+      </p>
+
+      <!-- Step 1 = the flight. No visible payload of its own, so it is declared
+           here explicitly instead of relying on deck.js inferring the max step. -->
+      <span class="frag" data-step="1" style="display:none;"></span>
+
+      <!-- QR to the trip writeup. Deliberately NOT a .frag — it must be on screen
+           the whole time the slide is up, or nobody gets a chance to scan it.
+           White plate under the code in both themes: inverted QR codes (light
+           modules on dark) fail on a lot of phone scanners. -->
+      <div data-sid="23a-india-route:21" style="display:flex; align-items:center; gap:var(--s-6); padding:var(--s-5); background:var(--bg-1); border:1px solid var(--border-1); border-radius:var(--r-lg);">
+        <img data-sid="23a-india-route:22" src="data/materials/figures/india/qr/india-writeup.svg"
+             alt="QR code linking to the India trip writeup on Medium"
+             style="width:300px; height:300px; display:block; background:#ffffff; padding:var(--s-3); border-radius:var(--r-md); flex:0 0 auto;">
+        <div data-sid="23a-india-route:24" style="font-family:'JetBrains Mono', monospace; font-size:var(--t-h4); letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1-text); min-width:0;">read the trip writeup</div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    /* ---------- map base ---------- */
+    #slide-23a #ir-border {
+      fill: var(--bg-2);
+      stroke: var(--border-2);
+      stroke-width: 2.5;
+      stroke-linejoin: round;
+    }
+    :root.theme-light #slide-23a #ir-border { fill: #dfe6f0; stroke: #8fa0b7; }
+
+    /* ---------- pins ---------- */
+    #slide-23a .ir-pin circle {
+      fill: var(--accent-2);
+      stroke: var(--bg-1);
+      stroke-width: 3.5;
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(0.2);
+    }
+    #slide-23a.is-active .ir-pin circle {
+      animation: ir-pop 420ms var(--ease) forwards;
+      animation-delay: calc(var(--i) * 90ms + 120ms);
+    }
+    @keyframes ir-pop {
+      0%   { opacity: 0; transform: scale(0.2); }
+      70%  { opacity: 1; transform: scale(1.25); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* ---------- labels ---------- */
+    #slide-23a .ir-lab { opacity: 0; }
+    #slide-23a.is-active .ir-lab {
+      animation: ir-fade 380ms var(--ease) forwards;
+      animation-delay: calc(var(--i) * 90ms + 300ms);
+    }
+    @keyframes ir-fade { to { opacity: 1; } }
+    #slide-23a .ir-lab line { stroke: var(--border-2); stroke-width: 1.8; }
+    /* Halo the labels so a leader line passing behind one can't cut through the
+       glyphs — standard cartographic knockout, cheaper than hand-routing lines. */
+    #slide-23a .ir-lab text {
+      font-family: 'Inter', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      fill: var(--fg-0);
+      paint-order: stroke fill;
+      stroke: var(--bg-1);
+      stroke-width: 7px;
+      stroke-linejoin: round;
+    }
+    #slide-23a .ir-lab text.sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 23px;
+      font-weight: 400;
+      fill: var(--fg-2);
+      letter-spacing: 0.04em;
+    }
+
+    /* ---------- route + plane (step 1) ---------- */
+    /* dashoffset is set to the true path length by JS, then driven to 0 */
+    #slide-23a #ir-revealstroke { stroke-dashoffset: 0; }
+    #slide-23a #ir-plane { opacity: 0; }
+    #slide-23a #ir-plane path { fill: var(--accent-1); stroke: var(--bg-1); stroke-width: 1.5; }
+    :root.theme-light #slide-23a #ir-plane path { fill: #4338ca; stroke: #ffffff; }
+
+    #slide-23a.ir-flying #ir-revealstroke {
+      animation: ir-draw 4200ms cubic-bezier(0.37, 0.06, 0.32, 0.98) forwards;
+    }
+    @keyframes ir-draw { to { stroke-dashoffset: 0; } }
+
+    #slide-23a.ir-flying #ir-plane {
+      offset-path: path("M215.1,641.3 Q337.4,429.4 331.8,184.9 Q320.3,184.2 310.1,189.6 Q356.2,465.2 538.7,676.7 Q418.1,735.1 345.3,847.7 Q460.2,613.2 436.6,353.2 Q283.6,638.0 300.8,960.9 Q383.3,912.5 428.6,828.3 Q346.6,707.1 213.6,646.0 Q202.9,630.9 185.9,623.6");
+      offset-rotate: auto;
+      animation: ir-fly 4200ms cubic-bezier(0.37, 0.06, 0.32, 0.98) forwards;
+    }
+    /* The plane parks at IIT Bombay rather than vanishing — at rest the slide should
+       still show an aircraft, since that's the point of the visual. */
+    @keyframes ir-fly {
+      0%   { offset-distance: 0%;   opacity: 0; }
+      5%   { opacity: 1; }
+      100% { offset-distance: 100%; opacity: 1; }
+    }
+
+    /* ---------- stat chips ---------- */
+    #slide-23a .ir-stat {
+      padding: 14px 22px;
+      background: var(--bg-1);
+      border: 1px solid var(--border-1);
+      border-radius: 10px;
+    }
+    #slide-23a .ir-stat__k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--fg-2);
+    }
+    #slide-23a .ir-stat__v {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 34px; font-weight: 800; color: var(--fg-0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-23a .ir-pin circle,
+      #slide-23a .ir-lab { animation: none !important; opacity: 1; }
+      #slide-23a .ir-pin circle { transform: none; }
+      #slide-23a.ir-flying #ir-revealstroke,
+      #slide-23a.ir-flying #ir-plane { animation-duration: 1ms !important; }
+    }
+  </style>
+
+  <script>
+  (function () {
+    // Route reveal is length-driven: measure the real path rather than guessing a
+    // dasharray. Re-armed on every entry so the flight replays if you step back.
+    const SID = 'slide-23a';
+    const FLY = 'ir-flying';
+
+    function scope() { return document.getElementById(SID); }
+
+    function arm(s) {
+      const stroke = s.querySelector('#ir-revealstroke');
+      if (!stroke) return;
+      const len = stroke.getTotalLength();
+      stroke.style.strokeDasharray = len;
+      stroke.style.strokeDashoffset = len;
+    }
+
+    function sync() {
+      const s = scope(); if (!s) return;
+      if (!s.classList.contains('is-active')) { s.classList.remove(FLY); arm(s); return; }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      if (step >= 1) {
+        if (!s.classList.contains(FLY)) { arm(s); void s.offsetWidth; s.classList.add(FLY); }
+      } else {
+        s.classList.remove(FLY);
+        arm(s);
+      }
+    }
+
+    window.addEventListener('slides:loaded', () => { const s = scope(); if (s) arm(s); sync(); });
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <ol data-sid="23a-india-route:18" class="slide__footnotes">
+    <li data-sid="23a-india-route:19" style="padding-left:0; text-indent:0;">Trip writeup: davidhsmith4.medium.com/programming-in-plain-language-india-trip-7750f6e3250a &nbsp;&middot;&nbsp; Outline: Natural Earth via world.geo.json; stop coordinates from public gazetteers, projected equirectangular at 21&deg;N.</li>
+  </ol>
+  <div data-sid="23a-india-route:20" class="slide__number"></div>
+</section>

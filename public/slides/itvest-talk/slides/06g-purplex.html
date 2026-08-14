@@ -1,0 +1,97 @@
+<!-- Type rebuilt for a room. This slide was authored before deck.css was retuned
+     upward and ran at 11 / 12 / 13 / 14 / 15px against this deck's 22px floor
+     (plan-18min.md:212) — the feature tiles were unreadable past the third row.
+
+     The three feature paragraphs also captioned a screenshot that already shows
+     what they describe, so they are single-line labels now. 60 prose words -> 0.
+
+     The QR pair under the screenshot is gone: 26-thank-you carries the same two
+     codes three slides later and stays up through Q&A, which is when people
+     actually photograph them. Both URLs remain here as text, at a readable size. -->
+<section data-sid="06g-purplex:1" class="slide" id="slide-06g">
+  <div data-sid="06g-purplex:2" class="slide__eyebrow">The platform</div>
+
+  <div data-sid="06g-purplex:3" class="slide__body" style="display:grid; grid-template-columns:640px 1fr; gap:56px; align-items:center;">
+
+    <!-- LEFT: identity, then what it is — as labels, not sentences -->
+    <div data-sid="06g-purplex:4" style="display:flex; flex-direction:column; gap:30px;">
+
+      <!-- Negative margins trim the transparent padding baked into the PNG. -->
+      <div data-sid="06g-purplex:5" style="display:flex; align-items:center; gap:0;">
+        <img data-sid="06g-purplex:6" src="data/materials/figures/purplex/purplex-logo.png" alt="Purplex logo" style="width:200px; height:auto; flex-shrink:0; margin-left:-32px; margin-right:-16px;">
+        <div data-sid="06g-purplex:7">
+          <h1 data-sid="06g-purplex:8" class="gradient-text" style="font-size:108px; font-weight:900; line-height:0.95; letter-spacing:-0.04em; margin:0;">Purplex</h1>
+          <div data-sid="06g-purplex:9" style="font-family:'JetBrains Mono', monospace; font-size:22px; letter-spacing:0.12em; text-transform:uppercase; color:var(--fg-2); margin-top:10px;">open-source &middot; GPLv3</div>
+        </div>
+      </div>
+
+      <div data-sid="06g-purplex:10" style="display:flex; flex-direction:column; gap:16px;">
+        <div data-sid="06g-purplex:11" class="px-label">Four problem types</div>
+        <div data-sid="06g-purplex:12" style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div data-sid="06g-purplex:13" class="px-pill" style="--act:var(--act-eipl);">EiPL</div>
+          <div data-sid="06g-purplex:14" class="px-pill" style="--act:var(--act-prompt);">Prompt</div>
+          <div data-sid="06g-purplex:15" class="px-pill" style="--act:var(--act-refute);">Refute</div>
+          <div data-sid="06g-purplex:16" class="px-pill" style="--act:var(--act-probe);">Probeable</div>
+        </div>
+      </div>
+
+      <div data-sid="06g-purplex:17" style="display:flex; flex-direction:column; gap:16px;">
+        <div data-sid="06g-purplex:18" class="px-label">What it does</div>
+        <div data-sid="06g-purplex:19" class="px-feat">AI problem generation</div>
+        <div data-sid="06g-purplex:20" class="px-feat">Sandboxed Docker execution</div>
+        <div data-sid="06g-purplex:21" class="px-feat">Multilingual UI &mdash; <strong style="color:var(--fg-0);">17 locales</strong></div>
+      </div>
+
+      <div data-sid="06g-purplex:22" style="display:flex; flex-direction:column; gap:8px;">
+        <div data-sid="06g-purplex:23" style="font-family:'JetBrains Mono', monospace; font-size:30px; font-weight:700; color:var(--accent-1-text);">purplex.org</div>
+        <div data-sid="06g-purplex:24" style="font-family:'JetBrains Mono', monospace; font-size:22px; color:var(--fg-2);">github.com/CoffeePoweredComputers/purplex</div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: the product, as large as it will go -->
+    <div data-sid="06g-purplex:25" style="display:flex; align-items:center; justify-content:center; height:100%; min-height:0;">
+      <img data-sid="06g-purplex:26" src="data/materials/figures/purplex/showcase.png" alt="Purplex platform screenshot"
+           style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; border:1px solid var(--border-1); border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.45);">
+    </div>
+
+  </div>
+
+  <aside data-sid="06g-purplex:27" class="notes">
+[0:40 · no clicks · the handoff]
+This is where all of it lives. Open source, GPLv3, and it runs all four problem types you just saw — plus the machinery to generate new ones, a Docker sandbox so student and model code can't hurt anything, and a UI scaffolded for seventeen locales.
+purplex.org, source on GitHub. If you want to run any of this in your own classroom that's the whole ask — come find me afterwards.
+Speak over it. Don't read the chips.
+  </aside>
+
+  <style>
+    #slide-06g .px-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--fg-2);
+    }
+    /* --act is set per pill inline; color-mix keeps the tint legible in both
+       themes without hardcoding an rgba() per activity as the old version did. */
+    #slide-06g .px-pill {
+      padding: 10px 22px;
+      background: color-mix(in srgb, var(--act) 14%, var(--bg-1));
+      border: 1px solid color-mix(in srgb, var(--act) 55%, var(--bg-1));
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px; font-weight: 700;
+      color: var(--act);
+    }
+    #slide-06g .px-feat {
+      font-size: 28px; line-height: 1.35; color: var(--fg-1);
+      padding-left: 26px; position: relative;
+    }
+    #slide-06g .px-feat::before {
+      content: ""; position: absolute; left: 0; top: 0.5em;
+      width: 10px; height: 10px; border-radius: 2px;
+      background: var(--grad);
+    }
+  </style>
+
+  <div data-sid="06g-purplex:28" class="slide__number"></div>
+</section>

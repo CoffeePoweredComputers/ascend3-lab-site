@@ -1,0 +1,475 @@
+<section data-sid="09e-probeable-live:1" class="slide" id="slide-09e">
+  <div data-sid="09e-probeable-live:2" class="slide__eyebrow">Activity &middot; 04 &middot; underspecified spec &rarr; implementation</div>
+  <h2 data-sid="09e-probeable-live:3" class="slide__title">Probeable Problems</h2>
+
+  <div data-sid="09e-probeable-live:4" class="slide__body" style="display:grid; grid-template-columns:1.05fr 1fr; gap:36px; align-items:start;">
+
+    <!-- LEFT: the activity, as the student sees it -->
+    <div data-sid="09e-probeable-live:5" class="tile tile--feature" style="padding: 36px; --act: var(--act-probe); transform: translate(0px, -12px)">
+      <div data-sid="09e-probeable-live:6" style="height:4px; background:var(--act); border-radius:4px 4px 0 0; margin:-36px -36px 24px;"></div>
+      <span data-sid="09e-probeable-live:28" class="tile__label" style="background: var(--bg-3); border-color: color-mix(in srgb, var(--act) 40%, var(--bg-3)); color: var(--act); font-size: 24px">Probeable · spec → implementation</span>
+      <div data-sid="09e-probeable-live:7" class="tile__body" style="font-size: 32px; margin: 14px 0 24px">Students implement a function from a <em>deliberately incomplete</em> specification — probing an oracle to pin down the missing details.<sup class="cite">1</sup></div>
+
+      <div data-sid="09e-probeable-live:11" style="height:1px; background:var(--border-1); margin:0 -36px 24px;"></div>
+
+      <div data-sid="09e-probeable-live:8" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+        
+        <div data-sid="09e-probeable-live:10" style="font-size: 32px; color: var(--fg-0); font-style: italic">"Implement a function that divides two numbers."</div>
+        
+      </div>
+      <div data-sid="09e-probeable-live:15" id="prb-sol-box" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:14px 20px; margin-bottom:12px;">
+        <div data-sid="09e-probeable-live:16" id="prb-sol-label" style="font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--act); margin-bottom: 6px">student writes · attempt 1</div>
+        <pre data-sid="09e-probeable-live:17" style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: var(--fg-0); margin: 0; line-height: 1.5; min-height: 4.5em"><span id="prb-soltext"><span style="color:var(--syntax-purple)">def</span> <span style="color:var(--syntax-blue)">qux</span>(a, b):
+  <span style="color:var(--syntax-purple)">return</span> a <span style="color:var(--syntax-purple)">/</span> b</span><span id="prb-caret" class="prb-caret" aria-hidden="true"></span></pre>
+      </div>
+      <div data-sid="09e-probeable-live:12" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:14px 20px; display:grid; grid-template-columns:1fr auto; column-gap:16px; align-items:center;">
+        
+        <div data-sid="09e-probeable-live:14" class="pcall" style="font-size: 26px"><span style="color:var(--syntax-blue);">qux</span><span>(a&nbsp;=</span><span class="pcall__chip" id="prb-a">10</span><span>,&nbsp;b&nbsp;=</span><span class="pcall__chip" id="prb-b">0</span><span>)</span><span style="margin-left:0.35em;">→</span><span class="pcall__ret is-on" id="prb-ret" style="color: var(--syntax-orange); font-size:32px;">-1</span></div>
+        <span class="pcall__btn" id="prb-btn" aria-hidden="true" style="grid-column:2; grid-row:1 / span 2; align-self:stretch; margin:-14px -20px -14px 0; padding:0 40px; font-size:26px; border-radius:0 7px 7px 0;">Probe</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: the hidden suite grading live, then how it's graded, what it builds -->
+    <div data-sid="09e-probeable-live:18" style="display:flex; flex-direction:column; gap:20px;">
+      <div data-sid="09e-probeable-live:9" id="prb-grader" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:10px; padding:16px 20px;">
+        <div data-sid="09e-probeable-live:31" style="font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--act-probe); margin-bottom: 12px">hidden test suite · <span id="prb-score">5 cases</span></div>
+        <div data-sid="09e-probeable-live:32" style="display:flex; gap:10px;">
+          <span class="prb-tchip">·</span>
+          <span class="prb-tchip">·</span>
+          <span class="prb-tchip">·</span>
+          <span class="prb-tchip">·</span>
+          <span class="prb-tchip">·</span>
+        </div>
+      </div>
+      <div data-sid="09e-probeable-live:33" id="prb-verdict" class="prb-verdict"><div data-sid="09e-probeable-live:34" class="prb-verdict__text" id="prb-verdict-text" style="transform: translate(1px, 0px)">✓ 5 / 5 — Correct implementation!</div></div>
+      
+      <div data-sid="09e-probeable-live:21" class="tile frag" data-step="6" style="flex: 0 0 468.63px">
+        <span data-sid="09e-probeable-live:30" class="tile__label" style="font-size: 26px">what it builds</span>
+        <div data-sid="09e-probeable-live:22" class="tile__body" style="font-size:32px; color:var(--fg-0);">
+          <ul data-sid="09e-probeable-live:19" style="margin:0 0 10px; padding-left:1.1em; display:flex; flex-direction:column; gap:6px;">
+            <li data-sid="09e-probeable-live:20">Spotting ambiguity</li>
+            <li data-sid="09e-probeable-live:29">Reasoning about edge cases</li>
+            <li data-sid="09e-probeable-live:35">Refining a spec before committing</li>
+          </ul>
+          — the questions you should ask <em>before</em> prompting.<sup class="cite">2</sup>
+        </div>
+      </div>
+    </div>
+
+    <!-- step registration for the deck; the write→fail→probe→fix loop is driven by JS below -->
+    <span class="frag" data-step="1" style="display:none;"></span>
+    <span class="frag" data-step="2" style="display:none;"></span>
+    <span class="frag" data-step="3" style="display:none;"></span>
+    <span class="frag" data-step="4" style="display:none;"></span>
+    <span class="frag" data-step="5" style="display:none;"></span>
+
+  </div>
+
+  <style>
+    @keyframes prb-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    [data-sid="09e-probeable-live:1"] #prb-sol-box {
+      transition: border-color 280ms var(--ease), box-shadow 280ms var(--ease);
+    }
+    [data-sid="09e-probeable-live:1"] #prb-sol-box.is-typing {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 1px var(--accent-2), 0 0 24px rgba(236, 72, 153, 0.22);
+    }
+    [data-sid="09e-probeable-live:1"] .prb-caret {
+      display: inline-block; width: 3px; height: 1.05em;
+      background: var(--accent-2); margin-left: 3px; vertical-align: text-bottom; opacity: 0;
+    }
+    [data-sid="09e-probeable-live:1"] .prb-caret.is-typing { opacity: 1; animation: prb-blink 0.9s infinite; }
+
+    /* probe button is full-bleed into the box's right edge; press = depress + flash */
+    [data-sid="09e-probeable-live:1"] .pcall__btn {
+      transition: transform 140ms var(--ease), filter 140ms var(--ease), box-shadow 140ms var(--ease);
+    }
+    [data-sid="09e-probeable-live:1"] .pcall__btn.is-pressed {
+      transform: scale(0.96);
+      filter: brightness(1.5);
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 28px rgba(91, 33, 182, 0.6);
+    }
+    /* on white a 28px 0.6-alpha glow reads as a bruise, not light — tighter + fainter */
+    :root.theme-light [data-sid="09e-probeable-live:1"] .pcall__btn.is-pressed {
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 14px rgba(91, 33, 182, 0.3);
+    }
+
+    /* the probe's return value is the payoff — boxed like the argument
+       chips, it pops in with a glow instead of quietly fading */
+    [data-sid="09e-probeable-live:1"] .pcall__ret {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 2.1em; height: 1.5em; padding: 0 0.45em; margin-left: 0.4em;
+      background: color-mix(in srgb, var(--syntax-orange) 14%, var(--bg-1));
+      border: 1px solid color-mix(in srgb, var(--syntax-orange) 55%, transparent);
+      border-radius: 8px;
+      opacity: 0.3; transform: scale(0.92);
+      transition: opacity 220ms var(--ease), transform 220ms var(--ease), box-shadow 220ms var(--ease);
+    }
+    [data-sid="09e-probeable-live:1"] .pcall__ret.is-on {
+      opacity: 1; transform: scale(1);
+      box-shadow: 0 0 20px color-mix(in srgb, var(--syntax-orange) 40%, transparent);
+    }
+
+    /* the fix, diff-style: the inserted line arrives highlighted. Mixing from
+       the activity token keeps the tint green in BOTH themes — the old
+       emerald-400 alpha was tuned for dark and washed to gray on white. */
+    [data-sid="09e-probeable-live:1"] .prb-add {
+      background: color-mix(in srgb, var(--act-probe) 16%, transparent); border-radius: 4px;
+      opacity: 0; transition: opacity 360ms var(--ease);
+    }
+    [data-sid="09e-probeable-live:1"] .prb-add.is-on { opacity: 1; }
+
+    [data-sid="09e-probeable-live:1"] .prb-tchip {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--bg-3); color: var(--fg-3);
+      font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 200ms var(--ease), color 200ms var(--ease), transform 200ms var(--ease);
+    }
+    [data-sid="09e-probeable-live:1"] .prb-tchip.is-pass { background: var(--ok); color: #fff; }
+    [data-sid="09e-probeable-live:1"] .prb-tchip.is-fail { background: var(--warn); color: #fff; transform: scale(1.08); }
+
+    [data-sid="09e-probeable-live:1"] .prb-verdict {
+      border-radius: 12px; padding: 14px 22px;
+      font-size: 24px; font-weight: 700; line-height: 1.25;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    [data-sid="09e-probeable-live:1"] .prb-verdict.is-on { opacity: 1; transform: translateY(0); }
+    [data-sid="09e-probeable-live:1"] .prb-verdict.is-revise {
+      background: rgba(245, 158, 11, 0.12); border: 1px solid var(--warn); color: var(--warn);
+    }
+    [data-sid="09e-probeable-live:1"] .prb-verdict.is-ok {
+      background: linear-gradient(135deg, #4338ca, #5b21b6); border: 1px solid transparent; color: #fff;
+    }
+  </style>
+
+  <script>
+  (function () {
+    // Scope by data-sid, not #slide-09e — section ids aren't guaranteed unique.
+    const SECTION_SEL = '[data-sid="09e-probeable-live:1"]';
+    const CODE_MS = 60;    // per character in the solution editor
+    const CHIP_MS = 300;   // per character into an argument chip
+    const PRESS_MS = 500;  // probe button held down
+    const CASCADE_MS = 110; // between test-chip results — fast: no LLM here
+
+    // Solution code as [text, colour] tokens so typing is syntax-highlighted
+    // live; the static HTML twins are for snapping into a state instantly.
+    const COL = { p: 'var(--syntax-purple)', b: 'var(--syntax-blue)', o: 'var(--syntax-orange)' };
+    const SOL_V1_TOKENS = [
+      ['def', 'p'], [' '], ['qux', 'b'], ['(a, b):'], ['\n  '],
+      ['return', 'p'], [' a '], ['/', 'p'], [' b'],
+    ];
+    const SOL_V1_HTML =
+      '<span style="color:var(--syntax-purple)">def</span> ' +
+      '<span style="color:var(--syntax-blue)">qux</span>(a, b):\n' +
+      '  <span style="color:var(--syntax-purple)">return</span> a <span style="color:var(--syntax-purple)">/</span> b';
+    const SOL_V2_HTML =
+      '<span style="color:var(--syntax-purple)">def</span> ' +
+      '<span style="color:var(--syntax-blue)">qux</span>(a, b):\n' +
+      '<span class="prb-add">  <span style="color:var(--syntax-purple)">if</span> b == ' +
+      '<span style="color:var(--syntax-orange)">0</span>: ' +
+      '<span style="color:var(--syntax-purple)">return</span> ' +
+      '<span style="color:var(--syntax-orange)">-1</span>\n</span>' +
+      '  <span style="color:var(--syntax-purple)">return</span> a <span style="color:var(--syntax-purple)">/</span> b';
+    const RUN1 = ['p', 'p', 'p', 'p', 'f'];
+    const RUN2 = ['p', 'p', 'p', 'p', 'p'];
+    const REVISE_HTML = '↻ 4 / 5 — a hidden case disagrees. Which detail is missing?';
+    const OK_HTML = '✓ 5 / 5 — Correct implementation!';
+
+    let timers = [];
+    let cache = -1;
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function t(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function scope() { return document.querySelector(SECTION_SEL); }
+
+    function els(s) {
+      return {
+        solBox:   s.querySelector('#prb-sol-box'),
+        solLabel: s.querySelector('#prb-sol-label'),
+        solText:  s.querySelector('#prb-soltext'),
+        caret:    s.querySelector('#prb-caret'),
+        a: s.querySelector('#prb-a'),
+        b: s.querySelector('#prb-b'),
+        ret: s.querySelector('#prb-ret'),
+        note: s.querySelector('#prb-note'),
+        btn: s.querySelector('#prb-btn'),
+        count: s.querySelector('#prb-count'),
+        chips: Array.from(s.querySelectorAll('.prb-tchip')),
+        score: s.querySelector('#prb-score'),
+        verdict: s.querySelector('#prb-verdict'),
+      };
+    }
+
+    // --- solution editor ---------------------------------------------------
+    // Types token by token, opening a coloured span per token — so the code
+    // is syntax-highlighted as it appears, not colourised after the fact.
+    function typeCode(e, tokens, done) {
+      e.solText.textContent = '';
+      e.caret.classList.add('is-typing');
+      e.solBox.classList.add('is-typing');
+      let ti = 0, ci = 0, cur = null;
+      (function step() {
+        if (ti >= tokens.length) {
+          e.caret.classList.remove('is-typing');
+          e.solBox.classList.remove('is-typing');
+          if (done) done();
+          return;
+        }
+        const tok = tokens[ti];
+        if (!cur) {
+          cur = document.createElement('span');
+          if (tok[1]) cur.style.color = COL[tok[1]];
+          e.solText.appendChild(cur);
+        }
+        cur.textContent += tok[0][ci++];
+        if (ci >= tok[0].length) { ti++; ci = 0; cur = null; }
+        t(step, CODE_MS);
+      })();
+    }
+
+    // Types just the fix line into place between the existing lines — the
+    // diff highlight grows as it's typed. The suite does NOT re-run here;
+    // that's the next step.
+    const FIX_TOKENS = [
+      ['  '], ['if', 'p'], [' b == '], ['0', 'o'], [': '], ['return', 'p'], [' '], ['-1', 'o'], ['\n'],
+    ];
+    function typeFix(e) {
+      e.caret.classList.remove('is-typing');
+      e.solBox.classList.add('is-typing');
+      e.solText.innerHTML =
+        '<span style="color:var(--syntax-purple)">def</span> ' +
+        '<span style="color:var(--syntax-blue)">qux</span>(a, b):\n' +
+        '<span class="prb-add is-on" id="prb-fixline"></span>' +
+        '  <span style="color:var(--syntax-purple)">return</span> a <span style="color:var(--syntax-purple)">/</span> b';
+      const dest = e.solText.querySelector('#prb-fixline');
+      let ti = 0, ci = 0, cur = null;
+      (function step() {
+        if (ti >= FIX_TOKENS.length) { e.solBox.classList.remove('is-typing'); return; }
+        const tok = FIX_TOKENS[ti];
+        if (!cur) {
+          cur = document.createElement('span');
+          if (tok[1]) cur.style.color = COL[tok[1]];
+          dest.appendChild(cur);
+        }
+        cur.textContent += tok[0][ci++];
+        if (ci >= tok[0].length) { ti++; ci = 0; cur = null; }
+        t(step, CODE_MS);
+      })();
+    }
+
+    // mode: 'empty' | 'v1' | 'v2' — applied instantly; animate=true fades the
+    // inserted fix line in (diff-style) instead of snapping it.
+    function setSolution(e, mode, animate) {
+      e.caret.classList.remove('is-typing');
+      e.solBox.classList.remove('is-typing');
+      if (mode === 'empty') { e.solText.textContent = ''; return; }
+      if (mode === 'v1') { e.solText.innerHTML = SOL_V1_HTML; return; }
+      e.solText.innerHTML = SOL_V2_HTML;
+      const add = e.solText.querySelector('.prb-add');
+      if (animate) { void add.offsetWidth; add.classList.add('is-on'); }
+      else add.classList.add('is-on');
+    }
+
+    function setSolLabel(e, revised) {
+      e.solLabel.textContent = revised ? 'student writes · revised' : 'student writes · attempt 1';
+    }
+
+    // --- hidden test suite -------------------------------------------------
+    function setChip(chip, st) {
+      chip.classList.remove('is-pass', 'is-fail');
+      if (st === 'p') { chip.classList.add('is-pass'); chip.textContent = '✓'; }
+      else if (st === 'f') { chip.classList.add('is-fail'); chip.textContent = '✗'; }
+      else chip.textContent = '·';
+    }
+
+    function setChips(e, states, score, animate, done) {
+      if (!animate) {
+        states.forEach((st, i) => setChip(e.chips[i], st));
+        e.score.textContent = score;
+        if (done) done();
+        return;
+      }
+      e.chips.forEach(c => setChip(c, null));
+      states.forEach((st, i) => t(() => {
+        setChip(e.chips[i], st);
+        if (i === states.length - 1) { e.score.textContent = score; if (done) done(); }
+      }, 140 + i * CASCADE_MS));
+    }
+
+    function resetChips(e) {
+      e.chips.forEach(c => setChip(c, null));
+      e.score.textContent = '5 cases';
+    }
+
+    function setVerdict(el, kind, html) {
+      const want = kind === 'ok' ? 'is-ok' : (kind === 'revise' ? 'is-revise' : null);
+      if (!want) { el.classList.remove('is-revise', 'is-ok', 'is-on'); return; }
+      // Already showing this verdict? Leave it — avoids a re-fade when a later
+      // step layers on top of the same state.
+      if (el.classList.contains(want) && el.classList.contains('is-on')) return;
+      el.classList.remove('is-revise', 'is-ok', 'is-on');
+      el.classList.add(want);
+      if (html != null) el.querySelector('.prb-verdict__text').innerHTML = html;
+      void el.offsetWidth; // reflow so the fade replays
+      el.classList.add('is-on');
+    }
+
+    // --- probe widget ------------------------------------------------------
+    function typeChipInput(chip, str, done) {
+      chip.textContent = '';
+      chip.classList.add('is-typing');
+      let i = 0;
+      (function step() {
+        if (i < str.length) { chip.textContent += str[i++]; t(step, CHIP_MS); }
+        else { chip.classList.remove('is-typing'); if (done) done(); }
+      })();
+    }
+
+    function setCount(e, n, animate) {
+      if (!e.count) return; // count display removed from the button
+      e.count.classList.remove('is-flip');
+      e.count.textContent = String(n);
+      if (animate) { void e.count.offsetWidth; e.count.classList.add('is-flip'); }
+    }
+
+    function showAnswer(e) {
+      e.ret.textContent = '-1';
+      e.ret.style.color = 'var(--syntax-orange)';
+      e.ret.classList.add('is-on');
+      if (e.note) { e.note.textContent = '// so that\'s the rule'; e.note.classList.add('is-on'); }
+    }
+
+    function snapProbe(e, probed) {
+      e.a.classList.remove('is-typing'); e.b.classList.remove('is-typing');
+      e.btn.classList.remove('is-pressed');
+      if (!probed) {
+        e.a.textContent = ''; e.b.textContent = '';
+        e.ret.textContent = '?'; e.ret.style.color = ''; e.ret.classList.remove('is-on');
+        if (e.note) { e.note.textContent = ''; e.note.classList.remove('is-on'); }
+        setCount(e, 8, false);
+      } else {
+        e.a.textContent = '10'; e.b.textContent = '0';
+        showAnswer(e);
+        setCount(e, 7, false);
+      }
+    }
+
+    function runProbe(e) {
+      snapProbe(e, false);
+      typeChipInput(e.a, '10', () => typeChipInput(e.b, '0', () => {
+        t(() => {
+          e.btn.classList.add('is-pressed');
+          t(() => {
+            e.btn.classList.remove('is-pressed');
+            showAnswer(e);
+            setCount(e, 7, true);
+          }, PRESS_MS);
+        }, 400);
+      }));
+    }
+
+    // --- step state machine ------------------------------------------------
+    // Each case is self-contained so hash-jumps land in the right state;
+    // `fwd` (arrived from an earlier step) decides animate vs snap.
+    function render(step) {
+      const s = scope(); if (!s) return;
+      const e = els(s);
+      if (step === cache) return;
+      const prev = cache;
+      const fwd = prev >= 0 && prev < step;
+      cache = step;
+      clearAll();
+
+      if (step <= 0) {
+        setSolLabel(e, false); setSolution(e, 'empty');
+        resetChips(e); setVerdict(e.verdict, null);
+        snapProbe(e, false);
+        return;
+      }
+
+      switch (step) {
+        case 1: // attempt 1: the obvious integer division
+          setSolLabel(e, false);
+          resetChips(e); setVerdict(e.verdict, null);
+          snapProbe(e, false);
+          if (fwd) typeCode(e, SOL_V1_TOKENS);
+          else setSolution(e, 'v1');
+          break;
+        case 2: // submit → hidden suite: 4/5, one case disagrees
+          setSolLabel(e, false); setSolution(e, 'v1');
+          snapProbe(e, false);
+          if (fwd) {
+            setVerdict(e.verdict, null);
+            setChips(e, RUN1, '4 / 5', true, () => t(() => setVerdict(e.verdict, 'revise', REVISE_HTML), 140));
+          } else {
+            setChips(e, RUN1, '4 / 5', false);
+            setVerdict(e.verdict, 'revise', REVISE_HTML);
+          }
+          break;
+        case 3: // probe the oracle to find the missing rule
+          setSolLabel(e, false); setSolution(e, 'v1');
+          setChips(e, RUN1, '4 / 5', false);
+          setVerdict(e.verdict, 'revise', REVISE_HTML); // idempotent — stays lit
+          if (fwd) runProbe(e);
+          else snapProbe(e, true);
+          break;
+        case 4: // encode the rule — the fix is typed in; old 4/5 result holds
+          setSolLabel(e, true);
+          snapProbe(e, true);
+          setChips(e, RUN1, '4 / 5', false); // still the old result while editing
+          setVerdict(e.verdict, 'revise', REVISE_HTML); // idempotent — stays lit
+          if (fwd) typeFix(e);
+          else setSolution(e, 'v2');
+          break;
+        case 5: // resubmit → hidden suite re-runs → 5/5
+          setSolLabel(e, true); setSolution(e, 'v2');
+          snapProbe(e, true);
+          if (fwd) {
+            setVerdict(e.verdict, null);
+            setChips(e, RUN2, '5 / 5', true, () => t(() => setVerdict(e.verdict, 'ok', OK_HTML), 140));
+          } else {
+            setChips(e, RUN2, '5 / 5', false);
+            setVerdict(e.verdict, 'ok', OK_HTML);
+          }
+          break;
+        default: // 6 — everything holds while the takeaway tiles reveal
+          setSolLabel(e, true); setSolution(e, 'v2');
+          setChips(e, RUN2, '5 / 5', false);
+          setVerdict(e.verdict, 'ok', OK_HTML);
+          snapProbe(e, true);
+          break;
+      }
+    }
+
+    function sync() {
+      const s = scope(); if (!s) return;
+      if (!s.classList.contains('is-active')) { clearAll(); cache = -1; render(0); cache = -1; return; }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      render(step);
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <ol data-sid="09e-probeable-live:23" class="slide__footnotes">
+    <li data-sid="09e-probeable-live:24"><span class="num">1</span>Pawagi &amp; Kumar · ICER 2024.</li>
+    <li data-sid="09e-probeable-live:25"><span class="num">2</span>Denny, Kumar, MacNeil, Prather &amp; Leinonen · ITiCSE 2025.</li>
+  </ol>
+
+  <aside data-sid="09e-probeable-live:26" class="notes">
+[0:45 · by end 4:40]
+Last type: Probeable Problems. The spec is incomplete on purpose — divide two numbers. Seems easy.
+(step 1) The student implements the obvious thing: just divide.
+(step 2) Hidden tests: four of five pass. Something in the spec they haven't pinned down — but which case?
+(step 3) That's what probes are for. Spend one asking the oracle: ten and zero returns minus one, budget ticks to seven. So that's the rule.
+(step 4) One line encodes it.
+(step 5) Resubmit — five of five.
+(step 6) Grading is again deterministic — hidden tests over the full spec. The skill: finding the ambiguity before you commit, not after it bites.
+All four types, one platform — and the two natural-language ones share that CGBG engine.
+  </aside>
+  <div data-sid="09e-probeable-live:27" class="slide__number" style="font-size: 20px"></div>
+</section>

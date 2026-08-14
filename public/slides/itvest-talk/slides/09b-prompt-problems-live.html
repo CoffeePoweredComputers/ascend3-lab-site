@@ -1,0 +1,359 @@
+<section data-sid="09b-prompt-problems-live:1" class="slide" id="slide-09b">
+  <div data-sid="09b-prompt-problems-live:2" class="slide__eyebrow">Activity &middot; 02 &middot; examples &rarr; description</div>
+  <h2 data-sid="09b-prompt-problems-live:3" class="slide__title">Prompt Problems</h2>
+
+  <div data-sid="09b-prompt-problems-live:4" class="slide__body" style="display:grid; grid-template-columns:1.05fr 1fr; gap:36px; align-items:start;">
+
+    <!-- LEFT: the activity, as the student sees it -->
+    <div data-sid="09b-prompt-problems-live:5" class="tile tile--feature" style="padding:36px; --act: var(--act-prompt);">
+      <div data-sid="09b-prompt-problems-live:6" style="height:4px; background:var(--act); border-radius:4px 4px 0 0; margin:-36px -36px 24px;"></div>
+      
+
+<div data-sid="09b-prompt-problems-live:7" class="tile__body" style="font-size: 32px; margin: 14px 0 20px">The <em>inverse</em> of EiPL — no code shown. Students see the behaviour and write the prompt that produces it.</div>
+<span data-sid="09b-prompt-problems-live:23" class="tile__label" style="background: var(--bg-3); border-color: color-mix(in srgb, var(--act) 40%, var(--bg-3)); color: var(--act); font-size: 24px">Prompt Problems · examples → description</span>
+
+
+
+      
+
+      <div data-sid="09b-prompt-problems-live:8" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+        
+        <pre data-sid="09b-prompt-problems-live:10" style="font-family: 'JetBrains Mono', monospace; font-size: 32px; color: var(--fg-0); margin: 0; line-height: 1.6"><span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"hello"</span>)  →  <span style="color:var(--syntax-green);">"HELLO"</span>
+<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"world"</span>)  →  <span style="color:var(--syntax-green);">"WORLD"</span>
+<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"Hello, World!"</span>)  →  <span style="color:var(--syntax-green);">"HELLO, WORLD!"</span>
+<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"Hi, everyone!!"</span>)  →  <span style="color:var(--syntax-green);">"HI, EVERYONE!!"</span></pre>
+      </div>
+
+      
+<div data-sid="09b-prompt-problems-live:11" id="pp-entry" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:14px 20px; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
+        <div data-sid="09b-prompt-problems-live:12" style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--act); margin-bottom: 6px">student writes · the prompt</div>
+        <div data-sid="09b-prompt-problems-live:13" style="font-size: 32px; color: var(--fg-0); font-style: italic; min-height: 2.7em"><span id="pp-entry-text"></span><span id="pp-caret" class="pp-caret" aria-hidden="true"></span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: the autograder — unit tests over the shown behaviour -->
+    <div data-sid="09b-prompt-problems-live:14" id="pp-grader" style="display:flex; flex-direction:column; gap:18px;">
+      <div data-sid="09b-prompt-problems-live:15" class="pp-grader__label">autograder · same CGBG engine</div>
+
+      <div data-sid="09b-prompt-problems-live:17" class="pp-check" data-check="tests">
+        <div data-sid="09b-prompt-problems-live:25" class="pp-check__status" aria-hidden="true">·</div>
+        <div data-sid="09b-prompt-problems-live:29" class="pp-check__text">
+          <div data-sid="09b-prompt-problems-live:30" class="pp-check__name">unit tests · <span id="pp-score">4 cases</span></div>
+          <div data-sid="09b-prompt-problems-live:31" class="pp-check__desc">The generated code runs against the behaviour the student was shown.</div>
+        </div>
+      </div>
+
+      <ul data-sid="09b-prompt-problems-live:9" id="pp-tests" class="pp-tests">
+        <li data-sid="09b-prompt-problems-live:16" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"hello"</span>) → <span class="str">"HELLO"</span></span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:24" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"world"</span>) → <span class="str">"WORLD"</span></span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:26" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"Hello, World!"</span>) → <span class="str">"HELLO, WORLD!"</span></span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:27" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"Hi, everyone!!"</span>) → <span class="str">"HI, EVERYONE!!"</span></span><span class="pp-test__status">·</span></li>
+      </ul>
+
+      <div data-sid="09b-prompt-problems-live:18" id="pp-verdict" class="pp-verdict">
+        <div data-sid="09b-prompt-problems-live:32" class="pp-verdict__text"></div>
+      </div>
+    </div>
+
+    <!-- step registration for the deck; grading animation driven by JS below -->
+    <span class="frag" data-step="1" style="display:none;"></span>
+    <span class="frag" data-step="2" style="display:none;"></span>
+    <span class="frag" data-step="3" style="display:none;"></span>
+
+  </div>
+
+  <style>
+    @keyframes pp-spin  { to { transform: rotate(360deg); } }
+    @keyframes pp-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    [data-sid="09b-prompt-problems-live:1"] #pp-entry.is-typing {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 1px var(--accent-2), 0 0 24px rgba(236, 72, 153, 0.22);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-caret {
+      display: inline-block; width: 3px; height: 1.05em;
+      background: var(--accent-2); margin-left: 3px; vertical-align: text-bottom; opacity: 0;
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-caret.is-typing { opacity: 1; animation: pp-blink 0.9s infinite; }
+
+    [data-sid="09b-prompt-problems-live:1"] .pp-grader__label {
+      font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-1-text);
+    }
+
+    [data-sid="09b-prompt-problems-live:1"] .pp-check {
+      display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 18px;
+      padding: 18px 22px; background: var(--bg-1);
+      border: 1px solid var(--border-1); border-left: 4px solid var(--border-2);
+      border-radius: 10px; opacity: 0.4;
+      transition: opacity 260ms var(--ease), border-color 260ms var(--ease), background 260ms var(--ease);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-testing { opacity: 1; border-left-color: var(--accent-2); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-pass    { opacity: 1; border-left-color: var(--ok); background: rgba(34, 197, 94, 0.05); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-fail    { opacity: 1; border-left-color: var(--warn); background: rgba(245, 158, 11, 0.06); }
+
+    [data-sid="09b-prompt-problems-live:1"] .pp-check__name {
+      font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2); margin-bottom: 6px;
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-pass .pp-check__name { color: var(--ok); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-fail .pp-check__name { color: var(--warn); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check__desc { font-size: 30px; color: var(--fg-1); line-height: 1.3; }
+
+    /* Drop-down of individual cases — opens when the suite first runs */
+    [data-sid="09b-prompt-problems-live:1"] .pp-tests {
+      list-style: none; margin: 0; padding: 0 0 0 26px;
+      display: flex; flex-direction: column; gap: 8px;
+      max-height: 0; opacity: 0; overflow: hidden;
+      transition: max-height 420ms var(--ease), opacity 280ms var(--ease);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-tests.is-open { max-height: 420px; opacity: 1; }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
+      padding: 10px 16px; background: var(--bg-1);
+      border: 1px solid var(--border-1); border-left: 4px solid var(--border-2);
+      border-radius: 8px;
+      transition: border-color 240ms var(--ease), background 240ms var(--ease);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test__call {
+      font-family: 'JetBrains Mono', monospace; font-size: 23px; color: var(--fg-0);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test__call .fn  { color: var(--syntax-blue); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test__call .str { color: var(--syntax-green); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test__status {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--bg-3); color: var(--fg-3);
+      font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 220ms var(--ease), color 220ms var(--ease), transform 220ms var(--ease);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test.is-pass { border-left-color: var(--ok); background: rgba(34, 197, 94, 0.05); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test.is-pass .pp-test__status { background: var(--ok); color: #fff; transform: scale(1.05); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test.is-fail { border-left-color: var(--warn); background: rgba(245, 158, 11, 0.06); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test.is-fail .pp-test__status { background: var(--warn); color: #fff; transform: scale(1.05); }
+
+    [data-sid="09b-prompt-problems-live:1"] .pp-check__status {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--bg-3); color: var(--fg-3);
+      font-size: 24px; font-weight: 700; line-height: 1; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 260ms var(--ease), color 260ms var(--ease), box-shadow 260ms var(--ease), transform 260ms var(--ease);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-testing .pp-check__status {
+      background: transparent; color: transparent;
+      border: 3px solid rgba(99, 102, 241, 0.25); border-top-color: var(--accent-1);
+      animation: pp-spin 0.8s linear infinite;
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-check.is-pass .pp-check__status {
+      background: var(--ok); color: #fff; transform: scale(1.06);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+    }
+
+    [data-sid="09b-prompt-problems-live:1"] .pp-verdict {
+      border-radius: 12px; padding: 16px 24px;
+      font-size: 24px; font-weight: 700; line-height: 1.25;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-verdict.is-on { opacity: 1; transform: translateY(0); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-verdict.is-revise {
+      background: rgba(245, 158, 11, 0.12); border: 1px solid var(--warn); color: var(--warn);
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-verdict.is-ok {
+      background: linear-gradient(135deg, #4338ca, #5b21b6); border: 1px solid transparent; color: #fff;
+    }
+  </style>
+
+  <script>
+  (function () {
+    // Scope by data-sid, not #slide-09b — section ids aren't guaranteed unique.
+    const SECTION_SEL = '[data-sid="09b-prompt-problems-live:1"]';
+    const ATTEMPT1 = '"The function returns the word in uppercase."';
+    const ATTEMPT2 = '"The function converts the whole string to uppercase."';
+    const RUN1 = ['p', 'p', 'f', 'f']; // "the word" — multi-word cases disagree
+    const RUN2 = ['p', 'p', 'p', 'p'];
+    const REVISE_HTML = '↻ 2 / 4 — <em>"the word"</em>? The multi-word examples disagree. Revise the prompt.';
+    const OK_HTML = '✓ Accepted — students <em>iterate on the prompt</em> until the tests pass.<sup class="cite">1</sup>';
+    const TYPE_MS = 26;
+    const TEST_MS = 620;  // spinner dwell — the LLM is thinking here, unlike Refute/Probeable
+    const TICK_MS = 300;  // between per-case results in the drop-down
+
+    let timers = [];
+    let cache = -1;
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function t(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function scope() { return document.querySelector(SECTION_SEL); }
+
+    function els(s) {
+      return {
+        entry: s.querySelector('#pp-entry'),
+        label: s.querySelector('[data-sid="09b-prompt-problems-live:12"]'),
+        text:  s.querySelector('#pp-entry-text'),
+        caret: s.querySelector('#pp-caret'),
+        tests: s.querySelector('.pp-check[data-check="tests"]'),
+        list:  s.querySelector('#pp-tests'),
+        rows:  Array.from(s.querySelectorAll('.pp-test')),
+        score: s.querySelector('#pp-score'),
+        verdict: s.querySelector('#pp-verdict'),
+      };
+    }
+
+    function type(e, str, done) {
+      e.text.textContent = '';
+      e.caret.classList.add('is-typing');
+      e.entry.classList.add('is-typing');
+      let i = 0;
+      (function step() {
+        if (i <= str.length) {
+          e.text.textContent = str.slice(0, i++);
+          t(step, TYPE_MS);
+        } else {
+          e.caret.classList.remove('is-typing');
+          e.entry.classList.remove('is-typing');
+          if (done) done();
+        }
+      })();
+    }
+
+    function snapEntry(e, str) {
+      e.text.textContent = str;
+      e.caret.classList.remove('is-typing');
+      e.entry.classList.remove('is-typing');
+    }
+
+    function setCheck(el, state) {
+      el.classList.remove('is-testing', 'is-pass', 'is-fail');
+      const st = el.querySelector('.pp-check__status');
+      if (state === 'is-pass')      { el.classList.add('is-pass'); st.textContent = '✓'; }
+      else if (state === 'is-fail') { el.classList.add('is-fail'); st.textContent = '✗'; }
+      else if (state === 'is-testing') { el.classList.add('is-testing'); }
+      else { st.textContent = '·'; }
+    }
+
+    function setRow(row, st) {
+      row.classList.remove('is-pass', 'is-fail');
+      const dot = row.querySelector('.pp-test__status');
+      if (st === 'p') { row.classList.add('is-pass'); dot.textContent = '✓'; }
+      else if (st === 'f') { row.classList.add('is-fail'); dot.textContent = '✗'; }
+      else dot.textContent = '·';
+    }
+
+    function setLabel(e, revised) {
+      e.label.textContent = revised ? 'student writes · revised' : 'student writes · the prompt';
+    }
+
+    function setVerdict(el, kind, html) {
+      const want = kind === 'ok' ? 'is-ok' : (kind === 'revise' ? 'is-revise' : null);
+      if (!want) { el.classList.remove('is-revise', 'is-ok', 'is-on'); return; }
+      if (el.classList.contains(want) && el.classList.contains('is-on')) return;
+      el.classList.remove('is-revise', 'is-ok', 'is-on');
+      el.classList.add(want);
+      if (html != null) el.querySelector('.pp-verdict__text').innerHTML = html;
+      void el.offsetWidth; // reflow so the fade replays
+      el.classList.add('is-on');
+    }
+
+    // Instant full state for a suite run; animate=false for snaps/back-nav.
+    function setSuite(e, states, score, open) {
+      e.list.classList.toggle('is-open', !!open);
+      e.rows.forEach((r, i) => setRow(r, states ? states[i] : null));
+      e.score.textContent = score;
+      if (!states) { setCheck(e.tests, null); return; }
+      setCheck(e.tests, states.includes('f') ? 'is-fail' : 'is-pass');
+    }
+
+    // Spinner → drop-down opens → cases tick one by one → suite result.
+    function runSuite(e, states, score, done) {
+      e.rows.forEach(r => setRow(r, null));
+      setCheck(e.tests, 'is-testing');
+      e.list.classList.add('is-open');
+      t(() => {
+        states.forEach((st, i) => t(() => {
+          setRow(e.rows[i], st);
+          if (i === states.length - 1) {
+            e.score.textContent = score;
+            setCheck(e.tests, states.includes('f') ? 'is-fail' : 'is-pass');
+            if (done) done();
+          }
+        }, i * TICK_MS));
+      }, TEST_MS);
+    }
+
+    function render(step) {
+      const s = scope(); if (!s) return;
+      const e = els(s);
+      if (step === cache) return;
+      const prev = cache;
+      const fwd = prev >= 0 && prev < step;
+      cache = step;
+      clearAll();
+
+      if (step <= 0) {
+        setLabel(e, false); snapEntry(e, '');
+        setSuite(e, null, '4 cases', false);
+        setVerdict(e.verdict, null);
+        return;
+      }
+
+      switch (step) {
+        case 1: // attempt 1 types in — "the word", subtly underspecified
+          setLabel(e, false);
+          setSuite(e, null, '4 cases', false);
+          setVerdict(e.verdict, null);
+          if (fwd) type(e, ATTEMPT1);
+          else snapEntry(e, ATTEMPT1);
+          break;
+        case 2: // suite runs: the multi-word cases disagree → revise
+          setLabel(e, false); snapEntry(e, ATTEMPT1);
+          if (fwd) {
+            setVerdict(e.verdict, null);
+            runSuite(e, RUN1, '2 / 4', () => t(() => setVerdict(e.verdict, 'revise', REVISE_HTML), 140));
+          } else {
+            setSuite(e, RUN1, '2 / 4', true);
+            setVerdict(e.verdict, 'revise', REVISE_HTML);
+          }
+          break;
+        default: // 3 — revised prompt, all green
+          setLabel(e, true);
+          if (fwd) {
+            setSuite(e, RUN1, '2 / 4', true);
+            setVerdict(e.verdict, 'revise', REVISE_HTML);
+            type(e, ATTEMPT2, () => {
+              setVerdict(e.verdict, null);
+              runSuite(e, RUN2, '4 / 4', () => t(() => setVerdict(e.verdict, 'ok', OK_HTML), 140));
+            });
+          } else {
+            snapEntry(e, ATTEMPT2);
+            setSuite(e, RUN2, '4 / 4', true);
+            setVerdict(e.verdict, 'ok', OK_HTML);
+          }
+          break;
+      }
+    }
+
+    function sync() {
+      const s = scope(); if (!s) return;
+      if (!s.classList.contains('is-active')) { clearAll(); cache = -1; render(0); cache = -1; return; }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      render(step);
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <ol data-sid="09b-prompt-problems-live:19" class="slide__footnotes">
+    <li data-sid="09b-prompt-problems-live:20"><span class="num">1</span>Denny et al. · SIGCSE 2024.</li>
+  </ol>
+
+  <aside data-sid="09b-prompt-problems-live:21" class="notes">
+[0:55 · by end 8:25 · 18-min cut]
+Second type, and the mirror image: Prompt Problems. No code — just behaviour, often input/output examples or an image.
+(step 1) The student writes the prompt — "returns the word in uppercase." Sounds fine.
+(step 2) The suite drops down and runs each shown example: the single words pass, the multi-word strings fail. Two of four. "The word" was doing quiet damage.
+(step 3) Revise — "the whole string" — all four green. Iteration is the point: refine the prompt until the tests pass. Spec-writing practice — precise intent, not syntax.
+  </aside>
+  <div data-sid="09b-prompt-problems-live:22" class="slide__number" style="font-size: 20px"></div>
+</section>

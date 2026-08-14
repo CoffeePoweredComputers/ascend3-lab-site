@@ -1,0 +1,372 @@
+<section data-sid="08b-eipl-live:1" class="slide" id="slide-08b">
+  <div data-sid="08b-eipl-live:2" class="slide__eyebrow">Activity &middot; 01 &middot; code &rarr; description</div>
+  <h2 data-sid="08b-eipl-live:3" class="slide__title">Explain in Plain Language <span style="color:var(--fg-2); font-weight:300;">/ EiPL</span></h2>
+
+  <div data-sid="08b-eipl-live:4" class="slide__body" style="display:grid; grid-template-columns:1.05fr 1fr; gap:36px; align-items:start;">
+
+    <!-- LEFT: the activity, as the student sees it -->
+    
+
+    <!-- RIGHT: how it's graded, why it matters -->
+    <div data-sid="08b-eipl-live:5" class="tile tile--feature" style="padding: 36px; --act: var(--act-eipl)">
+      <div data-sid="08b-eipl-live:6" style="height:4px; background:var(--act); border-radius:4px 4px 0 0; margin:-36px -36px 24px;"></div>
+      <span class="tile__label" style="background:var(--bg-3); border-color:color-mix(in srgb, var(--act) 40%, var(--bg-3)); color:var(--act);">EiPL · code → description</span>
+      <div data-sid="08b-eipl-live:7" class="tile__body" style="font-size: 32px; margin: 14px 0 20px">Students see a piece of code and describe, in natural language, <em>what it does</em> — at a high level.</div>
+
+      <div data-sid="08b-eipl-live:8" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+        
+        <pre data-sid="08b-eipl-live:10" style="font-family: 'JetBrains Mono', monospace; font-size: 28px; color: var(--fg-0); margin: 0; line-height: 1.5"><span style="color:var(--syntax-purple);">def</span> <span style="color:var(--syntax-blue);">f</span>(xs):
+  <span class="eipl-cl map-1" data-n="1">n = <span style="color:var(--syntax-orange);">0</span></span>
+  <span class="eipl-cl map-2" data-n="2"><span style="color:var(--syntax-purple);">for</span> x <span style="color:var(--syntax-purple);">in</span> xs:</span>
+    <span class="eipl-cl map-3" data-n="3"><span style="color:var(--syntax-purple);">if</span> x % <span style="color:var(--syntax-orange);">2</span> == <span style="color:var(--syntax-orange);">0</span>:</span>
+      <span class="eipl-cl map-4" data-n="4">n += <span style="color:var(--syntax-orange);">1</span></span>
+  <span class="eipl-cl map-5" data-n="5"><span style="color:var(--syntax-purple);">return</span> n</span></pre>
+      </div>
+      <div data-sid="08b-eipl-live:11" id="eipl-entry" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:14px 20px; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
+        <div data-sid="08b-eipl-live:12" id="eipl-entry-label" style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--act); margin-bottom: 6px">student types · attempt 1</div>
+        <div data-sid="08b-eipl-live:13" style="font-size:28px; color:var(--fg-0); font-style:italic; min-height:1.3em;"><span id="eipl-entry-text"></span><span id="eipl-caret" class="eipl-caret" aria-hidden="true"></span></div>
+      </div>
+    </div>
+<div data-sid="08b-eipl-live:14" id="eipl-grader" style="display:flex; flex-direction:column; gap:18px;">
+      <div data-sid="08b-eipl-live:9" class="eipl-grader__label">autograder</div>
+
+      <div data-sid="08b-eipl-live:15" class="eipl-check" data-check="equiv">
+        <div data-sid="08b-eipl-live:28" class="eipl-check__status" aria-hidden="true">·</div>
+        <div data-sid="08b-eipl-live:16" class="eipl-check__text" style="font-size: 42px">
+          <div data-sid="08b-eipl-live:29" class="eipl-check__name" style="font-size: 32px">FUNCTIONALITY</div>
+          <div data-sid="08b-eipl-live:30" class="eipl-check__desc" style="font-size: 36px">An LLM regenerates <strong>functionally equivalent code</strong> from it.<sup class="cite">1</sup><sup class="cite">2</sup></div>
+        </div>
+      </div>
+
+      <div data-sid="08b-eipl-live:17" class="eipl-check" data-check="abstract">
+        <div data-sid="08b-eipl-live:31" class="eipl-check__status" aria-hidden="true">·</div>
+        <div data-sid="08b-eipl-live:18" class="eipl-check__text" style="font-size: 32px">
+          <div data-sid="08b-eipl-live:32" class="eipl-check__name" style="font-size: 32px">abstraction</div>
+          <div data-sid="08b-eipl-live:33" class="eipl-check__desc" style="font-size: 36px">Says <em>what</em> the code does — not the code line by line.</div>
+        </div>
+      </div>
+
+      <div data-sid="08b-eipl-live:19" id="eipl-verdict" class="eipl-verdict">
+        <div data-sid="08b-eipl-live:20" class="eipl-verdict__text">✓ Accepted — grades comprehension <em>and</em> precise articulation, at scale.<sup class="cite">3</sup></div>
+      </div>
+    </div>
+
+    <!-- step registration for the deck; animation driven by JS below -->
+    <span class="frag" data-step="1" style="display:none;"></span>
+    <span class="frag" data-step="3" style="display:none;"></span>
+    <span class="frag" data-step="4" style="display:none;"></span>
+    <span class="frag" data-step="5" style="display:none;"></span>
+
+  </div>
+
+  <style>
+    @keyframes eipl-spin  { to { transform: rotate(360deg); } }
+    @keyframes eipl-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    #slide-08b #eipl-entry.is-typing {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 1px var(--accent-2), 0 0 24px rgba(236, 72, 153, 0.22);
+    }
+    #slide-08b .eipl-caret {
+      display: inline-block; width: 3px; height: 1.05em;
+      background: var(--accent-2); margin-left: 3px; vertical-align: text-bottom; opacity: 0;
+    }
+    #slide-08b .eipl-caret.is-typing { opacity: 1; animation: eipl-blink 0.9s infinite; }
+
+    #slide-08b .eipl-grader__label {
+      font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-1-text);
+    }
+
+    #slide-08b .eipl-check {
+      display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 18px;
+      padding: 18px 22px; background: var(--bg-1);
+      border: 1px solid var(--border-1); border-left: 4px solid var(--border-2);
+      border-radius: 10px; opacity: 0.4;
+      transition: opacity 260ms var(--ease), border-color 260ms var(--ease), background 260ms var(--ease);
+    }
+    #slide-08b .eipl-check.is-testing { opacity: 1; border-left-color: var(--accent-2); }
+    #slide-08b .eipl-check.is-pass    { opacity: 1; border-left-color: var(--ok);   background: rgba(34, 197, 94, 0.05); }
+    #slide-08b .eipl-check.is-fail    { opacity: 1; border-left-color: var(--warn); background: rgba(245, 158, 11, 0.06); }
+
+    #slide-08b .eipl-check__name {
+      font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-2); margin-bottom: 6px;
+    }
+    #slide-08b .eipl-check.is-pass .eipl-check__name { color: var(--ok); }
+    #slide-08b .eipl-check.is-fail .eipl-check__name { color: var(--warn); }
+    #slide-08b .eipl-check__desc { font-size: 28px; color: var(--fg-1); line-height: 1.3; }
+
+    #slide-08b .eipl-check__status {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--bg-3); color: var(--fg-3);
+      font-size: 24px; font-weight: 700; line-height: 1; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 260ms var(--ease), color 260ms var(--ease), box-shadow 260ms var(--ease), transform 260ms var(--ease);
+    }
+    #slide-08b .eipl-check.is-testing .eipl-check__status {
+      background: transparent; color: transparent;
+      border: 3px solid rgba(99, 102, 241, 0.25); border-top-color: var(--accent-1);
+      animation: eipl-spin 0.8s linear infinite;
+    }
+    #slide-08b .eipl-check.is-pass .eipl-check__status {
+      background: var(--ok); color: #fff; transform: scale(1.06);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+    }
+    #slide-08b .eipl-check.is-fail .eipl-check__status {
+      background: var(--warn); color: #fff; transform: scale(1.06);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+    }
+
+    #slide-08b .eipl-verdict {
+      border-radius: 12px; padding: 16px 24px;
+      font-size: 24px; font-weight: 700; line-height: 1.25;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    #slide-08b .eipl-verdict.is-on { opacity: 1; transform: translateY(0); }
+    #slide-08b .eipl-verdict.is-revise {
+      background: rgba(245, 158, 11, 0.12); border: 1px solid var(--warn); color: var(--warn);
+    }
+    #slide-08b .eipl-verdict.is-ok {
+      background: linear-gradient(135deg, #4338ca, #5b21b6); border: 1px solid transparent; color: #fff;
+    }
+
+    /* === Step 2: phrase → code-line mapping (colour-matched pills) ===
+       Each .map-N pill (one in the description, its twin in the <pre>) shares
+       an --mc colour. Base state is invisible so the code + text read normally;
+       the .eipl-show-map ancestor class lights every pill and reveals a numbered
+       badge. Toggling that one class runs the whole thing forwards and back. */
+    #slide-08b .map-1 { --mc: 99, 102, 241; }
+    #slide-08b .map-2 { --mc: 56, 189, 248; }
+    #slide-08b .map-3 { --mc: 245, 158, 11; }
+    #slide-08b .map-4 { --mc: 236, 72, 153; }
+    #slide-08b .map-5 { --mc: 34, 197, 94; }
+
+    #slide-08b .eipl-seg {
+      border-radius: 999px; padding: 1px 8px; background: transparent;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+      transition: background 300ms var(--ease), box-shadow 300ms var(--ease);
+    }
+    #slide-08b .eipl-cl {
+      /* negative margin cancels the padding so unlit code keeps its exact
+         indentation; only the pill background/badge extend beyond the text. */
+      border-radius: 999px; padding: 2px 10px; margin: 0 -10px; background: transparent;
+      transition: background 300ms var(--ease), box-shadow 300ms var(--ease);
+    }
+    #slide-08b .eipl-seg::before, #slide-08b .eipl-cl::before {
+      content: attr(data-n);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 0; height: 1.2em; margin-right: 0; border-radius: 999px;
+      background: rgb(var(--mc)); color: #fff;
+      font-family: 'Inter', sans-serif; font-weight: 800; font-size: 0.62em;
+      opacity: 0; transform: scale(0.4); overflow: hidden;
+      transition: width 300ms var(--ease), margin 300ms var(--ease),
+                  opacity 300ms var(--ease), transform 300ms var(--ease);
+    }
+    #slide-08b.eipl-show-map .eipl-seg,
+    #slide-08b.eipl-show-map .eipl-cl {
+      background: rgba(var(--mc), 0.16);
+      box-shadow: inset 0 0 0 1.5px rgba(var(--mc), 0.55);
+    }
+    #slide-08b.eipl-show-map .eipl-seg::before,
+    #slide-08b.eipl-show-map .eipl-cl::before {
+      width: 1.2em; margin-right: 6px; opacity: 1; transform: scale(1);
+    }
+    /* each phrase + its code line light up together, one pair after the next */
+    #slide-08b.eipl-show-map .map-1, #slide-08b.eipl-show-map .map-1::before { transition-delay: 40ms; }
+    #slide-08b.eipl-show-map .map-2, #slide-08b.eipl-show-map .map-2::before { transition-delay: 150ms; }
+    #slide-08b.eipl-show-map .map-3, #slide-08b.eipl-show-map .map-3::before { transition-delay: 260ms; }
+    #slide-08b.eipl-show-map .map-4, #slide-08b.eipl-show-map .map-4::before { transition-delay: 370ms; }
+    #slide-08b.eipl-show-map .map-5, #slide-08b.eipl-show-map .map-5::before { transition-delay: 480ms; }
+  </style>
+
+  <script>
+  (function () {
+    // Two 03-* slides share id="slide-08b", so scope by this section's unique data-sid.
+    const SECTION_SEL = '[data-sid="08b-eipl-live:1"]';
+    const ATTEMPT1 = '"Set n to 0. For each x in the list, if x mod 2 is 0, add 1 to n. Return n."';
+    // Same text, segmented so each phrase can be paired with its code line at step 2.
+    const ATTEMPT1_HTML =
+      '"<span class="eipl-seg map-1" data-n="1">Set n to 0</span>. ' +
+      '<span class="eipl-seg map-2" data-n="2">For each x in the list</span>, ' +
+      '<span class="eipl-seg map-3" data-n="3">if x mod 2 is 0</span>, ' +
+      '<span class="eipl-seg map-4" data-n="4">add 1 to n</span>. ' +
+      '<span class="eipl-seg map-5" data-n="5">Return n</span>."';
+    const ATTEMPT2 = '"Counts how many numbers in the list are even."';
+    const TYPE_MS = 26;
+    const TEST_MS = 620;
+    const REVISE_HTML = '↻ Correct behaviour — but this just restates the code. Describe <em>what</em> it does, at a high level.';
+    const OK_HTML = '✓ Accepted — grades comprehension <em>and</em> precise articulation, at scale.<sup class="cite">3</sup>';
+
+    let timers = [];
+    let cache = -1;
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function t(fn, ms) { const id = setTimeout(fn, ms); timers.push(id); }
+    function scope() { return document.querySelector(SECTION_SEL); }
+
+    function els(s) {
+      return {
+        entry:   s.querySelector('#eipl-entry'),
+        label:   s.querySelector('#eipl-entry-label'),
+        text:    s.querySelector('#eipl-entry-text'),
+        caret:   s.querySelector('#eipl-caret'),
+        equiv:   s.querySelector('.eipl-check[data-check="equiv"]'),
+        abstr:   s.querySelector('.eipl-check[data-check="abstract"]'),
+        verdict: s.querySelector('#eipl-verdict'),
+      };
+    }
+
+    function setCheck(el, state) {
+      el.classList.remove('is-testing', 'is-pass', 'is-fail');
+      const st = el.querySelector('.eipl-check__status');
+      if (state === 'is-pass')      { el.classList.add('is-pass'); st.textContent = '✓'; }
+      else if (state === 'is-fail') { el.classList.add('is-fail'); st.textContent = '✗'; }
+      else if (state === 'is-testing') { el.classList.add('is-testing'); }
+      else { st.textContent = '·'; }
+    }
+
+    function runCheck(el, result) {
+      setCheck(el, 'is-testing');
+      t(() => setCheck(el, result), TEST_MS);
+    }
+
+    function snapEntry(e, str) {
+      e.text.textContent = str;
+      e.caret.classList.remove('is-typing');
+      e.entry.classList.remove('is-typing');
+    }
+
+    // Render the description as colour-mapped segments (built once, reused so the
+    // mapping pills fade rather than snap when stepping into/out of that step).
+    function segEntry(e) {
+      if (!e.text.querySelector('.eipl-seg')) e.text.innerHTML = ATTEMPT1_HTML;
+      e.caret.classList.remove('is-typing');
+      e.entry.classList.remove('is-typing');
+    }
+    // One ancestor class drives every pill + code-line highlight, both directions.
+    function setMap(on) {
+      const s = scope();
+      if (s) s.classList.toggle('eipl-show-map', !!on);
+    }
+
+    function type(e, str, done) {
+      e.text.textContent = '';
+      e.caret.classList.add('is-typing');
+      e.entry.classList.add('is-typing');
+      let i = 0;
+      (function step() {
+        if (i <= str.length) {
+          e.text.textContent = str.slice(0, i++);
+          t(step, TYPE_MS);
+        } else {
+          e.caret.classList.remove('is-typing');
+          e.entry.classList.remove('is-typing');
+          if (done) done();
+        }
+      })();
+    }
+
+    function setVerdict(el, kind, html) {
+      const want = kind === 'ok' ? 'is-ok' : (kind === 'revise' ? 'is-revise' : null);
+      if (!want) { el.classList.remove('is-revise', 'is-ok', 'is-on'); return; }
+      // Already showing this verdict? Leave it — avoids a re-fade when a later
+      // step (the mapping) layers on top of the same failed state.
+      if (el.classList.contains(want) && el.classList.contains('is-on')) return;
+      el.classList.remove('is-revise', 'is-ok', 'is-on');
+      el.classList.add(want);
+      if (html != null) el.querySelector('.eipl-verdict__text').innerHTML = html;
+      void el.offsetWidth; // reflow so the fade replays
+      el.classList.add('is-on');
+    }
+
+    function reset(e) {
+      clearAll(); cache = -1;
+      e.label.textContent = 'student types · attempt 1';
+      snapEntry(e, '');
+      setMap(false);
+      setCheck(e.equiv, null);
+      setCheck(e.abstr, null);
+      setVerdict(e.verdict, null);
+    }
+
+    // Each step is self-contained so hash-jumps land in the right state.
+    function render(step) {
+      const s = scope(); if (!s) return;
+      const e = els(s);
+      if (step === cache) return;
+      cache = step;
+      clearAll();
+      if (step <= 0) { reset(e); return; }
+
+      switch (step) {
+        case 1: // student types the low-level description
+          e.label.textContent = 'student types · attempt 1';
+          setMap(false);
+          setCheck(e.equiv, null); setCheck(e.abstr, null); setVerdict(e.verdict, null);
+          type(e, ATTEMPT1);
+          break;
+        case 2: // equivalence check passes
+          e.label.textContent = 'student types · attempt 1';
+          segEntry(e); setMap(false);
+          setCheck(e.abstr, null); setVerdict(e.verdict, null);
+          runCheck(e.equiv, 'is-pass');
+          break;
+        case 3: // abstraction check fails → revise
+          e.label.textContent = 'student types · attempt 1';
+          segEntry(e); setMap(false);
+          setCheck(e.equiv, 'is-pass'); setVerdict(e.verdict, null);
+          runCheck(e.abstr, 'is-fail');
+          t(() => setVerdict(e.verdict, 'revise', REVISE_HTML), TEST_MS + 140);
+          break;
+        case 4: // the "why": each phrase lights up against the line it restates
+          e.label.textContent = 'student types · attempt 1';
+          setCheck(e.equiv, 'is-pass'); setCheck(e.abstr, 'is-fail');
+          setVerdict(e.verdict, 'revise', REVISE_HTML); // idempotent — stays lit
+          segEntry(e);
+          void e.text.offsetWidth; // flush so freshly-built pills transition in
+          setMap(true);
+          break;
+        case 5: // revision passes both checks
+          e.label.textContent = 'student types · revised';
+          setMap(false);
+          setCheck(e.equiv, 'is-pass'); setCheck(e.abstr, null); setVerdict(e.verdict, null);
+          type(e, ATTEMPT2, () => {
+            runCheck(e.abstr, 'is-pass');
+            t(() => setVerdict(e.verdict, 'ok', OK_HTML), TEST_MS + 140);
+          });
+          break;
+      }
+    }
+
+    function sync() {
+      const s = scope(); if (!s) return;
+      const e = els(s);
+      if (!s.classList.contains('is-active')) { reset(e); return; }
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      render(step);
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <ol data-sid="08b-eipl-live:21" class="slide__footnotes">
+    <li data-sid="08b-eipl-live:22"><span class="num">1</span>Smith IV, Denny &amp; Fowler · L@S 2024.</li>
+    <li data-sid="08b-eipl-live:23"><span class="num">2</span>Smith IV &amp; Zilles · ITiCSE 2024.</li>
+    <li data-sid="08b-eipl-live:24"><span class="num">3</span>Denny, Smith IV et al. · ITiCSE 2024.</li>
+  </ol>
+
+  <aside data-sid="08b-eipl-live:25" class="notes">
+[1:10 · by end 7:30 · 18-min cut]
+First type: Explain in Plain Language. Student sees a short function and types what it does; the autograder reacts live on the right.
+(step 1) First attempt types in — but it just narrates the code: "set n to 0, for each x, if x mod 2 is 0, add 1 to n..."
+(step 2) Equivalence check runs and passes — an LLM regenerates functionally equivalent code from that description.
+(step 3) But the abstraction check fails: it restated the code line by line instead of saying what it does. Sent back to revise.
+(step 4) Here's the tell — each phrase lights up against the exact code line it restates, colour-matched, one to one.
+(step 5) The student revises to "counts how many numbers are even." Both checks pass — comprehension and precise articulation, graded at scale.
+  </aside>
+  <div data-sid="08b-eipl-live:26" class="slide__number" style="font-size: 20px"></div>
+  <div class="frag" data-step="2" data-sid="08b-eipl-live:27" data-ss-anchor hidden></div>
+</section>

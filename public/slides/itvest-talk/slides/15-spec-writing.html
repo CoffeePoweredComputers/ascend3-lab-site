@@ -1,0 +1,43 @@
+<section class="slide" id="slide-15">
+  <div class="slide__eyebrow">Act III · skill 01</div>
+  <h2 class="slide__title">Why <span class="gradient-text">spec writing</span> matters</h2>
+  <div class="slide__body">
+    <div class="split">
+      <div>
+        <p class="body-p" style="font-size:28px; margin-bottom:32px; max-width:780px;">
+          A spec — prose, diagram, example, or test — is what a student actually owns once a model generates the code. The code itself is increasingly something the model produces in response.
+        </p>
+        <p class="body-p frag" data-step="1" style="font-size:24px; color:var(--fg-1); max-width:780px; margin-bottom:24px;">
+          Prompt Problems and decomposition diagrams are spec-writing activities by design. EiPL is one too — describing code is spec writing in reverse.
+        </p>
+        <p class="body-p frag" data-step="2" style="font-size:24px; color:var(--fg-1); max-width:780px;">
+          And — back to Dijkstra — the spec is where ambiguity has to be resolved. There's no compiler upstream anymore to catch it.
+        </p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:24px; padding-top:24px;">
+        <div class="tile frag" data-step="3">
+          <span class="tile__label">prose</span>
+          <div class="tile__body" style="font-size:22px;">"Return the maximum value in a list, or <code style="font-family:'JetBrains Mono', monospace; color:var(--syntax-teal);">None</code> if the list is empty."</div>
+        </div>
+        <div class="tile frag" data-step="4">
+          <span class="tile__label">diagram</span>
+          <div class="tile__body" style="font-family:'JetBrains Mono', monospace; font-size:18px; line-height:1.6;">
+            [main]<br>
+            &nbsp;├─ get_input<br>
+            &nbsp;├─ validate<br>
+            &nbsp;└─ compute_max
+          </div>
+        </div>
+        <div class="tile frag" data-step="5">
+          <span class="tile__label">tests</span>
+          <div class="tile__body" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:var(--syntax-teal);">
+            max_val([3, 7, 2]) == 7<br>
+            max_val([]) is None
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+</section>

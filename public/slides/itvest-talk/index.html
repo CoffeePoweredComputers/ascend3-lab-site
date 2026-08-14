@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+<meta charset="UTF-8">
+<title>Programming in Plain Language (18 min) — David H. Smith IV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css?v=22">
+<link rel="stylesheet" href="css/deck.css?v=24">
+<link rel="stylesheet" href="css/components.css?v=21">
+<link rel="stylesheet" href="css/anchors.css?v=24">
+<link rel="stylesheet" href="css/studio-anim.css">
+</head>
+<body>
+
+<svg class="svg-defs" aria-hidden="true">
+  <defs>
+    <linearGradient id="grad-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L8,5 L0,10 z" fill="url(#grad-accent)"/>
+    </marker>
+  </defs>
+</svg>
+
+<div class="stage">
+  <div class="deck">
+    <!-- slides injected here by js/loader.js -->
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Restructured around ONE question: what can a student put in that box?
+//
+// 05c-cgbg-animation establishes the pipeline — ① student prompt → LLM → tests →
+// feedback. Everything after it is about panel ①. EiPL and Prompt Problems fill
+// it with written English; the rest of the talk is what else could go there.
+//
+//   BEAT I     the bottleneck moved up the stack        4:45
+//   BEAT II    the question types (establish the box)   3:20
+//   HINGE      what goes in that box?                   0:25   ← 13b-act3
+//   .          the language argument                    1:00   ← 19c, merged
+//   FORK       two stimuli to work with                 0:25   ← 13c, new
+//   BRANCH I   other natural languages                  2:45
+//   BRANCH II  visual representations                   1:00
+//   CLOSING    more problem types → Purplex             2:55
+//   CLOSE                                               1:20
+//
+// TOTAL ~17:55 — under an 18:00 slot for the first time. A visual pass took out
+// the second Dijkstra quote and tightened copy on 03; the remaining trim ladder
+// lives in the plan file, minus its "18 drop step 3" entry (that slide is merged
+// into 19c) and its "11 decomp" entry (dropped as a duplicate).
+//
+// Why the language argument sits BEFORE the fork rather than inside Branch I:
+// english-bias → translanguaging → transprogramming escalates from English, to
+// other languages, to other modalities. 19c's repertoire diagram shows four nodes
+// (natural language, code, domain notation, diagrams), so 13c reads as picking the
+// two that are actionable today — the payoff of the theory rather than an
+// unmotivated announcement.
+//
+// 19c-transprogramming MERGES what were slides 11-13 — 17c-english-bias-18,
+// 18-code-switching-vs-translanguaging and 19-transprogramming-18 — from 2:45 and
+// nine clicks down to 1:00 and two. All three originals stay on disk.
+//
+// It is built diagram-first: 43 words on screen against 299 across the three it
+// replaces. The English-bias setup, the code-switching foil and the Tai quote are
+// all in the speaker notes now — they are SPOKEN, and the slide is the repertoire
+// diagram, scaled up from 14px node labels to 24px so it reads from the back.
+// That is the trade to know about: this slide does not work read cold.
+//
+// 11-decomp-diagrams DROPPED as a duplicate of 11b-visual-prompting: adjacent
+// slides, same subject, and the identical Smith IV et al. (2026) citation printed
+// twice in a row. The cost is real — n=133 / 81% function extraction was Branch
+// II's only empirical warrant, so the claim now rests on the demo. The number is
+// preserved in 11b's speaker notes to be said aloud; restoring the slide is one
+// manifest line.
+//
+// Re-added after being cut from the 18-min pass: 23c-india-practices (Branch I's
+// close — the interview study, trimmed 7 steps → 3), 06f-other-activities and
+// 06g-purplex (the closing handoff). All needed a theme pass: they carried
+// dark-theme values as literals and wash out on the light ground this deck ships.
+//
+// 09c/09d/09e moved from the middle to the closing section, so 09c's "those two"
+// was rewritten to name EiPL and Prompt Problems — they are now eleven slides
+// back. 11b's step-4 blur takeaway was re-pointed from generation to assessment.
+//
+// 23-equity-india-18 stays cut: it duplicated 23a-india-route and contradicted it
+// ("7 institutions" vs ten pins; IIT Kanpur filed under Lucknow, Krea under
+// Chennai). 07-bipartite-map does not exist on disk despite plan-18min.md
+// referencing it — 13-platform-synthesis is the surviving activities×skills map.
+//
+// VISUAL PASS. Six slides were rebuilt so the connective tissue looks like the
+// parts that already worked (the map, the walkthroughs, the pipeline):
+//   05  one Dijkstra quote instead of two — the first is a FEASIBILITY objection
+//       GenAI settled — so the burden-shift diagram goes 340px -> 468px and every
+//       label inside it clears the 22px floor. 107 prose words -> 51.
+//   13b the CGBG input panel, empty, caret blinking; step 1 types "written
+//       English" and step 2 WIPES it. Step 1 has no .frag — it is driven by JS off
+//       deck.state.step, and maxStep still resolves to 2 from the step-2 fragment.
+//   13c the same panel twice: Devanagari left (the same prompt 05c types in
+//       English), a real student decomposition right. 53 prose words -> 0.
+//   23c nine institution photographs that were sitting unused replace a 3x2 grid
+//       of text tiles; the six interview categories survive as one chip line.
+//   06f the three families now annotate the pipeline stage each one varies
+//       instead of describing it in paragraphs. 89 prose words -> 12.
+//   06g type off 11-15px onto the floor, feature paragraphs -> labels, and the
+//       duplicate QR pair dropped (26-thank-you carries the same two codes).
+//
+// Slides suffixed -18 are fragment-trimmed variants; the untrimmed originals stay
+// in index-full.html, which holds the long (33-slide) version of this deck.
+// ─────────────────────────────────────────────────────────────────────────────
+window.SLIDE_MANIFEST = [
+  '01-title.html',
+  '02-about-lab.html',
+  '03-what-we-assess.html',
+  '04-abstraction-ladder-iticse.html',
+  '05b-teaching-prompting.html',
+  '05c-cgbg-animation.html',
+  '08b-eipl-live.html',
+  '09b-prompt-problems-live.html',
+  '13b-act3.html',
+  '19c-transprogramming.html',
+  '13c-two-stimuli.html',
+  '23a-india-route.html',
+  '23c-india-practices.html',
+  '11b-visual-prompting-A.html',
+  '06g-purplex.html',
+  '09c-non-cgbg.html',
+  '09d-refute-live.html',
+  '09e-probeable-live.html',
+  '06f-other-activities.html',
+  '24-research-questions-18.html',
+  '25-acknowledgments.html',
+  '26-thank-you.html'
+];
+// 02-about-lab borrowed back in from pres_translanguaging_everywhere. It is 2
+// extra clicks and roughly a minute spoken, which the 18:00 slot does NOT have
+// — the deck was already at ~17:55. Budget it against the trim ladder in
+// plan-18min.md before presenting, or drop this line again.
+// ~18:55 spoken · ~55s OVER an 18:00 slot
+// 25 slides · 59 clicks · 83 advances including slide changes
+</script>
+<script src="js/loader.js?v=8"></script>
+<script src="js/deck.js?v=10"></script>
+<script src="js/tracker.js?v=2"></script>
+<script src="js/arrows.js?v=11"></script>
+<script src="js/mirror.js?v=1"></script>
+<script src="js/theme.js?v=2"></script>
+
+</body>
+</html>

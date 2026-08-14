@@ -1,0 +1,516 @@
+<section data-sid="05c-cgbg-animation:1" class="slide" id="slide-05c">
+  <div data-sid="05c-cgbg-animation:2" class="slide__eyebrow">Framing &middot; 04 &middot; code-generation-based grading</div>
+  <h2 data-sid="05c-cgbg-animation:3" class="slide__title">Code Generation Based Grading</h2>
+
+  <div data-sid="05c-cgbg-animation:4" class="slide__body" style="display:flex; flex-direction:column; gap:18px; position:relative;">
+
+    <!-- Phase chip strip -->
+    <div data-sid="05c-cgbg-animation:5" id="cgbg-chips" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <div data-sid="05c-cgbg-animation:6" class="cgbg-chip" data-phase="1"><span class="cgbg-chip__num"><b>①</b></span><b>&nbsp;prompt</b></div>
+      <div data-sid="05c-cgbg-animation:7" class="cgbg-chip" data-phase="2"><span class="cgbg-chip__num"><b>②</b></span><b>&nbsp;LLM generates code</b></div>
+      <div data-sid="05c-cgbg-animation:8" class="cgbg-chip" data-phase="3"><span class="cgbg-chip__num"><b>③</b></span><b>&nbsp;tests</b></div>
+      <div data-sid="05c-cgbg-animation:9" class="cgbg-chip" data-phase="4"><span class="cgbg-chip__num"><b>④</b></span><b>&nbsp;feedback</b></div>
+    </div>
+
+    <!-- Animation grid -->
+    <div data-sid="05c-cgbg-animation:10" id="cgbg-anim" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; flex:1; min-height:0; transition:opacity 520ms var(--ease), transform 520ms var(--ease), filter 520ms var(--ease);">
+
+      <!-- Left column: ?/caption (finale) → prompt → LLM → code -->
+      <div data-sid="05c-cgbg-animation:11" style="display:flex; flex-direction:column; gap:12px;">
+
+        <!-- Finale: one dashed box containing the ? and the caption. -->
+        <div data-sid="05c-cgbg-animation:12" id="cgbg-q-box">
+          <div data-sid="05c-cgbg-animation:13" id="cgbg-q-mark" aria-hidden="true">?</div>
+          <div data-sid="05c-cgbg-animation:14" id="cgbg-q-caption" style="font-size: 32px; width: 800.562px; display: inline-flex; flex-direction: column; justify-content: center">What prompt prompts the student to prompt?</div>
+        </div>
+
+        <div data-sid="05c-cgbg-animation:16" class="cgbg-panel" data-phase="1" style="background:var(--bg-2); border:1px solid var(--border-1); border-radius:12px; padding:18px 22px; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
+          <div data-sid="05c-cgbg-animation:17" style="font-family:'JetBrains Mono', monospace; font-size:23px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1-text); margin-bottom:10px;">① Student prompt</div>
+          <div data-sid="05c-cgbg-animation:18" id="cgbg-prompt" style="font-family:'JetBrains Mono', monospace; font-size:27px; color:var(--fg-0); min-height:76px; line-height:1.4;"></div>
+          <span id="cgbg-prompt-caret" style="display:inline-block; width:2px; height:25px; background:var(--accent-2); margin-left:2px; vertical-align:middle; opacity:0;"></span>
+        </div>
+
+        <!-- LLM indicator between prompt and code -->
+        <div data-sid="05c-cgbg-animation:19" id="cgbg-llm" class="cgbg-llm" style="align-self: center; display: flex; flex-direction: column; align-items: center; gap: 6px; opacity: 0.75; transition: opacity 280ms var(--ease); width: 159.234px; height: 124.726px; font-size: 21px">
+          <div data-sid="05c-cgbg-animation:20" id="cgbg-robot" style="font-size: 40px; line-height: 1; width: 61.36px; height: 49.7371px; justify-content: center; display: flex">🤖</div>
+          <div data-sid="05c-cgbg-animation:21" class="cgbg-llm__spinner" style="width: 39.4971px; height: 39.3657px"></div>
+          <div data-sid="05c-cgbg-animation:22" style="font-family: 'JetBrains Mono', monospace; font-size: 21px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-1); white-space: nowrap">LLM generating ↓</div>
+        </div>
+
+        <div data-sid="05c-cgbg-animation:23" class="cgbg-panel" data-phase="2" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:12px; padding:18px 22px; flex:1; overflow:hidden; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
+          <div data-sid="05c-cgbg-animation:24" style="font-family:'JetBrains Mono', monospace; font-size:23px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--syntax-blue); margin-bottom:10px;">② Generated code</div>
+          <div data-sid="05c-cgbg-animation:25" id="cgbg-code">
+            <div data-sid="05c-cgbg-animation:26" class="cgbg-line"><span class="kw">def</span> <span class="fn">max_value</span>(numbers):</div>
+            <div data-sid="05c-cgbg-animation:27" class="cgbg-line">    <span class="kw">if not</span> numbers:</div>
+            <div data-sid="05c-cgbg-animation:28" class="cgbg-line">        <span class="kw">return</span> <span class="kw">None</span></div>
+            <div data-sid="05c-cgbg-animation:29" class="cgbg-line">    <span class="kw">return</span> <span class="fn">max</span>(numbers)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: tests + feedback -->
+      <div data-sid="05c-cgbg-animation:34" style="display: flex; flex-direction: column; gap: 18px; width: 806.2px">
+
+        <div data-sid="05c-cgbg-animation:35" class="cgbg-panel" data-phase="3" style="background:var(--bg-2); border:1px solid var(--border-1); border-radius:12px; padding:18px 22px; flex:1; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
+          <div data-sid="05c-cgbg-animation:36" style="font-family:'JetBrains Mono', monospace; font-size:23px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--syntax-green); margin-bottom:14px;">③ Run unit tests</div>
+          <ul data-sid="05c-cgbg-animation:37" id="cgbg-tests" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
+            <li data-sid="05c-cgbg-animation:38" class="cgbg-test"><div data-sid="05c-cgbg-animation:39" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:40" class="cgbg-test__name">test_basic</div><div data-sid="05c-cgbg-animation:41" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>])<span class="arr">  →  </span><span class="num">5</span></div></div><div data-sid="05c-cgbg-animation:42" class="cgbg-test__status">·</div></li>
+            <li data-sid="05c-cgbg-animation:43" class="cgbg-test"><div data-sid="05c-cgbg-animation:44" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:45" class="cgbg-test__name">test_empty</div><div data-sid="05c-cgbg-animation:46" class="cgbg-test__call"><span class="fn">max_value</span>([])<span class="arr">  →  </span><span class="kw">None</span></div></div><div data-sid="05c-cgbg-animation:47" class="cgbg-test__status">·</div></li>
+            <li data-sid="05c-cgbg-animation:48" class="cgbg-test"><div data-sid="05c-cgbg-animation:49" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:50" class="cgbg-test__name">test_negative</div><div data-sid="05c-cgbg-animation:51" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">-3</span>, <span class="num">-1</span>, <span class="num">-4</span>])<span class="arr">  →  </span><span class="num">-1</span></div></div><div data-sid="05c-cgbg-animation:52" class="cgbg-test__status">·</div></li>
+            <li data-sid="05c-cgbg-animation:53" class="cgbg-test"><div data-sid="05c-cgbg-animation:54" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:55" class="cgbg-test__name">test_single</div><div data-sid="05c-cgbg-animation:56" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">42</span>])<span class="arr">  →  </span><span class="num">42</span></div></div><div data-sid="05c-cgbg-animation:57" class="cgbg-test__status">·</div></li>
+          </ul>
+        </div>
+
+        <div data-sid="05c-cgbg-animation:58" id="cgbg-feedback" class="cgbg-panel" data-phase="4" style="opacity:0; transform:translateY(8px); transition:opacity 320ms ease, transform 320ms ease, border-color 280ms var(--ease), box-shadow 280ms var(--ease); background:linear-gradient(135deg, #4338ca, #5b21b6); border-radius:12px; padding:18px 26px; color:white;">
+          <div data-sid="05c-cgbg-animation:59" style="font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:4px;">④ Feedback</div>
+          <div data-sid="05c-cgbg-animation:60" style="font-size:22px; font-weight:700; line-height:1.2;">✓ Submission accepted · prompt graded</div>
+          
+        </div>
+
+      </div>
+
+    </div>
+
+    <span class="frag" data-step="1" style="display:none;"></span>
+    <span class="frag" data-step="3" style="display:none;"></span>
+    <span class="frag" data-step="4" style="display:none;"></span>
+    <span class="frag" data-step="5" style="display:none;"></span>
+    <span class="frag" data-step="6" style="display:none;"></span>
+
+  </div>
+
+  <style>
+    @keyframes cgbg-spin { to { transform: rotate(360deg); } }
+    @keyframes cgbg-blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    #slide-05c .cgbg-chip {
+      display:flex; align-items:center; gap:10px;
+      padding:10px 20px; background:var(--bg-2); border:1px solid var(--border-1);
+      border-radius:999px;
+      font-family:'JetBrains Mono', monospace; font-size:21px; color:var(--fg-1);
+      transition: background 280ms var(--ease), border-color 280ms var(--ease), color 280ms var(--ease), box-shadow 280ms var(--ease);
+    }
+    #slide-05c .cgbg-chip__num { font-size: 22px; }
+    #slide-05c .cgbg-chip.is-done {
+      background: rgba(34, 197, 94, 0.08); border-color: rgba(34, 197, 94, 0.35); color: var(--ok);
+    }
+    #slide-05c .cgbg-chip.is-done .cgbg-chip__num { color: var(--ok); }
+    /* Active chip: a flat light-purple tint. --act-eipl is theme-aware, so the
+       same rule reads in both themes and needs no light-theme override. */
+    #slide-05c .cgbg-chip.is-active {
+      background: color-mix(in srgb, var(--act-eipl) 18%, transparent);
+      border-color: var(--act-eipl); color: var(--act-eipl);
+    }
+    #slide-05c .cgbg-chip.is-active .cgbg-chip__num { color: var(--act-eipl); }
+    #slide-05c .cgbg-panel.is-active {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 1px var(--accent-2), 0 0 30px rgba(236, 72, 153, 0.30);
+    }
+
+    /* LLM indicator */
+    #slide-05c .cgbg-llm__spinner {
+      width:18px; height:18px; border-radius:50%;
+      border:2.5px solid rgba(99,102,241,0.25); border-top-color:var(--accent-1);
+      animation: cgbg-spin 0.9s linear infinite paused;
+    }
+    #slide-05c .cgbg-llm.is-on { opacity: 1; }
+    #slide-05c .cgbg-llm.is-on .cgbg-llm__spinner { animation-play-state: running; }
+    /* Code finished generating: stop the spinner, swap in a checkmark. */
+    #slide-05c .cgbg-llm__spinner.is-done {
+      animation: none;
+      border: none;
+      color: var(--ok);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; font-weight: 900; line-height: 1;
+    }
+    #slide-05c .cgbg-llm__spinner.is-done::after { content: "✓"; }
+
+    #slide-05c #cgbg-prompt-caret.is-typing { opacity: 1; animation: cgbg-blink 0.9s infinite; }
+
+    /* Caret that trails the character-by-character code typing. Parked at the
+       end of whichever .cgbg-line is currently being typed. */
+    #slide-05c .cgbg-code-caret {
+      display: inline-block; width: 2px; height: 0.95em;
+      background: var(--accent-2); vertical-align: text-bottom;
+      animation: cgbg-blink 0.9s infinite;
+    }
+
+    /* Pre-rendered code: each line hidden until JS reveals it.
+       Syntax classes baked into markup; no innerHTML at runtime.
+       `white-space: pre` lives on the .cgbg-line ITSELF — not the
+       parent — so leading indent inside each line is preserved, but
+       the whitespace between <div> elements in the HTML source
+       doesn't render as phantom blank lines. */
+    #slide-05c #cgbg-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px; color: var(--fg-0);
+    }
+    #slide-05c .cgbg-line {
+      display: none;
+      white-space: pre;
+      line-height: 1.4;
+    }
+    #slide-05c .cgbg-line.is-on { display: block; }
+    #slide-05c #cgbg-code .kw  { color: var(--syntax-purple); font-weight:600; }
+    #slide-05c #cgbg-code .fn  { color: var(--syntax-blue); }
+    #slide-05c #cgbg-code .str { color: var(--syntax-green); }
+    #slide-05c #cgbg-code .num { color: var(--syntax-orange); }
+
+    /* Test row blocks */
+    #slide-05c .cgbg-test {
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px;
+      padding: 14px 18px; background: var(--bg-1); border: 1px solid var(--border-1);
+      border-left: 4px solid var(--border-2); border-radius: 10px;
+      transition: border-color 240ms var(--ease), background 240ms var(--ease);
+    }
+    #slide-05c .cgbg-test__body { min-width: 0; }
+    #slide-05c .cgbg-test__name {
+      font-family: 'JetBrains Mono', monospace; font-size: 23px; font-weight: 700;
+      color: var(--fg-2); letter-spacing: 0.04em; margin-bottom: 5px;
+    }
+    #slide-05c .cgbg-test__call {
+      font-family: 'JetBrains Mono', monospace; font-size: 26px; color: var(--fg-0);
+      line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    #slide-05c .cgbg-test__call .fn  { color: var(--syntax-blue); }
+    #slide-05c .cgbg-test__call .num { color: var(--syntax-orange); }
+    #slide-05c .cgbg-test__call .kw  { color: var(--syntax-purple); }
+    #slide-05c .cgbg-test__call .arr { color: var(--fg-3); }
+    #slide-05c .cgbg-test__status {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--bg-3); color: var(--fg-3);
+      font-family: 'Inter', sans-serif; font-size: 23px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 240ms var(--ease), color 240ms var(--ease), box-shadow 240ms var(--ease), transform 240ms var(--ease);
+    }
+    #slide-05c .cgbg-test.is-passed {
+      border-left-color: var(--ok); background: rgba(34, 197, 94, 0.05);
+    }
+    #slide-05c .cgbg-test.is-passed .cgbg-test__name { color: var(--ok); }
+    #slide-05c .cgbg-test.is-passed .cgbg-test__status {
+      background: var(--ok); color: white;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.5); transform: scale(1.05);
+    }
+    #slide-05c .cgbg-test.is-passed .cgbg-test__status::after { content: "✓"; }
+    #slide-05c .cgbg-test.is-passed .cgbg-test__status > * { display: none; }
+
+    /* === Finale: one dashed box containing the ? and the caption ===
+       Default: zero max-height + zero border so it takes NO layout space.
+       At step 5, max-height grows and the dashed border fades in, pushing
+       the panels below it down. */
+    #slide-05c #cgbg-q-box {
+      align-self: stretch;
+      border-radius: 12px;
+      background: rgba(236, 72, 153, 0.06);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px;
+      padding: 0 22px;
+      max-height: 0;
+      border: 0 dashed var(--accent-2);
+      opacity: 0;
+      overflow: hidden;
+      box-sizing: border-box;
+      transition:
+        max-height 460ms cubic-bezier(.34,1.56,.64,1),
+        border-width 460ms ease,
+        padding 460ms ease,
+        opacity 280ms ease;
+    }
+    #slide-05c #cgbg-q-mark {
+      font-size: 56px; font-weight: 900; line-height: 1;
+      color: var(--accent-2);
+    }
+    #slide-05c #cgbg-q-caption {
+      font-size: 18px; line-height: 1.35;
+      color: var(--fg-0); text-align: center;
+      max-width: 540px;
+    }
+    #slide-05c .cgbg-q-caption__eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-1-text); margin-bottom: 4px;
+    }
+
+    /* === Finale (step 5) state === */
+    #slide-05c.is-revealed #cgbg-q-box {
+      max-height: 220px; border-width: 3px; opacity: 1; padding: 14px 22px;
+    }
+
+    /* Finale: the pipeline has run — collapse the LLM indicator to make
+       room for the question box (the larger fonts otherwise overflow the
+       1080 canvas at step 5). */
+    #slide-05c.is-revealed #cgbg-llm {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 460ms ease, opacity 280ms ease;
+    }
+
+    /* All non-question elements fade — including the STUDENT prompt panel,
+       which is the LLM input, NOT the question being asked. */
+    #slide-05c.is-revealed #cgbg-chips,
+    #slide-05c.is-revealed #cgbg-llm,
+    #slide-05c.is-revealed .cgbg-panel[data-phase="1"],
+    #slide-05c.is-revealed .cgbg-panel[data-phase="2"],
+    #slide-05c.is-revealed .cgbg-panel[data-phase="3"],
+    #slide-05c.is-revealed #cgbg-feedback {
+      opacity: 0.85; pointer-events: none;
+      transition: opacity 520ms ease 460ms;
+    }
+  </style>
+
+  <script>
+  (function () {
+    const SLIDE_ID = 'slide-05c';
+    const PROMPT_TEXT = "Write a function that returns the maximum value in a list of numbers.";
+    const TYPING_MS = 28;
+    const CODE_CHAR_MS = 26;      // per character of generated code
+    const CODE_LINE_PAUSE_MS = 160; // beat at each line break
+    const TEST_TICK_MS = 280;
+
+    let timers = [];
+    let phaseCache = -1;
+    function clearAll() { timers.forEach(clearTimeout); timers = []; }
+    function t(fn, ms) { const id = setTimeout(fn, ms); timers.push(id); }
+    function getScope() { return document.getElementById(SLIDE_ID); }
+
+    function resetAll(scope) {
+      clearAll();
+      phaseCache = -1;
+      const prompt  = scope.querySelector('#cgbg-prompt');
+      const caret   = scope.querySelector('#cgbg-prompt-caret');
+      const lines   = scope.querySelectorAll('.cgbg-line');
+      const tests   = scope.querySelectorAll('.cgbg-test');
+      const fb      = scope.querySelector('#cgbg-feedback');
+      const llm     = scope.querySelector('#cgbg-llm');
+      const spinner = scope.querySelector('.cgbg-llm__spinner');
+      if (prompt) prompt.textContent = '';
+      if (caret)  caret.classList.remove('is-typing');
+      lines.forEach(l => l.classList.remove('is-on'));
+      restoreCode(scope);
+      if (llm)    llm.classList.remove('is-on');
+      if (spinner) spinner.classList.remove('is-done');
+      tests.forEach(t => t.classList.remove('is-passed'));
+      if (fb) { fb.style.opacity = '0'; fb.style.transform = 'translateY(8px)'; }
+      scope.querySelectorAll('.cgbg-chip').forEach(c => c.classList.remove('is-active', 'is-done'));
+      scope.querySelectorAll('.cgbg-panel').forEach(p => p.classList.remove('is-active'));
+    }
+
+    function setActivePanel(scope, phase) {
+      scope.querySelectorAll('.cgbg-panel').forEach(p => {
+        p.classList.toggle('is-active', parseInt(p.dataset.phase, 10) === phase);
+      });
+      scope.querySelectorAll('.cgbg-chip').forEach(c => {
+        const ph = parseInt(c.dataset.phase, 10);
+        // At the final phase (4 = feedback), the workflow has completed —
+        // mark every chip green, including the feedback chip itself.
+        if (phase >= 4) {
+          c.classList.remove('is-active');
+          c.classList.add('is-done');
+        } else {
+          c.classList.toggle('is-active', ph === phase);
+          c.classList.toggle('is-done', ph < phase);
+        }
+      });
+      const llm = scope.querySelector('#cgbg-llm');
+      if (llm) llm.classList.toggle('is-on', phase === 2);
+    }
+
+    function typePrompt(scope) {
+      const promptEl = scope.querySelector('#cgbg-prompt');
+      const caret    = scope.querySelector('#cgbg-prompt-caret');
+      promptEl.textContent = '';
+      caret.classList.add('is-typing');
+      let i = 0;
+      function step() {
+        if (i <= PROMPT_TEXT.length) {
+          promptEl.textContent = PROMPT_TEXT.slice(0, i++);
+          t(step, TYPING_MS);
+        } else { caret.classList.remove('is-typing'); }
+      }
+      step();
+    }
+
+    /* The code is pre-rendered with its syntax spans baked in, so typing it out
+       means truncating the text NODES rather than rewriting innerHTML: snapshot
+       each line's text nodes once, then re-slice them to the character count. */
+    let codeModel = null;
+    function getCodeModel(scope) {
+      if (codeModel && codeModel.length && codeModel[0].el.isConnected) return codeModel;
+      codeModel = Array.from(scope.querySelectorAll('.cgbg-line')).map(el => {
+        const nodes = [];
+        const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        let n;
+        while ((n = walk.nextNode())) nodes.push({ node: n, text: n.nodeValue });
+        return { el, nodes, len: nodes.reduce((sum, x) => sum + x.text.length, 0) };
+      });
+      return codeModel;
+    }
+
+    function setLineChars(line, count) {
+      let left = count;
+      line.nodes.forEach(({ node, text }) => {
+        const take = Math.max(0, Math.min(text.length, left));
+        node.nodeValue = text.slice(0, take);
+        left -= take;
+      });
+    }
+
+    let codeCaret = null;
+    function getCodeCaret() {
+      if (!codeCaret) {
+        codeCaret = document.createElement('span');
+        codeCaret.className = 'cgbg-code-caret';
+      }
+      return codeCaret;
+    }
+
+    function restoreCode(scope) {
+      const caret = getCodeCaret();
+      if (caret.parentNode) caret.remove();
+      getCodeModel(scope).forEach(l => setLineChars(l, l.len));
+    }
+
+    function revealCodeLines(scope, allAtOnce) {
+      const model   = getCodeModel(scope);
+      const spinner = scope.querySelector('.cgbg-llm__spinner');
+      const caret   = getCodeCaret();
+      if (caret.parentNode) caret.remove();
+      if (spinner) spinner.classList.remove('is-done');
+      if (allAtOnce) {
+        model.forEach(l => { setLineChars(l, l.len); l.el.classList.add('is-on'); });
+        if (spinner) spinner.classList.add('is-done');
+        return;
+      }
+      model.forEach(l => { setLineChars(l, 0); l.el.classList.remove('is-on'); });
+      let j = 0, c = 0;
+      function step() {
+        if (j >= model.length) {
+          if (caret.parentNode) caret.remove();
+          if (spinner) spinner.classList.add('is-done');
+          return;
+        }
+        const line = model[j];
+        if (c === 0) { line.el.classList.add('is-on'); line.el.appendChild(caret); }
+        if (c < line.len) {
+          setLineChars(line, ++c);
+          t(step, CODE_CHAR_MS);
+        } else {
+          j++; c = 0;
+          t(step, CODE_LINE_PAUSE_MS);
+        }
+      }
+      step();
+    }
+
+    function runTests(scope, allAtOnce) {
+      const tests = scope.querySelectorAll('.cgbg-test');
+      tests.forEach(t => t.classList.remove('is-passed'));
+      if (allAtOnce) { tests.forEach(t => t.classList.add('is-passed')); return; }
+      let k = 0;
+      function step() {
+        if (k < tests.length) {
+          tests[k].classList.add('is-passed');
+          k++;
+          t(step, TEST_TICK_MS);
+        }
+      }
+      step();
+    }
+
+    function showFeedback(scope) {
+      const fb = scope.querySelector('#cgbg-feedback');
+      fb.style.opacity = '1';
+      fb.style.transform = 'translateY(0)';
+    }
+
+    function enterPhase(scope, phase) {
+      if (phase === phaseCache) return;
+      phaseCache = phase;
+      clearAll();
+      setActivePanel(scope, phase);
+      const promptEl = scope.querySelector('#cgbg-prompt');
+      if (phase >= 1) {
+        if (phase === 1) typePrompt(scope);
+        else if (!promptEl.textContent) promptEl.textContent = PROMPT_TEXT;
+      }
+      if (phase >= 2) {
+        // Past phase 2 the code is always shown complete — stepping forward
+        // mid-typing must fill in the rest, not freeze it half-typed.
+        revealCodeLines(scope, phase !== 2);
+      }
+      if (phase >= 3) {
+        const anyPassed = Array.from(scope.querySelectorAll('.cgbg-test')).some(t => t.classList.contains('is-passed'));
+        if (phase === 3) runTests(scope, false);
+        else if (!anyPassed) runTests(scope, true);
+      }
+      if (phase >= 4) showFeedback(scope);
+    }
+
+    function sync() {
+      const scope = getScope();
+      if (!scope) return;
+      const active = scope.classList.contains('is-active');
+      const step   = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      if (!active) { resetAll(scope); return; }
+      scope.classList.toggle('is-revealed', step >= 5);
+      if (step === 0) { resetAll(scope); }
+      else if (step >= 1 && step <= 4) { enterPhase(scope, step); }
+      else if (step >= 5) { enterPhase(scope, 4); }
+    }
+
+    window.addEventListener('slides:loaded', sync);
+    window.addEventListener('deck:stepchange', sync);
+  })();
+  </script>
+
+  <script>
+  // Step 2: make the robot hop. Independent of the phase state machine above
+  // so it can't disturb it. Uses the Web Animations API — cancel() snaps the
+  // emoji back to its resting transform, so back-stepping below step 2 resets cleanly.
+  (function () {
+    const SLIDE_ID = 'slide-05c';
+    let hop = null;
+    function getRobot() {
+      const scope = document.getElementById(SLIDE_ID);
+      return scope ? scope.querySelector('#cgbg-robot') : null;
+    }
+    function syncHop() {
+      const robot = getRobot();
+      if (!robot) return;
+      const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
+      if (step === 2) {
+        if (hop) hop.cancel();
+        // A landing hop that decays into two smaller bounces, then settles.
+        hop = robot.animate([
+          { transform: 'translateY(0)' },
+          { transform: 'translateY(-32px)', offset: 0.22 },
+          { transform: 'translateY(0)',     offset: 0.46 },
+          { transform: 'translateY(-15px)', offset: 0.66 },
+          { transform: 'translateY(0)',     offset: 0.84 },
+          { transform: 'translateY(-6px)',  offset: 0.93 },
+          { transform: 'translateY(0)' }
+        ], { duration: 1150, easing: 'cubic-bezier(.28,.84,.42,1)' });
+      } else if (hop) {
+        hop.cancel();
+        hop = null;
+      }
+    }
+    window.addEventListener('slides:loaded', syncHop);
+    window.addEventListener('deck:stepchange', syncHop);
+  })();
+  </script>
+
+  <aside data-sid="05c-cgbg-animation:64" class="notes">
+[0:50 → 2:05 · budget 1:15 · ~6 clicks]
+GenAI moves the skill from writing code to specifying it — so how do you grade a natural-language answer at scale? Code-generation-based grading.
+(1) The student's text — here a prompt — types in.
+(2) It goes to an LLM, which generates code.
+(3) The code runs against unit tests.
+(4) Pass or fail comes back as feedback — in under two seconds.
+(5) Finale: so what IS the question prompt when students write the prompt? That question splits into our first two problem types.
+Two of the four types run on this engine; the other two don't need an LLM at all.
+  </aside>
+  <div data-sid="05c-cgbg-animation:62" class="slide__number" style="font-size: 20px"></div>
+  <div class="frag" data-step="2" data-sid="05c-cgbg-animation:63" data-ss-anchor hidden></div>
+</section>

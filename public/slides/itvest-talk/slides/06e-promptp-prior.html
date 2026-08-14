@@ -1,0 +1,76 @@
+<section data-sid="06e-promptp-prior:1" class="slide" id="slide-06e">
+  <div data-sid="06e-promptp-prior:2" class="slide__eyebrow">Prompt Problems &middot; prior work</div>
+  <h2 data-sid="06e-promptp-prior:3" class="slide__title">Prompt Problems, <span class="gradient-text">briefly</span></h2>
+
+  <div data-sid="06e-promptp-prior:4" class="slide__body" style="display:flex; flex-direction:column; gap:22px;">
+
+    <p data-sid="06e-promptp-prior:5" class="lede" style="max-width:1820px; font-size:26px; line-height:1.4; margin:0;">
+      Denny and colleagues introduced Prompt Problems at SIGCSE 2024 &mdash; the student writes the prompt, the LLM writes the code, tests grade the pair.<sup class="cite">1</sup>
+    </p>
+
+    <div data-sid="06e-promptp-prior:6" style="font-family:'JetBrains Mono', monospace; font-size:18px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#f1f5f9;">Six example problems &middot; Denny et al. 2024</div>
+
+    <div data-sid="06e-promptp-prior:7" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+
+      <div data-sid="06e-promptp-prior:8" style="background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--accent-1); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:10px;">
+        <div data-sid="06e-promptp-prior:9" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#a5b4fc; font-weight:800; letter-spacing:0.16em;">CS1-1</div>
+        <div data-sid="06e-promptp-prior:10" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#f1f5f9; line-height:1.55;">
+          <div data-sid="06e-promptp-prior:11"><span style="color:var(--syntax-green);">&ldquo;Serena&rdquo;</span> &rarr; <span style="color:var(--syntax-green);">&ldquo;Hello Serena&rdquo;</span></div>
+          <div data-sid="06e-promptp-prior:12"><span style="color:var(--syntax-green);">&ldquo;Mateo&rdquo;</span> &rarr; <span style="color:var(--syntax-green);">&ldquo;Hello Mateo&rdquo;</span></div>
+        </div>
+        <div data-sid="06e-promptp-prior:13" style="font-size:20px; font-weight:600; color:#ffffff; line-height:1.3; margin-top:4px;">Greeting with the user&rsquo;s name</div>
+      </div>
+
+      <div data-sid="06e-promptp-prior:14" style="background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--accent-2); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:10px;">
+        <div data-sid="06e-promptp-prior:15" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#f9a8d4; font-weight:800; letter-spacing:0.16em;">CS1-2</div>
+        <div data-sid="06e-promptp-prior:16" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#f1f5f9; line-height:1.55;">
+          <div data-sid="06e-promptp-prior:17"><span style="color:var(--syntax-orange);">14</span> &rarr; <span style="color:var(--syntax-green);">&ldquo;Teenager&rdquo;</span></div>
+          <div data-sid="06e-promptp-prior:18"><span style="color:var(--syntax-orange);">67</span> &rarr; <span style="color:var(--syntax-green);">&ldquo;Senior&rdquo;</span></div>
+        </div>
+        <div data-sid="06e-promptp-prior:19" style="font-size:20px; font-weight:600; color:#ffffff; line-height:1.3; margin-top:4px;">Classify an age</div>
+      </div>
+
+      <div data-sid="06e-promptp-prior:20" style="background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid #5eead4; border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:10px;">
+        <div data-sid="06e-promptp-prior:21" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#5eead4; font-weight:800; letter-spacing:0.16em;">CS1-3</div>
+        <div data-sid="06e-promptp-prior:22" style="font-family:'JetBrains Mono', monospace; font-size:17px; color:#f1f5f9; line-height:1.55;">
+          <div data-sid="06e-promptp-prior:23"><span style="color:var(--syntax-orange);">8.0 9.5 7.5 6.0 9.0</span> &rarr; <span style="color:var(--syntax-orange);">8.17</span></div>
+          <div data-sid="06e-promptp-prior:24"><span style="color:var(--syntax-orange);">2.0 4.0 6.0 8.0 10.0</span> &rarr; <span style="color:var(--syntax-orange);">6.00</span></div>
+        </div>
+        <div data-sid="06e-promptp-prior:25" style="font-size:20px; font-weight:600; color:#ffffff; line-height:1.3; margin-top:4px;">Average the 3 middle of 5 values</div>
+      </div>
+
+      <div data-sid="06e-promptp-prior:26" style="background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--accent-1); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:10px;">
+        <div data-sid="06e-promptp-prior:27" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#a5b4fc; font-weight:800; letter-spacing:0.16em;">CS2-1</div>
+        <div data-sid="06e-promptp-prior:28" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#f1f5f9; line-height:1.55;">
+          <div data-sid="06e-promptp-prior:29"><span style="color:var(--syntax-blue);">counter</span>([<span style="color:var(--syntax-orange);">0,2,3,4,0</span>]) &rarr; <span style="color:var(--syntax-orange);">2</span></div>
+          <div data-sid="06e-promptp-prior:30"><span style="color:var(--syntax-blue);">counter</span>([<span style="color:var(--syntax-orange);">1,0,0,5,0,7</span>]) &rarr; <span style="color:var(--syntax-orange);">3</span></div>
+        </div>
+        <div data-sid="06e-promptp-prior:31" style="font-size:20px; font-weight:600; color:#ffffff; line-height:1.3; margin-top:4px;">Count zeros in a list</div>
+      </div>
+
+      <div data-sid="06e-promptp-prior:32" style="background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid var(--accent-2); border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:10px;">
+        <div data-sid="06e-promptp-prior:33" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#f9a8d4; font-weight:800; letter-spacing:0.16em;">CS2-2</div>
+        <div data-sid="06e-promptp-prior:34" style="font-family:'JetBrains Mono', monospace; font-size:17px; color:#f1f5f9; line-height:1.55;">
+          <div data-sid="06e-promptp-prior:35"><span style="color:var(--syntax-blue);">initials</span>(<span style="color:var(--syntax-green);">&lsquo;abc def ghi&rsquo;</span>) &rarr; <span style="color:var(--syntax-green);">&lsquo;ADG&rsquo;</span></div>
+          <div data-sid="06e-promptp-prior:36"><span style="color:var(--syntax-blue);">initials</span>(<span style="color:var(--syntax-green);">&lsquo;hello world&rsquo;</span>) &rarr; <span style="color:var(--syntax-green);">&lsquo;HW&rsquo;</span></div>
+        </div>
+        <div data-sid="06e-promptp-prior:37" style="font-size:20px; font-weight:600; color:#ffffff; line-height:1.3; margin-top:4px;">First letter of each word</div>
+      </div>
+
+      <div data-sid="06e-promptp-prior:38" style="background:var(--bg-1); border:1px solid var(--border-1); border-left:4px solid #5eead4; border-radius:12px; padding:20px 24px; display:flex; flex-direction:column; gap:10px;">
+        <div data-sid="06e-promptp-prior:39" style="font-family:'JetBrains Mono', monospace; font-size:18px; color:#5eead4; font-weight:800; letter-spacing:0.16em;">CS2-3</div>
+        <div data-sid="06e-promptp-prior:40" style="font-family:'JetBrains Mono', monospace; font-size:17px; color:#f1f5f9; line-height:1.55;">
+          <div data-sid="06e-promptp-prior:41"><span style="color:var(--syntax-blue);">repeat</span>([<span style="color:var(--syntax-orange);">2,0,1,3</span>]) &rarr; [<span style="color:var(--syntax-orange);">2,2,1,3,3,3</span>]</div>
+          <div data-sid="06e-promptp-prior:42"><span style="color:var(--syntax-blue);">repeat</span>([<span style="color:var(--syntax-orange);">3,1,2</span>]) &rarr; [<span style="color:var(--syntax-orange);">3,3,3,1,2,2</span>]</div>
+        </div>
+        <div data-sid="06e-promptp-prior:43" style="font-size:20px; font-weight:600; color:#ffffff; line-height:1.3; margin-top:4px;">Element occurrences equal values</div>
+      </div>
+
+    </div>
+
+  </div>
+  <ol data-sid="06e-promptp-prior:44" class="slide__footnotes">
+    <li data-sid="06e-promptp-prior:45"><span class="num">1</span>Denny et al. (2024). Prompt Problems: A New Programming Exercise for the Generative AI Era. <em>SIGCSE TS 2024</em>.</li>
+  </ol>
+  <div data-sid="06e-promptp-prior:46" class="slide__number"></div>
+</section>
