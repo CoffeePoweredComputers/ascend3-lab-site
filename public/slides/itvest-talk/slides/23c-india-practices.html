@@ -28,9 +28,9 @@
      Continuity with 23a (the slide before): same indigo→pink gradient, same
      draw-on stroke idiom, and the title echoes its "Ten stops, one question".
 
-     TODO — the preprint QR slot renders a dashed placeholder until there is a
-     URL. Drop the code at data/materials/figures/people/qr/lit-review.svg and
-     swap .pp-qr__slot for an <img data-sid="23c-india-practices:10"> (recipe: 23a's writeup QR, white plate). -->
+     The preprint QR (data/materials/figures/people/qr/lit-review.svg) encodes
+     https://osf.io/preprints/edarxiv/hsaf3_v1 — regenerate with qrencode if the
+     paper moves. White plate under the code, as on 23a's writeup QR. -->
 <section data-sid="23c-india-practices:1" class="slide" id="slide-23c">
   <div data-sid="23c-india-practices:2" class="slide__eyebrow">The lab&rsquo;s work &middot; Fariha Anjum Shifa</div>
   <h2 data-sid="23c-india-practices:3" class="slide__title">Two studies, <span class="gradient-text">one design question</span></h2>
@@ -40,8 +40,10 @@
     <figure data-sid="23c-india-practices:5" class="pp-who">
       <img data-sid="23c-india-practices:6" src="data/materials/figures/people/fariha.jpg" alt="Fariha Anjum Shifa" style="width:320px; height:320px;">
       <figcaption data-sid="23c-india-practices:7" class="pp-who__meta">
+        <div data-sid="23c-india-practices:14" class="pp-who__role">Work by</div>
         <div data-sid="23c-india-practices:8" class="pp-who__name">Fariha Anjum Shifa</div>
-        <div data-sid="23c-india-practices:9" class="pp-who__role">PhD &middot; translanguaging</div>
+        <div data-sid="23c-india-practices:9" class="pp-who__role">PHD STUDENT</div>
+        <div data-sid="23c-india-practices:12" class="pp-who__site"><a href="https://farihanjum.github.io/" target="_blank" rel="noopener">farihanjum.github.io</a></div>
       </figcaption>
     </figure>
 
@@ -104,7 +106,9 @@
           <p data-sid="23c-india-practices:63" class="pc-card__q" style="font-size: 32px">What theories of language &amp; its role in learning exist?</p>
         </div>
         <div data-sid="23c-india-practices:49" class="pp-qr">
-          <div data-sid="23c-india-practices:50" class="pp-qr__slot">QR</div>
+          <img data-sid="23c-india-practices:10" src="data/materials/figures/people/qr/lit-review.svg"
+               alt="QR code linking to the lit-review preprint on EdArXiv"
+               style="width:150px; height:150px; display:block; background:#ffffff; padding:8px; border-radius:var(--r-sm); flex:0 0 auto;">
           <div data-sid="23c-india-practices:51" class="pp-qr__label">preprint</div>
         </div>
       </article>
@@ -266,6 +270,11 @@
       text-transform: uppercase;
       color: var(--fg-2);
     }
+    #slide-23c .pp-who__site {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--t-caption);
+      letter-spacing: 0.04em;
+    }
 
     /* ---------- diagram frame ----------
        Fixed 680px height so the SVG viewBox maps 1:1 to CSS pixels — stream
@@ -312,7 +321,7 @@
       color: var(--fg-0); margin: 0;
     }
 
-    /* ---------- preprint QR (placeholder until the code exists) ---------- */
+    /* ---------- preprint QR ---------- */
     /* the QR is the card's payload now that the chips are gone — sized to be
        scannable from a few rows back, label at chip weight */
     /* study 1 runs text | QR side by side to stay short — the map card below
@@ -325,14 +334,6 @@
     #slide-23c .pp-qr {
       display: flex; flex-direction: column; align-items: center;
       gap: 6px; flex: 0 0 auto;
-    }
-    #slide-23c .pp-qr__slot {
-      width: 150px; height: 150px; flex: 0 0 auto;
-      display: flex; align-items: center; justify-content: center;
-      border: 2px dashed var(--border-2);
-      border-radius: var(--r-sm);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 24px; letter-spacing: 0.14em; color: var(--fg-3);
     }
     #slide-23c .pp-qr__label {
       font-family: 'JetBrains Mono', monospace;

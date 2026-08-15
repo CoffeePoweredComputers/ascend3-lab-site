@@ -8,7 +8,7 @@
 
   const texts = await Promise.all(
     manifest.map(filename =>
-      fetch(`slides/${filename}?v=160`)
+      fetch(`slides/${filename}?v=166`)
         .then(r => r.ok ? r.text() : Promise.reject(`HTTP ${r.status}`))
         .catch(err => { console.error(`slides/${filename}:`, err); return null; })
     )

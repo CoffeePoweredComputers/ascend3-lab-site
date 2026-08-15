@@ -85,13 +85,10 @@
     [data-sid="09e-probeable-live:1"] .pcall__btn {
       transition: transform 140ms var(--ease), filter 140ms var(--ease), box-shadow 140ms var(--ease);
     }
+    /* on white a 28px 0.6-alpha glow reads as a bruise, not light — tight + faint */
     [data-sid="09e-probeable-live:1"] .pcall__btn.is-pressed {
       transform: scale(0.96);
       filter: brightness(1.5);
-      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 28px rgba(91, 33, 182, 0.6);
-    }
-    /* on white a 28px 0.6-alpha glow reads as a bruise, not light — tighter + fainter */
-    :root.theme-light [data-sid="09e-probeable-live:1"] .pcall__btn.is-pressed {
       box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 14px rgba(91, 33, 182, 0.3);
     }
 
@@ -178,11 +175,21 @@
     const REVISE_HTML = '↻ 4 / 5 — a hidden case disagrees. Which detail is missing?';
     const OK_HTML = '✓ 5 / 5 — Correct implementation!';
 
-    let timers = [];
-    let cache = -1;
-    function clearAll() { timers.forEach(clearTimeout); timers = []; }
-    function t(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    // State lives on window, not in this closure: if the script runs twice
+    // (slide re-injected by the editor), a second instance would otherwise
+    // race the first — two typing loops appending into the same <pre>, so
+    // the code comes out doubled and garbled. Sharing timers/cache and
+    // unhooking the previous instance's listeners makes re-runs safe.
+    const G = window.__prb09eLive = window.__prb09eLive || { timers: [], cache: -1, sync: null };
+    function clearAll() { G.timers.forEach(clearTimeout); G.timers = []; }
+    function t(fn, ms) { G.timers.push(setTimeout(fn, ms)); }
     function scope() { return document.querySelector(SECTION_SEL); }
+    if (G.sync) {
+      window.removeEventListener('slides:loaded', G.sync);
+      window.removeEventListener('deck:stepchange', G.sync);
+      clearAll();
+      G.cache = -1;
+    }
 
     function els(s) {
       return {
@@ -376,10 +383,10 @@
     function render(step) {
       const s = scope(); if (!s) return;
       const e = els(s);
-      if (step === cache) return;
-      const prev = cache;
+      if (step === G.cache) return;
+      const prev = G.cache;
       const fwd = prev >= 0 && prev < step;
-      cache = step;
+      G.cache = step;
       clearAll();
 
       if (step <= 0) {
@@ -445,13 +452,15 @@
 
     function sync() {
       const s = scope(); if (!s) return;
-      if (!s.classList.contains('is-active')) { clearAll(); cache = -1; render(0); cache = -1; return; }
+      if (!s.classList.contains('is-active')) { clearAll(); G.cache = -1; render(0); G.cache = -1; return; }
       const step = (window.deck && window.deck.state) ? window.deck.state.step : 0;
       render(step);
     }
 
+    G.sync = sync;
     window.addEventListener('slides:loaded', sync);
     window.addEventListener('deck:stepchange', sync);
+    sync(); // snap freshly (re)injected DOM to the current step
   })();
   </script>
 

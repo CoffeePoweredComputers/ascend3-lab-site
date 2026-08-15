@@ -93,13 +93,10 @@
     [data-sid="09d-refute-live:1"] .pcall__btn {
       transition: transform 140ms var(--ease), filter 140ms var(--ease), box-shadow 140ms var(--ease);
     }
+    /* on white a 28px 0.6-alpha glow reads as a bruise, not light — tight + faint */
     [data-sid="09d-refute-live:1"] .pcall__btn.is-pressed {
       transform: scale(0.96);
       filter: brightness(1.5);
-      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 28px rgba(91, 33, 182, 0.6);
-    }
-    /* on white a 28px 0.6-alpha glow reads as a bruise, not light — tighter + fainter */
-    :root.theme-light [data-sid="09d-refute-live:1"] .pcall__btn.is-pressed {
       box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.4), 0 0 14px rgba(91, 33, 182, 0.3);
     }
 

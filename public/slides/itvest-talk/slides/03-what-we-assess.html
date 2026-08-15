@@ -3,26 +3,64 @@
   <h2 data-sid="03-what-we-assess:3" class="slide__title">What we assess in <span class="gradient-text">CS1</span></h2>
   <div data-sid="03-what-we-assess:4" class="slide__body" style="display:flex; flex-direction:column;">
     <p data-sid="03-what-we-assess:5" class="lede" style="margin-bottom:40px; max-width:1600px; font-size:34px;">
-      Three learning objectives for decades. GenAI, recent work argues, demands two more.<sup class="cite">1,2</sup>
+      Four learning objectives for decades. GenAI, recent work argues, demands two more.<sup class="cite">1,2</sup>
     </p>
 
-    <div data-sid="03-what-we-assess:6" class="assess-grid" style="display:grid; grid-template-columns:repeat(5, 1fr); gap:20px;">
+    <div data-sid="03-what-we-assess:6" class="assess-grid" style="display:grid; grid-template-columns:repeat(6, 1fr); gap:20px;">
       <div data-sid="03-what-we-assess:7" class="tile" data-skill="write">
+        <svg data-sid="03-what-we-assess:30" class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 20l1.2-4.2L15.6 5.4a2.1 2.1 0 0 1 3 3L8.2 18.8 4 20z"/>
+          <path d="M13.5 7.5l3 3"/>
+        </svg>
         <div data-sid="03-what-we-assess:8" class="tile__title">Write</div>
+        <div data-sid="03-what-we-assess:29" class="tile__body">Produce code from scratch.</div>
       </div>
       <div data-sid="03-what-we-assess:9" class="tile" data-skill="trace">
+        <svg data-sid="03-what-we-assess:31" class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 6h10M4 12h10M4 18h10"/>
+          <path d="M19 4v12"/>
+          <path d="M16 13.5l3 3 3-3"/>
+        </svg>
         <div data-sid="03-what-we-assess:10" class="tile__title">Trace</div>
         <div data-sid="03-what-we-assess:11" class="tile__body">Predict what code does.</div>
       </div>
       <div data-sid="03-what-we-assess:12" class="tile" data-skill="comprehend">
+        <svg data-sid="03-what-we-assess:32" class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 5h16v11H9l-5 4z"/>
+          <path d="M8 9h8M8 12h5"/>
+        </svg>
         <div data-sid="03-what-we-assess:13" class="tile__title">Comprehend</div>
         <div data-sid="03-what-we-assess:14" class="tile__body">Explain code in words.</div>
       </div>
+      <div data-sid="03-what-we-assess:26" class="tile" data-skill="testing">
+        <svg data-sid="03-what-we-assess:33" class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3.5 5.5L5 7l2.5-2.5"/>
+          <path d="M11 6h9.5"/>
+          <path d="M3.5 12L5 13.5 7.5 11"/>
+          <path d="M11 12.5h9.5"/>
+          <path d="M4 17.5l3 3M7 17.5l-3 3"/>
+          <path d="M11 19h9.5"/>
+        </svg>
+        <div data-sid="03-what-we-assess:27" class="tile__title">Testing</div>
+        <div data-sid="03-what-we-assess:28" class="tile__body">Verify behavior with tests.</div>
+      </div>
       <div data-sid="03-what-we-assess:15" class="tile frag" data-step="1" data-skill="decompose">
+        <svg data-sid="03-what-we-assess:34" class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="7" y="3" width="10" height="6" rx="1"/>
+          <path d="M12 9v3M12 12H5.75V15M12 12h6.5V15M12 12v3"/>
+          <rect x="3" y="15" width="5.5" height="6" rx="1"/>
+          <rect x="9.25" y="15" width="5.5" height="6" rx="1"/>
+          <rect x="15.5" y="15" width="5.5" height="6" rx="1"/>
+        </svg>
         <div data-sid="03-what-we-assess:16" class="tile__title">Decompose</div>
         <div data-sid="03-what-we-assess:17" class="tile__body">Break a problem apart.</div>
       </div>
       <div data-sid="03-what-we-assess:18" class="tile frag" data-step="1" data-skill="prompt">
+        <svg data-sid="03-what-we-assess:35" class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <path d="M7 9l3 3-3 3"/>
+          <path d="M12.5 15h4.5"/>
+        </svg>
         <div data-sid="03-what-we-assess:19" class="tile__title">Prompt</div>
         <div data-sid="03-what-we-assess:20" class="tile__body">Say what you want, precisely.</div>
       </div>
@@ -34,17 +72,24 @@
   </div>
 
   <style>
-    /* Standardize all 5 tiles — Decompose/Prompt no longer use tile--feature
-       (which scaled them larger than the classical three). */
+    /* Standardize all 6 tiles — Decompose/Prompt no longer use tile--feature
+       (which scaled them larger than the classical four). */
     #slide-03 .assess-grid .tile {
-      padding: 36px 28px;
+      padding: 32px 26px;
       display: flex; flex-direction: column;
     }
+    #slide-03 .assess-grid .skill-icon {
+      width: 52px; height: 52px;
+      color: var(--fg-2);
+      margin-bottom: 16px;
+      flex-shrink: 0;
+      transition: color 320ms var(--ease);
+    }
     #slide-03 .assess-grid .tile .tile__title {
-      font-size: 36px; line-height: 1.15; margin-bottom: 14px;
+      font-size: 36px; line-height: 1.15; margin-bottom: 12px;
     }
     #slide-03 .assess-grid .tile .tile__body {
-      font-size: 26px; line-height: 1.4; color: var(--fg-1);
+      font-size: 25px; line-height: 1.4; color: var(--fg-1);
     }
 
     /* Write shrinks once Decompose/Prompt are revealed at step 1. */
@@ -67,6 +112,12 @@
       border-color: var(--accent-2);
       background: rgba(236, 72, 153, 0.07);
       box-shadow: 0 0 0 1px var(--accent-2), 0 0 20px rgba(236, 72, 153, 0.18);
+    }
+    #slide-03:has(.frag[data-step="2"].is-current) .assess-grid .tile[data-skill="comprehend"] .skill-icon,
+    #slide-03:has(.frag[data-step="2"].is-past)    .assess-grid .tile[data-skill="comprehend"] .skill-icon,
+    #slide-03:has(.frag[data-step="2"].is-current) .assess-grid .tile[data-skill="prompt"] .skill-icon,
+    #slide-03:has(.frag[data-step="2"].is-past)    .assess-grid .tile[data-skill="prompt"] .skill-icon {
+      color: var(--accent-2-text);
     }
   </style>
   <ol data-sid="03-what-we-assess:22" class="slide__footnotes">

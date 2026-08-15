@@ -98,7 +98,7 @@
         <img data-sid="23a-india-route:22" src="data/materials/figures/india/qr/india-writeup.svg"
              alt="QR code linking to the India trip writeup on Medium"
              style="width:300px; height:300px; display:block; background:#ffffff; padding:var(--s-3); border-radius:var(--r-md); flex:0 0 auto;">
-        <div data-sid="23a-india-route:24" style="font-family:'JetBrains Mono', monospace; font-size:var(--t-h4); letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1-text); min-width:0;">read the trip writeup</div>
+        <div data-sid="23a-india-route:24" style="font-family:'JetBrains Mono', monospace; font-size:var(--t-h4); font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1-text); min-width:0;">read the trip writeup</div>
       </div>
 
     </div>
@@ -107,12 +107,11 @@
   <style>
     /* ---------- map base ---------- */
     #slide-23a #ir-border {
-      fill: var(--bg-2);
+      fill: #dfe6f0; /* landmass ink tuned between bg-2 and bg-3; neither token matches */
       stroke: var(--border-2);
       stroke-width: 2.5;
       stroke-linejoin: round;
     }
-    :root.theme-light #slide-23a #ir-border { fill: #dfe6f0; stroke: #8fa0b7; }
 
     /* ---------- pins ---------- */
     #slide-23a .ir-pin circle {
@@ -166,8 +165,8 @@
     /* dashoffset is set to the true path length by JS, then driven to 0 */
     #slide-23a #ir-revealstroke { stroke-dashoffset: 0; }
     #slide-23a #ir-plane { opacity: 0; }
-    #slide-23a #ir-plane path { fill: var(--accent-1); stroke: var(--bg-1); stroke-width: 1.5; }
-    :root.theme-light #slide-23a #ir-plane path { fill: #4338ca; stroke: #ffffff; }
+    /* a step darker than accent-1 so the plane holds against the pale landmass */
+    #slide-23a #ir-plane path { fill: #4338ca; stroke: var(--bg-1); stroke-width: 1.5; }
 
     #slide-23a.ir-flying #ir-revealstroke {
       animation: ir-draw 4200ms cubic-bezier(0.37, 0.06, 0.32, 0.98) forwards;

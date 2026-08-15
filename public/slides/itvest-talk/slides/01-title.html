@@ -1,32 +1,78 @@
 <!-- Title slide as a self-demonstration: a plain-language prompt types itself
-     out, and the talk title "generates" from it word by word — the thesis
-     (you write natural language, the artifact appears) enacted before a word
-     is spoken. Pure CSS, keyed off .is-active so it replays on every entry
-     (inactive slides are display:none, which resets the animations).
+     out, and the talk title "generates" from it — the thesis (you write
+     natural language, the artifact appears) enacted before a word is spoken.
+     Armed by the deck's step system: .t-wrap is a step-1 frag, so the
+     sequence fires on the first advance (space) rather than on slide entry.
+     Until then only the prompt mark + blinking caret show.
 
-     Timeline: prompt types 0.2-1.6s → title words pop 1.65-2.4s → subtitle
-     2.15s → author strip 2.45s. Fully settled under 3s; the only thing left
-     moving is the caret blink — calm enough to sit on while people file in. -->
+     The text reveal is the "live annotation" treatment (JS, inline script
+     below): tokens stream in uneven chunks with a block cursor, and the
+     stream builds its own engineering chrome as it goes — a dashed baseline
+     extends under the text while the element's tag reads out the growing
+     width live (h1 · w:642), then stamps the final measured size, holds a
+     beat, and fades. A token counter at the right end of the prompt line
+     ticks up per chunk and signs off with ✓ N tok · X.Xs before fading.
+     One element at a time: annotate → stream → stamp → clear → next.
+     Resting markup keeps the full title text; the script clears and streams
+     it only while armed, so print / reduced-motion / un-armed states show
+     the finished slide with no JS needed.
+
+     Timeline, relative to the space press: prompt types 0.2-1.6s, then
+     "enters" — at 2.0s the title stream AND the trail kick off together →
+     title ~2.0-4.3s → subtitle ~5.5s → author strip ~7.1s → text chrome
+     (tags, baselines, counter) gone by ~8.7s → trail finishes ~10s, its
+     dots resolve ~11.6s. After that only the caret blinks. Block heights
+     are locked before streaming so the centered column never re-flows —
+     the prompt sits at its final position throughout.
+
+     The same press also starts the route preview (tracker.js's __boot__
+     track) laying itself down as a breadcrumb trail: the dotted base's clip grows
+     left-to-right over --trail-dur, and every element fires when the trail
+     passes it (delay = --trail-start + --tt × --trail-dur; --tt is the
+     element's fraction along the line, stamped by tracker.js). Section beads
+     crumb-pop and their names CRT-blip in center-out with a flicker; each
+     slide dot spawns a spinner arc (~1.6s) while the trail runs on, then a
+     ring burst + dot pop mark it "loaded". The caption expires after the
+     last dots resolve. Replays on re-entry (inactive slides are
+     display:none, which resets the CSS animations).
+
+     Stepping BACK to step 0 un-arms the frag: the CSS trail reverts via
+     display:none logic, and the script watches deck:stepchange for the same
+     transition — it cancels every timer and restores the resting markup
+     (textContent from data-text), so re-arming replays from scratch. The
+     boot rules key off #slide-01:has(.t-wrap:is(.is-current,.is-past))
+     because the sec-track is injected as a sibling of .t-wrap, outside the
+     frag. -->
 <section data-sid="01-title:1" class="slide" id="slide-01">
-  <div data-sid="01-title:2" class="t-wrap">
-    <p data-sid="01-title:8" class="t-prompt" aria-hidden="true"><span class="t-prompt__mark">&#10095;</span><span class="t-prompt__text">write a talk about teaching programming in plain language</span><span class="t-prompt__caret"></span></p>
+  <div data-sid="01-title:2" class="t-wrap frag" data-step="1">
+    <p data-sid="01-title:8" class="t-prompt" aria-hidden="true"><span class="t-prompt__mark">&#10095;</span><span class="t-prompt__text">write a talk about teaching programming in plain language</span><span class="t-prompt__caret"></span><span class="t-tok"></span></p>
 
-    <h1 data-sid="01-title:3" class="t-title">
-      <span class="t-w" style="--i:0">Programming</span>
-      <span class="t-w" style="--i:1">in</span>
-      <span class="t-w gradient-text" style="--i:2">Plain Language</span>
-    </h1>
-    <p data-sid="01-title:4" class="t-sub t-late" style="--d:2.15s">
-      Preparing Novice Programmers for the Age of Human-GenAI Collaborative Coding
-    </p>
+    <div data-sid="01-title:11" class="l-el l-el--title">
+      <span class="l-tag" aria-hidden="true"></span>
+      <h1 data-sid="01-title:3" class="t-title"><span class="l-wrap"><span class="s-tgt" data-text="Programming in ">Programming in </span><span class="s-tgt gradient-text" data-text="Plain Language">Plain Language</span></span><span class="s-caret"></span></h1>
+      <i class="l-line" aria-hidden="true"></i>
+    </div>
 
-    <div data-sid="01-title:5" class="t-meta t-late" style="--d:2.45s">
-      <span><b>David H. Smith IV</b></span>
-      <span>Virginia Tech</span>
-      <span>dhsmith4@vt.edu</span>
-      <span>ascend3.cs.vt.edu</span>
+    <div data-sid="01-title:12" class="l-el l-el--sub">
+      <span class="l-tag" aria-hidden="true"></span>
+      <p data-sid="01-title:4" class="t-sub"><span class="l-wrap s-tgt" data-text="Preparing Novice Programmers for the Age of Human-GenAI Collaborative Coding">Preparing Novice Programmers for the Age of Human-GenAI Collaborative Coding</span></p>
+      <i class="l-line" aria-hidden="true"></i>
+    </div>
+
+    <div data-sid="01-title:13" class="l-el l-el--meta">
+      <span class="l-tag" aria-hidden="true"></span>
+      <div data-sid="01-title:5" class="t-meta l-wrap">
+        <span class="s-tgt f0" data-text="David H. Smith IV">David H. Smith IV</span>
+        <span class="s-tgt" data-text="Virginia Tech">Virginia Tech</span>
+        <span class="s-tgt" data-text="dhsmith4@vt.edu">dhsmith4@vt.edu</span>
+        <span class="s-tgt" data-text="ascend3.cs.vt.edu">ascend3.cs.vt.edu</span>
+      </div>
+      <i class="l-line" aria-hidden="true"></i>
     </div>
   </div>
+
+  <p data-sid="01-title:9" class="t-loading" aria-hidden="true">plotting route<span class="t-loading__caret"></span></p>
+  <p data-sid="01-title:10" class="t-complete" aria-hidden="true"><span class="t-complete__check">&#10003;</span>mission complete. logging off</p>
 
   <style>
     /* NB: no `position` override here — .slide is already position:absolute;
@@ -44,6 +90,7 @@
 
     /* ---- the prompt line: types out in mono, caret keeps blinking ---- */
     #slide-01 .t-prompt {
+      position: relative;
       display: flex; align-items: center;
       font-family: 'JetBrains Mono', monospace;
       font-size: 30px; color: var(--fg-2);
@@ -54,62 +101,414 @@
       display: inline-block; overflow: hidden; white-space: nowrap;
       width: 0;
     }
+    /* The sequence is armed by the first advance: .t-wrap is a step-1 frag,
+       and every animation keys off its is-current/is-past state instead of
+       slide entry. The wrap must not take the default frag pending-dim —
+       its children hide themselves until the animations run. */
+    #slide-01 .t-wrap.is-pending { opacity: 1; }
+
     /* 57 characters — steps() must match or the reveal stutters */
-    #slide-01.is-active .t-prompt__text { animation: t-type 1.4s steps(57) 0.2s forwards; }
+    #slide-01 .t-wrap:is(.is-current, .is-past) .t-prompt__text { animation: t-type 1.4s steps(57) 0.2s forwards; }
     @keyframes t-type { to { width: 57ch; } }
     #slide-01 .t-prompt__caret {
       display: inline-block; width: 14px; height: 34px;
       margin-left: 6px; background: var(--accent-2);
     }
-    #slide-01.is-active .t-prompt__caret { animation: t-blink 1.1s steps(1) infinite 1.8s; }
+    /* waiting for the press: caret blinks on an empty prompt */
+    #slide-01.is-active .t-prompt__caret { animation: t-blink 1.1s steps(1) infinite; }
+    /* after the press: solid while typing (1.8s delay), then blinks again */
+    #slide-01 .t-wrap:is(.is-current, .is-past) .t-prompt__caret { animation: t-blink 1.1s steps(1) infinite 1.8s; }
     @keyframes t-blink { 50% { opacity: 0; } }
 
-    /* ---- the title "generates" word by word, like streamed output ---- */
+    /* ---- token counter at the right end of the prompt line ---- */
+    #slide-01 .t-tok {
+      position: absolute; right: 0; top: 4px;
+      font-size: 21px; color: var(--fg-3);
+      transition: opacity 0.7s;
+    }
+    #slide-01 .t-tok.fade { opacity: 0; }
+
+    /* ---- final typography (unchanged from the original slide) ---- */
     #slide-01 .t-title {
       font-size: 108px; font-weight: 900; line-height: 1.1;
       letter-spacing: -0.025em; max-width: 1500px; margin: 0;
       color: var(--fg-0);
     }
-    #slide-01 .t-w {
-      display: inline-block;
-      opacity: 0; transform: translateY(22px);
-    }
-    #slide-01.is-active .t-w {
-      animation: t-pop 0.5s var(--ease) forwards;
-      animation-delay: calc(1.65s + var(--i) * 0.14s);
-    }
-    @keyframes t-pop { to { opacity: 1; transform: none; } }
-
-    /* ---- subtitle + author strip land last ---- */
+    /* background-clip:text ends the paint box above the g's descender at
+       line-height 1.1 — inline vertical padding extends the paintable area
+       downward without shifting layout */
+    #slide-01 .s-tgt.gradient-text { padding-bottom: 0.2em; }
     #slide-01 .t-sub {
       font-size: 36px; color: var(--fg-1);
-      margin: 28px 0 0; max-width: 1500px; line-height: 1.35;
+      margin: 0; max-width: 1500px; line-height: 1.35;
     }
+    /* inline-flex so the wrapper shrink-wraps the row and the baseline /
+       width readout track the content; the block gap lives on the wrapper
+       (an inline-level box's top margin would sit INSIDE the wrapper and
+       push the annotation tag 96px off the text) */
     #slide-01 .t-meta {
-      margin-top: var(--s-8); display: flex; gap: var(--s-7);
+      margin-top: 0; display: inline-flex; gap: var(--s-7);
       font-family: 'JetBrains Mono', monospace;
       font-size: var(--t-h4); color: var(--fg-2);
     }
-    #slide-01 .t-meta b { color: var(--fg-1); font-weight: 500; }
-    #slide-01 .t-late { opacity: 0; transform: translateY(14px); }
-    #slide-01.is-active .t-late {
-      animation: t-pop 0.5s var(--ease) forwards;
-      animation-delay: var(--d);
+    #slide-01 .t-meta .f0 { color: var(--fg-1); font-weight: 500; }
+
+    /* ---- live annotation chrome: the stream builds its own scaffolding ----
+       Hidden at rest; the inline script drives .on/.off per element and
+       streams the text in token chunks. Resting markup keeps the full text
+       (opacity 0), so un-armed / print states need no JS. */
+    #slide-01 .l-el { position: relative; width: fit-content; }
+    #slide-01 .l-el--sub  { margin-top: 28px; }
+    #slide-01 .l-el--meta { margin-top: var(--s-8); }
+    #slide-01 .l-wrap { opacity: 0; }
+    #slide-01 .l-el.on .l-wrap { opacity: 1; }
+    #slide-01 .l-tag {
+      position: absolute; top: -34px; left: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 19px; letter-spacing: 0.04em;
+      color: var(--accent-1-text);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    /* the sub shares only a 28px gap with the title — tuck its tag in so it
+       clears the title's baseline rule (which fades before this appears) */
+    #slide-01 .l-el--sub .l-tag { top: -26px; }
+    #slide-01 .l-line {
+      position: absolute; left: 0; bottom: -12px;
+      height: 0; width: 0;
+      border-top: 2px dashed color-mix(in srgb, var(--accent-1) 65%, transparent);
+      opacity: 0; transition: width 0.22s var(--ease), opacity 0.3s;
+    }
+    #slide-01 .l-el.on  .l-tag, #slide-01 .l-el.on  .l-line { opacity: 1; }
+    #slide-01 .l-el.off .l-tag, #slide-01 .l-el.off .l-line { opacity: 0; transition: opacity 0.6s; }
+
+    /* arriving token chunks flash briefly, like playground token highlights */
+    #slide-01 .tok { border-radius: 6px; animation: tok-flash 0.65s ease-out; }
+    @keyframes tok-flash {
+      0%   { background: var(--accent-glow); opacity: 0.35; }
+      16%  { opacity: 1; }
+      100% { background: transparent; }
+    }
+    /* the output cursor riding the streaming edge of the title */
+    #slide-01 .s-caret {
+      display: inline-block; width: 16px; height: 76px;
+      background: var(--accent-2); margin-left: 12px;
+      vertical-align: -6px; border-radius: 3px;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    #slide-01 .s-caret.on { opacity: 1; }
+
+    /* ---- boot: the route lays itself down as a breadcrumb trail ---- */
+    /* the deck-wide `.slide:has(.sec-track)` padding bump would shift the
+       centered title block; the track floats over the top, so keep 72px */
+    #slide-01:has(.sec-track) { padding-top: 72px; }
+
+    /* one clock for everything: the trail crosses the track in --trail-dur.
+       Every element carries --tt (its fraction along the line, stamped by
+       tracker.js) and fires the moment the trail passes it. Starts at 2.0s —
+       after the prompt finishes typing (1.6s) and "enters", in step with the
+       title stream kicking off (T0 in the script below). */
+    #slide-01 { --trail-start: 2s; --trail-dur: 8s; }
+    #slide-01 .sec-track--boot :is(.tr-stop, .tr-name, .tr-boot) {
+      --at: calc(var(--trail-start) + var(--tt, 0) * var(--trail-dur));
     }
 
-    /* motion off / print: land on the finished slide, nothing hidden */
+    /* the dotted base grows rightward — breadcrumbs dropping in; the gray
+       arrowhead pops in when the trail reaches the end (markers clip too) */
+    #slide-01 .sec-track--boot .tr-base { clip-path: inset(-12px 100% -12px 0); }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .sec-track--boot .tr-base {
+      animation: t-trail var(--trail-dur) linear var(--trail-start) forwards;
+    }
+    @keyframes t-trail { to { clip-path: inset(-12px 0% -12px 0); } }
+
+    /* section bead: a crumb landing */
+    #slide-01 .sec-track--boot .tr-stop {
+      opacity: 0;
+      transform-box: fill-box; transform-origin: center;
+    }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .sec-track--boot .tr-stop {
+      animation: t-crumb 0.4s var(--ease) var(--at) forwards;
+    }
+    @keyframes t-crumb {
+      0%   { opacity: 0;   transform: scale(0); }
+      60%  { opacity: 1;   transform: scale(1.35); }
+      100% { opacity: 0.8; transform: scale(1); }
+    }
+
+    /* section name: CRT power-on — center-out stretch, bright bloom, one
+       flicker, then settle into future-state dim */
+    #slide-01 .sec-track--boot .tr-name {
+      opacity: 0;
+      transform-box: fill-box; transform-origin: center;
+    }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .sec-track--boot .tr-name {
+      animation: t-crt 0.5s ease-out calc(var(--at) + 0.12s) forwards;
+    }
+    @keyframes t-crt {
+      0%   { opacity: 0;   transform: scaleX(0.05); fill: var(--fg-0); }
+      35%  { opacity: 1;   transform: scaleX(1.08); fill: var(--fg-0); }
+      50%  { opacity: 0.35; }
+      65%  { opacity: 1; }
+      100% { opacity: 0.6; transform: scaleX(1);    fill: var(--fg-2); }
+    }
+
+    /* slide dot loading: the little spinny appears as the trail passes… */
+    #slide-01 .sec-track--boot .tr-boot-spin {
+      fill: none;
+      stroke: var(--accent-1);
+      stroke-width: 2;
+      stroke-dasharray: 42.4 14.1;
+      stroke-linecap: round;
+      transform-box: fill-box; transform-origin: center;
+      opacity: 0;
+    }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .sec-track--boot .tr-boot-spin {
+      animation:
+        t-spin 0.8s linear infinite,
+        t-spin-life 1.6s linear var(--at) forwards;
+    }
+    @keyframes t-spin { to { transform: rotate(360deg); } }
+    @keyframes t-spin-life {
+      0% { opacity: 0; } 8% { opacity: 1; }
+      85% { opacity: 1; } 100% { opacity: 0; }
+    }
+
+    /* …and resolves: a ring burst + the dot popping in — "loaded" */
+    #slide-01 .sec-track--boot .tr-boot-burst {
+      fill: none;
+      stroke: var(--accent-2);
+      stroke-width: 2;
+      transform-box: fill-box; transform-origin: center;
+      opacity: 0;
+    }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .sec-track--boot .tr-boot-burst {
+      animation: t-burst 0.5s ease-out calc(var(--at) + 1.5s) forwards;
+    }
+    @keyframes t-burst {
+      0%   { opacity: 0.9; transform: scale(0.7); }
+      100% { opacity: 0;   transform: scale(1.9); }
+    }
+    #slide-01 .sec-track--boot .tr-boot .tr-tick {
+      opacity: 0;
+      transform-box: fill-box; transform-origin: center;
+    }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .sec-track--boot .tr-boot .tr-tick {
+      animation: t-tick-pop 0.35s var(--ease) calc(var(--at) + 1.55s) forwards;
+    }
+    @keyframes t-tick-pop {
+      0%   { opacity: 0;   transform: scale(0.4); }
+      60%  { opacity: 0.9; transform: scale(1.5); }
+      100% { opacity: 0.5; transform: scale(1); }
+    }
+
+    /* caption under the arrow end; expires after the last dots resolve */
+    #slide-01 .t-loading {
+      position: absolute; top: 64px; right: 96px;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--fg-3);
+      margin: 0; opacity: 0;
+    }
+    /* delayed so the caption appears as the prompt "enters" (typing ends
+       1.6s), not while it's still typing; still expires at trail-start +
+       trail-dur + 2.0s like before */
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .t-loading {
+      animation: t-loading-life calc(var(--trail-dur) + 2.4s) linear calc(var(--trail-start) - 0.4s) forwards;
+    }
+    @keyframes t-loading-life {
+      0%  { opacity: 0; }
+      5%  { opacity: 1; }
+      92% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* …then the sign-off takes its place: checkmark, a held beat, gone */
+    #slide-01 .t-complete {
+      position: absolute; top: 64px; right: 96px;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--fg-3);
+      margin: 0; opacity: 0;
+    }
+    #slide-01 .t-complete__check { color: var(--ok); font-size: 20px; }
+    #slide-01:has(.t-wrap:is(.is-current, .is-past)) .t-complete {
+      animation: t-complete-life 3.5s linear calc(var(--trail-start) + var(--trail-dur) + 2.1s) forwards;
+    }
+    @keyframes t-complete-life {
+      0%   { opacity: 0; transform: translateY(4px); }
+      8%   { opacity: 1; transform: none; }
+      80%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    #slide-01 .t-loading__caret {
+      width: 9px; height: 16px;
+      background: var(--fg-3);
+      animation: t-blink 1.1s steps(1) infinite;
+    }
+
+    /* motion off / print: land on the finished slide, nothing hidden.
+       The script also bails on reduced motion, so the resting markup
+       (full text) is what shows. */
     @media (prefers-reduced-motion: reduce), print {
+      #slide-01 .sec-track--boot .tr-base {
+        clip-path: none !important; animation: none !important;
+      }
+      #slide-01 .sec-track--boot .tr-stop {
+        opacity: 0.8 !important; animation: none !important; transform: none !important;
+      }
+      #slide-01 .sec-track--boot .tr-name {
+        opacity: 0.6 !important; animation: none !important; transform: none !important;
+      }
+      #slide-01 .sec-track--boot .tr-boot .tr-tick {
+        opacity: 0.5 !important; animation: none !important; transform: none !important;
+      }
+      #slide-01 .sec-track--boot .tr-boot-spin,
+      #slide-01 .sec-track--boot .tr-boot-burst { display: none; }
+      #slide-01 .t-loading, #slide-01 .t-complete { display: none; }
       #slide-01 .t-prompt__text { width: 57ch !important; animation: none !important; }
       #slide-01 .t-prompt__caret { animation: none !important; }
-      #slide-01 .t-w, #slide-01 .t-late {
-        animation: none !important; opacity: 1 !important; transform: none !important;
-      }
+      #slide-01 .l-wrap { opacity: 1 !important; }
+      #slide-01 .l-tag, #slide-01 .l-line,
+      #slide-01 .s-caret, #slide-01 .t-tok { display: none !important; }
     }
   </style>
 
+  <script>
+  /* Live-annotation reveal. Armed/un-armed by the deck's step system:
+     deck.js fires deck:stepchange on every state change; we run when the
+     step-1 frag turns is-current/is-past and fully reset when it un-arms
+     (back to step 0) or the slide deactivates, so it replays from scratch
+     every time — same behavior the pure-CSS version got from display:none. */
+  (function () {
+    const slide = document.getElementById('slide-01');
+    if (!slide) return;
+    const wrap  = slide.querySelector('.t-wrap');
+    const els   = Array.from(slide.querySelectorAll('.l-el'));
+    const tags  = els.map(e => e.querySelector('.l-tag'));
+    const lines = els.map(e => e.querySelector('.l-line'));
+    const wraps = els.map(e => e.querySelector('.l-wrap'));
+    const caret = slide.querySelector('.s-caret');
+    const tok   = slide.querySelector('.t-tok');
+    const labels = ['h1', 'p.subtitle', 'footer.meta'];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const timers = [];
+    const at = (t, fn) => timers.push(setTimeout(fn, t));
+
+    function chunksOf(text, cmin, cmax) {
+      const out = []; let i = 0;
+      while (i < text.length) {
+        const n = cmin + Math.floor(Math.random() * (cmax - cmin + 1));
+        out.push(text.slice(i, i + n)); i += n;
+      }
+      return out;
+    }
+    /* schedules token-chunk spans into el; returns the finish time */
+    function stream(el, t0, o) {
+      let t = t0;
+      for (const c of chunksOf(el.dataset.text, o.cmin, o.cmax)) {
+        t += o.base + Math.random() * o.jit;
+        if (o.hesP && Math.random() < o.hesP) t += o.hes;  /* model "thinks" */
+        const chunk = c;
+        at(t, () => {
+          const s = document.createElement('span');
+          s.className = 'tok';
+          s.textContent = chunk;
+          el.appendChild(s);
+          o.each();
+        });
+      }
+      return t;
+    }
+
+    let n = 0;
+    const bump = () => {
+      n++;
+      tok.textContent = '▸ ' + String(n).padStart(2, '0') + ' tok';
+    };
+    /* per chunk: grow the baseline to the content, read the width out live */
+    const track = i => () => {
+      const w = Math.round(wraps[i].offsetWidth);
+      lines[i].style.width = w + 'px';
+      tags[i].textContent = labels[i] + ' · w:' + w;
+      bump();
+    };
+    /* on element completion: stamp the measured final size */
+    const stamp = i => () => {
+      const w = Math.round(wraps[i].offsetWidth);
+      lines[i].style.width = w + 'px';
+      tags[i].textContent = labels[i] + ' · ' + w + '×' + Math.round(wraps[i].offsetHeight);
+    };
+
+    function run() {
+      if (reduce.matches) return;  /* CSS shows the finished slide */
+      /* lock each block's height before clearing the text — the wrap is a
+         centered flex column, so an emptied-then-regrowing block would bump
+         the prompt around while the title streams back in */
+      els.forEach(e => e.style.minHeight = e.offsetHeight + 'px');
+      slide.querySelectorAll('.s-tgt').forEach(e => e.innerHTML = '');
+      n = 0;
+
+      const T0 = 2000;  /* breath after the prompt settles (~1.6s) */
+
+      /* -- title: annotate, stream, stamp -- */
+      at(T0, () => { els[0].classList.add('on'); tags[0].textContent = 'h1 · w:0'; });
+      at(T0 + 280, () => caret.classList.add('on'));
+      const segs = wraps[0].querySelectorAll('.s-tgt');
+      let t = stream(segs[0], T0 + 320, { base: 120, jit: 80, cmin: 2, cmax: 5, hesP: 0.18, hes: 300, each: track(0) });
+      t = stream(segs[1], t + 400, { base: 130, jit: 90, cmin: 2, cmax: 5, hesP: 0.18, hes: 300, each: track(0) });
+      at(t + 280, () => { caret.classList.remove('on'); stamp(0)(); });
+      at(t + 900, () => els[0].classList.add('off'));
+
+      /* -- subtitle: waits for the title chrome to clear the 28px gap they
+            share (title baseline at bottom:-12, sub tag at top:-26) -- */
+      at(t + 1050, () => { els[1].classList.add('on'); tags[1].textContent = 'p.subtitle · w:0'; });
+      const t2 = stream(wraps[1], t + 1200, { base: 45, jit: 30, cmin: 4, cmax: 7, each: track(1) });
+      at(t2 + 250, stamp(1));
+      at(t2 + 1250, () => els[1].classList.add('off'));
+
+      /* -- author strip (96px gap above — no chrome collision, can overlap) -- */
+      at(t2 + 250, () => { els[2].classList.add('on'); tags[2].textContent = 'footer.meta · w:0'; });
+      let t3 = t2 + 600;
+      wraps[2].querySelectorAll('.s-tgt').forEach(m => {
+        t3 = stream(m, t3, { base: 25, jit: 15, cmin: 4, cmax: 7, each: track(2) }) + 130;
+      });
+      at(t3 + 250, () => {
+        stamp(2)();
+        tok.textContent = '✓ ' + n + ' tok · ' + ((t3 + 250 - T0) / 1000).toFixed(1) + 's';
+      });
+      at(t3 + 1250, () => els[2].classList.add('off'));
+      at(t3 + 1600, () => tok.classList.add('fade'));
+    }
+
+    function reset() {
+      timers.forEach(clearTimeout);
+      timers.length = 0;
+      slide.querySelectorAll('.s-tgt').forEach(e => e.textContent = e.dataset.text);
+      els.forEach(e => e.classList.remove('on', 'off'));
+      lines.forEach(l => l.style.width = '0px');
+      tags.forEach(t => t.textContent = '');
+      caret.classList.remove('on');
+      tok.textContent = '';
+      tok.classList.remove('fade');
+    }
+
+    let running = false;
+    window.addEventListener('deck:stepchange', () => {
+      const armed = slide.classList.contains('is-active') &&
+        (wrap.classList.contains('is-current') || wrap.classList.contains('is-past'));
+      if (armed && !running) { running = true; run(); }
+      else if (!armed && running) { running = false; reset(); }
+    });
+  })();
+  </script>
+
   <aside data-sid="01-title:7" class="notes">
-[hold while people file in — the slide runs itself, settled in ~3s]
-The gag IS the thesis: a plain-language prompt gets typed, and the talk title generates from it, word by word, the way model output streams. If anyone asks about it later, that's the whole talk in one visual — the prompt is now the program.
+[press once as people file in — the slide runs itself, text settled ~7s, chrome gone ~8.7s]
+The gag IS the thesis: a plain-language prompt gets typed, and the talk title streams out of it in token chunks, annotating itself as it renders — a token counter ticks by the prompt, each element gets a live width readout that stamps its measured size, then all the scaffolding fades. If anyone asks about it later, that's the whole talk in one visual — the prompt is now the program.
   </aside>
   <div data-sid="01-title:6" class="slide__number"></div>
 </section>
