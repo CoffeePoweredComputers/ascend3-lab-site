@@ -81,8 +81,8 @@
 
     <!-- click 3 — the payoff: only NOW does the thing get its name -->
     <div data-sid="19c-transprogramming:29" class="tp-def frag" data-step="3" data-anim="fade-up">
-      <span data-sid="19c-transprogramming:30" class="tp-def__term">Transprogramming</span>
-      <span data-sid="19c-transprogramming:31" class="tp-def__text">programming with your <strong>whole</strong> repertoire &mdash; any natural language, code, notation, drawings <span class="tp-def__cite">(Tai, 2024)</span></span>
+      <span data-sid="19c-transprogramming:30" class="tp-def__term" style="font-size: 38px">Transprogramming</span>
+      <span data-sid="19c-transprogramming:31" class="tp-def__text" style="font-size: 32px">programming with your <strong>whole</strong> repertoire &mdash; any natural language, code, notation, drawings <span class="tp-def__cite">(Tai, 2024)</span></span>
     </div>
 
   </div>
@@ -132,6 +132,10 @@
       display: flex; align-items: baseline; gap: 18px;
       align-self: center;
       margin-top: 8px;
+      /* nudged toward the footnote rule for air under the Code node; the rule
+         sits ~30px below the body, so 20px keeps ~10px of clearance.
+         position offset, not transform — fade-up animates transform. */
+      position: relative; top: 20px;
       padding: 18px 30px;
       background: var(--bg-2);
       border: 1px solid var(--border-1);

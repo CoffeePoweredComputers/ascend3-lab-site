@@ -113,7 +113,7 @@
         <!-- this is the TESTING panel — generation lives under the robot card
              on the left. Each testing mechanism is its own click: the
              behavioral suite runs when the panel lands (step 3), the rubric
-             judges on the next (step 4). Frags are opacity-based
+             evaluates on the next (step 4). Frags are opacity-based
              (studio-anim.css), so the rubric's space is reserved and nothing
              reflows on reveal. -->
         <div data-sid="11b-visual-prompting-A:26" class="panel vp-panel frag" data-step="4" data-anim="fade-up">
@@ -124,7 +124,7 @@
             <li data-sid="11b-visual-prompting-A:40" class="vp-test">the session ends when nothing is due</li>
           </ul>
           <div data-sid="11b-visual-prompting-A:35" class="vp-route frag" data-step="5" data-anim="fade-up">
-            <p data-sid="11b-visual-prompting-A:16" class="word-label vp-label">Or judge the drawing against a rubric</p>
+            <p data-sid="11b-visual-prompting-A:16" class="word-label vp-label">Or evaluate the drawing against a rubric</p>
             <ul data-sid="11b-visual-prompting-A:17" class="vp-rubric">
               <li data-sid="11b-visual-prompting-A:44" class="vp-rub">each responsibility gets its own box</li>
               <li data-sid="11b-visual-prompting-A:49" class="vp-rub">the branch covers both right and wrong</li>
@@ -708,7 +708,7 @@ Multimodal models let us ask students to produce visual artifacts and assess tho
 (2) A multimodal model reads the photograph as-is — no transcription step, no context about the assignment.
 (3) Route one starts: the model generates a runnable program from the drawing — the functions the student drew become the functions of the program.
 (4) Then that program runs against a behavioral test suite. The drawing is graded by whether the design it describes actually works.
-(5) Route two: no program at all — the model judges the drawing itself against a rubric, and what the rubric catches goes back to the student as written feedback.
+(5) Route two: no program at all — the model evaluates the drawing itself against a rubric, and what the rubric catches goes back to the student as written feedback.
 (6) The demo blurs back. Nothing here is specific to decomposition diagrams — ER diagrams, UML, design sketches. And note what that opens up: these are artifacts we already assign and already grade by hand. If the model reads them well enough to build from, it reads them well enough to give feedback on.
 
 SAY THE NUMBER HERE — the evidence slide that used to follow was dropped as a duplicate, so this is the only place it lands:

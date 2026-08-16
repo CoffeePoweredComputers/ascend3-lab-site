@@ -1,6 +1,6 @@
 <section data-sid="05c-cgbg-animation:1" class="slide" id="slide-05c">
   <div data-sid="05c-cgbg-animation:2" class="slide__eyebrow">Framing &middot; 04 &middot; code-generation-based grading</div>
-  <h2 data-sid="05c-cgbg-animation:3" class="slide__title">Code Generation Based Grading</h2>
+  <h2 data-sid="05c-cgbg-animation:3" class="slide__title">Code Generation Based Grading<sup class="cite">1</sup></h2>
 
   <div data-sid="05c-cgbg-animation:4" class="slide__body" style="display:flex; flex-direction:column; gap:18px; position:relative;">
 
@@ -26,8 +26,7 @@
 
         <div data-sid="05c-cgbg-animation:16" class="cgbg-panel" data-phase="1" style="background:var(--bg-2); border:1px solid var(--border-1); border-radius:12px; padding:18px 22px; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
           <div data-sid="05c-cgbg-animation:17" style="font-family:'JetBrains Mono', monospace; font-size:23px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent-1-text); margin-bottom:10px;">① Student prompt</div>
-          <div data-sid="05c-cgbg-animation:18" id="cgbg-prompt" style="font-family:'JetBrains Mono', monospace; font-size:27px; color:var(--fg-0); min-height:76px; line-height:1.4;"></div>
-          <span id="cgbg-prompt-caret" style="display:inline-block; width:2px; height:25px; background:var(--accent-2); margin-left:2px; vertical-align:middle; opacity:0;"></span>
+          <div data-sid="05c-cgbg-animation:18" id="cgbg-prompt" style="font-family:'JetBrains Mono', monospace; font-size:27px; color:var(--fg-0); min-height:76px; line-height:1.4;"><span id="cgbg-prompt-caret" style="display:inline-block; width:2px; height:25px; background:var(--accent-2); margin-left:2px; vertical-align:middle; opacity:0;"></span></div>
         </div>
 
         <!-- LLM indicator between prompt and code -->
@@ -54,10 +53,10 @@
         <div data-sid="05c-cgbg-animation:35" class="cgbg-panel" data-phase="3" style="background:var(--bg-2); border:1px solid var(--border-1); border-radius:12px; padding:18px 22px; flex:1; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
           <div data-sid="05c-cgbg-animation:36" style="font-family:'JetBrains Mono', monospace; font-size:23px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--syntax-green); margin-bottom:14px;">③ Run unit tests</div>
           <ul data-sid="05c-cgbg-animation:37" id="cgbg-tests" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;">
-            <li data-sid="05c-cgbg-animation:38" class="cgbg-test"><div data-sid="05c-cgbg-animation:39" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:40" class="cgbg-test__name">test_basic</div><div data-sid="05c-cgbg-animation:41" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>])<span class="arr">  →  </span><span class="num">5</span></div></div><div data-sid="05c-cgbg-animation:42" class="cgbg-test__status">·</div></li>
-            <li data-sid="05c-cgbg-animation:43" class="cgbg-test"><div data-sid="05c-cgbg-animation:44" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:45" class="cgbg-test__name">test_empty</div><div data-sid="05c-cgbg-animation:46" class="cgbg-test__call"><span class="fn">max_value</span>([])<span class="arr">  →  </span><span class="kw">None</span></div></div><div data-sid="05c-cgbg-animation:47" class="cgbg-test__status">·</div></li>
-            <li data-sid="05c-cgbg-animation:48" class="cgbg-test"><div data-sid="05c-cgbg-animation:49" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:50" class="cgbg-test__name">test_negative</div><div data-sid="05c-cgbg-animation:51" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">-3</span>, <span class="num">-1</span>, <span class="num">-4</span>])<span class="arr">  →  </span><span class="num">-1</span></div></div><div data-sid="05c-cgbg-animation:52" class="cgbg-test__status">·</div></li>
-            <li data-sid="05c-cgbg-animation:53" class="cgbg-test"><div data-sid="05c-cgbg-animation:54" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:55" class="cgbg-test__name">test_single</div><div data-sid="05c-cgbg-animation:56" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">42</span>])<span class="arr">  →  </span><span class="num">42</span></div></div><div data-sid="05c-cgbg-animation:57" class="cgbg-test__status">·</div></li>
+            <li data-sid="05c-cgbg-animation:38" class="cgbg-test"><div data-sid="05c-cgbg-animation:39" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:40" class="cgbg-test__name">test_basic</div><div data-sid="05c-cgbg-animation:41" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>])<span class="arr">  →  </span><span class="num">5</span></div></div><div data-sid="05c-cgbg-animation:42" class="cgbg-test__status"></div></li>
+            <li data-sid="05c-cgbg-animation:43" class="cgbg-test"><div data-sid="05c-cgbg-animation:44" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:45" class="cgbg-test__name">test_empty</div><div data-sid="05c-cgbg-animation:46" class="cgbg-test__call"><span class="fn">max_value</span>([])<span class="arr">  →  </span><span class="kw">None</span></div></div><div data-sid="05c-cgbg-animation:47" class="cgbg-test__status"></div></li>
+            <li data-sid="05c-cgbg-animation:48" class="cgbg-test"><div data-sid="05c-cgbg-animation:49" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:50" class="cgbg-test__name">test_negative</div><div data-sid="05c-cgbg-animation:51" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">-3</span>, <span class="num">-1</span>, <span class="num">-4</span>])<span class="arr">  →  </span><span class="num">-1</span></div></div><div data-sid="05c-cgbg-animation:52" class="cgbg-test__status"></div></li>
+            <li data-sid="05c-cgbg-animation:53" class="cgbg-test"><div data-sid="05c-cgbg-animation:54" class="cgbg-test__body"><div data-sid="05c-cgbg-animation:55" class="cgbg-test__name">test_single</div><div data-sid="05c-cgbg-animation:56" class="cgbg-test__call"><span class="fn">max_value</span>([<span class="num">42</span>])<span class="arr">  →  </span><span class="num">42</span></div></div><div data-sid="05c-cgbg-animation:57" class="cgbg-test__status"></div></li>
           </ul>
         </div>
 
@@ -191,8 +190,8 @@
       background: var(--ok); color: white;
       box-shadow: 0 0 12px rgba(34, 197, 94, 0.5); transform: scale(1.05);
     }
+    #slide-05c .cgbg-test__status::after { content: "·"; }
     #slide-05c .cgbg-test.is-passed .cgbg-test__status::after { content: "✓"; }
-    #slide-05c .cgbg-test.is-passed .cgbg-test__status > * { display: none; }
 
     /* === Finale: one dashed box containing the ? and the caption ===
        Default: zero max-height + zero border so it takes NO layout space.
@@ -277,21 +276,19 @@
     function resetAll(scope) {
       clearAll();
       phaseCache = -1;
-      const prompt  = scope.querySelector('#cgbg-prompt');
       const caret   = scope.querySelector('#cgbg-prompt-caret');
       const lines   = scope.querySelectorAll('.cgbg-line');
       const tests   = scope.querySelectorAll('.cgbg-test');
-      const fb      = scope.querySelector('#cgbg-feedback');
       const llm     = scope.querySelector('#cgbg-llm');
       const spinner = scope.querySelector('.cgbg-llm__spinner');
-      if (prompt) prompt.textContent = '';
+      setPromptText(scope, '');
       if (caret)  caret.classList.remove('is-typing');
       lines.forEach(l => l.classList.remove('is-on'));
       restoreCode(scope);
       if (llm)    llm.classList.remove('is-on');
       if (spinner) spinner.classList.remove('is-done');
       tests.forEach(t => t.classList.remove('is-passed'));
-      if (fb) { fb.style.opacity = '0'; fb.style.transform = 'translateY(8px)'; }
+      hideFeedback(scope);
       scope.querySelectorAll('.cgbg-chip').forEach(c => c.classList.remove('is-active', 'is-done'));
       scope.querySelectorAll('.cgbg-panel').forEach(p => p.classList.remove('is-active'));
     }
@@ -316,15 +313,23 @@
       if (llm) llm.classList.toggle('is-on', phase === 2);
     }
 
-    function typePrompt(scope) {
+    /* The caret span lives INSIDE #cgbg-prompt so it trails the typed text.
+       Writing textContent directly would destroy it, so all prompt updates go
+       through this helper, which re-appends the caret after the text. */
+    function setPromptText(scope, text) {
       const promptEl = scope.querySelector('#cgbg-prompt');
       const caret    = scope.querySelector('#cgbg-prompt-caret');
-      promptEl.textContent = '';
+      promptEl.textContent = text;
+      if (caret) promptEl.appendChild(caret);
+    }
+
+    function typePrompt(scope) {
+      const caret = scope.querySelector('#cgbg-prompt-caret');
       caret.classList.add('is-typing');
       let i = 0;
       function step() {
         if (i <= PROMPT_TEXT.length) {
-          promptEl.textContent = PROMPT_TEXT.slice(0, i++);
+          setPromptText(scope, PROMPT_TEXT.slice(0, i++));
           t(step, TYPING_MS);
         } else { caret.classList.remove('is-typing'); }
       }
@@ -418,6 +423,19 @@
       step();
     }
 
+    function hideCode(scope) {
+      const caret = getCodeCaret();
+      if (caret.parentNode) caret.remove();
+      const spinner = scope.querySelector('.cgbg-llm__spinner');
+      if (spinner) spinner.classList.remove('is-done');
+      getCodeModel(scope).forEach(l => { setLineChars(l, l.len); l.el.classList.remove('is-on'); });
+    }
+
+    function hideFeedback(scope) {
+      const fb = scope.querySelector('#cgbg-feedback');
+      if (fb) { fb.style.opacity = '0'; fb.style.transform = 'translateY(8px)'; }
+    }
+
     function showFeedback(scope) {
       const fb = scope.querySelector('#cgbg-feedback');
       fb.style.opacity = '1';
@@ -426,25 +444,28 @@
 
     function enterPhase(scope, phase) {
       if (phase === phaseCache) return;
+      // Backwards steps land on the target phase's COMPLETED state; animations
+      // only replay when a phase is entered moving forward. Anything belonging
+      // to a phase later than the target is torn down.
+      const goingBack = phaseCache !== -1 && phase < phaseCache;
       phaseCache = phase;
       clearAll();
       setActivePanel(scope, phase);
-      const promptEl = scope.querySelector('#cgbg-prompt');
-      if (phase >= 1) {
-        if (phase === 1) typePrompt(scope);
-        else if (!promptEl.textContent) promptEl.textContent = PROMPT_TEXT;
+      const promptCaret = scope.querySelector('#cgbg-prompt-caret');
+      if (phase === 1 && !goingBack) {
+        typePrompt(scope);
+      } else {
+        // Past phase 1 (or arriving backwards) the prompt is always complete —
+        // stepping mid-typing must fill in the rest, not freeze it half-typed.
+        if (promptCaret) promptCaret.classList.remove('is-typing');
+        setPromptText(scope, PROMPT_TEXT);
       }
-      if (phase >= 2) {
-        // Past phase 2 the code is always shown complete — stepping forward
-        // mid-typing must fill in the rest, not freeze it half-typed.
-        revealCodeLines(scope, phase !== 2);
-      }
-      if (phase >= 3) {
-        const anyPassed = Array.from(scope.querySelectorAll('.cgbg-test')).some(t => t.classList.contains('is-passed'));
-        if (phase === 3) runTests(scope, false);
-        else if (!anyPassed) runTests(scope, true);
-      }
+      if (phase >= 2) revealCodeLines(scope, phase !== 2 || goingBack);
+      else hideCode(scope);
+      if (phase >= 3) runTests(scope, phase !== 3 || goingBack);
+      else scope.querySelectorAll('.cgbg-test').forEach(el => el.classList.remove('is-passed'));
       if (phase >= 4) showFeedback(scope);
+      else hideFeedback(scope);
     }
 
     function sync() {
@@ -511,6 +532,9 @@ GenAI moves the skill from writing code to specifying it — so how do you grade
 (5) Finale: so what IS the question prompt when students write the prompt? That question splits into our first two problem types.
 Two of the four types run on this engine; the other two don't need an LLM at all.
   </aside>
+  <ol data-sid="05c-cgbg-animation:65" class="slide__footnotes">
+    <li data-sid="05c-cgbg-animation:66"><span class="num">1</span>Smith IV &amp; Zilles (2024). Code Generation Based Grading: Evaluating an Auto-grading Mechanism for &ldquo;Explain-in-Plain-English&rdquo; Questions. <em>ITiCSE 2024</em>, 171&ndash;177.</li>
+  </ol>
   <div data-sid="05c-cgbg-animation:62" class="slide__number" style="font-size: 20px"></div>
   <div class="frag" data-step="2" data-sid="05c-cgbg-animation:63" data-ss-anchor hidden></div>
 </section>

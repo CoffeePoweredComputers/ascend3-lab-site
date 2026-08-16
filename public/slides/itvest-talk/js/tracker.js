@@ -12,6 +12,10 @@
    automatically — the manifest stays the single source of deck order.
    Only touch SECTION_STARTS when a slide begins a genuinely new section.
 
+   It is one dot per slide, no spares: the section's stop bead is drawn at the
+   opener's own position, so entering a section lands the now-marker on the
+   bead rather than one dot past it.
+
    Geometry is computed in absolute px: the stage is a fixed 1920-wide canvas
    (scaled as a unit), so SVG coordinates are exact and nothing can reflow. */
 (function () {
@@ -123,6 +127,9 @@
       const state = i < curSec ? 'is-past' : i === curSec ? 'is-here' : 'is-future';
       const t = el('text', { x: x, y: NAME_Y }, 'tr-name ' + state);
       t.textContent = name.toUpperCase();
+      // The stop bead sits ON the section's opening slide — it IS that slide's
+      // dot, not an extra marker in front of it. So the opener never gets its
+      // own tick below, and landing on it puts the now-marker on the bead.
       const stop = el('circle', { cx: x, cy: LINE_Y, r: 6.5 }, 'tr-stop ' + state);
       if (boot) {
         // --tt = how far along the line this element sits (0..1). The title
@@ -135,9 +142,10 @@
       names.push(t);
       stops.push(stop);
       stems.forEach(function (s2, j) {
-        const tx = x + (j + 0.5) * px;
+        // one dot per slide, first one flush with the stop bead (j === 0)
+        const tx = x + j * px;
         if (i === curSec && j === curTick) curX = tx;
-        else if (i > curSec || (i === curSec && j > curTick)) {
+        else if (j > 0 && (i > curSec || (i === curSec && j > curTick))) {
           if (boot) {
             // each slide dot "loads": a spinner arc while the trail runs on,
             // then a ring burst + the tick popping in when it resolves

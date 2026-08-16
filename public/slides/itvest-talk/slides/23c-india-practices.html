@@ -1,9 +1,10 @@
 <!-- The SHAPE of Fariha's research program, drawn instead of written: two
      studies as two streams — theory (indigo) and fieldwork (pink), the deck's
      standing pairing — feeding one design-question node. The TALK LEADS WITH
-     THE QUESTION (see notes), so the node is lit from the land and the two
-     studies draw in on the clicks as the two things we must understand to
-     answer it.
+     THE QUESTION (see notes), so the question OWNS THE SLIDE at step 0 — big
+     and centred, 11b-visual-prompting-A's .is-intro beat — and click 1 sends
+     it to the node spot on the right. The two studies then draw in on clicks
+     2 and 3 as the two things we must understand to answer it.
 
      Along each stream, tokens flow into the node: borrowed concepts ride the
      theory stream, language names ride the field stream — Devanagari and
@@ -26,14 +27,19 @@
      display:none, which resets CSS animations.
 
      Continuity with 23a (the slide before): same indigo→pink gradient, same
-     draw-on stroke idiom, and the title echoes its "Ten stops, one question".
+     draw-on stroke idiom. The title no longer echoes 23a's "Ten stops, one
+     question" — that X-comma-Y parallel plus a gradient span read as boilerplate.
+     It is now plain spoken voice in 11b-visual-prompting-A's register ("The
+     prompt doesn't have to be text!"), and it states the slide's actual claim:
+     understanding these classrooms is the precondition for designing for them,
+     which is exactly what the two studies below are for.
 
      The preprint QR (data/materials/figures/people/qr/lit-review.svg) encodes
      https://osf.io/preprints/edarxiv/hsaf3_v1 — regenerate with qrencode if the
      paper moves. White plate under the code, as on 23a's writeup QR. -->
 <section data-sid="23c-india-practices:1" class="slide" id="slide-23c">
   <div data-sid="23c-india-practices:2" class="slide__eyebrow">The lab&rsquo;s work &middot; Fariha Anjum Shifa</div>
-  <h2 data-sid="23c-india-practices:3" class="slide__title">Two studies, <span class="gradient-text">one design question</span></h2>
+  <h2 data-sid="23c-india-practices:3" class="slide__title">You can&rsquo;t design for a classroom you don&rsquo;t understand yet.</h2>
 
   <div data-sid="23c-india-practices:4" class="slide__body" style="display:grid; grid-template-columns:340px 1fr; gap:48px; align-items:start; min-height:0;">
 
@@ -99,11 +105,17 @@
         </g>
       </svg>
 
-      <!-- UNDERSTAND THE THEORY — click 1 -->
-      <article data-sid="23c-india-practices:13" class="tile pc-card pc-card--t frag" data-step="1" data-anim="slide-right">
+      <!-- click 1 has no payload of its own — it's the click that sends the
+           big centered question to its resting node spot (11b's .is-intro
+           idiom, done in CSS here: the node's own :has() test keys off "has
+           any frag landed yet"). Declared explicitly so step 1 exists. -->
+      <span class="frag" data-step="1" style="display: none;"></span>
+
+      <!-- UNDERSTAND THE THEORY — click 2 -->
+      <article data-sid="23c-india-practices:13" class="tile pc-card pc-card--t frag" data-step="2" data-anim="slide-right">
         <div data-sid="23c-india-practices:72" class="pc-card__txt">
-          <p data-sid="23c-india-practices:53" class="pc-card__label" style="font-size: 28px">Study 1 &middot; lit review</p>
-          <p data-sid="23c-india-practices:63" class="pc-card__q" style="font-size: 32px">What theories of language &amp; its role in learning exist?</p>
+          <p data-sid="23c-india-practices:53" class="pc-card__label">Study 1 &middot; lit review</p>
+          <p data-sid="23c-india-practices:63" class="pc-card__q">What theories of language &amp; its role in learning exist?</p>
         </div>
         <div data-sid="23c-india-practices:49" class="pp-qr">
           <img data-sid="23c-india-practices:10" src="data/materials/figures/people/qr/lit-review.svg"
@@ -113,7 +125,7 @@
         </div>
       </article>
 
-      <!-- UNDERSTAND THE PRACTICE — click 2. The card IS a map: every Indian
+      <!-- UNDERSTAND THE PRACTICE — click 3. The card IS a map: every Indian
            state / Pakistani province filled by its dominant language, so the
            patch count makes the "many languages" argument without a single
            bullet. Geometry is real (Natural Earth 50m admin-1, projected with
@@ -121,13 +133,18 @@
            LANGMAP markers — do not hand-edit the paths. Label + question sit
            in normal flow above the map; the counts live in the footnote and
            the spoken notes, not on the map. -->
-      <article data-sid="23c-india-practices:23" class="tile pc-card pc-card--f pc-card--map frag" data-step="2" data-anim="fade-up">
+      <article data-sid="23c-india-practices:23" class="tile pc-card pc-card--f pc-card--map frag" data-step="3" data-anim="fade-up">
         <div data-sid="23c-india-practices:68" class="pc-map__head">
-          <p data-sid="23c-india-practices:54" class="pc-card__label" style="font-size: 28px">Study 2 &middot; faculty interviews</p>
-          <p data-sid="23c-india-practices:64" class="pc-card__q" style="font-size: 32px">How are instructors already navigating this?</p>
+          <p data-sid="23c-india-practices:54" class="pc-card__label">Study 2 &middot; faculty interviews</p>
+          <p data-sid="23c-india-practices:64" class="pc-card__q">How are instructors across South Asia already navigating this?</p>
         </div>
         <div data-sid="23c-india-practices:71" class="pc-map__frame">
-        <svg data-sid="23c-india-practices:65" class="pc-map__svg" viewBox="0 0 560 280" role="img"
+        <!-- viewBox is CROPPED TO THE INK, not to the generator's 560x280 sheet:
+             the projected geometry only spans x 132.6-428.8, y 1.3-271.6, so the
+             old box spent nearly half its width on empty margin and the map drew
+             at scale 1 no matter how much room the card gave it. Cropped, every
+             pixel of frame height converts straight into map size. -->
+        <svg data-sid="23c-india-practices:65" class="pc-map__svg" viewBox="128 -3 306 280" role="img"
              aria-label="Map of India, Pakistan, Bangladesh, and Nepal with each state or province colored by its dominant language">
             <!-- LANGMAP:BEGIN (generated by tools/southasia_langmap.py) -->
             <g class="lm">
@@ -289,12 +306,13 @@
       display: flex; flex-direction: column; gap: 12px;
     }
     #slide-23c .pc-card--t { top: 10px; border-left: 5px solid var(--accent-1); }
-    /* hangs 20px past the diagram box on purpose — breathing room under the
-       study-1 card; the slide's bottom padding absorbs it */
-    #slide-23c .pc-card--f { bottom: -20px; border-left: 5px solid var(--accent-2); }
+    /* hangs 64px past the diagram box on purpose — the slide's 140px bottom
+       padding absorbs it, and every pixel of the overhang is map. Deeper than
+       this and the card crowds the stage edge. */
+    #slide-23c .pc-card--f { bottom: -64px; border-left: 5px solid var(--accent-2); }
     #slide-23c .pc-card__label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 20px; font-weight: 700;
+      font-size: var(--t-caption); font-weight: 700;
       letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--fg-2); margin: 0;
     }
@@ -317,7 +335,7 @@
     #slide-23c .pc-card--t .pc-chip { border-left: 3px solid var(--accent-1); }
     #slide-23c .pc-card--f .pc-chip { border-left: 3px solid var(--accent-2); }
     #slide-23c .pc-card__q {
-      font-size: 24px; font-weight: 600; line-height: 1.3;
+      font-size: var(--t-body); font-weight: 600; line-height: 1.3;
       color: var(--fg-0); margin: 0;
     }
 
@@ -350,12 +368,15 @@
     #slide-23c .pc-card--map {
       display: flex; flex-direction: column; gap: 0;
       padding: 0; overflow: hidden;
-      height: 420px;
+      height: 480px;
     }
-    #slide-23c .pc-map__head { padding: 14px 20px 10px; }
+    #slide-23c .pc-map__head { padding: var(--s-3) var(--s-4) var(--s-2); }
     #slide-23c .pc-map__head p { margin: 0; }
-    #slide-23c .pc-map__head .pc-card__label { margin-bottom: 6px; }
-    #slide-23c .pc-map__frame { position: relative; height: 280px; margin-top: auto; }
+    #slide-23c .pc-map__head .pc-card__label { margin-bottom: var(--s-2); }
+    /* the frame takes every pixel the head doesn't, rather than a fixed height
+       the head could overrun — so the map is as big as the card allows and
+       nothing clips if the question wraps to a second line */
+    #slide-23c .pc-map__frame { position: relative; flex: 1; min-height: 0; }
     #slide-23c .pc-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
     #slide-23c .lm path { stroke: var(--bg-1); stroke-width: 0.6; stroke-linejoin: round; }
     /* context countries render their admin-1 pieces as one silent fill — no
@@ -418,6 +439,21 @@
       background: linear-gradient(var(--bg-2), var(--bg-2)) padding-box, var(--grad) border-box;
     }
     #slide-23c.is-active .pc-node { animation: pc-glow 700ms var(--ease) 250ms forwards; }
+
+    /* ---------- the question's entry beat ----------
+       11b-visual-prompting-A's .is-intro idiom, done without JS: on landing
+       (step 0) the question stands alone, big and centred over the whole
+       diagram, and HOLDS there. Click 1's entire payload is the trip to the
+       resting node spot; the studies then stream in on 2 and 3.
+       The test is "has no frag landed yet", which is also the state before
+       deck.js writes any class — so nothing flashes at the resting spot on
+       load. Cold deep-links to step >= 1 never transition: inactive slides
+       are display:none, so they land straight on the final geometry. */
+    #slide-23c .pc-node { transition: left 0.7s var(--ease), transform 0.7s var(--ease); }
+    #slide-23c:not(:has(.frag.is-current, .frag.is-past)) .pc-node {
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.6);
+    }
     @keyframes pc-glow {
       0%   { box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
       60%  { box-shadow: 0 0 72px var(--accent-glow); }
@@ -442,7 +478,9 @@
       #slide-23c:has(.pc-card--f.is-current) .pc-stream--f,
       #slide-23c:has(.pc-card--f.is-past)    .pc-stream--f { stroke-dashoffset: 0; }
       #slide-23c .pc-flow { display: none; }
-      #slide-23c .pc-node { animation: none !important; }
+      /* the question still starts big and still ends at the node — it just
+         cuts between the two instead of travelling */
+      #slide-23c .pc-node { animation: none !important; transition: none; }
     }
 
     /* print shows fragment-final state (deck.css forces frags visible), but
@@ -451,17 +489,22 @@
     @media print {
       #slide-23c .pc-stream { animation: none !important; stroke-dashoffset: 0 !important; opacity: 1; }
       #slide-23c .pc-flow { display: none; }
+      /* print never lands a frag state class, so the node would print in its
+         big step-0 pose on top of both cards — pin it to the resting spot */
+      #slide-23c .pc-node { left: 905px; transform: translateY(-50%); }
     }
   </style>
 
   
   <aside data-sid="23c-india-practices:18" class="notes">
-[0:45 · 2 clicks · closes Branch I]
-Lead with the node on the right — this is Fariha's program, and it starts from the general question: how do we design tools and pedagogy for linguistically diverse classrooms? Answering it takes understanding two things.
+[0:45 · 3 clicks · closes Branch I]
+On landing the question stands alone, big and centred — talk over it. This is Fariha's program, and it starts from the general question: how do we design tools and pedagogy for linguistically diverse classrooms? Answering it takes understanding two things.
 
-(1) The theory. What theories of language and its role in learning already exist? Applied linguistics, second-language acquisition and multilingual education have been at this for fifty years, and computing education has borrowed almost none of it — the question is what actually transfers when the thing being learned is code rather than an essay. Those borrowed concepts are what's flowing down the indigo stream. The review is a preprint — QR's on the slide.
+(1) The question moves aside to its node on the right, making room for the two studies that feed it.
 
-(2) The practice. How are instructors already navigating this space — in computing classrooms in countries like India and Pakistan, where many different languages are spoken? The map is the argument: every state and province wears its own dominant language — 121 languages in India by the census, around seventy in Pakistan — and the quilt doesn't stop at the border (both Punjabs are one color). Interviews with CS faculty; phenomenography, so what we're after is the qualitatively different ways instructors CONCEPTUALIZE linguistic diversity, not a tally of which languages get spoken. And this is not bilingual teaching: one classroom can hold six first languages, an English-medium mandate, and an instructor whose own strongest language is neither — those are the languages flowing down the pink stream.
+(2) The theory. What theories of language and its role in learning already exist? Applied linguistics, second-language acquisition and multilingual education have been at this for fifty years, and computing education has borrowed almost none of it — the question is what actually transfers when the thing being learned is code rather than an essay. Those borrowed concepts are what's flowing down the indigo stream. The review is a preprint — QR's on the slide.
+
+(3) The practice. How are instructors already navigating this space — in computing classrooms in countries like India and Pakistan, where many different languages are spoken? The map is the argument: every state and province wears its own dominant language — 121 languages in India by the census, around seventy in Pakistan — and the quilt doesn't stop at the border (both Punjabs are one color). Interviews with CS faculty; phenomenography, so what we're after is the qualitatively different ways instructors CONCEPTUALIZE linguistic diversity, not a tally of which languages get spoken. And this is not bilingual teaching: one classroom can hold six first languages, an English-medium mandate, and an instructor whose own strongest language is neither — those are the languages flowing down the pink stream.
 
 Close on the node again: both studies feed the same design question — which natural language, and whose, is a pedagogy question and a tool-design question, not a footnote.
   </aside>

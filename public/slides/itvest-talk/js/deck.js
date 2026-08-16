@@ -141,6 +141,14 @@
 
   window.addEventListener('hashchange', () => { parseHash(); applyState(); });
 
+  // X11 has no window-occlusion detection, so a covered deck keeps painting its
+  // infinite tracker animations at full rate. Focus loss is detectable, though:
+  // pause the band whenever the window blurs.
+  const setIdle = (idle) => document.body.classList.toggle('deck-idle', idle);
+  window.addEventListener('blur', () => setIdle(true));
+  window.addEventListener('focus', () => setIdle(false));
+  setIdle(!document.hasFocus());
+
   // Viewport scaling — fit 1920x1080 deck into viewport with explicit centering.
   function fitStage() {
     const deck = document.querySelector('.deck');

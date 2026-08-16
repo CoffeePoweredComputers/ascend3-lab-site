@@ -176,6 +176,13 @@ a { color: var(--accent-1-text); text-decoration: none; }
   .slide.is-active .sec-track .tr-strand { animation: none; }
   .slide .sec-track .tr-spark { display: none; }
 }
+
+/* Window blurred (deck.js toggles this): freeze the band so a covered
+   window doesn't burn CPU on animations nobody can see. !important because
+   every `animation:` shorthand above implicitly resets play-state to
+   `running` at higher specificity. */
+body.deck-idle .sec-track * { animation-play-state: paused !important; }
+
 /* slides carrying the band start their content clear of it */
 .slide:has(.sec-track) { padding-top: 112px; }
 

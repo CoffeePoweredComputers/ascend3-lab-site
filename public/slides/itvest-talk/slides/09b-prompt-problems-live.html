@@ -1,4 +1,4 @@
-<section data-sid="09b-prompt-problems-live:1" class="slide" id="slide-09b">
+<section data-sid="09b-prompt-problems-live:1" class="slide" id="slide-09b" style="left: -4px; top: 0px">
   <div data-sid="09b-prompt-problems-live:2" class="slide__eyebrow">Activity &middot; 02 &middot; examples &rarr; description</div>
   <h2 data-sid="09b-prompt-problems-live:3" class="slide__title">Prompt Problems</h2>
 
@@ -18,16 +18,16 @@
 
       <div data-sid="09b-prompt-problems-live:8" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:16px 20px; margin-bottom:12px;">
         
-        <pre data-sid="09b-prompt-problems-live:10" style="font-family: 'JetBrains Mono', monospace; font-size: 32px; color: var(--fg-0); margin: 0; line-height: 1.6"><span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"hello"</span>)  →  <span style="color:var(--syntax-green);">"HELLO"</span>
-<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"world"</span>)  →  <span style="color:var(--syntax-green);">"WORLD"</span>
-<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"Hello, World!"</span>)  →  <span style="color:var(--syntax-green);">"HELLO, WORLD!"</span>
-<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-green);">"Hi, everyone!!"</span>)  →  <span style="color:var(--syntax-green);">"HI, EVERYONE!!"</span></pre>
+        <pre data-sid="09b-prompt-problems-live:10" style="font-family: 'JetBrains Mono', monospace; font-size: 32px; color: var(--fg-0); margin: 0; line-height: 1.6"><span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-orange);">[0, 3, 5]</span>)  →  <span style="color:var(--syntax-orange);">0</span>
+<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-orange);">[7, 1, 2]</span>)  →  <span style="color:var(--syntax-orange);">2</span>
+<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-orange);">[3, 4, 6]</span>)  →  <span style="color:var(--syntax-orange);">1</span>
+<span style="color:var(--syntax-blue);">bar</span>(<span style="color:var(--syntax-orange);">[5, 9, 8]</span>)  →  <span style="color:var(--syntax-orange);">2</span></pre>
       </div>
 
       
 <div data-sid="09b-prompt-problems-live:11" id="pp-entry" style="background:var(--bg-1); border:1px solid var(--border-1); border-radius:8px; padding:14px 20px; transition:border-color 280ms var(--ease), box-shadow 280ms var(--ease);">
         <div data-sid="09b-prompt-problems-live:12" style="font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--act); margin-bottom: 6px">student writes · the prompt</div>
-        <div data-sid="09b-prompt-problems-live:13" style="font-size: 32px; color: var(--fg-0); font-style: italic; min-height: 2.7em"><span id="pp-entry-text"></span><span id="pp-caret" class="pp-caret" aria-hidden="true"></span></div>
+        <div data-sid="09b-prompt-problems-live:13" style="font-size: 32px; color: var(--fg-0); font-style: italic; min-height: 2.7em"><span id="pp-entry-text"></span><span id="pp-caret" class="pp-caret" aria-hidden="true"></span><span id="pp-entry-tail"></span></div>
       </div>
     </div>
 
@@ -44,10 +44,10 @@
       </div>
 
       <ul data-sid="09b-prompt-problems-live:9" id="pp-tests" class="pp-tests">
-        <li data-sid="09b-prompt-problems-live:16" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"hello"</span>) → <span class="str">"HELLO"</span></span><span class="pp-test__status">·</span></li>
-        <li data-sid="09b-prompt-problems-live:24" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"world"</span>) → <span class="str">"WORLD"</span></span><span class="pp-test__status">·</span></li>
-        <li data-sid="09b-prompt-problems-live:26" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"Hello, World!"</span>) → <span class="str">"HELLO, WORLD!"</span></span><span class="pp-test__status">·</span></li>
-        <li data-sid="09b-prompt-problems-live:27" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="str">"Hi, everyone!!"</span>) → <span class="str">"HI, EVERYONE!!"</span></span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:16" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="num">[0, 3, 5]</span>) → <span class="num">0</span></span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:24" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="num">[7, 1, 2]</span>) → <span class="num">2</span></span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:26" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="num">[3, 4, 6]</span>) → <span class="num">1</span></span><span class="pp-test__got">got 4 — the value</span><span class="pp-test__status">·</span></li>
+        <li data-sid="09b-prompt-problems-live:27" class="pp-test"><span class="pp-test__call"><span class="fn">bar</span>(<span class="num">[5, 9, 8]</span>) → <span class="num">2</span></span><span class="pp-test__got">got 8 — the value</span><span class="pp-test__status">·</span></li>
       </ul>
 
       <div data-sid="09b-prompt-problems-live:18" id="pp-verdict" class="pp-verdict">
@@ -109,7 +109,7 @@
     }
     [data-sid="09b-prompt-problems-live:1"] .pp-tests.is-open { max-height: 420px; opacity: 1; }
     [data-sid="09b-prompt-problems-live:1"] .pp-test {
-      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
+      display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px;
       padding: 10px 16px; background: var(--bg-1);
       border: 1px solid var(--border-1); border-left: 4px solid var(--border-2);
       border-radius: 8px;
@@ -121,7 +121,15 @@
     }
     [data-sid="09b-prompt-problems-live:1"] .pp-test__call .fn  { color: var(--syntax-blue); }
     [data-sid="09b-prompt-problems-live:1"] .pp-test__call .str { color: var(--syntax-green); }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test__call .num { color: var(--syntax-orange); }
+    /* Failure diagnosis — visible only while the row is failing (run 1) */
+    [data-sid="09b-prompt-problems-live:1"] .pp-test__got {
+      display: none; font-family: 'JetBrains Mono', monospace; font-size: 20px;
+      font-style: italic; color: var(--warn); white-space: nowrap;
+    }
+    [data-sid="09b-prompt-problems-live:1"] .pp-test.is-fail .pp-test__got { display: block; }
     [data-sid="09b-prompt-problems-live:1"] .pp-test__status {
+      grid-column: 3;
       width: 32px; height: 32px; border-radius: 50%;
       background: var(--bg-3); color: var(--fg-3);
       font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 700;
@@ -169,13 +177,14 @@
   (function () {
     // Scope by data-sid, not #slide-09b — section ids aren't guaranteed unique.
     const SECTION_SEL = '[data-sid="09b-prompt-problems-live:1"]';
-    const ATTEMPT1 = '"The function returns the word in uppercase."';
-    const ATTEMPT2 = '"The function converts the whole string to uppercase."';
-    const RUN1 = ['p', 'p', 'f', 'f']; // "the word" — multi-word cases disagree
+    const ATTEMPT1 = '"The function finds the first even number in the list."';
+    const ATTEMPT2 = '"The function returns the index of the first even number in the list."';
+    const RUN1 = ['p', 'p', 'f', 'f']; // "finds the number" → returns the value; only agrees where value == index (0@0, 2@2)
     const RUN2 = ['p', 'p', 'p', 'p'];
-    const REVISE_HTML = '↻ 2 / 4 — <em>"the word"</em>? The multi-word examples disagree. Revise the prompt.';
+    const REVISE_HTML = '↻ 2 / 4 — the failures returned the <em>value</em>, not its <em>index</em>. Revise the prompt.';
     const OK_HTML = '✓ Accepted — students <em>iterate on the prompt</em> until the tests pass.<sup class="cite">1</sup>';
     const TYPE_MS = 26;
+    const EDIT_MS = 60;   // slower than first-draft typing — the revision should read as deliberate
     const TEST_MS = 620;  // spinner dwell — the LLM is thinking here, unlike Refute/Probeable
     const TICK_MS = 300;  // between per-case results in the drop-down
 
@@ -190,6 +199,7 @@
         entry: s.querySelector('#pp-entry'),
         label: s.querySelector('[data-sid="09b-prompt-problems-live:12"]'),
         text:  s.querySelector('#pp-entry-text'),
+        tail:  s.querySelector('#pp-entry-tail'),
         caret: s.querySelector('#pp-caret'),
         tests: s.querySelector('.pp-check[data-check="tests"]'),
         list:  s.querySelector('#pp-tests'),
@@ -201,6 +211,7 @@
 
     function type(e, str, done) {
       e.text.textContent = '';
+      e.tail.textContent = '';
       e.caret.classList.add('is-typing');
       e.entry.classList.add('is-typing');
       let i = 0;
@@ -216,8 +227,44 @@
       })();
     }
 
+    // Revise in place: keep the shared prefix/suffix, backspace only the stale
+    // middle, then type the replacement with the caret mid-sentence.
+    function editType(e, from, to, done) {
+      let p = 0;
+      while (p < from.length && p < to.length && from[p] === to[p]) p++;
+      let s = 0;
+      while (s < from.length - p && s < to.length - p &&
+             from[from.length - 1 - s] === to[to.length - 1 - s]) s++;
+      const prefix = from.slice(0, p);
+      const suffix = from.slice(from.length - s);
+      const oldMid = from.slice(p, from.length - s);
+      const newMid = to.slice(p, to.length - s);
+      e.tail.textContent = suffix;
+      e.caret.classList.add('is-typing');
+      e.entry.classList.add('is-typing');
+      let i = oldMid.length;
+      (function back() {
+        if (i >= 0) {
+          e.text.textContent = prefix + oldMid.slice(0, i--);
+          t(back, EDIT_MS);
+        } else {
+          let j = 0;
+          t(function fwd() {
+            if (j <= newMid.length) {
+              e.text.textContent = prefix + newMid.slice(0, j++);
+              t(fwd, EDIT_MS);
+            } else {
+              snapEntry(e, to);
+              if (done) done();
+            }
+          }, 360);
+        }
+      })();
+    }
+
     function snapEntry(e, str) {
       e.text.textContent = str;
+      e.tail.textContent = '';
       e.caret.classList.remove('is-typing');
       e.entry.classList.remove('is-typing');
     }
@@ -297,14 +344,14 @@
       }
 
       switch (step) {
-        case 1: // attempt 1 types in — "the word", subtly underspecified
+        case 1: // attempt 1 types in — "finds the first even number", subtly underspecified
           setLabel(e, false);
           setSuite(e, null, '4 cases', false);
           setVerdict(e.verdict, null);
           if (fwd) type(e, ATTEMPT1);
           else snapEntry(e, ATTEMPT1);
           break;
-        case 2: // suite runs: the multi-word cases disagree → revise
+        case 2: // suite runs: value-vs-index disagrees wherever value != index → revise
           setLabel(e, false); snapEntry(e, ATTEMPT1);
           if (fwd) {
             setVerdict(e.verdict, null);
@@ -319,7 +366,7 @@
           if (fwd) {
             setSuite(e, RUN1, '2 / 4', true);
             setVerdict(e.verdict, 'revise', REVISE_HTML);
-            type(e, ATTEMPT2, () => {
+            editType(e, ATTEMPT1, ATTEMPT2, () => {
               setVerdict(e.verdict, null);
               runSuite(e, RUN2, '4 / 4', () => t(() => setVerdict(e.verdict, 'ok', OK_HTML), 140));
             });
@@ -345,15 +392,15 @@
   </script>
 
   <ol data-sid="09b-prompt-problems-live:19" class="slide__footnotes">
-    <li data-sid="09b-prompt-problems-live:20"><span class="num">1</span>Denny et al. · SIGCSE 2024.</li>
+    <li data-sid="09b-prompt-problems-live:20"><span class="num">1</span>Denny, Leinonen, Prather, Luxton-Reilly, Amarouche, Becker, &amp; Reeves (2024). Prompt Problems: A New Programming Exercise for the Generative AI Era. <em>SIGCSE 2024</em>.</li>
   </ol>
 
   <aside data-sid="09b-prompt-problems-live:21" class="notes">
 [0:55 · by end 8:25 · 18-min cut]
 Second type, and the mirror image: Prompt Problems. No code — just behaviour, often input/output examples or an image.
-(step 1) The student writes the prompt — "returns the word in uppercase." Sounds fine.
-(step 2) The suite drops down and runs each shown example: the single words pass, the multi-word strings fail. Two of four. "The word" was doing quiet damage.
-(step 3) Revise — "the whole string" — all four green. Iteration is the point: refine the prompt until the tests pass. Spec-writing practice — precise intent, not syntax.
+(step 1) The student writes the prompt — "finds the first even number in the list." Sounds fine.
+(step 2) The suite drops down and the failed rows say why: got 4, got 8 — the even number itself. The two green ones only passed by coincidence, where the value happened to equal its index (0 at index 0, 2 at index 2). Value, or index? The prompt never said.
+(step 3) Revise — "returns the index of the first even number" — all four green. Iteration is the point: refine the prompt until the tests pass. Spec-writing practice — precise intent, not syntax.
   </aside>
   <div data-sid="09b-prompt-problems-live:22" class="slide__number" style="font-size: 20px"></div>
 </section>
