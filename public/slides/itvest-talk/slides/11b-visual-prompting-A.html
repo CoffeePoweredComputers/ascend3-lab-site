@@ -31,6 +31,12 @@
         <div data-sid="11b-visual-prompting-A:72" class="vp-credit__role">PhD student</div>
         <div data-sid="11b-visual-prompting-A:71" class="vp-credit__site"><a href="https://smamonisha.github.io/" target="_blank" rel="noopener">smamonisha.github.io</a></div>
       </figcaption>
+      <!-- QR to the preprint cited bottom-left. Not a .frag: it has to be up
+           the whole time the slide is, or nobody gets to scan it. -->
+      <figure data-sid="11b-visual-prompting-A:73" class="vp-qr">
+        <img data-sid="11b-visual-prompting-A:74" class="vp-qr__code" src="data/materials/figures/people/qr/visual-prompting-preprint.svg" alt="QR code linking to the preprint, arXiv:2602.10529">
+        <figcaption data-sid="11b-visual-prompting-A:75" class="vp-qr__cap">Read the preprint</figcaption>
+      </figure>
     </figure>
 
     <div data-sid="11b-visual-prompting-A:5" class="vp-row" style="display: flex; gap: var(--s-4); flex: 1; min-height: 0;">
@@ -281,6 +287,29 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: var(--t-caption);
       letter-spacing: 0.04em;
+    }
+    /* preprint QR, foot of the portrait column. 200px is the smallest that
+       still scans from the back of a room at this projection size. */
+    #slide-11ba .vp-qr {
+      margin: var(--s-2) 0 0;
+      display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-1);
+    }
+    #slide-11ba .vp-qr__code {
+      display: block;
+      width: 200px; height: 200px;
+      /* theme-invariant white plate, as on 23a/26: an inverted QR (light
+         modules on a dark ground) fails on a lot of phone scanners, so this
+         one literal does NOT follow the light/dark tokens on purpose */
+      background: #ffffff;
+      padding: var(--s-1);
+      border-radius: var(--r-md);
+    }
+    #slide-11ba .vp-qr__cap {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--t-caption);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-1-text);
     }
 
 
@@ -700,22 +729,9 @@
   })();
   </script>
 
-  <aside data-sid="11b-visual-prompting-A:46" class="notes">
-[~60s · 6 clicks]
-(On landing the sketch draws itself full-size and HOLDS there — talk over the big drawing.)
-Multimodal models let us ask students to produce visual artifacts and assess those artifacts directly. Here's the kind of artifact we mean — a student's drawn decomposition of a word-guessing game.
-(1) The sheet shrinks aside to make room for what the model does with it.
-(2) A multimodal model reads the photograph as-is — no transcription step, no context about the assignment.
-(3) Route one starts: the model generates a runnable program from the drawing — the functions the student drew become the functions of the program.
-(4) Then that program runs against a behavioral test suite. The drawing is graded by whether the design it describes actually works.
-(5) Route two: no program at all — the model evaluates the drawing itself against a rubric, and what the rubric catches goes back to the student as written feedback.
-(6) The demo blurs back. Nothing here is specific to decomposition diagrams — ER diagrams, UML, design sketches. And note what that opens up: these are artifacts we already assign and already grade by hand. If the model reads them well enough to build from, it reads them well enough to give feedback on.
+  <aside data-sid="11b-visual-prompting-A:46" class="notes">As I mentioned a moment ago with the emergence of multimodal model text isn't hte only input that can be provided to models for the purpose of generating programs. For example, a student could diagram out the functions and behaviors of a program for a flashcard pracitce application, as is shown here)---showing how this problem is orcestrated across multiple functions, the behavior of those functions and various other annotations to give context. That diagram could then be handed to the model, this information could be extracted in ordr to generate functions and these could ve evaluated either through some set of behavioral tests---where an AI system runs the program and make set of behavior in some fashion---or through a simple rubric based grading approach on the code or iagram itself.
 
-SAY THE NUMBER HERE — the evidence slide that used to follow was dropped as a duplicate, so this is the only place it lands:
-"We took ad-hoc decomposition diagrams from 133 CS1 students doing Evil Hangman, fed them straight to GPT-4.1, and checked by hand whether the functions the student drew showed up in the generated code. Four out of five did — 81%."
-Frame it honestly: that is FUNCTION-EXTRACTION accuracy, not grading accuracy. It's the precondition — the model reads a messy student drawing reliably enough to act on it. Grading and feedback are what that makes possible, and that's the work in flight. Formative, no control condition, one problem; say so before someone asks.
-[Smith IV, Monisha, Vadaparty, Porter & Zingaro (2026), arXiv:2602.10529 — already cited in the corner of this slide.]
-(If asked about the pilot: 133 intro Python students, 50 minutes, one sheet of paper — 81.2% of diagrams had their function structure fully extracted, r = .776 between functions drawn and functions generated.)
-  </aside>
+A feasibility study we did last year showed that the SOTA models from last summer (namely GPT 4.5) were very competent at generating programs from ad hoc, hand drawn diagrams gnerated on pen-and paper as don by student who were doing a problem decomposition task for a word guessing game called evil hangman.
+</aside>
   <div data-sid="11b-visual-prompting-A:48" class="slide__number"></div>
 </section>

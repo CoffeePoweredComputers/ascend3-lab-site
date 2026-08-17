@@ -31,7 +31,7 @@
     ['The turn',       '13b-act3'],
     ['Languages',      '19c-transprogramming'],
     ['Drawings',       '11b-visual-prompting-A'],
-    ['Platform',       '09c-non-cgbg'],
+    ['Platform',       '06g-purplex'],
     ['Close',          '24-research-questions-18'],
   ];
 
