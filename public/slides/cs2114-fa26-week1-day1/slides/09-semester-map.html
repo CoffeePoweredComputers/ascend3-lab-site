@@ -1,0 +1,213 @@
+<section class="slide" id="slide-09" data-sid="09-semester-map:1">
+  <header class="slide__head" data-sid="09-semester-map:2">
+    <h2 data-sid="09-semester-map:3">The semester at a glance</h2>
+  </header>
+
+  <!-- Walkthrough: step 0 = month brackets over the full 16-cell week ribbon,
+       dimmed; steps 1-6 light the next span of cells (staggered left-to-right)
+       while the matching topic row expands below. Cells and their row share a
+       data-step; dots flag test weeks; Thanksgiving sits in the Nov span as
+       its own static break block (not a frag). -->
+  <div class="slide__body semmap" data-sid="09-semester-map:4">
+    <!-- Brackets track the real Fall 2026 calendar, so most month boundaries cut
+         through a week rather than landing on a cell edge: Sep 1 is the Tue of
+         wk 2 (Aug = 1.2 cells), Oct 1 the Thu of wk 6, Nov 2 the Mon of wk 11
+         (the one clean edge), Dec 1 the Tue of wk 14. flex-grow is the span in
+         ribbon cells (1 unit = 1 cell, the break block = 1.5); flex-basis is
+         that month's share of the 8px ribbon gaps it covers. -->
+    <ul data-sid="09-semester-map:23" class="semmap__months">
+      <li data-sid="09-semester-map:46" style="flex: 1.2 0 4px">Aug</li>
+      <li data-sid="09-semester-map:47" style="flex: 4.4 0 24px">Sep</li>
+      <li data-sid="09-semester-map:48" style="flex: 4.4 0 28px">Oct</li>
+      <li data-sid="09-semester-map:49" style="flex: 4.7 0 28px">Nov</li>
+      <li data-sid="09-semester-map:50" style="flex: 2.8 0 12px">Dec</li>
+    </ul>
+    <ul data-sid="09-semester-map:25" class="semmap__ribbon">
+      <li data-sid="09-semester-map:26" class="frag" data-step="1">1</li>
+      <li data-sid="09-semester-map:27" class="frag" data-step="1">2</li>
+      <li data-sid="09-semester-map:28" class="tile--a3 frag" data-step="2">3</li>
+      <li data-sid="09-semester-map:29" class="tile--a3 frag" data-step="2">4</li>
+      <li data-sid="09-semester-map:30" class="tile--a3 semmap--test frag" data-step="2">5</li>
+      <li data-sid="09-semester-map:31" class="tile--a4 semmap--test frag" data-step="3">6</li>
+      <li data-sid="09-semester-map:32" class="tile--a4 frag" data-step="3">7</li>
+      <li data-sid="09-semester-map:33" class="tile--a4 frag" data-step="3">8</li>
+      <li data-sid="09-semester-map:34" class="tile--a4 frag" data-step="3">9</li>
+      <li data-sid="09-semester-map:35" class="tile--a2 semmap--test frag" data-step="4">10</li>
+      <li data-sid="09-semester-map:36" class="tile--a2 semmap--test frag" data-step="4">11</li>
+      <li data-sid="09-semester-map:37" class="tile--a2 frag" data-step="4">12</li>
+      <li data-sid="09-semester-map:38" class="tile--a2 frag" data-step="4">13</li>
+      <li data-sid="09-semester-map:51" class="semmap--break" style="flex: 1.5">Break</li>
+      <li data-sid="09-semester-map:39" class="semmap--stone frag" data-step="5">14</li>
+      <li data-sid="09-semester-map:40" class="semmap--stone frag" data-step="5">15</li>
+      <li data-sid="09-semester-map:41" class="semmap--test frag" data-step="6">16</li>
+    </ul>
+    <article class="semmap__row frag" data-step="1" data-sid="09-semester-map:5">
+      <p class="semmap__when" data-sid="09-semester-map:6">Wk 1–2</p>
+      <p class="semmap__what" data-sid="09-semester-map:7">Java foundations — testing, exceptions, polymorphism</p>
+    </article>
+    <article class="semmap__row tile--a3 frag" data-step="2" data-sid="09-semester-map:8">
+      <p class="semmap__when" data-sid="09-semester-map:9">Wk 3–5</p>
+      <p class="semmap__what" data-sid="09-semester-map:10">Bags, linked chains, efficiency, stacks · Test 1 Wk 5</p>
+      <p data-sid="09-semester-map:42" class="semmap__tag">P1</p>
+    </article>
+    <article class="semmap__row tile--a4 frag" data-step="3" data-sid="09-semester-map:11">
+      <p class="semmap__when" data-sid="09-semester-map:12">Wk 6–9</p>
+      <p class="semmap__what" data-sid="09-semester-map:13">Ethics &amp; MVC, recursion, queues, lists · Test 1 redo Wk 6</p>
+      <p data-sid="09-semester-map:43" class="semmap__tag">P2</p>
+    </article>
+    <article class="semmap__row tile--a2 frag" data-step="4" data-sid="09-semester-map:14">
+      <p class="semmap__when" data-sid="09-semester-map:15">Wk 10–13</p>
+      <p class="semmap__what" data-sid="09-semester-map:16">Sorting, sorted lists, trees · Test 2 Wk 10 · redo Wk 11</p>
+      <p data-sid="09-semester-map:44" class="semmap__tag">P3</p>
+    </article>
+    <article class="semmap__row semmap--stone frag" data-step="5" data-sid="09-semester-map:17">
+      <p class="semmap__when" data-sid="09-semester-map:18">Wk 14–15</p>
+      <p class="semmap__what" data-sid="09-semester-map:19">Binary search, BSTs, review — classes end Dec 9</p>
+      <p data-sid="09-semester-map:45" class="semmap__tag">P3 demo</p>
+    </article>
+    <article class="semmap__row frag" data-step="6" data-sid="09-semester-map:20">
+      <p class="semmap__when" data-sid="09-semester-map:21">Wk 16</p>
+      <p class="semmap__what" data-sid="09-semester-map:22">Final exam · Dec 11–16 · Good luck, Hokies!!!</p>
+    </article>
+  </div>
+  
+  <div class="slide__number" data-sid="09-semester-map:24"></div>
+
+  <style>
+    /* Slide-local choreography for the semester map. Built on the .frag step
+       states; used by this slide only, all values from tokens. Ribbon cells and
+       rows reuse the tile colour language: .tile--a2/a3/a4 supply --edge
+       from deck.css; .semmap--stone adds the review-weeks gray. */
+
+    #slide-09 .semmap {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    #slide-09 .semmap--stone { --edge: var(--stone); }
+
+    /* ---- month brackets: calendar frame over the ribbon (not stepped) ----- */
+    #slide-09 .semmap__months {
+      display: flex;
+      gap: var(--s-1);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-mono);
+      font-size: var(--t-small);
+      line-height: 1.2;
+      color: var(--fg-1);
+    }
+    #slide-09 .semmap__months li {
+      position: relative;
+      margin: 0;
+      padding: 0 0 var(--s-1);
+      text-align: center;
+      border-bottom: 2px solid var(--fg-1);
+    }
+    /* Short end ticks turn the underline into a bracket over its weeks. */
+    #slide-09 .semmap__months li::before,
+    #slide-09 .semmap__months li::after {
+      content: "";
+      position: absolute;
+      bottom: calc(-1 * var(--s-1));
+      width: 2px;
+      height: var(--s-1);
+      background: var(--fg-1);
+    }
+    #slide-09 .semmap__months li::before { left: 0; }
+    #slide-09 .semmap__months li::after { right: 0; }
+
+    /* ---- week ribbon: 16 cells, dim until their chunk's step arrives ------ */
+    #slide-09 .semmap__ribbon {
+      display: flex;
+      gap: var(--s-1);
+      list-style: none;
+      margin: 0 0 var(--s-2);
+      padding: 0;
+      font-size: var(--t-small);
+    }
+    #slide-09 .semmap__ribbon li {
+      --edge: var(--accent-1);
+      position: relative;
+      flex: 1;
+      margin: 0;
+      padding: var(--s-2) 0;
+      text-align: center;
+      line-height: 1.2;
+      border-radius: var(--r-1);
+      background: var(--edge);
+      color: var(--bg-0);
+      transition: background .35s ease, color .35s ease;
+    }
+    /* Pending cells stay visible (overrides the .frag fade) but unlit. */
+    #slide-09 .semmap__ribbon li.is-pending {
+      opacity: 1;
+      background: var(--bg-1);
+      color: var(--fg-1);
+    }
+    /* Cells of one chunk light left-to-right: delay grows with the cell's
+       position inside its phase (phases start at nth-child 1, 3, 6, 10, 15,
+       17; nth-child 14 is the static break block). */
+    #slide-09 .semmap__ribbon li:nth-child(2),
+    #slide-09 .semmap__ribbon li:nth-child(4),
+    #slide-09 .semmap__ribbon li:nth-child(7),
+    #slide-09 .semmap__ribbon li:nth-child(11),
+    #slide-09 .semmap__ribbon li:nth-child(16) { transition-delay: .1s; }
+    #slide-09 .semmap__ribbon li:nth-child(5),
+    #slide-09 .semmap__ribbon li:nth-child(8),
+    #slide-09 .semmap__ribbon li:nth-child(12) { transition-delay: .2s; }
+    #slide-09 .semmap__ribbon li:nth-child(9),
+    #slide-09 .semmap__ribbon li:nth-child(13) { transition-delay: .3s; }
+    /* Thanksgiving: a closed-for-break block in the Nov span (never lights). */
+    #slide-09 .semmap__ribbon li.semmap--break {
+      box-sizing: border-box;
+      border: 2px dashed var(--fg-1);
+      background: transparent;
+      color: var(--fg-1);
+    }
+
+    /* Calendar-style event dot: a test (or the final) sits in that week. */
+    #slide-09 .semmap--test::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      transform: translateX(-50%);
+      width: var(--s-1);
+      height: var(--s-1);
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    /* ---- topic rows: week span | topics & tests | project tag ------------- */
+    #slide-09 .semmap__row {
+      --edge: var(--accent-1);
+      display: grid;
+      grid-template-columns: 240px 1fr auto;
+      column-gap: var(--s-3);
+      align-items: baseline;
+      box-sizing: border-box;
+      max-height: var(--s-8);
+      overflow: hidden;
+      padding: var(--s-1) var(--s-3);
+      border: 3px solid var(--edge);
+      border-radius: var(--r-2);
+      background: var(--bg-1);
+      transition: opacity .35s ease, max-height .45s ease, padding .45s ease, margin .45s ease, border-width .45s ease;
+    }
+    /* Pending rows are fully collapsed, so each step grows the stack downward.
+       The flex gap sits outside the box; a pending row swallows it with a
+       negative margin (same trick as slide 03's skill chips). */
+    #slide-09 .semmap__row.is-pending {
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-width: 0;
+      margin-top: calc(-1 * var(--s-2));
+    }
+    #slide-09 .semmap__row p { margin: 0; font-size: var(--t-small); }
+    #slide-09 .semmap__when,
+    #slide-09 .semmap__tag { font-family: var(--font-mono); color: var(--edge); }
+  </style>
+</section>

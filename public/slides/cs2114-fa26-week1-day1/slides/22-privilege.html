@@ -1,0 +1,123 @@
+<section class="slide" id="slide-22" data-sid="22-privilege:1">
+  <header class="slide__head" data-sid="22-privilege:2">
+
+  </header>
+
+  <!-- Step 0 = only the veil and its setup question; step 1 fades the veil away
+       and the quote rises beneath it, so the answer lands as a reveal; step 2
+       adds the gloss (it is not an argument against being a doctor). The turn
+       on the person at the front of the room continues on the next slide. -->
+  <div class="slide__body priv" data-sid="22-privilege:4">
+    <figure class="priv__row priv__row--theirs frag" data-step="1" data-anim="fade-up" data-sid="22-privilege:13">
+      <svg viewBox="0 0 200 200" role="img" aria-label="A stethoscope, drawn in line art" data-sid="22-privilege:14">
+        <path class="ink" d="M64 26 l-10 -12 M136 26 l10 -12"/>
+        <path class="ink" d="M64 26 v58 a36 36 0 0 0 72 0 V26"/>
+        <path class="ink" d="M100 120 v18 c0 26 20 36 38 28"/>
+        <circle class="ink" cx="150" cy="150" r="26"/>
+        <circle class="edge-fill" cx="150" cy="150" r="9"/>
+      </svg>
+      <blockquote class="priv__quote" data-sid="22-privilege:5">"You have the privilege to make a lucrative living off the backs of the sick and dying."</blockquote>
+      
+    </figure>
+
+    <p class="priv__gloss frag" data-step="2" data-anim="fade-up" data-sid="22-privilege:7">Not an argument against becoming a doctor. An argument that it is a <b>privilege</b> — and that a privilege carries a <b>responsibility</b>.</p>
+  </div>
+
+  <!-- Setup veil: covers the slide at step 0 and fades away at step 1 (an
+       inverted frag — visible while pending, gone once its step lands). -->
+  <div class="priv__ask frag" data-step="1" data-sid="22-privilege:16">
+    <p data-sid="22-privilege:17">What do you tell people about ethics in one of the most clearly virtuous jobs — being a <b>doctor</b>?</p>
+  </div>
+
+  <aside class="notes" data-sid="22-privilege:11">Open on the veil and actually ask the question — doctors are the profession everyone grants is virtuous, so what is there even to say? Then advance: the veil lifts and this is what got said. The whole point of her line is that it does <em>not</em> conclude “so quit.” It concludes “so you owe something.” Let the gloss land, then advance — the next slide turns the same sentence on you.</aside>
+  <div class="slide__number" data-sid="22-privilege:12"></div>
+
+  <style>
+    /* Slide-local: the borrowed quote and the instructor's own version of it,
+       set as two mirrored rows — line drawing left, words right — so the
+       substitution reads at a glance. Used by this slide only, all values from
+       tokens; the drawings use slide 23's two-weight pen language (neutral ink
+       for the object, the row's --edge for the pointed-at detail). */
+
+    #slide-22 .priv {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--s-5);
+    }
+
+    #slide-22 .priv__row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: auto auto;
+      column-gap: var(--s-6);
+      row-gap: var(--s-2);
+      align-items: center;
+      margin: 0;
+    }
+    #slide-22 .priv__row > svg {
+      grid-row: 1 / 3;
+      width: 220px;
+      height: 220px;
+    }
+    #slide-22 .priv__row--theirs { --edge: var(--accent-3); }
+    #slide-22 .priv__row .ink,
+    #slide-22 .priv__row .edge { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-22 .priv__row .ink { stroke: var(--fg-1); }
+    #slide-22 .priv__row .edge { stroke: var(--edge); }
+    #slide-22 .priv__row .edge-fill { fill: var(--edge); }
+
+    #slide-22 .priv__quote {
+      margin: 0;
+      padding-left: var(--s-5);
+      border-left: var(--s-1) solid var(--accent-3);
+      font-size: var(--t-h2);
+      line-height: 1.15;
+    }
+    #slide-22 .priv__attr {
+      margin: 0 0 0 calc(var(--s-5) + var(--s-1));
+      font-family: var(--font-mono);
+    }
+
+    /* Indented to the rows' text column, so the icon gutter stays clear. */
+    #slide-22 .priv__gloss {
+      margin: 0 0 0 calc(220px + var(--s-6));
+      font-size: var(--t-body);
+      line-height: 1.4;
+      color: var(--fg-1);
+    }
+    #slide-22 .priv__gloss b { color: var(--accent-1); }
+
+    /* Setup veil — slide 24's wash, run in reverse: it carries the framing
+       question over a softened slide, then fades out to reveal the quote. */
+    #slide-22 .priv__ask {
+      position: absolute;
+      inset: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-7) var(--s-8);
+      background: color-mix(in srgb, var(--bg-0) 92%, transparent);
+      -webkit-backdrop-filter: blur(28px) saturate(0.7);
+      backdrop-filter: blur(28px) saturate(0.7);
+      text-align: center;
+      transition-duration: .6s;
+    }
+    #slide-22 .priv__ask p {
+      max-width: 1360px;
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--t-h2);
+      line-height: 1.2;
+      color: var(--fg-0);
+    }
+    #slide-22 .priv__ask b { color: var(--accent-1); }
+
+    /* Inverted frag: the base engine only enters, so flip its states — fully
+       there before step 1, gone (and click-through) once the step lands. */
+    #slide-22 .priv__ask.is-pending { opacity: 1; }
+    #slide-22 .priv__ask.is-current,
+    #slide-22 .priv__ask.is-past { opacity: 0; pointer-events: none; }
+  </style>
+</section>

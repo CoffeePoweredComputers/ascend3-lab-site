@@ -1,10 +1,10 @@
-<section data-sid="02b-travel:1" class="slide slide--nostone" id="slide-02b">
-  <header data-sid="02b-travel:2" class="slide__head">
-    <p data-sid="02b-travel:3" class="slide__kicker">PERKS OF THE JOB AND MY FAVORITE HOBBY: TRAVEL!</p>
-    <h2 data-sid="02b-travel:4">Where I&rsquo;ve been just this year</h2>
+<section data-sid="03-travel:1" class="slide slide--nostone" id="slide-03">
+  <header data-sid="03-travel:2" class="slide__head">
+    <p data-sid="03-travel:3" class="slide__kicker">PERKS OF THE JOB AND MY FAVORITE HOBBY: TRAVEL!</p>
+    
   </header>
 
-  <div data-sid="02b-travel:5" class="slide__body" style="position:relative; min-height:0;">
+  <div data-sid="03-travel:5" class="slide__body" style="position:relative; min-height:0;">
 
     <!-- ═══════════ MAP ═══════════
          Outline: real boundary geometry (Natural Earth via world.geo.json),
@@ -14,7 +14,7 @@
          coastline. Validated: San Diego 1.2px and Copenhagen 0.6px from the
          coast; Blacksburg and Madrid correctly inland. Regenerate with
          .slide-studio/gen_map.py — do not hand-nudge cx/cy. -->
-    <div data-sid="02b-travel:6" style="position:relative; width:1664px; height:695px;">
+    <div data-sid="03-travel:6" style="position:relative; width:1664px; height:695px;">
       <svg id="tr-map" viewBox="0 0 1664 695" style="width:1664px; height:695px; display:block;"
            aria-label="World map of 2026 travel: dotted flight routes from Blacksburg, Virginia to India, St. Louis, San Diego, New Zealand, Madrid, Glasgow, Edinburgh, Pittsburgh, and Copenhagen, flown by a small plane">
 
@@ -141,21 +141,21 @@
            Madrid's — those legs are back-to-back). All four shots are ~2.2:1
            panoramas, so the frames are wide-format prints. Geometry
            (left/top/--rot) is draggable. -->
-      <div data-sid="02b-travel:7" class="polaroid" style="left:1150px; top:330px; --rot:4deg; --pd:1109ms;">
-        <img data-sid="02b-travel:8" src="assets/travel/photo-1.jpg" alt="Chhatrapati Shivaji Maharaj Vastu Sangrahalaya museum and gardens, Mumbai">
-        <p data-sid="02b-travel:9" class="polaroid__cap">Mumbai</p>
+      <div data-sid="03-travel:7" class="polaroid" style="left:1150px; top:330px; --rot:4deg; --pd:1109ms;">
+        <img data-sid="03-travel:8" src="assets/travel/photo-1.jpg" alt="Chhatrapati Shivaji Maharaj Vastu Sangrahalaya museum and gardens, Mumbai">
+        <p data-sid="03-travel:9" class="polaroid__cap">Mumbai</p>
       </div>
-      <div data-sid="02b-travel:10" class="polaroid" style="left:800px; top:500px; --rot:-5deg; --pd:4869ms;">
-        <img data-sid="02b-travel:11" src="assets/travel/photo-2.jpg" alt="Selfie on the Tongariro Alpine Crossing, volcano behind, New Zealand">
-        <p data-sid="02b-travel:12" class="polaroid__cap">New Zealand</p>
+      <div data-sid="03-travel:10" class="polaroid" style="left:800px; top:500px; --rot:-5deg; --pd:4869ms;">
+        <img data-sid="03-travel:11" src="assets/travel/photo-2.jpg" alt="Selfie on the Tongariro Alpine Crossing, volcano behind, New Zealand">
+        <p data-sid="03-travel:12" class="polaroid__cap">New Zealand</p>
       </div>
-      <div data-sid="02b-travel:13" class="polaroid" style="left:395px; top:300px; --rot:6deg; --pd:7358ms;">
-        <img data-sid="02b-travel:14" src="assets/travel/photo-4.jpg" alt="Nave and painted apse of the Almudena Cathedral, Madrid">
-        <p data-sid="02b-travel:15" class="polaroid__cap">Madrid</p>
+      <div data-sid="03-travel:13" class="polaroid" style="left:395px; top:300px; --rot:6deg; --pd:7358ms;">
+        <img data-sid="03-travel:14" src="assets/travel/photo-4.jpg" alt="Nave and painted apse of the Almudena Cathedral, Madrid">
+        <p data-sid="03-travel:15" class="polaroid__cap">Madrid</p>
       </div>
-      <div data-sid="02b-travel:16" class="polaroid" style="left:50px; top:430px; --rot:-6deg; --pd:7900ms;">
-        <img data-sid="02b-travel:17" src="assets/travel/photo-3.jpg" alt="Edinburgh Castle on its rock at golden hour">
-        <p data-sid="02b-travel:18" class="polaroid__cap">Edinburgh</p>
+      <div data-sid="03-travel:16" class="polaroid" style="left:50px; top:430px; --rot:-6deg; --pd:7900ms;">
+        <img data-sid="03-travel:17" src="assets/travel/photo-3.jpg" alt="Edinburgh Castle on its rock at golden hour">
+        <p data-sid="03-travel:18" class="polaroid__cap">Edinburgh</p>
       </div>
 
     </div>
@@ -167,7 +167,7 @@
 
   <style>
     /* ---------- map base ---------- */
-    #slide-02b #tr-land {
+    #slide-03 #tr-land {
       fill: color-mix(in srgb, var(--stone) 55%, var(--bg-1));
       stroke: var(--bg-0);            /* country joints read as mortar lines */
       stroke-width: 1;
@@ -175,7 +175,7 @@
     }
 
     /* ---------- pins ---------- */
-    #slide-02b .tr-pin circle {
+    #slide-03 .tr-pin circle {
       fill: var(--accent-1);
       stroke: var(--bg-0);
       stroke-width: 3;
@@ -184,13 +184,13 @@
       transform-origin: center;
       transform: scale(0.2);
     }
-    #slide-02b .tr-pin--home circle { fill: var(--accent-3); }
-    #slide-02b .tr-pin--home .tr-pin__halo {
+    #slide-03 .tr-pin--home circle { fill: var(--accent-3); }
+    #slide-03 .tr-pin--home .tr-pin__halo {
       fill: none;
       stroke: var(--accent-3);
       stroke-width: 3;
     }
-    #slide-02b.is-active .tr-pin circle {
+    #slide-03.is-active .tr-pin circle {
       animation: tr-pop 420ms ease-out forwards;
       animation-delay: calc(var(--i) * 80ms + 150ms);
     }
@@ -201,19 +201,19 @@
     }
 
     /* ---------- labels ---------- */
-    #slide-02b .tr-lab { opacity: 0; }
-    #slide-02b.is-active .tr-lab {
+    #slide-03 .tr-lab { opacity: 0; }
+    #slide-03.is-active .tr-lab {
       animation: tr-fade 380ms ease-out forwards;
       animation-delay: calc(var(--i) * 80ms + 330ms);
     }
     @keyframes tr-fade { to { opacity: 1; } }
-    #slide-02b .tr-lab line {
+    #slide-03 .tr-lab line {
       stroke: color-mix(in srgb, var(--fg-1) 60%, transparent);
       stroke-width: 1.8;
     }
     /* Halo the labels so leader lines, route dots and land can't cut through
        the glyphs — standard cartographic knockout. */
-    #slide-02b .tr-lab text {
+    #slide-03 .tr-lab text {
       font-family: var(--font-body);
       font-size: var(--t-micro);
       font-weight: 700;
@@ -225,11 +225,11 @@
     }
     /* Gradient stops take tokens via CSS — var() inside a stop-color
        presentation attribute is not reliably parsed. */
-    #slide-02b .tr-grad-a { stop-color: var(--accent-1); }
-    #slide-02b .tr-grad-b { stop-color: var(--accent-3); }
+    #slide-03 .tr-grad-a { stop-color: var(--accent-1); }
+    #slide-03 .tr-grad-b { stop-color: var(--accent-3); }
 
     /* ---------- route + plane (step 1) ---------- */
-    #slide-02b .tr-leg {
+    #slide-03 .tr-leg {
       fill: none;
       stroke: url(#tr-routegrad);
       stroke-width: 4.5;
@@ -239,15 +239,15 @@
     /* Each mask stroke's dashoffset is set to its true length by JS, then
        driven to 0 over its own flight window. Timing is linear end to end —
        reveal windows and photo arrivals are plain distance fractions. */
-    #slide-02b #tr-plane { opacity: 0; }
-    #slide-02b #tr-plane path { fill: var(--accent-1); stroke: var(--bg-0); stroke-width: 1.5; }
+    #slide-03 #tr-plane { opacity: 0; }
+    #slide-03 #tr-plane path { fill: var(--accent-1); stroke: var(--bg-0); stroke-width: 1.5; }
 
-    #slide-02b.tr-flying .tr-rl {
+    #slide-03.tr-flying .tr-rl {
       animation: tr-draw var(--t) linear var(--d) forwards;
     }
     @keyframes tr-draw { to { stroke-dashoffset: 0; } }
 
-    #slide-02b.tr-flying #tr-plane {
+    #slide-03.tr-flying #tr-plane {
       offset-path: path("M288.3,163.3 Q709.5,99.8 1098.1,274.0 Q698.9,14.0 236.7,154.8 Q259.9,174.8 288.3,163.3 Q196.6,214.7 94.2,190.8 Q196.6,214.7 288.3,163.3 Q881.3,631.0 1636.4,615.2 Q881.3,631.0 288.3,163.3 Q489.0,113.6 693.6,143.8 Q670.2,97.4 690.7,49.7 Q693.5,49.4 696.3,49.1 Q465.4,14.0 288.3,163.3 Q282.5,152.7 290.6,143.7 Q282.5,152.7 288.3,163.3 Q520.5,48.5 779.5,50.7 Q520.5,48.5 288.3,163.3");
       offset-rotate: auto;
       animation: tr-fly 9500ms linear forwards;
@@ -261,7 +261,7 @@
     }
 
     /* ---------- polaroids ---------- */
-    #slide-02b .polaroid {
+    #slide-03 .polaroid {
       position: absolute;
       box-sizing: border-box;
       width: 300px;
@@ -272,7 +272,7 @@
       transform: rotate(var(--rot));
       opacity: 0;
     }
-    #slide-02b .polaroid::before {          /* tape strip over the top edge */
+    #slide-03 .polaroid::before {          /* tape strip over the top edge */
       content: "";
       position: absolute;
       left: 50%;
@@ -285,7 +285,7 @@
     }
     /* Photos land with the plane: the drop fires on the flight (step 1), each
        delayed to its stop's arrival time, and re-arms if you step back. */
-    #slide-02b.tr-flying .polaroid {
+    #slide-03.tr-flying .polaroid {
       animation: tr-drop 480ms ease-out forwards;
       animation-delay: var(--pd);
     }
@@ -293,13 +293,13 @@
       from { opacity: 0; transform: translateY(-20px) rotate(0deg) scale(1.05); }
       to   { opacity: 1; transform: translateY(0) rotate(var(--rot)) scale(1); }
     }
-    #slide-02b .polaroid img {
+    #slide-03 .polaroid img {
       width: 100%;
       height: 126px;              /* 272px wide inside the frame ≈ the shots' 2.2:1 */
       object-fit: cover;
       display: block;
     }
-    #slide-02b .polaroid__cap {
+    #slide-03 .polaroid__cap {
       margin: 0;
       padding: var(--s-1) 0 var(--s-2);
       font-family: var(--font-display);
@@ -311,12 +311,12 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-02b .tr-pin circle,
-      #slide-02b .tr-lab,
-      #slide-02b .polaroid { animation: none !important; opacity: 1; }
-      #slide-02b .tr-pin circle { transform: none; }
-      #slide-02b.tr-flying .tr-rl,
-      #slide-02b.tr-flying #tr-plane { animation-duration: 1ms !important; animation-delay: 0ms !important; }
+      #slide-03 .tr-pin circle,
+      #slide-03 .tr-lab,
+      #slide-03 .polaroid { animation: none !important; opacity: 1; }
+      #slide-03 .tr-pin circle { transform: none; }
+      #slide-03.tr-flying .tr-rl,
+      #slide-03.tr-flying #tr-plane { animation-duration: 1ms !important; animation-delay: 0ms !important; }
     }
   </style>
 
@@ -324,7 +324,7 @@
   (function () {
     // Route reveal is length-driven: measure the real path rather than guessing
     // a dasharray. Re-armed on every entry so the flight replays on step-back.
-    const SID = 'slide-02b';
+    const SID = 'slide-03';
     const FLY = 'tr-flying';
 
     function scope() { return document.getElementById(SID); }
@@ -354,5 +354,5 @@
   })();
   </script>
 
-  <div data-sid="02b-travel:24" class="slide__number"></div>
+  <div data-sid="03-travel:24" class="slide__number"></div>
 </section>

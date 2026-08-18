@@ -1,0 +1,62 @@
+<section class="slide" id="slide-15" data-sid="15-this-week:1">
+  <header class="slide__head" data-sid="15-this-week:2">
+    <h2 data-sid="15-this-week:3">This week</h2>
+  </header>
+
+  <!-- Walkthrough: step 0 = empty board; steps 1-4 deal in the four tasks
+       (label = where it lives / when it's due, per the rhythm on slide 09),
+       step 5 drops the no-lab note as a closed-for-the-week block, echoing
+       the break block on the semester ribbon. -->
+  <ul class="slide__body grid grid--2 week1" data-sid="15-this-week:4">
+    <li class="tile frag" data-step="1" data-anim="fade-up" data-sid="15-this-week:5">
+      <p class="tile__label" data-sid="15-this-week:11">PrairieLearn · before each lecture</p>
+      <h3 data-sid="15-this-week:12">Modules 1.1–1.5</h3>
+      <p data-sid="15-this-week:13">Welcome · Environment Setup · Java Fundamentals · Unit Testing · Style &amp; Docs</p>
+    </li>
+    <li class="tile tile--a2 frag" data-step="2" data-anim="fade-up" data-sid="15-this-week:6">
+      <p class="tile__label" data-sid="15-this-week:14">PrairieLearn · due Friday</p>
+      <h3 data-sid="15-this-week:15">Homework: Week 1 Intro</h3>
+      <p data-sid="15-this-week:16">Your first graded assignment.</p>
+    </li>
+    <li class="tile tile--a3 frag" data-step="3" data-anim="fade-up" data-sid="15-this-week:7">
+      <p class="tile__label" data-sid="15-this-week:17">Lab challenge · due Friday</p>
+      <h3 data-sid="15-this-week:18">Challenge Exercise 01</h3>
+      <p data-sid="15-this-week:19">Eclipse setup — get the toolchain running.</p>
+    </li>
+    <li class="tile tile--a4 frag" data-step="4" data-anim="fade-up" data-sid="15-this-week:8">
+      <p class="tile__label" data-sid="15-this-week:20">In class · to earn credit</p>
+      <h3 data-sid="15-this-week:21">Peer Instruction</h3>
+      <p data-sid="15-this-week:22">W1D1 and W1D2, this lecture and the next.</p>
+    </li>
+  </ul>
+  <p class="week1__note frag" data-step="5" data-anim="fade-up" data-sid="15-this-week:9">No lab this week — labs begin in Week 2</p>
+
+  <div class="slide__number" data-sid="15-this-week:10"></div>
+
+  <style>
+    /* Slide-local: the task board is the shared .grid + .tile language, so the
+       only rules here are the list reset and the no-lab note. Used by this
+       slide only, all values from tokens. */
+
+    #slide-15 .week1 {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      grid-auto-rows: 1fr;
+    }
+    #slide-15 .week1 li { margin: 0; }
+
+    /* Closed-for-the-week block: dashed outline, same signal as the break
+       cell on the semester ribbon (slide 10). */
+    #slide-15 .week1__note {
+      box-sizing: border-box;
+      margin: var(--s-3) 0 0;
+      padding: var(--s-2) var(--s-4);
+      border: 2px dashed var(--fg-1);
+      border-radius: var(--r-2);
+      font-family: var(--font-mono);
+      font-size: var(--t-small);
+      color: var(--fg-1);
+    }
+  </style>
+</section>

@@ -1,0 +1,128 @@
+<section class="slide" id="slide-26" data-sid="26-start-now:1">
+  <header class="slide__head" data-sid="26-start-now:2">
+    <h2 data-sid="26-start-now:3">Agency</h2>
+  </header>
+
+  <!-- The landing, rebuilt as one visual argument: each step drops a
+       responsibility-box into the wheelbarrow (1-5) and drains one segment of
+       the agency bar on the same step; step 6 lands the only sentence that
+       matters, and step 7 grays the pusher's beard — the years going by under
+       the load. Almost no text by design — the talk carries the words. -->
+  <div class="slide__body" data-sid="26-start-now:4">
+    <figure class="scene" data-sid="26-start-now:14">
+
+      <div class="agency" style="left: 232px; top: 24px; width: 1200px;" data-sid="26-start-now:15">
+        <div class="agency__bar" data-sid="26-start-now:17">
+          <div class="agency__seg" data-sid="26-start-now:18"></div>
+          <div class="agency__seg frag frag--spent" data-step="5" data-sid="26-start-now:19"></div>
+          <div class="agency__seg frag frag--spent" data-step="4" data-sid="26-start-now:20"></div>
+          <div class="agency__seg frag frag--spent" data-step="3" data-sid="26-start-now:21"></div>
+          <div class="agency__seg frag frag--spent" data-step="2" data-sid="26-start-now:22"></div>
+          <div class="agency__seg frag frag--spent" data-step="1" data-sid="26-start-now:23"></div>
+        </div>
+      </div>
+
+      <svg class="barrow" viewBox="0 0 900 460" style="left: 382px; bottom: 0; width: 900px; height: 460px;" aria-hidden="true" data-sid="26-start-now:24">
+        <circle class="barrow__wheel" cx="190" cy="375" r="72"/>
+        <circle class="barrow__hub" cx="190" cy="375" r="14"/>
+        <path class="barrow__line" d="M235 260 L190 375 M320 260 L190 375"/>
+        <path class="barrow__tray" d="M140 100 L660 75 L600 260 L210 260 Z"/>
+        <path class="barrow__line" d="M660 75 L870 150"/>
+        <path class="barrow__line" d="M560 260 L610 440 M610 440 L665 440"/>
+      </svg>
+
+      <svg class="person" viewBox="0 0 380 560" style="left: 1150px; bottom: 0; width: 380px; height: 560px;" aria-hidden="true" data-sid="26-start-now:31">
+        <circle cx="210" cy="115" r="44"/>
+        <path d="M196 155 L250 330"/>
+        <path d="M200 185 L102 245 M212 200 L112 262"/>
+        <path d="M250 330 L185 445 L210 548"/>
+        <path d="M250 330 L305 450 L345 540"/>
+      </svg>
+
+      <div class="load frag" data-step="1" data-anim="fade-down" style="left: 585px; top: 435px; width: 150px; rotate: -4deg;" data-sid="26-start-now:25">visa</div>
+      <div class="load frag" data-step="2" data-anim="fade-down" style="left: 745px; top: 442px; width: 265px; rotate: 2deg;" data-sid="26-start-now:26">student loans</div>
+      <div class="load frag" data-step="3" data-anim="fade-down" style="left: 615px; top: 335px; width: 185px; rotate: 5deg;" data-sid="26-start-now:27">family</div>
+      <div class="load frag" data-step="4" data-anim="fade-down" style="left: 810px; top: 328px; width: 220px; rotate: -6deg;" data-sid="26-start-now:28">mortgage</div>
+      <div class="load frag" data-step="5" data-anim="fade-down" style="left: 690px; top: 228px; width: 250px; rotate: 3deg;" data-sid="26-start-now:29">expectations</div>
+
+      <p class="takeaway frag" data-step="6" data-anim="fade-up" style="left: 0; top: 120px; width: 1664px;" data-sid="26-start-now:30">Everyone has different levels of agency. But everyone has some agency.</p>
+
+      <svg class="beard frag" data-step="7" data-anim="fade" viewBox="0 0 130 140" style="left: 1306px; top: 316px; width: 108px; height: 92px;" aria-hidden="true" data-sid="26-start-now:32">
+        <path d="M8 18 C 15 85, 40 120, 65 132 C 92 118, 115 80, 122 22 C 100 48, 80 56, 65 56 C 50 56, 28 46, 8 18 Z"/>
+      </svg>
+    </figure>
+  </div>
+
+  <aside class="notes" data-sid="26-start-now:12">Talk track: responsibility is boxes piled into your wheelbarrow — each one limits how freely you can roam. Everyone in this room has a different load already: a visa, student loan debt, family responsibilities. But everyone here is young, and whatever agency you have, it is likely the most you will ever have in your life. The career decisions you make now are the most impactful you will ever make. Step through boxes 1–5 (the bar drains with each), land the takeaway on step 6, then hit step 7 — the beard goes gray — and let it sit: this is a whole career going by with the barrow still in hand.</aside>
+  <div class="slide__number" data-sid="26-start-now:13"></div>
+
+  <style>
+    /* Slide-local: wheelbarrow scene. Accents follow the deck's coding —
+       maroon object, burnt-orange loads, blue measure. All values from tokens;
+       inline styles above carry geometry only. */
+
+    #slide-26 .slide__body { position: relative; }
+    #slide-26 .scene { position: absolute; inset: 0; margin: 0; }
+    #slide-26 .scene > * { position: absolute; }
+
+    /* The h2 directly above is the meter's label — repeating "agency" here
+       read as a stutter, so the bar stands alone under the heading. */
+    #slide-26 .agency__bar { display: flex; gap: var(--s-1); }
+    #slide-26 .agency__seg {
+      flex: 1;
+      height: var(--s-3);
+      border-radius: var(--r-1);
+      background: var(--accent-2);
+    }
+    /* Inverse of the reveal: a spent segment starts lit and drains when its
+       step arrives. Same is-* classes from js/deck.js, opposite opacities. */
+    #slide-26 .frag--spent.is-pending { opacity: 1; }
+    #slide-26 .frag--spent.is-current,
+    #slide-26 .frag--spent.is-past { opacity: 0.15; }
+
+    #slide-26 .barrow { color: var(--accent-1); }
+    #slide-26 .person { color: var(--fg-0); }
+    #slide-26 .barrow path, #slide-26 .barrow circle,
+    #slide-26 .person path, #slide-26 .person circle {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    #slide-26 .barrow .barrow__tray { fill: var(--bg-0); }
+    #slide-26 .barrow .barrow__hub { fill: currentColor; stroke: none; }
+    #slide-26 .beard path { fill: var(--stone); }   /* gray — the years arriving */
+
+    #slide-26 .load {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 96px;
+      border: 3px solid var(--accent-3);
+      border-radius: var(--r-1);
+      background: color-mix(in srgb, var(--accent-3) 14%, var(--bg-1));
+      font-size: var(--t-micro);
+      color: var(--fg-0);
+      text-align: center;
+    }
+    #slide-26 .load::before {              /* taped flap line across the lid */
+      content: "";
+      position: absolute;
+      top: 26%;
+      left: 0;
+      right: 0;
+      border-top: 3px solid color-mix(in srgb, var(--accent-3) 40%, transparent);
+    }
+
+    #slide-26 .takeaway {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1.25;
+      color: var(--accent-1);
+      text-align: center;
+    }
+  </style>
+</section>

@@ -1,0 +1,135 @@
+<section class="slide" id="slide-06" data-sid="06-whats-different:1">
+  <header class="slide__head" data-sid="06-whats-different:2">
+    <h2 data-sid="06-whats-different:3">What’s different this year</h2>
+  </header>
+
+  <!-- Walkthrough: step 0 = both column headers and the faded "until now" cards,
+       so the old course is on screen before anything replaces it; steps 1-2 draw
+       each change across the gutter and light its replacement; step 3 drops the
+       honesty band that the research slide picks back up. -->
+  <div class="slide__body shift" data-sid="06-whats-different:4">
+    <p class="shift__col shift__col--was" data-sid="06-whats-different:5">UNTIL THIS YEAR</p>
+    <p class="shift__col shift__col--now" data-sid="06-whats-different:6">FALL 2026</p>
+
+    <article class="shift__was shift__was--a" data-sid="06-whats-different:7">
+      <p class="tile__label" data-sid="06-whats-different:8">Readings &amp; practice</p>
+      <p data-sid="06-whats-different:9">Course content in one place, code practice in another.</p>
+    </article>
+    <svg class="shift__arrow shift__arrow--a frag" data-step="1" viewBox="0 0 176 96" aria-hidden="true" data-sid="06-whats-different:10">
+      <path d="M 4 74 C 60 74, 96 22, 138 22" style="fill: none; stroke: var(--accent-2); stroke-width: 8; stroke-linecap: round"/>
+      <path d="M 132 8 L 168 22 L 132 36 Z" style="fill: var(--accent-2)"/>
+    </svg>
+    <article class="tile tile--a2 shift__now shift__now--a frag" data-step="1" data-anim="slide-right" data-sid="06-whats-different:11">
+      <p class="tile__label" data-sid="06-whats-different:12">PrairieLearn</p>
+      <p data-sid="06-whats-different:13">Readings and code exercises in one place, with feedback while you work.</p>
+    </article>
+
+    <article class="shift__was shift__was--b" data-sid="06-whats-different:14">
+      <p class="tile__label" data-sid="06-whats-different:15">Projects</p>
+      <p data-sid="06-whats-different:16">A spec we wrote for you, completed on your own.</p>
+    </article>
+    <svg class="shift__arrow shift__arrow--b frag" data-step="2" viewBox="0 0 176 96" aria-hidden="true" data-sid="06-whats-different:17">
+      <path d="M 4 74 C 60 74, 96 22, 138 22" style="fill: none; stroke: var(--accent-3); stroke-width: 8; stroke-linecap: round"/>
+      <path d="M 132 8 L 168 22 L 132 36 Z" style="fill: var(--accent-3)"/>
+    </svg>
+    <article class="tile tile--a3 shift__now shift__now--b frag" data-step="2" data-anim="slide-right" data-sid="06-whats-different:18">
+      <p class="tile__label" data-sid="06-whats-different:19">Open-ended &amp; collaborative</p>
+      <p data-sid="06-whats-different:20">You scope the problem and build it as a team — the spec is yours to write.</p>
+    </article>
+  </div>
+
+  <p class="shift__level frag" data-step="3" data-anim="fade-up" data-sid="06-whats-different:21">New for you — and new for us. We’ll be evaluating it together.</p>
+
+  <aside class="notes" data-sid="06-whats-different:22">Be straight about this: neither piece is a polished, road-tested system. Say plainly that we expect to change things mid-semester, and that we’d rather hear it early than at the end.</aside>
+  <div class="slide__number" data-sid="06-whats-different:23"></div>
+
+  <style>
+    /* Slide-local: a two-column before/after ledger. The "until now" side is a
+       dashed stone ghost, the "Fall 2026" side is a lit .tile carrying its own
+       accent; a bezier connector crosses the middle column per row, reusing the
+       curve language from slide 04. Rows are content-sized so a longer line
+       grows the card instead of spilling past the canvas. Used by this slide
+       only, all values from tokens. */
+
+    #slide-06 .shift {
+      display: grid;
+      grid-template-columns: 1fr 240px 1.05fr;
+      grid-template-areas:
+        "hwas  .     hnow"
+        "wasa  arra  nowa"
+        "wasb  arrb  nowb";
+      grid-template-rows: auto auto auto;
+      row-gap: var(--s-4);
+      align-content: start;
+    }
+
+    /* ---- column headers: whose course is which ---------------------------- */
+    #slide-06 .shift__col {
+      align-self: end;
+      margin: 0 0 var(--s-1);
+      font-family: var(--font-mono);
+      font-size: var(--t-small);
+      line-height: 1.2;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    #slide-06 .shift__col--was { grid-area: hwas; color: var(--stone); }
+    #slide-06 .shift__col--now { grid-area: hnow; color: var(--accent-1); }
+
+    /* ---- the old way: the same box drawn as a ghost — dashed stone outline,
+       no fill, muted ink — so the lit side reads as the live one. ----------- */
+    #slide-06 .shift__was {
+      --edge: var(--stone);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: var(--s-3) var(--s-4);
+      border: 3px dashed var(--edge);
+      border-radius: var(--r-2);
+      background: transparent;
+      color: var(--fg-1);
+    }
+    #slide-06 .shift__was--a { grid-area: wasa; }
+    #slide-06 .shift__was--b { grid-area: wasb; }
+    #slide-06 .shift__was p { font-size: var(--t-small); line-height: 1.35; }
+    #slide-06 .shift__was > :last-child { margin-bottom: 0; }
+
+    /* ---- the new way: accent tint plus a flat drop in the same hue, so the
+       replacement sits a step in front of the thing it replaced. ------------- */
+    #slide-06 .shift__now {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: color-mix(in srgb, var(--edge) 10%, var(--bg-1));
+      box-shadow: 0 var(--s-1) 0 0 color-mix(in srgb, var(--edge) 22%, transparent);
+    }
+    #slide-06 .shift__now--a { grid-area: nowa; }
+    #slide-06 .shift__now--b { grid-area: nowb; }
+    #slide-06 .shift__now p { line-height: 1.35; }
+
+    /* ---- connector: one rising curve per change, revealed with its card ---- */
+    #slide-06 .shift__arrow {
+      align-self: center;
+      justify-self: center;
+      width: 176px;
+      height: 96px;
+    }
+    #slide-06 .shift__arrow--a { grid-area: arra; }
+    #slide-06 .shift__arrow--b { grid-area: arrb; }
+
+    /* ---- honesty band: the slide's actual point, set in the display face so
+       it reads as an aside to the room, not another table row. -------------- */
+    #slide-06 .shift__level {
+      box-sizing: border-box;
+      margin: var(--s-3) 0 0;
+      padding: var(--s-2) var(--s-5);
+      border-left: var(--s-1) solid var(--accent-1);
+      border-radius: var(--r-1) var(--r-2) var(--r-2) var(--r-1);
+      background: color-mix(in srgb, var(--accent-1) 8%, var(--bg-1));
+      font-family: var(--font-display);
+      font-size: var(--t-body);
+      line-height: 1.3;
+    }
+  </style>
+</section>

@@ -1,0 +1,46 @@
+<section class="slide" id="slide-25" data-sid="25-move-fast:1">
+  <!-- The same dodge, in our own industry's words. Step 0 = the motto alone;
+       steps 1-2 take it apart one half at a time, and the second one is the
+       point: "things" was never a word about objects. -->
+  <div class="slide__body mf" data-sid="25-move-fast:2">
+    <p class="motto" data-sid="25-move-fast:3"><b class="frag" data-step="1">Move fast</b> and <b class="frag" data-step="2">break things</b>.</p>
+    <p class="note motto__src" data-sid="25-move-fast:4">— Facebook’s internal motto, 2009–2014</p>
+
+    <ul class="mf__asks" data-sid="25-move-fast:5">
+      <li class="frag" data-step="1" data-anim="fade-up" data-sid="25-move-fast:6">Move fast — <b>To where?</b></li>
+      <li class="frag" data-step="2" data-anim="fade-up" data-sid="25-move-fast:7">Break things — <b>what are we breaking? Who owns it? Who is impacted?</b></li>
+    </ul>
+  </div>
+
+  <aside class="notes" data-sid="25-move-fast:9">Read the motto out loud with the weight on “and” — the speed and the breakage were always sold as a package, not a trade-off anyone agreed to. Then take it apart slowly; leave a beat between each question. The last one is the whole slide: “things” is a euphemism, and it is doing a lot of work. Connect it straight back to von Braun — same dodge, better branding.</aside>
+  <div class="slide__number" data-sid="25-move-fast:10"></div>
+
+  <style>
+    /* Slide-local: one motto taken apart in three beats. No cards and no colour
+       blocks — size, weight and space carry it, matching the elephant slide.
+       Used by this slide only, all values from tokens. */
+
+    #slide-25 .mf { display: flex; flex-direction: column; justify-content: center; }
+
+    /* Each half starts light and non-bold, then hardens to maroon bold when its
+       question appears below — same accent as the bold in the asks. The frag
+       states must stay visible here: it is a weight/colour change, not a reveal. */
+    #slide-25 .motto b.frag { transition: font-weight .35s ease, color .35s ease, opacity .35s ease; }
+    #slide-25 .motto b.frag.is-pending { opacity: .6; font-weight: 400; color: var(--fg-1); }
+
+    /* The three questions: a plain column, no bullets — each one is a beat, not
+       an item in a list of equals. */
+    #slide-25 .mf__asks {
+      margin: var(--s-7) 0 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1.2;
+      color: var(--fg-1);
+    }
+    #slide-25 .mf__asks li { margin: 0 0 var(--s-4); }
+    #slide-25 .mf__asks li:last-child { margin-bottom: 0; }
+    #slide-25 .mf__asks b { color: var(--accent-1); }
+  </style>
+</section>

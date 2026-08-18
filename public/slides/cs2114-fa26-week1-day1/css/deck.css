@@ -663,3 +663,17 @@ aside.notes { display: none; }
   38% { opacity: 0.08; }
   52% { opacity: 1; }
 }
+
+/* Motto hero — one big display-scale sentence with accent-bold halves and a
+   mono source line. Shared by the move-fast slide and its rewritten reprise.
+   Scoped under .slide so it outranks the `.slide p` base type rules. */
+.slide .motto {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-h1);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--fg-0);
+}
+.slide .motto b { color: var(--accent-1); }
+.slide .motto__src { margin: var(--s-3) 0 0; font-family: var(--font-mono); }

@@ -1,0 +1,113 @@
+<section class="slide" id="slide-23" data-sid="23-on-whose-backs:1">
+  <header class="slide__head" data-sid="23-on-whose-backs:2">
+    <h2 data-sid="23-on-whose-backs:3">So — on whose backs?</h2>
+    <p class="slide__lede" data-sid="23-on-whose-backs:4">Same question, pointed at us. What does a software engineer make a lucrative living off?</p>
+  </header>
+
+  <!-- Steps 1-3 deal in one candidate answer each; step 4 restates the pair the
+       whole sequence turns on — privilege, then responsibility. -->
+  <div class="slide__body grid grid--3 backs" data-sid="23-on-whose-backs:5">
+    <article class="tile tile--a3 frag" data-step="1" data-anim="fade-up" data-sid="23-on-whose-backs:6">
+      <h3 data-sid="23-on-whose-backs:7">The environment</h3>
+      <!-- Racks drawing power and water: the bill arrives as somebody's grid
+           and somebody's watershed. -->
+      <svg viewBox="0 0 400 300" role="img" aria-label="Server racks beside a power bolt and a water droplet" data-sid="23-on-whose-backs:8">
+        <g class="ink">
+          <rect x="44" y="54" width="152" height="40" rx="5"/>
+          <rect x="44" y="104" width="152" height="40" rx="5"/>
+          <rect x="44" y="154" width="152" height="40" rx="5"/>
+          <rect x="44" y="204" width="152" height="40" rx="5"/>
+          <path d="M356 88 L326 152 A30 30 0 1 0 386 152 Z"/>
+        </g>
+        <g class="edge-fill">
+          <circle cx="68" cy="74" r="6"/>
+          <circle cx="68" cy="124" r="6"/>
+          <circle cx="68" cy="174" r="6"/>
+          <circle cx="68" cy="224" r="6"/>
+          <path d="M284 56 L234 150 L268 150 L252 244 L308 136 L274 136 Z"/>
+        </g>
+      </svg>
+    </article>
+    <article class="tile tile--a2 frag" data-step="2" data-anim="fade-up" data-sid="23-on-whose-backs:9">
+      <h3 data-sid="23-on-whose-backs:10">Data laborers</h3>
+      <!-- The labelling pass nobody sees: boxes drawn by hand, and a queue of
+           unnamed people behind the one doing it. -->
+      <svg viewBox="0 0 400 300" role="img" aria-label="An image being annotated with bounding boxes, and a queue of unnamed workers" data-sid="23-on-whose-backs:11">
+        <g class="ink">
+          <rect x="24" y="30" width="236" height="230" rx="6"/>
+          <path d="M200 166 L200 220 L215 206 L225 230 L236 224 L226 202 L245 200 Z"/>
+        </g>
+        <g class="edge">
+          <rect x="46" y="68" width="92" height="86" rx="3" stroke-dasharray="10 8"/>
+          <rect x="150" y="140" width="96" height="84" rx="3" stroke-dasharray="10 8"/>
+        </g>
+        <g class="edge-fill">
+          <rect x="46" y="48" width="44" height="16" rx="3"/>
+          <rect x="150" y="120" width="44" height="16" rx="3"/>
+        </g>
+        <g class="ink" opacity="0.35">
+          <circle cx="306" cy="152" r="26"/>
+          <path d="M268 264 v-40 a38 38 0 0 1 76 0 v40"/>
+        </g>
+        <g class="ink">
+          <circle cx="352" cy="152" r="26"/>
+          <path d="M314 264 v-40 a38 38 0 0 1 76 0 v40"/>
+        </g>
+      </svg>
+    </article>
+    <article class="tile tile--a4 frag" data-step="3" data-anim="fade-up" data-sid="23-on-whose-backs:12">
+      <h3 data-sid="23-on-whose-backs:13">Everyone downstream</h3>
+      <!-- One decision at the top, landing on three people who never got a vote. -->
+      <svg viewBox="0 0 400 300" role="img" aria-label="A decision at the top flowing down onto three people below" data-sid="23-on-whose-backs:14">
+        <g class="edge-fill">
+          <rect x="140" y="20" width="120" height="54" rx="8"/>
+        </g>
+        <g class="edge">
+          <path d="M186 78 L96 136"/>
+          <path d="M200 78 L200 134"/>
+          <path d="M214 78 L304 136"/>
+        </g>
+        <g class="edge-fill">
+          <path d="M80 148 L103 145 L92 129 Z"/>
+          <path d="M200 152 L210 134 L190 134 Z"/>
+          <path d="M320 148 L297 145 L308 129 Z"/>
+        </g>
+        <g class="ink">
+          <circle cx="70" cy="186" r="22"/>
+          <path d="M36 276 v-34 a34 34 0 0 1 68 0 v34"/>
+          <circle cx="200" cy="186" r="22"/>
+          <path d="M166 276 v-34 a34 34 0 0 1 68 0 v34"/>
+          <circle cx="330" cy="186" r="22"/>
+          <path d="M296 276 v-34 a34 34 0 0 1 68 0 v34"/>
+        </g>
+      </svg>
+    </article>
+  </div>
+
+  
+
+  <aside class="notes" data-sid="23-on-whose-backs:16">Ask the room before revealing the cards — they will get most of these. The answer isn’t abstinence; nobody here is quitting software. The answer is that you now know the bill exists and roughly who it lands on.</aside>
+  <div class="slide__number" data-sid="23-on-whose-backs:17"></div>
+
+  <style>
+    /* Slide-local: three answers on the shared .grid--3 + .tile language, each
+       carried by a drawing. Used by this slide only, all values from tokens. */
+
+    #slide-23 .backs { grid-auto-rows: 1fr; align-content: stretch; }
+
+    /* Heading pinned to the top of each tile, the drawing taking every pixel
+       left under it — so all three arts sit on one baseline whatever the
+       heading wraps to. preserveAspectRatio keeps them centred in that box. */
+    #slide-23 .backs .tile { display: flex; flex-direction: column; }
+    #slide-23 .backs .tile h3 { flex: 0 0 auto; }
+    #slide-23 .backs svg { display: block; flex: 1 1 0; min-height: 0; width: 100%; }
+
+    /* Two pen weights inside the art: neutral ink for the world, the tile's own
+       --edge for the thing being pointed at. */
+    #slide-23 .backs .ink,
+    #slide-23 .backs .edge { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-23 .backs .ink { stroke: var(--fg-1); }
+    #slide-23 .backs .edge { stroke: var(--edge); }
+    #slide-23 .backs .edge-fill { fill: var(--edge); }
+  </style>
+</section>

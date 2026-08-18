@@ -1,0 +1,51 @@
+<section class="slide" id="slide-21" data-sid="21-elephant:1">
+  <header class="slide__head" data-sid="21-elephant:2">
+    
+  </header>
+
+  <!-- Deliberately the quietest slide in the deck: three lines, lots of air.
+       Step 0 names the thing, step 1 admits we are doing it anyway, step 2
+       turns it into the question the rest of the sequence answers. -->
+  <div class="slide__body eleph" data-sid="21-elephant:4">
+    <p class="eleph__claim" data-sid="21-elephant:5">Generative AI is unethical.</p>
+    <p class="eleph__anyway frag" data-step="1" data-anim="fade-up" data-sid="21-elephant:6">And this course is going to use it, all semester, on purpose.</p>
+    <p class="eleph__ask frag" data-step="2" data-anim="fade-up" data-sid="21-elephant:7">So — what do we do with that?</p>
+  </div>
+
+  <aside class="notes" data-sid="21-elephant:8">Say the first line flatly and then stop talking for a beat. Don’t hedge it and don’t immediately rescue it — the discomfort is the content. The honest position isn’t “it’s fine,” it’s “it isn’t fine, we’re using it anyway, and that obliges us to think.”</aside>
+  <div class="slide__number" data-sid="21-elephant:9"></div>
+
+  <style>
+    /* Slide-local: a three-line typographic beat. No cards, no colour blocks —
+       the only devices are size, weight and space. Used by this slide only,
+       all values from tokens. */
+
+    #slide-21 .eleph {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--s-5);
+    }
+    #slide-21 .eleph p { margin: 0; font-family: var(--font-display); }
+
+    #slide-21 .eleph__claim {
+      font-size: var(--t-h1);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--fg-0);
+    }
+    #slide-21 .eleph__anyway {
+      font-size: var(--t-h3);
+      line-height: 1.25;
+      color: var(--fg-1);
+    }
+    /* The turn: a rule sets it apart as a question, not a fourth assertion. */
+    #slide-21 .eleph__ask {
+      padding-top: var(--s-5);
+      border-top: 4px solid color-mix(in srgb, var(--accent-1) 40%, transparent);
+      font-size: var(--t-h2);
+      line-height: 1.1;
+      color: var(--accent-1);
+    }
+  </style>
+</section>

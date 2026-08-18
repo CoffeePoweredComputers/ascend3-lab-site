@@ -1,0 +1,152 @@
+<section class="slide" id="slide-24" data-sid="24-von-braun:1">
+  <!-- Three full-height photographs, matched frames, captions sitting on the
+       picture so nothing under them can shift. Step 0 = the portrait alone, so
+       the room can be asked who he is before anything is claimed about him.
+       Step 1 gives the answer they expect (Saturn V), step 2 the one they don't
+       (V-2) — same man, same launch frame, and the only difference is where it
+       came down. Step 3 blurs all three out and drops the Lehrer lyric over
+       them; step 4 turns it on the room on that same blurred field. -->
+  <div class="slide__body vb" data-sid="24-von-braun:2">
+
+    <figure class="vb__panel vb__who" data-sid="24-von-braun:3">
+      <img src="assets/von-braun.jpg" alt="Wernher von Braun standing at his desk as director of NASA's Marshall Space Flight Center, rocket models on the shelf behind him" data-sid="24-von-braun:4">
+      <figcaption data-sid="24-von-braun:5">Wernher von Braun</figcaption>
+    </figure>
+
+    <div class="vb__built" data-sid="24-von-braun:6">
+      <figure class="vb__panel frag" data-step="1" data-anim="fade-up" data-sid="24-von-braun:7">
+        <img src="assets/saturn-v.jpg" alt="A Saturn V rocket lifting off from Kennedy Space Center, Apollo 11, July 1969" data-sid="24-von-braun:8">
+        <figcaption data-sid="24-von-braun:9">He invented the Saturn V — the rocket that carried Apollo to the Moon.</figcaption>
+      </figure>
+      <figure class="vb__panel frag" data-step="2" data-anim="fade-up" data-sid="24-von-braun:10">
+        <img src="assets/v2-rocket.jpg" alt="A V-2 ballistic missile lifting off from its launch stand" data-sid="24-von-braun:11">
+        <figcaption class="vb__cap--top" data-sid="24-von-braun:12">He also invented this — the V-2, the first ballistic missile, assembled by concentration-camp prisoners at Mittelbau-Dora.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="vb__turn frag" data-step="3" data-anim="fade" data-sid="24-von-braun:18">
+    <blockquote class="vb__quote frag" data-step="3" data-anim="fade" data-sid="24-von-braun:13">“Once the rockets are up, who cares where they come down? That’s not my department!”</blockquote>
+    <p class="note vb__src" data-sid="24-von-braun:14">— Tom Lehrer, “Wernher von Braun,” 1965</p>
+    <p class="vb__ask frag" data-step="4" data-anim="fade-up" data-sid="24-von-braun:15">So — where will your rockets come down?</p>
+  </div>
+
+  <aside class="notes" data-sid="24-von-braun:16">Hold on step 0 and actually ask the room — most will not place the face, a few will. Give them the Saturn V first; that is the version of him NASA put on television. Then the V-2: fired at London and Antwerp, and say plainly that the labour was slave labour — more people died building it than were killed by it. The Lehrer line is satire, not a quotation from von Braun, so say so. Then stop and let the last question sit; do not answer it. — Image credits (all public domain, no attribution required): portrait, NASA / MSFC, Fred Deaton, May 1964. Saturn V, NASA / KSC, Apollo 11 launch, 16 July 1969. V-2, UK Crown Copyright expired, Operation Backfire, Cuxhaven, October 1945.</aside>
+  <div class="slide__number" data-sid="24-von-braun:17"></div>
+
+  <style>
+    /* Slide-local: a triptych of full-height photographs, then a blurred veil
+       that lands the lyric over all three. Used by this slide only, all values
+       from tokens. */
+
+    /* The pair he built keeps its own box, so the first column is sized to the
+       exact third that leaves both inner frames identical to it. */
+    #slide-24 .vb {
+      display: grid;
+      grid-template-columns: calc((100% - 2 * var(--s-4)) / 3) 1fr;
+      grid-template-rows: minmax(0, 1fr);
+      gap: var(--s-4);
+    }
+    #slide-24 .vb__built {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-4);
+      min-height: 0;
+    }
+
+    /* One frame, filled edge to edge: the picture takes the whole panel and the
+       caption sits on it over a scrim, so captions of different length can
+       never break the match between the three frames. */
+    #slide-24 .vb__panel {
+      position: relative;
+      min-height: 0;
+      margin: 0;
+      border-radius: var(--r-2);
+      overflow: hidden;
+    }
+    #slide-24 .vb__panel img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #slide-24 .vb figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: var(--s-7) var(--s-3) var(--s-3);
+      background: linear-gradient(to top,
+        var(--fg-0),
+        color-mix(in srgb, var(--fg-0) 74%, transparent) 55%,
+        transparent);
+      font-size: var(--t-small);
+      line-height: 1.3;
+      color: var(--bg-0);
+    }
+    /* Same frame, read from the other end: caption at the head of the panel and
+       the scrim falling away downwards. */
+    #slide-24 .vb figcaption.vb__cap--top {
+      top: 0;
+      bottom: auto;
+      padding: var(--s-3) var(--s-3) var(--s-7);
+      background: linear-gradient(to bottom,
+        var(--fg-0),
+        color-mix(in srgb, var(--fg-0) 74%, transparent) 55%,
+        transparent);
+    }
+
+    /* The name is the whole content of step 0 — set it like a title, not a
+       caption. */
+    #slide-24 .vb__who figcaption {
+      font-family: var(--font-display);
+      font-size: var(--t-body);
+      line-height: 1.2;
+    }
+
+    /* Step 3: the slide itself goes soft and the lyric drops onto it. The wash
+       is what carries the text where backdrop-filter is unavailable, so it has
+       to stand on its own. */
+    #slide-24 .vb__turn {
+      position: absolute;
+      inset: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-7) var(--s-8);
+      background: color-mix(in srgb, var(--bg-0) 76%, transparent);
+      -webkit-backdrop-filter: blur(28px) saturate(0.7);
+      backdrop-filter: blur(28px) saturate(0.7);
+      text-align: center;
+    }
+    /* Before it lands it must not swallow clicks meant for the photographs. */
+    #slide-24 .vb__turn.is-pending { pointer-events: none; }
+
+    /* Hero setting: no left rule — the veil already separates it from the slide. */
+    #slide-24 .vb__quote {
+      max-width: 1240px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: var(--t-h2);
+      line-height: 1.15;
+    }
+    #slide-24 .vb__src { margin: var(--s-3) 0 0; font-family: var(--font-mono); font-weight: 700; }
+
+    /* The turn: a rule sets it apart as a question, not another claim — same
+       device as the other landing slides. Its space is reserved from step 3, so
+       the quote does not jump when it arrives. */
+    #slide-24 .vb__ask {
+      width: 100%;
+      margin: var(--s-6) 0 0;
+      padding-top: var(--s-4);
+      border-top: 4px solid color-mix(in srgb, var(--accent-1) 40%, transparent);
+      font-family: var(--font-display);
+      font-size: var(--t-h3);
+      line-height: 1.15;
+      color: var(--accent-1);
+    }
+  </style>
+</section>

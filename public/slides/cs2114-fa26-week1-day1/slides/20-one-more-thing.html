@@ -1,0 +1,169 @@
+<section class="slide" id="slide-20" data-sid="20-one-more-thing:1">
+  <!-- Slide 04 exactly as it ended: name at full size, all seven skills lit,
+       cracks healed. Step 1 = one more chip, Ethics, bumps into the lineup the
+       same way Design and Decomposition did. -->
+  <div class="namebreak" data-sid="20-one-more-thing:40">
+    <div class="namebreak__design" data-sid="20-one-more-thing:41">Software Design &amp;</div>
+    <div class="namebreak__ds" data-sid="20-one-more-thing:42">Data Structures</div>
+  </div>
+
+  <ul class="skills" data-sid="20-one-more-thing:43">
+    <li data-sid="20-one-more-thing:44">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:52">
+        <path d="M12 36 L14 28 L32 10 L38 16 L20 34 Z"/>
+        <path d="M28 14 L34 20"/>
+      </svg>
+      Writing
+    </li>
+    <li data-sid="20-one-more-thing:45">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:53">
+        <circle cx="24" cy="24" r="16"/>
+        <path d="M16 25 L22 31 L32 16"/>
+      </svg>
+      Testing
+    </li>
+    <li data-sid="20-one-more-thing:46">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:54">
+        <circle cx="8" cy="12" r="2.5" fill="currentColor" stroke="none"/>
+        <path d="M8 12 L24 12 L24 26 L38 26"/>
+        <path d="M32 20 L38 26 L32 32"/>
+      </svg>
+      Tracing
+    </li>
+    <li data-sid="20-one-more-thing:47">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:55">
+        <ellipse cx="24" cy="27" rx="9" ry="12"/>
+        <path d="M24 15 L24 39"/>
+        <path d="M15 21 L8 17 M15 28 L7 28 M15 34 L9 40 M33 21 L40 17 M33 28 L41 28 M33 34 L39 40"/>
+        <path d="M20 16 L16 9 M28 16 L32 9"/>
+      </svg>
+      Debugging
+    </li>
+    <li data-sid="20-one-more-thing:48">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:56">
+        <path d="M24 13 C19 9 12 9 8 11 L8 37 C12 35 19 35 24 39 C29 35 36 35 40 37 L40 11 C36 9 29 9 24 13 Z"/>
+        <path d="M24 13 L24 39"/>
+      </svg>
+      Reading code
+    </li>
+    <li class="skill--new" data-sid="20-one-more-thing:49">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:57">
+        <circle cx="24" cy="9" r="3"/>
+        <path d="M22 12 L13 38 M26 12 L35 38"/>
+        <path d="M16 31 A15 15 0 0 0 32 31"/>
+      </svg>
+      Design
+    </li>
+    <li class="skill--new" data-sid="20-one-more-thing:50">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:58">
+        <rect x="8" y="8" width="13" height="13" rx="2"/>
+        <rect x="27" y="8" width="13" height="13" rx="2"/>
+        <rect x="8" y="27" width="13" height="13" rx="2"/>
+        <rect x="27" y="27" width="13" height="13" rx="2"/>
+      </svg>
+      Decomposition
+    </li>
+    <li class="skill--ethics frag" data-step="1" data-sid="20-one-more-thing:51">
+      <svg viewBox="0 0 48 48" aria-hidden="true" data-sid="20-one-more-thing:59">
+        <circle cx="24" cy="8" r="2.5"/>
+        <path d="M24 11 L24 38 M17 38 L31 38"/>
+        <path d="M10 14 L38 14"/>
+        <path d="M10 14 L5 26 M10 14 L15 26"/>
+        <path d="M3 26 A 7 7 0 0 0 17 26"/>
+        <path d="M38 14 L33 26 M38 14 L43 26"/>
+        <path d="M31 26 A 7 7 0 0 0 45 26"/>
+      </svg>
+      Ethics
+    </li>
+  </ul>
+
+  <aside class="notes" data-sid="20-one-more-thing:18">Put slide 4 back up, exactly as it ended. Then: one more thing. Ethics joins the lineup the same way design and decomposition did — it's a skill of the discipline, not a bolt-on unit. This is the door into the next few slides.</aside>
+  <div class="slide__number" data-sid="20-one-more-thing:19"></div>
+
+  <style>
+    /* Slide 04's composition frozen at its final frame; only the Ethics chip
+       animates here. Same values, scoped to this slide. */
+    #slide-20 {
+      justify-content: center;
+      --name-size: calc(var(--t-h2) * 1.2);
+    }
+
+    #slide-20 .namebreak {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: var(--s-3);
+      margin: 0 0 var(--s-7);
+      font-family: var(--font-display);
+      font-size: var(--name-size);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--accent-1);
+    }
+
+    #slide-20 .skills {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: var(--s-3);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: var(--t-small);
+    }
+    #slide-20 .skills li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--s-2);
+      margin: 0;
+      padding: var(--s-3) var(--s-1);
+      border: 3px solid var(--accent-2);
+      border-radius: var(--r-2);
+      background: var(--bg-1);
+      white-space: nowrap;
+    }
+    #slide-20 .skills svg {
+      width: var(--s-7);
+      height: var(--s-7);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      color: var(--accent-2);
+    }
+    #slide-20 .skills li.skill--new {
+      border-color: var(--accent-3);
+      color: var(--accent-3);
+    }
+    #slide-20 .skills li.skill--new svg { color: var(--accent-3); }
+
+    /* The one more thing: maroon, collapsed until step 1, bumps in from the
+       right just like the step-8 chips did on slide 04. The flex gap sits
+       outside the box, so the pending chip also cancels it with a negative
+       margin. */
+    #slide-20 .skills li.skill--ethics {
+      border-color: var(--accent-1);
+      color: var(--accent-1);
+      overflow: hidden;
+      max-width: 360px;
+      transition:
+        opacity .4s ease,
+        transform .5s cubic-bezier(.2, 1.5, .4, 1),
+        max-width .5s cubic-bezier(.2, 1.5, .4, 1),
+        margin .5s ease, padding .5s ease, border-width .5s ease;
+    }
+    #slide-20 .skills li.skill--ethics svg { color: var(--accent-1); }
+    #slide-20 .skills li.skill--ethics.is-pending {
+      max-width: 0;
+      padding-left: 0;
+      padding-right: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      margin-left: calc(-1 * var(--s-3));
+      transform: translateX(var(--s-7));
+    }
+  </style>
+</section>

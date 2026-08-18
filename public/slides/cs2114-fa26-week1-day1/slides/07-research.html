@@ -1,0 +1,61 @@
+<section class="slide" id="slide-07" data-sid="07-research:1">
+  <header class="slide__head" data-sid="07-research:2">
+    <h2 data-sid="07-research:3">We’re researching this, too</h2>
+  </header>
+
+  <!-- Walkthrough: step 0 = empty; step 1 = the strand about you, step 2 = the
+       strand about the TAs, step 3 merges both into what they're for. The two
+       curves are one gesture, so they arrive with the goal card, not before. -->
+  <div class="slide__body stack rsrch" data-sid="07-research:4">
+    <div class="grid grid--2" data-sid="07-research:5">
+      <article class="tile tile--a2 frag" data-step="1" data-anim="fade-up" data-sid="07-research:6">
+        <p class="tile__label" data-sid="07-research:7">With you</p>
+        <h3 data-sid="07-research:8">Your experience</h3>
+        <p data-sid="07-research:9">Surveys, interviews, and how you actually move through the modules — what helps, and what gets in the way.</p>
+      </article>
+      <article class="tile tile--a3 frag" data-step="2" data-anim="fade-up" data-sid="07-research:10">
+        <p class="tile__label" data-sid="07-research:11">With our TAs</p>
+        <h3 data-sid="07-research:12">Support for our TAs</h3>
+        <p data-sid="07-research:13">What TAs need in order to help you well — in lab, and in office hours.</p>
+      </article>
+    </div>
+
+    <svg class="rsrch__merge frag" data-step="3" viewBox="0 0 1664 96" aria-hidden="true" data-sid="07-research:14">
+      <path d="M 416 0 C 416 54, 832 36, 832 74" style="fill: none; stroke: var(--accent-2); stroke-width: 8; stroke-linecap: round"/>
+      <path d="M 1248 0 C 1248 54, 832 36, 832 74" style="fill: none; stroke: var(--accent-3); stroke-width: 8; stroke-linecap: round"/>
+      <path d="M 812 68 L 832 96 L 852 68 Z" style="fill: var(--accent-1)"/>
+    </svg>
+
+    <article class="tile rsrch__goal frag" data-step="3" data-anim="fade-up" data-sid="07-research:15">
+      
+      <h3 data-sid="07-research:17">A better GenAI-forward CS 2114</h3>
+      <p data-sid="07-research:18">Everything we learn feeds the next version of this course — you’re part of the design, not just the class.</p>
+    </article>
+  </div>
+
+  <aside class="notes" data-sid="07-research:19">Two strands, one purpose. Name the TA research explicitly — students rarely hear that the staff are being supported too. Promise to share what we find; that promise is the reason the room should care.</aside>
+  <div class="slide__number" data-sid="07-research:20"></div>
+
+  <style>
+    /* Slide-local: two research strands converging on one outcome. Everything
+       reuses .stack / .grid--2 / .tile; the only new pieces are the merge
+       connector's flex behaviour and the goal card's emphasis. Used by this
+       slide only, all values from tokens. */
+
+    /* The connector is a fixed-height band between the rows — never stretched
+       or squeezed by the stack, or its curves would skew off the card centres. */
+    #slide-07 .rsrch__merge {
+      flex: none;
+      width: 100%;
+      height: 96px;
+    }
+
+    /* The payoff card: the same tile language one weight louder — accent tint,
+       a flat drop in the same hue, and the display size on its heading. */
+    #slide-07 .rsrch__goal {
+      background: color-mix(in srgb, var(--accent-1) 10%, var(--bg-1));
+      box-shadow: 0 var(--s-1) 0 0 color-mix(in srgb, var(--accent-1) 25%, transparent);
+    }
+    #slide-07 .rsrch__goal h3 { font-size: var(--t-h3); }
+  </style>
+</section>

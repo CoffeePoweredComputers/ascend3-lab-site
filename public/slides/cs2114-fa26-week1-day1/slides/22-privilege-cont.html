@@ -1,0 +1,77 @@
+<section class="slide" id="slide-22b" data-sid="22-privilege-cont:1">
+  <header class="slide__head" data-sid="22-privilege-cont:2">
+
+  </header>
+
+  <!-- The clinicians' sentence turned on the person at the front of this
+       room — same sentence, only the profession changed. -->
+  <div class="slide__body priv" data-sid="22-privilege-cont:3">
+    <article class="priv__row priv__row--mine" data-sid="22-privilege-cont:4">
+      <svg viewBox="0 0 200 200" role="img" aria-label="A graduation mortarboard, drawn in line art" data-sid="22-privilege-cont:5">
+        <path class="ink" d="M100 42 L184 78 L100 114 L16 78 Z"/>
+        <path class="ink" d="M58 96 v26 a42 20 0 0 0 84 0 V96"/>
+        <circle class="edge-fill" cx="100" cy="78" r="5"/>
+        <path class="edge" d="M184 78 v46"/>
+        <circle class="edge-fill" cx="184" cy="132" r="8"/>
+      </svg>
+      <p class="priv__requote" data-sid="22-privilege-cont:6">I have the privilege to make a lucrative living off the backs of <ins>the young — the financially and intellectually vulnerable</ins>.</p>
+      <p class="note priv__attr" data-sid="22-privilege-cont:7">— me, to a room of future software engineers, on day one</p>
+    </article>
+  </div>
+
+  <aside class="notes" data-sid="22-privilege-cont:8">The sentence is on screen from the start — say your own version in your own voice and point out that the only thing that changed is the profession. Let it sit; naming your own position is what earns the right to ask them about theirs on the next slide.</aside>
+  <div class="slide__number" data-sid="22-privilege-cont:9"></div>
+
+  <style>
+    /* Slide-local: the instructor's own version of the clinicians' quote from
+       the previous slide, set as a single hero row — line drawing left, edited
+       sentence right. Same pen language and row grammar as slide 22, scaled up
+       because it stands alone here; all values from tokens. */
+
+    #slide-22b .priv {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #slide-22b .priv__row {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      grid-template-rows: auto auto;
+      column-gap: var(--s-6);
+      row-gap: var(--s-3);
+      align-items: center;
+      margin: 0;
+    }
+    #slide-22b .priv__row > svg {
+      grid-row: 1 / 3;
+      width: 280px;
+      height: 280px;
+    }
+    #slide-22b .priv__row--mine { --edge: var(--accent-1); }
+    #slide-22b .priv__row .ink,
+    #slide-22b .priv__row .edge { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-22b .priv__row .ink { stroke: var(--fg-1); }
+    #slide-22b .priv__row .edge { stroke: var(--edge); }
+    #slide-22b .priv__row .edge-fill { fill: var(--edge); }
+
+    #slide-22b .priv__attr {
+      margin: 0 0 0 calc(var(--s-5) + var(--s-1));
+      font-family: var(--font-mono);
+    }
+
+    /* The same sentence with the profession substituted in place. */
+    #slide-22b .priv__requote {
+      margin: 0;
+      padding-left: var(--s-5);
+      border-left: var(--s-1) solid var(--accent-1);
+      font-family: var(--font-display);
+      font-size: var(--t-h2);
+      line-height: 1.2;
+    }
+    #slide-22b .priv__requote ins {
+      text-decoration: none;
+      color: var(--accent-1);
+    }
+  </style>
+</section>
