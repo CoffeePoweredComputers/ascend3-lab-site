@@ -28,7 +28,12 @@
     "type": "publication",
     "title": "One paper accepted to SIGCSE Virtual!",
     "description": "Paper Title: Print(“¡Hola!”, “েকমন আেছন?”, “안녕”): A Systematic Review of Translanguaging & Language Mixing in CS Education. Congrats to Fariha Anjum on the first paper of her PhD!!",
-    "links": []
+    "links": [
+      {
+        "text": "Pre-print",
+        "url": "https://osf.io/preprints/edarxiv/hsaf3_v1"
+      }
+    ]
   },
   {
     "date": "2026-07-29",
