@@ -6,6 +6,11 @@ import SectionHeading from '../SectionHeading.astro';
 import PersonCard from '../PersonCard.astro';
 import ProfileImage from '../ProfileImage.astro';
 import { getGroup } from '../../lib/members';
+import { getProfileIds, profileHref } from '../../lib/people';
+
+// Only people with a file in src/content/people/ have a page to link to.
+const profileIds = await getProfileIds();
+const hrefFor = (id: string) => (profileIds.has(id) ? profileHref(id) : undefined);
 
 const pi = getGroup('pi')[0];
 const phd = getGroup('phd');
@@ -47,7 +52,15 @@ const collaborators = getGroup('collaborators');
             <p class="font-mono text-sm text-primary mt-1">{pi.role}</p>
             <p class="text-text-muted text-sm mt-1">{pi.institution}</p>
             <p class="text-text-muted mt-4 leading-relaxed">{pi.bio}</p>
-            <div class="flex gap-4 mt-4 justify-center md:justify-start">
+            <div class="flex flex-wrap gap-4 mt-4 justify-center md:justify-start">
+              {hrefFor(pi.id) && (
+                <a
+                  href={hrefFor(pi.id)}
+                  class="font-mono text-sm text-primary hover:text-secondary no-underline transition-colors"
+                >
+                  full profile <span aria-hidden="true">→</span>
+                </a>
+              )}
               {pi.website && (
                 <a
                   href={pi.website}
@@ -87,7 +100,7 @@ const collaborators = getGroup('collaborators');
               photo={m.photo ?? undefined}
               bio={m.bio ?? undefined}
               website={m.website ?? undefined}
-
+              profileHref={hrefFor(m.id)}
             />
           ))}
         </div>
@@ -108,7 +121,7 @@ const collaborators = getGroup('collaborators');
               photo={m.photo ?? undefined}
               bio={m.bio ?? undefined}
               website={m.website ?? undefined}
-
+              profileHref={hrefFor(m.id)}
             />
           ))}
         </div>
@@ -129,7 +142,7 @@ const collaborators = getGroup('collaborators');
               photo={m.photo ?? undefined}
               bio={m.bio ?? undefined}
               website={m.website ?? undefined}
-
+              profileHref={hrefFor(m.id)}
             />
           ))}
         </div>
@@ -151,6 +164,7 @@ const collaborators = getGroup('collaborators');
               bio={m.bio ?? undefined}
               website={m.website ?? undefined}
               institution={m.institution}
+              profileHref={hrefFor(m.id)}
             />
           ))}
         </div>
@@ -171,9 +185,9 @@ const collaborators = getGroup('collaborators');
               photo={m.photo ?? undefined}
               bio={m.bio ?? undefined}
               website={m.website ?? undefined}
-
               institution={m.institution}
               isCollaborator={true}
+              profileHref={hrefFor(m.id)}
             />
           ))}
         </div>

@@ -2,7 +2,10 @@
 /**
  * PersonCard — Compact lab member profile card
  *
- * Static bio line, name links to website when available.
+ * Static bio line. The name links to this person's profile page when they have
+ * one (`profileHref`), otherwise to their external website — a person with both
+ * gets the profile on the name and their site as a separate line, so the
+ * internal page is never buried.
  * Collaborators use secondary accent.
  */
 
@@ -16,10 +19,20 @@ interface Props {
   website?: string;
   institution?: string;
   isCollaborator?: boolean;
+  /** Internal profile URL, when this person has a page under /people/. */
+  profileHref?: string;
 }
 
-const { name, role, photo, bio, website, institution, isCollaborator = false } = Astro.props;
+const { name, role, photo, bio, website, institution, isCollaborator = false, profileHref } = Astro.props;
 const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
+
+const hostLabel = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return 'website';
+  }
+};
 ---
 
 <div class:list={[
@@ -49,9 +62,16 @@ const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
     </div>
   )}
 
-  <!-- Name (links to website when available) -->
+  <!-- Name (links to the profile page, else the external website) -->
   <h3 class="font-heading font-semibold text-text text-base">
-    {website ? (
+    {profileHref ? (
+      <a
+        href={profileHref}
+        class="no-underline text-text hover:text-primary transition-colors"
+      >
+        {name}
+      </a>
+    ) : website ? (
       <a
         href={website}
         class="no-underline text-text hover:text-primary transition-colors"
@@ -75,6 +95,19 @@ const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
   <!-- Institution (for collaborators) -->
   {institution && (
     <p class="text-text-muted text-xs mt-0.5">{institution}</p>
+  )}
+
+  <!-- External site — only when the name is already taken by the profile link -->
+  {profileHref && website && (
+    <a
+      href={website}
+      class="font-mono text-xs text-text-muted hover:text-primary no-underline transition-colors mt-1"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {hostLabel(website)} <span aria-hidden="true">↗</span>
+      <span class="sr-only">(opens in new tab)</span>
+    </a>
   )}
 
   <!-- Bio -->

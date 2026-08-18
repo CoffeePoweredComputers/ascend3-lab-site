@@ -1,0 +1,665 @@
+/* Deck layout + runtime states. The canvas is a fixed 1920×1080 stage (keep in
+   sync with "canvas" in studio.config.json); js/deck.js scales it to the
+   viewport with a transform — author everything in canvas pixels. */
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  overflow: hidden;
+  color: var(--fg-0);
+  font-family: var(--font-body, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- fixed canvas, scaled to the viewport via transform ---- */
+.deck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  background: var(--bg-0);
+}
+
+/* ---- slides: one visible at a time (js/deck.js toggles .is-active) ---- */
+.deck > section.slide { display: none; }
+.slide {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: var(--s-7) var(--s-8);
+  overflow: hidden;
+}
+.deck > section.slide.is-active { display: flex; }   /* must out-specify the hide rule above */
+
+/* default typography (canvas pixels) */
+.slide h1, .slide h2, .slide h3 { font-family: var(--font-display, inherit); }
+.slide h1, .slide h2 { color: var(--accent-1); }   /* VT maroon headings */
+.slide h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 var(--s-4); }
+.slide h2 { font-size: var(--t-h2); line-height: 1.1; margin: 0 0 var(--s-4); }
+.slide h3 { font-size: var(--t-h3); line-height: 1.2; margin: 0 0 var(--s-3); }
+.slide p  { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+.slide ul, .slide ol { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+.slide li { margin: var(--s-2) 0; }
+.slide a { color: var(--accent-2); }
+.slide img { max-width: 100%; max-height: 100%; }
+
+.slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+.slide__number {
+  position: absolute;
+  right: var(--s-5);
+  bottom: var(--s-4);
+  padding: var(--s-1) var(--s-3);
+  border-radius: 999px;
+  background: var(--bg-1);
+  font-size: var(--t-small);
+  color: var(--fg-1);
+}
+
+/* ---- step engine: .frag[data-step] reveal states, classes set by js/deck.js ---- */
+.frag { transition: opacity .35s ease, transform .35s ease; }
+.frag.is-pending { opacity: 0; }
+.frag.is-current,
+.frag.is-past { opacity: 1; }
+.frag--dim.is-pending { opacity: 0.3; }
+
+/* ---- speaker notes live inside the slide but never render ---- */
+aside.notes { display: none; }
+
+/* ---- dashed stand-in for an image not yet supplied (data-src = intended path) ---- */
+.img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 240px;
+  padding: var(--s-4);
+  border: 3px dashed var(--fg-1);
+  border-radius: var(--r-2);
+  color: var(--fg-1);
+  font-size: var(--t-small);
+  text-align: center;
+}
+.img-placeholder::after { content: attr(data-src); font-size: 24px; opacity: 0.65; }
+
+/* ==========================================================================
+   Deck components — every pattern used by more than one slide lives here.
+   Slides carry structure + draggable geometry only; colour, type, spacing and
+   radii always resolve through css/tokens.css.
+   ========================================================================== */
+
+/* ---- slide head: optional terminal-prompt kicker over the title ---------- */
+.slide__head { flex: 0 0 auto; margin-bottom: var(--s-5); }
+.slide__head h1, .slide__head h2 { margin-bottom: 0; }
+.slide__kicker {
+  font-family: var(--font-body);
+  font-size: var(--t-small);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-1);
+  margin: 0 0 var(--s-2);
+}
+/* Terminal-prompt variant — the ASCEND lab-intro slide only. */
+.slide__kicker--mono {
+  font-family: var(--font-mono);
+  text-transform: none;
+  letter-spacing: 0.06em;
+  color: var(--accent-2);
+}
+.slide__lede {
+  font-size: var(--t-h3);
+  line-height: 1.25;
+  color: var(--fg-1);
+  margin: var(--s-3) 0 0;
+  max-width: 1400px;
+}
+
+/* ---- title + section-divider layouts ------------------------------------ */
+.slide--title, .slide--section { justify-content: center; }
+.slide--title h1 { max-width: 1320px; }
+
+/* Opt-out of the stone edge; the ridge widens to fill the freed strip.
+   Doubled class keeps this above the later .slide::before rule in the cascade. */
+.slide.slide--nostone::before { content: none; }
+.slide--nostone .decor--ridge { left: 0; width: 1920px; }
+
+/* Fully centred composition (cover). */
+.slide--center { align-items: center; text-align: center; }
+
+/* ---- sunrise cover (alt) — full dawn sky, light bleeding through the mist.
+   Sky: cool blue holds the top half, a narrow maroon-rose band crosses the
+   middle, the warm ramp compresses into the last quarter; a radial bloom
+   marks the sun just above the ridge line. The mist on this slide is filled
+   by a userSpaceOnUse gradient anchored at the same point, so each band
+   warms near the light and drifts through it. */
+.slide--sunrise {
+  background-image:
+    radial-gradient(ellipse 1100px 620px at 50% 76%,
+      color-mix(in srgb, var(--accent-3) 52%, transparent),
+      color-mix(in srgb, var(--accent-3) 18%, transparent) 45%,
+      transparent 70%),
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--accent-2) 42%, var(--bg-0)),
+      color-mix(in srgb, var(--accent-2) 24%, var(--bg-0)) 34%,
+      color-mix(in srgb, var(--accent-1) 12%, var(--bg-0)) 55%,
+      color-mix(in srgb, var(--accent-3) 26%, var(--bg-0)) 74%,
+      color-mix(in srgb, var(--accent-3) 52%, var(--bg-0)));
+}
+.slide--sunrise .mist { fill: url(#mist-glow-01a); }
+.mistlit-core { stop-color: color-mix(in srgb, var(--accent-3) 45%, var(--bg-0)); }
+.mistlit-edge { stop-color: var(--bg-0); }
+/* VT maroon banner, burnt-orange rule beneath — mirrors the Canvas header. */
+.slide__banner {
+  align-self: flex-start;
+  margin: var(--s-4) 0 0;
+  padding: var(--s-3) var(--s-5);
+  border-bottom: 8px solid var(--accent-3);
+  border-radius: var(--r-1) var(--r-1) 0 0;
+  background: var(--accent-1);
+  color: var(--bg-0);
+  font-size: var(--t-h3);
+}
+.slide--term h2 { font-family: var(--font-mono); letter-spacing: -0.01em; color: var(--accent-2); }
+
+/* ---- flat tile: the deck's category-coded panel — full colour border ----- */
+.tile {
+  --edge: var(--accent-1);
+  box-sizing: border-box;
+  padding: var(--s-3) var(--s-4);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+}
+.tile--a2 { --edge: var(--accent-2); }
+.tile--a3 { --edge: var(--accent-3); }
+.tile--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+.tile h3 { font-size: var(--t-body); margin-bottom: var(--s-2); }
+.tile--display h3 { font-size: var(--t-h3); }   /* hero tiles keep the display scale */
+.tile p, .tile ul, .tile ol { font-size: var(--t-small); }
+.tile > :last-child { margin-bottom: 0; }
+.tile__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--edge);
+  margin: 0 0 var(--s-1);
+}
+/* Icon-led row: the glyph hangs in the widened left padding, label centres. */
+.tile--row {
+  display: flex;
+  align-items: center;
+  padding-left: var(--s-7);
+}
+
+/* ---- grids -------------------------------------------------------------- */
+.grid { display: grid; gap: var(--s-3); align-content: start; }
+.grid--2 { grid-template-columns: 1fr 1fr; }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+/* Code question: source pane left (wide enough for ~34 mono chars), the ask right. */
+.grid--code { grid-template-columns: 1.15fr 1fr; align-items: center; }
+
+/* ---- vertical stack: a column of blocks on the standard gutter ----------- */
+.stack { display: flex; flex-direction: column; gap: var(--s-3); }
+
+/* ---- spec block: the plan's Layout / Text / Visual / Notes quadruple ----- */
+.spec { margin: 0; font-size: var(--t-small); }
+.spec dt { font-family: var(--font-mono); color: var(--accent-1); margin-top: var(--s-2); }
+.spec dd { margin: 0 0 var(--s-2); }
+
+/* ---- pill chips (matches the Canvas quick-link row + lab keyword tags) --- */
+.chips { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; padding: 0; margin: 0; }
+.chips li {
+  margin: 0;
+  padding: var(--s-1) var(--s-3);
+  border: 2px solid var(--accent-1);
+  border-radius: 999px;
+  font-size: var(--t-small);
+  color: var(--accent-1);
+}
+
+/* ---- terminal card (ASCEND motif) + plain code block -------------------- */
+.term, .code {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+/* The terminal card stays dark whatever the theme does — it anchors to the ink,
+   not the ground, because the ASCEND motif is a dark card on a light slide. */
+.term {
+  border: 2px solid color-mix(in srgb, var(--term-ink) 55%, var(--fg-0));
+  background: var(--fg-0);
+  color: var(--term-ink);
+}
+.code { background: var(--bg-1); color: var(--fg-0); }
+
+/* ---- source editor: a code pane with a filename bar and a numbered gutter.
+   Chrome is stone-toned on purpose — content tiles carry the accent edges, so
+   "this is code" and "this is the ask" never read as the same kind of box.
+   Lines are <li> so each one is selectable and can take its own step. ------ */
+.editor {
+  --chrome: color-mix(in srgb, var(--stone) 70%, var(--fg-0));
+  box-sizing: border-box;
+  margin: 0;
+  border: 3px solid var(--chrome);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+  overflow: hidden;                     /* keeps the bar inside the rounded corners */
+}
+.editor__bar {
+  padding: var(--s-1) var(--s-3);
+  border-bottom: 3px solid var(--chrome);
+  background: color-mix(in srgb, var(--stone) 30%, var(--bg-1));
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: var(--fg-0);
+}
+/* Out-specifies the base ".slide ol" rule — a bare .editor__code would lose. */
+.slide .editor__code {
+  margin: 0;
+  padding: var(--s-2) var(--s-4) var(--s-2) 0;
+  list-style: none;
+  counter-reset: line;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--fg-0);
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--stone) 20%, var(--bg-1)) 0 calc(var(--s-6) + var(--s-2)),
+    transparent calc(var(--s-6) + var(--s-2)));
+}
+.slide .editor__code li {
+  margin: 0;
+  counter-increment: line;
+  white-space: pre;
+}
+.editor__code li::before {              /* right-aligned line number in the gutter */
+  content: counter(line);
+  display: inline-block;
+  width: var(--s-6);
+  margin-right: var(--s-4);
+  text-align: right;
+  font-size: var(--t-micro);
+  color: var(--chrome);
+}
+/* Syntax ink — keep it to keywords and literals; everything else stays --fg-0. */
+.tok-key { color: var(--accent-1); font-weight: 700; }
+.tok-num { color: var(--accent-2); }
+
+/* ---- reference diagram: names on the left, heap objects on the right, one
+   arrow per name. Two names sharing an object = one box spanning both rows. */
+.refs {
+  display: grid;
+  grid-template-columns: max-content var(--s-7) minmax(300px, max-content) 1fr;
+  gap: var(--s-3) 0;
+  align-items: center;
+  margin: 0;
+}
+.refs__var {
+  position: relative;
+  grid-column: 1;
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--accent-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--bg-0);
+  text-align: center;
+}
+.refs__var::after {                     /* shaft, crossing the empty spacer column */
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: var(--s-7);
+  margin-top: -2px;
+  border-top: 4px solid var(--accent-2);
+}
+.refs__var::before {                    /* head, tip landing on the object's edge */
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-left: calc(var(--s-7) - 20px);
+  transform: translateY(-50%);
+  border: 14px solid transparent;
+  border-right: 0;
+  border-left: 20px solid var(--accent-2);
+}
+.refs__obj {
+  --edge: var(--accent-1);
+  grid-column: 3;
+  box-sizing: border-box;
+  padding: var(--s-2) var(--s-3);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+}
+.refs__obj--shared { grid-row: span 2; }
+.refs__obj--changed { --edge: var(--accent-3); }   /* the object this step altered */
+.refs__type {
+  margin-bottom: var(--s-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.2;
+  color: var(--edge);
+}
+.refs__field {
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--fg-0);
+}
+.refs figcaption {
+  grid-column: 1 / -1;
+  margin-top: var(--s-2);
+  font-size: var(--t-small);
+  line-height: 1.35;
+  color: var(--fg-1);
+}
+
+/* ---- warm-up slides: question at left, stepped walkthrough rail at right.
+   The rail compacts .refs/.tile so a full before→code→after sequence fits one
+   column; the slide modifier steps the heading down so both columns clear the
+   canvas. Used by the two peer-instruction warm-ups. */
+.slide--warmup h2 { font-size: var(--t-h3); }
+.slide--warmup .tile h3 { font-size: var(--t-small); }
+.slide--warmup .stack { gap: var(--s-2); }
+.walkthru { display: flex; flex-direction: column; gap: var(--s-2); }
+.walkthru .refs { gap: var(--s-1) 0; }
+.walkthru .refs__obj {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding: var(--s-1) var(--s-2);
+}
+.walkthru .refs__type { margin-bottom: 0; }
+.walkthru .refs figcaption { margin-top: var(--s-1); }
+.walkthru .tile { padding: var(--s-2) var(--s-3); }
+
+/* ---- data table --------------------------------------------------------- */
+.data { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
+.data th, .data td {
+  padding: var(--s-2) var(--s-3);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 2px solid color-mix(in srgb, var(--fg-1) 45%, transparent);
+}
+.data thead th { font-weight: 700; color: var(--accent-1); }
+.data tbody th { font-weight: 400; color: var(--fg-1); }
+
+/* ---- checklist ---------------------------------------------------------- */
+.checklist { list-style: none; padding: 0; font-size: var(--t-small); }
+.checklist li { position: relative; padding-left: var(--s-6); }
+.checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--accent-3);
+  border-radius: var(--r-1);
+}
+
+/* ---- numbered arc: big display numerals instead of bullets -------------- */
+.steps { list-style: none; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; position: relative; padding-left: var(--s-7); }
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -0.18em;
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  color: var(--accent-3);
+}
+
+/* ---- pull quote --------------------------------------------------------- */
+.slide blockquote {
+  margin: 0 0 var(--s-3);
+  padding-left: var(--s-3);
+  border-left: 4px solid var(--accent-3);
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  line-height: 1.3;
+}
+
+/* ---- small muted footnote ----------------------------------------------- */
+.note { font-size: var(--t-small); color: var(--fg-1); }
+
+/* ---- moodboard motifs: Hokie Stone course + Blue Ridge silhouette ------- */
+.decor { position: absolute; pointer-events: none; }
+.decor--ridge { left: 75px; bottom: 0; width: 1845px; height: 320px; }
+
+/* ---- Hokie Stone edge — abstract, in the ridges' visual language --------
+   Flat tone-on-tone rubble shapes: assets/stone-edge.svg is an alpha-varied
+   mask over one token-mixed colour, so hue lives in tokens.css and the
+   mortar joints are the slide ground showing through. */
+.slide::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 72px;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--stone) 60%, var(--bg-0));
+  -webkit-mask-image: url("../assets/stone-edge.svg");
+  mask-image: url("../assets/stone-edge.svg");
+  -webkit-mask-size: 72px 300px;
+  mask-size: 72px 300px;
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+}
+
+/* Rough-cut stone faces: four tones mixed toward the ink so the wall reads as
+   quarried rubble rather than uniform brick, with the mortar left palest.
+   These percentages assume a light ground — flipping the theme back to dark
+   inverts mortar against the stones and they need re-tuning. */
+/* Receding Blue Ridge haze: palest ridge furthest back, deepening forward. */
+.ridge-far  { fill: var(--accent-2); opacity: 0.18; }
+.ridge-mid  { fill: var(--accent-2); opacity: 0.34; }
+.ridge-near { fill: var(--accent-2); opacity: 0.58; }
+
+/* ---- valley mist (cover) — cream haze drifting between the ridge planes.
+   Static opacities are the reduced-motion fallback; with motion allowed each
+   band drifts and breathes on its own period, desynced by negative delays. */
+.mist { fill: var(--bg-0); opacity: 0.5; }
+.mist--b { opacity: 0.42; }
+.mist--c { opacity: 0.36; }
+@media (prefers-reduced-motion: no-preference) {
+  .mist--a {
+    animation: mist-drift 26s ease-in-out infinite alternate,
+               mist-breathe 11s ease-in-out infinite alternate;
+  }
+  .mist--b {
+    animation: mist-drift 34s ease-in-out infinite alternate-reverse,
+               mist-breathe 15s ease-in-out infinite alternate;
+    animation-delay: -14s, -5s;
+  }
+  .mist--c {
+    animation: mist-drift 21s ease-in-out infinite alternate,
+               mist-breathe 9s ease-in-out infinite alternate-reverse;
+    animation-delay: -6s, -3s;
+  }
+}
+@keyframes mist-drift {
+  from { transform: translate(-160px, 5px); }
+  to   { transform: translate(160px, -5px); }
+}
+@keyframes mist-breathe {
+  from { opacity: 0.22; }
+  to   { opacity: 0.6; }
+}
+
+/* ---- three-stage arc with a deliberately compressed middle stage --------- */
+.arc { display: grid; grid-template-columns: 1fr 0.5fr 1fr; gap: var(--s-3); align-items: stretch; }
+
+/* ---- left-to-right pipeline: artifacts and the tools that transform them.
+   Boxes are content-sized (flex-basis auto), so a filename gets a wide box and
+   "Compiler" a narrow one — five equal columns forced the long labels to wrap
+   and read as undifferentiated chips. Modifiers carry the meaning: files are
+   mono outlines, tools are filled in the pipeline's own blue, the outcome
+   takes the tertiary. Arrows are drawn shaft + head like .refs, not a typed
+   "→" — the Verdana glyph is far too light to carry a gap this wide. */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-4);
+  list-style: none;
+  padding: 0;
+  font-size: var(--t-small);
+}
+.flow li {
+  --edge: var(--accent-2);
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--s-7);
+  margin: 0;
+  padding: var(--s-2) var(--s-3);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+}
+.flow__file { font-family: var(--font-mono); }          /* it is a filename — set it like one */
+.flow__tool { background: var(--edge); color: var(--bg-0); }   /* the verbs between the nouns */
+.flow__out {
+  --edge: var(--accent-3);
+  background: color-mix(in srgb, var(--accent-3) 12%, var(--bg-1));
+}
+.flow li:not(:last-child)::after {       /* shaft, spanning the gap */
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: var(--s-4);
+  margin-top: -2px;
+  border-top: 4px solid var(--accent-2);
+}
+.flow li:not(:last-child)::before {      /* head, tip landing on the next box */
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-left: calc(var(--s-4) - 16px);
+  transform: translateY(-50%);
+  border: 11px solid transparent;
+  border-right: 0;
+  border-left: 16px solid var(--accent-2);
+}
+/* ---- setting sun (closing) — sinks behind the ridge while the slide is up.
+   Slides are display:none until active, so the animation restarts on arrival. */
+@media (prefers-reduced-motion: no-preference) {
+  .sun-set { animation: sun-set 60s linear forwards; }
+}
+@keyframes sun-set {
+  from { transform: translateY(0); }
+  to   { transform: translateY(240px); }
+}
+/* ---- dusk (closing) — night falls in step with .sun-set ------------------ */
+.slide--dusk { background: var(--bg-0); }
+.slide--dusk .slide__banner { color: var(--bg-1); }   /* stays light as the ground darkens */
+/* "Thanks" rides out the whole sunset unchanged: a white pill keeps its own
+   ground, so no ink animation is needed as the sky sinks to night.
+   position: relative lifts the head into positioned paint order — it follows
+   .night in the DOM, so the overlay can never fade in on top of the pill. */
+.slide--dusk .slide__head { position: relative; }
+.slide--dusk h1 {
+  width: fit-content;
+  margin-inline: auto;
+  padding: var(--s-2) var(--s-5);
+  border-radius: 999px;
+  background: var(--bg-0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slide--dusk { animation: dusk-fall 60s linear forwards; }
+}
+/* Animate the real properties, not --bg-0: an unregistered custom property
+   can't interpolate, so it snaps to the end value at the animation midpoint. */
+/* Sky sinks through maroon dusk mid-way, then on down to night-black. */
+@keyframes dusk-fall {
+  45% { background-color: var(--fg-0); }
+  to  { background-color: var(--night); }
+}
+
+/* Valley mist dims from cream to stone-gray in step with the darkening sky.
+   Repeats the drift/breathe lists because a shorthand here would clobber them. */
+@media (prefers-reduced-motion: no-preference) {
+  .slide--dusk .mist--a {
+    animation: mist-drift 26s ease-in-out infinite alternate,
+               mist-breathe 11s ease-in-out infinite alternate,
+               mist-dusk 60s linear forwards;
+  }
+  .slide--dusk .mist--b {
+    animation: mist-drift 34s ease-in-out infinite alternate-reverse,
+               mist-breathe 15s ease-in-out infinite alternate,
+               mist-dusk 60s linear forwards;
+    animation-delay: -14s, -5s, 0s;
+  }
+  .slide--dusk .mist--c {
+    animation: mist-drift 21s ease-in-out infinite alternate,
+               mist-breathe 9s ease-in-out infinite alternate-reverse,
+               mist-dusk 60s linear forwards;
+    animation-delay: -6s, -3s, 0s;
+  }
+}
+@keyframes mist-dusk { to { fill: color-mix(in srgb, var(--stone) 45%, var(--night)); } }
+
+/* Ridges harden from translucent blue haze into near-solid blue-black
+   silhouettes as the sky sinks — least blue (darkest) at the front. */
+@media (prefers-reduced-motion: no-preference) {
+  .slide--dusk .ridge-far  { animation: ridge-dusk-far 60s linear forwards; }
+  .slide--dusk .ridge-mid  { animation: ridge-dusk-mid 60s linear forwards; }
+  .slide--dusk .ridge-near { animation: ridge-dusk-near 60s linear forwards; }
+}
+@keyframes ridge-dusk-far  { to { fill: color-mix(in srgb, var(--accent-2) 30%, var(--night)); opacity: 0.9; } }
+@keyframes ridge-dusk-mid  { to { fill: color-mix(in srgb, var(--accent-2) 18%, var(--night)); opacity: 0.96; } }
+@keyframes ridge-dusk-near { to { fill: color-mix(in srgb, var(--accent-2) 8%, var(--night)); opacity: 1; } }
+
+/* ---- nightfall (closing) — gentle crossfade to twilight in step with
+   .sun-set. Only opacity/fill/color animate — no @property needed. */
+.night {
+  background: linear-gradient(180deg,
+    var(--night) 55%,
+    color-mix(in srgb, var(--accent-1) 18%, var(--night)));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .night { animation: night-fall 60s linear forwards; }
+  .slide--dusk .ridge-occluder { animation: night-mass 60s linear forwards; }
+  .night circle { animation: star-twinkle 3.4s ease-in-out infinite; }
+  .night circle:nth-child(2n) { animation-duration: 2.6s; animation-delay: -1.1s; }
+  .night circle:nth-child(3n) { animation-duration: 4.2s; animation-delay: -2.3s; }
+  .night circle:nth-child(5n) { animation-duration: 5.1s; animation-delay: -0.7s; }
+  .night circle:nth-child(7n) { animation-duration: 1.9s; animation-delay: -0.4s; }
+  .night circle:nth-child(11n) { animation-duration: 6.3s; animation-delay: -3.1s; }
+}
+@keyframes night-fall { to { opacity: 1; } }
+@keyframes night-mass { to { fill: var(--night); } }  /* mountains darken with the sky */
+/* Endpoints are left unset so each star rests at its own attribute opacity:
+   dip near-dark, glint past the base to full bright, settle back. */
+@keyframes star-twinkle {
+  38% { opacity: 0.08; }
+  52% { opacity: 1; }
+}

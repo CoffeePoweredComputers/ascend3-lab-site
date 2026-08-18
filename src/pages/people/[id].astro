@@ -1,0 +1,228 @@
+---
+/**
+ * /people/<id> — a lab member's profile page.
+ *
+ * Opt-in: one page per file in src/content/people/. Identity (name, role, photo,
+ * contact) is read from members.json by id; this page adds the long-form bio, the
+ * courses taught with their materials, and research areas — the last of which are
+ * derived from research.json's existing `researchers` ids, so there is no
+ * per-person research list to keep in sync.
+ *
+ * The page carries its own scroll-trail nav, the way /undergrad does.
+ */
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ProfileImage from '../../components/ProfileImage.astro';
+import { getProfilePages, type Profile } from '../../lib/people';
+import type { Member } from '../../lib/members';
+import researchData from '../../data/research.json';
+import '../../styles/profile.css';
+
+export async function getStaticPaths() {
+  const pages = await getProfilePages();
+  return pages.map(({ profile, member }) => ({
+    params: { id: profile.id },
+    props: { profile, member },
+  }));
+}
+
+interface Props {
+  profile: Profile;
+  member: Member;
+}
+
+const { profile, member } = Astro.props;
+const { Content } = await render(profile);
+const { headline, courses, links } = profile.data;
+
+const initials = member.name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+
+// Research areas come free from research.json — it already names its people by id.
+const areas = researchData.filter((r) => r.researchers.includes(profile.id));
+
+const isExternal = (url: string) => /^https?:\/\//.test(url);
+const hostLabel = (url: string) => {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+};
+
+// Trail waypoints for this page's nav. The trail needs at least two waypoints to
+// draw a path between them, so a profile with neither courses nor research areas
+// falls back to route links only (the same shape /admin uses).
+const SECTIONS = [
+  { href: '#profile', label: 'Profile', id: 'profile' },
+  ...(courses.length ? [{ href: '#teaching', label: 'Teaching', id: 'teaching' }] : []),
+  ...(areas.length ? [{ href: '#areas', label: 'Research', id: 'areas' }] : []),
+];
+const NAV_LINKS = SECTIONS.length >= 2 ? SECTIONS : [];
+const NAV_ROUTES = [
+  { href: '/#people', label: 'All People', icon: '🏔' },
+  { href: '/wiki', label: 'Lab Wiki', icon: '📚' },
+];
+---
+
+<BaseLayout
+  title={member.name}
+  description={headline ?? member.bio ?? undefined}
+>
+  <Navigation slot="nav" links={NAV_LINKS} logoHref="/" routeLinks={NAV_ROUTES} />
+
+  <!-- ① Identity + bio ──────────────────────────────────────────────────── -->
+  <section id="profile" class="section">
+    <div class="container max-w-4xl">
+      <p class="font-mono text-sm text-primary mb-3">
+        &gt; <a href="/#people" class="text-primary no-underline hover:underline">people</a> / {profile.id}
+      </p>
+
+      <div class="card p-6 md:p-8">
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start">
+          {member.photo ? (
+            <ProfileImage
+              photo={member.photo}
+              name={member.name}
+              size={144}
+              sizeClass="w-36 h-36"
+              class="ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0"
+            />
+          ) : (
+            <div class="w-36 h-36 rounded-full bg-primary/10 flex items-center justify-center font-heading font-bold text-4xl text-primary ring-2 ring-primary/50 ring-offset-2 ring-offset-surface-base shrink-0">
+              {initials}
+            </div>
+          )}
+
+          <div class="text-center md:text-left">
+            <h1 class="font-heading font-bold text-3xl md:text-4xl text-text leading-tight">
+              {member.name}
+            </h1>
+            <p class="font-mono text-sm text-primary mt-2">{member.role}</p>
+            {member.institution && (
+              <p class="text-text-muted text-sm mt-0.5">{member.institution}</p>
+            )}
+            {headline && (
+              <p class="text-text-muted mt-4 leading-relaxed">{headline}</p>
+            )}
+
+            <div class="profile-contact">
+              {member.email && (
+                <a class="no-underline" href={`mailto:${member.email}`}>{member.email}</a>
+              )}
+              {member.website && (
+                <a class="no-underline" href={member.website} target="_blank" rel="noopener noreferrer">
+                  {hostLabel(member.website)} <span aria-hidden="true">↗</span>
+                  <span class="sr-only">(opens in new tab)</span>
+                </a>
+              )}
+              {links.map((l) => (
+                <a
+                  class="no-underline"
+                  href={l.url}
+                  target={isExternal(l.url) ? '_blank' : undefined}
+                  rel={isExternal(l.url) ? 'noopener noreferrer' : undefined}
+                >
+                  {l.label}
+                  {isExternal(l.url) && (
+                    <>
+                      {' '}<span aria-hidden="true">↗</span>
+                      <span class="sr-only">(opens in new tab)</span>
+                    </>
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-prose mt-10">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  <!-- ② Teaching ────────────────────────────────────────────────────────── -->
+  {courses.length > 0 && (
+    <section id="teaching" class="section">
+      <div class="container max-w-4xl">
+        <SectionHeading
+          title="Teaching"
+          subtitle="Courses taught, with the materials that go with them."
+        />
+
+        <ul class="profile-courses" role="list">
+          {courses.map((c) => (
+            <li class="card profile-course">
+              <div class="profile-course__head">
+                <h3 class="profile-course__title">
+                  <span class="profile-course__code">{c.code}</span>
+                  {c.title}
+                </h3>
+                {(c.role || c.institution) && (
+                  <p class="profile-course__meta">
+                    {[c.role, c.institution].filter(Boolean).join(' · ')}
+                  </p>
+                )}
+              </div>
+
+              {c.terms.length > 0 && (
+                <p class="profile-course__terms">{c.terms.join(' · ')}</p>
+              )}
+
+              {c.description && (
+                <p class="profile-course__desc">{c.description}</p>
+              )}
+
+              {c.materials.length > 0 && (
+                <div class="profile-materials">
+                  {c.materials.map((m) => (
+                    <a
+                      class="profile-material no-underline"
+                      href={m.url}
+                      target={isExternal(m.url) ? '_blank' : undefined}
+                      rel={isExternal(m.url) ? 'noopener noreferrer' : undefined}
+                    >
+                      {m.kind && <span class="profile-material__kind">{m.kind}</span>}
+                      <span>{m.label}</span>
+                      {isExternal(m.url) && (
+                        <>
+                          <span aria-hidden="true">↗</span>
+                          <span class="sr-only">(opens in new tab)</span>
+                        </>
+                      )}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <!-- ③ Research areas — derived from research.json ─────────────────────── -->
+  {areas.length > 0 && (
+    <section id="areas" class="section">
+      <div class="container max-w-4xl">
+        <SectionHeading
+          title="Research areas"
+          subtitle="Lab research threads this work contributes to."
+        />
+        <ul class="profile-areas" role="list">
+          {areas.map((a) => (
+            <li>
+              <a class="profile-area no-underline" href="/#research">
+                <span class="profile-area__title">{a.title}</span>
+                <span class="profile-area__keywords">{a.keywords.slice(0, 3).join(' · ')}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+</BaseLayout>
