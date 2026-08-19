@@ -254,9 +254,13 @@
 /* These app lists live inside .wiki-prose but are card grids, not prose bullets —
    override the disc marker + indent that `.wiki-prose ul` would otherwise force. */
 .wiki-prose ul.wiki-review__list,
-.wiki-prose ul.wiki-myreports__list { list-style: none; padding-left: 0; }
+.wiki-prose ul.wiki-myreports__list,
+.wiki-prose ul.wiki-bibcheck__list,
+.wiki-prose ul.wiki-bibcheck__issues { list-style: none; padding-left: 0; }
 .wiki-prose ul.wiki-review__list > li,
-.wiki-prose ul.wiki-myreports__list > li { margin-top: 0; }
+.wiki-prose ul.wiki-myreports__list > li,
+.wiki-prose ul.wiki-bibcheck__list > li,
+.wiki-prose ul.wiki-bibcheck__issues > li { margin-top: 0; }
 
 .wiki-prose blockquote {
   border-left: 3px solid var(--color-border);
@@ -2533,3 +2537,251 @@
 .wiki-esize__dist--b { fill: color-mix(in srgb, var(--color-secondary) 22%, transparent); stroke: var(--color-secondary); }
 .wiki-esize__slider { margin-top: 0.6rem; }
 .wiki-esize__stats { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
+
+/* ── Bib checker (/wiki/bib-checker) ───────────────────────────────────────── */
+.wiki-bibcheck { margin-top: 1.5rem; }
+
+.wiki-bibcheck__form { display: grid; gap: 0.75rem; }
+.wiki-bibcheck__file input { display: none; }
+.wiki-bibcheck__file span {
+  display: inline-block; cursor: pointer;
+  padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600;
+  border: 1px dashed var(--color-border); border-radius: var(--radius-md);
+  color: var(--color-text-muted); background: var(--color-surface-base);
+}
+.wiki-bibcheck__file span:hover { color: var(--color-text); border-color: var(--color-primary); }
+.wiki-bibcheck__form textarea {
+  width: 100%; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5;
+  padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface-base); color: var(--color-text); resize: vertical;
+}
+.wiki-bibcheck__controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.wiki-bibcheck__profiles { display: flex; gap: 0.75rem; border: 0; padding: 0; margin: 0; }
+.wiki-bibcheck__profiles label {
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer;
+}
+.wiki-bibcheck__check {
+  padding: 0.45rem 1.2rem; font-size: 0.85rem; font-weight: 700;
+  border: 0; border-radius: var(--radius-md); cursor: pointer;
+  background: var(--color-primary); color: #fff;
+}
+.wiki-bibcheck__check:hover { filter: brightness(1.05); }
+.wiki-bibcheck__check:disabled { opacity: 0.6; cursor: default; }
+.wiki-bibcheck__cancel {
+  padding: 0.45rem 0.9rem; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface-base); color: var(--color-text-muted);
+}
+.wiki-bibcheck__status { font-size: 0.8rem; color: var(--color-text-muted); }
+
+.wiki-bibcheck__filelevel {
+  padding: 0.75rem 1rem; margin: 0.75rem 0;
+  border: 1px solid color-mix(in srgb, var(--color-danger) 35%, transparent);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-danger) 6%, transparent);
+}
+.wiki-bibcheck__filelevel p { margin: 0 0 0.35rem; font-size: 0.85rem; }
+.wiki-bibcheck__list { display: grid; gap: 0.6rem; margin: 0.75rem 0 0; padding: 0; }
+.wiki-bibcheck__item {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-base);
+}
+.wiki-bibcheck__row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+.wiki-bibcheck__key { font-size: 0.8rem; font-weight: 700; }
+.wiki-bibcheck__type { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); }
+.wiki-bibcheck__badge {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  padding: 2px 8px; border-radius: 9999px; white-space: nowrap;
+  color: var(--s);
+  border: 1px solid color-mix(in srgb, var(--s) 45%, transparent);
+  background: color-mix(in srgb, var(--s) 12%, transparent);
+}
+.wiki-bibcheck__detail { margin: 0.4rem 0; font-size: 0.82rem; }
+.wiki-bibcheck__issues { margin: 0.4rem 0 0; display: grid; gap: 0.25rem; }
+.wiki-bibcheck__issues li {
+  font-size: 0.8rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--s, var(--color-border));
+}
+.wiki-bibcheck__issues code { font-size: 0.75rem; }
+.wiki-bibcheck__diffwrap { overflow-x: auto; margin-top: 0.5rem; }
+.wiki-bibcheck__diff { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.wiki-bibcheck__diff th, .wiki-bibcheck__diff td {
+  text-align: left; padding: 0.3rem 0.5rem;
+  border: 1px solid var(--color-border); vertical-align: top;
+}
+.wiki-bibcheck__diff thead th { font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-text-muted); }
+.wiki-bibcheck__diff tbody th { white-space: nowrap; color: var(--color-text-muted); font-weight: 600; }
+.wiki-bibcheck__score { margin: 0.3rem 0 0; font-family: var(--font-mono); font-size: 0.68rem; color: var(--color-text-muted); }
+
+/* Bib checker v2 — workflow chrome */
+.wiki-bibcheck__steps {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  list-style: none; padding: 0; margin: 0 0 1rem;
+}
+.wiki-prose ol.wiki-bibcheck__steps { list-style: none; padding-left: 0; }
+.wiki-prose ol.wiki-bibcheck__steps > li { margin-top: 0; }
+.wiki-prose ol.wiki-bibcheck__steps > li::marker { content: none; }
+.wiki-bibcheck__steps button {
+  display: flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.7rem; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--color-border); border-radius: 9999px;
+  background: var(--color-surface-base); color: var(--color-text-muted);
+}
+.wiki-bibcheck__steps button[data-state="current"] {
+  border-color: var(--color-primary); color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+.wiki-bibcheck__steps button[data-state="done"] { color: var(--color-secondary); }
+.wiki-bibcheck__steps button[data-state="done"] .wiki-bibcheck__stepnum {
+  background: color-mix(in srgb, var(--color-secondary) 15%, transparent);
+  color: var(--color-secondary);
+}
+.wiki-bibcheck__stepnum {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.3rem; height: 1.3rem; border-radius: 50%;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  background: var(--color-surface); color: var(--color-text-muted);
+}
+.wiki-bibcheck__stepcount { font-family: var(--font-mono); font-size: 0.7rem; }
+.wiki-bibcheck__stepcount:empty { display: none; }
+
+.wiki-bibcheck__progresswrap { margin: 0 0 1rem; }
+.wiki-bibcheck__bar {
+  height: 6px; border-radius: 9999px; overflow: hidden;
+  background: var(--color-surface-alt);
+}
+.wiki-bibcheck__barfill {
+  height: 100%; width: 0; border-radius: 9999px;
+  background: var(--color-primary);
+  transition: width 0.25s ease;
+}
+.wiki-bibcheck__progresstext {
+  margin: 0.35rem 0 0; font-family: var(--font-mono); font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.wiki-bibcheck__banner {
+  display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+  padding: 0.6rem 0.9rem; margin: 0 0 1rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface); font-size: 0.85rem; color: var(--color-text-muted);
+}
+.wiki-bibcheck__banner button {
+  padding: 0.25rem 0.75rem; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface-base); color: var(--color-text);
+}
+
+.wiki-bibcheck__title { margin: 0.25rem 0 0; font-size: 0.85rem; color: var(--color-text-muted); }
+.wiki-bibcheck__verdictslot { margin-left: auto; }
+.wiki-bibcheck__done { color: var(--color-secondary); font-weight: 600; }
+.wiki-bibcheck__hint { font-size: 0.8rem; color: var(--color-text-muted); }
+
+.wiki-bibcheck__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.wiki-bibcheck__btn {
+  padding: 0.35rem 0.8rem; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface-base); color: var(--color-text);
+}
+.wiki-bibcheck__btn:hover { border-color: var(--color-primary); }
+.wiki-bibcheck__btn:disabled { opacity: 0.6; cursor: default; }
+.wiki-bibcheck__btn--primary {
+  border-color: var(--color-primary);
+  background: var(--color-primary); color: #fff;
+}
+.wiki-bibcheck__btn--primary:hover { filter: brightness(1.05); }
+.wiki-bibcheck__btn--danger {
+  border-color: color-mix(in srgb, var(--color-danger) 55%, transparent);
+  color: var(--color-danger);
+}
+
+.wiki-bibcheck__editor { margin-top: 0.5rem; }
+.wiki-bibcheck__editor summary { cursor: pointer; font-size: 0.82rem; color: var(--color-text-muted); }
+.wiki-bibcheck__editraw {
+  width: 100%; margin-top: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.5;
+  padding: 0.6rem; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface-base); color: var(--color-text); resize: vertical;
+}
+
+.wiki-bibcheck__skipped { margin-top: 1rem; }
+.wiki-bibcheck__skipped summary,
+.wiki-bibcheck__clean summary { cursor: pointer; font-size: 0.85rem; color: var(--color-text-muted); }
+.wiki-bibcheck__clean { margin-top: 1.25rem; }
+.wiki-bibcheck__clean ul { list-style: none; padding: 0; margin: 0.6rem 0 0; display: grid; gap: 0.4rem; }
+.wiki-bibcheck__item--clean { padding: 0.45rem 0.9rem; }
+
+.wiki-bibcheck__changes {
+  padding: 0.75rem 1rem; margin: 0.75rem 0;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface-base);
+}
+.wiki-bibcheck__changes p { margin: 0 0 0.35rem; font-size: 0.85rem; }
+.wiki-bibcheck__changes ul { margin: 0; font-size: 0.8rem; font-family: var(--font-mono); }
+
+/* Bib checker — evidence modal (look before you approve) */
+.wiki-bibcheck__modal {
+  /* Tailwind preflight zeroes all margins, which breaks the UA stylesheet's
+     dialog centering (inset: 0 + margin: auto) — restore it explicitly. */
+  margin: auto;
+  max-width: 34rem; width: calc(100vw - 2rem);
+  max-height: calc(100vh - 4rem); overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+  background: var(--color-surface-base); color: var(--color-text);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.3);
+}
+.wiki-bibcheck__modal::backdrop { background: rgb(0 0 0 / 0.45); backdrop-filter: blur(2px); }
+/* .wiki-prose h3 outranks a bare class — anchor on the modal for specificity */
+.wiki-bibcheck__modal .wiki-bibcheck__modaltitle {
+  margin: 0 0 0.5rem; font-size: 1.05rem; font-weight: 700; line-height: 1.3;
+}
+.wiki-bibcheck__modal p { margin: 0.4rem 0; font-size: 0.88rem; line-height: 1.55; }
+.wiki-bibcheck__evidence { list-style: none; padding: 0; margin: 0.75rem 0; display: grid; gap: 0.4rem; }
+.wiki-bibcheck__evidence a {
+  display: block; padding: 0.5rem 0.8rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface); color: var(--color-primary);
+  font-size: 0.85rem; font-weight: 600; text-decoration: none;
+}
+.wiki-bibcheck__evidence a:hover { border-color: var(--color-primary); }
+.wiki-bibcheck__modalactions { justify-content: flex-end; margin-top: 1rem; }
+
+/* Bib checker — drag-and-drop highlight on the check form */
+.wiki-bibcheck__form.is-dragover textarea,
+.wiki-bibcheck__form.is-dragover .wiki-bibcheck__file span {
+  border-color: var(--color-primary);
+  border-style: dashed;
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface-base));
+}
+
+/* ── Research tools (sidebar section under the module nav) ─────────────────── */
+.wiki-tools {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+}
+.wiki-tools__label {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.wiki-tool {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 0.9rem; font-weight: 600;
+}
+.wiki-tool:hover { background: var(--color-surface); color: var(--color-primary); }
+.wiki-tool[aria-current="page"] {
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}

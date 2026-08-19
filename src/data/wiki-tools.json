@@ -1,0 +1,8 @@
+[
+  {
+    "href": "/wiki/bib-checker",
+    "title": "Bib checker",
+    "icon": "🔎",
+    "blurb": "Lint your .bib against ACM/IEEE practice, verify every entry against the DOI registries to catch fabricated citations, and download a corrected file."
+  }
+]

@@ -1,6 +1,7 @@
 ---
 import WikiLayout from '../../layouts/WikiLayout.astro';
 import { getWikiNav, lessonHref } from '../../lib/wiki';
+import tools from '../../data/wiki-tools.json';
 
 const nav = await getWikiNav();
 ---
@@ -53,5 +54,21 @@ const nav = await getWikiNav();
         );
       })}
     </div>
+
+    <section class="mt-14" aria-labelledby="wiki-tools-heading">
+      <h2 id="wiki-tools-heading" class="font-heading text-xl font-bold mb-1">Research tools</h2>
+      <p class="text-text-muted text-sm mb-5">Utilities for day-to-day research work — no sign-in needed.</p>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {tools.map((t) => (
+          <a href={t.href} class="card no-underline p-6 flex flex-col gap-3 group">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl" aria-hidden="true">{t.icon}</span>
+              <h3 class="font-heading text-lg font-bold text-text group-hover:text-primary transition-colors">{t.title}</h3>
+            </div>
+            <p class="text-sm text-text-muted flex-grow">{t.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </section>
   </div>
 </WikiLayout>

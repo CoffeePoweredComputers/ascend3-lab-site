@@ -43,7 +43,7 @@ export default defineConfig({
         'firebase/app', 'firebase/auth', 'firebase/firestore', 'js-yaml',
         '@codemirror/state', '@codemirror/view', '@codemirror/commands',
         '@codemirror/language', '@codemirror/lang-markdown', '@lezer/highlight',
-        'marked',
+        'marked', '@retorquere/bibtex-parser',
       ],
     },
   }

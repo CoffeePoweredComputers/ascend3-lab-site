@@ -19,6 +19,7 @@
     "@codemirror/state": "^6.7.0",
     "@codemirror/view": "^6.43.5",
     "@lezer/highlight": "^1.2.3",
+    "@retorquere/bibtex-parser": "^10.0.1",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
     "astro-pagefind": "^2.0.1",

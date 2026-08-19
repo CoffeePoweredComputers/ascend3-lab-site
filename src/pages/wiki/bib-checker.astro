@@ -1,0 +1,846 @@
+---
+/**
+ * /wiki/bib-checker — BibTeX validator with a guided fix-it workflow.
+ *
+ * A student uploads or pastes a .bib file; client-side code lints it against
+ * ACM/IEEE bibliography practice (src/lib/bibcheck/lint.ts) and verifies
+ * every entry against DOI registries (Crossref → doi.org RA → DataCite).
+ * Results drive a stepper workflow — Add DOIs → Fabrications → Fix data →
+ * Review → Download — where fixes are applied in place on the student's raw
+ * source (src/lib/bibcheck/edit.ts) so untouched entries keep their exact
+ * formatting, and the corrected .bib is downloadable at the end.
+ *
+ * No storage, no Firebase, public registry APIs only — deliberately ungated
+ * (decided 2026-08-19). noindex — it's a lab tool, not content; discovery
+ * stays via the signed-in account menu.
+ */
+import WikiLayout from '../../layouts/WikiLayout.astro';
+
+const STEPS = [
+  { id: 'check', label: 'Check' },
+  { id: 'dois', label: 'Add DOIs' },
+  { id: 'fab', label: 'Fabrications' },
+  { id: 'data', label: 'Fix data' },
+  { id: 'review', label: 'Review' },
+  { id: 'download', label: 'Download' },
+];
+---
+
+<WikiLayout title="Bib checker" noindex>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">&gt; Lab tools</p>
+      <h1>Bib checker</h1>
+      <p class="text-text-muted">
+        Upload or paste a BibTeX file. It gets linted against ACM/IEEE bibliography practice and
+        every entry is checked against the DOI registries — then you're walked through fixing what
+        turned up, and you leave with a corrected <code>.bib</code>. “Couldn't verify” means
+        <em>check it yourself</em>, not “fake”: theses, workshop papers, and older work are often
+        not indexed.
+      </p>
+
+      <div class="wiki-bibcheck">
+        <ol class="wiki-bibcheck__steps" data-bib-steps hidden>
+          {STEPS.map((s, i) => (
+            <li>
+              <button type="button" data-goto={s.id} data-state="pending">
+                <span class="wiki-bibcheck__stepnum">{i + 1}</span>
+                <span>{s.label}</span>
+                <span class="wiki-bibcheck__stepcount" data-count></span>
+              </button>
+            </li>
+          ))}
+        </ol>
+
+        <div class="wiki-bibcheck__progresswrap" data-bib-progress hidden>
+          <div class="wiki-bibcheck__bar"><div class="wiki-bibcheck__barfill" data-bib-barfill></div></div>
+          <p class="wiki-bibcheck__progresstext" data-bib-progresstext role="status"></p>
+        </div>
+
+        <div class="wiki-bibcheck__banner" data-bib-banner hidden>
+          <span data-bib-bannertext></span>
+          <button type="button" data-action="retry-failed">Retry</button>
+        </div>
+
+        <section class="wiki-bibcheck__stage" data-stage="check">
+          <form class="wiki-bibcheck__form" data-bib-form>
+            <label class="wiki-bibcheck__file">
+              <input type="file" accept=".bib,text/plain" data-bib-file />
+              <span>Choose a .bib file — or drop one anywhere here</span>
+            </label>
+            <textarea
+              data-bib-input
+              rows="10"
+              spellcheck="false"
+              placeholder={'…or paste BibTeX here.\n\n@inproceedings{key2024,\n  author = {…},\n  title = {…},\n}'}></textarea>
+            <div class="wiki-bibcheck__controls">
+              <fieldset class="wiki-bibcheck__profiles">
+                <legend class="sr-only">Style profile</legend>
+                <label><input type="radio" name="bib-profile" value="acm" checked /> ACM</label>
+                <label><input type="radio" name="bib-profile" value="ieee" /> IEEE</label>
+              </fieldset>
+              <button type="submit" class="wiki-bibcheck__check" data-bib-check>Check</button>
+              <button type="button" class="wiki-bibcheck__cancel" data-bib-cancel hidden>Cancel</button>
+              <span class="wiki-bibcheck__status" data-bib-status role="status"></span>
+            </div>
+          </form>
+        </section>
+
+        {STEPS.slice(1).map((s) => (
+          <section class="wiki-bibcheck__stage" data-stage={s.id} hidden>
+            <div data-stage-body></div>
+          </section>
+        ))}
+
+        <details class="wiki-bibcheck__clean" data-bib-clean hidden>
+          <summary data-bib-cleansummary></summary>
+          <ul data-bib-cleanlist role="list"></ul>
+        </details>
+
+        <dialog class="wiki-bibcheck__modal" data-bib-modal>
+          <div data-bib-modalbody></div>
+          <div class="wiki-bibcheck__actions wiki-bibcheck__modalactions">
+            <button type="button" class="wiki-bibcheck__btn" data-action="modal-cancel">Cancel</button>
+            <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-bib-modalconfirm data-action="modal-confirm" disabled></button>
+          </div>
+        </dialog>
+      </div>
+    </div>
+  </article>
+</WikiLayout>
+
+<script>
+  import type { BibEntry, LintIssue, ParseResult, Verification } from '@lib/bibcheck/types';
+
+  type Stage = 'check' | 'dois' | 'fab' | 'data' | 'review' | 'download';
+  const FIX_STAGES: Stage[] = ['dois', 'fab', 'data', 'review'];
+
+  const root = document.querySelector<HTMLElement>('.wiki-bibcheck');
+  const form = document.querySelector<HTMLFormElement>('[data-bib-form]');
+  const fileInput = document.querySelector<HTMLInputElement>('[data-bib-file]');
+  const sourceInput = document.querySelector<HTMLTextAreaElement>('[data-bib-input]');
+  const checkBtn = document.querySelector<HTMLButtonElement>('[data-bib-check]');
+  const cancelBtn = document.querySelector<HTMLButtonElement>('[data-bib-cancel]');
+  const statusEl = document.querySelector<HTMLElement>('[data-bib-status]');
+  const stepsEl = document.querySelector<HTMLElement>('[data-bib-steps]');
+  const progressEl = document.querySelector<HTMLElement>('[data-bib-progress]');
+  const barFillEl = document.querySelector<HTMLElement>('[data-bib-barfill]');
+  const progressTextEl = document.querySelector<HTMLElement>('[data-bib-progresstext]');
+  const bannerEl = document.querySelector<HTMLElement>('[data-bib-banner]');
+  const bannerTextEl = document.querySelector<HTMLElement>('[data-bib-bannertext]');
+  const cleanEl = document.querySelector<HTMLDetailsElement>('[data-bib-clean]');
+  const modalEl = document.querySelector<HTMLDialogElement>('[data-bib-modal]');
+  const modalBodyEl = document.querySelector<HTMLElement>('[data-bib-modalbody]');
+  const modalConfirmEl = document.querySelector<HTMLButtonElement>('[data-bib-modalconfirm]');
+
+  // ── Workflow state ──
+  let libs: {
+    parse: typeof import('@lib/bibcheck/parse');
+    lint: typeof import('@lib/bibcheck/lint');
+    verify: typeof import('@lib/bibcheck/verify');
+    edit: typeof import('@lib/bibcheck/edit');
+  } | null = null;
+
+  let source = '';
+  let fileName: string | null = null;
+  let profile: 'acm' | 'ieee' = 'acm';
+  let parsed: ParseResult | null = null;
+  let issues: LintIssue[] = [];
+  const verif = new Map<string, Verification>();
+  const kept = new Set<string>(); // fabrications the student vouched for
+  const reviewed = new Set<string>(); // manual-review entries marked checked
+  let log: string[] = [];
+  let initialProblems: number | null = null;
+  let current: Stage = 'check';
+  let checking = false;
+  let abort: AbortController | null = null;
+  let modalTarget: { key: string; mode: 'review' | 'keep' } | null = null;
+
+  const esc = (s: string) =>
+    s.replace(/[&<>"']/g, (c) => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string
+    ));
+
+  const VERDICT_META: Record<string, { label: string; color: string }> = {
+    verified: { label: '✓ verified', color: 'var(--color-secondary)' },
+    mismatch: { label: '✗ DOI points elsewhere', color: 'var(--color-danger)' },
+    'doi-not-found': { label: '✗ DOI not registered', color: 'var(--color-danger)' },
+    'found-via-search': { label: '◆ found — add DOI', color: 'var(--color-primary)' },
+    unverifiable: { label: '? needs manual review', color: 'var(--color-accent)' },
+    skipped: { label: '– not checkable', color: 'var(--color-text-muted)' },
+    'check-failed': { label: '⟳ couldn’t check', color: 'var(--color-text-muted)' },
+    kept: { label: '✓ kept — you verified it', color: 'var(--color-accent)' },
+    reviewed: { label: '✓ reviewed', color: 'var(--color-secondary)' },
+  };
+  const SEVERITY_COLOR: Record<string, string> = {
+    error: 'var(--color-danger)',
+    warning: 'var(--color-accent)',
+    info: 'var(--color-text-muted)',
+  };
+  const badge = (verdict: string) => {
+    const m = VERDICT_META[verdict];
+    return m ? `<span class="wiki-bibcheck__badge" style="--s:${m.color}">${esc(m.label)}</span>` : '';
+  };
+
+  // ── Derived groupings (recomputed from current data every render) ──
+  const entries = (): BibEntry[] => parsed?.entries ?? [];
+  const verdictOf = (e: BibEntry) => verif.get(e.key)?.verdict;
+  const fixableIssues = (e: BibEntry) =>
+    issues.filter((i) => i.key === e.key && (i.fix || i.code === 'junk-field'));
+  const manualIssues = (e: BibEntry) =>
+    issues.filter((i) => i.key === e.key && !i.fix && i.code !== 'junk-field');
+  const dataProblems = (e: BibEntry) =>
+    issues.filter((i) => i.key === e.key && i.severity !== 'info');
+
+  const groups = () => ({
+    dois: entries().filter((e) => verdictOf(e) === 'found-via-search'),
+    fab: entries().filter(
+      (e) => (verdictOf(e) === 'doi-not-found' || verdictOf(e) === 'mismatch') && !kept.has(e.key),
+    ),
+    data: entries().filter((e) => dataProblems(e).length > 0 || fixableIssues(e).length > 0),
+    review: entries().filter((e) => verdictOf(e) === 'unverifiable' && !reviewed.has(e.key)),
+  });
+  const failedEntries = () =>
+    entries().filter((e) => {
+      const v = verdictOf(e);
+      return (!checking && v === undefined) || v === 'check-failed';
+    });
+  const remainingCount = () => {
+    const g = groups();
+    return g.dois.length + g.fab.length + g.data.length + g.review.length;
+  };
+
+  // ── Renderers ──
+  const stageBody = (stage: string) =>
+    root!.querySelector<HTMLElement>(`[data-stage="${stage}"] [data-stage-body]`);
+
+  function entryHeader(e: BibEntry): string {
+    return `<div class="wiki-bibcheck__row">
+      <code class="wiki-bibcheck__key">${esc(e.key)}</code>
+      <span class="wiki-bibcheck__type">@${esc(e.type)}</span>
+      <span class="wiki-bibcheck__verdictslot">${badge(verdictOf(e) ?? '')}</span>
+    </div>
+    <p class="wiki-bibcheck__title">${esc(e.fields.title ?? '(no title)')}</p>`;
+  }
+
+  const diffTable = (v: Verification, e: BibEntry) => {
+    if (!v.found) return '';
+    const row = (label: string, yours?: string, registry?: string | number) =>
+      `<tr><th>${label}</th><td>${esc(yours ?? '—')}</td><td>${esc(String(registry ?? '—'))}</td></tr>`;
+    return `<div class="wiki-bibcheck__diffwrap"><table class="wiki-bibcheck__diff">
+      <thead><tr><th></th><th>Your entry</th><th>Registry (${esc(v.via ?? '')})</th></tr></thead>
+      <tbody>
+        ${row('title', e.fields.title, v.found.title)}
+        ${row('first author', e.authors[0]?.family, v.found.firstAuthor)}
+        ${row('year', e.fields.year, v.found.year)}
+        ${row('doi', e.doi, v.found.doi)}
+      </tbody>
+    </table>${v.score !== undefined ? `<p class="wiki-bibcheck__score">title similarity ${(v.score * 100).toFixed(0)}%</p>` : ''}</div>`;
+  };
+
+  const issueList = (list: LintIssue[]) =>
+    list.length
+      ? `<ul class="wiki-bibcheck__issues">${list
+          .map(
+            (i) =>
+              `<li style="--s:${SEVERITY_COLOR[i.severity]}"><strong>${esc(i.field ?? i.code)}</strong> — ${esc(i.message)}${i.fix ? ` <code>${esc(i.fix)}</code>` : ''}</li>`,
+          )
+          .join('')}</ul>`
+      : '';
+
+  const eidxOf = (e: BibEntry) => entries().indexOf(e);
+
+  function renderDois(): string {
+    const g = groups().dois;
+    if (!g.length) return `<p class="wiki-bibcheck__done">Nothing to add — every entry that could carry a DOI has one. ✓</p>`;
+    return `
+      <p>These entries have no DOI, but a confident registry match was found. Adding the DOI is a one-click fix.</p>
+      <p><button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="add-all">Add all ${g.length} DOIs</button></p>
+      <ul class="wiki-bibcheck__list" role="list">${g
+        .map((e) => {
+          const v = verif.get(e.key)!;
+          return `<li class="wiki-bibcheck__item">
+            ${entryHeader(e)}
+            <p class="wiki-bibcheck__detail">Registry: “${esc(v.found?.title ?? '')}” (${esc(String(v.found?.year ?? ''))})</p>
+            <div class="wiki-bibcheck__actions">
+              <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="add-doi" data-eidx="${eidxOf(e)}">Add doi = {${esc(v.found?.doi ?? '')}}</button>
+            </div>
+          </li>`;
+        })
+        .join('')}</ul>`;
+  }
+
+  function renderFab(): string {
+    const g = groups().fab;
+    if (!g.length) return `<p class="wiki-bibcheck__done">No suspect DOIs remaining. ✓</p>`;
+    return `
+      <p>These DOIs are unregistered or resolve to a <em>different</em> paper — the classic signs of a
+      fabricated or mistyped citation. For each: find the right DOI, remove the entry, or keep it only
+      if you've verified it yourself.</p>
+      <ul class="wiki-bibcheck__list" role="list">${g
+        .map((e) => {
+          const v = verif.get(e.key)!;
+          return `<li class="wiki-bibcheck__item">
+            ${entryHeader(e)}
+            <p class="wiki-bibcheck__detail">${esc(v.detail)}</p>
+            ${v.verdict === 'mismatch' ? diffTable(v, e) : ''}
+            <div class="wiki-bibcheck__actions">
+              <button type="button" class="wiki-bibcheck__btn" data-action="fab-search" data-eidx="${eidxOf(e)}">Find correct DOI</button>
+              <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--danger" data-action="fab-remove" data-eidx="${eidxOf(e)}">Remove entry</button>
+              <button type="button" class="wiki-bibcheck__btn" data-action="fab-keep" data-eidx="${eidxOf(e)}">Keep this entry…</button>
+            </div>
+            <p class="wiki-bibcheck__detail" data-slot hidden></p>
+          </li>`;
+        })
+        .join('')}</ul>`;
+  }
+
+  function renderData(): string {
+    const g = groups().data;
+    const fileIssues = issues.filter((i) => i.key === '');
+    const autoCount = entries().reduce((n, e) => n + fixableIssues(e).length, 0);
+    if (!g.length && !fileIssues.length)
+      return `<p class="wiki-bibcheck__done">No field problems remaining. ✓</p>`;
+    return `
+      ${
+        autoCount
+          ? `<p><button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="fix-auto">Apply ${autoCount} automatic ${autoCount === 1 ? 'fix' : 'fixes'}</button>
+             <span class="wiki-bibcheck__hint">bare DOIs, page-range dashes, junk-field removal</span></p>`
+          : ''
+      }
+      ${fileIssues.length ? `<div class="wiki-bibcheck__filelevel"><p><strong>Whole-file issues</strong></p>${issueList(fileIssues)}</div>` : ''}
+      <ul class="wiki-bibcheck__list" role="list">${g
+        .map((e) => {
+          const manual = manualIssues(e).filter((i) => i.severity !== 'info');
+          const info = manualIssues(e).filter((i) => i.severity === 'info');
+          return `<li class="wiki-bibcheck__item">
+            ${entryHeader(e)}
+            ${issueList([...fixableIssues(e), ...manual, ...info])}
+            <details class="wiki-bibcheck__editor">
+              <summary>Edit this entry</summary>
+              <textarea class="wiki-bibcheck__editraw" spellcheck="false" rows="${Math.min(e.raw.split('\n').length + 1, 14)}">${esc(e.raw)}</textarea>
+              <div class="wiki-bibcheck__actions">
+                <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="edit-save" data-eidx="${eidxOf(e)}">Save &amp; re-lint</button>
+              </div>
+            </details>
+          </li>`;
+        })
+        .join('')}</ul>`;
+  }
+
+  function renderReview(): string {
+    const g = groups().review;
+    const skipped = entries().filter((e) => verdictOf(e) === 'skipped');
+    if (!g.length && !skipped.length)
+      return `<p class="wiki-bibcheck__done">Nothing left to review. ✓</p>`;
+    return `
+      ${g.length ? `<p>These couldn't be found in any registry. That does <em>not</em> mean they're fake — theses, workshop papers, and older work are often unindexed — but you should confirm each one exists (publisher page, library catalog, the school's repository) before it ships in a paper.</p>` : `<p class="wiki-bibcheck__done">All review items handled. ✓</p>`}
+      <ul class="wiki-bibcheck__list" role="list">${g
+        .map((e) => {
+          const v = verif.get(e.key)!;
+          return `<li class="wiki-bibcheck__item">
+            ${entryHeader(e)}
+            <p class="wiki-bibcheck__detail">${esc(v.detail)}</p>
+            <div class="wiki-bibcheck__actions">
+              <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="review-mark" data-eidx="${eidxOf(e)}">Mark verified…</button>
+            </div>
+          </li>`;
+        })
+        .join('')}</ul>
+      ${
+        skipped.length
+          ? `<details class="wiki-bibcheck__skipped"><summary>Not checkable (${skipped.length}) — websites, software, and other unindexed types</summary>
+             <ul class="wiki-bibcheck__list" role="list">${skipped.map((e) => `<li class="wiki-bibcheck__item">${entryHeader(e)}</li>`).join('')}</ul></details>`
+          : ''
+      }`;
+  }
+
+  function renderDownload(): string {
+    const remaining = remainingCount();
+    const flagged = [...kept].length + groups().review.length;
+    return `
+      <p class="wiki-bibcheck__done">${
+        remaining === 0
+          ? 'All stages handled — your corrected file is ready.'
+          : `${remaining} item${remaining === 1 ? '' : 's'} still open in earlier stages — you can download anyway and finish later.`
+      }</p>
+      ${
+        log.length
+          ? `<div class="wiki-bibcheck__changes"><p><strong>Changes made (${log.length})</strong></p>
+             <ul>${log.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></div>`
+          : `<p class="wiki-bibcheck__hint">No changes were applied — the download is your original file.</p>`
+      }
+      ${flagged ? `<p class="wiki-bibcheck__hint">${flagged} entr${flagged === 1 ? 'y stays' : 'ies stay'} flagged as vouched-for/unreviewed — they're in the file unchanged.</p>` : ''}
+      <div class="wiki-bibcheck__actions">
+        <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="download">Download fixed .bib</button>
+        <button type="button" class="wiki-bibcheck__btn" data-action="copy">Copy to clipboard</button>
+      </div>`;
+  }
+
+  const RENDERERS: Record<string, () => string> = {
+    dois: renderDois,
+    fab: renderFab,
+    data: renderData,
+    review: renderReview,
+    download: renderDownload,
+  };
+
+  function renderStepper() {
+    if (!stepsEl || !parsed) return;
+    stepsEl.hidden = false;
+    const g = groups();
+    const counts: Record<string, number> = {
+      dois: g.dois.length,
+      fab: g.fab.length,
+      data: g.data.length,
+      review: g.review.length,
+    };
+    stepsEl.querySelectorAll<HTMLButtonElement>('[data-goto]').forEach((btn) => {
+      const id = btn.dataset.goto as Stage;
+      const countEl = btn.querySelector('[data-count]')!;
+      if (id === 'check') {
+        btn.dataset.state = current === 'check' ? 'current' : 'done';
+        countEl.textContent = '';
+      } else if (id === 'download') {
+        btn.dataset.state = current === 'download' ? 'current' : 'pending';
+        countEl.textContent = '';
+      } else {
+        const n = counts[id];
+        countEl.textContent = checking && n === 0 ? '…' : String(n);
+        btn.dataset.state = current === id ? 'current' : n === 0 && !checking ? 'done' : 'pending';
+      }
+    });
+  }
+
+  function renderProgress() {
+    if (!progressEl || !barFillEl || !progressTextEl) return;
+    if (!parsed) { progressEl.hidden = true; return; }
+    progressEl.hidden = false;
+    if (checking) return; // the verify loop drives the bar directly
+    const remaining = remainingCount();
+    if (initialProblems === null) initialProblems = remaining;
+    const total = Math.max(initialProblems, remaining);
+    const resolved = Math.max(0, total - remaining);
+    barFillEl.style.width = total === 0 ? '100%' : `${Math.round((resolved / total) * 100)}%`;
+    progressTextEl.textContent =
+      total === 0
+        ? `All ${entries().length} entries clean. 🎉`
+        : `${resolved} of ${total} problems resolved · ${remaining} to go`;
+  }
+
+  function renderBanner() {
+    if (!bannerEl || !bannerTextEl) return;
+    const failed = failedEntries();
+    bannerEl.hidden = checking || failed.length === 0;
+    bannerTextEl.textContent = `${failed.length} entr${failed.length === 1 ? 'y' : 'ies'} couldn't be checked (network trouble — not a verdict).`;
+  }
+
+  function renderClean() {
+    if (!cleanEl) return;
+    const g = groups();
+    const busy = new Set([...g.dois, ...g.fab, ...g.data, ...g.review].map((e) => e.key));
+    const clean = entries().filter(
+      (e) => !busy.has(e.key) && (verdictOf(e) === 'verified' || kept.has(e.key) || reviewed.has(e.key)),
+    );
+    cleanEl.hidden = clean.length === 0;
+    cleanEl.querySelector('[data-bib-cleansummary]')!.textContent = `✓ Clean (${clean.length})`;
+    cleanEl.querySelector('[data-bib-cleanlist]')!.innerHTML = clean
+      .map(
+        (e) => `<li class="wiki-bibcheck__item wiki-bibcheck__item--clean">
+          <div class="wiki-bibcheck__row">
+            <code class="wiki-bibcheck__key">${esc(e.key)}</code>
+            <span class="wiki-bibcheck__type">@${esc(e.type)}</span>
+            <span class="wiki-bibcheck__verdictslot">${badge(kept.has(e.key) ? 'kept' : reviewed.has(e.key) ? 'reviewed' : 'verified')}</span>
+          </div>
+        </li>`,
+      )
+      .join('');
+  }
+
+  function goto(stage: Stage) {
+    current = stage;
+    root!.querySelectorAll<HTMLElement>('.wiki-bibcheck__stage').forEach((s) => {
+      s.hidden = s.dataset.stage !== stage;
+    });
+    const body = stage === 'check' ? null : stageBody(stage);
+    if (body && RENDERERS[stage]) body.innerHTML = RENDERERS[stage]();
+    renderStepper();
+  }
+
+  function renderAll() {
+    renderStepper();
+    renderProgress();
+    renderBanner();
+    renderClean();
+    if (current !== 'check') {
+      const body = stageBody(current);
+      if (body && RENDERERS[current]) body.innerHTML = RENDERERS[current]();
+    }
+  }
+
+  /** Re-parse + re-lint after a source mutation, log the change, re-render. */
+  function recompute(newSource: string, changeNote?: string) {
+    if (!libs) return;
+    source = newSource;
+    parsed = libs.parse.parseBib(source);
+    issues = libs.lint.lint(parsed, profile);
+    if (changeNote) log.push(changeNote);
+    renderAll();
+  }
+
+  const firstActionableStage = (): Stage =>
+    (FIX_STAGES.find((s) => groups()[s as 'dois' | 'fab' | 'data' | 'review'].length > 0) ??
+      'download') as Stage;
+
+  // ── Actions ──
+  async function ensureLibs() {
+    if (libs) return libs;
+    const [parse, lint, verify, edit] = await Promise.all([
+      import('@lib/bibcheck/parse'),
+      import('@lib/bibcheck/lint'),
+      import('@lib/bibcheck/verify'),
+      import('@lib/bibcheck/edit'),
+    ]);
+    libs = { parse, lint, verify, edit };
+    return libs;
+  }
+
+  async function reverifyEntry(key: string) {
+    if (!libs) return;
+    const e = entries().find((x) => x.key === key);
+    if (!e) return;
+    verif.delete(key);
+    try {
+      const v = await libs.verify.verifyOne(e, new AbortController().signal);
+      verif.set(key, v);
+    } catch {
+      verif.set(key, { key, verdict: 'check-failed', detail: "Couldn't re-check — try again" });
+    }
+    renderAll();
+  }
+
+  function addDoi(e: BibEntry) {
+    if (!libs) return;
+    const v = verif.get(e.key);
+    const doi = v?.found?.doi;
+    if (!doi) return;
+    const newRaw = libs.edit.setField(e.raw, 'doi', doi);
+    verif.set(e.key, { ...v!, verdict: 'verified', detail: 'DOI added from registry match' });
+    recompute(libs.edit.replaceEntryBlock(source, e.raw, newRaw), `${e.key}: added doi = {${doi}}`);
+  }
+
+  function applyAllAuto() {
+    if (!libs) return;
+    let src = source;
+    let n = 0;
+    const notes: string[] = [];
+    for (const e of entries()) {
+      let raw = e.raw;
+      for (const issue of fixableIssues(e)) {
+        const next = libs.edit.applyLintFix(raw, issue);
+        if (next !== null && next !== raw) {
+          raw = next;
+          n++;
+          notes.push(`${e.key}: ${issue.code === 'junk-field' ? `removed ${issue.field}` : `${issue.field} → ${issue.fix}`}`);
+        }
+      }
+      if (raw !== e.raw) src = libs.edit.replaceEntryBlock(src, e.raw, raw);
+    }
+    if (n) {
+      log.push(...notes);
+      recompute(src);
+    }
+  }
+
+  async function retryFailed() {
+    if (!libs) return;
+    const failed = failedEntries();
+    bannerTextEl!.textContent = `Retrying ${failed.length}…`;
+    for (const e of failed) {
+      try {
+        verif.set(e.key, await libs.verify.verifyOne(e, new AbortController().signal));
+      } catch {
+        /* stays failed */
+      }
+    }
+    renderAll();
+  }
+
+  /**
+   * The look-before-you-approve gate: marking an entry verified/kept goes
+   * through this modal, and the confirm button stays disabled until the
+   * student has opened at least one evidence link. Publishers block iframe
+   * embedding almost universally, so links open in a new tab rather than
+   * showing the PDF inline.
+   */
+  function openEvidenceModal(entry: BibEntry, mode: 'review' | 'keep') {
+    if (!modalEl || !modalBodyEl || !modalConfirmEl) return;
+    modalTarget = { key: entry.key, mode };
+
+    const links: { href: string; label: string }[] = [];
+    if (entry.doi) links.push({ href: `https://doi.org/${entry.doi}`, label: `Open DOI ${entry.doi} ↗` });
+    if (entry.arxivId) links.push({ href: `https://arxiv.org/abs/${entry.arxivId}`, label: `Open arXiv:${entry.arxivId} ↗` });
+    const url = entry.fields.url?.trim();
+    if (url && /^https?:\/\//i.test(url)) links.push({ href: url, label: 'Open the entry’s URL ↗' });
+    const title = entry.fields.title?.trim();
+    if (title) {
+      links.push({
+        href: `https://scholar.google.com/scholar?q=${encodeURIComponent(`"${title}"`)}`,
+        label: 'Search the title on Google Scholar ↗',
+      });
+    }
+
+    modalBodyEl.innerHTML = `
+      <h3 class="wiki-bibcheck__modaltitle">${mode === 'keep' ? 'Keep a flagged entry?' : 'Confirm this reference exists'}</h3>
+      <p class="wiki-bibcheck__detail"><code>${esc(entry.key)}</code> — ${esc(title ?? '(no title)')}</p>
+      <p>${
+        mode === 'keep'
+          ? 'This citation <strong>failed verification</strong>. Open the sources below and look at the actual paper — keep the entry only if what you see matches the title, authors, venue, and year in your entry.'
+          : 'No registry could confirm this reference. Open a source below and check the paper itself — title, authors, venue, year — before marking it verified.'
+      }</p>
+      ${
+        links.length
+          ? `<ul class="wiki-bibcheck__evidence" role="list">${links
+              .map((l) => `<li><a data-evidence href="${esc(l.href)}" target="_blank" rel="noopener noreferrer">${esc(l.label)}</a></li>`)
+              .join('')}</ul>`
+          : '<p class="wiki-bibcheck__hint">This entry has no DOI, URL, or title to look up — verify it from your own records.</p>'
+      }`;
+
+    modalConfirmEl.textContent = mode === 'keep' ? 'I looked — keep this entry' : 'I looked — mark verified';
+    modalConfirmEl.disabled = links.length > 0;
+    modalConfirmEl.title = links.length > 0 ? 'Open one of the sources first' : '';
+    modalEl.showModal();
+  }
+
+  function closeModal() {
+    modalTarget = null;
+    modalEl?.close();
+  }
+
+  function confirmModal() {
+    if (!modalTarget) return;
+    const { key, mode } = modalTarget;
+    if (mode === 'keep') {
+      kept.add(key);
+      log.push(`${key}: kept — vouched for by you`);
+    } else {
+      reviewed.add(key);
+      log.push(`${key}: marked verified after manual review`);
+    }
+    closeModal();
+    renderAll();
+  }
+
+  function download() {
+    const a = document.createElement('a');
+    const url = URL.createObjectURL(new Blob([source], { type: 'application/x-bibtex' }));
+    a.href = url;
+    a.download = `${fileName?.replace(/\.bib$/i, '') ?? 'references'}-checked.bib`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+
+  root?.addEventListener('click', async (ev) => {
+    // Opening any evidence link unlocks the modal's confirm button.
+    if ((ev.target as HTMLElement).closest('a[data-evidence]')) {
+      if (modalConfirmEl) { modalConfirmEl.disabled = false; modalConfirmEl.title = ''; }
+      return; // let the link open in its new tab
+    }
+    const btn = (ev.target as HTMLElement).closest<HTMLButtonElement>('button[data-action],button[data-goto]');
+    if (!btn) return;
+    if (btn.dataset.goto) { goto(btn.dataset.goto as Stage); return; }
+
+    const eidx = btn.dataset.eidx !== undefined ? Number(btn.dataset.eidx) : -1;
+    const entry = eidx >= 0 ? entries()[eidx] : undefined;
+
+    switch (btn.dataset.action) {
+      case 'add-doi':
+        if (entry) addDoi(entry);
+        break;
+      case 'add-all':
+        for (const e of [...groups().dois]) addDoi(e);
+        break;
+      case 'fab-search': {
+        if (!entry || !libs) break;
+        const slot = btn.closest('li')?.querySelector<HTMLElement>('[data-slot]');
+        if (slot) { slot.hidden = false; slot.textContent = 'Searching Crossref…'; }
+        btn.disabled = true;
+        try {
+          const v = await libs.verify.searchForDoi(entry, new AbortController().signal);
+          if (slot) {
+            slot.innerHTML =
+              v.verdict === 'found-via-search' && v.found?.doi
+                ? `Found: “${esc(v.found.title ?? '')}” (${esc(String(v.found.year ?? ''))})
+                   <button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="use-doi" data-eidx="${eidx}" data-doi="${esc(v.found.doi)}">Use doi = {${esc(v.found.doi)}}</button>`
+                : 'No confident match — remove the entry, or keep it only if you can verify it yourself.';
+          }
+        } catch {
+          if (slot) slot.textContent = "Search failed (network) — try again.";
+        }
+        btn.disabled = false;
+        break;
+      }
+      case 'use-doi': {
+        if (!entry || !libs || !btn.dataset.doi) break;
+        const newRaw = libs.edit.setField(entry.raw, 'doi', btn.dataset.doi);
+        recompute(
+          libs.edit.replaceEntryBlock(source, entry.raw, newRaw),
+          `${entry.key}: replaced doi with {${btn.dataset.doi}}`,
+        );
+        void reverifyEntry(entry.key);
+        break;
+      }
+      case 'fab-remove':
+        if (entry && libs) {
+          verif.delete(entry.key);
+          recompute(libs.edit.removeEntryBlock(source, entry.raw), `${entry.key}: removed entry`);
+        }
+        break;
+      case 'fab-keep':
+        if (entry) openEvidenceModal(entry, 'keep');
+        break;
+      case 'fix-auto':
+        applyAllAuto();
+        break;
+      case 'edit-save': {
+        if (!entry || !libs) break;
+        const ta = btn.closest('details')?.querySelector<HTMLTextAreaElement>('textarea');
+        if (!ta) break;
+        try {
+          recompute(libs.edit.replaceEntryBlock(source, entry.raw, ta.value), `${entry.key}: edited by hand`);
+        } catch (err) {
+          statusEl!.textContent = err instanceof Error ? err.message : 'Edit failed.';
+          break;
+        }
+        const ne = entries().find((x) => x.key === entry.key);
+        if (ne && (ne.doi !== entry.doi || ne.arxivId !== entry.arxivId)) void reverifyEntry(ne.key);
+        break;
+      }
+      case 'review-mark':
+        if (entry) openEvidenceModal(entry, 'review');
+        break;
+      case 'modal-confirm':
+        confirmModal();
+        break;
+      case 'modal-cancel':
+        closeModal();
+        break;
+      case 'retry-failed':
+        void retryFailed();
+        break;
+      case 'download':
+        download();
+        break;
+      case 'copy':
+        try {
+          await navigator.clipboard.writeText(source);
+          statusEl!.textContent = 'Copied.';
+        } catch {
+          statusEl!.textContent = 'Copy failed — use Download instead.';
+        }
+        break;
+    }
+  });
+
+  async function loadFile(file: File) {
+    if (!sourceInput) return;
+    if (!/\.(bib|txt)$/i.test(file.name) && !file.type.startsWith('text/')) {
+      statusEl && (statusEl.textContent = `“${file.name}” doesn't look like a .bib file.`);
+      return;
+    }
+    sourceInput.value = await file.text();
+    fileName = file.name;
+    statusEl && (statusEl.textContent = `Loaded ${file.name} — hit Check.`);
+  }
+
+  fileInput?.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    if (file) void loadFile(file);
+  });
+
+  // Drag-and-drop onto the whole check form. dragenter/dragleave fire for
+  // every child crossed, so a depth counter decides when the highlight ends.
+  let dragDepth = 0;
+  form?.addEventListener('dragover', (ev) => ev.preventDefault());
+  form?.addEventListener('dragenter', (ev) => {
+    ev.preventDefault();
+    dragDepth++;
+    form.classList.add('is-dragover');
+  });
+  form?.addEventListener('dragleave', () => {
+    if (--dragDepth <= 0) { dragDepth = 0; form.classList.remove('is-dragover'); }
+  });
+  form?.addEventListener('drop', (ev) => {
+    ev.preventDefault();
+    dragDepth = 0;
+    form.classList.remove('is-dragover');
+    const file = ev.dataTransfer?.files?.[0];
+    if (file) void loadFile(file);
+  });
+
+  cancelBtn?.addEventListener('click', () => abort?.abort());
+
+  // Esc / backdrop-close of the native dialog must not leave a dangling target.
+  modalEl?.addEventListener('close', () => { modalTarget = null; });
+
+  // ── Check (stage ①) ──
+  form?.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    if (!sourceInput || !statusEl) return;
+    const text = sourceInput.value.trim();
+    if (!text) { statusEl.textContent = 'Nothing to check — choose a file or paste BibTeX.'; return; }
+    profile =
+      form.querySelector<HTMLInputElement>('input[name="bib-profile"]:checked')?.value === 'ieee'
+        ? 'ieee'
+        : 'acm';
+
+    // Full reset — a re-run starts the workflow over (registry caches persist).
+    verif.clear(); kept.clear(); reviewed.clear();
+    log = []; initialProblems = null; parsed = null; issues = [];
+    checkBtn && (checkBtn.disabled = true);
+    cancelBtn && (cancelBtn.hidden = false);
+    statusEl.textContent = '';
+
+    try {
+      const l = await ensureLibs();
+      try {
+        parsed = l.parse.parseBib(text);
+      } catch (err) {
+        statusEl.textContent =
+          err instanceof l.parse.BibInputError ? err.message : 'Could not parse that input.';
+        return;
+      }
+      source = text;
+      issues = l.lint.lint(parsed, profile);
+
+      checking = true;
+      goto('check');
+      renderAll();
+      progressEl && (progressEl.hidden = false);
+
+      abort = new AbortController();
+      await l.verify.verifyAll(parsed.entries, {
+        signal: abort.signal,
+        onResult: (done, total, v) => {
+          verif.set(v.key, v);
+          if (barFillEl) barFillEl.style.width = `${Math.round((done / total) * 100)}%`;
+          if (progressTextEl) progressTextEl.textContent = `Checking entry ${done} of ${total}…`;
+          renderStepper();
+        },
+      });
+
+      checking = false;
+      renderAll();
+      goto(firstActionableStage());
+    } catch (err) {
+      checking = false;
+      statusEl.textContent = 'Something went wrong — reload and try again.';
+      console.error(err);
+    } finally {
+      abort = null;
+      checking = false;
+      checkBtn && (checkBtn.disabled = false);
+      cancelBtn && (cancelBtn.hidden = true);
+    }
+  });
+</script>
