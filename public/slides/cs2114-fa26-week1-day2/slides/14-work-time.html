@@ -3,6 +3,7 @@
     <p class="slide__kicker" data-sid="14-work-time:3">THE REST OF TODAY (AND WEEK)</p>
     <h2 data-sid="14-work-time:4">Work time</h2>
   </header>
+  <p class="sr-only slide__desc" data-sid="14-work-time:42" data-hash="27d088627e" data-desc="auto">A two-week axis with due marks at Friday, at Sunday, on every weekday of next week — your lab day — and at next Friday. A highlighted column labelled now sits on Wednesday. Three bars leave it in turn: a blue Modules 1.1 to 1.5 and 2.1 to 2.5 bar to Sunday with a flag there; a Week 1 Intro HW bar to this Friday, the first thing due; and Challenge Exercise 01, Eclipse, solid to next Monday and pale through next Friday, with a small flag on every weekday. Last, two staff figures draw on inside the now column, one with a hand raised, under the words ask now.</p>
 
   <!-- Three spans that all leave the same "now" column and end on three
        different days. Step 0: the two-week axis (14 day tracks, same geometry
@@ -17,7 +18,7 @@
        body's rect, bottom-anchored), so every coordinate is a canvas pixel. -->
   <div class="slide__body" data-sid="14-work-time:5">
     <svg class="wt" viewBox="128 300 1664 684" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A two-week axis with due ticks at Friday, Sunday and every weekday of next week. Three bars leave a highlighted now column: modules to Sunday, the Week 1 Intro homework to next Friday, Challenge Exercise 01 to next week's lab-day window, Monday through Friday, labelled your lab day. Two staff figures stand in the now column under the words ask now."
+         aria-label="A two-week axis with three bars leaving a highlighted now column"
          data-sid="14-work-time:6">
       <!-- step 0: the axis and the hour you are in -->
       <rect class="wt__now" x="366" y="312" width="119" height="608" data-sid="14-work-time:7"/>
@@ -36,11 +37,12 @@
       <rect class="wt__bar wt__ink--a2 frag" data-step="1" x="366" y="400" width="594" height="56" rx="28" data-sid="14-work-time:17"/>
       <text class="wt__label frag" data-step="1" data-anim="fade" x="392" y="437" data-sid="14-work-time:18">Modules 1.1&ndash;1.5, 2.1-2.5</text>
 
-      <!-- step 2: the homework, now → next Friday -->
-      <line class="wt__pole wt__ink--a4 frag" data-step="2" pathLength="100" x1="1554" y1="920" x2="1554" y2="464" data-sid="14-work-time:19"/>
-      <path class="wt__flag wt__ink--a4 frag" data-step="2" d="M1554 464 L1594 478 L1554 492 Z" data-sid="14-work-time:20"/>
-      <rect class="wt__bar wt__ink--a4 wt__bar--long frag" data-step="2" x="366" y="512" width="1188" height="56" rx="28" data-sid="14-work-time:21"/>
-      <text class="wt__label frag" data-step="2" data-anim="fade" x="392" y="549" data-sid="14-work-time:22">Week 1 Intro homework</text>
+      <!-- step 2: the homework, now → this Friday (track 5 ends at x = 722; the
+           label is kept short so it sits inside the 356px bar with slack) -->
+      <line class="wt__pole wt__ink--a4 frag" data-step="2" pathLength="100" x1="722" y1="920" x2="722" y2="464" data-sid="14-work-time:19"/>
+      <path class="wt__flag wt__ink--a4 frag" data-step="2" d="M722 464 L762 478 L722 492 Z" data-sid="14-work-time:20"/>
+      <rect class="wt__bar wt__ink--a4 frag" data-step="2" x="366" y="512" width="356" height="56" rx="28" data-sid="14-work-time:21"/>
+      <text class="wt__label frag" data-step="2" data-anim="fade" x="392" y="549" data-sid="14-work-time:22">Week 1 Intro HW</text>
 
       <!-- step 3: the challenge exercise, now → your lab day next week. Solid
            to next Monday (the earliest section), pale window through next
@@ -63,7 +65,7 @@
     </svg>
   </div>
   <div class="slide__number" data-sid="14-work-time:34"></div>
-  <aside class="notes" data-sid="14-work-time:35">Everything starts now; the deadlines are Sun, next Fri, and your lab day next week. Step 1 — Finish Modules 1.1–1.5, 2.1-2.5 in PrairieLearn — due Sunday. Step 2 — Start the Week 1 Intro homework — due next Friday. Step 3 — Challenge Exercise 01: get Eclipse running — due next week on your lab day, so it depends on your section: Monday labs are the earliest, Friday labs the latest. Check your section's lab day. Step 4 — Stuck on any of it? Ask now, while we are all in the room. We are circulating — flag one of us down. If students coming from Python want to sit together in one area, we are happy to give extra Java guidance there. The now column sits on Wednesday: lectures are Mon/Wed and this is Day 2.</aside>
+  <aside class="notes" data-sid="14-work-time:35">Everything starts now; the deadlines are this Fri, Sun, and your lab day next week. Step 1 — Finish Modules 1.1–1.5, 2.1-2.5 in PrairieLearn — due Sunday. Step 2 — Start the Week 1 Intro homework — due this Friday, the first thing due. Step 3 — Challenge Exercise 01: get Eclipse running — due next week on your lab day, so it depends on your section: Monday labs are the earliest, Friday labs the latest. Check your section's lab day. Step 4 — Stuck on any of it? Ask now, while we are all in the room. We are circulating — flag one of us down. If students coming from Python want to sit together in one area, we are happy to give extra Java guidance there. The now column sits on Wednesday: lectures are Mon/Wed and this is Day 2.</aside>
 
   <style>
     /* Slide-local: the two-week work axis (05b's span-and-track grammar, two
@@ -99,9 +101,9 @@
     #slide-14 .wt__flag {
       fill: var(--edge); stroke: none;
       transform-box: fill-box; transform-origin: 0 50%;
-      transition: transform .3s var(--ease-smooth);
+      transition: transform .3s var(--ease-smooth), opacity .15s ease;
     }
-    #slide-14 .frag.wt__flag.is-pending { opacity: 1; transform: scale(0); }
+    #slide-14 .frag.wt__flag.is-pending { opacity: 0; transform: scale(0); }
     #slide-14 .frag.wt__flag.is-current, #slide-14 .frag.wt__flag.is-past { transition-delay: .75s; }
 
     /* the staff: 23-on-whose-backs people, drawn on stroke by stroke */

@@ -68,6 +68,43 @@ body {
 /* ---- speaker notes live inside the slide but never render ---- */
 aside.notes { display: none; }
 
+/* ---- screen-reader-only text: in the page and in the accessibility tree,
+   painted nowhere. NEVER display:none it — that removes it from the
+   accessibility tree too, which is the whole point of the class. ---- */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap; border: 0;
+}
+/* One per slide, right after the heading: what the slide shows and how it
+   builds, for someone who cannot see it (WCAG 1.1.1). js/deck.js wires it onto
+   the slide's role="img" figures via aria-describedby. See PLAN-describe.md. */
+.slide__desc { /* .sr-only carries the hiding; this class is the hook */ }
+
+/* ---- motion (WCAG 2.2.2): js/deck.js puts .no-motion on <html> when the
+   viewer presses `m` or the focus-revealed button — the mechanism this deck's
+   looping ambient animations need. ---- */
+html.no-motion *,
+html.no-motion *::before,
+html.no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+.deck__motion {
+  position: fixed; left: 8px; top: 8px; z-index: 100;
+  width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  border: 0; padding: 0; background: transparent; color: transparent;
+}
+.deck__motion:focus, .deck__motion:focus-visible {
+  width: auto; height: auto; clip: auto; clip-path: none; overflow: visible;
+  padding: 10px 16px; border: 2px solid currentColor; border-radius: var(--r-1, 6px);
+  background: var(--bg-0, #fff); color: var(--fg-0, #000);
+  font: inherit; font-size: 16px; cursor: pointer;
+}
+
 /* ---- dashed stand-in for an image not yet supplied (data-src = intended path) ---- */
 .img-placeholder {
   display: flex;

@@ -2,18 +2,21 @@
   <header class="slide__head" data-sid="12c-where-help-is:2">
     <h2 data-sid="12c-where-help-is:3">Where the help is</h2>
   </header>
+  <p class="sr-only slide__desc" data-sid="12c-where-help-is:66" data-hash="5f752a770c" data-desc="auto">A stuck student sits low at a laptop with a scribble over their head. Three dotted trails lead out in turn. Up and to the left, my office hours: a door pops open beside a clock with a shaded sector across it — Monday and Wednesday, 11:00 to 12:30, GP 3205. Straight up, TA office hours: five TAs in a row with lines converging from each onto one calendar with a check mark — in Canvas, go to Office hours. Up and to the right, a lending counter where a laptop appears: laptop trouble, borrow one free, Torgersen 3320.</p>
 
   <!-- A stuck student at a laptop, low and centred, from whom three trails
        are walked one per step to three drawn places — the brain slide's
        layout with places instead of blooms. Each place carries a fact the
-       text no longer states: the office door with the hours clock showing
-       the 11:00–12:30 sector; five TAs converging on one Canvas calendar;
-       the lending counter with a laptop on it. Captions
-       sit in fixed-height blocks over each column. Coordinates are
+       text no longer states: the office door under a clock whose sectors
+       are every instructor's slot, coloured by day pattern; five TAs
+       converging on one Canvas calendar; the lending counter with a laptop
+       on it. Captions sit in fixed-height blocks over each column; the first
+       is taller and narrower (all three instructors' hours) with the clock
+       and door stacked to its right. Coordinates are
        body-local (canvas = local + (128, 232)). -->
   <div class="slide__body" data-sid="12c-where-help-is:4">
     <svg class="wh" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A stuck student at a laptop. Three dotted trails lead to three places: an office door with a clock showing the 11:00 to 12:30 slot; five TAs converging on one Canvas calendar; a lending counter with a laptop on it."
+         aria-label="A stuck student with dotted trails to three places help lives"
          data-sid="12c-where-help-is:5">
       <defs>
         <g id="s12c-ta"><circle cy="-22" r="16"/><path d="M-30 22v-10a30 30 0 0 1 60 0v10"/></g>
@@ -31,19 +34,26 @@
 
         <!-- step 1: my office hours — the door, and the clock beside it -->
         <g class="wh__trail wh__trail--1 frag" data-step="1" data-sid="12c-where-help-is:14">
-          <mask id="s12c-m1" maskUnits="userSpaceOnUse" x="0" y="0" width="1664" height="752"><path class="wh__reveal" pathLength="100" d="M728 576 C560 560 380 520 262 400"/></mask>
-          <path class="wh__dots" mask="url(#s12c-m1)" d="M728 576 C560 560 380 520 262 400" data-sid="12c-where-help-is:15"/>
+          <mask id="s12c-m1" maskUnits="userSpaceOnUse" x="0" y="0" width="1664" height="752"><path class="wh__reveal" pathLength="100" d="M728 576 C660 560 560 520 490 444"/></mask>
+          <path class="wh__dots" mask="url(#s12c-m1)" d="M728 576 C660 560 560 520 490 444" data-sid="12c-where-help-is:15"/>
         </g>
-        <g class="wh__door frag" data-step="1" data-sid="12c-where-help-is:16">
-          <rect x="180" y="140" width="150" height="240" rx="4" data-sid="12c-where-help-is:17"/>
-          <path class="wh__leaf" d="M180 140 L280 158 V380 H180 Z" data-sid="12c-where-help-is:18"/>
-          <circle class="wh__knob" cx="260" cy="272" r="7" data-sid="12c-where-help-is:19"/>
-        </g>
+        <!-- clock over door, stacked to the right of the list. Every slot is a
+             sector on the dial (pathLength 100 = 12 h, so 1.5 h = 12.5; the
+             rotate puts the start at the slot's hour, measured from 3 o'clock):
+             Mon/Wed slots in accent-1, Tue/Thu slots in accent-2. -->
         <g class="wh__clock frag" data-step="1" data-sid="12c-where-help-is:20">
-          <circle cx="410" cy="212" r="72" data-sid="12c-where-help-is:21"/>
-          <path d="M410 146v12M470 212h-12M410 278v-12M350 212h12" data-sid="12c-where-help-is:22"/>
+          <circle cx="485" cy="92" r="72" data-sid="12c-where-help-is:21"/>
+          <path d="M485 26v12M545 92h-12M485 158v-12M425 92h12" data-sid="12c-where-help-is:22"/>
         </g>
-        <circle class="wh__sector frag" data-step="1" pathLength="100" cx="410" cy="212" r="36" transform="rotate(-120 410 212)" data-sid="12c-where-help-is:23"/>
+        <circle class="wh__sector wh__sector--mw frag" data-step="1" style="--i: 0" pathLength="100" cx="485" cy="92" r="36" transform="rotate(-120 485 92)" data-sid="12c-where-help-is:23"/>
+        <circle class="wh__sector wh__sector--mw frag" data-step="1" style="--i: 1" pathLength="100" cx="485" cy="92" r="36" transform="rotate(-135 485 92)"/>
+        <circle class="wh__sector wh__sector--tr frag" data-step="1" style="--i: 2" pathLength="100" cx="485" cy="92" r="36" transform="rotate(-30 485 92)"/>
+        <circle class="wh__sector wh__sector--tr frag" data-step="1" style="--i: 3" pathLength="100" cx="485" cy="92" r="36" transform="rotate(40 485 92)"/>
+        <g class="wh__door frag" data-step="1" data-sid="12c-where-help-is:16">
+          <rect x="410" y="184" width="150" height="240" rx="4" data-sid="12c-where-help-is:17"/>
+          <path class="wh__leaf" d="M410 184 L510 202 V424 H410 Z" data-sid="12c-where-help-is:18"/>
+          <circle class="wh__knob" cx="490" cy="316" r="7" data-sid="12c-where-help-is:19"/>
+        </g>
 
         <!-- step 2: TA office hours — every TA, one calendar -->
         <g class="wh__trail wh__trail--2 frag" data-step="2" data-sid="12c-where-help-is:24">
@@ -81,22 +91,38 @@
 
     <!-- captions: one fixed-height block per column, bottom-aligned like the blooms -->
     <div class="wh__caps" data-sid="12c-where-help-is:46">
-      <div class="wh__cap frag" data-step="1" data-anim="fade" style="left: 0" data-sid="12c-where-help-is:47">
-        <p class="wh__title" data-sid="12c-where-help-is:48">My office hours</p>
-        <p class="wh__sub wh__sub--a1" data-sid="12c-where-help-is:49" style="width: 575px"><span data-sid="12c-where-help-is:50">Mon &amp; Wed</span> &middot; 11:00&ndash;12:30 &middot; <span data-sid="12c-where-help-is:51">GP 3205</span></p>
+      <div class="wh__cap wh__cap--tall frag" data-step="1" data-anim="fade" style="left: 0" data-sid="12c-where-help-is:47">
+        <p class="wh__title" data-sid="12c-where-help-is:48">Instructor office hours</p>
+        <dl class="wh__sub wh__sub--a1 wh__hours" data-sid="12c-where-help-is:49" style="width: 380px">
+          <!-- one row per instructor, colour-coded by day pattern:
+               Mon/Wed rows in accent-1, the Tue/Thu row in accent-2 -->
+          <div data-sid="12c-where-help-is:63" class="wh__row wh__row--mw">
+            <dt data-sid="12c-where-help-is:50">David &middot; GP 3205</dt>
+            <dd data-sid="12c-where-help-is:51">Mon &amp; Wed 11:00&ndash;12:30</dd>
+          </div>
+          <div data-sid="12c-where-help-is:64" class="wh__row wh__row--tr">
+            <dt data-sid="12c-where-help-is:43">Moonwara &middot; GP 3211</dt>
+            <dd data-sid="12c-where-help-is:44">Tue 14:00&ndash;15:30</dd>
+            <dd data-sid="12c-where-help-is:45">Thu 16:20&ndash;17:50</dd>
+          </div>
+          <div data-sid="12c-where-help-is:65" class="wh__row wh__row--mw">
+            <dt data-sid="12c-where-help-is:61">Saad &middot; TORG 3210B</dt>
+            <dd data-sid="12c-where-help-is:62">Mon &amp; Wed 10:30&ndash;12:00</dd>
+          </div>
+        </dl>
       </div>
       <div class="wh__cap frag" data-step="2" data-anim="fade" style="left: 572px" data-sid="12c-where-help-is:52">
         <p class="wh__title" data-sid="12c-where-help-is:53">TA office hours</p>
         <p class="wh__sub wh__sub--a2" data-sid="12c-where-help-is:54"><span class="help__path" data-sid="12c-where-help-is:55">Canvas &rarr; Office hours</span></p>
       </div>
       <div class="wh__cap frag" data-step="3" data-anim="fade" style="left: 1144px" data-sid="12c-where-help-is:56">
-        <p class="wh__title" data-sid="12c-where-help-is:57">Laptop trouble? Borrow one &mdash; free.</p>
+        <p class="wh__title" data-sid="12c-where-help-is:57">Laptop trouble? Borrow one — for free!!</p>
         <p class="wh__sub wh__sub--a3" data-sid="12c-where-help-is:58">Torgersen 3320</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="12c-where-help-is:59"></div>
-  <aside class="notes" data-sid="12c-where-help-is:60">When you are stuck. Step 1 — my office hours: Monday and Wednesday, 11:00–12:30, GP 3205 — say it aloud and point at the clock; no appointment needed — come with a question, or just come and listen. Step 2 — TA office hours: every TA, one calendar; all of the TAs' hours live on one calendar, Canvas → Office hours — look it up before you need it. Step 3 — technology lending: University Libraries' Studios Technology Lending Desk, Torgersen 3320, lends laptops for up to 7 days; chargers, adapters and cables come from the Newman Library services desk; the link and details are in the syllabus.</aside>
+  <aside class="notes" data-sid="12c-where-help-is:60">When you are stuck. Step 1 — instructor office hours: mine are Monday and Wednesday, 11:00–12:30, GP 3205; Moonwara's are Tuesday 14:00–15:30 and Thursday 16:20–17:50 in GP 3211; Saad's are Monday and Wednesday 10:30–12:00 in TORG 3210B — any instructor's hours are open to you; point at the clock: maroon wedges are Mon/Wed, blue are Tue/Thu; no appointment needed — come with a question, or just come and listen. Step 2 — TA office hours: every TA, one calendar; all of the TAs' hours live on one calendar, Canvas → Office hours — look it up before you need it. Step 3 — technology lending: University Libraries' Studios Technology Lending Desk, Torgersen 3320, lends laptops for up to 7 days; chargers, adapters and cables come from the Newman Library services desk; the link and details are in the syllabus.</aside>
 
   <style>
     /* Slide-local: the help map. One root (the 26-start-now line-work
@@ -130,35 +156,39 @@
     #slide-12c .wh__door .wh__leaf { fill: color-mix(in srgb, var(--accent-1) 18%, var(--bg-0)); }
     #slide-12c .wh__door .wh__knob { fill: var(--accent-1); stroke: none; }
     #slide-12c .wh__clock circle, #slide-12c .wh__clock path { stroke-width: 6; }
-    #slide-12c .wh__door { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    #slide-12c .frag.wh__door.is-pending { opacity: 1; transform: scale(.04); }
+    /* grow-ins start invisible: opacity resolves in the first beat, the scale carries the motion */
+    #slide-12c .wh__door { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity .2s ease; }
+    #slide-12c .frag.wh__door.is-pending { opacity: 0; transform: scale(.04); }
     #slide-12c .frag.wh__door.is-current, #slide-12c .frag.wh__door.is-past { transition-delay: .45s; }
-    #slide-12c .wh__clock { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .35s var(--ease-smooth); }
-    #slide-12c .frag.wh__clock.is-pending { opacity: 1; transform: scale(0); }
+    #slide-12c .wh__clock { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .35s var(--ease-smooth), opacity .15s ease; }
+    #slide-12c .frag.wh__clock.is-pending { opacity: 0; transform: scale(0); }
     #slide-12c .frag.wh__clock.is-current, #slide-12c .frag.wh__clock.is-past { transition-delay: .8s; }
-    /* the 11:00–12:30 sector: a fat-stroked inner circle, 12.5% of the way round from 11 o'clock */
-    #slide-12c .wh__sector { fill: none; stroke: color-mix(in srgb, var(--accent-1) 40%, var(--bg-0)); stroke-width: 72; stroke-dasharray: 12.5 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
+    /* the hours sectors: fat-stroked inner circles, each 12.5% (1.5 h) of the way round
+       from its start hour, coloured by day pattern and swept on one after another */
+    #slide-12c .wh__sector { fill: none; stroke-width: 72; stroke-dasharray: 12.5 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
+    #slide-12c .wh__sector--mw { stroke: color-mix(in srgb, var(--accent-1) 40%, var(--bg-0)); }
+    #slide-12c .wh__sector--tr { stroke: color-mix(in srgb, var(--accent-2) 40%, var(--bg-0)); }
     #slide-12c .frag.wh__sector.is-pending { opacity: 1; stroke-dashoffset: 12.5; }
-    #slide-12c .frag.wh__sector.is-current, #slide-12c .frag.wh__sector.is-past { stroke-dashoffset: 0; transition-delay: 1.1s; }
+    #slide-12c .frag.wh__sector.is-current, #slide-12c .frag.wh__sector.is-past { stroke-dashoffset: 0; transition-delay: calc(1.1s + var(--i) * .15s); }
 
     /* TA office hours */
     #slide-12c .wh__tas circle, #slide-12c .wh__tas path, #slide-12c .wh__calendar rect, #slide-12c .wh__calendar path { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
     #slide-12c .wh__calendar rect, #slide-12c .wh__calendar path { stroke-width: 7; }
-    #slide-12c .wh__ta { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .3s var(--ease-smooth); }
-    #slide-12c .frag.wh__ta.is-pending { opacity: 1; transform: scale(0); }
+    #slide-12c .wh__ta { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .3s var(--ease-smooth), opacity .15s ease; }
+    #slide-12c .frag.wh__ta.is-pending { opacity: 0; transform: scale(0); }
     #slide-12c .frag.wh__ta.is-current, #slide-12c .frag.wh__ta.is-past { transition-delay: calc(.45s + var(--i) * .06s); }
     #slide-12c .wh__line { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .35s var(--ease-smooth); }
     #slide-12c .frag.wh__line.is-pending { opacity: 1; stroke-dashoffset: 100; }
     #slide-12c .frag.wh__line.is-current, #slide-12c .frag.wh__line.is-past { transition-delay: calc(.75s + var(--i) * .06s); }
-    #slide-12c .wh__calendar { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .4s var(--ease-smooth); }
-    #slide-12c .frag.wh__calendar.is-pending { opacity: 1; transform: scale(0); }
+    #slide-12c .wh__calendar { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .4s var(--ease-smooth), opacity .2s ease; }
+    #slide-12c .frag.wh__calendar.is-pending { opacity: 0; transform: scale(0); }
     #slide-12c .frag.wh__calendar.is-current, #slide-12c .frag.wh__calendar.is-past { transition-delay: 1.05s; }
 
     /* technology lending */
     #slide-12c .wh__counter rect, #slide-12c .wh__laptop rect, #slide-12c .wh__laptop path { fill: none; stroke: var(--accent-3); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
     #slide-12c .wh__counter .wh__countertop { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
-    #slide-12c .wh__counter { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    #slide-12c .frag.wh__counter.is-pending { opacity: 1; transform: scale(.04); }
+    #slide-12c .wh__counter { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity .2s ease; }
+    #slide-12c .frag.wh__counter.is-pending { opacity: 0; transform: scale(.04); }
     #slide-12c .frag.wh__counter.is-current, #slide-12c .frag.wh__counter.is-past { transition-delay: .45s; }
     #slide-12c .wh__laptop { transition: opacity .3s ease; }
     #slide-12c .frag.wh__laptop.is-current, #slide-12c .frag.wh__laptop.is-past { transition-delay: .85s; }
@@ -174,6 +204,15 @@
     #slide-12c .wh__title { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.2; color: var(--fg-0); }
     #slide-12c .wh__sub { margin: var(--s-1) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; }
     #slide-12c .wh__sub--a1 { color: var(--fg-0); }
+    /* the instructor list: taller block, three rows (name · room over the
+       slots, Moonwara's two slots side by side), each row coloured by its days */
+    #slide-12c .wh__cap--tall { --cap-h: 430px; width: 380px; }
+    #slide-12c .wh__hours { display: flex; flex-direction: column; gap: var(--s-2); }
+    #slide-12c .wh__row { display: flex; flex-wrap: wrap; justify-content: center; column-gap: var(--s-2); }
+    #slide-12c .wh__row dt, #slide-12c .wh__row dd { margin: 0; }
+    #slide-12c .wh__row dt { flex-basis: 100%; font-weight: 700; }
+    #slide-12c .wh__row--mw { color: var(--accent-1); }
+    #slide-12c .wh__row--tr { color: var(--accent-2); }
     #slide-12c .wh__sub--a2 { color: var(--accent-2); }
     #slide-12c .wh__sub--a3 { color: var(--accent-3); }
     #slide-12c .frag.wh__cap.is-current { transition-delay: .9s; }

@@ -10,7 +10,19 @@
    - "deck:stepchange" fires on window on every move, with detail
      { slide, step, prevHash, nextHash, slideCount, stepCount }.
    - keys: arrows / space / PageUp / PageDown navigate, F = fullscreen;
-     ?embed=1 = passive mode (no keyboard — presenter preview iframes). */
+     ?embed=1 = passive mode (no keyboard — presenter preview iframes).
+   - accessibility: each slide may carry ONE
+     <p class="sr-only slide__desc"> — the long description of what the slide
+     shows and how it builds, read in place by a screen reader and wired as
+     aria-describedby onto every role="img" figure in that slide. Authored per
+     slide (Slide Studio's Describe tab writes them); the runtime never
+     generates text. A polite live region additionally reports what MOVED
+     ("Slide 3 of 17: …", the newly revealed text, or "Step 2 of 5."), which is
+     a status message — never the content. Off in embed mode.
+   - motion: `m` (or the focus-revealed "Pause background motion" button)
+     toggles .no-motion on <html>, which stops every animation and transition
+     in the deck — the WCAG 2.2.2 mechanism for ambient loops. Remembered per
+     browser; the OS reduced-motion preference is honoured separately in CSS. */
 (function () {
   'use strict';
 
@@ -50,6 +62,7 @@
       if (num && !num.textContent.trim()) num.textContent = (i + 1) + ' / ' + total;
       return { maxStep: max };
     });
+    wireDescriptions();
   }
 
   // Parse location.hash into state (clamped) and apply it to the DOM.
@@ -89,7 +102,101 @@
     if (state.slide > 1) return hashFor(state.slide - 1, maxStepOf(state.slide - 1));
     return null;
   }
+  // ---------------------------------------------------------------- a11y
+  // Long descriptions. A slide's .slide__desc is its WCAG 1.1.1 text
+  // alternative: it sits in the page right after the heading, so a screen
+  // reader's reading cursor finds it and can re-read it — unlike a live-region
+  // announcement, which is spoken once and gone. The runtime only wires it up,
+  // pointing every role="img" figure in the slide at it via aria-describedby
+  // (the figure keeps its own short aria-label as its NAME). Idempotent: it
+  // runs on every reindex, and skips figures that already have a description.
+  function wireDescriptions() {
+    [...root.children].forEach((sec, i) => {
+      const d = sec.querySelector('.slide__desc');
+      if (!d) return;
+      if (!d.id) d.id = 'desc-' + (sec.id || 'slide-' + (i + 1));
+      sec.querySelectorAll('[role="img"]:not([aria-describedby])')
+        .forEach((fig) => fig.setAttribute('aria-describedby', d.id));
+    });
+  }
+
+  // Status messages (WCAG 4.1.3). Stepping a deck is silent to a screen
+  // reader: the DOM changes but focus does not move. This polite, atomic
+  // region says what MOVED — the slide you landed on, or the text that just
+  // appeared, or a bare step count when the step is purely visual. It is
+  // deliberately not the content (that is .slide__desc, above): an
+  // announcement no one can re-read is the wrong place for anything a student
+  // has to study. Muted in embed mode — presenter preview iframes must never
+  // speak — and debounced, so holding the arrow key does not queue 20 lines.
+  let live = null, spoken = { slide: -1, step: -1 }, speakTimer = 0;
+  function liveRegion() {
+    if (live) return live;
+    live = document.createElement('div');
+    live.className = 'sr-only deck__live';
+    live.setAttribute('aria-live', 'polite');
+    live.setAttribute('aria-atomic', 'true');
+    document.body.appendChild(live);
+    return live;
+  }
+  const clean = (s) => (s || '').replace(/\s+/g, ' ').trim();
+  function status() {
+    if (EMBED) return;
+    if (spoken.slide === state.slide && spoken.step === state.step) return;   // studio re-announce
+    const sec = root.children[state.slide - 1];
+    if (!sec) return;
+    let msg;
+    if (spoken.slide !== state.slide) {
+      const head = sec.querySelector('h1, h2, h3');
+      msg = 'Slide ' + state.slide + ' of ' + state.slides.length +
+        (head ? ': ' + clean(head.textContent) : '') + '.';
+    } else {
+      // outermost fragments only — a nested .frag's text is already in its parent's
+      const fresh = [...sec.querySelectorAll('.frag.is-current')]
+        .filter((f) => f.parentElement.closest('.frag.is-current') === null);
+      msg = clean(fresh.map((f) => f.textContent).join(' ')) ||
+        ('Step ' + state.step + ' of ' + maxStepOf(state.slide) + '.');
+    }
+    spoken = { slide: state.slide, step: state.step };
+    const region = liveRegion();
+    clearTimeout(speakTimer);
+    region.textContent = '';                       // clear first so a repeat re-announces
+    speakTimer = setTimeout(() => { region.textContent = msg; }, 60);
+  }
+
+  // Motion toggle (WCAG 2.2.2). Ambient background loops — drifting mist,
+  // breathing gradients — start automatically and run longer than five
+  // seconds, so a deck that has any needs a way to stop them. `m` toggles
+  // .no-motion on <html> (CSS kills all animation and transition under it) and
+  // the choice is remembered. The control is a real button rather than a
+  // key-only affordance, revealed on keyboard focus like a skip link, so it is
+  // discoverable without putting a widget on a designed slide. The OS
+  // reduced-motion preference is handled separately, in CSS, and is not a
+  // substitute: it is not a mechanism the page provides.
+  const MOTION_KEY = 'deck:no-motion';
+  let motionBtn = null;
+  function setMotion(off, persist) {
+    document.documentElement.classList.toggle('no-motion', off);
+    if (motionBtn) {
+      motionBtn.textContent = off ? 'Resume background motion' : 'Pause background motion';
+      motionBtn.setAttribute('aria-pressed', off ? 'true' : 'false');
+    }
+    if (persist) { try { localStorage.setItem(MOTION_KEY, off ? '1' : '0'); } catch (e) { /* private mode */ } }
+  }
+  const motionOff = () => document.documentElement.classList.contains('no-motion');
+  function initMotion() {
+    let stored = null;
+    try { stored = localStorage.getItem(MOTION_KEY); } catch (e) { /* private mode */ }
+    if (EMBED) return setMotion(stored === '1', false);      // no control in preview iframes
+    motionBtn = document.createElement('button');
+    motionBtn.type = 'button';
+    motionBtn.className = 'deck__motion';
+    motionBtn.addEventListener('click', () => setMotion(!motionOff(), true));
+    document.body.insertBefore(motionBtn, document.body.firstChild);   // first in tab order
+    setMotion(stored === '1', false);
+  }
+
   function announce() {
+    status();
     window.dispatchEvent(new CustomEvent('deck:stepchange', {
       detail: {
         slide: state.slide,
@@ -122,6 +229,7 @@
       else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); prev(); }
       else if (e.key === 'Home') { e.preventDefault(); go(1, 0); }
       else if (e.key === 'End') { e.preventDefault(); go(state.slides.length || 1, maxStepOf(state.slides.length)); }
+      else if (e.key === 'm' || e.key === 'M') { e.preventDefault(); setMotion(!motionOff(), true); }
       else if (e.key === 'f' || e.key === 'F') {
         e.preventDefault();
         if (document.fullscreenElement) { if (document.exitFullscreen) document.exitFullscreen(); }
@@ -182,5 +290,6 @@
   });
 
   fit();
+  initMotion();
   loadSlides();
 })();

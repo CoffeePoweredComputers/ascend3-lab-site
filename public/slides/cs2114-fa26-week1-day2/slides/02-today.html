@@ -2,6 +2,7 @@
   <header class="slide__head" data-sid="02-today:2">
     <h2 data-sid="02-today:3">Today</h2>
   </header>
+  <p class="sr-only slide__desc" data-sid="02-today:35" data-hash="4025b62229" data-desc="auto">A lecture hall seen from the front: four rows of seated students, laptop lids down, aisles empty. Above the room, three chapter titles arrive in turn and the room answers each one. First, what last year's class wishes they had known — a ghost row of graduates in caps appears behind the back row, set off by a dotted line, with a speech bubble reading 2025. Then the peer-instruction warm-up on references and aliasing — the ghosts leave and hands go up across the room, rippling from the front left. Last, work time — every laptop lid hinges open and two staff stand in the aisles. The room is the agenda.</p>
 
   <!-- Today is three states of this room, seen from the front. Step 0: the
        seated room — 48 heads, lids down, empty aisles. Step 1: last year's
@@ -23,7 +24,7 @@
     </ol>
 
     <svg class="td" viewBox="128 160 1664 704" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A lecture hall of 48 seated students seen from the front, in three states: a ghost row of last year's class in graduation caps, set off by a dotted line, with a speech bubble saying 2025; then hands raised across the room; then every laptop open and two staff standing in the aisles."
+         aria-label="A lecture hall answering each of today's three chapters"
          data-sid="02-today:5">
       <defs>
         <g id="s02-seat">
@@ -164,8 +165,8 @@
       transform-box: fill-box; transform-origin: 50% 100%;
       transition: transform .5s var(--ease-smooth), opacity .3s ease;
     }
-    #slide-02 .frag.td__bubble.is-pending { opacity: 1; transform: scale(.05); }
-    #slide-02 .frag.td__bubble.is-current { transition-delay: .25s, 0s; }
+    #slide-02 .frag.td__bubble.is-pending { opacity: 0; transform: scale(.05); }
+    #slide-02 .frag.td__bubble.is-current { transition-delay: .25s; }
     #slide-02 .frag.td__ghosts.is-past, #slide-02 .frag.td__bubble.is-past { opacity: 0; }
 
     /* hands: grow from the shoulder root, a ripple across the room */
@@ -173,10 +174,10 @@
     #slide-02 .td__hand circle { fill: var(--bg-0); }
     #slide-02 .td__hand {
       transform-box: fill-box; transform-origin: 0 100%;
-      transition: transform .4s var(--ease-smooth);
+      transition: transform .4s var(--ease-smooth), opacity .15s ease;
     }
     #slide-02 .frag.td__hands.is-pending { opacity: 1; }
-    #slide-02 .td__hands.is-pending .td__hand { transform: scale(0); }
+    #slide-02 .td__hands.is-pending .td__hand { opacity: 0; transform: scale(0); }
     #slide-02 .td__hands.is-current .td__hand { transition-delay: calc(var(--i) * 25ms); }
     #slide-02 .frag.td__hands.is-past { opacity: 0; transition: opacity .3s ease; }
 

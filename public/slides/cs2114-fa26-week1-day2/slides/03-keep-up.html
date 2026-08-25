@@ -2,6 +2,7 @@
   <header class="slide__head" data-sid="03-keep-up:2">
     <h2 data-sid="03-keep-up:3">Keep up with the course this week and next</h2>
   </header>
+  <p class="sr-only slide__desc" data-sid="03-keep-up:72" data-hash="296ad48e0c" data-desc="auto">Four tools sit in a row across the top — Canvas, PrairieLearn, Piazza, office hours — joined by arrows in the order work flows through them. Below runs a two-week axis. First an arrow links Canvas to PrairieLearn and a blue bar wipes from Monday to Sunday: Modules 1.1 to 1.5 and 2.1 to 2.4. Then a maroon-orange Homework bar runs to this Friday, the first deadline of the semester. Then Challenge Exercise 01 runs solid to next Monday and fades across Monday to Friday — due before your lab section, and labs run all week. Last, dashed arrows reach Piazza, where the Instructor-posts toggle flips on, and office hours, where one day lights up.</p>
 
   <!-- Keeping up is two structures drawn as one picture. WHERE: four stations
        in the order one piece of work flows through them — scheduled on
@@ -9,8 +10,8 @@
        hours. WHEN: the three deadlines on a two-week axis (14 day tracks, track
        k ends at x = 128 + k·118.86 — the same geometry as slide 18). Step 1:
        Canvas hands the work to PrairieLearn, which drops it onto the Modules
-       bar; the bar runs to Sunday and its flag goes up. Step 2: the Homework
-       bar runs on into next week, to Friday's flag. Step 3: the Challenge
+       bar; the bar runs to Sunday and its pole rises. Step 2: the Homework
+       bar stops at this Friday — the first deadline. Step 3: the Challenge
        Exercise bar — solid to Monday, then a faded tail across Mon–Fri with a
        range line under the axis: due before your lab section, and labs run
        all week. Step 4: the flow
@@ -19,7 +20,7 @@
        canvas px (viewBox = the body's rect, bottom-anchored). -->
   <div class="slide__body" data-sid="03-keep-up:4">
     <svg class="ku" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="Four stations in a row — Canvas, PrairieLearn, Piazza, Office hours — joined by arrows in that order, with a notification toggle under Piazza labelled Instructor posts. Below, a two-week axis with three bars: Modules 1.1–1.5, 2.1-2.4 ending at a Sunday flag, Homework ending at a flag next Friday, and Challenge Exercise 01 solid to next Monday with a faded tail across Monday to Friday, labelled your lab day."
+         aria-label="Course tools in flow order above a two-week deadline axis"
          data-sid="03-keep-up:5">
       <!-- step 0: the four stations -->
       <g class="ku__icon" data-sid="03-keep-up:6">
@@ -52,11 +53,11 @@
       <text class="ku__axislabel" x="544" y="640" data-sid="03-keep-up:27">this week</text>
       <text class="ku__axislabel" x="1376" y="640" data-sid="03-keep-up:28">next week</text>
       <line class="ku__axis" x1="128" y1="920" x2="1792" y2="920" data-sid="03-keep-up:29"/>
-      <path class="ku__tick" d="M247 920v16M366 920v16M485 920v16M603 920v16M722 920v16M841 920v16M1079 920v16M1198 920v16M1317 920v16M1435 920v16M1673 920v16" data-sid="03-keep-up:30"/>
-      <path class="ku__tick ku__tick--due" d="M960 920v28M1079 920v28M1554 920v28" data-sid="03-keep-up:31"/>
+      <path class="ku__tick" d="M247 920v16M366 920v16M485 920v16M603 920v16M841 920v16M1198 920v16M1317 920v16M1435 920v16M1673 920v16" data-sid="03-keep-up:30"/>
+      <path class="ku__tick ku__tick--due" d="M722 920v28M960 920v28M1079 920v28M1554 920v28" data-sid="03-keep-up:31"/>
+      <text class="ku__axislabel" x="722" y="984" data-sid="03-keep-up:62">Fri</text>
       <text class="ku__axislabel" x="960" y="984" data-sid="03-keep-up:32">Sun</text>
       <text class="ku__axislabel" x="1316" y="984" data-sid="03-keep-up:33">your lab day</text>
-      <text class="ku__axislabel" x="1554" y="984" data-sid="03-keep-up:62">Fri</text>
 
       <!-- step 1: Canvas → PrairieLearn → the Modules bar → Sunday -->
       <g class="ku__edge frag" data-step="1" data-sid="03-keep-up:34">
@@ -72,10 +73,10 @@
       <rect class="ku__bar ku__ink--a2 frag" data-step="1" x="128" y="688" width="832" height="48" rx="24" data-sid="03-keep-up:41"/>
       <text class="ku__label frag" data-step="1" data-anim="fade" x="154" y="721" data-sid="03-keep-up:42">Modules 1.1&ndash;1.5, 2.1-2.4</text>
 
-      <!-- step 2: the homework bar runs into next week, to Friday -->
-      <line class="ku__pole ku__ink--a4 frag" data-step="2" pathLength="100" x1="1554" y1="920" x2="1554" y2="760" data-sid="03-keep-up:43"/>
-      
-      <rect class="ku__bar ku__ink--a4 ku__bar--long frag" data-step="2" x="128" y="760" width="1426" height="48" rx="24" data-sid="03-keep-up:45"/>
+      <!-- step 2: the homework bar stops at this Friday (track 5 ends at x = 722) -->
+      <line class="ku__pole ku__ink--a4 frag" data-step="2" pathLength="100" x1="722" y1="920" x2="722" y2="760" data-sid="03-keep-up:43"/>
+
+      <rect class="ku__bar ku__ink--a4 frag" data-step="2" x="128" y="760" width="594" height="48" rx="24" data-sid="03-keep-up:45"/>
       <text class="ku__label frag" data-step="2" data-anim="fade" x="154" y="793" data-sid="03-keep-up:46">Homework</text>
 
       <!-- step 3: the challenge exercise bar — solid to Monday, then a faded
@@ -106,7 +107,7 @@
     </svg>
   </div>
   <div class="slide__number" data-sid="03-keep-up:58"></div>
-  <aside class="notes" data-sid="03-keep-up:59">Canvas — schedule, deadlines, submissions (the Canvas → PrairieLearn edge and the due flags carry "deadlines"). PrairieLearn — content modules and homework (the drop-line from PrairieLearn onto the two bars). Piazza — turn on Instructor-post notifications (the toggle flipping on; say it once aloud: it is the one setting they must change). Office hours — mine and the TAs', calendar on Canvas (the lit day on the calendar page). Bar 1: Modules 1.1–1.5, 2.1-2.4 — due Sunday — Week 1 content, in PrairieLearn. Bar 2: Homework — Week 1 Intro — due next Friday, the rhythm from slide 6. Bar 3: Challenge Exercise 01 — getting Eclipse running — due before your lab section next week; the bar is solid to Monday and fades across Mon–Fri because labs run all week: your deadline is whichever day your lab meets. Step 1 — the first deadline of the semester on a date. Step 2 — homework runs past Sunday to Friday. Step 3 — the challenge exercise; say "your lab day" aloud, the date is different for each of them. Step 4 — stuck? Piazza, notifications on. Step 5 — and then a person: look the calendar up before you need it.</aside>
+  <aside class="notes" data-sid="03-keep-up:59">Canvas — schedule, deadlines, submissions (the Canvas → PrairieLearn edge and the due flags carry "deadlines"). PrairieLearn — content modules and homework (the drop-line from PrairieLearn onto the two bars). Piazza — turn on Instructor-post notifications (the toggle flipping on; say it once aloud: it is the one setting they must change). Office hours — mine and the TAs', calendar on Canvas (the lit day on the calendar page). Bar 1: Modules 1.1–1.5, 2.1-2.4 — due Sunday — Week 1 content, in PrairieLearn. Bar 2: Homework — Week 1 Intro — due this Friday, the rhythm from slide 6. Bar 3: Challenge Exercise 01 — getting Eclipse running — due before your lab section next week; the bar is solid to Monday and fades across Mon–Fri because labs run all week: your deadline is whichever day your lab meets. Step 1 — the modules, due Sunday. Step 2 — homework is due this Friday: the first deadline of the semester, on a date, and it lands before the modules do. Step 3 — the challenge exercise; say "your lab day" aloud, the date is different for each of them. Step 4 — stuck? Piazza, notifications on. Step 5 — and then a person: look the calendar up before you need it.</aside>
 
   <style>
     /* Slide-local: the keep-up map. Stations in the 13-tools line-icon
@@ -128,8 +129,8 @@
     #slide-03 .ku__icon .ku__icon-dot { fill: var(--fg-0); stroke: none; }
     #slide-03 .ku__q { font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
     #slide-03 .ku__name { font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-03 .ku__slot { fill: var(--accent-2); transform-box: fill-box; transform-origin: 50% 50%; transition: transform .3s var(--ease-smooth); }
-    #slide-03 .frag.ku__slot.is-pending { opacity: 1; transform: scale(0); }
+    #slide-03 .ku__slot { fill: var(--accent-2); transform-box: fill-box; transform-origin: 50% 50%; transition: transform .3s var(--ease-smooth), opacity .15s ease; }
+    #slide-03 .frag.ku__slot.is-pending { opacity: 0; transform: scale(0); }
     #slide-03 .frag.ku__slot.is-current, #slide-03 .frag.ku__slot.is-past { transition-delay: .4s; }
 
     /* flow edges: one wipe per hop */
@@ -179,8 +180,8 @@
     #slide-03 .frag.ku__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
     #slide-03 .frag.ku__pole.is-current, #slide-03 .frag.ku__pole.is-past { stroke-dashoffset: 0; transition-delay: .55s; }
     #slide-03 .frag.ku__pole.is-current[data-step="1"], #slide-03 .frag.ku__pole.is-past[data-step="1"] { transition-delay: 1.05s; }
-    #slide-03 .ku__flag { fill: var(--edge); transform-box: fill-box; transform-origin: 0 50%; transition: transform .3s var(--ease-smooth); }
-    #slide-03 .frag.ku__flag.is-pending { opacity: 1; transform: scale(0); }
+    #slide-03 .ku__flag { fill: var(--edge); transform-box: fill-box; transform-origin: 0 50%; transition: transform .3s var(--ease-smooth), opacity .15s ease; }
+    #slide-03 .frag.ku__flag.is-pending { opacity: 0; transform: scale(0); }
     #slide-03 .frag.ku__flag.is-current, #slide-03 .frag.ku__flag.is-past { transition-delay: .85s; }
     #slide-03 .frag.ku__flag.is-current[data-step="1"], #slide-03 .frag.ku__flag.is-past[data-step="1"] { transition-delay: 1.35s; }
 
