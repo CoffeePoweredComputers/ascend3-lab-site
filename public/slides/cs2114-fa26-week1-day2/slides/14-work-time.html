@@ -1,0 +1,125 @@
+<section class="slide" id="slide-14" data-sid="14-work-time:1">
+  <header class="slide__head" data-sid="14-work-time:2">
+    <p class="slide__kicker" data-sid="14-work-time:3">THE REST OF TODAY (AND WEEK)</p>
+    <h2 data-sid="14-work-time:4">Work time</h2>
+  </header>
+
+  <!-- Three spans that all leave the same "now" column and end on three
+       different days. Step 0: the two-week axis (14 day tracks, same geometry
+       as slide 3's: track k ends at x = 128 + k·118.86) with its due ticks
+       (Fri, Sun, and next Mon–Fri — the lab-day window), and the highlighted
+       now column (Wednesday, track 2). Steps 1-3: one bar per task wipes on
+       from now to its deadline and a flag goes up at the tick; the challenge
+       bar runs solid to next Monday and pale through next Friday, because it
+       is due on each section's lab day, with a pennant on every day of that
+       window. Step 4: the staff draw on inside the now column — the help is
+       in this column, not on the axis. One SVG in canvas px (viewBox = the
+       body's rect, bottom-anchored), so every coordinate is a canvas pixel. -->
+  <div class="slide__body" data-sid="14-work-time:5">
+    <svg class="wt" viewBox="128 300 1664 684" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A two-week axis with due ticks at Friday, Sunday and every weekday of next week. Three bars leave a highlighted now column: modules to Sunday, the Week 1 Intro homework to next Friday, Challenge Exercise 01 to next week's lab-day window, Monday through Friday, labelled your lab day. Two staff figures stand in the now column under the words ask now."
+         data-sid="14-work-time:6">
+      <!-- step 0: the axis and the hour you are in -->
+      <rect class="wt__now" x="366" y="312" width="119" height="608" data-sid="14-work-time:7"/>
+      <text class="wt__cta" x="425" y="348" data-sid="14-work-time:8">now</text>
+      <line class="wt__axis" x1="128" y1="920" x2="1792" y2="920" data-sid="14-work-time:9"/>
+      <path class="wt__tick" d="M247 920v16M366 920v16M485 920v16M603 920v16M841 920v16M1673 920v16" data-sid="14-work-time:10"/>
+      <path class="wt__tick wt__tick--due" d="M722 920v28M960 920v28M1079 920v28M1198 920v28M1317 920v28M1435 920v28M1554 920v28" data-sid="14-work-time:11"/>
+      <text class="wt__day" x="722" y="984" data-sid="14-work-time:12">Fri</text>
+      <text class="wt__day" x="960" y="984" data-sid="14-work-time:13">Sun</text>
+      <text class="wt__day" x="1554" y="984" data-sid="14-work-time:14">next Fri</text>
+      <text class="wt__day" x="1317" y="984">your lab day</text>
+
+      <!-- step 1: modules, now → Sunday -->
+      <line class="wt__pole wt__ink--a2 frag" data-step="1" pathLength="100" x1="960" y1="920" x2="960" y2="352" data-sid="14-work-time:15"/>
+      <path class="wt__flag wt__ink--a2 frag" data-step="1" d="M960 352 L1000 366 L960 380 Z" data-sid="14-work-time:16"/>
+      <rect class="wt__bar wt__ink--a2 frag" data-step="1" x="366" y="400" width="594" height="56" rx="28" data-sid="14-work-time:17"/>
+      <text class="wt__label frag" data-step="1" data-anim="fade" x="392" y="437" data-sid="14-work-time:18">Modules 1.1&ndash;1.5, 2.1-2.5</text>
+
+      <!-- step 2: the homework, now → next Friday -->
+      <line class="wt__pole wt__ink--a4 frag" data-step="2" pathLength="100" x1="1554" y1="920" x2="1554" y2="464" data-sid="14-work-time:19"/>
+      <path class="wt__flag wt__ink--a4 frag" data-step="2" d="M1554 464 L1594 478 L1554 492 Z" data-sid="14-work-time:20"/>
+      <rect class="wt__bar wt__ink--a4 wt__bar--long frag" data-step="2" x="366" y="512" width="1188" height="56" rx="28" data-sid="14-work-time:21"/>
+      <text class="wt__label frag" data-step="2" data-anim="fade" x="392" y="549" data-sid="14-work-time:22">Week 1 Intro homework</text>
+
+      <!-- step 3: the challenge exercise, now → your lab day next week. Solid
+           to next Monday (the earliest section), pale window through next
+           Friday (the latest), one short pennant on each day in between. -->
+      <path class="wt__pole wt__ink--a4 frag" data-step="3" pathLength="100" d="M1079 920V700M1198 920V700M1317 920V700M1435 920V700M1554 920V700" data-sid="14-work-time:23"/>
+      <path class="wt__flag wt__ink--a4 frag" data-step="3" d="M1079 700L1119 714L1079 728ZM1198 700L1238 714L1198 728ZM1317 700L1357 714L1317 728ZM1435 700L1475 714L1435 728ZM1554 700L1594 714L1554 728Z" data-sid="14-work-time:24"/>
+      <rect class="wt__bar wt__ink--a4 wt__bar--long wt__bar--window frag" data-step="3" x="366" y="624" width="1188" height="56" rx="28"/>
+      <rect class="wt__bar wt__ink--a4 frag" data-step="3" x="366" y="624" width="713" height="56" rx="28" data-sid="14-work-time:25"/>
+      <text class="wt__label frag" data-step="3" data-anim="fade" x="392" y="661" data-sid="14-work-time:26">Challenge Exercise 01 &middot; Eclipse</text>
+
+      <!-- step 4: the room — two of us, in the now column -->
+      <g class="wt__staff frag" data-step="4" data-sid="14-work-time:27">
+        <circle class="wt__person" pathLength="100" cx="396" cy="776" r="16" data-sid="14-work-time:28"/>
+        <path class="wt__person" pathLength="100" d="M366 848v-14a30 30 0 0 1 60 0v14" data-sid="14-work-time:29"/>
+        <circle class="wt__person wt__person--2" pathLength="100" cx="456" cy="776" r="16" data-sid="14-work-time:30"/>
+        <path class="wt__person wt__person--2" pathLength="100" d="M426 848v-14a30 30 0 0 1 60 0v14" data-sid="14-work-time:31"/>
+        <path class="wt__person wt__person--arm" pathLength="100" d="M476 822 L502 774" data-sid="14-work-time:32"/>
+      </g>
+      <text class="wt__cta frag" data-step="4" data-anim="fade" x="425" y="904" data-sid="14-work-time:33">ask now</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="14-work-time:34"></div>
+  <aside class="notes" data-sid="14-work-time:35">Everything starts now; the deadlines are Sun, next Fri, and your lab day next week. Step 1 — Finish Modules 1.1–1.5, 2.1-2.5 in PrairieLearn — due Sunday. Step 2 — Start the Week 1 Intro homework — due next Friday. Step 3 — Challenge Exercise 01: get Eclipse running — due next week on your lab day, so it depends on your section: Monday labs are the earliest, Friday labs the latest. Check your section's lab day. Step 4 — Stuck on any of it? Ask now, while we are all in the room. We are circulating — flag one of us down. If students coming from Python want to sit together in one area, we are happy to give extra Java guidance there. The now column sits on Wednesday: lectures are Mon/Wed and this is Day 2.</aside>
+
+  <style>
+    /* Slide-local: the two-week work axis (05b's span-and-track grammar, two
+       weeks wide, shared by eye with slide 3). Bars Create by clip wipe from
+       the now column; poles draw on by dashoffset; pennants grow from the
+       pole; the staff draw on stroke by stroke; labels FadeIn. Used by this
+       slide only, all values from tokens; the viewBox is the body's rect. */
+    #slide-14 .slide__body { position: relative; }
+    #slide-14 .wt { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    #slide-14 .wt__now { fill: color-mix(in srgb, var(--accent-1) 12%, var(--bg-0)); }
+    #slide-14 .wt__axis, #slide-14 .wt__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-14 .wt__tick--due { stroke: var(--fg-0); stroke-width: 4; }
+    #slide-14 .wt__day { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-14 .wt__cta { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-14 .wt__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
+
+    /* accent per task: modules blue (05b), homework + challenge maroon-orange */
+    #slide-14 .wt__ink--a2 { --edge: var(--accent-2); }
+    #slide-14 .wt__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-14 .wt__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }
+    #slide-14 .wt__bar--long { transition-duration: .75s; }
+    /* the lab-day window: the same ink, faded, from the earliest to the latest section */
+    #slide-14 .wt__bar--window { opacity: .28; }
+    #slide-14 .frag.wt__bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-14 .wt__pole {
+      fill: none; stroke: var(--edge); stroke-width: 4; stroke-linecap: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .3s var(--ease-smooth);
+    }
+    #slide-14 .frag.wt__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-14 .frag.wt__pole.is-current, #slide-14 .frag.wt__pole.is-past { stroke-dashoffset: 0; transition-delay: .45s; }
+    #slide-14 .wt__flag {
+      fill: var(--edge); stroke: none;
+      transform-box: fill-box; transform-origin: 0 50%;
+      transition: transform .3s var(--ease-smooth);
+    }
+    #slide-14 .frag.wt__flag.is-pending { opacity: 1; transform: scale(0); }
+    #slide-14 .frag.wt__flag.is-current, #slide-14 .frag.wt__flag.is-past { transition-delay: .75s; }
+
+    /* the staff: 23-on-whose-backs people, drawn on stroke by stroke */
+    #slide-14 .frag.wt__staff.is-pending { opacity: 1; }
+    #slide-14 .wt__person {
+      fill: none; stroke: var(--fg-0); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .45s var(--ease-smooth);
+    }
+    #slide-14 .wt__staff.is-pending .wt__person { stroke-dashoffset: 100; }
+    #slide-14 .wt__staff.is-current .wt__person--2, #slide-14 .wt__staff.is-past .wt__person--2 { transition-delay: .12s; }
+    #slide-14 .wt__staff.is-current .wt__person--arm, #slide-14 .wt__staff.is-past .wt__person--arm { transition-delay: .3s; transition-duration: .2s; }
+    #slide-14 .frag.wt__cta.is-current, #slide-14 .frag.wt__cta.is-past { transition-delay: .5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-14 .wt__bar, #slide-14 .wt__pole, #slide-14 .wt__flag, #slide-14 .wt__label, #slide-14 .wt__person, #slide-14 .wt__cta {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

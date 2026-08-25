@@ -1,0 +1,141 @@
+<section class="slide" id="slide-07" data-sid="07-help-balance:1">
+  <header class="slide__head" data-sid="07-help-balance:2">
+    <p class="slide__kicker" data-sid="07-help-balance:3">Fall 2025 reflections</p>
+    <h2 data-sid="07-help-balance:4">Asking for help, well</h2>
+  </header>
+
+  <!-- Your week's work is one rope. Step 1 (struggle first): the rope rises
+       from Monday and ties itself into a knot; a figure stands stuck on it.
+       Step 2 (left alone): a dashed stone line runs flat across the week and
+       is a snarl by Thursday — panic. Step 3 (ask early): the figure's hand
+       goes up on Monday and the rope climbs again. Step 4 (use every
+       channel): from the raised hand four blue lines reach Piazza, office
+       hours, labs, GenAI. The SVG's viewBox is the body's rect; the figure
+       group is offset so its coordinates match the design's units
+       (canvas = figure + (128, 292)); the chips are HTML over it. -->
+  <div class="slide__body" data-sid="07-help-balance:5">
+    <svg class="hb" viewBox="128 300 1664 684" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A week baseline from Monday to Friday. A maroon rope rises from Monday into a knot with a stuck figure standing on it. A dashed line runs flat from the knot to Thursday and becomes a tangle labelled panic. The figure raises a hand and the rope climbs again. From the hand four blue lines reach four channels: Piazza, office hours, labs from Week 2, GenAI within the assignment's policy."
+         data-sid="07-help-balance:6">
+      <g transform="translate(128 292)" data-sid="07-help-balance:7">
+        <!-- step 0: the week -->
+        <path class="hb__base" d="M40 600 H1620" data-sid="07-help-balance:8"/>
+        <path class="hb__tick" d="M140 600v24M440 600v24M740 600v24M1040 600v24M1340 600v24" data-sid="07-help-balance:9"/>
+        <text class="hb__day" x="140" y="668" data-sid="07-help-balance:10">Mon</text>
+        <text class="hb__day" x="1040" y="668" data-sid="07-help-balance:11">Thu</text>
+
+        <!-- step 2: left alone (painted under the rope) -->
+        <g class="hb__ghost frag" data-step="2" data-sid="07-help-balance:12">
+          <path class="hb__flat" d="M400 372 H990" data-sid="07-help-balance:13"/>
+          <path class="hb__tangle" d="M990 372 c24 -64 96 -48 72 8 c-24 56 -96 32 -56 -32 c32 -48 88 -32 56 24 c-24 40 -72 16 -40 -24 c24 -32 64 -16 40 16" data-sid="07-help-balance:14"/>
+        </g>
+        <text class="hb__panic frag" data-step="2" data-anim="fade" x="1044" y="478" data-sid="07-help-balance:15">panic</text>
+
+        <!-- step 1: struggle first -->
+        <path class="hb__rope frag" data-step="1" pathLength="100" d="M140 576 C210 540 280 470 340 400" data-sid="07-help-balance:16"/>
+        <path class="hb__knot frag" data-step="1" pathLength="100" d="M340 400 c10 -34 50 -30 44 -2 c-8 30 -50 22 -34 -12 c12 -22 40 -14 44 0" data-sid="07-help-balance:17"/>
+        <text class="hb__cap frag" data-step="1" data-anim="fade" x="48" y="440" data-sid="07-help-balance:18">struggle first</text>
+
+        <!-- step 3: ask early -->
+        <path class="hb__asked frag" data-step="3" pathLength="100" d="M400 368 C460 350 520 300 580 262" data-sid="07-help-balance:19"/>
+        <path class="hb__chevron frag" data-step="3" data-anim="fade" d="M562 250 L580 262 L566 282" data-sid="07-help-balance:20"/>
+        <text class="hb__cap hb__cap--end frag" data-step="3" data-anim="fade" x="340" y="250" data-sid="07-help-balance:21">ask early</text>
+
+        <!-- the figure, standing on the knot; its ask arm is a step-3 frag that swings up -->
+        <g class="hb__figure frag" data-step="1" data-sid="07-help-balance:22">
+          <circle cx="380" cy="262" r="16" data-sid="07-help-balance:23"/>
+          <path d="M380 278 V330 M380 330 L360 368 M380 330 L400 368 M380 294 L352 322" data-sid="07-help-balance:24"/>
+          <path class="hb__arm frag" data-step="3" d="M380 294 L412 238" data-sid="07-help-balance:25"/>
+        </g>
+
+        <!-- step 4: use every channel -->
+        <path class="hb__reach frag" data-step="4" style="--i: 0" pathLength="100" d="M412 238 C412 200 505 190 505 134" data-sid="07-help-balance:26"/>
+        <path class="hb__reach frag" data-step="4" style="--i: 1" pathLength="100" d="M412 238 C420 190 818 200 818 134" data-sid="07-help-balance:27"/>
+        <path class="hb__reach frag" data-step="4" style="--i: 2" pathLength="100" d="M412 238 C430 180 1131 210 1131 134" data-sid="07-help-balance:28"/>
+        <path class="hb__reach frag" data-step="4" style="--i: 3" pathLength="100" d="M412 238 C440 170 1460 220 1460 134" data-sid="07-help-balance:29"/>
+      </g>
+    </svg>
+    <ul class="hb__channels" data-sid="07-help-balance:30">
+      <li class="frag" data-step="4" data-anim="fade" style="left: 400px; width: 210px; --i: 0" data-sid="07-help-balance:31">Piazza</li>
+      <li class="frag" data-step="4" data-anim="fade" style="left: 658px; width: 320px; --i: 1" data-sid="07-help-balance:32">office hours</li>
+      <li class="frag" data-step="4" data-anim="fade" style="left: 1026px; width: 210px; --i: 2" data-sid="07-help-balance:33">labs<small data-sid="07-help-balance:34">from Week 2</small></li>
+      <li class="frag" data-step="4" data-anim="fade" style="left: 1256px; width: 408px; --i: 3" data-sid="07-help-balance:35">GenAI<small data-sid="07-help-balance:36">within the assignment&rsquo;s policy</small></li>
+    </ul>
+  </div>
+  <div class="slide__number" data-sid="07-help-balance:37"></div>
+  <aside class="notes" data-sid="07-help-balance:38">Step 1 — Struggle first. The stuck moment is where the learning is. Step 2 — Then ask early: a targeted question on Monday beats a panic on Thursday (the knot versus the tangle). Step 3 — the hand goes up on Monday and the rope climbs again. Step 4 — Use every channel: Piazza, office hours, labs from Week 2 — and GenAI within the assignment's policy.</aside>
+
+  <style>
+    /* Slide-local: the rope. A day track in 05b's language (no y-axis, no
+       gridlines — it must not read as a chart), the 26-start-now person, the
+       05-two-skills connector curves, and .chips-style pills in the blue
+       coding with a sub-line. Motion is manim's only: rope, knot, second
+       climb and reach lines draw on by dashoffset; the flat line and tangle
+       Create by a clip wipe (time visibly passing); the arm rotates about the
+       shoulder — a hand actually going up; figure, captions, chevron and
+       chips FadeIn. Used by this slide only, all values from tokens. */
+    #slide-07 .slide__body { position: relative; }
+    #slide-07 .hb { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* the week */
+    #slide-07 .hb__base { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-07 .hb__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-07 .hb__day { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-07 .hb__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); transition: opacity .4s ease; }
+    #slide-07 .hb__cap--end { text-anchor: end; }
+    #slide-07 .hb__panic { font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-1); text-anchor: middle; transition: opacity .4s ease; }
+
+    /* step 1: the rope rises and knots; the figure stands on it */
+    #slide-07 .hb__rope, #slide-07 .hb__knot, #slide-07 .hb__asked {
+      fill: none; stroke: var(--accent-1); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .8s var(--ease-smooth);
+    }
+    #slide-07 .hb__knot { stroke-width: 8; transition-duration: .4s; }
+    #slide-07 .frag.hb__rope.is-pending, #slide-07 .frag.hb__knot.is-pending, #slide-07 .frag.hb__asked.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-07 .frag.hb__knot.is-current, #slide-07 .frag.hb__knot.is-past { transition-delay: .8s; }
+    #slide-07 .hb__figure circle, #slide-07 .hb__figure path { fill: none; stroke: var(--fg-0); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-07 .hb__figure { transition: opacity .35s ease; }
+    #slide-07 .frag.hb__figure.is-current { transition-delay: 1.1s; }
+    #slide-07 .frag.hb__cap.is-current[data-step="1"] { transition-delay: .5s; }
+
+    /* step 2: the flat line and the tangle wipe on left→right (the group's box has height, so the wipe is real) */
+    #slide-07 .hb__flat { fill: none; stroke: var(--stone); stroke-width: 8; stroke-dasharray: 16 12; stroke-linecap: round; }
+    #slide-07 .hb__tangle { fill: none; stroke: var(--stone); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-07 .hb__ghost { clip-path: inset(0 0 0 0); transition: clip-path 1.3s var(--ease-smooth); }
+    #slide-07 .frag.hb__ghost.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-07 .frag.hb__panic.is-current { transition-delay: 1.3s; }
+
+    /* step 3: the hand goes up (rotation about the shoulder), the rope climbs again */
+    #slide-07 .hb__arm { transform-box: fill-box; transform-origin: 0 100%; transition: transform .5s var(--ease-smooth); }
+    #slide-07 .frag.hb__arm.is-pending { opacity: 1; transform: rotate(70deg); }
+    #slide-07 .frag.hb__arm.is-current, #slide-07 .frag.hb__arm.is-past { transform: rotate(0deg); }
+    #slide-07 .frag.hb__asked.is-current, #slide-07 .frag.hb__asked.is-past { transition-delay: .4s; }
+    #slide-07 .hb__chevron { fill: none; stroke: var(--accent-1); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; transition: opacity .3s ease; }
+    #slide-07 .frag.hb__chevron.is-current { transition-delay: 1.2s; }
+    #slide-07 .frag.hb__cap--end.is-current { transition-delay: .3s; }
+
+    /* step 4: the fan of channels, each chip landing as its line arrives */
+    #slide-07 .hb__reach { fill: none; stroke: var(--accent-2); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
+    #slide-07 .frag.hb__reach.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-07 .frag.hb__reach.is-current, #slide-07 .frag.hb__reach.is-past { transition-delay: calc(var(--i) * .2s); }
+    #slide-07 .slide .hb__channels, #slide-07 .hb__channels { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+    #slide-07 .hb__channels li {
+      position: absolute; top: 40px; height: 86px; margin: 0;
+      box-sizing: border-box;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border: 2px solid var(--accent-2); border-radius: 999px; background: var(--bg-1);
+      font-family: var(--font-body); font-size: var(--t-small); line-height: 1.15; color: var(--fg-0);
+      transition: opacity .3s ease;
+    }
+    #slide-07 .hb__channels small { display: block; font-size: var(--t-tag); color: var(--fg-1); }
+    #slide-07 .hb__channels li.is-current, #slide-07 .hb__channels li.is-past { transition-delay: calc(.35s + var(--i) * .2s); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07 .hb__rope, #slide-07 .hb__knot, #slide-07 .hb__asked, #slide-07 .hb__figure, #slide-07 .hb__cap, #slide-07 .hb__ghost,
+      #slide-07 .hb__panic, #slide-07 .hb__arm, #slide-07 .hb__chevron, #slide-07 .hb__reach, #slide-07 .hb__channels li {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

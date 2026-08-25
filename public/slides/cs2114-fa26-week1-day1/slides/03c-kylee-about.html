@@ -1,0 +1,35 @@
+<section class="slide" id="slide-03c" data-sid="03c-kylee-about:1">
+  <header class="slide__head" data-sid="03c-kylee-about:2" style="position:absolute; left:84px; top:112px; width:1750px; margin:0;">
+    <h2 data-sid="03c-kylee-about:3">About Me</h2>
+    <p class="slide__lede" data-sid="03c-kylee-about:4">In what free time I have…</p>
+  </header>
+
+  <!-- Photo collage matched 1:1 to Kylee's PPTX slide 2: plain unframed
+       prints at that deck's exact positions/sizes (960×540 doubled), DOM
+       order = its paint order (painting on top, cat over the two posters).
+       All prints land at once — no reveal steps. -->
+  <div class="slide__body" data-sid="03c-kylee-about:5" style="position:absolute; inset:0;">
+
+    <img src="assets/kylee/gencon.webp" alt="The Gen Con exhibit floor filling Lucas Oil Stadium in Indianapolis" data-sid="03c-kylee-about:7" style="left:0px; top:554px; width:604px; height:534px; object-position:bottom;">
+
+    <img src="assets/kylee/descent.webp" alt="Poster for the horror film The Descent" data-sid="03c-kylee-about:10" style="left:1135px; top:0px; width:455px; height:675px;">
+
+    <img src="assets/kylee/as-above-so-below.webp" alt="Poster for the horror film As Above, So Below" data-sid="03c-kylee-about:13" style="left:1590px; top:0px; width:316px; height:473px;">
+
+    <img src="assets/kylee/cat.webp" alt="A tabby cat sitting on a cat tree" data-sid="03c-kylee-about:16" style="left:1329px; top:295px; width:591px; height:785px;">
+
+    <img src="assets/kylee/painting-crop.jpg" alt="A painting of two frogs in cowboy hats under a desert moon" data-sid="03c-kylee-about:19" style="left:491px; top:444px; width:629px; height:486px;">
+
+  </div>
+
+  <div class="slide__number" data-sid="03c-kylee-about:21"></div>
+
+  <style>
+    /* Slide-local: PPTX title ran ~112px Georgia — --t-h1 is the nearest
+       step. Its lede was small, bold and near-black, so the shared lede
+       class steps down to --t-small / --fg-0 here. */
+    #slide-03c .slide__head h2 { font-size: var(--t-h1); line-height: 1.05; margin: 0; }
+    #slide-03c .slide__lede { font-size: var(--t-small); font-weight: bold; color: var(--fg-0); margin: var(--s-2) 0 0; }
+    #slide-03c .slide__body img { position: absolute; object-fit: cover; }
+  </style>
+</section>

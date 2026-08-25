@@ -9,6 +9,7 @@ body {
   color: var(--fg-0);
   font-family: var(--font-body, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;   /* keep macOS Firefox in step with the line above */
 }
 
 /* ---- fixed canvas, scaled to the viewport via transform ---- */
@@ -61,12 +62,54 @@ body {
 /* ---- step engine: .frag[data-step] reveal states, classes set by js/deck.js ---- */
 .frag { transition: opacity .35s ease, transform .35s ease; }
 .frag.is-pending { opacity: 0; }
+/* Screen-reader-only text: context a visual (a strike, an arrow) carries
+   for sighted viewers. Both clip forms so every engine, old and new, hides it. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 .frag.is-current,
 .frag.is-past { opacity: 1; }
 .frag--dim.is-pending { opacity: 0.3; }
 
 /* ---- speaker notes live inside the slide but never render ---- */
 aside.notes { display: none; }
+
+/* ---- UA-default coverage: browsers disagree on the default styling of these
+   elements (monospace sizing especially), so the deck pins every one a slide
+   can plausibly contain. Portability rule: never rely on browser defaults. ---- */
+.slide code, .slide kbd, .slide samp { font-family: var(--font-mono, monospace); font-size: 0.9em; }
+.slide pre {
+  font-family: var(--font-mono, monospace);
+  font-size: calc(var(--t-body) * 0.8);
+  line-height: 1.5;
+  margin: 0 0 var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--bg-1);
+  border-radius: var(--r-1);
+  overflow: hidden;               /* slides never scroll — clipping = authoring bug to fix */
+}
+.slide pre code { font-size: 100%; }
+.slide blockquote {
+  margin: 0 0 var(--s-3);
+  padding-left: var(--s-3);
+  border-left: 4px solid var(--accent-3);
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  line-height: 1.3;
+}
+.slide table { border-collapse: collapse; font-size: var(--t-body); }
+.slide th, .slide td { text-align: left; padding: var(--s-1) var(--s-3); border-bottom: 2px solid var(--bg-1); }
+.slide th { color: var(--fg-1); }
+.slide hr { border: 0; border-top: 2px solid var(--bg-1); margin: var(--s-4) 0; }
 
 /* ---- dashed stand-in for an image not yet supplied (data-src = intended path) ---- */
 .img-placeholder {
@@ -88,10 +131,10 @@ aside.notes { display: none; }
 /* ==========================================================================
    Deck components — every pattern used by more than one slide lives here.
    Slides carry structure + draggable geometry only; colour, type, spacing and
-   radii always resolve through css/tokens.css.
+   radii always resolve through css/tokens.css. Kept in step with day 1.
    ========================================================================== */
 
-/* ---- slide head: optional terminal-prompt kicker over the title ---------- */
+/* ---- slide head: optional kicker over the title -------------------------- */
 .slide__head { flex: 0 0 auto; margin-bottom: var(--s-5); }
 .slide__head h1, .slide__head h2 { margin-bottom: 0; }
 .slide__kicker {
@@ -102,13 +145,10 @@ aside.notes { display: none; }
   color: var(--accent-1);
   margin: 0 0 var(--s-2);
 }
-/* Terminal-prompt variant — the ASCEND lab-intro slide only. */
-.slide__kicker--mono {
-  font-family: var(--font-mono);
-  text-transform: none;
-  letter-spacing: 0.06em;
-  color: var(--accent-2);
-}
+
+/* ---- small muted footnote ----------------------------------------------- */
+.note { font-size: var(--t-small); color: var(--fg-1); }
+
 .slide__lede {
   font-size: var(--t-h3);
   line-height: 1.25;
@@ -116,78 +156,6 @@ aside.notes { display: none; }
   margin: var(--s-3) 0 0;
   max-width: 1400px;
 }
-
-/* ---- identity block: a headshot beside a name / role / department triple.
-   Used by every "who is talking" slide (the instructor's and each guest's), so
-   the two introductions read as the same card. The name/role/dept rules carry
-   .slide to out-specify the base `.slide p` type ramp. ---------------------- */
-.headshot {
-  border: 6px solid var(--paper);
-  border-radius: var(--r-1);
-}
-.id-card { display: flex; flex-direction: column; gap: var(--s-1); justify-content: center; }
-.id-card p { margin: 0; line-height: normal; }
-.slide .id-card__name {
-  font-family: var(--font-display);
-  font-size: var(--t-h3);
-  color: var(--accent-1);
-  letter-spacing: -0.01em;
-}
-.slide .id-card__role { font-size: var(--t-micro); color: var(--fg-1); }
-.slide .id-card__dept {
-  font-family: var(--font-mono);
-  font-size: var(--t-tag);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--fg-1);
-}
-
-/* ---- title + section-divider layouts ------------------------------------ */
-.slide--title, .slide--section { justify-content: center; }
-.slide--title h1 { max-width: 1320px; }
-
-/* Opt-out of the stone edge; the ridge widens to fill the freed strip.
-   Doubled class keeps this above the later .slide::before rule in the cascade. */
-.slide.slide--nostone::before { content: none; }
-.slide--nostone .decor--ridge { left: 0; width: 1920px; }
-
-/* Fully centred composition (cover). */
-.slide--center { align-items: center; text-align: center; }
-
-/* ---- sunrise cover (alt) — full dawn sky, light bleeding through the mist.
-   Sky: cool blue holds the top half, a narrow maroon-rose band crosses the
-   middle, the warm ramp compresses into the last quarter; a radial bloom
-   marks the sun just above the ridge line. The mist on this slide is filled
-   by a userSpaceOnUse gradient anchored at the same point, so each band
-   warms near the light and drifts through it. */
-.slide--sunrise {
-  background-image:
-    radial-gradient(ellipse 1100px 620px at 50% 76%,
-      color-mix(in srgb, var(--accent-3) 52%, transparent),
-      color-mix(in srgb, var(--accent-3) 18%, transparent) 45%,
-      transparent 70%),
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--accent-2) 42%, var(--bg-0)),
-      color-mix(in srgb, var(--accent-2) 24%, var(--bg-0)) 34%,
-      color-mix(in srgb, var(--accent-1) 12%, var(--bg-0)) 55%,
-      color-mix(in srgb, var(--accent-3) 26%, var(--bg-0)) 74%,
-      color-mix(in srgb, var(--accent-3) 52%, var(--bg-0)));
-}
-.slide--sunrise .mist { fill: url(#mist-glow-01a); }
-.mistlit-core { stop-color: color-mix(in srgb, var(--accent-3) 45%, var(--bg-0)); }
-.mistlit-edge { stop-color: var(--bg-0); }
-/* VT maroon banner, burnt-orange rule beneath — mirrors the Canvas header. */
-.slide__banner {
-  align-self: flex-start;
-  margin: var(--s-4) 0 0;
-  padding: var(--s-3) var(--s-5);
-  border-bottom: 8px solid var(--accent-3);
-  border-radius: var(--r-1) var(--r-1) 0 0;
-  background: var(--accent-1);
-  color: var(--bg-0);
-  font-size: var(--t-h3);
-}
-.slide--term h2 { font-family: var(--font-mono); letter-spacing: -0.01em; color: var(--accent-2); }
 
 /* ---- flat tile: the deck's category-coded panel — full colour border ----- */
 .tile {
@@ -211,33 +179,25 @@ aside.notes { display: none; }
   color: var(--edge);
   margin: 0 0 var(--s-1);
 }
-/* Icon-led row: the glyph hangs in the widened left padding, label centres. */
-.tile--row {
-  display: flex;
-  align-items: center;
-  padding-left: var(--s-7);
-}
-/* Line glyph sitting inside a tile — wears the tile's own accent edge. */
-.tile__icon { width: 56px; height: 56px; flex-shrink: 0; color: var(--edge); }
 
 /* ---- grids -------------------------------------------------------------- */
 .grid { display: grid; gap: var(--s-3); align-content: start; }
 .grid--2 { grid-template-columns: 1fr 1fr; }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
-.grid--4 { grid-template-columns: repeat(4, 1fr); }
 /* Code question: source pane left (wide enough for ~34 mono chars), the ask right. */
 .grid--code { grid-template-columns: 1.15fr 1fr; align-items: center; }
+/* Cells that are list items — resets the list chrome so a <ul>/<ol> can carry a
+   tile board. Scoped under .slide to out-specify the `.slide ul` type ramp. */
+.slide .grid--tiles { list-style: none; padding: 0; margin: 0; }
+.slide .grid--tiles > li { margin: 0; }
 
 /* ---- vertical stack: a column of blocks on the standard gutter ----------- */
 .stack { display: flex; flex-direction: column; gap: var(--s-3); }
 
-/* ---- spec block: the plan's Layout / Text / Visual / Notes quadruple ----- */
-.spec { margin: 0; font-size: var(--t-small); }
-.spec dt { font-family: var(--font-mono); color: var(--accent-1); margin-top: var(--s-2); }
-.spec dd { margin: 0 0 var(--s-2); }
-
-/* ---- pill chips (matches the Canvas quick-link row + lab keyword tags) --- */
-.chips { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; padding: 0; margin: 0; }
+/* ---- pill chips ---------------------------------------------------------- */
+/* Every list component below carries .slide: the `.slide ul, .slide ol` type
+   ramp sets padding-left, and a bare .chips/.checklist/.steps would lose to it. */
+.slide .chips { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; padding: 0; margin: 0; }
 .chips li {
   margin: 0;
   padding: var(--s-1) var(--s-3);
@@ -247,69 +207,32 @@ aside.notes { display: none; }
   color: var(--accent-1);
 }
 
-/* ---- polaroid: a taped photo print for scrapbook collages ---------------
-   Absolutely placed, so the slide supplies left/top (draggable geometry) and
-   --rot; the print height comes from the slide too, since each collage crops
-   to its own aspect. The reveal (if any) is the slide's business. ---------- */
-.polaroid {
-  position: absolute;
-  box-sizing: border-box;
-  margin: 0;                             /* <figure> prints must not inherit the UA margin */
-  width: 300px;
-  padding: var(--s-2) var(--s-2) 0;
-  background: var(--paper);
-  border-radius: var(--r-1);
-  box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
-  transform: rotate(var(--rot, 0deg));
-}
-.polaroid::before {                      /* tape strip over the top edge */
+/* ---- checklist ---------------------------------------------------------- */
+.slide .checklist { list-style: none; padding: 0; font-size: var(--t-small); }
+.checklist li { position: relative; padding-left: var(--s-6); }
+.checklist li::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: calc(var(--s-2) * -1);
-  width: 110px;
-  height: 30px;
-  margin-left: -55px;
-  transform: rotate(-3deg);
-  background: color-mix(in srgb, var(--stone) 30%, transparent);
-}
-.polaroid img {
-  width: 100%;
-  object-fit: cover;
-  max-height: none;                      /* the print, not the frame, sets height */
-  display: block;
-}
-.slide .polaroid__cap {                  /* .slide out-specifies the base type ramp */
-  margin: 0;
-  padding: var(--s-1) 0 var(--s-2);
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--t-tag);
-  line-height: 1.2;
-  color: var(--fg-1);
-  text-align: center;
+  left: 0;
+  top: 0.2em;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--accent-3);
+  border-radius: var(--r-1);
 }
 
-/* ---- terminal card (ASCEND motif) + plain code block -------------------- */
-.term, .code {
-  box-sizing: border-box;
-  margin: 0;
-  padding: var(--s-3) var(--s-4);
-  border-radius: var(--r-2);
-  font-family: var(--font-mono);
-  font-size: var(--t-small);
-  line-height: 1.5;
-  white-space: pre-wrap;
-  overflow: hidden;
+/* ---- numbered arc: big display numerals instead of bullets -------------- */
+.slide .steps { list-style: none; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; position: relative; padding-left: var(--s-7); }
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -0.18em;
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  color: var(--accent-3);
 }
-/* The terminal card stays dark whatever the theme does — it anchors to the ink,
-   not the ground, because the ASCEND motif is a dark card on a light slide. */
-.term {
-  border: 2px solid color-mix(in srgb, var(--term-ink) 55%, var(--fg-0));
-  background: var(--fg-0);
-  color: var(--term-ink);
-}
-.code { background: var(--bg-1); color: var(--fg-0); }
 
 /* ---- source editor: a code pane with a filename bar and a numbered gutter.
    Chrome is stone-toned on purpose — content tiles carry the accent edges, so
@@ -319,12 +242,14 @@ aside.notes { display: none; }
   --chrome: color-mix(in srgb, var(--stone) 70%, var(--fg-0));
   box-sizing: border-box;
   margin: 0;
+  position: relative;                   /* anchors the .editor__pc program counter */
   border: 3px solid var(--chrome);
   border-radius: var(--r-2);
   background: var(--bg-1);
   overflow: hidden;                     /* keeps the bar inside the rounded corners */
 }
 .editor__bar {
+  margin: 0;                            /* the bar is often a <p> — kill the type ramp's margin */
   padding: var(--s-1) var(--s-3);
   border-bottom: 3px solid var(--chrome);
   background: color-mix(in srgb, var(--stone) 30%, var(--bg-1));
@@ -378,6 +303,7 @@ aside.notes { display: none; }
 .refs__var {
   position: relative;
   grid-column: 1;
+  margin: 0;                            /* a stray type-ramp margin would tilt the arrow */
   padding: var(--s-1) var(--s-3);
   border-radius: var(--r-1);
   background: var(--accent-2);
@@ -420,6 +346,8 @@ aside.notes { display: none; }
 }
 .refs__obj--shared { grid-row: span 2; }
 .refs__obj--changed { --edge: var(--accent-3); }   /* the object this step altered */
+/* Unreachable after a reassignment — drawn as garbage, not as live state. */
+.refs__obj--dead { --edge: var(--fg-1); opacity: 0.45; }
 .refs__type {
   margin-bottom: var(--s-1);
   font-family: var(--font-mono);
@@ -428,6 +356,7 @@ aside.notes { display: none; }
   color: var(--edge);
 }
 .refs__field {
+  margin: 0;
   font-family: var(--font-mono);
   font-size: var(--t-small);
   line-height: 1.2;
@@ -444,72 +373,286 @@ aside.notes { display: none; }
 /* ---- warm-up slides: question at left, stepped walkthrough rail at right.
    The rail compacts .refs/.tile so a full before→code→after sequence fits one
    column; the slide modifier steps the heading down so both columns clear the
-   canvas. Used by the two peer-instruction warm-ups. */
+   canvas. Used by the peer-instruction warm-ups. */
 .slide--warmup h2 { font-size: var(--t-h3); }
 .slide--warmup .tile h3 { font-size: var(--t-small); }
 .slide--warmup .stack { gap: var(--s-2); }
-.walkthru { display: flex; flex-direction: column; gap: var(--s-2); }
-.walkthru .refs { gap: var(--s-1) 0; }
-.walkthru .refs__obj {
+
+/* ---- vote card: QR + short link on a white plate. The plate is --paper on
+   purpose — scanners want dark-on-light and a guaranteed quiet zone, and true
+   white reads as "this is a handout, point your phone here" against the
+   mortar ground. Used by both peer-instruction vote slides. ---------------- */
+.scan {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--s-4) var(--s-4) var(--s-3);
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
   gap: var(--s-2);
-  padding: var(--s-1) var(--s-2);
+  background: var(--paper);
+  border-radius: var(--r-2);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
 }
-.walkthru .refs__type { margin-bottom: 0; }
-.walkthru .refs figcaption { margin-top: var(--s-1); }
-.walkthru .tile { padding: var(--s-2) var(--s-3); }
+.scan img { display: block; width: 100%; }
+/* .slide prefixes out-specify the `.slide p` base type ramp. */
+.slide .scan__link {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--accent-2);
+}
+.slide .scan__hint { margin: 0; font-size: var(--t-micro); color: var(--fg-1); }
 
-/* ---- data table --------------------------------------------------------- */
-.data { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
-.data th, .data td {
+/* ==========================================================================
+   codewalk — the code-walkthrough component (paired with js/code-walk.js,
+   which holds the authoring guide). Left: an .editor whose program counter is
+   a single bar gliding line to line. Right: a memory diagram laid out by grid
+   (names col 1, objects col 3, inline grid-row only — never measured pixels);
+   arrows are drawn and animated by the engine from live layout.
+   ========================================================================== */
+
+/* manim's default rate function (smootherstep) as a CSS easing — the deck's
+   "3b1b" curve, mirrored exactly by js/code-walk.js for the wires. Browsers
+   without linear() (none current) fall back to the ease-in-out declared first. */
+:root { --ease-smooth: cubic-bezier(0.45, 0.05, 0.55, 0.95); }
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-smooth: linear(0, 0.001 5%, 0.009 10%, 0.027 15%, 0.058 20%,
+      0.104 25%, 0.163 30%, 0.235 35%, 0.317 40%, 0.407 45%, 0.5 50%,
+      0.593 55%, 0.683 60%, 0.765 65%, 0.837 70%, 0.896 75%, 0.942 80%,
+      0.973 85%, 0.991 90%, 0.999 95%, 1);
+  }
+}
+
+/* ---- editor states. Lines stay visible the whole time — "has this run yet"
+   is carried by the pc bar, not by hiding code. Answer lines (--new) do hide
+   until reached, so the solution can't be read before the vote resolves.
+   Selectors carry .editor__code/.frag because studio-anim.css loads after
+   this file and its bare .frag rules would win an order tiebreak. ---------- */
+.editor__code .walkline { transition: opacity .35s ease; }
+.editor__code .frag.walkline.is-pending { opacity: 1; }
+.editor__code .frag.walkline--new.is-pending { opacity: 0; }   /* after the rule above — order decides */
+.editor__code .walkline--new::before { color: var(--accent-3); }   /* gutter: "this line is yours" */
+.editor__code .walkline--ran { opacity: 0.55; }   /* recap of code that already ran on a previous slide */
+/* The program counter: js/code-walk.js sets translateY/height to the current
+   .walkline; the transition makes it glide instead of jump-cut. Translucent
+   wash, so it can sit above the static code without a z-order fight. */
+.editor__pc {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  background: color-mix(in srgb, var(--accent-1) 10%, transparent);
+  box-shadow: inset 6px 0 0 var(--accent-1);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .55s var(--ease-smooth), height .55s var(--ease-smooth), opacity .3s ease;
+}
+.editor__pc.is-on { opacity: 1; }
+
+/* ---- the memory diagram ---- */
+.codewalk { display: flex; flex-direction: column; gap: var(--s-3); }
+.codewalk__heap {
+  position: relative;                   /* wire coordinates resolve against this */
+  display: grid;
+  grid-template-columns: max-content 250px max-content;   /* names · wire run · objects */
+  row-gap: var(--s-4);
+  align-content: start;
+}
+.codewalk .heap-name {
+  grid-column: 1;
+  align-self: center;                   /* centres the pill on its object row */
+  justify-self: start;
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 108px;
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--accent-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--bg-0);
+  text-align: center;
+}
+.codewalk .heap-obj {
+  --edge: var(--accent-1);
+  grid-column: 3;
+  position: relative;                   /* anchors the unreachable wash */
+  box-sizing: border-box;
+  min-width: 380px;
   padding: var(--s-2) var(--s-3);
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 2px solid color-mix(in srgb, var(--fg-1) 45%, transparent);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+  transition: border-color .5s ease;
 }
-.data thead th { font-weight: 700; color: var(--accent-1); }
-.data tbody th { font-weight: 400; color: var(--fg-1); }
-
-/* ---- checklist ---------------------------------------------------------- */
-.checklist { list-style: none; padding: 0; font-size: var(--t-small); }
-.checklist li { position: relative; padding-left: var(--s-6); }
-.checklist li::before {
+.codewalk .heap-obj__type {
+  margin: 0 0 var(--s-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.2;
+  color: var(--edge);
+  transition: color .5s ease;
+}
+/* Entrances follow manim's vocabulary — nothing drifts into place. Pills
+   FadeIn (pure opacity); objects GrowFromCenter (pure scale on the smoother-
+   step curve, opacity resolving early so the grow carries the motion). */
+.codewalk .frag.heap-name { transition: opacity .45s ease; }
+.codewalk .frag.heap-obj { transition: opacity .25s ease, transform .55s var(--ease-smooth); }
+.codewalk .frag.heap-obj.is-pending { opacity: 0; transform: scale(0.4); }
+/* Field values stack in one grid cell. A mutation does NOT slide anywhere —
+   js/code-walk.js rolls the digits in place, manim's ChangeDecimalToValue
+   (the incoming element starts showing the OLD number, so this crossfade is
+   invisible). The plain fade below is the fallback for non-numeric values
+   and the whole story under snaps and reduced motion. */
+.codewalk .heap-obj__field { display: grid; }
+.codewalk .heap-val {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--fg-0);
+  transition: opacity .3s ease;
+}
+.codewalk .frag.heap-val.is-pending { opacity: 0; }
+.codewalk .frag.heap-val--old.is-pending { opacity: 1; }
+.codewalk .frag.heap-val--old.is-current,
+.codewalk .frag.heap-val--old.is-past { opacity: 0; }
+/* Before/after variant: the two values sit side by side instead of stacking.
+   Markup: old "<p>id = <span class=heap-val__num>456</span></p>",
+           new "<p><span class=sr-only>now </span>789</p>"
+   (screen readers get "id = 456, now 789" — the strike itself is decoration).
+   On the step the old number takes a strike that draws on left→right (Create,
+   no drift), the old line dims, then the new value fades in beside it. The
+   engine skips these fields (nothing to roll). Scrubbing back reverses it.
+   The number is an inline-block so its absolutely positioned strike has a
+   real box to resolve against (an inline's fragment box differs per engine)
+   and, with line-height 1, a whole-pixel height; the strike is a border, not
+   a background, so it survives forced-colors mode. */
+.codewalk .heap-obj__field--strike { display: flex; align-items: baseline; gap: var(--s-2); }
+.codewalk .heap-obj__field--strike .heap-val { grid-area: auto; transition: opacity .3s ease, color .3s ease; }
+.codewalk .heap-obj__field--strike .frag.heap-val--old.is-current,
+.codewalk .heap-obj__field--strike .frag.heap-val--old.is-past { opacity: 1; color: var(--fg-1); }
+.codewalk .heap-val__num { position: relative; display: inline-block; line-height: 1; }
+.codewalk .heap-val__num::after {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.2em;
-  width: 28px;
-  height: 28px;
-  border: 3px solid var(--accent-3);
-  border-radius: var(--r-1);
+  right: 0;
+  top: calc(50% - 2px);
+  height: 0;
+  border-top: 3px solid currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .35s var(--ease-smooth);
 }
-
-/* ---- numbered arc: big display numerals instead of bullets -------------- */
-.steps { list-style: none; padding: 0; counter-reset: step; }
-.steps li { counter-increment: step; position: relative; padding-left: var(--s-7); }
-.steps li::before {
-  content: counter(step);
+.codewalk .frag.heap-val--old.is-current .heap-val__num::after,
+.codewalk .frag.heap-val--old.is-past .heap-val__num::after { transform: scaleX(1); }
+/* the new value waits for the strike; on the way back it leaves first */
+.codewalk .heap-obj__field--strike .frag.heap-val:not(.heap-val--old).is-current,
+.codewalk .heap-obj__field--strike .frag.heap-val:not(.heap-val--old).is-past { transition-delay: .25s; }
+/* The write lands: the card takes a single soft breath when a new (non --old)
+   value becomes current. Replays symmetrically when scrubbing back onto it. */
+.codewalk .heap-obj:has(> .heap-obj__field > .heap-val.is-current:not(.heap-val--old)) {
+  animation: cw-pulse .7s var(--ease-smooth);
+}
+@keyframes cw-pulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+/* Garbage wash: from the step an object becomes unreachable it dims under a
+   mortar veil and its edge goes stone (via :has, so the border fades with
+   it). Without a data-step — plus .heap-obj--dead — it is recap state. */
+.codewalk .heap-obj__gone {
   position: absolute;
-  left: 0;
-  top: -0.18em;
-  font-family: var(--font-display);
-  font-size: var(--t-h3);
-  color: var(--accent-3);
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: calc(var(--r-2) - 3px);
+  background: color-mix(in srgb, var(--bg-0) 88%, transparent);   /* strong enough that the dead values can't fight the label */
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--fg-1);
+  transition: opacity .55s ease;
+}
+.codewalk .frag.heap-obj__gone.is-pending { opacity: 0; }
+.codewalk .heap-obj--dead,
+.codewalk .heap-obj:has(> .heap-obj__gone.is-current),
+.codewalk .heap-obj:has(> .heap-obj__gone.is-past) { --edge: var(--fg-1); }
+/* Wires: geometry is 100% engine-drawn — style only lives here. */
+.codewalk .heap-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.codewalk .wire__line {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.codewalk .wire__head { fill: var(--accent-2); }
+/* Narration rail: one caption per step, stacked in a single grid cell; only
+   the is-current one shows, rising in like a voiceover line. min-height
+   reserves two lines so the heap never shifts as captions change. */
+.codewalk__caps { display: grid; min-height: 110px; align-content: start; }
+.codewalk .walkcap {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-size: var(--t-small);
+  line-height: 1.35;
+  color: var(--fg-1);
+  transition: opacity .4s ease;    /* plain crossfade — narration never drifts */
+}
+.codewalk .frag.walkcap.is-pending,
+.codewalk .frag.walkcap.is-past { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .editor__pc, .codewalk .heap-val, .codewalk .heap-obj__field--strike .heap-val,
+  .codewalk .heap-val__num::after, .codewalk .walkcap, .codewalk .heap-obj,
+  .codewalk .heap-obj__gone, .editor__code .walkline { transition: none; }
+  /* !important: the :has() pulse rule above out-specifies anything sane here */
+  .codewalk .heap-obj { animation: none !important; }
 }
 
-/* ---- pull quote --------------------------------------------------------- */
-.slide blockquote {
-  margin: 0 0 var(--s-3);
-  padding-left: var(--s-3);
-  border-left: 4px solid var(--accent-3);
+/* ---- motto hero — one big display-scale sentence with accent-bold clauses.
+   Scoped under .slide so it outranks the `.slide p` base type rules. */
+.slide .motto {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: var(--t-body);
-  line-height: 1.3;
+  font-size: var(--t-h1);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--fg-0);
 }
+/* A full sentence rather than a slogan — drops a step so it still fits. */
+.slide .motto--tight { font-size: var(--t-h2); line-height: 1.15; }
+.slide .motto b { color: var(--accent-1); }
 
-/* ---- small muted footnote ----------------------------------------------- */
-.note { font-size: var(--t-small); color: var(--fg-1); }
+/* ---- title + section-divider layouts ------------------------------------ */
+.slide--title, .slide--section { justify-content: center; }
+.slide--title h1 { max-width: 1320px; }
+
+/* Fully centred composition (cover). */
+.slide--center { align-items: center; text-align: center; }
+
+/* Opt-out of the stone edge; the ridge widens to fill the freed strip.
+   Doubled class keeps this above the later .slide::before rule in the cascade. */
+.slide.slide--nostone::before { content: none; }
+.slide--nostone .decor--ridge { left: 0; width: 1920px; }
 
 /* ---- moodboard motifs: Hokie Stone course + Blue Ridge silhouette ------- */
 .decor { position: absolute; pointer-events: none; }
@@ -528,18 +671,11 @@ aside.notes { display: none; }
   width: 72px;
   pointer-events: none;
   background: color-mix(in srgb, var(--stone) 60%, var(--bg-0));
-  -webkit-mask-image: url("../assets/stone-edge.svg");
   mask-image: url("../assets/stone-edge.svg");
-  -webkit-mask-size: 72px 300px;
   mask-size: 72px 300px;
-  -webkit-mask-repeat: repeat-y;
   mask-repeat: repeat-y;
 }
 
-/* Rough-cut stone faces: four tones mixed toward the ink so the wall reads as
-   quarried rubble rather than uniform brick, with the mortar left palest.
-   These percentages assume a light ground — flipping the theme back to dark
-   inverts mortar against the stones and they need re-tuning. */
 /* Receding Blue Ridge haze: palest ridge furthest back, deepening forward. */
 .ridge-far  { fill: var(--accent-2); opacity: 0.18; }
 .ridge-mid  { fill: var(--accent-2); opacity: 0.34; }
@@ -576,69 +712,6 @@ aside.notes { display: none; }
   to   { opacity: 0.6; }
 }
 
-/* ---- three-stage arc with a deliberately compressed middle stage --------- */
-.arc { display: grid; grid-template-columns: 1fr 0.5fr 1fr; gap: var(--s-3); align-items: stretch; }
-
-/* ---- left-to-right pipeline: artifacts and the tools that transform them.
-   Boxes are content-sized (flex-basis auto), so a filename gets a wide box and
-   "Compiler" a narrow one — five equal columns forced the long labels to wrap
-   and read as undifferentiated chips. Modifiers carry the meaning: files are
-   mono outlines, tools are filled in the pipeline's own blue, the outcome
-   takes the tertiary. Arrows are drawn shaft + head like .refs, not a typed
-   "→" — the Verdana glyph is far too light to carry a gap this wide. */
-.flow {
-  display: flex;
-  align-items: stretch;
-  gap: var(--s-4);
-  list-style: none;
-  padding: 0;
-  font-size: var(--t-small);
-}
-.flow li {
-  --edge: var(--accent-2);
-  position: relative;
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--s-7);
-  margin: 0;
-  padding: var(--s-2) var(--s-3);
-  border: 3px solid var(--edge);
-  border-radius: var(--r-2);
-  background: var(--bg-1);
-  line-height: 1.25;
-  text-align: center;
-  white-space: nowrap;
-}
-.flow__file { font-family: var(--font-mono); }          /* it is a filename — set it like one */
-.flow__tool { background: var(--edge); color: var(--bg-0); }   /* the verbs between the nouns */
-.flow__out {
-  --edge: var(--accent-3);
-  background: color-mix(in srgb, var(--accent-3) 12%, var(--bg-1));
-}
-.flow li:not(:last-child)::after {       /* shaft, spanning the gap */
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  width: var(--s-4);
-  margin-top: -2px;
-  border-top: 4px solid var(--accent-2);
-}
-.flow li:not(:last-child)::before {      /* head, tip landing on the next box */
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  margin-left: calc(var(--s-4) - 16px);
-  transform: translateY(-50%);
-  border: 11px solid transparent;
-  border-right: 0;
-  border-left: 16px solid var(--accent-2);
-}
 /* ---- setting sun (closing) — sinks behind the ridge while the slide is up.
    Slides are display:none until active, so the animation restarts on arrival. */
 @media (prefers-reduced-motion: no-preference) {
@@ -648,10 +721,10 @@ aside.notes { display: none; }
   from { transform: translateY(0); }
   to   { transform: translateY(240px); }
 }
+
 /* ---- dusk (closing) — night falls in step with .sun-set ------------------ */
 .slide--dusk { background: var(--bg-0); }
-.slide--dusk .slide__banner { color: var(--bg-1); }   /* stays light as the ground darkens */
-/* "Thanks" rides out the whole sunset unchanged: a white pill keeps its own
+/* "Thanks" rides out the whole sunset unchanged: a cream pill keeps its own
    ground, so no ink animation is needed as the sky sinks to night.
    position: relative lifts the head into positioned paint order — it follows
    .night in the DOM, so the overlay can never fade in on top of the pill. */
@@ -666,9 +739,9 @@ aside.notes { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   .slide--dusk { animation: dusk-fall 60s linear forwards; }
 }
-/* Animate the real properties, not --bg-0: an unregistered custom property
-   can't interpolate, so it snaps to the end value at the animation midpoint. */
-/* Sky sinks through maroon dusk mid-way, then on down to night-black. */
+/* Sky sinks through maroon dusk mid-way, then on down to night-black. Animate
+   the real property, not --bg-0: an unregistered custom property can't
+   interpolate, so it would snap at the animation midpoint. */
 @keyframes dusk-fall {
   45% { background-color: var(--fg-0); }
   to  { background-color: var(--night); }
@@ -733,17 +806,3 @@ aside.notes { display: none; }
   38% { opacity: 0.08; }
   52% { opacity: 1; }
 }
-
-/* Motto hero — one big display-scale sentence with accent-bold halves and a
-   mono source line. Shared by the move-fast slide and its rewritten reprise.
-   Scoped under .slide so it outranks the `.slide p` base type rules. */
-.slide .motto {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--t-h1);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--fg-0);
-}
-.slide .motto b { color: var(--accent-1); }
-.slide .motto__src { margin: var(--s-3) 0 0; font-family: var(--font-mono); }

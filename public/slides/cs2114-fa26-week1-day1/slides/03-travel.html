@@ -1,6 +1,6 @@
 <section data-sid="03-travel:1" class="slide slide--nostone" id="slide-03">
   <header data-sid="03-travel:2" class="slide__head">
-    <p data-sid="03-travel:3" class="slide__kicker">PERKS OF THE JOB AND MY FAVORITE HOBBY: TRAVEL!</p>
+    <p data-sid="03-travel:3" class="slide__kicker" style="font-size: 48px; width: 1750px">PERKS OF THE JOB AND MY FAVORITE HOBBY: TRAVEL!</p>
     
   </header>
 
@@ -261,28 +261,9 @@
     }
 
     /* ---------- polaroids ---------- */
-    #slide-03 .polaroid {
-      position: absolute;
-      box-sizing: border-box;
-      width: 300px;
-      padding: 14px 14px 0;
-      background: var(--paper);
-      border-radius: var(--r-1);
-      box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
-      transform: rotate(var(--rot));
-      opacity: 0;
-    }
-    #slide-03 .polaroid::before {          /* tape strip over the top edge */
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: -14px;
-      width: 110px;
-      height: 30px;
-      margin-left: -55px;
-      transform: rotate(-3deg);
-      background: color-mix(in srgb, var(--stone) 30%, transparent);
-    }
+    /* Frame, tape and caption come from .polaroid in css/deck.css. This slide
+       adds only the panorama crop and the hold-until-the-plane-lands reveal. */
+    #slide-03 .polaroid { opacity: 0; }
     /* Photos land with the plane: the drop fires on the flight (step 1), each
        delayed to its stop's arrival time, and re-arms if you step back. */
     #slide-03.tr-flying .polaroid {
@@ -294,20 +275,7 @@
       to   { opacity: 1; transform: translateY(0) rotate(var(--rot)) scale(1); }
     }
     #slide-03 .polaroid img {
-      width: 100%;
-      height: 126px;              /* 272px wide inside the frame ≈ the shots' 2.2:1 */
-      object-fit: cover;
-      display: block;
-    }
-    #slide-03 .polaroid__cap {
-      margin: 0;
-      padding: var(--s-1) 0 var(--s-2);
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: var(--t-tag);
-      line-height: 1.2;
-      color: var(--fg-1);
-      text-align: center;
+      height: 126px;              /* 268px wide inside the frame ≈ the shots' 2.2:1 */
     }
 
     @media (prefers-reduced-motion: reduce) {

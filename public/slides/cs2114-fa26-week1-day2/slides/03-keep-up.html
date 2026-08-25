@@ -1,0 +1,194 @@
+<section class="slide" id="slide-03" data-sid="03-keep-up:1">
+  <header class="slide__head" data-sid="03-keep-up:2">
+    <h2 data-sid="03-keep-up:3">Keep up with the course this week and next</h2>
+  </header>
+
+  <!-- Keeping up is two structures drawn as one picture. WHERE: four stations
+       in the order one piece of work flows through them — scheduled on
+       Canvas, done in PrairieLearn, asked about on Piazza, then in office
+       hours. WHEN: the three deadlines on a two-week axis (14 day tracks, track
+       k ends at x = 128 + k·118.86 — the same geometry as slide 18). Step 1:
+       Canvas hands the work to PrairieLearn, which drops it onto the Modules
+       bar; the bar runs to Sunday and its flag goes up. Step 2: the Homework
+       bar runs on into next week, to Friday's flag. Step 3: the Challenge
+       Exercise bar — solid to Monday, then a faded tail across Mon–Fri with a
+       range line under the axis: due before your lab section, and labs run
+       all week. Step 4: the flow
+       reaches Piazza and the notification toggle flips on. Step 5: the flow
+       reaches office hours and one day on that calendar lights up. One SVG in
+       canvas px (viewBox = the body's rect, bottom-anchored). -->
+  <div class="slide__body" data-sid="03-keep-up:4">
+    <svg class="ku" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Four stations in a row — Canvas, PrairieLearn, Piazza, Office hours — joined by arrows in that order, with a notification toggle under Piazza labelled Instructor posts. Below, a two-week axis with three bars: Modules 1.1–1.5, 2.1-2.4 ending at a Sunday flag, Homework ending at a flag next Friday, and Challenge Exercise 01 solid to next Monday with a faded tail across Monday to Friday, labelled your lab day."
+         data-sid="03-keep-up:5">
+      <!-- step 0: the four stations -->
+      <g class="ku__icon" data-sid="03-keep-up:6">
+        <rect x="288" y="292" width="96" height="88" rx="8" data-sid="03-keep-up:7"/>
+        <path d="M312 280v24M360 280v24M288 320h96M316 350l14 14l28-30" data-sid="03-keep-up:8"/>
+      </g>
+      <g class="ku__icon" data-sid="03-keep-up:9">
+        <path d="M752 296 L796 316 L752 336 L708 316 Z" data-sid="03-keep-up:10"/>
+        <path d="M728 328v18c0 12 48 12 48 0v-18M796 316v26" data-sid="03-keep-up:11"/>
+        <circle class="ku__icon-dot" cx="796" cy="346" r="4" data-sid="03-keep-up:12"/>
+      </g>
+      <g class="ku__icon" data-sid="03-keep-up:13">
+        <path d="M1120 288h96v64h-44l-20 20v-20h-32z" data-sid="03-keep-up:14"/>
+        <text class="ku__q" x="1168" y="338" data-sid="03-keep-up:15">?</text>
+      </g>
+      <g class="ku__icon" data-sid="03-keep-up:16">
+        <rect x="1536" y="292" width="96" height="88" rx="8" data-sid="03-keep-up:17"/>
+        <path d="M1560 280v24M1608 280v24M1536 320h96" data-sid="03-keep-up:18"/>
+        <circle cx="1568" cy="340" r="9" data-sid="03-keep-up:19"/>
+        <circle cx="1600" cy="340" r="9" data-sid="03-keep-up:20"/>
+        <path d="M1550 372c0-16 36-16 36 0M1582 372c0-16 36-16 36 0" data-sid="03-keep-up:21"/>
+      </g>
+      <text class="ku__name" x="336" y="440" data-sid="03-keep-up:22">Canvas</text>
+      <text class="ku__name" x="752" y="440" data-sid="03-keep-up:23">PrairieLearn</text>
+      <text class="ku__name" x="1168" y="440" data-sid="03-keep-up:24">Piazza</text>
+      <text class="ku__name" x="1584" y="440" data-sid="03-keep-up:25">Office hours</text>
+
+      <!-- step 0: the two-week axis -->
+      <path class="ku__bracket" d="M128 664v-16H960v16M960 664v-16H1792v16" data-sid="03-keep-up:26"/>
+      <text class="ku__axislabel" x="544" y="640" data-sid="03-keep-up:27">this week</text>
+      <text class="ku__axislabel" x="1376" y="640" data-sid="03-keep-up:28">next week</text>
+      <line class="ku__axis" x1="128" y1="920" x2="1792" y2="920" data-sid="03-keep-up:29"/>
+      <path class="ku__tick" d="M247 920v16M366 920v16M485 920v16M603 920v16M722 920v16M841 920v16M1079 920v16M1198 920v16M1317 920v16M1435 920v16M1673 920v16" data-sid="03-keep-up:30"/>
+      <path class="ku__tick ku__tick--due" d="M960 920v28M1079 920v28M1554 920v28" data-sid="03-keep-up:31"/>
+      <text class="ku__axislabel" x="960" y="984" data-sid="03-keep-up:32">Sun</text>
+      <text class="ku__axislabel" x="1316" y="984" data-sid="03-keep-up:33">your lab day</text>
+      <text class="ku__axislabel" x="1554" y="984" data-sid="03-keep-up:62">Fri</text>
+
+      <!-- step 1: Canvas → PrairieLearn → the Modules bar → Sunday -->
+      <g class="ku__edge frag" data-step="1" data-sid="03-keep-up:34">
+        <line x1="400" y1="332" x2="680" y2="332" data-sid="03-keep-up:35"/>
+        <path d="M696 332 L680 322 V342 Z" data-sid="03-keep-up:36"/>
+      </g>
+      <g class="ku__drop frag" data-step="1" data-sid="03-keep-up:37">
+        <clipPath id="s03-dropclip"><rect class="ku__dropclip" x="740" y="464" width="24" height="224"/></clipPath>
+        
+      </g>
+      <line class="ku__pole ku__ink--a2 frag" data-step="1" pathLength="100" x1="960" y1="920" x2="960" y2="688" data-sid="03-keep-up:39"/>
+      
+      <rect class="ku__bar ku__ink--a2 frag" data-step="1" x="128" y="688" width="832" height="48" rx="24" data-sid="03-keep-up:41"/>
+      <text class="ku__label frag" data-step="1" data-anim="fade" x="154" y="721" data-sid="03-keep-up:42">Modules 1.1&ndash;1.5, 2.1-2.4</text>
+
+      <!-- step 2: the homework bar runs into next week, to Friday -->
+      <line class="ku__pole ku__ink--a4 frag" data-step="2" pathLength="100" x1="1554" y1="920" x2="1554" y2="760" data-sid="03-keep-up:43"/>
+      
+      <rect class="ku__bar ku__ink--a4 ku__bar--long frag" data-step="2" x="128" y="760" width="1426" height="48" rx="24" data-sid="03-keep-up:45"/>
+      <text class="ku__label frag" data-step="2" data-anim="fade" x="154" y="793" data-sid="03-keep-up:46">Homework</text>
+
+      <!-- step 3: the challenge exercise bar — solid to Monday, then a faded
+           tail across Mon–Fri with a range line under the axis: due before
+           your lab section, and labs run all week -->
+      <rect class="ku__bar ku__ink--a4 ku__bar--long frag" data-step="3" x="128" y="832" width="951" height="48" rx="24" data-sid="03-keep-up:63"/>
+      <path class="ku__bar ku__ink--a4 ku__bar--tail frag" data-step="3" d="M1079 832 H1530 a24 24 0 0 1 0 48 H1079 Z" data-sid="03-keep-up:60"/>
+      <text class="ku__label frag" data-step="3" data-anim="fade" x="154" y="865" data-sid="03-keep-up:64">Challenge Exercise 01</text>
+      <line class="ku__pole ku__ink--a4 ku__range frag" data-step="3" pathLength="100" x1="1079" y1="948" x2="1554" y2="948" data-sid="03-keep-up:61"/>
+
+      <!-- step 4: stuck? the flow continues to Piazza; the toggle flips on -->
+      <g class="ku__edge ku__edge--dashed frag" data-step="4" data-sid="03-keep-up:47">
+        <line x1="816" y1="332" x2="1096" y2="332" data-sid="03-keep-up:48"/>
+        <path d="M1112 332 L1096 322 V342 Z" data-sid="03-keep-up:49"/>
+      </g>
+      <g class="ku__toggle frag" data-step="4" data-sid="03-keep-up:50">
+        <rect class="ku__track" x="1096" y="480" width="144" height="56" rx="28" data-sid="03-keep-up:51"/>
+        <circle class="ku__knob" cx="1124" cy="508" r="22" data-sid="03-keep-up:52"/>
+      </g>
+      <text class="ku__axislabel frag" data-step="4" data-anim="fade" x="1168" y="584" data-sid="03-keep-up:53">Instructor posts</text>
+
+      <!-- step 5: and then to a person -->
+      <g class="ku__edge ku__edge--dashed frag" data-step="5" data-sid="03-keep-up:54">
+        <line x1="1232" y1="332" x2="1512" y2="332" data-sid="03-keep-up:55"/>
+        <path d="M1528 332 L1512 322 V342 Z" data-sid="03-keep-up:56"/>
+      </g>
+      <rect class="ku__slot frag" data-step="5" x="1606" y="324" width="20" height="16" rx="3" data-sid="03-keep-up:57"/>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="03-keep-up:58"></div>
+  <aside class="notes" data-sid="03-keep-up:59">Canvas — schedule, deadlines, submissions (the Canvas → PrairieLearn edge and the due flags carry "deadlines"). PrairieLearn — content modules and homework (the drop-line from PrairieLearn onto the two bars). Piazza — turn on Instructor-post notifications (the toggle flipping on; say it once aloud: it is the one setting they must change). Office hours — mine and the TAs', calendar on Canvas (the lit day on the calendar page). Bar 1: Modules 1.1–1.5, 2.1-2.4 — due Sunday — Week 1 content, in PrairieLearn. Bar 2: Homework — Week 1 Intro — due next Friday, the rhythm from slide 6. Bar 3: Challenge Exercise 01 — getting Eclipse running — due before your lab section next week; the bar is solid to Monday and fades across Mon–Fri because labs run all week: your deadline is whichever day your lab meets. Step 1 — the first deadline of the semester on a date. Step 2 — homework runs past Sunday to Friday. Step 3 — the challenge exercise; say "your lab day" aloud, the date is different for each of them. Step 4 — stuck? Piazza, notifications on. Step 5 — and then a person: look the calendar up before you need it.</aside>
+
+  <style>
+    /* Slide-local: the keep-up map. Stations in the 13-tools line-icon
+       vocabulary, connectors in the 05-two-skills language, and the two-week
+       axis in 05b's span-and-track grammar (shared by eye with slide 18).
+       Motion is manim's only: edges Create by clip wipe, the drop-line draws
+       down through a clipPath, bars wipe from the axis start, poles draw on by
+       dashoffset, pennants grow from the pole, the toggle knob actually moves
+       and the track changes colour, the calendar cell grows from centre,
+       labels FadeIn. Used by this slide only, all values from tokens; the
+       viewBox is the body's rect. */
+    #slide-03 .slide__body { position: relative; }
+    #slide-03 .ku { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* stations */
+    #slide-03 .ku__icon path, #slide-03 .ku__icon rect, #slide-03 .ku__icon circle {
+      fill: none; stroke: var(--fg-0); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    #slide-03 .ku__icon .ku__icon-dot { fill: var(--fg-0); stroke: none; }
+    #slide-03 .ku__q { font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-03 .ku__name { font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-03 .ku__slot { fill: var(--accent-2); transform-box: fill-box; transform-origin: 50% 50%; transition: transform .3s var(--ease-smooth); }
+    #slide-03 .frag.ku__slot.is-pending { opacity: 1; transform: scale(0); }
+    #slide-03 .frag.ku__slot.is-current, #slide-03 .frag.ku__slot.is-past { transition-delay: .4s; }
+
+    /* flow edges: one wipe per hop */
+    #slide-03 .ku__edge line { stroke: var(--stone); stroke-width: 5; stroke-linecap: round; }
+    #slide-03 .ku__edge--dashed line { stroke-dasharray: 14 14; }
+    #slide-03 .ku__edge path { fill: var(--stone); }
+    #slide-03 .ku__edge { clip-path: inset(0 0 0 0); transition: clip-path .45s var(--ease-smooth); }
+    #slide-03 .frag.ku__edge.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+
+    /* the drop from PrairieLearn onto the work it holds */
+    #slide-03 .ku__drop line { stroke: var(--accent-2); stroke-width: 3; stroke-dasharray: 8 12; stroke-linecap: round; }
+    #slide-03 .ku__dropclip { transition: height .3s var(--ease-smooth); }
+    #slide-03 .frag.ku__drop.is-pending { opacity: 1; }
+    #slide-03 .ku__drop.is-pending .ku__dropclip { height: 0; }
+    #slide-03 .ku__drop.is-current .ku__dropclip, #slide-03 .ku__drop.is-past .ku__dropclip { transition-delay: .35s; }
+
+    /* the toggle: off from step 0, flips on at its step */
+    #slide-03 .frag.ku__toggle.is-pending { opacity: 1; }
+    #slide-03 .ku__track { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: fill .4s ease, stroke .4s ease; }
+    #slide-03 .ku__knob { fill: var(--paper); stroke: var(--stone); stroke-width: 3; transition: transform .4s var(--ease-smooth), stroke .4s ease; }
+    #slide-03 .ku__toggle.is-current .ku__track, #slide-03 .ku__toggle.is-past .ku__track { fill: var(--accent-2); stroke: var(--accent-2); transition-delay: .4s; }
+    #slide-03 .ku__toggle.is-current .ku__knob, #slide-03 .ku__toggle.is-past .ku__knob { transform: translateX(88px); stroke: var(--accent-2); transition-delay: .4s; }
+
+    /* the axis */
+    #slide-03 .ku__bracket { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-03 .ku__axis, #slide-03 .ku__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-03 .ku__tick--due { stroke: var(--fg-0); stroke-width: 4; }
+    #slide-03 .ku__axislabel { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-03 .ku__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
+
+    /* bars and flags: modules blue, homework + challenge maroon-orange (05b) */
+    #slide-03 .ku__ink--a2 { --edge: var(--accent-2); }
+    #slide-03 .ku__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-03 .ku__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }
+    #slide-03 .ku__bar--long { transition-duration: .7s; }
+    #slide-03 .ku__bar--tail { fill-opacity: .35; transition-duration: .4s; }
+    #slide-03 .frag.ku__bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-03 .frag.ku__bar--tail.is-current, #slide-03 .frag.ku__bar--tail.is-past { transition-delay: .6s; }
+    #slide-03 .frag.ku__range.is-current, #slide-03 .frag.ku__range.is-past { transition-delay: 1s; }
+    #slide-03 .frag.ku__bar.is-current[data-step="1"], #slide-03 .frag.ku__bar.is-past[data-step="1"] { transition-delay: .5s; }
+    #slide-03 .frag.ku__label.is-current[data-step="1"], #slide-03 .frag.ku__label.is-past[data-step="1"] { transition-delay: .6s; }
+    #slide-03 .ku__pole {
+      fill: none; stroke: var(--edge); stroke-width: 4; stroke-linecap: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .3s var(--ease-smooth);
+    }
+    #slide-03 .frag.ku__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-03 .frag.ku__pole.is-current, #slide-03 .frag.ku__pole.is-past { stroke-dashoffset: 0; transition-delay: .55s; }
+    #slide-03 .frag.ku__pole.is-current[data-step="1"], #slide-03 .frag.ku__pole.is-past[data-step="1"] { transition-delay: 1.05s; }
+    #slide-03 .ku__flag { fill: var(--edge); transform-box: fill-box; transform-origin: 0 50%; transition: transform .3s var(--ease-smooth); }
+    #slide-03 .frag.ku__flag.is-pending { opacity: 1; transform: scale(0); }
+    #slide-03 .frag.ku__flag.is-current, #slide-03 .frag.ku__flag.is-past { transition-delay: .85s; }
+    #slide-03 .frag.ku__flag.is-current[data-step="1"], #slide-03 .frag.ku__flag.is-past[data-step="1"] { transition-delay: 1.35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-03 .ku__edge, #slide-03 .ku__dropclip, #slide-03 .ku__track, #slide-03 .ku__knob, #slide-03 .ku__slot,
+      #slide-03 .ku__bar, #slide-03 .ku__pole, #slide-03 .ku__flag, #slide-03 .ku__label, #slide-03 .ku__axislabel {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

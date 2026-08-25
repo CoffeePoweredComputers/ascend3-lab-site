@@ -1,0 +1,73 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-555:1">
+  <header class="slide__head" data-sid="09b-walk-555:2">
+    <p class="slide__kicker" data-sid="09b-walk-555:3">Warm-up 1 &middot; the answer</p>
+    <h2 data-sid="09b-walk-555:4">What the machine actually does</h2>
+  </header>
+  <div class="slide__body grid grid--code" data-sid="09b-walk-555:5">
+    <div class="editor" data-sid="09b-walk-555:6">
+      <p class="editor__bar" data-sid="09b-walk-555:7">given &mdash; then yours</p>
+      <div class="editor__pc" data-sid="09b-walk-555:8"></div>
+      <ol class="editor__code" data-sid="09b-walk-555:9">
+        <li class="walkline frag" data-step="1" data-sid="09b-walk-555:10">Employee e1 = <span class="tok-key">new</span> Employee();</li>
+        <li class="walkline frag" data-step="2" data-sid="09b-walk-555:11">Employee e2 = <span class="tok-key">new</span> Employee();</li>
+        <li class="walkline frag" data-step="3" data-sid="09b-walk-555:12">e1.setID(<span class="tok-num">123</span>);</li>
+        <li class="walkline frag" data-step="4" data-sid="09b-walk-555:13">e2.setID(<span class="tok-num">456</span>);</li>
+        <li class="walkline frag" data-step="5" data-sid="09b-walk-555:14">e1 = e2;</li>
+        <li class="walkline walkline--new frag" data-step="6" data-sid="09b-walk-555:15">e1 = <span class="tok-key">new</span> Employee();</li>
+        <li class="walkline walkline--new frag" data-step="7" data-sid="09b-walk-555:16">e1.setID(<span class="tok-num">555</span>);</li>
+      </ol>
+    </div>
+    <div class="codewalk" data-sid="09b-walk-555:17">
+      <div class="codewalk__heap" data-sid="09b-walk-555:18">
+        <p class="heap-name frag" data-step="1" data-wire="1:acme 5:beta 6:gamma" style="grid-row: 1;" data-sid="09b-walk-555:19">e1</p>
+        <p class="heap-name frag" data-step="2" data-wire="2:beta" style="grid-row: 2;" data-sid="09b-walk-555:20">e2</p>
+        <div class="heap-obj frag" data-step="1" data-obj="acme" style="grid-row: 1;" data-sid="09b-walk-555:21">
+          <p class="heap-obj__type" data-sid="09b-walk-555:22">Employee</p>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="09b-walk-555:23">
+            <p class="heap-val heap-val--old frag" data-step="3" data-sid="09b-walk-555:24">id = <span class="heap-val__num">0</span></p>
+            <p class="heap-val frag" data-step="3" data-sid="09b-walk-555:25"><span class="sr-only">now </span>123</p>
+          </div>
+          <div class="heap-obj__gone frag" data-step="5" data-sid="09b-walk-555:26">unreachable</div>
+        </div>
+        <div class="heap-obj frag" data-step="2" data-obj="beta" style="grid-row: 2;" data-sid="09b-walk-555:27">
+          <p class="heap-obj__type" data-sid="09b-walk-555:28">Employee</p>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="09b-walk-555:29">
+            <p class="heap-val heap-val--old frag" data-step="4" data-sid="09b-walk-555:30">id = <span class="heap-val__num">0</span></p>
+            <p class="heap-val frag" data-step="4" data-sid="09b-walk-555:31"><span class="sr-only">now </span>456</p>
+          </div>
+        </div>
+        <div class="heap-obj frag" data-step="6" data-obj="gamma" style="grid-row: 3;" data-sid="09b-walk-555:32">
+          <p class="heap-obj__type" data-sid="09b-walk-555:33">Employee</p>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="09b-walk-555:34">
+            <p class="heap-val heap-val--old frag" data-step="7" data-sid="09b-walk-555:35">id = <span class="heap-val__num">0</span></p>
+            <p class="heap-val frag" data-step="7" data-sid="09b-walk-555:36"><span class="sr-only">now </span>555</p>
+          </div>
+        </div>
+        <svg class="heap-wires" aria-hidden="true" data-sid="09b-walk-555:37"></svg>
+      </div>
+      <div class="codewalk__caps" data-sid="09b-walk-555:38">
+        <p class="walkcap frag" data-step="1" data-sid="09b-walk-555:39">An object on the heap; e1 holds a reference.</p>
+        <p class="walkcap frag" data-step="2" data-sid="09b-walk-555:40">A second object, a second reference.</p>
+        <p class="walkcap frag" data-step="3" data-sid="09b-walk-555:41">setID writes through e1&rsquo;s reference.</p>
+        <p class="walkcap frag" data-step="4" data-sid="09b-walk-555:42">Same again, through e2.</p>
+        <p class="walkcap frag" data-step="5" data-sid="09b-walk-555:43">Copies the reference, not the object &mdash; 123 is unreachable.</p>
+        <p class="walkcap frag" data-step="6" data-sid="09b-walk-555:44">A fresh object: e1 points somewhere new.</p>
+        <p class="walkcap frag" data-step="7" data-sid="09b-walk-555:45">555 lands in the new object. e2 never felt a thing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-555:46"></div>
+  <aside class="notes" data-sid="09b-walk-555:47">Step through slowly — line 5 is the whole lecture: watch e1's arrow swing. Other orderings of the same two answer lines are equally correct. The kicker used to end “one line at a time”. Captions before trimming — 1: “new Employee() puts an object on the heap; e1 holds a reference to it.” 3: “setID travels through e1’s reference and writes into the object.” 5: “The assignment copies the reference, not the object — and the 123 object just became unreachable.” 6: “A fresh object breaks the sharing: e1 points somewhere new.” Talk cue: the orange box is the one your code made — the same orange as the previous slide’s dashed “id = 555” requirement and as the gutter numbers of your two lines. Per step — 1: an object on the heap, e1 holds it. 2: a second object, a second reference. 3: the write goes through e1. 4: same through e2. 5: the swing — the reference is copied, the object is not; 123 is garbage. 6: a new object, in orange — the requirement becoming real. 7: 555 lands; e2’s box never moved.</aside>
+
+  <style>
+    /* Slide-local: one colour rule, used by this slide only, all values from
+       tokens. The object line 6 creates grows in orange — the deck's "the
+       thing your code changed" colour (.refs__obj--changed, the --new gutter)
+       and the colour the previous slide gave its dashed "id = 555"
+       requirement — so the walkthrough reads as that spec made real. beta
+       keeps the component's maroon (left alone), acme still goes stone under
+       its wash. The component already transitions border-color and the type
+       line, so no motion is added. */
+    #slide-09b .heap-obj[data-obj="gamma"] { --edge: var(--accent-3); }
+  </style>
+</section>

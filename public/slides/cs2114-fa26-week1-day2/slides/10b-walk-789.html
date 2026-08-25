@@ -1,0 +1,73 @@
+<section class="slide slide--warmup" id="slide-10b" data-sid="10b-walk-789:1">
+  <header class="slide__head" data-sid="10b-walk-789:2">
+    <p class="slide__kicker" data-sid="10b-walk-789:3">Warm-up 2 &middot; the answer</p>
+    <h2 data-sid="10b-walk-789:4">One call moves both</h2>
+  </header>
+  <div class="slide__body grid grid--code" data-sid="10b-walk-789:5">
+    <div class="editor" data-sid="10b-walk-789:6">
+      <p class="editor__bar" data-sid="10b-walk-789:7">given &mdash; then yours</p>
+      <div class="editor__pc" data-sid="10b-walk-789:8"></div>
+      <ol class="editor__code" data-sid="10b-walk-789:9">
+        <li class="walkline--ran" data-sid="10b-walk-789:10">Employee e1 = <span class="tok-key">new</span> Employee();</li>
+        <li class="walkline--ran" data-sid="10b-walk-789:11">Employee e2 = <span class="tok-key">new</span> Employee();</li>
+        <li class="walkline--ran" data-sid="10b-walk-789:12">e1.setID(<span class="tok-num">123</span>);</li>
+        <li class="walkline--ran" data-sid="10b-walk-789:13">e2.setID(<span class="tok-num">456</span>);</li>
+        <li class="walkline--ran" data-sid="10b-walk-789:14">e1 = e2;</li>
+        <li class="walkline walkline--new frag" data-step="1" data-sid="10b-walk-789:15">e1.setID(<span class="tok-num">789</span>);</li>
+        <li class="walkline walkline--new walkline--alt frag" data-step="2" data-sid="10b-walk-789:36">e2.setID(<span class="tok-num">789</span>);</li>
+      </ol>
+    </div>
+    <div class="codewalk" data-sid="10b-walk-789:16">
+      <div class="codewalk__heap" data-sid="10b-walk-789:17">
+        <p class="heap-name" data-wire="0:beta" style="grid-row: 1;" data-sid="10b-walk-789:18">e1</p>
+        <p class="heap-name" data-wire="0:beta" style="grid-row: 2;" data-sid="10b-walk-789:19">e2</p>
+        <div class="heap-obj heap-obj--dead" style="grid-row: 1;" data-sid="10b-walk-789:20">
+          <p class="heap-obj__type" data-sid="10b-walk-789:21">Employee</p>
+          <div class="heap-obj__field" data-sid="10b-walk-789:22">
+            <p class="heap-val" data-sid="10b-walk-789:23">id = 123</p>
+          </div>
+          <div class="heap-obj__gone" data-sid="10b-walk-789:24">unreachable</div>
+        </div>
+        <div class="heap-obj" data-obj="beta" style="grid-row: 2;" data-sid="10b-walk-789:25">
+          <p class="heap-obj__type" data-sid="10b-walk-789:26">Employee</p>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="10b-walk-789:27">
+            <p class="heap-val heap-val--old frag" data-step="1" data-sid="10b-walk-789:28">id = <span class="heap-val__num">456</span></p>
+            <p class="heap-val frag" data-step="1" data-sid="10b-walk-789:29"><span class="sr-only">now </span>789</p>
+          </div>
+        </div>
+        <svg class="heap-wires" aria-hidden="true" data-sid="10b-walk-789:30"></svg>
+      </div>
+      <div class="codewalk__caps" data-sid="10b-walk-789:31">
+        <p class="walkcap frag" data-step="1" data-sid="10b-walk-789:32">Both names share one object &mdash; one call writes into it.</p>
+        <p class="walkcap frag" data-step="2" data-sid="10b-walk-789:33">either name, same object &mdash; the trap is now the shortcut</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10b-walk-789:34"></div>
+  <aside class="notes" data-sid="10b-walk-789:35">The pair is the point: the same aliasing, once a trap and once a shortcut. Captions before trimming — 1: “After the given code, both names share one object — so one call, through either name, writes into it.” 2: “Both ids now read 789. e2.setID(789) would have done exactly the same — the trap from warm-up 1 is the shortcut here.” Per step — 1: line 6 lights up, 456 is struck through and 789 lands beside it, through e1; both arrows were already on that box. 2: the “or” line — the bar moves down one line, the box breathes once more, and nothing on the right moves; that stillness is the point.</aside>
+
+  <style>
+    /* Slide-local: the "or" line — used by this slide only, all values from
+       tokens. Line 7 is a second answer line whose gutter reads "or" instead
+       of a number (the editor's --new rule still paints it orange and hides
+       it until its step). While it is current the shared object takes the
+       same breath the component gives a write, with its value and both wires
+       staying put — same write, other door. Own keyframes name on purpose:
+       the component applies cw-pulse at step 1 and hands over to this rule
+       at step 2 in one style pass, so a same-named animation would not
+       restart. Pure in-place scale; nothing drifts. */
+    #slide-10b .walkline--alt::before { content: "or"; }
+    @keyframes cw-pulse-or {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+    #slide-10b:has(.walkline--alt.is-current) .heap-obj[data-obj="beta"] {
+      animation: cw-pulse-or .7s var(--ease-smooth);
+    }
+    /* Mirrors the component's own override; !important for the same reason. */
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10b .heap-obj[data-obj="beta"] { animation: none !important; }
+    }
+  </style>
+</section>

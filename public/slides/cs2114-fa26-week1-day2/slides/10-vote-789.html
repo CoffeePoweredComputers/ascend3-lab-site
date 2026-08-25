@@ -1,0 +1,87 @@
+<section class="slide slide--warmup" id="slide-10" data-sid="10-vote-789:1">
+  <header class="slide__head" data-sid="10-vote-789:2">
+    <p class="slide__kicker" data-sid="10-vote-789:3">PEER INSTRUCTION · WARM-UP 2</p>
+    <h2 data-sid="10-vote-789:4">Make both ids 789 &mdash; in one line</h2>
+  </header>
+  <!-- Diptych with 09: same editor, same two names, same goal label — but
+       this vote asks only for values and a length, so only those are drawn.
+       Two readouts "id = 789" hang off e1 and e2 with no box behind them
+       (how many objects sit there is the question), and "in one line" is an
+       empty orange-gutter line 6: the slot the answer has to fit. Step 1 the
+       values, step 2 the slot. -->
+  <div class="slide__body grid grid--code" data-sid="10-vote-789:5">
+    <div class="stack" data-sid="10-vote-789:6">
+      <div class="editor" data-sid="10-vote-789:7">
+        <p class="editor__bar" data-sid="10-vote-789:8">given &mdash; runs before yours</p>
+        <ol class="editor__code" data-sid="10-vote-789:9">
+          <li data-sid="10-vote-789:10">Employee e1 = <span class="tok-key">new</span> Employee();</li>
+          <li data-sid="10-vote-789:11">Employee e2 = <span class="tok-key">new</span> Employee();</li>
+          <li data-sid="10-vote-789:12">e1.setID(<span class="tok-num">123</span>);</li>
+          <li data-sid="10-vote-789:13">e2.setID(<span class="tok-num">456</span>);</li>
+          <li data-sid="10-vote-789:14">e1 = e2;</li>
+          <li class="walkline--new slot frag" data-step="2" data-sid="10-vote-789:25"><span class="slot__line" data-sid="10-vote-789:26"></span></li>
+        </ol>
+      </div>
+      <div class="codewalk goal" data-sid="10-vote-789:27">
+        <p class="goal__label" data-sid="10-vote-789:28">Add line 6 to achieve this state.</p>
+        <div class="codewalk__heap" data-sid="10-vote-789:29">
+          <p class="heap-name" data-wire="1:read1" style="grid-row: 1;" data-sid="10-vote-789:30">e1</p>
+          <p class="heap-name" data-wire="1:read2" style="grid-row: 2;" data-sid="10-vote-789:31">e2</p>
+          <p class="readout frag" data-step="1" data-obj="read1" style="grid-row: 1;" data-sid="10-vote-789:32">id = 789</p>
+          <p class="readout frag" data-step="1" data-obj="read2" style="grid-row: 2;" data-sid="10-vote-789:33">id = 789</p>
+          <svg class="heap-wires" aria-hidden="true" data-sid="10-vote-789:34"></svg>
+        </div>
+      </div>
+    </div>
+    <!-- QR encodes a placeholder (PrairieLearn login). Bake the real course
+         short link with: python3 make-qr.py "<url>" assets/qr-prairielearn.svg -->
+    <figure class="scan" style="width: 520px; margin: 0 auto;" data-sid="10-vote-789:18">
+      <img src="assets/qr-prairielearn.svg" alt="QR code opening the PrairieLearn question" data-sid="10-vote-789:19">
+      <figcaption data-sid="10-vote-789:20">
+        <p class="scan__link" data-sid="10-vote-789:21">us.prairielearn.com</p>
+        <p class="scan__hint" data-sid="10-vote-789:22">scan or type &middot; question W1D2 &middot; 2</p>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="slide__number" data-sid="10-vote-789:23"></div>
+  <aside class="notes" data-sid="10-vote-789:24">They just watched the aliasing happen — this vote tests whether it stuck. The ask, verbatim (it used to sit on the slide as a tile): “Starting again from the same five lines: make the id of both e1 and e2 equal 789. One line is enough.” “Same five lines” is now carried by the editor being identical to warm-up 1’s — say it aloud. Talk cue: the two readouts are two readings, not two objects, and no box is drawn on purpose — how many objects sit behind the two names is exactly what they just watched on the walkthrough and what this vote tests. The empty line 6 is the whole budget. Step 1 — both readouts appear and both wires draw on: “both names have to read 789.” Step 2 — the empty line: “and you get one line.” Then: go.</aside>
+
+  <style>
+    /* Slide-local: the goal readouts and the empty answer slot — used by this
+       slide only, all values from tokens. Same label type as warm-up 1. The
+       slot is a bare dashed baseline on an otherwise empty line 6; the
+       editor's own --new rule paints its gutter number orange and hides it
+       until its step. The readouts are values with no box drawn round them,
+       so they use neither .heap-obj (a box) nor .heap-val (pinned to
+       grid-area 1/1); the engine keys wires on data-obj, not on class.
+       Dashed orange = a blank your code fills, on the slot and the readouts
+       alike. Readouts and slot plain-fade on the base .frag transition; wires
+       draw on through the component, which carries the reduced-motion
+       fallback. */
+    #slide-10 .goal__label {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      color: var(--fg-1);
+    }
+    #slide-10 .slot__line {
+      display: inline-block;
+      width: 22ch;
+      border-bottom: 3px dashed var(--accent-3);
+    }
+    #slide-10 .readout {
+      grid-column: 3;
+      align-self: center;
+      justify-self: start;
+      margin: 0;
+      padding: var(--s-1) var(--s-2);
+      font-family: var(--font-mono);
+      font-size: var(--t-small);
+      line-height: 1.2;
+      color: var(--fg-0);
+      border-bottom: 3px dashed var(--accent-3);
+    }
+  </style>
+</section>

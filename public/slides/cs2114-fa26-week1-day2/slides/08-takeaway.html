@@ -1,0 +1,28 @@
+<section class="slide slide--section slide--center" id="slide-08" data-transition="fade" data-sid="08-takeaway:1">
+  <header class="slide__head" data-sid="08-takeaway:2">
+    <p class="slide__kicker" data-sid="08-takeaway:3">Fall 2025 reflections</p>
+    <h2 data-sid="08-takeaway:4">One [long] sentence</h2>
+  </header>
+  <!-- A recap quiz, not a reading: the sentence is on screen from step 0 with
+       its six clauses as stone blanks, and each step fills one in maroon —
+       a colour change only, so nothing moves and nothing reflows. No figure on
+       purpose (21-elephant): a drawing for a summary sentence is decoration. -->
+  <p class="motto motto--tight" data-sid="08-takeaway:5">Success comes from <b class="frag" data-step="1" data-sid="08-takeaway:6">starting early</b>, <b class="frag" data-step="2" data-sid="08-takeaway:7">understanding deeply</b>, <b class="frag" data-step="3" data-sid="08-takeaway:8">building carefully</b>, <b class="frag" data-step="4" data-sid="08-takeaway:9">debugging thoughtfully</b>, <b class="frag" data-step="5" data-sid="08-takeaway:10">using help wisely</b>, and <b class="frag" data-step="6" data-sid="08-takeaway:13">collaborating well</b>.</p>
+  <div class="slide__number" data-sid="08-takeaway:11"></div>
+  <aside class="notes" data-sid="08-takeaway:12">Run it as a quiz: read "Success comes from…" and let the room call each blank before you step. Recap map — starting early: slides 5–6 (what worked / start early, concretely); understanding deeply and building carefully: slide 5; debugging thoughtfully: slide 7; using help wisely: slide 8; collaborating well: the pair-programming and group-work norms. Nothing leaves the slide; the sentence is unchanged.</aside>
+
+  <style>
+    /* Slide-local: fill-in-the-blank clauses. The bold clauses are the frags;
+       pending = transparent text over a stone rule exactly the clause's width,
+       revealed by colour change alone (the weight never changes, so the line
+       never reflows). Used by this slide only, all values from tokens. */
+    #slide-08 .motto .frag {
+      border-bottom: 8px solid transparent;
+      transition: color .5s ease, border-color .5s ease;
+    }
+    #slide-08 .motto .frag.is-pending { opacity: 1; color: transparent; border-bottom-color: var(--stone); }
+    #slide-08 .motto .frag.is-current,
+    #slide-08 .motto .frag.is-past { color: var(--accent-1); border-bottom-color: transparent; }
+    @media (prefers-reduced-motion: reduce) { #slide-08 .motto .frag { transition: none; } }
+  </style>
+</section>

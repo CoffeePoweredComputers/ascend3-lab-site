@@ -1,0 +1,215 @@
+<section class="slide" id="slide-02" data-sid="02-today:1">
+  <header class="slide__head" data-sid="02-today:2">
+    <h2 data-sid="02-today:3">Today</h2>
+  </header>
+
+  <!-- Today is three states of this room, seen from the front. Step 0: the
+       seated room — 48 heads, lids down, empty aisles. Step 1: last year's
+       class appears as a dashed ghost row behind the back row — mortarboards
+       on, a dotted rule between them and this year's cohort — and a speech
+       bubble opens above it. Step 2: ghosts and bubble leave; hands go up
+       across the room (peer instruction). Step 3: hands go down; every laptop
+       lid opens and two of us stand in the aisles (work time). Each state's
+       caption lands as a chapter tab in the row above the room; earlier tabs
+       mute. One SVG in canvas px (viewBox = the body's rect plus 72px of
+       headroom above it for the bubble; the svg box is scaled to fit under
+       the tab row). -->
+  <div class="slide__body" data-sid="02-today:4">
+    <!-- the chapter tabs: one per room state, each a rule + numeral + caption -->
+    <ol class="td__agenda" data-sid="02-today:18">
+      <li class="frag" data-step="1" data-anim="fade" data-sid="02-today:19"><span class="td__n" data-sid="02-today:20">1</span><span data-sid="02-today:21">What last year&rsquo;s class wishes they had known</span></li>
+      <li class="frag" data-step="2" data-anim="fade" data-sid="02-today:22"><span class="td__n" data-sid="02-today:23">2</span><span data-sid="02-today:24">Peer instruction warm-up &mdash; references and aliasing</span></li>
+      <li class="frag" data-step="3" data-anim="fade" data-sid="02-today:25"><span class="td__n" data-sid="02-today:26">3</span><span data-sid="02-today:27">Work time &mdash; modules, Challenge Exercise 01, questions</span></li>
+    </ol>
+
+    <svg class="td" viewBox="128 160 1664 704" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A lecture hall of 48 seated students seen from the front, in three states: a ghost row of last year's class in graduation caps, set off by a dotted line, with a speech bubble saying 2025; then hands raised across the room; then every laptop open and two staff standing in the aisles."
+         data-sid="02-today:5">
+      <defs>
+        <g id="s02-seat">
+          <circle class="td__head" r="24"/>
+          <path class="td__shoulders" d="M-40 72v-16a40 40 0 0 1 80 0v16"/>
+        </g>
+        <g id="s02-ghost">
+          <circle r="24"/>
+          <path d="M-40 72v-16a40 40 0 0 1 80 0v16"/>
+          <!-- mortarboard: the board seen edge-on in perspective, tassel off the right corner -->
+          <g class="td__cap">
+            <path d="M-38 -28L0 -40L38 -28L0 -16Z"/>
+            <line x1="38" y1="-28" x2="38" y2="-8"/>
+            <circle cx="38" cy="-6" r="3"/>
+          </g>
+        </g>
+      </defs>
+
+      <!-- step 1: the 2025 class, behind the back row, and the dotted rule
+           that keeps them apart from this year's cohort -->
+      <g class="td__ghosts frag" data-step="1" data-sid="02-today:6">
+        <use href="#s02-ghost" x="205" y="308"/><use href="#s02-ghost" x="315" y="308"/><use href="#s02-ghost" x="425" y="308"/><use href="#s02-ghost" x="535" y="308"/>
+        <use href="#s02-ghost" x="795" y="308"/><use href="#s02-ghost" x="905" y="308"/><use href="#s02-ghost" x="1015" y="308"/><use href="#s02-ghost" x="1125" y="308"/>
+        <use href="#s02-ghost" x="1385" y="308"/><use href="#s02-ghost" x="1495" y="308"/><use href="#s02-ghost" x="1605" y="308"/><use href="#s02-ghost" x="1715" y="308"/>
+        <line class="td__then" x1="165" y1="398" x2="1755" y2="398"/>
+      </g>
+      <g class="td__bubble frag" data-step="1" data-sid="02-today:7">
+        <path d="M716 164 H1204 a16 16 0 0 1 16 16 V218 a16 16 0 0 1 -16 16 H980 L960 254 L940 234 H716 a16 16 0 0 1 -16 -16 V180 a16 16 0 0 1 16 -16 Z" data-sid="02-today:8"/>
+        <text x="960" y="212" data-sid="02-today:9">2025</text>
+      </g>
+
+      <!-- step 0: the room -->
+      <g class="td__seats" data-sid="02-today:10">
+        <use href="#s02-seat" x="205" y="440"/><use href="#s02-seat" x="315" y="440"/><use href="#s02-seat" x="425" y="440"/><use href="#s02-seat" x="535" y="440"/>
+        <use href="#s02-seat" x="795" y="440"/><use href="#s02-seat" x="905" y="440"/><use href="#s02-seat" x="1015" y="440"/><use href="#s02-seat" x="1125" y="440"/>
+        <use href="#s02-seat" x="1385" y="440"/><use href="#s02-seat" x="1495" y="440"/><use href="#s02-seat" x="1605" y="440"/><use href="#s02-seat" x="1715" y="440"/>
+        <use href="#s02-seat" x="205" y="555"/><use href="#s02-seat" x="315" y="555"/><use href="#s02-seat" x="425" y="555"/><use href="#s02-seat" x="535" y="555"/>
+        <use href="#s02-seat" x="795" y="555"/><use href="#s02-seat" x="905" y="555"/><use href="#s02-seat" x="1015" y="555"/><use href="#s02-seat" x="1125" y="555"/>
+        <use href="#s02-seat" x="1385" y="555"/><use href="#s02-seat" x="1495" y="555"/><use href="#s02-seat" x="1605" y="555"/><use href="#s02-seat" x="1715" y="555"/>
+        <use href="#s02-seat" x="205" y="670"/><use href="#s02-seat" x="315" y="670"/><use href="#s02-seat" x="425" y="670"/><use href="#s02-seat" x="535" y="670"/>
+        <use href="#s02-seat" x="795" y="670"/><use href="#s02-seat" x="905" y="670"/><use href="#s02-seat" x="1015" y="670"/><use href="#s02-seat" x="1125" y="670"/>
+        <use href="#s02-seat" x="1385" y="670"/><use href="#s02-seat" x="1495" y="670"/><use href="#s02-seat" x="1605" y="670"/><use href="#s02-seat" x="1715" y="670"/>
+        <use href="#s02-seat" x="205" y="785"/><use href="#s02-seat" x="315" y="785"/><use href="#s02-seat" x="425" y="785"/><use href="#s02-seat" x="535" y="785"/>
+        <use href="#s02-seat" x="795" y="785"/><use href="#s02-seat" x="905" y="785"/><use href="#s02-seat" x="1015" y="785"/><use href="#s02-seat" x="1125" y="785"/>
+        <use href="#s02-seat" x="1385" y="785"/><use href="#s02-seat" x="1495" y="785"/><use href="#s02-seat" x="1605" y="785"/><use href="#s02-seat" x="1715" y="785"/>
+      </g>
+
+      <!-- step 2: hands go up (seven per row) -->
+      <g class="td__hands frag" data-step="2" data-sid="02-today:11">
+        <g class="td__hand" style="--i: 0"><line x1="239" y1="496" x2="257" y2="410"/><circle cx="257" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 1"><line x1="459" y1="496" x2="477" y2="410"/><circle cx="477" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 2"><line x1="939" y1="496" x2="957" y2="410"/><circle cx="957" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 3"><line x1="1159" y1="496" x2="1177" y2="410"/><circle cx="1177" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 4"><line x1="1419" y1="496" x2="1437" y2="410"/><circle cx="1437" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 5"><line x1="1639" y1="496" x2="1657" y2="410"/><circle cx="1657" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 6"><line x1="1749" y1="496" x2="1767" y2="410"/><circle cx="1767" cy="410" r="9"/></g>
+        <g class="td__hand" style="--i: 7"><line x1="349" y1="611" x2="367" y2="525"/><circle cx="367" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 8"><line x1="569" y1="611" x2="587" y2="525"/><circle cx="587" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 9"><line x1="829" y1="611" x2="847" y2="525"/><circle cx="847" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 10"><line x1="1049" y1="611" x2="1067" y2="525"/><circle cx="1067" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 11"><line x1="1529" y1="611" x2="1547" y2="525"/><circle cx="1547" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 12"><line x1="1639" y1="611" x2="1657" y2="525"/><circle cx="1657" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 13"><line x1="1749" y1="611" x2="1767" y2="525"/><circle cx="1767" cy="525" r="9"/></g>
+        <g class="td__hand" style="--i: 14"><line x1="239" y1="726" x2="257" y2="640"/><circle cx="257" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 15"><line x1="349" y1="726" x2="367" y2="640"/><circle cx="367" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 16"><line x1="569" y1="726" x2="587" y2="640"/><circle cx="587" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 17"><line x1="939" y1="726" x2="957" y2="640"/><circle cx="957" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 18"><line x1="1159" y1="726" x2="1177" y2="640"/><circle cx="1177" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 19"><line x1="1419" y1="726" x2="1437" y2="640"/><circle cx="1437" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 20"><line x1="1639" y1="726" x2="1657" y2="640"/><circle cx="1657" cy="640" r="9"/></g>
+        <g class="td__hand" style="--i: 21"><line x1="459" y1="841" x2="477" y2="755"/><circle cx="477" cy="755" r="9"/></g>
+        <g class="td__hand" style="--i: 22"><line x1="829" y1="841" x2="847" y2="755"/><circle cx="847" cy="755" r="9"/></g>
+        <g class="td__hand" style="--i: 23"><line x1="1049" y1="841" x2="1067" y2="755"/><circle cx="1067" cy="755" r="9"/></g>
+        <g class="td__hand" style="--i: 24"><line x1="1159" y1="841" x2="1177" y2="755"/><circle cx="1177" cy="755" r="9"/></g>
+        <g class="td__hand" style="--i: 25"><line x1="1529" y1="841" x2="1547" y2="755"/><circle cx="1547" cy="755" r="9"/></g>
+        <g class="td__hand" style="--i: 26"><line x1="1749" y1="841" x2="1767" y2="755"/><circle cx="1767" cy="755" r="9"/></g>
+        <g class="td__hand" style="--i: 27"><line x1="239" y1="841" x2="257" y2="755"/><circle cx="257" cy="755" r="9"/></g>
+      </g>
+
+      <!-- step 3: lids open, two of us in the aisles -->
+      <g class="td__lids frag" data-step="3" data-sid="02-today:12">
+        <rect style="--i: 0" x="173" y="480" width="64" height="40" rx="4"/><rect style="--i: 1" x="283" y="480" width="64" height="40" rx="4"/><rect style="--i: 2" x="393" y="480" width="64" height="40" rx="4"/><rect style="--i: 3" x="503" y="480" width="64" height="40" rx="4"/>
+        <rect style="--i: 4" x="763" y="480" width="64" height="40" rx="4"/><rect style="--i: 5" x="873" y="480" width="64" height="40" rx="4"/><rect style="--i: 6" x="983" y="480" width="64" height="40" rx="4"/><rect style="--i: 7" x="1093" y="480" width="64" height="40" rx="4"/>
+        <rect style="--i: 8" x="1353" y="480" width="64" height="40" rx="4"/><rect style="--i: 9" x="1463" y="480" width="64" height="40" rx="4"/><rect style="--i: 10" x="1573" y="480" width="64" height="40" rx="4"/><rect style="--i: 11" x="1683" y="480" width="64" height="40" rx="4"/>
+        <rect style="--i: 12" x="173" y="595" width="64" height="40" rx="4"/><rect style="--i: 13" x="283" y="595" width="64" height="40" rx="4"/><rect style="--i: 14" x="393" y="595" width="64" height="40" rx="4"/><rect style="--i: 15" x="503" y="595" width="64" height="40" rx="4"/>
+        <rect style="--i: 16" x="763" y="595" width="64" height="40" rx="4"/><rect style="--i: 17" x="873" y="595" width="64" height="40" rx="4"/><rect style="--i: 18" x="983" y="595" width="64" height="40" rx="4"/><rect style="--i: 19" x="1093" y="595" width="64" height="40" rx="4"/>
+        <rect style="--i: 20" x="1353" y="595" width="64" height="40" rx="4"/><rect style="--i: 21" x="1463" y="595" width="64" height="40" rx="4"/><rect style="--i: 22" x="1573" y="595" width="64" height="40" rx="4"/><rect style="--i: 23" x="1683" y="595" width="64" height="40" rx="4"/>
+        <rect style="--i: 24" x="173" y="710" width="64" height="40" rx="4"/><rect style="--i: 25" x="283" y="710" width="64" height="40" rx="4"/><rect style="--i: 26" x="393" y="710" width="64" height="40" rx="4"/><rect style="--i: 27" x="503" y="710" width="64" height="40" rx="4"/>
+        <rect style="--i: 28" x="763" y="710" width="64" height="40" rx="4"/><rect style="--i: 29" x="873" y="710" width="64" height="40" rx="4"/><rect style="--i: 30" x="983" y="710" width="64" height="40" rx="4"/><rect style="--i: 31" x="1093" y="710" width="64" height="40" rx="4"/>
+        <rect style="--i: 32" x="1353" y="710" width="64" height="40" rx="4"/><rect style="--i: 33" x="1463" y="710" width="64" height="40" rx="4"/><rect style="--i: 34" x="1573" y="710" width="64" height="40" rx="4"/><rect style="--i: 35" x="1683" y="710" width="64" height="40" rx="4"/>
+        <rect style="--i: 36" x="173" y="825" width="64" height="40" rx="4"/><rect style="--i: 37" x="283" y="825" width="64" height="40" rx="4"/><rect style="--i: 38" x="393" y="825" width="64" height="40" rx="4"/><rect style="--i: 39" x="503" y="825" width="64" height="40" rx="4"/>
+        <rect style="--i: 40" x="763" y="825" width="64" height="40" rx="4"/><rect style="--i: 41" x="873" y="825" width="64" height="40" rx="4"/><rect style="--i: 42" x="983" y="825" width="64" height="40" rx="4"/><rect style="--i: 43" x="1093" y="825" width="64" height="40" rx="4"/>
+        <rect style="--i: 44" x="1353" y="825" width="64" height="40" rx="4"/><rect style="--i: 45" x="1463" y="825" width="64" height="40" rx="4"/><rect style="--i: 46" x="1573" y="825" width="64" height="40" rx="4"/><rect style="--i: 47" x="1683" y="825" width="64" height="40" rx="4"/>
+      </g>
+      <g class="td__staff frag" data-step="3" data-anim="fade" data-sid="02-today:13">
+        <circle cx="665" cy="582" r="22" data-sid="02-today:14"/>
+        <path d="M665 604V690M665 626L633 668M665 626L697 664M665 690L645 760M665 690L685 760" data-sid="02-today:15"/>
+        <circle cx="1255" cy="642" r="22" data-sid="02-today:16"/>
+        <path d="M1255 664V750M1255 686L1223 728M1255 686L1287 724M1255 750L1235 820M1255 750L1275 820" data-sid="02-today:17"/>
+      </g>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="02-today:28"></div>
+  <aside class="notes" data-sid="02-today:29">Week 1 · Day 2 (the kicker is on the title slide). Step 1 — the ghost row is last year's class: we asked the 2025 classes what they would tell you, and that is the first third of today. Step 2 — hands up: peer instruction on references and aliasing, on your device. Step 3 — lids open, two of us in the aisles: work time on the modules, Challenge Exercise 01, and your questions.</aside>
+
+  <style>
+    /* Slide-local: the lecture hall. Seats are one symbol used 48 times
+       (the 23-on-whose-backs head-and-shoulders glyph); the three overlays
+       are frag groups whose children animate in manim's vocabulary only —
+       ghosts and captions FadeIn, the bubble grows from its tail, hands grow
+       from the shoulder, lids hinge open by scaleY from the base, the staff
+       FadeIn — and the layers that must leave (ghosts, bubble, hands) go to
+       opacity 0 when past. Stagger delays apply on the way in only, so a
+       back-step clears a layer at once. Used by this slide only, all values
+       from tokens; the viewBox is the body's rect plus headroom for the
+       bubble, scaled to the 560px under the tab row. */
+    #slide-02 .slide__body { position: relative; }
+    #slide-02 .td { position: absolute; left: 0; top: 192px; width: 1664px; height: 560px; overflow: visible; }
+
+    /* the room */
+    #slide-02 .td__head { fill: var(--bg-0); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-02 .td__shoulders { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
+
+    /* last year's class, and what they said */
+    #slide-02 .td__ghosts circle, #slide-02 .td__ghosts path {
+      fill: none; stroke: var(--stone); stroke-width: 4; stroke-dasharray: 8 8; stroke-linecap: round;
+    }
+    /* the caps are solid where the ghosts are dashed: they are what marks the row as graduated */
+    #slide-02 .td__ghosts .td__cap path { fill: var(--stone); stroke: none; }
+    #slide-02 .td__ghosts .td__cap line { stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-02 .td__ghosts .td__cap circle { fill: var(--stone); stroke: none; }
+    /* the past/present rule: round-capped dots on a 16px pitch */
+    #slide-02 .td__then { stroke: var(--stone); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 0 16; }
+    #slide-02 .td__ghosts { transition: opacity .45s ease; }
+    #slide-02 .td__bubble path { fill: var(--paper); stroke: var(--accent-1); stroke-width: 5; stroke-linejoin: round; }
+    #slide-02 .td__bubble text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-02 .td__bubble {
+      transform-box: fill-box; transform-origin: 50% 100%;
+      transition: transform .5s var(--ease-smooth), opacity .3s ease;
+    }
+    #slide-02 .frag.td__bubble.is-pending { opacity: 1; transform: scale(.05); }
+    #slide-02 .frag.td__bubble.is-current { transition-delay: .25s, 0s; }
+    #slide-02 .frag.td__ghosts.is-past, #slide-02 .frag.td__bubble.is-past { opacity: 0; }
+
+    /* hands: grow from the shoulder root, a ripple across the room */
+    #slide-02 .td__hand line, #slide-02 .td__hand circle { stroke: var(--fg-0); stroke-width: 5; stroke-linecap: round; }
+    #slide-02 .td__hand circle { fill: var(--bg-0); }
+    #slide-02 .td__hand {
+      transform-box: fill-box; transform-origin: 0 100%;
+      transition: transform .4s var(--ease-smooth);
+    }
+    #slide-02 .frag.td__hands.is-pending { opacity: 1; }
+    #slide-02 .td__hands.is-pending .td__hand { transform: scale(0); }
+    #slide-02 .td__hands.is-current .td__hand { transition-delay: calc(var(--i) * 25ms); }
+    #slide-02 .frag.td__hands.is-past { opacity: 0; transition: opacity .3s ease; }
+
+    /* work time: lids hinge open, two of us in the aisles */
+    #slide-02 .td__lids rect { fill: var(--bg-1); stroke: var(--fg-0); stroke-width: 5; transform-box: fill-box; transform-origin: 50% 100%; transition: transform .45s var(--ease-smooth); }
+    #slide-02 .frag.td__lids.is-pending { opacity: 1; }
+    #slide-02 .td__lids.is-pending rect { transform: scaleY(0); }
+    #slide-02 .td__lids.is-current rect { transition-delay: calc(var(--i) * 20ms); }
+    #slide-02 .td__staff circle, #slide-02 .td__staff path { fill: none; stroke: var(--accent-1); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-02 .frag.td__staff.is-current { transition-delay: .6s; }
+
+    /* the chapter tabs above the room: three fixed columns (3×512 + 2×64 =
+       1664), each a rule across the top, a display numeral and its caption.
+       A tab fades in with its room state; the rule is maroon while current
+       and goes to stone, the text to muted, once the room has moved on. */
+    #slide-02 .td__agenda {
+      position: absolute; left: 0; top: 0; width: 1664px;
+      display: grid; grid-template-columns: repeat(3, 512px); gap: var(--s-6);
+      margin: 0; padding: 0; list-style: none;
+    }
+    #slide-02 .td__agenda li {
+      display: flex; gap: var(--s-2); align-items: baseline; margin: 0;
+      padding-top: var(--s-2); border-top: 4px solid var(--accent-1);
+      font-family: var(--font-body); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0);
+      transition: opacity .35s ease, color .4s ease, border-color .4s ease;
+    }
+    #slide-02 .td__agenda li.is-past { color: var(--fg-1); border-color: var(--stone); }
+    #slide-02 .td__n { flex: 0 0 auto; font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-3); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02 .td__ghosts, #slide-02 .td__bubble, #slide-02 .td__hand, #slide-02 .td__hands, #slide-02 .td__lids rect, #slide-02 .td__staff, #slide-02 .td__agenda li {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

@@ -1,0 +1,126 @@
+<section class="slide slide--section slide--center" id="slide-04" data-transition="fade" data-sid="04-last-year:1">
+  <header class="slide__head" data-sid="04-last-year:2">
+    <p class="slide__kicker" data-sid="04-last-year:3">REFLECTIONS FROM THE 2025 CLASSES</p>
+    <h2 data-sid="04-last-year:4">We asked last year&rsquo;s students what they&rsquo;d tell you</h2>
+  </header>
+
+  <!-- The regret as a position on a project's clock. Step 0: the released→due
+       axis, the start marker just after "released", the orange "time you have"
+       running from it to "due". Step 1: the marker slides late, a dashed ghost
+       stays where it was, and the orange drains from the start end to a stub.
+       Step 2: the words for what the room just watched. The same axis, marker
+       and colours are picked up by the next slide (05-what-worked). -->
+  <figure class="clock" data-sid="04-last-year:5">
+    <svg class="clock__art" viewBox="0 0 1344 320" style="width: 1344px; height: 320px;" role="img"
+         aria-label="A project clock from released to due. The start marker slides from just after released to just before due, leaving a dashed ghost where it was, and the orange time-you-have bar drains to a stub."
+         data-sid="04-last-year:7">
+      <line class="clock__axis" x1="12" y1="120" x2="1332" y2="120" data-sid="04-last-year:8"/>
+      <line class="clock__tick" x1="12" y1="108" x2="12" y2="132" data-sid="04-last-year:9"/>
+      <line class="clock__tick clock__tick--due" x1="1332" y1="104" x2="1332" y2="136" data-sid="04-last-year:10"/>
+      <text class="clock__label" x="12" y="170" data-sid="04-last-year:11">released</text>
+      <text class="clock__label clock__label--due" x="1332" y="170" data-sid="04-last-year:12">due</text>
+      <!-- authored due→start so the anchored end is "due"; it drains by dashoffset -->
+      <line class="clock__have frag" data-step="1" x1="1332" y1="120" x2="108" y2="120" pathLength="100" data-sid="04-last-year:13"/>
+      <circle class="clock__ghost frag" data-step="1" data-anim="fade" cx="108" cy="120" r="22" data-sid="04-last-year:14"/>
+      <g class="clock__start frag" data-step="1" data-sid="04-last-year:15">
+        <circle cx="108" cy="120" r="22" data-sid="04-last-year:16"/>
+        <text x="108" y="76" data-sid="04-last-year:17">start</text>
+      </g>
+    </svg>
+    <figcaption class="clock__caption" data-sid="04-last-year:18">
+      <p class="clock__cap frag" data-step="2" data-anim="fade" data-sid="04-last-year:19">Most common regret, by a wide margin:</p>
+      <p class="clock__regret frag" data-step="2" data-anim="fade" data-sid="04-last-year:20">starting late.</p>
+    </figcaption>
+  </figure>
+
+  <aside class="notes" data-sid="04-last-year:21">Ask the room to guess the number-one regret before stepping. Step 1 answers in picture: the start marker slides late and the orange "time you have" drains to a stub — the bare stone axis between the ghost and the marker is the time that passed unused. Step 2 names it: their most common regret, by a wide margin: starting late. The axis and marker reappear on the next slide — say "same clock".</aside>
+  <div class="slide__number" data-sid="04-last-year:6"></div>
+
+  <style>
+    /* Slide-local: the project clock. One line drawing — axis, ticks, a start
+       marker and the "time you have" bar — whose step 1 is a shift that means
+       something (the start date moving later) plus an inverse Create (the bar
+       drains by stroke-dashoffset); ghost and captions plain-fade. The marker
+       and bar carry no data-anim: their states are written here off the frag
+       classes js/deck.js sets. Used by this slide only, all values from tokens;
+       the inline style on the svg is geometry. */
+    #slide-04 .clock { margin: 0; }
+    #slide-04 .clock__art { display: block; overflow: visible; }
+
+    #slide-04 .clock__axis,
+    #slide-04 .clock__tick { fill: none; stroke: var(--stone); stroke-width: 6; stroke-linecap: round; }
+    #slide-04 .clock__tick--due { stroke: var(--fg-0); }
+    #slide-04 .clock__label {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      fill: var(--fg-1);
+      text-anchor: middle;
+    }
+    #slide-04 .clock__label--due { fill: var(--fg-0); }
+
+    /* Time you have: full while pending (the bar is there from step 0), and
+       drains from the start end until an 8.8% stub (108px) remains at "due". */
+    #slide-04 .clock__have {
+      fill: none;
+      stroke: var(--accent-3);
+      stroke-width: 16;
+      stroke-linecap: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset 1.2s var(--ease-smooth);
+    }
+    #slide-04 .frag.clock__have.is-pending { opacity: 1; stroke-dashoffset: 0; }
+    #slide-04 .frag.clock__have.is-current,
+    #slide-04 .frag.clock__have.is-past { stroke-dashoffset: 91.2; }
+
+    /* Ghost: where the start should have stayed. */
+    #slide-04 .clock__ghost {
+      fill: none;
+      stroke: var(--stone);
+      stroke-width: 4;
+      stroke-dasharray: 8 8;
+      transition: opacity .4s ease;
+    }
+
+    /* Start marker: visible from step 0 at x 108, shifts 1116px to x 1224. */
+    #slide-04 .clock__start {
+      transform-box: fill-box;
+      transition: transform 1.2s var(--ease-smooth);
+    }
+    #slide-04 .clock__start circle { fill: var(--accent-1); }
+    #slide-04 .clock__start text {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      fill: var(--accent-1);
+      text-anchor: middle;
+    }
+    #slide-04 .frag.clock__start.is-pending { opacity: 1; transform: none; }
+    #slide-04 .frag.clock__start.is-current,
+    #slide-04 .frag.clock__start.is-past { transform: translateX(1116px); }
+
+    /* Caption: the lede's sentence in two lines, plain fades, second line late. */
+    #slide-04 .clock__caption { margin-top: var(--s-3); }
+    #slide-04 .clock__cap {
+      margin: 0 0 var(--s-2);
+      font-family: var(--font-body);
+      font-size: var(--t-small);
+      line-height: 1.45;
+      color: var(--fg-1);
+      transition: opacity .4s ease;
+    }
+    #slide-04 .clock__regret {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--t-h2);
+      line-height: 1.1;
+      color: var(--accent-1);
+      transition: opacity .4s ease;
+    }
+    #slide-04 .frag.clock__regret.is-current,
+    #slide-04 .frag.clock__regret.is-past { transition-delay: .4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .clock__have, #slide-04 .clock__ghost, #slide-04 .clock__start,
+      #slide-04 .clock__cap, #slide-04 .clock__regret { transition: none; }
+    }
+  </style>
+</section>

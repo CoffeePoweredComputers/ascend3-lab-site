@@ -6,10 +6,10 @@
     <!-- Top row: headshot + name + lab logo -->
     <div data-sid="02-whoami:4" style="display:flex; align-items:center; gap:var(--s-4); flex-shrink:0;">
       <img data-sid="02-whoami:65" src="assets/headshot-dhs4.jpg" alt="David Smith" class="headshot" style="height:180px; width:auto; flex-shrink:0;">
-      <div data-sid="02-whoami:66" class="whoami-id">
-        <p data-sid="02-whoami:67" class="whoami-id__name">David H. Smith IV</p>
-        <p data-sid="02-whoami:68" class="whoami-id__role">Assistant Professor</p>
-        <p data-sid="02-whoami:69" class="whoami-id__dept">Department of Computer Science</p>
+      <div data-sid="02-whoami:66" class="id-card">
+        <p data-sid="02-whoami:67" class="id-card__name">David H. Smith IV</p>
+        <p data-sid="02-whoami:68" class="id-card__role">Assistant Professor</p>
+        <p data-sid="02-whoami:69" class="id-card__dept">Department of Computer Science</p>
       </div>
       <img data-sid="02-whoami:5" src="assets/ascend-logo.svg" alt="ASCEND lab logo" style="height:136px; width:auto; flex-shrink:0; margin-left:auto;">
     </div>
@@ -82,29 +82,12 @@
   </div>
 
   <style>
-    /* Slide-local components (identity block, ASCEND acronym, lab badges) —
-       single-slide patterns, so they live here, but every colour, font, size
-       and radius resolves through css/tokens.css. */
+    /* Slide-local components (ASCEND acronym, lab badges) — single-slide
+       patterns, so they live here, but every colour, font, size and radius
+       resolves through css/tokens.css. The identity row (.headshot / .id-card)
+       and .tile__icon are shared with the guest intro, so they live in
+       css/deck.css. */
     #slide-02 p { margin: 0; line-height: normal; }
-    #slide-02 .headshot {
-      border: 6px solid var(--paper);
-      border-radius: var(--r-1);
-    }
-    #slide-02 .whoami-id { display: flex; flex-direction: column; gap: var(--s-1); justify-content: center; }
-    #slide-02 .whoami-id__name {
-      font-family: var(--font-display);
-      font-size: var(--t-h3);
-      color: var(--accent-1);
-      letter-spacing: -0.01em;
-    }
-    #slide-02 .whoami-id__role { font-size: var(--t-micro); color: var(--fg-1); }
-    #slide-02 .whoami-id__dept {
-      font-family: var(--font-mono);
-      font-size: var(--t-tag);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--fg-1);
-    }
     #slide-02 .ascend__line { font-size: var(--t-micro); color: var(--fg-0); letter-spacing: 0.01em; }
     #slide-02 .ascend__cap {
       font-family: var(--font-mono);
@@ -121,7 +104,6 @@
         color-mix(in srgb, var(--accent-1) 40%, transparent), transparent);
     }
     #slide-02 .tile h3 { font-size: var(--t-small); margin: 0; line-height: 1.2; }
-    #slide-02 .tile__icon { width: 56px; height: 56px; flex-shrink: 0; color: var(--edge); }
     #slide-02 .lab-badge {
       display: flex; flex-direction: column; align-items: center; text-align: center;
       gap: var(--s-1);

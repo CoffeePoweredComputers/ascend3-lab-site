@@ -1,0 +1,175 @@
+<section class="slide" id="slide-12b" data-sid="12b-good-collaborator:1">
+  <header class="slide__head" data-sid="12b-good-collaborator:2">
+    <h2 data-sid="12b-good-collaborator:3">Being a good collaborator</h2>
+  </header>
+
+  <!-- One team of four around a table labelled "team repo"; the four habits
+       are four acts on that scene. Step 1: every piece appears beside its
+       owner at the same instant and a ring of arrows draws — each piece is
+       the next person's input. Step 2: one teammate opens an "I'm stuck"
+       bubble and the arrow downstream of them turns orange. Step 3: the
+       pieces leave the seats and land on the table as a tilted pile.
+       Step 4: the pile snaps into a tight 2×2 with one outline around it —
+       a design, not a pile. The pieces are not frags: their state is driven
+       by :has() off the caption frags, so every state is a transform of one
+       layout position. Coordinates are body-local (canvas = local + (128, 232)). -->
+  <div class="slide__body" data-sid="12b-good-collaborator:4">
+    <svg class="tm" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Four teammates around a table labelled team repo. Four coloured pieces appear beside them and arrows run around the ring. One teammate says I'm stuck and the arrow after them turns orange. The pieces move onto the table as a tilted pile, then square up into a two-by-two grid with one outline around it."
+         data-sid="12b-good-collaborator:5">
+      <defs>
+        <g id="s12b-person"><circle cy="-40" r="30"/><path d="M-50 40v-14a50 50 0 0 1 100 0v14"/></g>
+      </defs>
+      <g transform="translate(128 232)" data-sid="12b-good-collaborator:6">
+        <!-- step 0: the table and the team -->
+        <rect class="tm__table" x="560" y="196" width="544" height="360" rx="18" data-sid="12b-good-collaborator:7"/>
+        <text class="tm__repo" x="832" y="232" data-sid="12b-good-collaborator:8">team repo</text>
+        <g class="tm__people" data-sid="12b-good-collaborator:9">
+          <use href="#s12b-person" x="832" y="86"/><use href="#s12b-person" x="1360" y="376"/><use href="#s12b-person" x="832" y="666"/><use href="#s12b-person" x="304" y="376"/>
+        </g>
+
+        <!-- step 1: the ring — each piece feeds the next person -->
+        <path class="tm__arrow frag" data-step="1" style="--i: 0" pathLength="100" d="M1000 110 C1160 140 1260 220 1310 300" data-sid="12b-good-collaborator:10"/>
+        <path class="tm__arrow tm__arrow--bc frag" data-step="1" style="--i: 1" pathLength="100" d="M1310 452 C1260 532 1160 612 1000 642" data-sid="12b-good-collaborator:11"/>
+        <path class="tm__arrow frag" data-step="1" style="--i: 2" pathLength="100" d="M664 642 C504 612 404 532 354 452" data-sid="12b-good-collaborator:12"/>
+        <path class="tm__arrow frag" data-step="1" style="--i: 3" pathLength="100" d="M354 300 C404 220 504 140 664 110" data-sid="12b-good-collaborator:13"/>
+        <path class="tm__head frag" data-step="1" data-anim="fade" style="--i: 0" transform="translate(1310 300) rotate(58)" d="M0 0 L-22 -10 L-22 10 Z" data-sid="12b-good-collaborator:14"/>
+        <path class="tm__head tm__head--bc frag" data-step="1" data-anim="fade" style="--i: 1" transform="translate(1000 642) rotate(169.4)" d="M0 0 L-22 -10 L-22 10 Z" data-sid="12b-good-collaborator:15"/>
+        <path class="tm__head frag" data-step="1" data-anim="fade" style="--i: 2" transform="translate(354 452) rotate(238)" d="M0 0 L-22 -10 L-22 10 Z" data-sid="12b-good-collaborator:16"/>
+        <path class="tm__head frag" data-step="1" data-anim="fade" style="--i: 3" transform="translate(664 110) rotate(-10.6)" d="M0 0 L-22 -10 L-22 10 Z" data-sid="12b-good-collaborator:17"/>
+
+        <!-- the four pieces, authored in their final grid cells; every other state is a transform -->
+        <rect class="tm__piece tm__piece--a" x="716" y="260" width="112" height="112" rx="10" data-sid="12b-good-collaborator:18"/>
+        <rect class="tm__piece tm__piece--b" x="836" y="260" width="112" height="112" rx="10" data-sid="12b-good-collaborator:19"/>
+        <rect class="tm__piece tm__piece--c" x="836" y="380" width="112" height="112" rx="10" data-sid="12b-good-collaborator:20"/>
+        <rect class="tm__piece tm__piece--d" x="716" y="380" width="112" height="112" rx="10" data-sid="12b-good-collaborator:21"/>
+
+        <!-- step 4: one outline around the whole -->
+        <rect class="tm__outline frag" data-step="4" pathLength="100" x="704" y="248" width="256" height="256" rx="18" data-sid="12b-good-collaborator:22"/>
+
+        <!-- step 2: the bubble -->
+        <g class="tm__bubble frag" data-step="2" data-sid="12b-good-collaborator:23">
+          <path d="M1420 282 L1400 330 L1462 286" data-sid="12b-good-collaborator:24"/>
+          <ellipse cx="1500" cy="236" rx="96" ry="56" data-sid="12b-good-collaborator:25"/>
+          <text x="1500" y="245" data-sid="12b-good-collaborator:26">I&rsquo;m stuck</text>
+        </g>
+      </g>
+    </svg>
+
+    <!-- the four habits, in the four empty corners; these frags drive the scene -->
+    <ol class="tm__caps" data-sid="12b-good-collaborator:27">
+      <li class="tm__cap tm__cap--1 frag" data-step="1" data-anim="fade" style="left: 0; top: 0" data-sid="12b-good-collaborator:28"><span class="tm__n" data-sid="12b-good-collaborator:29">01</span>Start when the team starts</li>
+      <li class="tm__cap tm__cap--2 tm__cap--right frag" data-step="2" data-anim="fade" style="left: 1224px; top: 0" data-sid="12b-good-collaborator:30"><span class="tm__n" data-sid="12b-good-collaborator:31">02</span>Say &ldquo;I&rsquo;m stuck&rdquo; the same day</li>
+      <li class="tm__cap tm__cap--3 frag" data-step="3" data-anim="fade" style="left: 0; top: 600px" data-sid="12b-good-collaborator:32"><span class="tm__n" data-sid="12b-good-collaborator:33">03</span>Keep your work visible and stay in communication</li>
+      <li class="tm__cap tm__cap--4 tm__cap--right frag" data-step="4" data-anim="fade" style="left: 1224px; top: 600px" data-sid="12b-good-collaborator:34"><span class="tm__n" data-sid="12b-good-collaborator:35">04</span>Own your part(s), know the whole</li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="12b-good-collaborator:36"></div>
+
+  <!-- step 5: the scene blurs behind a veil and one line is left -->
+  <div data-sid="12b-good-collaborator:38" class="tm__veil frag" data-step="5" data-anim="fade" style="--anim-duration: .6s">
+    <p data-sid="12b-good-collaborator:39" class="tm__veil-card">and be kind, considerate, and helpful!</p>
+  </div>
+  <aside class="notes" data-sid="12b-good-collaborator:37">Projects 1–3 · teams of 3–4. Step 1 — Start when the team starts: your piece is someone else's input; late for you is late for all of you (the ring). Step 2 — Say "I'm stuck" the same day: bad news early is a plan, bad news on the due date is an apology (the downstream arrow turns orange — that person can now plan). Step 3 — Keep your work visible: small, frequent commits to the team repo; nobody can help with code that lives only on your laptop (the pieces leave the seats for the table). Step 4 — Own your part, know the whole: read the whole spec and your teammates' code; a team that can explain every class ships a design, not a pile. This is the short version — you will learn a lot more about this as the semester goes on; teams re-form for every project.</aside>
+
+  <style>
+    /* Slide-local: the team table. People are 23-on-whose-backs' glyph;
+       the pieces keep the old tiles' per-item accents. Motion is manim's
+       only: pieces GrowFromCenter, then MOVE (to the pile, then into the
+       grid — a move that means something, at full opacity); arrows and the
+       outline draw on; the bubble grows from its tail; the downstream arrow
+       is a colour change; captions FadeIn. The piece states are driven by
+       :has() off the caption frags (04-world-changing's device), later rules
+       winning, so a back-step returns to the pile and then to the seats.
+       Used by this slide only, all values from tokens. */
+    #slide-12b .slide__body { position: relative; }
+    #slide-12b .tm { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    #slide-12b .tm__table { fill: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0)); stroke: var(--accent-1); stroke-width: 6; }
+    #slide-12b .tm__repo { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-12b .tm__people circle, #slide-12b .tm__people path { fill: none; stroke: var(--fg-0); stroke-width: 7; stroke-linecap: round; }
+
+    /* the ring */
+    #slide-12b .tm__arrow { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth), stroke .4s ease; }
+    #slide-12b .frag.tm__arrow.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-12b .frag.tm__arrow.is-current, #slide-12b .frag.tm__arrow.is-past { transition-delay: calc(.3s + var(--i) * .12s), 0s; }
+    #slide-12b .tm__head { fill: var(--fg-1); transition: opacity .2s ease, fill .4s ease; }
+    #slide-12b .frag.tm__head.is-current, #slide-12b .frag.tm__head.is-past { transition-delay: calc(.8s + var(--i) * .12s), 0s; }
+    #slide-12b:has(.tm__cap--2:not(.is-pending)) .tm__arrow--bc { stroke: var(--accent-3); }
+    #slide-12b:has(.tm__cap--2:not(.is-pending)) .tm__head--bc { fill: var(--accent-3); }
+
+    /* the pieces: one layout position, four states */
+    #slide-12b .tm__piece { stroke-width: 5; transform-box: fill-box; transform-origin: 50% 50%; transition: transform .7s var(--ease-smooth); }
+    #slide-12b .tm__piece--a { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-12b .tm__piece--b { fill: color-mix(in srgb, color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)) 18%, var(--bg-0)); stroke: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-12b .tm__piece--c { fill: color-mix(in srgb, var(--accent-2) 18%, var(--bg-0)); stroke: var(--accent-2); }
+    #slide-12b .tm__piece--d { fill: color-mix(in srgb, var(--accent-1) 18%, var(--bg-0)); stroke: var(--accent-1); }
+    /* step 0: at the seats, not yet there */
+    #slide-12b .tm__piece--a { transform: translate(180px, -230px) scale(0); }
+    #slide-12b .tm__piece--b { transform: translate(558px, 60px) scale(0); }
+    #slide-12b .tm__piece--c { transform: translate(-180px, 350px) scale(0); }
+    #slide-12b .tm__piece--d { transform: translate(-558px, 60px) scale(0); }
+    /* step 1: grown beside their owners, all at once */
+    #slide-12b:has(.tm__cap--1:not(.is-pending)) .tm__piece--a { transform: translate(180px, -230px) scale(.5); transition-duration: .45s; }
+    #slide-12b:has(.tm__cap--1:not(.is-pending)) .tm__piece--b { transform: translate(558px, 60px) scale(.5); transition-duration: .45s; }
+    #slide-12b:has(.tm__cap--1:not(.is-pending)) .tm__piece--c { transform: translate(-180px, 350px) scale(.5); transition-duration: .45s; }
+    #slide-12b:has(.tm__cap--1:not(.is-pending)) .tm__piece--d { transform: translate(-558px, 60px) scale(.5); transition-duration: .45s; }
+    /* step 3: on the table, as a pile */
+    #slide-12b:has(.tm__cap--3:not(.is-pending)) .tm__piece--a { transform: translate(28px, 34px) rotate(-12deg); transition-duration: .7s; transition-delay: 0s; }
+    #slide-12b:has(.tm__cap--3:not(.is-pending)) .tm__piece--b { transform: translate(-22px, 56px) rotate(9deg); transition-duration: .7s; transition-delay: .08s; }
+    #slide-12b:has(.tm__cap--3:not(.is-pending)) .tm__piece--c { transform: translate(-72px, -26px) rotate(15deg); transition-duration: .7s; transition-delay: .16s; }
+    #slide-12b:has(.tm__cap--3:not(.is-pending)) .tm__piece--d { transform: translate(104px, -100px) rotate(-6deg); transition-duration: .7s; transition-delay: .24s; }
+    /* step 4: the grid */
+    #slide-12b:has(.tm__cap--4:not(.is-pending)) .tm__piece { transform: none; transition-duration: .7s; transition-delay: 0s; }
+    #slide-12b .tm__outline { fill: none; stroke: var(--fg-0); stroke-width: 5; stroke-dasharray: 100; transition: stroke-dashoffset .6s var(--ease-smooth); }
+    #slide-12b .frag.tm__outline.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-12b .frag.tm__outline.is-current, #slide-12b .frag.tm__outline.is-past { transition-delay: .55s; }
+
+    /* the bubble grows from its tail */
+    #slide-12b .tm__bubble path, #slide-12b .tm__bubble ellipse { fill: var(--paper); stroke: var(--accent-3); stroke-width: 6; stroke-linejoin: round; }
+    #slide-12b .tm__bubble text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-12b .tm__bubble { transform-box: fill-box; transform-origin: 0 100%; transition: transform .45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity .2s ease; }
+    #slide-12b .frag.tm__bubble.is-pending { opacity: 0; transform: scale(.05); }
+
+    /* the habits, in the corners */
+    #slide-12b .slide .tm__caps, #slide-12b .tm__caps { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+    #slide-12b .tm__cap {
+      position: absolute; width: 440px; margin: 0;
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 1.2; color: var(--fg-0);
+      transition: opacity .35s ease;
+    }
+    #slide-12b .tm__cap--right { text-align: right; }
+    #slide-12b .tm__n { display: block; font-size: var(--t-h3); line-height: 1; color: var(--accent-3); margin-bottom: var(--s-1); }
+    #slide-12b .frag.tm__cap--1.is-current { transition-delay: .3s; }
+    #slide-12b .frag.tm__cap--2.is-current { transition-delay: .25s; }
+    #slide-12b .frag.tm__cap--3.is-current { transition-delay: .5s; }
+    #slide-12b .frag.tm__cap--4.is-current { transition-delay: .7s; }
+
+    /* step 5: the veil. The scene under it blurs with a real `filter` on the
+       head and body (standard in every engine for years — backdrop-filter is
+       not), driven by :has() off the veil frag so a back-step unblurs. The
+       veil sits over the slide's padding box and centres a white card, at
+       most 1200px wide so the line wraps in the same place in every engine. */
+    #slide-12b .slide__head, #slide-12b .slide__body { transition: filter .6s var(--ease-smooth); }
+    #slide-12b:has(.tm__veil:not(.is-pending)) .slide__head,
+    #slide-12b:has(.tm__veil:not(.is-pending)) .slide__body { filter: blur(var(--s-2)); }
+    #slide-12b .tm__veil {
+      position: absolute; inset: 0; padding: 0 360px;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, color-mix(in srgb, var(--bg-0) 80%, var(--fg-0)) 75%, transparent);
+    }
+    #slide-12b .tm__veil-card {
+      margin: 0; padding: var(--s-4) var(--s-6);
+      background: var(--paper); border-radius: var(--r-3);
+      font-family: var(--font-display); font-size: var(--t-h2); font-weight: 700; line-height: 1.15; color: var(--accent-1);
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-12b .slide__head, #slide-12b .slide__body { transition-duration: 0s !important; }
+      #slide-12b .tm__arrow, #slide-12b .tm__head, #slide-12b .tm__piece, #slide-12b .tm__outline, #slide-12b .tm__bubble, #slide-12b .tm__cap, #slide-12b .tm__veil {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

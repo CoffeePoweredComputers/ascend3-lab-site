@@ -1,0 +1,183 @@
+<section class="slide" id="slide-05b" data-sid="05b-when-to-start:1">
+  <header class="slide__head" data-sid="05b-when-to-start:2">
+    <p class="slide__kicker" data-sid="05b-when-to-start:3">Fall 2025 reflections</p>
+    <h2 data-sid="05b-when-to-start:4">Progress windows for the average week</h2>
+  </header>
+
+  <!-- Walkthrough: step 0 = the bare week, lecture days marked; steps 1-4
+       name one recurring task each and draw its start→due span on, left to
+       right, so the length of the stroke is the time you have; step 5 draws
+       the project row as a relay of three teammates chained end to start;
+       step 6 makes "you" start a day late — the chain shifts and the last
+       piece runs past Sunday. Day columns are grid tracks, never measured
+       pixels: a span is grid-column <start day> / <due day + 1> (Mon = 2 …
+       Sun = 8); inside the relay svg a day boundary is k × 14.2857%. -->
+  <div class="slide__body weekplan" data-sid="05b-when-to-start:5">
+    <p class="weekplan__day" style="grid-column: 2" data-sid="05b-when-to-start:6">Mon<b>lecture</b></p>
+    <p class="weekplan__day" style="grid-column: 3" data-sid="05b-when-to-start:7">Tue</p>
+    <p class="weekplan__day" style="grid-column: 4" data-sid="05b-when-to-start:8">Wed<b>lecture</b></p>
+    <p class="weekplan__day" style="grid-column: 5" data-sid="05b-when-to-start:9">Thu</p>
+    <p class="weekplan__day" style="grid-column: 6" data-sid="05b-when-to-start:10">Fri</p>
+    <p class="weekplan__day" style="grid-column: 7" data-sid="05b-when-to-start:11">Sat</p>
+    <p class="weekplan__day weekplan__day--last" style="grid-column: 8" data-sid="05b-when-to-start:12">Sun</p>
+
+    <article class="tile tile--a4 weekplan__what frag" data-step="1" data-anim="fade" style="grid-row: 2" data-sid="05b-when-to-start:13">
+      <h3 data-sid="05b-when-to-start:14">Homework</h3>
+    </article>
+    <p class="weekplan__span weekplan__span--a4 frag" data-step="1" style="grid-row: 2; grid-column: 2 / 7" data-sid="05b-when-to-start:15">start Mon &rarr; due Fri</p>
+
+    <article class="tile tile--a1 weekplan__what frag" data-step="2" data-anim="fade" style="grid-row: 3" data-sid="05b-when-to-start:48">
+      <h3 data-sid="05b-when-to-start:49">Challenge exercise after 01</h3>
+    </article>
+    <p class="weekplan__span frag" data-step="2" style="grid-row: 3; grid-column: 2 / 7" data-sid="05b-when-to-start:50">start Mon &rarr; due Fri</p>
+
+    <article class="tile tile--a2 weekplan__what frag" data-step="3" data-anim="fade" style="grid-row: 4" data-sid="05b-when-to-start:16">
+      <h3 data-sid="05b-when-to-start:17">Next week&rsquo;s modules</h3>
+    </article>
+    <p class="weekplan__span weekplan__span--a2 frag" data-step="3" style="grid-row: 4; grid-column: 5 / 9" data-sid="05b-when-to-start:18">start Thu (latest) → due Sun</p>
+
+    <article class="tile tile--a3 weekplan__what frag" data-step="4" data-anim="fade" style="grid-row: 5" data-sid="05b-when-to-start:19">
+      <h3 data-sid="05b-when-to-start:20">Project deliverables</h3>
+    </article>
+    <p class="weekplan__span weekplan__span--a3 frag" data-step="4" style="grid-row: 5; grid-column: 2 / 9" data-sid="05b-when-to-start:21">start the day it is released &rarr; due before your lab section</p>
+
+    <!-- Row 6: the relay. Each lane is a nested <svg x="<day %>"> so its person
+         glyph and span are authored in local px from the day it starts; the
+         dashed drop from the previous lane's end is authored inside the next
+         lane so it travels with it. The ghost (Monday not used) and the overrun
+         (past Sunday) are fixed; the overrun comes after the relay so the maroon
+         tail paints over the shifted orange span. -->
+    <svg class="weekplan__team" style="grid-row: 6; grid-column: 2 / 9" role="img"
+         aria-label="Three teammates' pieces of the project chained end to start across the week: you Monday to Tuesday, a teammate Wednesday to Thursday, a teammate Friday to Sunday. When you start a day late every lane shifts a day and the last piece runs past Sunday."
+         data-sid="05b-when-to-start:26">
+      <line class="team__ghost frag" data-step="6" data-anim="fade" x1="40" y1="30" x2="14.2857%" y2="30" data-sid="05b-when-to-start:27"/>
+      <g class="relay frag" data-step="6" data-sid="05b-when-to-start:29">
+        <g class="lane lane--1 frag" data-step="5" data-sid="05b-when-to-start:30">
+          <svg x="0" overflow="visible" data-sid="05b-when-to-start:31">
+            <circle class="lane__person" cx="16" cy="22" r="9" data-sid="05b-when-to-start:32"/>
+            <path class="lane__person" d="M3 57 v-10 a13 13 0 0 1 26 0 v10" data-sid="05b-when-to-start:33"/>
+            <line class="lane__span" x1="40" y1="30" x2="28.5714%" y2="30" data-sid="05b-when-to-start:34"/>
+            <text class="lane__you" x="48" y="18" data-sid="05b-when-to-start:35">you</text>
+          </svg>
+        </g>
+        <g class="lane lane--2 frag" data-step="5" data-sid="05b-when-to-start:36">
+          <svg x="28.5714%" overflow="visible" data-sid="05b-when-to-start:37">
+            <line class="lane__drop" x1="0" y1="30" x2="0" y2="75" data-sid="05b-when-to-start:38"/>
+            <circle class="lane__person" cx="16" cy="67" r="9" data-sid="05b-when-to-start:39"/>
+            <path class="lane__person" d="M3 102 v-10 a13 13 0 0 1 26 0 v10" data-sid="05b-when-to-start:40"/>
+            <line class="lane__span" x1="40" y1="75" x2="28.5714%" y2="75" data-sid="05b-when-to-start:41"/>
+          </svg>
+        </g>
+        <g class="lane lane--3 frag" data-step="5" data-sid="05b-when-to-start:42">
+          <svg x="57.1429%" overflow="visible" data-sid="05b-when-to-start:43">
+            <line class="lane__drop" x1="0" y1="75" x2="0" y2="120" data-sid="05b-when-to-start:44"/>
+            <circle class="lane__person" cx="16" cy="112" r="9" data-sid="05b-when-to-start:45"/>
+            <path class="lane__person" d="M3 147 v-10 a13 13 0 0 1 26 0 v10" data-sid="05b-when-to-start:46"/>
+            <line class="lane__span" x1="40" y1="120" x2="42.8571%" y2="120" data-sid="05b-when-to-start:47"/>
+          </svg>
+        </g>
+      </g>
+      <line class="team__over frag" data-step="6" data-anim="fade" x1="100%" y1="120" x2="114.2857%" y2="120" data-sid="05b-when-to-start:28"/>
+    </svg>
+
+    <p class="weekplan__late frag" data-step="6" data-anim="fade" style="grid-row: 7; grid-column: 1 / -1" data-sid="05b-when-to-start:22">Late on a team is not a private problem.</p>
+  </div>
+  <div class="slide__number" data-sid="05b-when-to-start:24"></div>
+  <aside class="notes" data-sid="05b-when-to-start:25">Homework and the challenge exercise open Monday — start them that day, not Thursday night. The days are suggestions — the point is that "early" has a date on it. The project row sets up the collaborator slide later: a team's clock starts the day the deliverable is released. Steps 1–4: one row each; read the span aloud as start → due. The challenge exercise is due Friday, same as the homework — the two bars line up. Step 5: that orange bar is three people's pieces — you Mon–Tue, a teammate Wed–Thu, a teammate Fri–Sun — each chained to the one before, finishing exactly at Sunday. Step 6: you start Tuesday instead of Monday; the whole chain shifts and the last piece runs past Sunday. Your teammates cannot build on work that does not exist yet — one late start costs the whole team its week. Say that "you start a day late" and the three-way hand-off are an illustration of the dependency, not a course rule or a real team workflow — real teams parallelise and integrate.</aside>
+
+  <style>
+    /* Slide-local: the week board. One grid — task labels in column 1, seven
+       equal day tracks after it. The day cells span every task row, so their
+       left borders are the gridlines; labels and spans are placed on top with
+       grid-row/-column alone. Spans draw on with a clip wipe (manim's Create:
+       the stroke is the time you have) and retract on back-step; labels
+       plain-fade. Row 6 is the relay: lanes FadeIn in a lagged start, then
+       shift one day (a translate that means the dates moved), ghost, overrun
+       and caption plain-fade. Used by this slide only, all values from tokens. */
+    #slide-05b .weekplan {
+      display: grid;
+      grid-template-columns: 520px repeat(7, 1fr);
+      /* axis row = two mono lines + breathing room; task rows share the rest */
+      grid-template-rows: calc(2 * 1.3 * var(--t-micro) + var(--s-2)) repeat(4, 1fr) 150px auto;
+      row-gap: var(--s-2);
+      align-items: center;
+    }
+    #slide-05b .weekplan__day {
+      grid-row: 1 / 7;
+      align-self: stretch;
+      margin: 0;
+      padding-top: var(--s-1);
+      border-left: 2px solid var(--stone);
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      line-height: 1.3;
+      color: var(--fg-1);
+      text-align: center;
+    }
+    #slide-05b .weekplan__day--last { border-right: 2px solid var(--stone); }
+    #slide-05b .weekplan__day b { display: block; font-weight: 400; color: var(--accent-1); }
+    #slide-05b .weekplan__what {
+      grid-column: 1;
+      margin-right: var(--s-3);
+      padding: var(--s-2) var(--s-3);
+    }
+    #slide-05b .weekplan__what h3 { margin: 0; font-size: var(--t-small); }
+    #slide-05b .weekplan__span {
+      --edge: var(--accent-1);
+      margin: 0 var(--s-1);
+      padding: var(--s-1) var(--s-3);
+      border-radius: 999px;
+      background: var(--edge);
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      line-height: 1.4;
+      color: var(--bg-0);
+      white-space: nowrap;
+      clip-path: inset(0 0 0 0);
+      transition: clip-path .6s var(--ease-smooth), opacity .3s ease;
+    }
+    #slide-05b .weekplan__span--a2 { --edge: var(--accent-2); }
+    #slide-05b .weekplan__span--a3 { --edge: var(--accent-3); }
+    #slide-05b .weekplan__span--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-05b .frag.weekplan__span.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    /* The relay. No viewBox: user units are px and percentages are days
+       (one track = 14.2857% of the seven). The ink person is the
+       23-on-whose-backs glyph at lane scale. */
+    #slide-05b .weekplan__team { display: block; width: 100%; height: 150px; overflow: visible; }
+    #slide-05b .lane__person { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-05b .lane__span { stroke: var(--accent-3); stroke-width: 12; stroke-linecap: round; }
+    #slide-05b .lane__drop { stroke: var(--stone); stroke-width: 3; stroke-dasharray: 8 8; stroke-linecap: round; }
+    #slide-05b .lane__you { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); }
+    #slide-05b .team__ghost { stroke: var(--stone); stroke-width: 3; stroke-dasharray: 8 8; stroke-linecap: round; transition: opacity .4s ease; }
+    #slide-05b .team__over { stroke: var(--accent-1); stroke-width: 12; stroke-dasharray: 16 12; stroke-linecap: round; transition: opacity .4s ease; }
+    /* the tail lands as the last lane's shift completes */
+    #slide-05b .frag.team__over.is-current,
+    #slide-05b .frag.team__over.is-past { transition-delay: .9s; }
+    /* Two frag states per lane: its own step (5) fades it in, the wrapper's
+       step (6) shifts it. The wrapper stays opaque; delays are per property
+       (opacity, transform) and only on the way in, so a back-step from either
+       step is immediate. Percent translate resolves against the svg viewport
+       (transform-box: view-box); if that ever misbehaves, one track is
+       1144px / 7 = 163.43px. */
+    #slide-05b .frag.relay.is-pending { opacity: 1; }
+    #slide-05b .lane { transform-box: view-box; transition: opacity .4s ease, transform 1s var(--ease-smooth); }
+    #slide-05b .frag.lane--2.is-current, #slide-05b .frag.lane--2.is-past { transition-delay: .12s, 0s; }
+    #slide-05b .frag.lane--3.is-current, #slide-05b .frag.lane--3.is-past { transition-delay: .24s, 0s; }
+    #slide-05b .relay.is-current .lane,
+    #slide-05b .relay.is-past .lane { transform: translateX(14.2857%); }
+    #slide-05b .relay.is-current .lane--1, #slide-05b .relay.is-past .lane--1 { transition-delay: 0s, 0s; }
+    #slide-05b .relay.is-current .lane--2, #slide-05b .relay.is-past .lane--2 { transition-delay: 0s, .15s; }
+    #slide-05b .relay.is-current .lane--3, #slide-05b .relay.is-past .lane--3 { transition-delay: 0s, .3s; }
+    /* the takeaway as a plain line, not a tile (26-start-now's idiom) */
+    #slide-05b .weekplan__late {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      line-height: 1.25;
+      color: var(--accent-1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-05b .weekplan__span, #slide-05b .lane, #slide-05b .team__ghost, #slide-05b .team__over { transition: none; }
+    }
+  </style>
+</section>

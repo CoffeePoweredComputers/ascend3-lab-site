@@ -1,0 +1,77 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-vote-555:1">
+  <header class="slide__head" data-sid="09-vote-555:2">
+    <p class="slide__kicker" data-sid="09-vote-555:3">PEER INSTRUCTION · WARM-UP 1</p>
+    <h2 data-sid="09-vote-555:4">Give e1 an id of 555 &mdash; without touching e2&rsquo;s object</h2>
+  </header>
+  <!-- The ask is drawn, not described: under the given code, a goal diagram
+       in the codewalk's own grammar shows what each name must read after the
+       student's lines run — one clause of the h2 per step. Dashed = a
+       requirement (09b's solid, typed boxes are what the machine did); orange
+       = must change, maroon = must stay. The boxes carry no type line on
+       purpose: two readings say nothing about how many objects exist, and
+       that is what the vote tests. -->
+  <div class="slide__body grid grid--code" data-sid="09-vote-555:5">
+    <div class="stack" data-sid="09-vote-555:6">
+      <div class="editor" data-sid="09-vote-555:7">
+        <p class="editor__bar" data-sid="09-vote-555:8">given &mdash; runs before yours</p>
+        <ol class="editor__code" data-sid="09-vote-555:9">
+          <li data-sid="09-vote-555:10">Employee e1 = <span class="tok-key">new</span> Employee();</li>
+          <li data-sid="09-vote-555:11">Employee e2 = <span class="tok-key">new</span> Employee();</li>
+          <li data-sid="09-vote-555:12">e1.setID(<span class="tok-num">123</span>);</li>
+          <li data-sid="09-vote-555:13">e2.setID(<span class="tok-num">456</span>);</li>
+          <li data-sid="09-vote-555:14">e1 = e2;</li>
+        </ol>
+      </div>
+      <div class="codewalk goal" data-sid="09-vote-555:25">
+        <p class="goal__label" data-sid="09-vote-555:26" style="width: 920px">Continue the program to achieve the following state</p>
+        <div class="codewalk__heap" data-sid="09-vote-555:27">
+          <p class="heap-name" data-wire="1:want" style="grid-row: 1;" data-sid="09-vote-555:28">e1</p>
+          <p class="heap-name" data-wire="2:keep" style="grid-row: 2;" data-sid="09-vote-555:29">e2</p>
+          <div class="heap-obj frag" data-step="1" data-obj="want" style="grid-row: 1;" data-sid="09-vote-555:30">
+            <div class="heap-obj__field" data-sid="09-vote-555:31">
+              <p class="heap-val" data-sid="09-vote-555:32">id = 555</p>
+            </div>
+          </div>
+          <div class="heap-obj frag" data-step="2" data-obj="keep" style="grid-row: 2;" data-sid="09-vote-555:33">
+            <div class="heap-obj__field" data-sid="09-vote-555:34">
+              <p class="heap-val" data-sid="09-vote-555:35">id = 456</p>
+            </div>
+          </div>
+          <svg class="heap-wires" aria-hidden="true" data-sid="09-vote-555:36"></svg>
+        </div>
+      </div>
+    </div>
+    <!-- QR encodes a placeholder (PrairieLearn login). Bake the real course
+         short link with: python3 make-qr.py "<url>" assets/qr-prairielearn.svg -->
+    <figure class="scan" style="width: 520px; margin: 0 auto;" data-sid="09-vote-555:18">
+      <img src="assets/qr-prairielearn.svg" alt="QR code opening the PrairieLearn question" data-sid="09-vote-555:19">
+      <figcaption data-sid="09-vote-555:20">
+        <p class="scan__link" data-sid="09-vote-555:21">us.prairielearn.com</p>
+        <p class="scan__hint" data-sid="09-vote-555:22">scan or type &middot; question W1D2 &middot; 1</p>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="slide__number" data-sid="09-vote-555:23"></div>
+  <aside class="notes" data-sid="09-vote-555:24">Vote, discuss with a neighbour, vote again — then advance to the walkthrough. The ask, verbatim (it used to sit on the slide as a tile): “Write the code that leaves e1 referencing an Employee whose id is 555 — while the object e2 references still holds 456.” The editor bar used to read “Given code — runs before yours”. Talk cue: the dashed boxes are what each name must read afterwards — orange must change, maroon must not. Do not say “two boxes in memory”: the drawing says nothing about how many objects exist or whether e1 and e2 share one; that is what the vote tests. Step 1 — e1’s box grows and its wire draws on: “e1 has to come out reading 555.” Step 2 — e2’s box and wire: “and whatever e2 is looking at still has to say 456.” Then: go.</aside>
+
+  <style>
+    /* Slide-local: the goal diagram — used by this slide only, all values
+       from tokens. The label pairs with the editor bar ("given — runs before
+       yours" / "after yours"), so it takes the bar's mono type. Dashed edges
+       turn the component's objects into requirements; the per-row --edge
+       reuses the deck's coding (orange = the thing your code changes, as on
+       .refs__obj--changed and the --new gutter; maroon = left alone). No
+       motion of its own: boxes GrowFromCenter and wires draw on through the
+       component, which already carries the reduced-motion fallback. */
+    #slide-09 .goal__label {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      color: var(--fg-1);
+    }
+    #slide-09 .heap-obj { border-style: dashed; }
+    #slide-09 .heap-obj[data-obj="want"] { --edge: var(--accent-3); }
+  </style>
+</section>

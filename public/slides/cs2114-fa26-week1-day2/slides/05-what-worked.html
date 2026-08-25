@@ -1,0 +1,264 @@
+<section class="slide" id="slide-05" data-sid="05-what-worked:1">
+  <header class="slide__head" data-sid="05-what-worked:2">
+    <p class="slide__kicker" data-sid="05-what-worked:3">Fall 2025 reflections</p>
+    <h2 data-sid="05-what-worked:4">What worked: Homework/Challenge Exercises</h2>
+  </header>
+
+  <!-- The three habits as one build on the clock from the last slide. Step 0:
+       the released→due axis and an empty footing — a site and a deadline.
+       Step 1 (01): the start marker appears at "released" and the orange "time
+       you have" opens to "due". Step 2 (02): the blueprint is drawn before any
+       stone — three dashed courses whose proportions are the wall's — and the
+       maroon "time used" creeps to ~18%. Step 3 (03): the wall goes up course
+       by course inside one click, each course checked before the next; time
+       used reaches ~60%. Step 4: the orange that remains gets its name. One SVG
+       covers the body; its viewBox is the body's rect in canvas px, so every
+       coordinate below is a canvas pixel. -->
+  <div class="slide__body build" data-sid="05-what-worked:5">
+    <svg class="build__art" viewBox="128 326 1664 658" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A project clock from released to due with the start marker at released. On the left a blueprint of a stone wall, three dashed courses. On the right the wall built course by course with a check on each course. A bracket over the time left before due reads Web-CAT runs, time to ask."
+         data-sid="05-what-worked:6" style="left: 1px; top: 0px">
+
+      <!-- step 0: the site and the deadline -->
+      <line class="build__line" x1="740" y1="800" x2="1540" y2="800" data-sid="05-what-worked:7"/>
+      <line class="build__line" x1="300" y1="900" x2="1620" y2="900" data-sid="05-what-worked:8"/>
+      <line class="build__line" x1="300" y1="888" x2="300" y2="912" data-sid="05-what-worked:9"/>
+      <line class="build__line build__tick--due" x1="1620" y1="884" x2="1620" y2="916" data-sid="05-what-worked:10"/>
+      <text class="build__axislabel" x="300" y="950" data-sid="05-what-worked:11">released</text>
+      <text class="build__axislabel build__axislabel--due" x="1620" y="950" data-sid="05-what-worked:12">due</text>
+
+      <!-- step 1 (01): the marker at released, the time you have opening to due -->
+      <rect class="build__have frag" data-step="1" x="388" y="892" width="1240" height="16" rx="8" data-sid="05-what-worked:13"/>
+      <!-- time used, in two stages so the state is a pure function of the step -->
+      <rect class="build__used build__used--a frag" data-step="2" x="388" y="892" width="238" height="16" rx="8" data-sid="05-what-worked:14"/>
+      <rect class="build__used build__used--b frag" data-step="3" x="610" y="892" width="519" height="16" rx="8" data-sid="05-what-worked:15"/>
+      <circle class="build__start frag" data-step="1" cx="396" cy="900" r="22" data-sid="05-what-worked:16"/>
+      <text class="build__label build__label--1 frag" data-step="1" data-anim="fade" x="440" y="950" data-sid="05-what-worked:17"><tspan class="build__num" data-sid="05-what-worked:18">01</tspan> Start early</text>
+
+      <!-- step 2 (02): the blueprint, drawn before any stone -->
+      <g class="blueprint frag" data-step="2" data-sid="05-what-worked:19">
+        <path class="sheet" pathLength="100" d="M160 396 H600 L640 436 V790 H160 Z" data-sid="05-what-worked:20"/>
+        <path class="sheet__fold" pathLength="100" d="M600 396 V436 H640" data-sid="05-what-worked:21"/>
+        <text class="sheet__title" x="192" y="440" data-sid="05-what-worked:22">spec + UML</text>
+        <!-- plan rows bottom→top; the pad rect keeps the 4px stroke inside the clip box -->
+        <g class="plan__row plan__row--1" data-sid="05-what-worked:23">
+          <rect class="plan__box" x="196" y="666" width="408" height="88" data-sid="05-what-worked:24"/>
+          <rect x="200" y="670" width="118" height="80" data-sid="05-what-worked:25"/>
+          <rect x="325" y="670" width="136" height="80" data-sid="05-what-worked:26"/>
+          <rect x="468" y="670" width="132" height="80" data-sid="05-what-worked:27"/>
+        </g>
+        <g class="plan__row plan__row--2" data-sid="05-what-worked:28">
+          <rect class="plan__box" x="196" y="566" width="408" height="88" data-sid="05-what-worked:29"/>
+          <rect x="200" y="570" width="88" height="80" data-sid="05-what-worked:30"/>
+          <rect x="295" y="570" width="165" height="80" data-sid="05-what-worked:31"/>
+          <rect x="467" y="570" width="133" height="80" data-sid="05-what-worked:32"/>
+        </g>
+        <g class="plan__row plan__row--3" data-sid="05-what-worked:33">
+          <rect class="plan__box" x="196" y="466" width="408" height="88" data-sid="05-what-worked:34"/>
+          <rect x="200" y="470" width="155" height="80" data-sid="05-what-worked:35"/>
+          <rect x="362" y="470" width="118" height="80" data-sid="05-what-worked:36"/>
+          <rect x="487" y="470" width="113" height="80" data-sid="05-what-worked:37"/>
+        </g>
+      </g>
+      <text class="build__label build__label--2 frag" data-step="2" data-anim="fade" x="160" y="366" data-sid="05-what-worked:38"><tspan class="build__num" data-sid="05-what-worked:39">02</tspan> Understand before you code</text>
+
+      <!-- step 3 (03): the wall, one course after another, each checked -->
+      <text class="build__label build__label--3 frag" data-step="3" data-anim="fade" x="760" y="366" data-sid="05-what-worked:40"><tspan class="build__num" data-sid="05-what-worked:41">03</tspan> Build incrementally</text>
+      <g class="wall frag" data-step="3" data-sid="05-what-worked:42">
+        <rect class="stone stone--1" x="760" y="676" width="200" height="110" data-sid="05-what-worked:43"/>
+        <rect class="stone stone--2" x="972" y="676" width="232" height="110" data-sid="05-what-worked:44"/>
+        <rect class="stone stone--3" x="1216" y="676" width="224" height="110" data-sid="05-what-worked:45"/>
+        <g class="badge badge--1" data-sid="05-what-worked:46">
+          <circle cx="1500" cy="731" r="36" data-sid="05-what-worked:47"/>
+          <path d="M1484 733 l11 11 l21 -24" data-sid="05-what-worked:48"/>
+        </g>
+        <rect class="stone stone--4" x="760" y="552" width="150" height="110" data-sid="05-what-worked:49"/>
+        <rect class="stone stone--5" x="922" y="552" width="280" height="110" data-sid="05-what-worked:50"/>
+        <rect class="stone stone--6" x="1214" y="552" width="226" height="110" data-sid="05-what-worked:51"/>
+        <g class="badge badge--2" data-sid="05-what-worked:52">
+          <circle cx="1500" cy="597" r="36" data-sid="05-what-worked:53"/>
+          <path d="M1484 599 l11 11 l21 -24" data-sid="05-what-worked:54"/>
+        </g>
+        <rect class="stone stone--7" x="760" y="428" width="264" height="110" data-sid="05-what-worked:55"/>
+        <rect class="stone stone--8" x="1036" y="428" width="200" height="110" data-sid="05-what-worked:56"/>
+        <rect class="stone stone--9" x="1248" y="428" width="192" height="110" data-sid="05-what-worked:57"/>
+        <g class="badge badge--3" data-sid="05-what-worked:58">
+          <circle cx="1500" cy="483" r="36" data-sid="05-what-worked:59"/>
+          <path d="M1484 485 l11 11 l21 -24" data-sid="05-what-worked:60"/>
+        </g>
+      </g>
+
+      <!-- step 4: the payoff — the orange that remains gets its name -->
+      <path class="payoff frag" data-step="4" pathLength="100" d="M1121 884 V866 H1620 V884" data-sid="05-what-worked:61"/>
+      <text class="payoff__label frag" data-step="4" data-anim="fade" x="1370" y="846" data-sid="05-what-worked:62">Web-CAT runs &middot; question time!</text>
+    </svg>
+  </div>
+
+  <aside class="notes" data-sid="05-what-worked:63">Cover the figure and "What worked" is three titles; the drawing carries the argument. Step 1 (01 Start early): the marker appears at "released" — where the last slide's marker was before it slid late — and the whole orange span of time you have opens to "due". Projects take longer than they look. An early start buys you Web-CAT iterations, and time to ask. Step 2 (02 Understand before you code): the blueprint is drawn before any stone. Read the whole spec. Study the UML. A misread design cascades into every class you write. Say "the plan is the wall" when the courses match. The maroon "time used" creeps to about a fifth: reading costs time, and it is time well spent. Step 3 (03 Build incrementally): the three courses go up one after another, each checked before the next. Class by class, testing each piece before the next. It keeps the bugs small and findable. Say once aloud that the check on every course is "tests pass". Step 4: the orange that remains gets its name — Web-CAT runs, time to ask. This is what step 1 bought; on the last slide the same orange was a stub. Say that three courses is a shape, not a count of classes, and that the time-used ratio is illustrative, not measured.</aside>
+  <div class="slide__number" data-sid="05-what-worked:64"></div>
+
+  <style>
+    /* Slide-local: the build. One SVG in canvas px (viewBox = the body's rect,
+       bottom-anchored) carrying the clock from 04, a blueprint and a Hokie
+       Stone wall. Motion is manim's only: the marker and every stone/badge
+       GrowFromCenter (pure scale, fill-box origin), the bars Create by clip
+       wipe, the sheet and bracket draw on by dashoffset, labels FadeIn. Groups
+       that hold several parts (.blueprint, .wall) stay opaque while pending and
+       their children take the from-states, staggered on the way in only — a
+       back-step clears the group at once (the brain slide's rule). Used by
+       this slide only, all values from tokens. */
+    #slide-05 .slide__body { position: relative; }
+    #slide-05 .build__art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* the site and the clock */
+    #slide-05 .build__line { fill: none; stroke: var(--stone); stroke-width: 6; stroke-linecap: round; }
+    #slide-05 .build__tick--due { stroke: var(--fg-0); }
+    #slide-05 .build__axislabel {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      fill: var(--fg-1);
+      text-anchor: middle;
+    }
+    #slide-05 .build__axislabel--due { fill: var(--fg-0); }
+
+    /* habit labels: the .tile__label + h3 idiom flattened into one line */
+    #slide-05 .build__label {
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      fill: var(--fg-0);
+      transition: opacity .4s ease;
+    }
+    #slide-05 .build__num { font-family: var(--font-mono); }
+    #slide-05 .build__label--1 .build__num { fill: var(--accent-1); }
+    #slide-05 .build__label--2 .build__num { fill: var(--accent-2); }
+    #slide-05 .build__label--3 .build__num { fill: var(--accent-3); }
+
+    /* 01: the marker grows at released; the bars are pills wiped left→right */
+    #slide-05 .build__start {
+      fill: var(--accent-1);
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+      transition: transform .5s var(--ease-smooth), opacity .2s ease;
+    }
+    #slide-05 .frag.build__start.is-pending { opacity: 0; transform: scale(0); }
+    #slide-05 .build__have { fill: var(--accent-3); transition: clip-path .8s var(--ease-smooth); }
+    #slide-05 .build__used { fill: var(--accent-1); transition: clip-path .6s var(--ease-smooth); }
+    #slide-05 .build__used--b { transition-duration: 2.6s; }
+    #slide-05 .frag.build__have.is-pending,
+    #slide-05 .frag.build__used.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-05 .frag.build__have.is-current, #slide-05 .frag.build__have.is-past,
+    #slide-05 .frag.build__used.is-current, #slide-05 .frag.build__used.is-past { clip-path: inset(0 0 0 0); }
+    #slide-05 .frag.build__have.is-current,
+    #slide-05 .frag.build__have.is-past { transition-delay: .3s; }
+
+    /* 02: the sheet draws on, then its title, then the plan rows bottom→top */
+    #slide-05 .frag.blueprint.is-pending { opacity: 1; }
+    #slide-05 .sheet,
+    #slide-05 .sheet__fold {
+      fill: none;
+      stroke: var(--accent-2);
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100 200;   /* dash covers the whole path at offset 0 */
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset .6s var(--ease-smooth), fill-opacity .3s ease;
+    }
+    #slide-05 .sheet { fill: var(--paper); fill-opacity: 1; }
+    #slide-05 .sheet__fold { transition-duration: .2s; }
+    /* offset 102, not 100: the round cap of a dash ending exactly at the start would show as a dot */
+    #slide-05 .blueprint.is-pending .sheet { stroke-dashoffset: 102; fill-opacity: 0; }
+    #slide-05 .blueprint.is-pending .sheet__fold { stroke-dashoffset: 102; }
+    #slide-05 .blueprint.is-current .sheet__fold,
+    #slide-05 .blueprint.is-past .sheet__fold { transition-delay: .5s; }
+    #slide-05 .sheet__title {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      fill: var(--accent-2);
+      transition: opacity .4s ease;
+    }
+    #slide-05 .blueprint.is-pending .sheet__title { opacity: 0; }
+    #slide-05 .blueprint.is-current .sheet__title,
+    #slide-05 .blueprint.is-past .sheet__title { transition-delay: .6s; }
+    #slide-05 .plan__row { clip-path: inset(0 0 0 0); transition: clip-path .5s var(--ease-smooth); }
+    #slide-05 .plan__row rect {
+      fill: none;
+      stroke: var(--accent-2);
+      stroke-width: 4;
+      stroke-dasharray: 16 12;
+      stroke-linejoin: round;
+    }
+    #slide-05 .plan__row .plan__box { stroke: none; }
+    #slide-05 .blueprint.is-pending .plan__row { clip-path: inset(0 100% 0 0); }
+    #slide-05 .blueprint.is-current .plan__row--1, #slide-05 .blueprint.is-past .plan__row--1 { transition-delay: .6s; }
+    #slide-05 .blueprint.is-current .plan__row--2, #slide-05 .blueprint.is-past .plan__row--2 { transition-delay: .8s; }
+    #slide-05 .blueprint.is-current .plan__row--3, #slide-05 .blueprint.is-past .plan__row--3 { transition-delay: 1s; }
+
+    /* 03: LaggedStart(GrowFromCenter) — stones left→right, a course at a time,
+       each badge after its course's last stone */
+    #slide-05 .frag.wall.is-pending { opacity: 1; }
+    #slide-05 .stone {
+      fill: color-mix(in srgb, var(--stone) 35%, var(--bg-0));   /* the Hokie Stone edge tone */
+      stroke: var(--stone);
+      stroke-width: 6;
+      stroke-linejoin: round;
+      rx: var(--r-1);
+    }
+    #slide-05 .stone,
+    #slide-05 .badge {
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+      transition: transform .45s var(--ease-smooth), opacity .2s ease;
+    }
+    #slide-05 .badge { transition-duration: .3s, .2s; }
+    #slide-05 .badge circle { fill: var(--accent-3); }
+    #slide-05 .badge path { fill: none; stroke: var(--paper); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-05 .wall.is-pending .stone { opacity: 0; transform: scale(.3); }
+    #slide-05 .wall.is-pending .badge { opacity: 0; transform: scale(0); }
+    #slide-05 .wall.is-current .stone--2, #slide-05 .wall.is-past .stone--2 { transition-delay: .11s; }
+    #slide-05 .wall.is-current .stone--3, #slide-05 .wall.is-past .stone--3 { transition-delay: .22s; }
+    #slide-05 .wall.is-current .badge--1, #slide-05 .wall.is-past .badge--1 { transition-delay: .75s; }
+    #slide-05 .wall.is-current .stone--4, #slide-05 .wall.is-past .stone--4 { transition-delay: .9s; }
+    #slide-05 .wall.is-current .stone--5, #slide-05 .wall.is-past .stone--5 { transition-delay: 1.01s; }
+    #slide-05 .wall.is-current .stone--6, #slide-05 .wall.is-past .stone--6 { transition-delay: 1.12s; }
+    #slide-05 .wall.is-current .badge--2, #slide-05 .wall.is-past .badge--2 { transition-delay: 1.65s; }
+    #slide-05 .wall.is-current .stone--7, #slide-05 .wall.is-past .stone--7 { transition-delay: 1.8s; }
+    #slide-05 .wall.is-current .stone--8, #slide-05 .wall.is-past .stone--8 { transition-delay: 1.91s; }
+    #slide-05 .wall.is-current .stone--9, #slide-05 .wall.is-past .stone--9 { transition-delay: 2.02s; }
+    #slide-05 .wall.is-current .badge--3, #slide-05 .wall.is-past .badge--3 { transition-delay: 2.55s; }
+
+    /* step 4: the bracket draws on over the orange remainder, then its name */
+    #slide-05 .payoff {
+      fill: none;
+      stroke: var(--accent-3);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100 200;
+      transition: stroke-dashoffset .5s var(--ease-smooth);
+    }
+    #slide-05 .frag.payoff.is-pending { opacity: 1; stroke-dashoffset: 102; }
+    #slide-05 .frag.payoff.is-current,
+    #slide-05 .frag.payoff.is-past { stroke-dashoffset: 0; }
+    #slide-05 .payoff__label {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      fill: var(--accent-3);
+      text-anchor: middle;
+      transition: opacity .4s ease;
+    }
+    #slide-05 .frag.payoff__label.is-current,
+    #slide-05 .frag.payoff__label.is-past { transition-delay: .4s; }
+
+    /* The group children are not .frag, so studio-anim's reduced-motion rule
+       does not reach them; !important for the same reason it uses it. */
+    @media (prefers-reduced-motion: reduce) {
+      #slide-05 .build__start, #slide-05 .build__have, #slide-05 .build__used, #slide-05 .build__label,
+      #slide-05 .sheet, #slide-05 .sheet__fold, #slide-05 .sheet__title, #slide-05 .plan__row,
+      #slide-05 .stone, #slide-05 .badge, #slide-05 .payoff, #slide-05 .payoff__label {
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>
