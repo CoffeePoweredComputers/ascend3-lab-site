@@ -427,7 +427,7 @@ html.no-motion *::after {
 .slide .scan__link {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: var(--t-small);
+  font-size: var(--t-micro);   /* full course host must fit the 640px card on one line */
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--accent-2);
