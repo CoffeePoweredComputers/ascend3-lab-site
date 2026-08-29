@@ -2,17 +2,19 @@
   <header class="slide__head" data-sid="02-course-info:2">
     <h2 data-sid="02-course-info:3">Week 2, on three different clocks</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis, this week on the left and next week on the right. First a maroon-orange Homework bar runs from Monday and stops at Friday, with a pole rising at the Friday tick. Then the Challenge Exercise 01 bar runs solid through Monday and fades across Monday to Friday, with a range line under the axis: it is due before your lab section, and lab sections run all week. Then a lab room is drawn above the axis &mdash; four students seated and one UTA standing among them &mdash; and attendance becomes required from this week on. Last, an orange bar runs from this Monday all the way to next Friday, with a pole at that tick: Project 1 is released this week, and its first deliverable, the scoping document, is due next Friday.</p>
+  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis, this week on the left and next week on the right. First a maroon-orange Homework bar runs from Monday and stops at Friday, with a pole rising at the Friday tick. Then a blue Modules 3.x bar runs on to Sunday, with its own pole. Then the Challenge Exercise 01 bar runs solid through Monday and fades across Monday to Friday, with a range line under the axis: it is due before your lab section, and lab sections run all week. Then a lab room is drawn above the axis &mdash; four students seated and one UTA standing among them &mdash; and attendance becomes required from this week on. Last, an orange Project 1 bar runs from this Monday, solid through next Monday and fading across next week, with a range line under next week: Project 1 is released this week, and its first deliverable, the scoping document, is due before your lab section next week.</p>
 
-  <!-- Week 2 is three deadlines on three different clocks, so it is drawn as
-       one axis rather than four cards. Geometry is day 2's keep-up grammar:
+  <!-- Week 2 is on three clocks — Friday, Sunday, your lab day — so it is drawn
+       as one axis rather than cards. Bars are 40px on a 14px gap so four of them
+       clear the axis under the room. Geometry is day 2's keep-up grammar:
        14 day tracks, track k ending at x = 128 + k*118.86, bars wiping from
        the axis start, poles drawing up by dashoffset. Step 1 the homework
-       bar stops at Friday; step 2 the challenge-exercise bar fades across the
-       lab week, because each section's deadline is a different day; step 3
-       draws the room the attendance rule is about; step 4 starts Project 1 now,
-       in the project's orange, and lands its scoping doc at next Friday's tick.
-       Bar rows are 16px apart so three of them clear the axis. One SVG in canvas px
+       bar stops at Friday; step 2 the modules bar stops at Sunday; step 3 the
+       challenge-exercise bar fades across the lab week, because each section's
+       deadline is a different day; step 4 draws the room the attendance rule
+       is about; step 5 starts Project 1 now, in the project's orange, and
+       fades it across NEXT week's lab days — deliverables are due before your
+       lab section, like the challenge exercise. One SVG in canvas px
        (viewBox = the body's rect). -->
   <div class="slide__body" data-sid="02-course-info:5">
     <svg class="wk" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
@@ -25,8 +27,8 @@
         </g>
       </defs>
 
-      <!-- step 3: the room the attendance rule is about -->
-      <g class="wk__lab frag" data-step="3" data-sid="02-course-info:8">
+      <!-- step 4: the room the attendance rule is about -->
+      <g class="wk__lab frag" data-step="4" data-sid="02-course-info:8">
         <rect class="wk__room" x="640" y="250" width="640" height="180" rx="14" data-sid="02-course-info:9"/>
         <g class="wk__seats" data-sid="02-course-info:10">
           <g class="wk__seat" style="--i: 0"><use href="#w2-lab-seat" x="760" y="316"/></g>
@@ -39,38 +41,49 @@
           <path d="M1210 318V372M1210 332L1184 358M1210 332L1236 356M1210 372L1194 412M1210 372L1228 412"/>
         </g>
       </g>
-      <text class="wk__roomcap frag" data-step="3" data-anim="fade" x="960" y="478" data-sid="02-course-info:12">attendance required from this week</text>
+      <text class="wk__roomcap frag" data-step="4" data-anim="fade" x="960" y="478" data-sid="02-course-info:12">attendance required from this week</text>
 
       <!-- step 0: the two weeks -->
-      <path class="wk__bracket" d="M128 544v-16H960v16M960 544v-16H1792v16" data-sid="02-course-info:13"/>
-      <text class="wk__axislabel" x="544" y="520" data-sid="02-course-info:14">this week</text>
-      <text class="wk__axislabel" x="1376" y="520" data-sid="02-course-info:15">next week</text>
-      <line class="wk__axis" x1="128" y1="790" x2="1792" y2="790" data-sid="02-course-info:16"/>
-      <path class="wk__tick" d="M247 790v16M366 790v16M485 790v16M603 790v16M841 790v16M960 790v16M1079 790v16M1198 790v16M1317 790v16M1435 790v16M1673 790v16" data-sid="02-course-info:17"/>
-      <path class="wk__tick wk__tick--due" d="M722 790v28M1554 790v28" data-sid="02-course-info:18"/>
-      <text class="wk__axislabel" x="722" y="854" data-sid="02-course-info:19">Fri</text>
-      <text class="wk__axislabel" x="485" y="854" data-sid="02-course-info:20">your lab day</text>
+      <path class="wk__bracket" d="M128 528v-16H960v16M960 528v-16H1792v16" data-sid="02-course-info:34"/>
+      <text class="wk__axislabel" x="544" y="504" data-sid="02-course-info:35">this week</text>
+      <text class="wk__axislabel" x="1376" y="504" data-sid="02-course-info:36">next week</text>
+      <line class="wk__axis" x1="128" y1="790" x2="1792" y2="790" data-sid="02-course-info:37"/>
+      <path class="wk__tick" d="M247 790v16M366 790v16M485 790v16M603 790v16M841 790v16M1079 790v16M1198 790v16M1317 790v16M1435 790v16M1554 790v16M1673 790v16" data-sid="02-course-info:38"/>
+      <path class="wk__tick wk__tick--due" d="M722 790v28M960 790v28" data-sid="02-course-info:39"/>
+      <text class="wk__axislabel" x="722" y="854" data-sid="02-course-info:40">Fri</text>
+      <text class="wk__axislabel" x="960" y="854" data-sid="02-course-info:41">Sun</text>
+      <text class="wk__axislabel" x="485" y="854" data-sid="02-course-info:42">your lab day</text>
 
-      <!-- step 1: homework stops at Friday -->
-      <rect class="wk__bar wk__ink--a4 frag" data-step="1" x="128" y="576" width="594" height="48" rx="24" data-sid="02-course-info:21"/>
-      <text class="wk__label frag" data-step="1" data-anim="fade" x="154" y="609" data-sid="02-course-info:22">Homework &middot; Week 2</text>
-      <line class="wk__pole wk__ink--a4 frag" data-step="1" pathLength="100" x1="722" y1="790" x2="722" y2="624" data-sid="02-course-info:23"/>
+      <!-- step 1: homework stops at Friday (track 5 ends at x = 722) -->
+      <rect class="wk__bar wk__ink--a4 frag" data-step="1" x="128" y="560" width="594" height="40" rx="20" data-sid="02-course-info:43"/>
+      <text class="wk__label frag" data-step="1" data-anim="fade" x="154" y="589" data-sid="02-course-info:44">Homework &middot; Week 2</text>
+      <line class="wk__pole wk__ink--a4 frag" data-step="1" pathLength="100" x1="722" y1="790" x2="722" y2="600" data-sid="02-course-info:45"/>
 
-      <!-- step 2: the challenge exercise fades across the lab week -->
-      <rect class="wk__bar wk__ink--a4 frag" data-step="2" x="128" y="640" width="119" height="48" rx="24" data-sid="02-course-info:24"/>
-      <path class="wk__bar wk__bar--tail wk__ink--a4 frag" data-step="2" d="M247 640 H698 a24 24 0 0 1 0 48 H247 Z" data-sid="02-course-info:25"/>
-      <text class="wk__label frag" data-step="2" data-anim="fade" x="154" y="673" data-sid="02-course-info:26">Challenge Exercise 01</text>
-      <line class="wk__pole wk__ink--a4 wk__range frag" data-step="2" pathLength="100" x1="247" y1="818" x2="722" y2="818" data-sid="02-course-info:27"/>
+      <!-- step 2: the modules stop at Sunday (track 7 ends at x = 960), in day 2's module blue -->
+      <rect class="wk__bar wk__ink--a2 frag" data-step="2" x="128" y="614" width="832" height="40" rx="20" data-sid="02-course-info:46"/>
+      <text class="wk__label frag" data-step="2" data-anim="fade" x="154" y="643" data-sid="02-course-info:47">Modules 3.x</text>
+      <line class="wk__pole wk__ink--a2 frag" data-step="2" pathLength="100" x1="960" y1="790" x2="960" y2="654" data-sid="02-course-info:48"/>
 
-      <!-- step 4: Project 1 starts now; its scoping doc lands next Friday (tick k=12: x = 128 + 12*118.86) -->
-      <rect class="wk__bar wk__ink--p1 frag" data-step="4" x="128" y="704" width="1426" height="48" rx="24" data-sid="02-course-info:32"/>
-      <text class="wk__label frag" data-step="4" data-anim="fade" x="154" y="737" data-sid="02-course-info:29">Project 1 &middot; released this week &middot; scoping doc due next Friday</text>
-      <line class="wk__pole wk__ink--p1 frag" data-step="4" pathLength="100" x1="1554" y1="790" x2="1554" y2="752" data-sid="02-course-info:28"/>
-      <text class="wk__axislabel frag" data-step="4" data-anim="fade" x="1554" y="854" data-sid="02-course-info:33">Fri</text>
+      <!-- step 3: the challenge exercise fades across this week's lab days -->
+      <rect class="wk__bar wk__ink--a4 frag" data-step="3" x="128" y="668" width="119" height="40" rx="20" data-sid="02-course-info:49"/>
+      <path class="wk__bar wk__bar--tail wk__ink--a4 frag" data-step="3" d="M247 668 H702 a20 20 0 0 1 0 40 H247 Z" data-sid="02-course-info:50"/>
+      <text class="wk__label frag" data-step="3" data-anim="fade" x="154" y="697" data-sid="02-course-info:51">Challenge Exercise 01</text>
+      <line class="wk__pole wk__ink--a4 wk__range frag" data-step="3" pathLength="100" x1="247" y1="818" x2="722" y2="818" data-sid="02-course-info:52"/>
+
+      <!-- step 5: Project 1 starts now (released this week) and its scoping doc is
+           due before your lab section NEXT week: solid to next Monday (track 8,
+           x = 1079, the earliest section), faded through next Friday (track 12,
+           x = 1554, the latest) — the same window the challenge exercise has
+           this week, one week later, in Project 1's orange -->
+      <rect class="wk__bar wk__ink--p1 frag" data-step="5" x="128" y="722" width="951" height="40" rx="20" data-sid="02-course-info:53"/>
+      <path class="wk__bar wk__bar--tail wk__ink--p1 frag" data-step="5" d="M1079 722 H1534 a20 20 0 0 1 0 40 H1079 Z" data-sid="02-course-info:54"/>
+      <text class="wk__label frag" data-step="5" data-anim="fade" x="154" y="751" data-sid="02-course-info:55">Project 1 &middot; released this week &middot; scoping doc before your lab section</text>
+      <line class="wk__pole wk__ink--p1 wk__range frag" data-step="5" pathLength="100" x1="1079" y1="818" x2="1554" y2="818" data-sid="02-course-info:56"/>
+      <text class="wk__axislabel frag" data-step="5" data-anim="fade" x="1317" y="854" data-sid="02-course-info:57">your lab day</text>
     </svg>
   </div>
   <div class="slide__number" data-sid="02-course-info:30"></div>
-  <aside class="notes" data-sid="02-course-info:31">Logistics first, then the reason we run class the way we do. Step 1 &mdash; Homework Week 2, in PrairieLearn after the modules, due Friday: one date, the same for everyone. Step 2 &mdash; Challenge Exercise 01, submitted to Web-CAT from Eclipse, due before your lab section: say &ldquo;your lab day&rdquo; out loud and point at the faded stretch, because the date is a different day for each of them. Step 3 &mdash; attendance was optional in Week 1 and is required from here on; the UTAs are in the room to help you while you are in it. Step 4 &mdash; Project 1 is released this week and its first deliverable, the scoping document, is due next Friday: it is the long bar because it starts now, not next week, and it is orange because that is Project 1&rsquo;s colour for the semester. Read the spec before lab. Announcements land on Piazza first: turn instructor-post notifications on before you leave.</aside>
+  <aside class="notes" data-sid="02-course-info:31">Logistics first, then the reason we run class the way we do. Three clocks: Friday, Sunday, and your lab day. Step 1 &mdash; Homework Week 2, in PrairieLearn after the modules, due Friday: one date, the same for everyone. Step 2 &mdash; Modules 3.x, due Sunday, the same clock as last week&rsquo;s 1.x and 2.x. Step 3 &mdash; Challenge Exercise 01, submitted to Web-CAT from Eclipse, due before your lab section: say &ldquo;your lab day&rdquo; out loud and point at the faded stretch, because the date is a different day for each of them. Step 4 &mdash; attendance was optional in Week 1 and is required from here on; the UTAs are in the room to help you while you are in it. Step 5 &mdash; Project 1 is released this week and its first deliverable, the scoping document, is due before your lab section next week &mdash; the same window as the challenge exercise, one week later, and orange because that is Project 1&rsquo;s colour for the semester. It is called Learning to Scope for a reason: read the spec before lab and start the day it is released. Announcements land on Piazza first: turn instructor-post notifications on before you leave.</aside>
 
   <style>
     /* Slide-local: the week clock. The axis, bars, poles and range line are
@@ -92,6 +105,7 @@
     #slide-02 .wk__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
 
     /* bars: homework and the challenge exercise share the day 2 deadline ink */
+    #slide-02 .wk__ink--a2 { --edge: var(--accent-2); }   /* modules: day 2's blue */
     #slide-02 .wk__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
     #slide-02 .wk__ink--p1 { --edge: var(--accent-3); }   /* Project 1's colour, as on the semester map */
     #slide-02 .wk__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }

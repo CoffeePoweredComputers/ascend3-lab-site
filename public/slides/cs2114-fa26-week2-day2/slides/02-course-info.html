@@ -2,7 +2,7 @@
   <header class="slide__head" data-sid="02-course-info:2">
     <h2 data-sid="02-course-info:3">Week 2 &mdash; and what lands this week</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted column labelled now on Wednesday. First a bracket draws across both weeks &mdash; the calendar on Canvas: Week 2 this week, Week 3 next week, and Week 4 posted beyond the right-hand edge. Then a maroon-orange Week 2 homework bar leaves the now column and stops at Friday, with a pole rising at the Friday tick. Then the Challenge Exercise 01 bar runs solid through Monday and fades across the week to Friday, with a range line under the axis marked your lab day: it is due before your lab section, and sections meet all week. Then a lab room is drawn above the axis &mdash; four students seated and one orange UTA standing among them &mdash; and attendance is required from this week on. Last, an orange Project 1 bar leaves the now column and runs off the right-hand edge of the axis: it starts today and has no end on this clock. A caption under the axis reads: And then Project 1.</p>
+  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted column labelled now on Wednesday. First a bracket draws across both weeks &mdash; the calendar on Canvas: Week 2 this week, Week 3 next week, and Week 4 posted beyond the right-hand edge. Then a maroon-orange Week 2 homework bar leaves the now column and stops at Friday, with a pole rising at the Friday tick. Then the Challenge Exercise 01 bar runs solid through Monday and fades across the week to Friday, with a range line under the axis marked your lab day: it is due before your lab section, and sections meet all week. Then a lab room is drawn above the axis &mdash; four students seated and one orange UTA standing among them &mdash; and attendance is required from this week on. Last, a stone pole rises at next Monday, where Week 3 begins: Project 1, with teams formed in this week's lab and Deliverable 1 due at your Week 3 lab. A caption under the axis reads: And then Project 1, next week.</p>
 
   <!-- Three places work lives, drawn as one clock rather than three cards, so
        the room sees that the three deadlines are three different kinds of
@@ -14,12 +14,12 @@
        leaves now and stops at Friday. Step 3: Lab — the challenge-exercise bar
        started Monday and fades across the lab week, because each section's
        deadline is a different day. Step 4: the room the attendance rule is
-       about. Step 5: Project 1 leaves now in orange and runs off the edge —
-       it starts today and nothing on this clock ends it. One SVG in canvas px
+       about. Step 5: a stone pole at next Monday, where Week 3 begins — Project 1
+       is next week's work, not this week's, so it is a marker, not a bar. One SVG in canvas px
        (viewBox = the body's rect). -->
   <div class="slide__body" data-sid="02-course-info:5">
     <svg class="wk" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A two-week deadline axis with a now column, a lab room above it and a Project 1 bar running off the edge"
+         aria-label="A two-week deadline axis with a now column, a lab room above it and a Project 1 marker at next Monday"
          data-sid="02-course-info:6">
       <defs data-sid="02-course-info:7">
         <g id="w2d2-02-seat" data-sid="02-course-info:8">
@@ -75,21 +75,24 @@
       <text class="wk__label wk__label--tail wk__ink--a4 frag" data-step="3" data-anim="fade" x="270" y="673" data-sid="02-course-info:42">Challenge Exercise 01</text>
       <line class="wk__pole wk__ink--a4 wk__range frag" data-step="3" pathLength="100" x1="247" y1="818" x2="722" y2="818" data-sid="02-course-info:43"/>
 
-      <!-- step 5: everything above lands this week; this one leaves now and
-           runs off the edge of the clock (past x = 1792, clipped by the slide) -->
-      <rect class="wk__bar wk__bar--long wk__ink--a3 frag" data-step="5" x="366" y="712" width="1574" height="48" rx="24" data-sid="02-course-info:44"/>
-      <text class="wk__label frag" data-step="5" data-anim="fade" x="392" y="745" data-sid="02-course-info:45">Project 1 &middot; set it up today</text>
+      <!-- step 5: everything above lands this week; Project 1 does not start
+           until Week 3, so it is a stone marker at next Monday (track 7 ends
+           at x = 1079), not a bar leaving now -->
+      <line class="wk__pole wk__ink--stone frag" data-step="5" pathLength="100" x1="1079" y1="790" x2="1079" y2="592" data-sid="02-course-info:44"/>
+      <text class="wk__flag frag" data-step="5" data-anim="fade" x="1099" y="604" data-sid="02-course-info:45">Project 1 &middot; from Week 3</text>
+      <text class="wk__flag wk__flag--sub frag" data-step="5" data-anim="fade" x="1099" y="640" data-sid="02-course-info:53">teams formed in this week&rsquo;s lab</text>
+      <text class="wk__flag wk__flag--sub frag" data-step="5" data-anim="fade" x="1099" y="676" data-sid="02-course-info:54">Deliverable 1 &middot; Scope, at your Week 3 lab</text>
 
       <!-- captions: one sentence per beat in the row under the axis; step 4's
            sentence sits on the room instead, so the row stays empty for that beat -->
       <text class="wk__cap frag" data-step="1" x="960" y="940" data-sid="02-course-info:46">Canvas: Weeks 2, 3 and 4 are posted &mdash; read them together, the next three weeks overlap.</text>
       <text class="wk__cap frag" data-step="2" x="960" y="940" data-sid="02-course-info:47">PrairieLearn: content pages first, then Homework Week 2 &mdash; due Friday.</text>
       <text class="wk__cap frag" data-step="3" x="960" y="940" data-sid="02-course-info:48">Lab: Challenge Exercise 01 is due before your section meets.</text>
-      <text class="wk__cap frag" data-step="5" x="960" y="940" data-sid="02-course-info:49">And then Project 1.</text>
+      <text class="wk__cap frag" data-step="5" x="960" y="940" data-sid="02-course-info:49">And then Project 1 &mdash; next week.</text>
     </svg>
   </div>
   <div class="slide__number" data-sid="02-course-info:50"></div>
-  <aside class="notes" data-sid="02-course-info:51">Say the due dates out loud rather than pointing at them. Step 1 &mdash; Canvas: Weeks 2, 3 and 4 are all posted; read them together, because the next three weeks overlap. Step 2 &mdash; PrairieLearn: content pages first, then Homework Week 2, due Friday &mdash; the one date that is the same for everybody. Step 3 &mdash; Challenge Exercise 01, due before your lab section: say &ldquo;your lab day&rdquo; out loud and point at the faded stretch, because the lab deadline is a different day for each section &mdash; whichever day theirs meets. Step 4 &mdash; attendance is required from this week on; the UTAs are in the room to help you while you are in it. Step 5 &mdash; and then Project 1, which starts today, not next week: the bar leaves now and runs off the edge of the clock. Then move straight into the vocabulary they need before Project 1 makes sense.</aside>
+  <aside class="notes" data-sid="02-course-info:51">Say the due dates out loud rather than pointing at them. Step 1 &mdash; Canvas: Weeks 2, 3 and 4 are all posted; read them together, because the next three weeks overlap. Step 2 &mdash; PrairieLearn: content pages first, then Homework Week 2, due Friday &mdash; the one date that is the same for everybody. Step 3 &mdash; Challenge Exercise 01, due before your lab section: say &ldquo;your lab day&rdquo; out loud and point at the faded stretch, because the lab deadline is a different day for each section &mdash; whichever day theirs meets. Step 4 &mdash; attendance is required from this week on; the UTAs are in the room to help you while you are in it. Step 5 &mdash; and then Project 1, which starts next week, not today: a marker at Monday of Week 3. Teams of three are formed in this week&rsquo;s lab &mdash; the lab is orientation: Eclipse check, GitHub, your initial group, posted on Canvas &mdash; and Deliverable 1, the one-page scope, is due at your Week 3 lab session. Monday is Labor Day, so Week 3 meets Tuesday to Friday; Monday sections should confirm their hand-in time. Then move straight into the vocabulary they need before Project 1&rsquo;s specification makes sense.</aside>
 
   <style data-sid="02-course-info:52">
     /* Slide-local: the week clock, this week's version. The axis, bars, poles
@@ -120,12 +123,11 @@
     #slide-02 .frag.wk__bracket.is-pending { opacity: 1; stroke-dashoffset: 100; }
 
     /* bars: homework and the challenge exercise share the day 2 deadline ink;
-       Project 1 is orange because it is the work you do */
+       Project 1 is a stone marker — posted, not this week's work */
     #slide-02 .wk__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
-    #slide-02 .wk__ink--a3 { --edge: var(--accent-3); }
+    #slide-02 .wk__ink--stone { --edge: var(--stone); }
     #slide-02 .wk__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }
     #slide-02 .wk__bar--tail { fill-opacity: .35; transition-duration: .4s; }
-    #slide-02 .wk__bar--long { transition-duration: .75s; }
     #slide-02 .frag.wk__bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
     #slide-02 .frag.wk__bar--tail.is-current, #slide-02 .frag.wk__bar--tail.is-past { transition-delay: .35s; }
     #slide-02 .wk__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
@@ -139,6 +141,11 @@
     #slide-02 .frag.wk__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
     #slide-02 .frag.wk__pole.is-current, #slide-02 .frag.wk__pole.is-past { stroke-dashoffset: 0; transition-delay: .5s; }
     #slide-02 .frag.wk__range.is-current, #slide-02 .frag.wk__range.is-past { transition-delay: .8s; }
+    /* the Project 1 marker's flag, start-anchored beside the pole's top */
+    #slide-02 .wk__flag { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
+    #slide-02 .wk__flag--sub { font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-02 .frag.wk__flag.is-current, #slide-02 .frag.wk__flag.is-past { transition-delay: .45s; }
+    #slide-02 .frag.wk__flag--sub.is-current, #slide-02 .frag.wk__flag--sub.is-past { transition-delay: .65s; }
 
     /* the lab room: the outline draws on, then the people grow into it */
     #slide-02 .wk__room {
@@ -172,7 +179,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       #slide-02 .wk__bar, #slide-02 .wk__pole, #slide-02 .wk__label, #slide-02 .wk__bracket, #slide-02 .wk__axislabel,
-      #slide-02 .wk__cap, #slide-02 .wk__room, #slide-02 .wk__seat, #slide-02 .wk__uta, #slide-02 .wk__roomcap {
+      #slide-02 .wk__cap, #slide-02 .wk__flag, #slide-02 .wk__room, #slide-02 .wk__seat, #slide-02 .wk__uta, #slide-02 .wk__roomcap {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }
