@@ -1,0 +1,135 @@
+<section class="slide slide--warmup" id="slide-12b" data-sid="12b-walk-movie:1">
+  <header class="slide__head" data-sid="12b-walk-movie:2">
+    <p class="slide__kicker" data-sid="12b-walk-movie:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="12b-walk-movie:4">What the machine actually does</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="12b-walk-movie:5">A walkthrough. On the left, the nine lines with a program-counter bar moving down them; on the right, the heap filling in as it goes. Line 1 grows a Movie object with its three fields at their defaults &mdash; title null, genre null, year 0 &mdash; and film1&rsquo;s arrow draws to it. Line 2 writes Dune, sci-fi and 2021 into those three fields. Line 3 gives that same object a second name, film2: a second arrow lands on the same box. Line 4 writes 1984 through film2, and because there is only one object, film1 sees it: 2021 is struck through and 1984 appears beside it. Line 5 grows a second object for film3, again at its defaults, and line 6 fills it in. Line 7 re-points film2 at that second object &mdash; its arrow swings across &mdash; and from there on film2 has nothing to do with film1. Line 8 writes 2024 into the second object, which film1 never pointed at. Line 9 prints Dune sci-fi movie in 1984 to a console under the code. Last, the four answers from the vote return under the console: A, C and D are struck through one after another, and B, in 1984, is left standing.</p>
+  <div class="slide__body grid grid--code" data-sid="12b-walk-movie:6">
+    <div class="stack" data-sid="12b-walk-movie:7">
+      <div class="editor" data-sid="12b-walk-movie:50">
+        <p class="editor__bar" data-sid="12b-walk-movie:8">your program</p>
+        <div class="editor__pc" data-sid="12b-walk-movie:9"></div>
+        <ol class="editor__code" data-sid="12b-walk-movie:10">
+          <li class="walkline frag" data-step="1" data-sid="12b-walk-movie:11">Movie film1 = <span class="tok-key">new</span> Movie();</li>
+          <li class="walkline frag" data-step="2" data-sid="12b-walk-movie:12">film1.setMovie("Dune", "sci-fi", <span class="tok-num">2021</span>);</li>
+          <li class="walkline frag" data-step="3" data-sid="12b-walk-movie:13">Movie film2 = film1;</li>
+          <li class="walkline frag" data-step="4" data-sid="12b-walk-movie:14">film2.updateYear(<span class="tok-num">1984</span>);</li>
+          <li class="walkline frag" data-step="5" data-sid="12b-walk-movie:15">Movie film3 = <span class="tok-key">new</span> Movie();</li>
+          <li class="walkline frag" data-step="6" data-sid="12b-walk-movie:16">film3.setMovie("Dune", "sci-fi", <span class="tok-num">2021</span>);</li>
+          <li class="walkline frag" data-step="7" data-sid="12b-walk-movie:17">film2 = film3;</li>
+          <li class="walkline frag" data-step="8" data-sid="12b-walk-movie:18">film2.updateYear(<span class="tok-num">2024</span>);</li>
+          <li class="walkline frag" data-step="9" data-sid="12b-walk-movie:19">film1.print();</li>
+        </ol>
+      </div>
+      <div class="editor console frag" data-step="9" data-sid="12b-walk-movie:51">
+        <p class="editor__bar" data-sid="12b-walk-movie:52">console</p>
+        <p class="console__out" data-sid="12b-walk-movie:53">Dune sci-fi movie in 1984</p>
+      </div>
+      <ol class="verdict frag" data-step="10" data-sid="12b-walk-movie:54">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="12b-walk-movie:55"><span class="verdict__txt">in 2021</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="12b-walk-movie:56"><span class="verdict__txt">in 1984</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="12b-walk-movie:57"><span class="verdict__txt">in 2024</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="12b-walk-movie:58"><span class="verdict__txt">in 1984, 2024</span></li>
+      </ol>
+    </div>
+    <div class="codewalk" data-sid="12b-walk-movie:20">
+      <div class="codewalk__heap" data-sid="12b-walk-movie:21">
+        <p class="heap-name frag" data-step="1" data-wire="1:a" style="grid-row: 1;" data-sid="12b-walk-movie:22">film1</p>
+        <p class="heap-name frag" data-step="3" data-wire="3:a 7:c" style="grid-row: 2;" data-sid="12b-walk-movie:23">film2</p>
+        <p class="heap-name frag" data-step="5" data-wire="5:c" style="grid-row: 3;" data-sid="12b-walk-movie:24">film3</p>
+
+        <div class="heap-obj frag" data-step="1" data-obj="a" style="grid-row: 1;" data-sid="12b-walk-movie:25">
+          <p class="heap-obj__type" data-sid="12b-walk-movie:26">Movie</p>
+          <div class="heap-obj__field" data-roll="off" data-sid="12b-walk-movie:59">
+            <p class="heap-val heap-val--old frag" data-step="2" data-sid="12b-walk-movie:60">title = null</p>
+            <p class="heap-val frag" data-step="2" data-sid="12b-walk-movie:27">title = "Dune"</p>
+          </div>
+          <div class="heap-obj__field" data-roll="off" data-sid="12b-walk-movie:61">
+            <p class="heap-val heap-val--old frag" data-step="2" data-sid="12b-walk-movie:62">genre = null</p>
+            <p class="heap-val frag" data-step="2" data-sid="12b-walk-movie:63">genre = "sci-fi"</p>
+          </div>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="12b-walk-movie:28">
+            <p class="heap-val heap-val--default frag" data-step="2" data-sid="12b-walk-movie:64">year = 0</p>
+            <p class="heap-val heap-val--old frag" data-step="4" data-sid="12b-walk-movie:29">year = <span class="heap-val__num">2021</span></p>
+            <p class="heap-val frag" data-step="4" data-sid="12b-walk-movie:30"><span class="sr-only">now </span>1984</p>
+          </div>
+        </div>
+
+        <div class="heap-obj frag" data-step="5" data-obj="c" style="grid-row: 3;" data-sid="12b-walk-movie:31">
+          <p class="heap-obj__type" data-sid="12b-walk-movie:32">Movie</p>
+          <div class="heap-obj__field" data-roll="off" data-sid="12b-walk-movie:65">
+            <p class="heap-val heap-val--old frag" data-step="6" data-sid="12b-walk-movie:66">title = null</p>
+            <p class="heap-val frag" data-step="6" data-sid="12b-walk-movie:33">title = "Dune"</p>
+          </div>
+          <div class="heap-obj__field" data-roll="off" data-sid="12b-walk-movie:67">
+            <p class="heap-val heap-val--old frag" data-step="6" data-sid="12b-walk-movie:68">genre = null</p>
+            <p class="heap-val frag" data-step="6" data-sid="12b-walk-movie:69">genre = "sci-fi"</p>
+          </div>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="12b-walk-movie:34">
+            <p class="heap-val heap-val--default frag" data-step="6" data-sid="12b-walk-movie:70">year = 0</p>
+            <p class="heap-val heap-val--old frag" data-step="8" data-sid="12b-walk-movie:35">year = <span class="heap-val__num">2021</span></p>
+            <p class="heap-val frag" data-step="8" data-sid="12b-walk-movie:36"><span class="sr-only">now </span>2024</p>
+          </div>
+        </div>
+
+        <svg class="heap-wires" aria-hidden="true" data-sid="12b-walk-movie:37"></svg>
+      </div>
+      <div class="codewalk__caps" data-sid="12b-walk-movie:38">
+        <p class="walkcap frag" data-step="1" data-sid="12b-walk-movie:39">One object on the heap, fields at their defaults. film1 holds a reference to it.</p>
+        <p class="walkcap frag" data-step="2" data-sid="12b-walk-movie:40">setMovie writes all three fields.</p>
+        <p class="walkcap frag" data-step="3" data-sid="12b-walk-movie:41">A second name for the same object &mdash; not a copy.</p>
+        <p class="walkcap frag" data-step="4" data-sid="12b-walk-movie:42">1984 goes in through film2. film1 is looking at the same object.</p>
+        <p class="walkcap frag" data-step="5" data-sid="12b-walk-movie:43">A second object, for film3 &mdash; its own defaults.</p>
+        <p class="walkcap frag" data-step="6" data-sid="12b-walk-movie:44">Filled in the same way.</p>
+        <p class="walkcap frag" data-step="7" data-sid="12b-walk-movie:45">film2 is re-pointed. Watch the arrow swing.</p>
+        <p class="walkcap frag" data-step="8" data-sid="12b-walk-movie:46">2024 lands over there. film1 never felt it.</p>
+        <p class="walkcap frag" data-step="9" data-sid="12b-walk-movie:47">film1 prints its own object: 1984.</p>
+        <p class="walkcap frag" data-step="10" data-sid="12b-walk-movie:71">A assumed a copy. C assumed one write hits both. D assumed a history.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="12b-walk-movie:48"></div>
+  <aside class="notes" data-sid="12b-walk-movie:49">Answer: B &mdash; Dune sci-fi movie in 1984. Step through slowly and do not skip ahead. Step 1: <b>new Movie()</b> makes the object first, with every field at its default &mdash; null, null, 0 &mdash; and that is a real object with a real address before setMovie has said a word; hold this picture, because the second vote is about what happens when the object is <em>not</em> made. Line 3 is the first half of the lecture: <b>Movie film2 = film1</b> copies the reference, not the object, so there is one object with two names &mdash; and line 4 writes 1984 into the object film1 is looking at. Line 7 is the second half: film2 is re-pointed at film3&rsquo;s object, and from there on it has nothing to do with film1, so line 8 never touches it. Note what does <em>not</em> happen here: nothing becomes unreachable, because film1 held on the whole time. Step 10 brings the four answers back &mdash; do this out loud, one strike at a time, the way the discussion tips said to: A assumes film2 got a copy of the object; C assumes the last updateYear reaches everything; D assumes the object remembers its history.</aside>
+
+  <style>
+    /* Slide-local: the vote-1 walkthrough. Code drops to the chrome size so the
+       widest line (setMovie with three arguments) clears the column, matching
+       the question slide; the heap run narrows to 210 so three name pills, the
+       run and a 380 object measure inside the 763 column (see the codewalk
+       memory). The second object takes the orange edge so the two are told
+       apart at a glance while film2's arrow swings between them; the first
+       keeps the component's maroon.
+
+       Fields: all three are drawn from step 1 at their Java defaults, because
+       new Movie() makes a whole object before setMovie touches it — and the
+       second vote turns on exactly that fact. title and genre are stacked
+       crossfade pairs (data-roll="off" — nothing counts, the text is
+       replaced). year has TWO writes: 0 → 2021 at setMovie, then 2021 → 1984
+       through film2, and the second one is the lesson, so it keeps the strike
+       variant. The strike field gets a third line, .heap-val--default, that
+       sits on the old line's spot (absolute, same face) and is visible while
+       pending; until it has gone, the sibling combinator holds the old line
+       at zero, so the field reads "year = 0" → "year = 2021" → struck 2021
+       beside 1984. No wrapper is added, so the write pulse's child-combinator
+       rule still fires — at setMovie too, which is right: it is a write.
+       Used by this slide only, all values from tokens. */
+    #slide-12b .editor__code { font-size: var(--t-micro); }
+    #slide-12b .codewalk .heap-name, #slide-12b .codewalk .heap-val { font-size: var(--t-micro); }
+    #slide-12b .codewalk__heap { grid-template-columns: max-content 210px max-content; }
+    #slide-12b .console { --chrome: var(--accent-3); }
+    #slide-12b .console__out {
+      margin: 0; padding: var(--s-2) var(--s-4);
+      font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0);
+    }
+    #slide-12b .heap-obj[data-obj="c"] { --edge: var(--accent-3); }
+
+    /* the default line: visible while pending, gone on its step; the old
+       line waits for it to leave */
+    #slide-12b .heap-obj__field--strike { position: relative; }
+    #slide-12b .heap-val--default { position: absolute; left: 0; top: 0; }
+    #slide-12b .frag.heap-val--default.is-pending { opacity: 1; }
+    #slide-12b .frag.heap-val--default.is-current,
+    #slide-12b .frag.heap-val--default.is-past { opacity: 0; }
+    #slide-12b .heap-val--default.is-pending ~ .frag.heap-val--old { opacity: 0; }
+  </style>
+</section>

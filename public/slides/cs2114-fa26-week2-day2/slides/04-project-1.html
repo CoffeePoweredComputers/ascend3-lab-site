@@ -1,0 +1,183 @@
+<section class="slide" id="slide-04" data-sid="04-project-1:1">
+  <header class="slide__head" data-sid="04-project-1:2">
+    <h2 data-sid="04-project-1:3">Project 1 &mdash; start with the setup</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-project-1:4">Four numbered steps down the left, arriving one at a time: finish the Bag content pages, set the project up in Eclipse and submit the untouched shell to Web-CAT once, read the Window example, then start writing. At right, a dashed trail rises from bottom-left to top-right through four waypoint discs, and an orange stick figure carrying a small parcel stands at its foot. Each step walks the figure to the next waypoint and that disc turns orange. At the second waypoint, beside an Eclipse window, an arrow wipes up from the figure to a Web-CAT box, the parcel flies up into it, and a blue tick grows back beside the figure. On the fifth step a white report card grows at the top of the trail with two labelled meters, correctness and coverage, both empty, a question mark beside each, and a caption under the scene asks what those two numbers actually measure.</p>
+
+  <!-- The four steps as a trail, because setup is a route, not a list: you
+       cannot be at waypoint 3 without having stood at 2. The figure is orange
+       (the one doing the work) and carries the untouched shell up from the
+       foot of the trail; at waypoint 2 it hands the parcel up to Web-CAT and a
+       tick comes back — the whole pipeline proven while the stakes are zero.
+       The summit is what Web-CAT sends back for real: a report card with two
+       meters, and nothing in them yet. Step 1: walk to 1, the disc lights.
+       Step 2: walk to 2, arrow up, parcel up, tick back. Step 3: walk to 3.
+       Step 4: walk to 4. Step 5: the report card grows above the trail's end
+       and the caption asks the question Part 2 answers. One SVG in its own
+       980×616 box, 1:1 with canvas px, filling the right column. -->
+  <div class="slide__body pj" data-sid="04-project-1:5">
+    <ol class="steps pj__steps" data-sid="04-project-1:6">
+      <li class="frag" data-step="1" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:7">Finish the Bag content pages first &mdash; sections 1 and 2 at the very least.</li>
+      <li class="frag" data-step="2" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:8">Set the project up in Eclipse and submit the untouched shell to Web-CAT once.</li>
+      <li class="frag" data-step="3" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:9">Read the example code for the Window class before you write your own.</li>
+      <li class="frag" data-step="4" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:10">Then start writing. Not before.</li>
+    </ol>
+
+    <div class="stack pj__right" data-sid="04-project-1:11">
+      <svg class="pj__scene" viewBox="0 0 980 616" preserveAspectRatio="xMidYMax meet" role="img"
+           aria-label="A rising trail with four waypoints; a figure walks it one step at a time, hands a parcel up to Web-CAT at the second, and a report card with two empty meters waits at the top"
+           data-sid="04-project-1:12">
+        <defs data-sid="04-project-1:13">
+          <g id="w2d2-04-wp" data-sid="04-project-1:14"><circle r="16" data-sid="04-project-1:15"/></g>
+        </defs>
+
+        <!-- step 0: the trail, the two stations at waypoint 2, the figure at
+             the foot with the shell in hand -->
+        <path class="pj__trail" d="M40 580C60 574 85 570 110 570C190 570 280 500 360 500C440 500 500 430 580 430C660 430 720 360 800 360C860 360 910 330 950 300" data-sid="04-project-1:16"/>
+
+        <g class="pj__station" data-sid="04-project-1:17">
+          <rect x="140" y="330" width="180" height="120" rx="8" data-sid="04-project-1:18"/>
+          <path d="M140 358H320" data-sid="04-project-1:19"/>
+          <circle cx="156" cy="344" r="4" data-sid="04-project-1:20"/><circle cx="171" cy="344" r="4" data-sid="04-project-1:21"/>
+        </g>
+        <text class="pj__name" x="230" y="484" data-sid="04-project-1:22">Eclipse</text>
+
+        <g class="pj__station" data-sid="04-project-1:23">
+          <rect x="326" y="170" width="120" height="76" rx="8" data-sid="04-project-1:24"/>
+          <path d="M342 192H430M342 211H430M342 230H396" data-sid="04-project-1:25"/>
+        </g>
+        <text class="pj__name" x="386" y="158" data-sid="04-project-1:26">Web-CAT</text>
+
+        <!-- steps 1–4: the waypoints are there from the start; each step
+             recolours the one just reached, after the walk -->
+        <g class="pj__wp frag" data-step="1" data-sid="04-project-1:27"><use class="pj__disc" href="#w2d2-04-wp" x="110" y="570" data-sid="04-project-1:28"/><text class="pj__num" x="110" y="612" data-sid="04-project-1:29">1</text></g>
+        <g class="pj__wp frag" data-step="2" data-sid="04-project-1:30"><use class="pj__disc" href="#w2d2-04-wp" x="360" y="500" data-sid="04-project-1:31"/><text class="pj__num" x="360" y="542" data-sid="04-project-1:32">2</text></g>
+        <g class="pj__wp frag" data-step="3" data-sid="04-project-1:33"><use class="pj__disc" href="#w2d2-04-wp" x="580" y="430" data-sid="04-project-1:34"/><text class="pj__num" x="580" y="472" data-sid="04-project-1:35">3</text></g>
+        <g class="pj__wp frag" data-step="4" data-sid="04-project-1:36"><use class="pj__disc" href="#w2d2-04-wp" x="800" y="360" data-sid="04-project-1:37"/><text class="pj__num" x="800" y="402" data-sid="04-project-1:38">4</text></g>
+
+        <!-- step 2: the hand-off. The arrow wipes up from the figure's hand to
+             Web-CAT once the figure has arrived; the parcel follows it. -->
+        <g class="pj__submit frag" data-step="2" data-sid="04-project-1:39">
+          <line x1="386" y1="426" x2="386" y2="282" data-sid="04-project-1:40"/><path d="M386 256L373 282H399Z" data-sid="04-project-1:41"/>
+        </g>
+
+        <!-- the walker (feet at the trail head, 40 580); moved by transform
+             per step, so each step is a real walk along the trail -->
+        <g class="pj__walker" data-sid="04-project-1:42">
+          <circle cx="40" cy="468" r="18" data-sid="04-project-1:43"/>
+          <path d="M40 486V540M40 500L14 526M40 500L66 524M40 540L24 580M40 540L58 580" data-sid="04-project-1:44"/>
+        </g>
+        <!-- the untouched shell, in the right hand. The carrier walks with the
+             figure for steps 1–2; the parcel itself then goes up into Web-CAT
+             and stays there. -->
+        <g class="pj__carry" data-sid="04-project-1:45">
+          <rect class="pj__parcel" x="55" y="513" width="22" height="22" rx="3" data-sid="04-project-1:46"/>
+        </g>
+
+        <!-- the tick that comes back -->
+        <g class="pj__ok frag" data-step="2" data-sid="04-project-1:47">
+          <circle cx="432" cy="390" r="22" data-sid="04-project-1:48"/>
+          <path d="M422 391l7 7l13 -15" data-sid="04-project-1:49"/>
+        </g>
+
+        <!-- step 5: Web-CAT's report card, above the trail's end. Two meters,
+             both at zero; the question mark beside each is the plant. -->
+        <g class="pj__card frag" data-step="5" data-sid="04-project-1:50">
+          <rect class="pj__paper" x="560" y="8" width="380" height="204" rx="8" data-sid="04-project-1:51"/>
+          <text class="pj__tag" x="584" y="40" data-sid="04-project-1:52">Web-CAT &middot; report</text>
+          <text class="pj__meter" x="584" y="84" data-sid="04-project-1:53">correctness</text>
+          <rect class="pj__track" x="584" y="96" width="236" height="28" rx="14" data-sid="04-project-1:54"/>
+          <rect class="pj__fill" x="584" y="96" width="0" height="28" rx="14" data-sid="04-project-1:55"/>
+          <text class="pj__q" x="880" y="122" data-sid="04-project-1:56">?</text>
+          <text class="pj__meter" x="584" y="160" data-sid="04-project-1:57">coverage</text>
+          <rect class="pj__track" x="584" y="172" width="236" height="28" rx="14" data-sid="04-project-1:58"/>
+          <rect class="pj__fill" x="584" y="172" width="0" height="28" rx="14" data-sid="04-project-1:59"/>
+          <text class="pj__q" x="880" y="198" data-sid="04-project-1:60">?</text>
+        </g>
+      </svg>
+      <p class="note pj__cap frag" data-step="5" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:61">Web-CAT grades with tests. What do those two numbers actually measure?</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04-project-1:62"></div>
+  <aside class="notes" data-sid="04-project-1:63">Step 1 &mdash; the figure takes the first waypoint: finish the Bag content pages, sections 1 and 2 at the very least; nothing in the project reads until they are done. Step 2 &mdash; this is the one they will skip. The figure stands at the Eclipse window and hands the untouched shell up to Web-CAT; the tick comes back. Submitting an empty shell tells you the whole pipeline works while the stakes are zero; discovering it at midnight in Week 5 is the alternative. Live demo here, on the projector &mdash; setup and the first output: the import, the submit and the run, together. Do the demo live rather than describing it, and show the output of the Window example so they know what &ldquo;working&rdquo; looks like. Step 3 &mdash; read the Window example before writing your own. Step 4 &mdash; then write, not before. Start as soon as you can: the part that eats a week is never the algorithm, it is the tooling, and you can have that out of the way today. Step 5 &mdash; the report card at the top of the trail: correctness and coverage, both empty, a question mark beside each. Leave the question hanging; Part 2 answers it.</aside>
+
+  <style data-sid="04-project-1:64">
+    /* Slide-local: the setup as a trail. Four waypoints on a rising dashed
+       path; the orange figure (the one doing the work) walks one per step,
+       carrying the untouched shell as a small parcel. Waypoint 2 has the two
+       stations, the Eclipse window it stands beside and the Web-CAT box
+       above; the parcel is handed up while the stakes are zero and the tick
+       that comes back is the pipeline proving itself. The summit is Web-CAT's
+       report card: two meters, both empty, a question beside each. Motion is
+       manim's only: real moves (the walker and the parcel travel by
+       transform; later rules win, so a back-step unwinds), Create by wipe
+       (the submit arrow), recolour in place (a reached disc), GrowFromCenter
+       (the tick, the card) and FadeIn (the steps, the caption). Used by this
+       slide only, all values from tokens. */
+    #slide-04 .pj { display: grid; grid-template-columns: 1fr 980px; gap: var(--s-5); align-items: start; }
+    #slide-04 .pj__steps li { font-size: var(--t-small); line-height: 1.35; }
+    #slide-04 .pj__right { min-width: 0; }
+    #slide-04 .pj__scene { display: block; width: 980px; height: 616px; overflow: visible; }
+    #slide-04 .pj__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; }
+
+    /* the world: trail, stations, names */
+    #slide-04 .pj__trail { fill: none; stroke: var(--stone); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 16 14; }
+    #slide-04 .pj__station rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-04 .pj__station path, #slide-04 .pj__station circle { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-04 .pj__name { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+
+    /* waypoints: always there; the step recolours the one reached, after the walk */
+    #slide-04 .frag.pj__wp.is-pending { opacity: 1; }
+    #slide-04 .pj__disc { fill: var(--bg-0); stroke: var(--stone); stroke-width: 5; transition: fill .4s ease, stroke .4s ease; }
+    #slide-04 .pj__num { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: fill .4s ease; }
+    #slide-04 .pj__wp.is-current .pj__disc, #slide-04 .pj__wp.is-past .pj__disc { fill: var(--accent-3); stroke: var(--accent-3); transition-delay: .5s; }
+    #slide-04 .pj__wp.is-current .pj__num, #slide-04 .pj__wp.is-past .pj__num { fill: var(--accent-3); transition-delay: .5s; }
+
+    /* the walker and the parcel: real moves, one waypoint per step */
+    #slide-04 .pj__walker circle { fill: var(--bg-0); stroke: var(--accent-3); stroke-width: 6; }
+    #slide-04 .pj__walker path { fill: none; stroke: var(--accent-3); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-04 .pj__parcel { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-04 .pj__walker, #slide-04 .pj__carry, #slide-04 .pj__parcel { transition: transform .6s var(--ease-smooth); }
+    /* "step k reached" = its frag is current or past (deck.js stamps exactly one of
+       the three states on every frag); later rules win, so a back-step unwinds */
+    #slide-04:has(.frag[data-step="1"].is-current) .pj__walker, #slide-04:has(.frag[data-step="1"].is-past) .pj__walker,
+    #slide-04:has(.frag[data-step="1"].is-current) .pj__carry,  #slide-04:has(.frag[data-step="1"].is-past) .pj__carry  { transform: translate(70px, -10px); }
+    #slide-04:has(.frag[data-step="2"].is-current) .pj__walker, #slide-04:has(.frag[data-step="2"].is-past) .pj__walker,
+    #slide-04:has(.frag[data-step="2"].is-current) .pj__carry,  #slide-04:has(.frag[data-step="2"].is-past) .pj__carry  { transform: translate(320px, -80px); }
+    #slide-04:has(.frag[data-step="3"].is-current) .pj__walker, #slide-04:has(.frag[data-step="3"].is-past) .pj__walker { transform: translate(540px, -150px); }
+    #slide-04:has(.frag[data-step="4"].is-current) .pj__walker, #slide-04:has(.frag[data-step="4"].is-past) .pj__walker { transform: translate(760px, -220px); }
+    /* the hand-off: once the figure is at waypoint 2, the parcel goes up into Web-CAT and stays */
+    #slide-04:has(.frag[data-step="2"].is-current) .pj__parcel, #slide-04:has(.frag[data-step="2"].is-past) .pj__parcel { transform: translate(0, -236px); transition-duration: .5s; transition-delay: .7s; }
+
+    /* the submit arrow: Creates by wipe, upward from the hand, after the walk */
+    #slide-04 .pj__submit line { stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; }
+    #slide-04 .pj__submit path { fill: var(--accent-2); }
+    #slide-04 .pj__submit { clip-path: inset(0); transition: clip-path .45s var(--ease-smooth); }
+    #slide-04 .frag.pj__submit.is-pending { opacity: 1; clip-path: inset(100% 0 0 0); }
+    #slide-04 .frag.pj__submit.is-current, #slide-04 .frag.pj__submit.is-past { transition-delay: .6s; }
+
+    /* the tick that comes back: blue disc (the tool's verdict), paper tick, grows once the parcel has landed */
+    #slide-04 .pj__ok circle { fill: var(--accent-2); }
+    #slide-04 .pj__ok path { fill: none; stroke: var(--paper); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-04 .pj__ok { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .2s ease, transform .4s var(--ease-smooth); }
+    #slide-04 .frag.pj__ok.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-04 .frag.pj__ok.is-current, #slide-04 .frag.pj__ok.is-past { transition-delay: 1.25s; }
+
+    /* the report card: paper, two meter tracks with nothing in them yet, a question beside each */
+    #slide-04 .pj__paper { fill: var(--paper); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-04 .pj__tag { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-04 .pj__meter { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-04 .pj__track { fill: var(--bg-1); }
+    #slide-04 .pj__fill { fill: var(--accent-3); }
+    #slide-04 .pj__q { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-04 .pj__card { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .2s ease, transform .5s var(--ease-smooth); }
+    #slide-04 .frag.pj__card.is-pending { opacity: 0; transform: scale(0.3); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .pj__walker, #slide-04 .pj__carry, #slide-04 .pj__parcel, #slide-04 .pj__disc, #slide-04 .pj__num,
+      #slide-04 .pj__submit, #slide-04 .pj__ok, #slide-04 .pj__card, #slide-04 .pj__steps .frag, #slide-04 .pj__cap {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

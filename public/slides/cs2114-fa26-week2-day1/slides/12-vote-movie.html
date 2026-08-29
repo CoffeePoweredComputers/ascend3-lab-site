@@ -1,0 +1,57 @@
+<section class="slide slide--warmup" id="slide-12" data-sid="12-vote-movie:1">
+  <header class="slide__head" data-sid="12-vote-movie:2">
+    <p class="slide__kicker" data-sid="12-vote-movie:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="12-vote-movie:4">What does the last line print?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="12-vote-movie:5">A peer-instruction question. On the left, a nine-line program that makes a Movie, points a second name at the same one, updates the year through that second name, then points it at a third movie and updates the year again, before printing through the first name. On the right, a summary of what the Movie class offers, and four answers to choose between.</p>
+  <div class="slide__body grid grid--code" data-sid="12-vote-movie:6">
+    <div class="editor" data-sid="12-vote-movie:7">
+      <p class="editor__bar" data-sid="12-vote-movie:8">your program</p>
+      <ol class="editor__code" data-sid="12-vote-movie:9">
+        <li data-sid="12-vote-movie:10">Movie film1 = <span class="tok-key">new</span> Movie();</li>
+        <li data-sid="12-vote-movie:11">film1.setMovie("Dune", "sci-fi", <span class="tok-num">2021</span>);</li>
+        <li data-sid="12-vote-movie:12">Movie film2 = film1;</li>
+        <li data-sid="12-vote-movie:13">film2.updateYear(<span class="tok-num">1984</span>);</li>
+        <li data-sid="12-vote-movie:14">Movie film3 = <span class="tok-key">new</span> Movie();</li>
+        <li data-sid="12-vote-movie:15">film3.setMovie("Dune", "sci-fi", <span class="tok-num">2021</span>);</li>
+        <li data-sid="12-vote-movie:16">film2 = film3;</li>
+        <li data-sid="12-vote-movie:17">film2.updateYear(<span class="tok-num">2024</span>);</li>
+        <li data-sid="12-vote-movie:18">film1.print();</li>
+      </ol>
+    </div>
+    <div class="stack" data-sid="12-vote-movie:19">
+      <div class="tile tile--a2" data-sid="12-vote-movie:20">
+        <p class="tile__label" data-sid="12-vote-movie:21">class Movie</p>
+        <ul class="api" data-sid="12-vote-movie:22">
+          <li data-sid="12-vote-movie:23">title, genre, year</li>
+          <li data-sid="12-vote-movie:24">setMovie(title, genre, year)</li>
+          <li data-sid="12-vote-movie:25">updateYear(year)</li>
+          <li data-sid="12-vote-movie:26">print() &rarr; "title genre movie in year"</li>
+        </ul>
+      </div>
+      <ol class="opts" data-sid="12-vote-movie:27">
+        <li data-sid="12-vote-movie:28">&hellip; in 2021</li>
+        <li data-sid="12-vote-movie:29">&hellip; in 1984</li>
+        <li data-sid="12-vote-movie:30">&hellip; in 2024</li>
+        <li data-sid="12-vote-movie:31">&hellip; in 1984, 2024</li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="12-vote-movie:32"></div>
+  <aside class="notes" data-sid="12-vote-movie:33">Answer: B &mdash; Dune sci-fi movie in 1984. Line 3 gives the same object a second name, so line 4 writes 1984 into the object film1 is looking at. Line 7 re-points film2 at film3&rsquo;s object; from there on film2 has nothing to do with film1, so line 8 never touches it. Do not walk it through before the second vote. Wrong answers to name afterwards: A assumes film2 got a copy; C assumes the last updateYear reaches everything; D assumes the object remembers its history.</aside>
+
+  <style>
+    /* Slide-local: vote pane. Code drops to the chrome size so the widest line
+       (setMovie with three arguments) clears the column instead of clipping —
+       a vote slide the room cannot read is worse than a smaller face. The class
+       summary is an API, not prose, so it takes the mono voice; the answers are
+       lettered because that is how the room will call them out. Used by this
+       slide only, all values from tokens. */
+    #slide-12 .editor__code, #slide-12 .api { font-size: var(--t-micro); }
+    #slide-12 .api { list-style: none; padding: 0; font-family: var(--font-mono); line-height: 1.5; }
+    #slide-12 .api li { margin: 0; }
+    #slide-12 .opts { list-style-type: upper-alpha; padding-left: var(--s-5); font-size: var(--t-small); }
+    #slide-12 .opts li { margin: var(--s-2) 0; }
+    #slide-12 .opts::marker, #slide-12 .opts li::marker { color: var(--accent-1); }
+  </style>
+</section>

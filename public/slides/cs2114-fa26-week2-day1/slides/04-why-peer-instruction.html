@@ -1,0 +1,119 @@
+<section class="slide" id="slide-04" data-sid="04-why-peer-instruction:1">
+  <header class="slide__head" data-sid="04-why-peer-instruction:2">
+    <h2 data-sid="04-why-peer-instruction:3">Same room, same hour &mdash; who is doing the thinking?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-why-peer-instruction:4">Two rooms drawn side by side. On the left, the room everyone already knows: twelve students seated in rows, every head facing front, and one figure at the front in orange &mdash; the only person in the picture doing anything. It is captioned one person thinking. Then the second room arrives on the right: the same twelve students, now seated in pairs with each head turned toward a partner, hands go up across the room in orange one after another, and the figure who was at the front is now standing in the aisle. It is captioned everyone thinking. Last, over the empty front of that second room, a line fades in noting about half a letter grade in computer science.</p>
+
+  <!-- The research result, drawn rather than quoted: the same room twice, and
+       the only thing that changes is where the orange is. Step 0 is the room
+       they have sat in since ninth grade — heads front, one person working.
+       Step 1 grows the second room: seats pull together in pairs, heads turn to
+       each other, hands ripple up on the outside, and the front of the room is
+       empty because that person is now in the aisle. Step 2 fades the result
+       line in over that empty front. The student quotes
+       that used to be their own slide are in the notes; they are talk track,
+       not a slide. One SVG in canvas px (viewBox = the body's rect). -->
+  <div class="slide__body" data-sid="04-why-peer-instruction:5">
+    <svg class="rm" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Two rooms side by side: one person thinking, then everyone thinking"
+         data-sid="04-why-peer-instruction:6">
+      <defs>
+        <g id="w2-bust"><circle class="rm__head" r="24"/><path class="rm__sh" d="M-40 72v-16a40 40 0 0 1 80 0v16"/></g>
+        <g id="w2-bust-l"><circle class="rm__head" cx="-14" cy="-2" r="24"/><path class="rm__sh" d="M-40 72v-16a40 40 0 0 1 80 0v16"/></g>
+        <g id="w2-bust-r"><circle class="rm__head" cx="14" cy="-2" r="24"/><path class="rm__sh" d="M-40 72v-16a40 40 0 0 1 80 0v16"/></g>
+      </defs>
+
+      <!-- step 0: the room they already know -->
+      <g class="rm__a" data-sid="04-why-peer-instruction:7">
+        <g class="rm__lead" data-sid="04-why-peer-instruction:8">
+          <circle cx="508" cy="290" r="26"/>
+          <path d="M508 316V434M508 346L466 396M508 346L550 392M508 434L484 508M508 434L532 508"/>
+        </g>
+        <g class="rm__seats" data-sid="04-why-peer-instruction:9">
+          <use href="#w2-bust" x="268" y="520"/><use href="#w2-bust" x="428" y="520"/><use href="#w2-bust" x="588" y="520"/><use href="#w2-bust" x="748" y="520"/>
+          <use href="#w2-bust" x="268" y="630"/><use href="#w2-bust" x="428" y="630"/><use href="#w2-bust" x="588" y="630"/><use href="#w2-bust" x="748" y="630"/>
+          <use href="#w2-bust" x="268" y="740"/><use href="#w2-bust" x="428" y="740"/><use href="#w2-bust" x="588" y="740"/><use href="#w2-bust" x="748" y="740"/>
+        </g>
+        <text class="rm__cap" x="508" y="900" data-sid="04-why-peer-instruction:10">one person thinking</text>
+      </g>
+
+      <!-- step 1: the same room, run the other way round -->
+      <g class="rm__b frag" data-step="1" data-sid="04-why-peer-instruction:11">
+        <g class="rm__seats" data-sid="04-why-peer-instruction:12">
+          <use href="#w2-bust-r" x="1192" y="520"/><use href="#w2-bust-l" x="1312" y="520"/><use href="#w2-bust-r" x="1512" y="520"/><use href="#w2-bust-l" x="1632" y="520"/>
+          <use href="#w2-bust-r" x="1192" y="630"/><use href="#w2-bust-l" x="1312" y="630"/><use href="#w2-bust-r" x="1512" y="630"/><use href="#w2-bust-l" x="1632" y="630"/>
+          <use href="#w2-bust-r" x="1192" y="740"/><use href="#w2-bust-l" x="1312" y="740"/><use href="#w2-bust-r" x="1512" y="740"/><use href="#w2-bust-l" x="1632" y="740"/>
+        </g>
+        <g class="rm__lead rm__lead--aisle" data-sid="04-why-peer-instruction:13">
+          <circle cx="1092" cy="630" r="26"/>
+          <path d="M1092 656V774M1092 686L1050 736M1092 686L1134 732M1092 774L1068 848M1092 774L1116 848"/>
+        </g>
+        <g class="rm__hands" data-sid="04-why-peer-instruction:14">
+          <g class="rm__hand rm__hand--l" style="--i: 0"><line x1="1158" y1="576" x2="1140" y2="490"/><circle cx="1140" cy="490" r="9"/></g>
+          <g class="rm__hand rm__hand--l" style="--i: 1"><line x1="1478" y1="576" x2="1460" y2="490"/><circle cx="1460" cy="490" r="9"/></g>
+          <g class="rm__hand" style="--i: 2"><line x1="1346" y1="686" x2="1364" y2="600"/><circle cx="1364" cy="600" r="9"/></g>
+          <g class="rm__hand" style="--i: 3"><line x1="1666" y1="686" x2="1684" y2="600"/><circle cx="1684" cy="600" r="9"/></g>
+          <g class="rm__hand" style="--i: 4"><line x1="1346" y1="796" x2="1364" y2="710"/><circle cx="1364" cy="710" r="9"/></g>
+          <g class="rm__hand rm__hand--l" style="--i: 5"><line x1="1478" y1="796" x2="1460" y2="710"/><circle cx="1460" cy="710" r="9"/></g>
+          <g class="rm__hand" style="--i: 6"><line x1="1666" y1="576" x2="1684" y2="490"/><circle cx="1684" cy="490" r="9"/></g>
+        </g>
+        <text class="rm__cap" x="1412" y="900" data-sid="04-why-peer-instruction:15">everyone thinking</text>
+      </g>
+
+      <!-- step 2: the result, over the front of the room nobody is standing at -->
+      <text class="rm__xnote frag" data-step="2" data-anim="fade" x="1412" y="440" data-sid="04-why-peer-instruction:17">about half a letter grade in CS</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="04-why-peer-instruction:18"></div>
+  <aside class="notes" data-sid="04-why-peer-instruction:19">Ask before stepping: which of these two rooms have you spent more hours in? Step 1 &mdash; the same twelve people, the same hour, the same instructor; the only difference is who is doing the work, and notice the front of the room is empty. Step 2 &mdash; roughly twice the learning gains in the physics studies, about half a letter grade in computer science. Two things students who took this course said, worth reading out here: &ldquo;It really makes you realise exactly what mistakes you are making &mdash; and you don&rsquo;t feel as bad about being wrong when you can see classmates thinking the same way.&rdquo; And: &ldquo;Sometimes when you get lost in other classes, you are lost for the rest of the lecture. The questions make you notice you are confused before it is too late.&rdquo; Both say the same thing from two directions: the vote is a cheap way to find out you are wrong while there is still time. The alternative is finding out on the project, in Week 5.</aside>
+
+  <style>
+    /* Slide-local: two rooms. Busts are day 2's seat glyph, turned by offsetting
+       the head inside the shoulders; the standing figure is that deck's staff
+       figure. Colour carries the whole argument — orange is whoever is doing
+       the thinking, so it starts at the front of room A and ends on the hands
+       of room B. Motion is manim's only: the second room and the number grow
+       from centre, hands grow from the shoulder in a ripple, captions FadeIn.
+       Used by this slide only, all values from tokens; viewBox = the body's rect. */
+    #slide-04 .slide__body { position: relative; }
+    #slide-04 .rm { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* the people */
+    #slide-04 .rm__head { fill: var(--bg-0); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-04 .rm__sh { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
+    #slide-04 .rm__b .rm__head, #slide-04 .rm__b .rm__sh { stroke: var(--fg-0); }
+    #slide-04 .rm__lead circle, #slide-04 .rm__lead path {
+      fill: none; stroke: var(--accent-3); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round;
+    }
+    /* in room B the front of the room is empty: that person is just another body */
+    #slide-04 .rm__lead--aisle circle, #slide-04 .rm__lead--aisle path { stroke: var(--fg-1); }
+
+    /* captions and the result line */
+    #slide-04 .rm__cap { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04 .rm__xnote { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+
+    /* room B grows in, then the hands ripple up */
+    #slide-04 .rm__b {
+      transform-box: fill-box; transform-origin: 50% 100%;
+      transition: opacity .25s ease, transform .55s var(--ease-smooth);
+    }
+    #slide-04 .frag.rm__b.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-04 .rm__hand line, #slide-04 .rm__hand circle { stroke: var(--accent-3); stroke-width: 5; stroke-linecap: round; }
+    #slide-04 .rm__hand circle { fill: var(--bg-0); }
+    #slide-04 .rm__hand {
+      transform-box: fill-box; transform-origin: 0 100%;
+      transition: transform .4s var(--ease-smooth);
+    }
+    /* hands go up on the outside of each pair, so the left partner's grows from its right-hand corner */
+    #slide-04 .rm__hand--l { transform-origin: 100% 100%; }
+    #slide-04 .rm__b.is-pending .rm__hand { transform: scale(0); }
+    #slide-04 .rm__b.is-current .rm__hand,
+    #slide-04 .rm__b.is-past .rm__hand { transition-delay: calc(.45s + var(--i) * 70ms); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .rm__b, #slide-04 .rm__hand, #slide-04 .rm__xnote {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

@@ -1,0 +1,129 @@
+<section class="slide" id="slide-07" data-sid="07-the-deal:1">
+  <header class="slide__head" data-sid="07-the-deal:2">
+    <h2 data-sid="07-the-deal:3">What I do, and what you do</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07-the-deal:4">One room, two sides of a deal. On the left, a board and a figure standing at it. First a maroon question mark grows on the board and three lines appear beneath the figure: pose the problem, guide you in, answer your questions. Then the right-hand side answers: three students each grow an orange square of their own work, arrows draw between them so each square feeds the next person, and each student is labelled &mdash; prepare, engage, ask and offer. Last the whole scene blurs behind a veil and one line is left standing: I expect every member of this class to contribute to a positive environment of mutual aid and cooperation.</p>
+
+  <!-- Two slides' worth of duty lists, drawn as one deal. The left half is what
+       the front of the room is for — a problem, not a reading; the right half is
+       the half that only works if they do it, and the arrows are the reason
+       "offer help" is on the list at all: your understanding is someone else's
+       input. Step 3 is the only line on the slide that is a rule rather than
+       advice, so it gets the veil to itself. viewBox = the body's rect. -->
+  <div class="slide__body" data-sid="07-the-deal:5">
+    <svg class="dl" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="An instructor at a board on one side, three students with their own work on the other"
+         data-sid="07-the-deal:6">
+      <defs>
+        <g id="w2-deal-person"><circle cy="-40" r="30"/><path d="M-50 40v-14a50 50 0 0 1 100 0v14"/></g>
+      </defs>
+
+      <!-- my side -->
+      <rect class="dl__board" x="180" y="280" width="380" height="210" rx="8" data-sid="07-the-deal:7"/>
+      <text class="dl__q frag" data-step="1" x="370" y="432" data-sid="07-the-deal:8">?</text>
+      <g class="dl__lead" data-sid="07-the-deal:9">
+        <circle cx="370" cy="560" r="26"/>
+        <path d="M370 586V700M370 616L332 664M370 616L408 660M370 700L346 776M370 700L394 776"/>
+      </g>
+      <text class="dl__mine frag" data-step="1" data-anim="fade" style="--i: 0" x="180" y="850" data-sid="07-the-deal:10">pose the problem</text>
+      <text class="dl__mine frag" data-step="1" data-anim="fade" style="--i: 1" x="180" y="892" data-sid="07-the-deal:11">guide you in</text>
+      <text class="dl__mine frag" data-step="1" data-anim="fade" style="--i: 2" x="180" y="934" data-sid="07-the-deal:12">answer your questions</text>
+
+      <!-- your side -->
+      <g class="dl__people" data-sid="07-the-deal:13">
+        <use href="#w2-deal-person" x="900" y="520"/>
+        <use href="#w2-deal-person" x="1230" y="520"/>
+        <use href="#w2-deal-person" x="1560" y="520"/>
+      </g>
+      <rect class="dl__piece frag" data-step="2" style="--i: 0" x="844" y="620" width="112" height="112" rx="10" data-sid="07-the-deal:14"/>
+      <rect class="dl__piece frag" data-step="2" style="--i: 1" x="1174" y="620" width="112" height="112" rx="10" data-sid="07-the-deal:15"/>
+      <rect class="dl__piece frag" data-step="2" style="--i: 2" x="1504" y="620" width="112" height="112" rx="10" data-sid="07-the-deal:16"/>
+      <g class="dl__pass frag" data-step="2" style="--i: 0" data-sid="07-the-deal:17">
+        <line x1="976" y1="676" x2="1130" y2="676"/><path d="M1154 676L1128 663V689Z"/>
+      </g>
+      <g class="dl__pass frag" data-step="2" style="--i: 1" data-sid="07-the-deal:18">
+        <line x1="1306" y1="676" x2="1460" y2="676"/><path d="M1484 676L1458 663V689Z"/>
+      </g>
+      <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 0" x="900" y="812" data-sid="07-the-deal:19">prepare</text>
+      <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 1" x="1230" y="812" data-sid="07-the-deal:20">engage</text>
+      <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 2" x="1560" y="812" data-sid="07-the-deal:21">ask, and offer</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="07-the-deal:22"></div>
+
+  <!-- step 3: the scene goes soft and the one rule is left -->
+  <div class="dl__veil frag" data-step="3" data-anim="fade" style="--anim-duration: .6s" data-sid="07-the-deal:23">
+    <p class="dl__veil-card" data-sid="07-the-deal:24">I expect every member of this class to contribute to a positive environment of mutual aid and cooperation.</p>
+  </div>
+
+  <aside class="notes" data-sid="07-the-deal:25">My side, step 1: think of me as your tutor. I pose the problems that set up your exploration, guide you into the concepts rather than hand them over, and answer your questions &mdash; and I do not spend the lecture reading the textbook to you in slightly different words. The modules on PrairieLearn are the reading. Your side, step 2: stay ahead of the modules, because lecture assumes you have met the words already; turn the ideas upside down with your neighbours and ask what the common mistake would be; and seek help and offer it, in class, on Piazza, in office hours, in lab &mdash; both directions count. The arrows are why: explaining it is how you find out whether you actually knew it, and your understanding is the next person&rsquo;s input. Step 3: read the card verbatim. It is the one line here that is a rule rather than advice.</aside>
+
+  <style>
+    /* Slide-local: the deal. People are day 2's table glyph; the pieces are that
+       deck's collaborator squares in the deck's "your work" orange, and the
+       arrows between them are the argument for the third label. Motion is
+       manim's only: the question mark and the squares grow from centre, the
+       arrows Create by clip wipe, labels FadeIn, and the veil blurs the scene
+       with a real filter driven by :has() so a back-step unblurs. Used by this
+       slide only, all values from tokens; viewBox = the body's rect. */
+    #slide-07 .slide__body { position: relative; }
+    #slide-07 .dl { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* my side */
+    #slide-07 .dl__board { fill: none; stroke: var(--fg-1); stroke-width: 5; }
+    #slide-07 .dl__q {
+      font-family: var(--font-display); font-size: var(--t-h1); fill: var(--accent-1); text-anchor: middle;
+      transform-box: fill-box; transform-origin: 50% 50%;
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-07 .frag.dl__q.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-07 .dl__lead circle, #slide-07 .dl__lead path {
+      fill: none; stroke: var(--fg-1); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round;
+    }
+    #slide-07 .dl__mine { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); transition: opacity .3s ease; }
+    #slide-07 .frag.dl__mine.is-current, #slide-07 .frag.dl__mine.is-past { transition-delay: calc(.3s + var(--i) * .12s); }
+
+    /* your side */
+    #slide-07 .dl__people circle, #slide-07 .dl__people path {
+      fill: none; stroke: var(--fg-0); stroke-width: 7; stroke-linecap: round;
+    }
+    #slide-07 .dl__piece {
+      fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 5;
+      transform-box: fill-box; transform-origin: 50% 50%;
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-07 .frag.dl__piece.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-07 .frag.dl__piece.is-current, #slide-07 .frag.dl__piece.is-past { transition-delay: calc(var(--i) * .1s); }
+    #slide-07 .dl__pass line { stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
+    #slide-07 .dl__pass path { fill: var(--fg-1); }
+    #slide-07 .dl__pass { clip-path: inset(0 0 0 0); transition: clip-path .45s var(--ease-smooth); }
+    #slide-07 .frag.dl__pass.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-07 .frag.dl__pass.is-current, #slide-07 .frag.dl__pass.is-past { transition-delay: calc(.45s + var(--i) * .15s); }
+    #slide-07 .dl__yours { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-07 .frag.dl__yours.is-current, #slide-07 .frag.dl__yours.is-past { transition-delay: calc(.3s + var(--i) * .1s); }
+
+    /* step 3: the rule */
+    #slide-07 .slide__head, #slide-07 .slide__body { transition: filter .6s var(--ease-smooth); }
+    #slide-07:has(.dl__veil:not(.is-pending)) .slide__head,
+    #slide-07:has(.dl__veil:not(.is-pending)) .slide__body { filter: blur(var(--s-2)); }
+    #slide-07 .dl__veil {
+      position: absolute; inset: 0; padding: 0 300px;
+      display: flex; align-items: center; justify-content: center;
+      background: color-mix(in srgb, color-mix(in srgb, var(--bg-0) 80%, var(--fg-0)) 75%, transparent);
+    }
+    #slide-07 .dl__veil-card {
+      margin: 0; padding: var(--s-4) var(--s-6);
+      background: var(--paper); border-radius: var(--r-3);
+      font-family: var(--font-display); font-size: var(--t-h3); line-height: 1.2; color: var(--accent-1);
+      text-align: center;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07 .slide__head, #slide-07 .slide__body { transition-duration: 0s !important; }
+      #slide-07 .dl__q, #slide-07 .dl__mine, #slide-07 .dl__piece, #slide-07 .dl__pass,
+      #slide-07 .dl__yours, #slide-07 .dl__veil {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

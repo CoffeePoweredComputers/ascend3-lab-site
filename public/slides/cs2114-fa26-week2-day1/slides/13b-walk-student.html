@@ -1,0 +1,161 @@
+<section class="slide slide--warmup" id="slide-13b" data-sid="13b-walk-student:1">
+  <header class="slide__head" data-sid="13b-walk-student:2">
+    <p class="slide__kicker" data-sid="13b-walk-student:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="13b-walk-student:4">Eighty slots, zero Students</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="13b-walk-student:5">A walkthrough of the three-line snippet. On the left the code, with a program-counter bar on the running line, and under it a dashed orange panel that appears near the end holding the loop the program was missing. On the right, the heap. Line 1 grows one object &mdash; an array labelled Student of eighty &mdash; and myClass&rsquo;s arrow draws to it; inside it a row of slots reads null, null, an ellipsis standing for the ones not drawn, and null at index seventy-nine. Nothing is drawn anywhere for a Student, because no Student exists. On line 2 slot zero turns blue and a line under the strip reads myClass at zero is null. Then the program stops: the counter bar goes dark, slot zero turns maroon, line 3 is marked as never run, and a panel stamps in with the exception exactly as Java prints it: a NullPointerException, cannot invoke Student.setName because myClass at zero is null, at line 2. Then the missing loop appears under the code. Last, the four answers from the vote return under it: A, C and D are struck through one after another, and B, a NullPointerException, is left standing.</p>
+  <div class="slide__body grid grid--code" data-sid="13b-walk-student:6">
+    <div class="stack" data-sid="13b-walk-student:7">
+      <div class="editor" data-sid="13b-walk-student:8">
+        <p class="editor__bar" data-sid="13b-walk-student:9">your program</p>
+        <div class="editor__pc" data-sid="13b-walk-student:10"></div>
+        <ol class="editor__code" data-sid="13b-walk-student:11">
+          <li class="walkline frag" data-step="1" data-sid="13b-walk-student:12">Student[] myClass = <span class="tok-key">new</span> Student[<span class="tok-num">80</span>];</li>
+          <li class="walkline frag" data-step="2" data-sid="13b-walk-student:13">myClass[<span class="tok-num">0</span>].setName("Jordan");</li>
+          <li class="walkline" data-sid="13b-walk-student:14">myClass[<span class="tok-num">0</span>].print();<span class="never frag" data-step="3" data-sid="13b-walk-student:15">   &larr; never runs</span></li>
+        </ol>
+      </div>
+      <div class="fix frag" data-step="4" data-sid="13b-walk-student:16">
+        <p class="fix__label" data-sid="13b-walk-student:17">what line 1 did not do</p>
+        <p class="fix__code" data-sid="13b-walk-student:18"><span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">0</span>; i &lt; myClass.length; i++) {
+    myClass[i] = <span class="tok-key">new</span> Student("...");
+}</p>
+      </div>
+      <ol class="verdict frag" data-step="5" data-sid="13b-walk-student:49">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="13b-walk-student:50"><span class="verdict__txt">does not compile</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="13b-walk-student:51"><span class="verdict__txt">NullPointerException</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="13b-walk-student:52"><span class="verdict__txt">Jordan</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="13b-walk-student:53"><span class="verdict__txt">none of these</span></li>
+      </ol>
+    </div>
+    <div class="codewalk" data-sid="13b-walk-student:19">
+      <div class="codewalk__heap" data-sid="13b-walk-student:20">
+        <p class="heap-name frag" data-step="1" data-wire="1:arr" style="grid-row: 1;" data-sid="13b-walk-student:21">myClass</p>
+        <div class="heap-obj frag" data-step="1" data-obj="arr" style="grid-row: 1;" data-sid="13b-walk-student:22">
+          <p class="heap-obj__type" data-sid="13b-walk-student:23">Student[80]</p>
+          <ol class="slots" data-sid="13b-walk-student:24">
+            <li class="slot slot--0" data-sid="13b-walk-student:25"><span class="slot__i" data-sid="13b-walk-student:26">0</span><span class="slot__v" data-sid="13b-walk-student:27">null</span></li>
+            <li class="slot" data-sid="13b-walk-student:28"><span class="slot__i" data-sid="13b-walk-student:29">1</span><span class="slot__v" data-sid="13b-walk-student:30">null</span></li>
+            <li class="slot slot--gap" data-sid="13b-walk-student:31"><span class="slot__i" data-sid="13b-walk-student:32">&nbsp;</span><span class="slot__v slot__v--gap" data-sid="13b-walk-student:33">&hellip;</span></li>
+            <li class="slot" data-sid="13b-walk-student:34"><span class="slot__i" data-sid="13b-walk-student:35">79</span><span class="slot__v" data-sid="13b-walk-student:36">null</span></li>
+          </ol>
+          <p class="probe frag" data-step="2" data-sid="13b-walk-student:37">myClass[0] is null</p>
+        </div>
+        <svg class="heap-wires" aria-hidden="true" data-sid="13b-walk-student:38"></svg>
+      </div>
+      <p class="throw frag" data-step="3" data-sid="13b-walk-student:39">Exception in thread "main"
+<b data-sid="13b-walk-student:40">java.lang.NullPointerException</b>:
+  Cannot invoke "Student.setName(String)"
+  because <b data-sid="13b-walk-student:54">"myClass[0]" is null</b>
+    at Main.main(Main.java:2)</p>
+      <div class="codewalk__caps" data-sid="13b-walk-student:41">
+        <p class="walkcap frag" data-step="1" data-sid="13b-walk-student:42">One object exists: the array. Eighty slots, all null.</p>
+        <p class="walkcap frag" data-step="2" data-sid="13b-walk-student:43">myClass[0] hands back null &mdash; there is no Student to call.</p>
+        <p class="walkcap frag" data-step="3" data-sid="13b-walk-student:44">It compiled. It ran. It stops here &mdash; and Java tells you exactly which reference was null.</p>
+        <p class="walkcap frag" data-step="4" data-sid="13b-walk-student:45">An array of objects is filled twice: the array, then each slot.</p>
+        <p class="walkcap frag" data-step="5" data-sid="13b-walk-student:55">A: javac only sees the type. C: line 3 never ran, so nothing was printed.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="13b-walk-student:46"></div>
+  <aside class="notes" data-sid="13b-walk-student:47">Answer: B &mdash; a NullPointerException, on line 2, not line 3. Beat 1: <b>new Student[80]</b> makes ONE object, the array, and eighty reference slots inside it &mdash; the Student constructor is never called, not once. Ask the room how many times &ldquo;new Student&rdquo; appears in the program: zero. Contrast with the first vote: there, <b>new Movie()</b> made a real object with default fields before anything was written; here nothing was made, so there are no fields to default. Beat 2: myClass[0] is a perfectly legal expression that hands you null; the crash is the dot after it, not the subscript. Beat 3: the program counter goes dark on line 2 &mdash; execution stops there, so line 3 never runs and nothing is ever printed. Read the message aloud: since Java 14 the JVM names the exact expression that was null and the method it could not call. This is the single most useful sentence they will see all semester and most of them have never read one. That is also why A is tempting and wrong: it compiled fine, javac has no way to know the slot is empty; the type checker only sees Student. Beat 4: this matters for the projects &mdash; an array of objects is filled twice, once for the array and once for every element. Beat 5: the four answers back, one strike at a time. Deliberately not drawn: any box where a Student would be. A dashed ghost Student would picture the very object the students already wrongly believe line 1 created.</aside>
+
+  <style>
+    /* Slide-local: used by this slide only, all values from tokens.
+
+       Even columns, because the wide thing here is the array, not the code —
+       there are only three lines of it. Code keeps the vote slide's chrome
+       size: same program, same face.
+
+       The slot strip is the honest picture of new Student[80]: eighty
+       REFERENCE slots, all null, and not one Student. Three cells are drawn
+       and the rest elided — the count lives in the type line, Student[80], so
+       it is never inferred from how many cells fit. Nothing is drawn where a
+       Student would be, on purpose: a dashed "ghost Student" would picture
+       exactly the object the room already wrongly believes line 1 created,
+       and the wire component has nothing to point at anyway, because null is
+       not an address.
+
+       Slot 0 is coloured by the deck step through a custom property rather
+       than by a .frag, so the cell changes state without ever fading out:
+       blue while the program reads it (the wire and pill colour — this is the
+       reference being followed), maroon once the read has thrown. The two
+       rules are the same shape, so the later one simply wins at step 3.
+
+       The exception is the message a current JDK actually prints (helpful
+       NullPointerExceptions, JDK 14+), re-wrapped onto four lines so it fits
+       the column at the chrome size — it names the null reference and the
+       method it could not call, which is the whole answer, so both take the
+       maroon. It stamps in (GrowFromCenter, opacity resolving early) rather
+       than fading: it is the loudest event in the chapter. It sits in the
+       codewalk column under the heap, where the machine's own account of what
+       happened belongs; the fix is dashed orange, the deck's "a blank your
+       code fills" coding. Both, and the verdict strip, sit in the flow from
+       step 0 (a pending .frag keeps its box), so neither column shifts when
+       they arrive and the wire drawn on step 1 stays where the engine
+       measured it. */
+    #slide-13b .grid--code { grid-template-columns: 1fr 1fr; }
+    #slide-13b .editor__code { font-size: var(--t-micro); }
+    #slide-13b .codewalk__heap { grid-template-columns: max-content 180px max-content; }
+
+    #slide-13b .slots {
+      display: flex; align-items: flex-end; gap: var(--s-1);
+      margin: 0 0 var(--s-2); padding: 0; list-style: none;
+    }
+    #slide-13b .slots li { margin: 0; }
+    #slide-13b .slot { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); }
+    #slide-13b .slot__i { font-family: var(--font-mono); font-size: var(--t-tag); line-height: 1; color: var(--fg-1); }
+    #slide-13b .slot__v {
+      box-sizing: border-box;
+      padding: var(--s-1);
+      border: 2px solid var(--slot-edge, var(--fg-1));
+      border-radius: var(--r-1);
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2;
+      color: var(--slot-edge, var(--fg-1));
+      transition: color .4s ease, border-color .4s ease;
+    }
+    /* the elision: same box metrics as a slot, no edge, so the row stays level */
+    #slide-13b .slot__v--gap { min-width: var(--s-6); border-color: transparent; text-align: center; }
+    #slide-13b:has(.probe.is-current) .slot--0 .slot__v,
+    #slide-13b:has(.probe.is-past) .slot--0 .slot__v { --slot-edge: var(--accent-2); }
+    #slide-13b:has(.throw.is-current) .slot--0 .slot__v,
+    #slide-13b:has(.throw.is-past) .slot--0 .slot__v { --slot-edge: var(--accent-1); }
+
+    #slide-13b .probe { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--accent-2); }
+    #slide-13b .never { color: var(--fg-1); }
+    #slide-13b .throw {
+      box-sizing: border-box; margin: 0;
+      padding: var(--s-2) var(--s-3);
+      border: 3px solid var(--accent-1); border-radius: var(--r-2);
+      background: var(--bg-1);
+      white-space: pre;
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0);
+      transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-13b .frag.throw.is-pending { opacity: 0; transform: scale(0.6); }
+    #slide-13b .throw b { color: var(--accent-1); }
+    #slide-13b .fix {
+      box-sizing: border-box;
+      padding: var(--s-2) var(--s-3);
+      border: 3px dashed var(--accent-3); border-radius: var(--r-2);
+      background: var(--bg-1);
+    }
+    #slide-13b .fix__label {
+      margin: 0 0 var(--s-1);
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2;
+      letter-spacing: 0.04em; color: var(--accent-3);
+    }
+    #slide-13b .fix__code {
+      margin: 0; white-space: pre;
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.5; color: var(--fg-0);
+    }
+
+    /* The slot recolour is not a .frag, so studio-anim's blanket override does
+       not reach it; it and the stamp need their own escape, same as every
+       other scene here. */
+    @media (prefers-reduced-motion: reduce) {
+      #slide-13b .slot__v, #slide-13b .throw { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

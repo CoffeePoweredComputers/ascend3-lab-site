@@ -1,0 +1,51 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-vote-setup:1">
+  <header class="slide__head" data-sid="06-vote-setup:2">
+    <p class="slide__kicker" data-sid="06-vote-setup:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06-vote-setup:4">Which of these test classes pass? Select all that apply.</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06-vote-setup:5">A peer-instruction question. On the left, a test class with a private String field, a setUp method whose body is left blank, and a test that asserts the field equals the word foo. On the right, four candidates for that blank line: a new local variable declared inside setUp, an assignment inside setUp, the same assignment but in a method spelled with a capital S, and the claim that none of them work because setUp must be called by hand.</p>
+  <div class="slide__body grid grid--code" data-sid="06-vote-setup:6">
+    <div class="editor" data-sid="06-vote-setup:7">
+      <p class="editor__bar" data-sid="06-vote-setup:8">the shape all three share</p>
+      <ol class="editor__code" data-sid="06-vote-setup:9">
+        <li data-sid="06-vote-setup:10"><span class="tok-key">class</span> Option extends TestCase {</li>
+        <li data-sid="06-vote-setup:11">    <span class="tok-key">private</span> String myStr;</li>
+        <li data-sid="06-vote-setup:12">    @Override</li>
+        <li data-sid="06-vote-setup:13">    <span class="tok-key">protected void</span> setUp() {</li>
+        <li data-sid="06-vote-setup:14">        &hellip;</li>
+        <li data-sid="06-vote-setup:15">    }</li>
+        <li data-sid="06-vote-setup:16">    <span class="tok-key">public void</span> stringTest() {</li>
+        <li data-sid="06-vote-setup:17">        assertEquals("foo", myStr);</li>
+        <li data-sid="06-vote-setup:18">    }</li>
+        <li data-sid="06-vote-setup:19">}</li>
+      </ol>
+    </div>
+    <ol class="opts" data-sid="06-vote-setup:20">
+      <li data-sid="06-vote-setup:21">
+        <p class="opts__code" data-sid="06-vote-setup:22">String myStr = "foo";</p>
+        <p class="note" data-sid="06-vote-setup:23">a new local, declared inside setUp()</p>
+      </li>
+      <li data-sid="06-vote-setup:24">
+        <p class="opts__code" data-sid="06-vote-setup:25">myStr = "foo";</p>
+        <p class="note" data-sid="06-vote-setup:26">assigned inside setUp()</p>
+      </li>
+      <li data-sid="06-vote-setup:27">
+        <p class="opts__code" data-sid="06-vote-setup:28">myStr = "foo";</p>
+        <p class="note" data-sid="06-vote-setup:29">assigned inside a method named SetUp()</p>
+      </li>
+      <li data-sid="06-vote-setup:30">
+        <p data-sid="06-vote-setup:31">None of them.</p>
+        <p class="note" data-sid="06-vote-setup:32">You have to call the setup method yourself, at the top of each test.</p>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06-vote-setup:33"></div>
+  <style>
+    /* Slide-local: code drops to the chrome size so the widest line
+       (the assertEquals) clears its column with room to spare — a vote slide
+       the room cannot read is worse than a smaller face. Same move as day 1's
+       vote panes. All values from tokens. */
+    #slide-06 .editor__code { font-size: var(--t-micro); }
+  </style>
+  <aside class="notes" data-sid="06-vote-setup:34">Answer: B only. A declares a brand-new local variable that dies at the closing brace &mdash; the field is still null, so the assertion fails on null against "foo". C never runs at all: JUnit calls setUp, not SetUp, so the field is still null; the capital S is the entire bug, and @Override is what would have caught it. D is the misconception the question exists for &mdash; setUp is called for you, before every test method, which is exactly why it is the place to build fixtures. Do not walk it through before the second vote.</aside>
+</section>

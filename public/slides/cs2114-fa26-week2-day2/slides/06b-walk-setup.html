@@ -1,0 +1,157 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-setup:1">
+  <header class="slide__head" data-sid="06b-walk-setup:2">
+    <p class="slide__kicker" data-sid="06b-walk-setup:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-setup:4">JUnit builds the fixture for you</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-setup:5">A walkthrough of option B. On the left, the test class with the blank filled in &mdash; myStr = "foo" inside setUp &mdash; and a program-counter bar that moves down it; under the code, near the end, a dashed maroon panel appears holding option A&rsquo;s line, String myStr = "foo". On the right, the heap. The class line grows one Option object whose field reads myStr = null, and a pill labelled this draws an arrow to it. The counter moves to setUp and nothing on the heap changes: JUnit is calling it. Then the assignment: null is struck through and "foo" appears beside it. The counter moves to the assertion and a small blue panel stamps in reading stringTest() passed. Then option A: a second pill, myStr, tagged local, draws an arrow to a second box, a String holding "foo", while the maroon panel appears under the code. Last, that String box dims under a veil reading gone at the brace, its pill and arrow go grey, and the Option object&rsquo;s field is exactly as it was.</p>
+  <div class="slide__body grid grid--code" data-sid="06b-walk-setup:6">
+    <div class="stack" data-sid="06b-walk-setup:7">
+      <div class="editor" data-sid="06b-walk-setup:8">
+        <p class="editor__bar" data-sid="06b-walk-setup:9">Option B</p>
+        <div class="editor__pc" data-sid="06b-walk-setup:10"></div>
+        <ol class="editor__code" data-sid="06b-walk-setup:11">
+          <li class="walkline frag" data-step="1" data-sid="06b-walk-setup:12"><span class="tok-key" data-sid="06b-walk-setup:13">class</span> Option extends TestCase {</li>
+          <li data-sid="06b-walk-setup:14">    <span class="tok-key" data-sid="06b-walk-setup:15">private</span> String myStr;</li>
+          <li data-sid="06b-walk-setup:16">    @Override</li>
+          <li class="walkline frag" data-step="2" data-sid="06b-walk-setup:17">    <span class="tok-key" data-sid="06b-walk-setup:18">protected void</span> setUp() {</li>
+          <li class="walkline frag" data-step="3" data-sid="06b-walk-setup:19">        myStr = "foo";</li>
+          <li data-sid="06b-walk-setup:20">    }</li>
+          <li data-sid="06b-walk-setup:21">    <span class="tok-key" data-sid="06b-walk-setup:22">public void</span> stringTest() {</li>
+          <li class="walkline frag" data-step="4" data-sid="06b-walk-setup:23">        assertEquals("foo", myStr);</li>
+          <li data-sid="06b-walk-setup:24">    }</li>
+          <li data-sid="06b-walk-setup:25">}</li>
+        </ol>
+      </div>
+      <div class="alt frag" data-step="5" data-sid="06b-walk-setup:26">
+        <p class="alt__label" data-sid="06b-walk-setup:27">option A</p>
+        <p class="alt__code" data-sid="06b-walk-setup:28">String myStr = "foo";</p>
+      </div>
+    </div>
+    <div class="codewalk" data-sid="06b-walk-setup:29">
+      <div class="codewalk__heap" data-sid="06b-walk-setup:30">
+        <p class="heap-name frag" data-step="1" data-wire="1:opt" style="grid-row: 1;" data-sid="06b-walk-setup:31">this</p>
+        <p class="heap-name heap-name--local frag" data-step="5" data-wire="5:foo2" style="grid-row: 2;" data-sid="06b-walk-setup:32">myStr <span class="note-tag" data-sid="06b-walk-setup:33">(local, option A)</span></p>
+
+        <div class="heap-obj frag" data-step="1" data-obj="opt" style="grid-row: 1;" data-sid="06b-walk-setup:34">
+          <p class="heap-obj__type" data-sid="06b-walk-setup:35">Option</p>
+          <div class="heap-obj__field heap-obj__field--strike" data-sid="06b-walk-setup:36">
+            <p class="heap-val heap-val--old frag" data-step="3" data-sid="06b-walk-setup:37">myStr = <span class="heap-val__num" data-sid="06b-walk-setup:38">null</span></p>
+            <p class="heap-val frag" data-step="3" data-sid="06b-walk-setup:39"><span class="sr-only" data-sid="06b-walk-setup:40">now </span>"foo"</p>
+          </div>
+        </div>
+
+        <div class="heap-obj frag" data-step="5" data-obj="foo2" style="grid-row: 2;" data-sid="06b-walk-setup:41">
+          <p class="heap-obj__type" data-sid="06b-walk-setup:42">String</p>
+          <div class="heap-obj__field" data-sid="06b-walk-setup:43">
+            <p class="heap-val" data-sid="06b-walk-setup:44">"foo"</p>
+          </div>
+          <p class="heap-obj__gone frag" data-step="6" data-sid="06b-walk-setup:45">gone at the brace</p>
+        </div>
+
+        <svg class="heap-wires" aria-hidden="true" data-sid="06b-walk-setup:46"></svg>
+      </div>
+      <p class="stamp frag" data-step="4" data-sid="06b-walk-setup:47">stringTest() <b data-sid="06b-walk-setup:48">passed</b></p>
+      <div class="codewalk__caps" data-sid="06b-walk-setup:49">
+        <p class="walkcap frag" data-step="1" data-sid="06b-walk-setup:50">One test object. Its field starts out null.</p>
+        <p class="walkcap frag" data-step="2" data-sid="06b-walk-setup:51">JUnit calls setUp() for you, before every test.</p>
+        <p class="walkcap frag" data-step="3" data-sid="06b-walk-setup:52">The field is written.</p>
+        <p class="walkcap frag" data-step="4" data-sid="06b-walk-setup:53">The assertion reads the field: foo. Passes.</p>
+        <p class="walkcap frag" data-step="5" data-sid="06b-walk-setup:54">Option A declares a second, local myStr.</p>
+        <p class="walkcap frag" data-step="6" data-sid="06b-walk-setup:55">It dies at the brace. The field never changed.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-setup:56"></div>
+  <aside class="notes" data-sid="06b-walk-setup:57">Answer: B &mdash; and only B. Step 1 &mdash; the counter lands on the class line: JUnit constructs one Option object for each test method, and nobody in this file wrote <b data-sid="06b-walk-setup:58">new Option()</b>; the framework did. Its field myStr is a reference, so it starts out null &mdash; the pill is <b data-sid="06b-walk-setup:59">this</b>, the object the test runs inside. Step 2 &mdash; the counter moves to setUp() and nothing on the heap changes. This is the D debrief: JUnit calls setUp() for you, before every test method. Nobody calls it by hand &mdash; doing so would only build the fixture a second time. That the framework does it is the whole point of a fixture. Step 3 &mdash; line 5 writes the field: null is struck, "foo" lands, the box breathes. Step 4 &mdash; stringTest() reads the field and finds "foo"; the assertion passes and the stamp says so. Step 5 &mdash; option A: <b data-sid="06b-walk-setup:60">String myStr = "foo";</b> begins with a type, so it is a declaration, and a declaration inside a method makes a brand-new local. That local is a second name called myStr, wired to its own String; it never touches the field. Step 6 &mdash; the local dies at setUp&rsquo;s closing brace, so the field is still null and the assertion fails on null against "foo". C is not drawn: JUnit calls setUp, not SetUp, so a method named SetUp never runs and the field stays null &mdash; the capital S is the entire bug, and @Override is what would have caught it, because javac refuses to believe you override something that does not exist. D is the misconception the question exists for: setUp is called for you, before every test &mdash; that is the whole point of a fixture. Plant: A fixture is a promise the test can rely on. Next: does the test check every case?</aside>
+
+  <style>
+    /* Slide-local: the vote-1 walkthrough — the fixture JUnit builds, then the
+       local that option A builds instead. Code drops to the chrome size so the
+       assertEquals line clears its column; the right column takes the wider
+       share (1 : 1.2) because the heap is the wide thing here: the option-A
+       pill carries a two-line label, so the run narrows to 210 and names and
+       values drop to the chrome size — the three-name sizing — and the
+       label's tag stacks under the name so the pill never outgrows its
+       column.
+
+       Two objects, told apart by edge: the Option JUnit made keeps the
+       component's maroon; option A's String is orange, the deck's "the thing
+       being pointed at". The pass stamp copies the sister deck's throw panel
+       (13b) but in blue — a measurement, not a failure — and hugs its text;
+       the option-A panel copies that deck's dashed fix panel in maroon, the
+       verdict colour. Both sit in the flow from step 0 (a pending .frag keeps
+       its box), so nothing shifts when they arrive and the wire drawn at
+       step 1 stays where the engine measured it.
+
+       Step 6 is the brace: the String takes the component's garbage wash —
+       its edge rule is restated here because the orange override would
+       otherwise out-specify it — and the name that died goes with it: the
+       local's pill and its wire recolour to stone in place, nothing moves.
+       That wire is the last one in the svg because the local pill is the
+       last data-wire in the heap. Motion is manim's only: GrowFromCenter for
+       the stamp, plain fades, recolours in place. Used by this slide only,
+       all values from tokens. */
+    #slide-06b .grid--code { grid-template-columns: 1fr 1.2fr; }
+    #slide-06b .editor__code { font-size: var(--t-micro); }
+    #slide-06b .codewalk .heap-name, #slide-06b .codewalk .heap-val { font-size: var(--t-micro); }
+    #slide-06b .codewalk__heap { grid-template-columns: max-content 210px max-content; }
+    #slide-06b .note-tag {
+      display: block;
+      font-size: var(--t-tag); line-height: 1.2; letter-spacing: 0.02em;
+    }
+
+    /* the second object: orange while it is the thing being pointed at,
+       stone once its only name has died */
+    #slide-06b .heap-obj[data-obj="foo2"] { --edge: var(--accent-3); }
+    #slide-06b .heap-obj[data-obj="foo2"]:has(> .heap-obj__gone.is-current),
+    #slide-06b .heap-obj[data-obj="foo2"]:has(> .heap-obj__gone.is-past) { --edge: var(--fg-1); }
+    #slide-06b .heap-name--local { transition: opacity .45s ease, background-color .4s ease; }
+    #slide-06b:has(.heap-obj__gone.is-current) .heap-name--local,
+    #slide-06b:has(.heap-obj__gone.is-past) .heap-name--local { background: var(--stone); }
+    #slide-06b .heap-wires .wire:last-child .wire__line { transition: stroke .4s ease; }
+    #slide-06b .heap-wires .wire:last-child .wire__head { transition: fill .4s ease; }
+    #slide-06b:has(.heap-obj__gone.is-current) .heap-wires .wire:last-child .wire__line,
+    #slide-06b:has(.heap-obj__gone.is-past) .heap-wires .wire:last-child .wire__line { stroke: var(--stone); }
+    #slide-06b:has(.heap-obj__gone.is-current) .heap-wires .wire:last-child .wire__head,
+    #slide-06b:has(.heap-obj__gone.is-past) .heap-wires .wire:last-child .wire__head { fill: var(--stone); }
+
+    /* the pass stamp: the throw panel's shape in the measuring colour */
+    #slide-06b .stamp {
+      align-self: flex-start;
+      box-sizing: border-box; margin: 0;
+      padding: var(--s-2) var(--s-3);
+      border: 3px solid var(--accent-2); border-radius: var(--r-2);
+      background: var(--bg-1);
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0);
+      transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-06b .frag.stamp.is-pending { opacity: 0; transform: scale(0.6); }
+    #slide-06b .stamp b { color: var(--accent-2); }
+
+    /* option A, under the code: dashed, in the verdict colour */
+    #slide-06b .alt {
+      box-sizing: border-box;
+      padding: var(--s-2) var(--s-3);
+      border: 3px dashed var(--accent-1); border-radius: var(--r-2);
+      background: var(--bg-1);
+    }
+    #slide-06b .alt__label {
+      margin: 0 0 var(--s-1);
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2;
+      letter-spacing: 0.04em; color: var(--accent-1);
+    }
+    #slide-06b .alt__code {
+      margin: 0; white-space: pre;
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.5; color: var(--fg-0);
+    }
+
+    /* The recolours and the stamp are not reached by studio-anim's blanket
+       .frag rule (the wire is engine-drawn), so they need their own escape. */
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .stamp, #slide-06b .alt, #slide-06b .heap-name--local,
+      #slide-06b .heap-wires .wire:last-child .wire__line,
+      #slide-06b .heap-wires .wire:last-child .wire__head { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

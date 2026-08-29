@@ -1,0 +1,107 @@
+<section class="slide" id="slide-17" data-sid="17-next-class:1">
+  <header class="slide__head" data-sid="17-next-class:2">
+    <h2 data-sid="17-next-class:3">Before next class</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="17-next-class:4">The same two-week clock from the start of the hour, bare, with the highlighted now column on Wednesday. First a stone pole rises inside the now column: the Bag content pages &mdash; first, with no date of their own, because they block the project. Then an orange Project 1 bar leaves the now column across the top and runs off the right-hand edge of the axis: start now. Then a pole rises at Friday for the Week 2 homework. Then a pole rises at your lab day with a range line under the axis across the whole week: Challenge Exercise 01, due before your lab section. Last, a caption under the axis: Piazza first &mdash; turn instructor-post notifications on.</p>
+
+  <!-- Same clock as slide 2, stripped: no bars for this week's work, just the
+       four things going up one at a time, so the recall is a recall and not a
+       repeat. Say "same clock" out loud. Step 1: a stone pole at now — the Bag
+       pages have no date, which is exactly why they go first. Step 2: Project
+       1 leaves now in orange and runs off the edge — the only bar here,
+       because it is the only thing that does not land. Step 3: Friday, the
+       same for everyone. Step 4: your lab day, a different day for each of
+       them, said last. Labels sit beside each pole's top, anchored to the
+       right, so the three poles never cut through one another's text.
+       viewBox = the body's rect. -->
+  <div class="slide__body" data-sid="17-next-class:5">
+    <svg class="nx" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="The two-week clock again, with a stone marker at now, a Project 1 bar running off the edge and two deadlines"
+         data-sid="17-next-class:6">
+      <!-- step 0: the hour you are in, and the clock -->
+      <rect class="nx__now" x="366" y="312" width="119" height="408" data-sid="17-next-class:7"/>
+      <text class="nx__cta" x="425" y="348" data-sid="17-next-class:8">now</text>
+      <line class="nx__axis" x1="128" y1="720" x2="1792" y2="720" data-sid="17-next-class:9"/>
+      <path class="nx__tick" d="M247 720v16M366 720v16M603 720v16M841 720v16M960 720v16M1079 720v16M1198 720v16M1317 720v16M1435 720v16M1554 720v16M1673 720v16" data-sid="17-next-class:10"/>
+      <path class="nx__tick nx__tick--due" d="M485 720v28M722 720v28" data-sid="17-next-class:11"/>
+      <text class="nx__axislabel" x="722" y="800" data-sid="17-next-class:12">Fri</text>
+
+      <!-- step 1: no date, so it goes first -->
+      <line class="nx__pole nx__ink--stone frag" data-step="1" pathLength="100" x1="425" y1="720" x2="425" y2="470" data-sid="17-next-class:13"/>
+      <text class="nx__flag frag" data-step="1" data-anim="fade" x="445" y="482" data-sid="17-next-class:14">Bag pages first</text>
+      <text class="nx__flag nx__flag--sub frag" data-step="1" data-anim="fade" x="445" y="518" data-sid="17-next-class:15">no date &mdash; they block the project</text>
+
+      <!-- step 2: the one bar — it leaves now and nothing on this clock ends it
+           (past x = 1792, clipped by the slide) -->
+      <rect class="nx__bar nx__ink--a3 frag" data-step="2" x="366" y="372" width="1574" height="56" rx="28" data-sid="17-next-class:16"/>
+      <text class="nx__label frag" data-step="2" data-anim="fade" x="392" y="409" data-sid="17-next-class:17">Project 1 &middot; start now</text>
+
+      <!-- step 3: one date, the same for everyone -->
+      <line class="nx__pole nx__ink--a4 frag" data-step="3" pathLength="100" x1="722" y1="720" x2="722" y2="640" data-sid="17-next-class:18"/>
+      <text class="nx__flag frag" data-step="3" data-anim="fade" x="742" y="652" data-sid="17-next-class:19">Week 2 homework</text>
+
+      <!-- step 4: a different date for each of them, said last -->
+      <line class="nx__pole nx__ink--a4 frag" data-step="4" pathLength="100" x1="485" y1="720" x2="485" y2="570" data-sid="17-next-class:20"/>
+      <line class="nx__pole nx__range nx__ink--a4 frag" data-step="4" pathLength="100" x1="247" y1="752" x2="722" y2="752" data-sid="17-next-class:21"/>
+      <text class="nx__flag frag" data-step="4" data-anim="fade" x="505" y="582" data-sid="17-next-class:22">Challenge Exercise 01</text>
+      <text class="nx__axislabel frag" data-step="4" data-anim="fade" x="485" y="800" data-sid="17-next-class:23">your lab day</text>
+      <text class="nx__cap frag" data-step="4" data-anim="fade" x="960" y="900" data-sid="17-next-class:24">Piazza first &mdash; turn instructor-post notifications on.</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="17-next-class:25"></div>
+  <aside class="notes" data-sid="17-next-class:26">Same clock as the start of the hour &mdash; say that out loud. Four things go up, on four different clocks. Step 1 &mdash; the Bag content pages, on PrairieLearn: they have no deadline of their own but they block the project, so they come before Project 1, not alongside it. Step 2 &mdash; Project 1: start now, aim to finish; the setup is the part you can do today. Step 3 &mdash; Homework Week 2 is in PrairieLearn after the modules, due Friday, the same day for everybody. Step 4 &mdash; Challenge Exercise 01 is due before your lab section meets, so the date depends on which section they are in: say the lab one last so it is the thing they walk out with. Then the caption: everything is on Canvas, and every announcement lands on Piazza first &mdash; turn instructor-post notifications on before you leave.</aside>
+
+  <style data-sid="17-next-class:27">
+    /* Slide-local: the clock again, without this week's bars. Same geometry,
+       ink and deadline colour as slide 2 so the room recognises it, with the
+       now column from 14-work-time; the viewBox is the body's rect. The Bag
+       pole is stone because it has no date; Project 1 is the only bar and it
+       is orange because it is the work you do; labels are start-anchored
+       beside each pole's top so the three poles never cut through a label.
+       Motion is manim's only: poles and the range draw on by dashoffset, the
+       bar wipes from now, labels and the caption FadeIn. Used by this slide
+       only, all values from tokens. */
+    #slide-17 .slide__body { position: relative; }
+    #slide-17 .nx { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* the hour you are in, and the axis */
+    #slide-17 .nx__now { fill: color-mix(in srgb, var(--accent-1) 12%, var(--bg-0)); }
+    #slide-17 .nx__cta { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-17 .nx__axis, #slide-17 .nx__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-17 .nx__tick--due { stroke: var(--fg-0); stroke-width: 4; }
+    #slide-17 .nx__axislabel { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-17 .frag.nx__axislabel.is-current, #slide-17 .frag.nx__axislabel.is-past { transition-delay: .6s; }
+
+    /* poles: deadline ink for the dates, stone for the thing with no date */
+    #slide-17 .nx__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-17 .nx__ink--a3 { --edge: var(--accent-3); }
+    #slide-17 .nx__ink--stone { --edge: var(--stone); }
+    #slide-17 .nx__pole {
+      fill: none; stroke: var(--edge); stroke-width: 5; stroke-linecap: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .4s var(--ease-smooth);
+    }
+    #slide-17 .frag.nx__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-17 .frag.nx__range.is-current, #slide-17 .frag.nx__range.is-past { transition-delay: .4s; }
+    #slide-17 .nx__flag { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
+    #slide-17 .nx__flag--sub { font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-17 .frag.nx__flag.is-current, #slide-17 .frag.nx__flag.is-past { transition-delay: .45s; }
+    #slide-17 .frag.nx__flag--sub.is-current, #slide-17 .frag.nx__flag--sub.is-past { transition-delay: .65s; }
+
+    /* the one bar: it leaves now and runs off the edge */
+    #slide-17 .nx__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .75s var(--ease-smooth); }
+    #slide-17 .frag.nx__bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-17 .nx__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
+    #slide-17 .frag.nx__label.is-current, #slide-17 .frag.nx__label.is-past { transition-delay: .45s; }
+
+    /* the line they walk out with, after the lab-day beat has landed */
+    #slide-17 .nx__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-17 .frag.nx__cap.is-current, #slide-17 .frag.nx__cap.is-past { transition-delay: 1.1s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-17 .nx__pole, #slide-17 .nx__flag, #slide-17 .nx__axislabel, #slide-17 .nx__bar, #slide-17 .nx__label, #slide-17 .nx__cap {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

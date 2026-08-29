@@ -1,0 +1,157 @@
+<section class="slide" id="slide-11" data-sid="11-uml-diagram:1">
+  <header class="slide__head" data-sid="11-uml-diagram:2">
+    <p class="slide__kicker" data-sid="11-uml-diagram:3">PRACTICE 1 &middot; CREATE A CHILD CLASS</p>
+    <h2 data-sid="11-uml-diagram:4">Turn this diagram into the Student class</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-uml-diagram:5">A UML class diagram of two classes, built in four steps. First, on the left, the Person box inks in: name, age and heightInCM, a three-argument constructor, three getters and toString. Second, an arrow draws from right to left, from Student's side to Person's edge. Third, on the right, the Student box grows in with an orange edge: studentID and school, a five-argument constructor, and getters for both new fields. Last, the caption: the arrow means Student extends Person; Person is already written for you, write Student.</p>
+
+  <!-- The diagram is the question, so it arrives in the order you read it:
+       the class you are given, the relationship, the class you owe. Person is
+       notation ink (stone chrome) because it is finished; Student takes the
+       orange edge because it is yours to write. The arrow is drawn from the
+       child towards the parent because that is what generalisation means —
+       Student points at Person, never the other way.
+       step 1: Person inks in (already written for you).
+       step 2: the arrow Creates from Student's side up to Person's edge.
+       step 3: the Student box grows — the one you write.
+       step 4: the caption says the arrow in words. -->
+  <div class="slide__body stack" data-sid="11-uml-diagram:6">
+    <figure class="uml-diagram" data-sid="11-uml-diagram:7">
+      <div class="uml uml--given frag" data-step="1" data-sid="11-uml-diagram:8">
+        <p class="uml__name" data-sid="11-uml-diagram:9">Person</p>
+        <ul class="uml__members" data-sid="11-uml-diagram:10">
+          <li data-sid="11-uml-diagram:11">- name : String</li>
+          <li data-sid="11-uml-diagram:12">- age : int</li>
+          <li data-sid="11-uml-diagram:13">- heightInCM : double</li>
+        </ul>
+        <ul class="uml__members" data-sid="11-uml-diagram:14">
+          <li data-sid="11-uml-diagram:15">+ Person(String na, int ag, double he)</li>
+          <li data-sid="11-uml-diagram:16">+ getName() : String</li>
+          <li data-sid="11-uml-diagram:17">+ getAge() : int</li>
+          <li data-sid="11-uml-diagram:18">+ getHeightInCM() : double</li>
+          <li data-sid="11-uml-diagram:19">+ toString() : String</li>
+        </ul>
+      </div>
+      <!-- generalisation arrow: shaft draws from Student (right) to Person (left); the head lands after -->
+      <svg class="uml-arrow frag" data-step="2" viewBox="0 0 140 40" width="140" height="40" aria-hidden="true" data-sid="11-uml-diagram:20">
+        <line x1="140" y1="20" x2="24" y2="20" pathLength="100" data-sid="11-uml-diagram:33"/>
+        <path d="M0 20L26 6V34Z" data-sid="11-uml-diagram:34"/>
+      </svg>
+      <div class="uml uml--target frag" data-step="3" data-sid="11-uml-diagram:21">
+        <p class="uml__name" data-sid="11-uml-diagram:22">Student</p>
+        <ul class="uml__members" data-sid="11-uml-diagram:23">
+          <li data-sid="11-uml-diagram:24">- studentID : int</li>
+          <li data-sid="11-uml-diagram:25">- school : String</li>
+        </ul>
+        <ul class="uml__members" data-sid="11-uml-diagram:26">
+          <li data-sid="11-uml-diagram:27">+ Student(String na, int ag, double he, int sId, String sch)</li>
+          <li data-sid="11-uml-diagram:28">+ getStudentID() : int</li>
+          <li data-sid="11-uml-diagram:29">+ getSchool() : String</li>
+        </ul>
+      </div>
+      <figcaption class="note frag" data-step="4" data-anim="fade" data-sid="11-uml-diagram:30">The arrow means <b>Student extends Person</b>. Person is already written for you &mdash; write Student.</figcaption>
+    </figure>
+  </div>
+  <div class="slide__number" data-sid="11-uml-diagram:31"></div>
+  <aside class="notes" data-sid="11-uml-diagram:32">Step 1 &mdash; Person inks in. Read its box once: three fields, a three-argument constructor, three getters, toString. This one is written for you. Step 2 &mdash; the arrow draws from Student up to Person; say that the direction matters: the child points at the parent. Step 3 &mdash; Student grows in on the orange edge: the one you write. Read the diagram out loud once as a sentence: a Student is a Person that also knows a student ID and a school. Then ask what is missing from Student's box that a Student object still has &mdash; the answer is everything in Person's box, which is the whole reason to inherit. Step 4 &mdash; the caption. Give them four or five minutes before showing the code. Plant, last line before advancing: Person is already written for you &mdash; write Student.</aside>
+
+  <style>
+    /* Slide-local: the UML class box — the three-compartment rectangle of a
+       class diagram (name, fields, operations). Stone-edged like the .editor
+       chrome, because it is notation rather than content; the class being
+       written takes the orange edge so the ask is visible from the back.
+       Motion is manim's only: Person FadeIn with its edges inking in a beat
+       later (a draw-on feel, no drift); the arrow shaft Creates by dashoffset
+       from Student's side towards Person and its head fades in after; Student
+       GrowFromCenter; the caption a plain FadeIn. Used by this slide only,
+       all values from tokens. */
+    #slide-11 .uml-diagram {
+      --chrome: color-mix(in srgb, var(--stone) 70%, var(--fg-0));
+      display: grid;
+      grid-template-columns: 1fr 140px 1fr;
+      gap: var(--s-3);
+      align-items: center;
+      margin: 0;
+    }
+    #slide-11 .uml {
+      --edge: var(--chrome);
+      box-sizing: border-box;
+      min-width: 0;
+      border: 3px solid var(--edge);
+      border-radius: var(--r-1);
+      background: var(--bg-1);
+    }
+    #slide-11 .uml--target { --edge: var(--accent-3); }
+    #slide-11 .uml__name {
+      margin: 0;
+      padding: var(--s-1) var(--s-3);
+      border-bottom: 3px solid var(--edge);
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      line-height: 1.3;
+      text-align: center;
+      color: var(--edge);
+    }
+    #slide-11 .uml__members {
+      margin: 0;
+      padding: var(--s-2) var(--s-3);
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      line-height: 1.5;
+    }
+    #slide-11 .uml__members + .uml__members { border-top: 3px solid var(--edge); }
+    /* a signature too long for its column wraps with a hanging indent, so the
+       second line reads as the same member, not a new one */
+    #slide-11 .uml__members li { margin: 0; padding-left: 2ch; text-indent: -2ch; }
+
+    /* step 1: the given class — fill fades in, then the edges ink in */
+    #slide-11 .uml--given { transition: opacity .3s ease, border-color .45s ease; }
+    #slide-11 .uml--given .uml__name,
+    #slide-11 .uml--given .uml__members + .uml__members { transition: border-color .45s ease; }
+    #slide-11 .frag.uml--given.is-pending { opacity: 0; border-color: transparent; }
+    #slide-11 .frag.uml--given.is-pending .uml__name,
+    #slide-11 .frag.uml--given.is-pending .uml__members + .uml__members { border-color: transparent; }
+    #slide-11 .frag.uml--given.is-current,
+    #slide-11 .frag.uml--given.is-past { transition-delay: 0s, .25s; }
+    #slide-11 .frag.uml--given.is-current .uml__name,
+    #slide-11 .frag.uml--given.is-past .uml__name,
+    #slide-11 .frag.uml--given.is-current .uml__members + .uml__members,
+    #slide-11 .frag.uml--given.is-past .uml__members + .uml__members { transition-delay: .25s; }
+
+    /* step 2: the generalisation arrow, child towards parent — the shaft draws
+       on from Student's side (x1) to Person's edge; the head lands once the
+       shaft has arrived. The group stays at full opacity; its children carry
+       the from-states. */
+    #slide-11 .uml-arrow { display: block; width: 100%; height: auto; overflow: visible; }
+    #slide-11 .uml-arrow line {
+      fill: none; stroke: var(--chrome); stroke-width: 5; stroke-linecap: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .45s var(--ease-smooth);
+    }
+    #slide-11 .uml-arrow path { fill: var(--chrome); transition: opacity .2s ease; }
+    #slide-11 .frag.uml-arrow.is-pending { opacity: 1; }
+    #slide-11 .frag.uml-arrow.is-pending line { stroke-dashoffset: 100; }
+    #slide-11 .frag.uml-arrow.is-pending path { opacity: 0; }
+    #slide-11 .frag.uml-arrow.is-current path,
+    #slide-11 .frag.uml-arrow.is-past path { transition-delay: .4s; }
+
+    /* step 3: the class you write grows from its centre */
+    #slide-11 .uml--target {
+      transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-11 .frag.uml--target.is-pending { opacity: 0; transform: scale(.3); }
+
+    /* step 4: the caption */
+    #slide-11 figcaption { grid-column: 1 / -1; margin-top: var(--s-4); }
+    #slide-11 figcaption b { color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .uml--given, #slide-11 .uml--given .uml__name, #slide-11 .uml--given .uml__members + .uml__members,
+      #slide-11 .uml-arrow line, #slide-11 .uml-arrow path, #slide-11 .uml--target, #slide-11 figcaption {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

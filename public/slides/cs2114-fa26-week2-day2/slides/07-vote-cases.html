@@ -1,0 +1,48 @@
+<section class="slide slide--warmup" id="slide-07" data-sid="07-vote-cases:1">
+  <header class="slide__head" data-sid="07-vote-cases:2">
+    <p class="slide__kicker" data-sid="07-vote-cases:3">PEER INSTRUCTION &middot; VOTE 2</p>
+    <h2 data-sid="07-vote-cases:4">Which test method covers every case of this method?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07-vote-cases:5">A peer-instruction question. On the left, a factory method that returns null when the name is the empty string and a new Hokie otherwise. On the right, four candidate test methods, each two assertions long: assertNull with assertNotNull; assertEquals against null with assertEquals against the string Hannah; assertEquals against null with assertNotEquals; and assertNull twice, the second one negating its argument.</p>
+  <div class="slide__body grid grid--code" data-sid="07-vote-cases:6">
+    <div class="editor" data-sid="07-vote-cases:7">
+      <p class="editor__bar" data-sid="07-vote-cases:8">the method under test</p>
+      <ol class="editor__code" data-sid="07-vote-cases:9">
+        <li data-sid="07-vote-cases:10"><span class="tok-key">public</span> Hokie createHokie(String name) {</li>
+        <li data-sid="07-vote-cases:11">    <span class="tok-key">if</span> (name.equals("")) {</li>
+        <li data-sid="07-vote-cases:12">        <span class="tok-key">return null</span>;</li>
+        <li data-sid="07-vote-cases:13">    }</li>
+        <li data-sid="07-vote-cases:14">    <span class="tok-key">return new</span> Hokie(name);</li>
+        <li data-sid="07-vote-cases:15">}</li>
+      </ol>
+    </div>
+    <ol class="opts" data-sid="07-vote-cases:16">
+      <li data-sid="07-vote-cases:17">
+        <p class="opts__code" data-sid="07-vote-cases:18">assertNull(createHokie(""));</p>
+        <p class="opts__code" data-sid="07-vote-cases:19">assertNotNull(createHokie("Hannah"));</p>
+      </li>
+      <li data-sid="07-vote-cases:20">
+        <p class="opts__code" data-sid="07-vote-cases:21">assertEquals(null, createHokie(""));</p>
+        <p class="opts__code" data-sid="07-vote-cases:22">assertEquals("Hannah", createHokie("Hannah"));</p>
+      </li>
+      <li data-sid="07-vote-cases:23">
+        <p class="opts__code" data-sid="07-vote-cases:24">assertEquals(null, createHokie(""));</p>
+        <p class="opts__code" data-sid="07-vote-cases:25">assertNotEquals("Hannah", createHokie("Hannah"));</p>
+      </li>
+      <li data-sid="07-vote-cases:26">
+        <p class="opts__code" data-sid="07-vote-cases:27">assertNull(createHokie(""));</p>
+        <p class="opts__code" data-sid="07-vote-cases:28">assertNull(!createHokie("Hannah"));</p>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="07-vote-cases:29"></div>
+  <aside class="notes" data-sid="07-vote-cases:30">Answer: A. The method has exactly two cases &mdash; empty name gives null, anything else gives an object &mdash; so a covering test needs one assertion for each, and assertNull/assertNotNull say precisely that. B compares a Hokie to a String, which is never equal; C asserts the object is not "Hannah", which is true but tests nothing; D does not compile, because you cannot apply ! to an object reference. Worth naming afterwards: C is the dangerous one, since it passes.</aside>
+
+  <style>
+    /* Slide-local: code drops to the chrome size, and the split is nudged off
+       grid--code's default so the longest assertion on the right clears its
+       column with room to spare. Whole canvas pixels; everything else tokens. */
+    #slide-07 .editor__code { font-size: var(--t-micro); }
+    #slide-07 .slide__body { grid-template-columns: 820px 1fr; }
+  </style>
+</section>

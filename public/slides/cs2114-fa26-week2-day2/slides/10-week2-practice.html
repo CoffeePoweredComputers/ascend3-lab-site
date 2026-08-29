@@ -1,0 +1,124 @@
+<section class="slide" id="slide-10" data-sid="10-week2-practice:1">
+  <header class="slide__head" data-sid="10-week2-practice:2">
+    <p class="slide__kicker" data-sid="10-week2-practice:3">IN LECTURE</p>
+    <h2 data-sid="10-week2-practice:4">Week 2 practice &mdash; we work these here</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10-week2-practice:5">A dashed trail rises and falls across the body like a hiking route. Four numbered stops sit on it and appear left to right, one per step, each with its title: 01, build a child class from a UML diagram, above the first rise; 02, find the line that throws, below the first dip; 03, fix a method that breaks on null arguments, above the second rise; 04, an array of objects that holds no objects, below the second dip. Last, a small maroon hazard marker &mdash; a circle with a slash through it &mdash; grows onto stops 02, 03 and 04 in turn, and a caption under the trail reads: three of the four are the same exception; that is not an accident.</p>
+
+  <!-- The four questions used to be four tiles. They are one walk — this
+       section runs them left to right — so they are drawn as stops on a trail,
+       and the thing a tile board cannot say is step 5: the same hazard marker
+       lands on three of the four stops. The trail is a wave; stops sit on its
+       peaks and troughs, peaks carry their titles above the disc and troughs
+       below, so the trail never crosses a word. step 1: 01, the UML question,
+       the one that is not about null. steps 2–4: the three null questions.
+       step 5: the null hazard grows onto 02, 03, 04, staggered, and the
+       caption says the plant. One SVG in canvas px (viewBox = the body's
+       rect); the caption is HTML positioned under the trail. -->
+  <div class="slide__body" data-sid="10-week2-practice:6">
+    <svg class="map" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Four practice questions as numbered stops on one trail, three of them marked with the null hazard"
+         data-sid="10-week2-practice:7">
+      <defs data-sid="10-week2-practice:8">
+        <!-- the null hazard: a maroon disc with a paper circle-and-slash -->
+        <g id="w2d2-10-hazard" data-sid="10-week2-practice:9">
+          <circle class="hz__disc" r="22" data-sid="10-week2-practice:10"/>
+          <circle class="hz__glyph" r="9" data-sid="10-week2-practice:11"/>
+          <line class="hz__glyph" x1="-12" y1="12" x2="12" y2="-12" data-sid="10-week2-practice:12"/>
+        </g>
+      </defs>
+
+      <!-- step 0: the trail — in from the bottom left, over two rises, out to the right -->
+      <path class="trail" d="M128 620 C230 620 240 430 340 430 C540 430 540 640 740 640 C940 640 940 430 1140 430 C1340 430 1340 640 1540 640 C1650 640 1690 500 1792 480" data-sid="10-week2-practice:13"/>
+
+      <!-- step 1: stop 01 on the first rise, title above -->
+      <g class="stop frag" data-step="1" data-sid="10-week2-practice:14">
+        <circle cx="340" cy="430" r="44" data-sid="10-week2-practice:15"/>
+        <text x="340" y="450" data-sid="10-week2-practice:16">01</text>
+      </g>
+      <text class="title frag" data-step="1" data-anim="fade" x="340" y="304" data-sid="10-week2-practice:17"><tspan x="340" data-sid="10-week2-practice:18">Build a child class</tspan><tspan x="340" dy="44" data-sid="10-week2-practice:19">from a UML diagram</tspan></text>
+
+      <!-- step 2: stop 02 in the first dip, title below -->
+      <g class="stop frag" data-step="2" data-sid="10-week2-practice:20">
+        <circle cx="740" cy="640" r="44" data-sid="10-week2-practice:21"/>
+        <text x="740" y="660" data-sid="10-week2-practice:22">02</text>
+      </g>
+      <text class="title frag" data-step="2" data-anim="fade" x="740" y="724" data-sid="10-week2-practice:23"><tspan x="740" data-sid="10-week2-practice:24">Find the line</tspan><tspan x="740" dy="44" data-sid="10-week2-practice:25">that throws</tspan></text>
+
+      <!-- step 3: stop 03 on the second rise, title above -->
+      <g class="stop frag" data-step="3" data-sid="10-week2-practice:26">
+        <circle cx="1140" cy="430" r="44" data-sid="10-week2-practice:27"/>
+        <text x="1140" y="450" data-sid="10-week2-practice:28">03</text>
+      </g>
+      <text class="title frag" data-step="3" data-anim="fade" x="1140" y="304" data-sid="10-week2-practice:29"><tspan x="1140" data-sid="10-week2-practice:30">Fix a method that breaks</tspan><tspan x="1140" dy="44" data-sid="10-week2-practice:31">on null arguments</tspan></text>
+
+      <!-- step 4: stop 04 in the second dip, title below -->
+      <g class="stop frag" data-step="4" data-sid="10-week2-practice:32">
+        <circle cx="1540" cy="640" r="44" data-sid="10-week2-practice:33"/>
+        <text x="1540" y="660" data-sid="10-week2-practice:34">04</text>
+      </g>
+      <text class="title frag" data-step="4" data-anim="fade" x="1540" y="724" data-sid="10-week2-practice:35"><tspan x="1540" data-sid="10-week2-practice:36">An array of objects</tspan><tspan x="1540" dy="44" data-sid="10-week2-practice:37">that holds no objects</tspan></text>
+
+      <!-- step 5: the same hazard on 02, 03 and 04 — one group, three markers staggered by --i -->
+      <g class="hz frag" data-step="5" data-sid="10-week2-practice:38">
+        <use class="hz__mark" href="#w2d2-10-hazard" x="774" y="608" style="--i: 0" data-sid="10-week2-practice:39"/>
+        <use class="hz__mark" href="#w2d2-10-hazard" x="1174" y="398" style="--i: 1" data-sid="10-week2-practice:40"/>
+        <use class="hz__mark" href="#w2d2-10-hazard" x="1574" y="608" style="--i: 2" data-sid="10-week2-practice:41"/>
+      </g>
+    </svg>
+    <!-- step 5: the plant, under the trail -->
+    <p class="note cap frag" data-step="5" data-anim="fade" style="--anim-delay: .45s; left: 0; top: 630px; width: 1664px" data-sid="10-week2-practice:42">Three of the four are the same exception. That is not an accident.</p>
+  </div>
+  <div class="slide__number" data-sid="10-week2-practice:43"></div>
+  <aside class="notes" data-sid="10-week2-practice:44">Give them the map before the questions so they know how long this section runs. Same groups as the votes: keep the groups from the vote; the discussion is doing the same work here, just without the second round. Step 1 &mdash; stop 01, the UML question: the only one that is not about null. Steps 2 to 4 &mdash; the three null questions, one sentence each; do not solve them here. Step 5 &mdash; the hazard lands on 02, 03 and 04, one after another. Say the plant out loud: this is the error you will meet most this month.</aside>
+
+  <style>
+    /* Slide-local: the practice map. One trail, four stops; the null hazard is
+       the same marker three times, which is the whole point. Geometry: stops at
+       x 340/740/1140/1540 on the wave's peaks (y 430) and troughs (y 640);
+       peak titles sit above the disc, trough titles below, so the trail never
+       crosses a word; the caption is HTML under the trail. Ink: trail dashed
+       --stone, discs the panel pair, numerals display orange, the hazard
+       maroon on a mortar ring with a paper glyph. Motion is manim's only:
+       stops GrowFromCenter, titles and the caption FadeIn, hazards
+       GrowFromCenter on a stagger. Used by this slide only, all values from
+       tokens; viewBox = the body's rect. */
+    #slide-10 .slide__body { position: relative; }
+    #slide-10 .map { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* the trail */
+    #slide-10 .trail { fill: none; stroke: var(--stone); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 18 18; }
+
+    /* the stops */
+    #slide-10 .stop circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-10 .stop text { font-family: var(--font-display); font-size: var(--t-h3); fill: var(--accent-3); text-anchor: middle; }
+    #slide-10 .stop {
+      transform-box: fill-box; transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-10 .frag.stop.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-10 .title { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-10 .frag.title.is-current, #slide-10 .frag.title.is-past { transition-delay: .3s; }
+
+    /* the hazard: one group frag, its three markers grow on a stagger */
+    #slide-10 .hz__disc { fill: var(--accent-1); stroke: var(--bg-0); stroke-width: 4; }
+    #slide-10 .hz__glyph { fill: none; stroke: var(--paper); stroke-width: 4; stroke-linecap: round; }
+    #slide-10 .hz__mark {
+      transform-box: fill-box; transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .45s var(--ease-smooth);
+    }
+    #slide-10 .frag.hz.is-pending { opacity: 1; }
+    #slide-10 .hz.is-pending .hz__mark { opacity: 0; transform: scale(0.3); }
+    #slide-10 .hz.is-current .hz__mark, #slide-10 .hz.is-past .hz__mark { transition-delay: calc(var(--i) * 120ms); }
+
+    /* the caption: plain fade, after the last marker has landed */
+    #slide-10 .cap { position: absolute; margin: 0; transition: opacity .3s ease; }
+    #slide-10 .frag.cap.is-current, #slide-10 .frag.cap.is-past { transition-delay: .45s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10 .stop, #slide-10 .title, #slide-10 .hz__mark, #slide-10 .cap {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

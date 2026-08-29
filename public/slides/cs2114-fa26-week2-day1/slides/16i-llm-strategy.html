@@ -1,0 +1,141 @@
+<section class="slide" id="slide-16i" data-sid="16i-llm-strategy:1">
+  <header class="slide__head" data-sid="16i-llm-strategy:2">
+    <h2 data-sid="16i-llm-strategy:3">If you do use one, use it in this order</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="16i-llm-strategy:4">A cascade of four gates down the slide, with an orange pill labelled stuck falling through them one at a time. Gate one, try it yourself &mdash; trace, draw, debugger, Python Tutor &mdash; exits to unstuck. Gate two, the course material &mdash; the PrairieLearn modules, these slides &mdash; exits to unstuck. Only after both does the pill reach the third gate, drawn in orange: ask an LLM, with the line understand what it hands you; its exit, also in orange, is not unstuck but an arrow labelled then verify it that elbows down into gate four: ask us &mdash; verify it: office hours, lab, Piazza &mdash; which exits to unstuck. Last, a warning fades in under the gates: its answers may be wrong, and may solve the problem in a way this course has not taught you, which leaves you more to untangle, not less.</p>
+
+  <!-- The order is the content, so the order is the picture — the same
+       cascade as equals() four slides back, on purpose: equals() asks four
+       questions in order, and so do you. Three of the four gates exit to
+       "unstuck", which is the point: the LLM is the gate you only reach by
+       surviving the first two, and its exit is the only one that is not an
+       exit — it elbows down into gate 4, ask us, which IS the verification
+       step. 16h's responsibilities are folded in here — its verify line is
+       gate 4 itself, its debugger/Python Tutor line is gate 1's, and
+       "document every use" lives on the rule slide already. Unlike 14, the
+       pill has a lane of its own at the left of each gate, so it never sits
+       on the gate's text. viewBox = the body's rect. -->
+  <div class="slide__body" data-sid="16i-llm-strategy:5">
+    <svg class="lad" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Four gates in a cascade, with a pill labelled stuck falling through them"
+         data-sid="16i-llm-strategy:6">
+      <line class="lad__spine" x1="384" y1="318" x2="384" y2="804" data-sid="16i-llm-strategy:15"/>
+
+      <!-- gate 1 -->
+      <rect class="lad__gate lad__gate--1 frag" data-step="1" x="280" y="360" width="900" height="96" rx="12" data-sid="16i-llm-strategy:16"/>
+      <text class="lad__q frag" data-step="1" data-anim="fade" x="496" y="400" data-sid="16i-llm-strategy:17">try it yourself</text>
+      <text class="lad__sub frag" data-step="1" data-anim="fade" x="496" y="442" data-sid="16i-llm-strategy:18">trace, draw, debugger, Python Tutor</text>
+      <g class="lad__exit lad__exit--out frag" data-step="1" data-sid="16i-llm-strategy:19">
+        <line x1="1180" y1="408" x2="1290" y2="408"/><path d="M1312 408L1288 396V420Z"/>
+      </g>
+      <text class="lad__out lad__out--out frag" data-step="1" data-anim="fade" x="1336" y="421" data-sid="16i-llm-strategy:20">unstuck</text>
+
+      <!-- gate 2 -->
+      <rect class="lad__gate lad__gate--2 frag" data-step="2" x="280" y="508" width="900" height="96" rx="12" data-sid="16i-llm-strategy:21"/>
+      <text class="lad__q frag" data-step="2" data-anim="fade" x="496" y="548" data-sid="16i-llm-strategy:22">the course material</text>
+      <text class="lad__sub frag" data-step="2" data-anim="fade" x="496" y="590" data-sid="16i-llm-strategy:23">the PrairieLearn modules, these slides</text>
+      <g class="lad__exit lad__exit--out frag" data-step="2" data-sid="16i-llm-strategy:24">
+        <line x1="1180" y1="556" x2="1290" y2="556"/><path d="M1312 556L1288 544V568Z"/>
+      </g>
+      <text class="lad__out lad__out--out frag" data-step="2" data-anim="fade" x="1336" y="569" data-sid="16i-llm-strategy:25">unstuck</text>
+
+      <!-- gate 3: only reached by surviving the first two, and the one exit that is not an exit —
+           its orange arrow elbows DOWN into gate 4, because what comes after the LLM is verification -->
+      <rect class="lad__gate lad__gate--3 frag" data-step="3" x="280" y="656" width="900" height="96" rx="12" data-sid="16i-llm-strategy:26"/>
+      <text class="lad__q frag" data-step="3" data-anim="fade" x="496" y="696" data-sid="16i-llm-strategy:27">ask an LLM</text>
+      <text class="lad__sub lad__sub--llm frag" data-step="3" data-anim="fade" x="496" y="738" data-sid="16i-llm-strategy:28">understand what it hands you</text>
+      <g class="lad__exit lad__exit--verify frag" data-step="3" data-sid="16i-llm-strategy:29">
+        <path class="lad__elbow" d="M1180 704H1240V770"/><path d="M1240 794L1228 770H1252Z"/>
+      </g>
+      <text class="lad__out lad__out--verify frag" data-step="3" data-anim="fade" x="1272" y="762" data-sid="16i-llm-strategy:30">then verify it</text>
+
+      <!-- gate 4: the verification step — you bring what the LLM gave you to a human -->
+      <rect class="lad__gate lad__gate--4 frag" data-step="4" x="280" y="804" width="900" height="96" rx="12" data-sid="16i-llm-strategy:31"/>
+      <text class="lad__q frag" data-step="4" data-anim="fade" x="496" y="844" data-sid="16i-llm-strategy:32">ask us</text>
+      <text class="lad__sub frag" data-step="4" data-anim="fade" x="496" y="886" data-sid="16i-llm-strategy:33">verify it: office hours, lab, Piazza</text>
+      <g class="lad__exit lad__exit--out frag" data-step="4" data-sid="16i-llm-strategy:34">
+        <line x1="1180" y1="852" x2="1290" y2="852"/><path d="M1312 852L1288 840V864Z"/>
+      </g>
+      <text class="lad__out lad__out--out frag" data-step="4" data-anim="fade" x="1336" y="865" data-sid="16i-llm-strategy:35">unstuck</text>
+
+      <!-- step 5: the warning, under the cascade -->
+      <text class="lad__note frag" data-step="5" data-anim="fade" x="960" y="944" data-sid="16i-llm-strategy:36">Its answers may be wrong, and may solve the problem in a way this course has not taught you &mdash;</text>
+      <text class="lad__note frag" data-step="5" data-anim="fade" x="960" y="982" data-sid="16i-llm-strategy:37">which leaves you more to untangle, not less.</text>
+
+      <!-- you, stuck, falling through -->
+      <g class="lad__pill" data-sid="16i-llm-strategy:38">
+        <rect x="304" y="262" width="160" height="56" rx="28"/>
+        <text x="384" y="300" data-sid="16i-llm-strategy:39">stuck</text>
+      </g>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="16i-llm-strategy:13"></div>
+  <aside class="notes" data-sid="16i-llm-strategy:14">The order is the content, and it is the same picture as equals() four slides back &mdash; say so. Gates 1 and 2 are where the learning is; gate 3 is a tool you reach for once you already know what you are stuck on. Read the gates as a list of capabilities rather than prohibitions: every one is something they will be asked to do in a room with no laptop &mdash; trace code, draw the picture, write from scratch. The debugger and Python Tutor answer the same questions an LLM would, faster, and about their actual code. Gate 3&rsquo;s exit is the only one that is not &ldquo;unstuck&rdquo;: it drops you into gate 4. Whatever the LLM hands you, you understand it and then you bring it to us &mdash; office hours, lab, Piazza &mdash; and verify it before it goes anywhere near your project. Point out that this costs nothing and is faster than they think: a UTA in lab looks at their actual project and the LLM&rsquo;s actual answer, which no chatbot does. And you document the use, exactly as the syllabus and each assignment describe; that line is on the rule slide, not here. Step 5 is the practical reason for the order: an answer that uses a construct we have not taught leaves you with more to untangle, not less.</aside>
+
+  <style>
+    /* Slide-local: the help cascade, in 14-equals-hints' grammar so the room
+       recognises it. Gates are the deck's neutral ink; the three exits that
+       end in "unstuck" are stone, and the LLM gate and its exit take the
+       orange, because it is the gate you only reach by surviving the rest and
+       the one exit that is not an exit. The pill keeps its own lane at the
+       left of every gate, so it never sits on the gate's words. Motion is
+       manim's only: gates and exits draw on by dashoffset and clip wipe,
+       labels FadeIn, and the pill MOVES down the spine (a move that means
+       something, at full opacity), its position a :has() state machine so a
+       back-step walks it back up. Used by this slide only, all values from
+       tokens; viewBox = the body's rect. */
+    #slide-16i .slide__body { position: relative; }
+    #slide-16i .lad { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    #slide-16i .lad__spine { stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+
+    /* the gates draw on */
+    #slide-16i .lad__gate {
+      fill: none; stroke: var(--fg-1); stroke-width: 5;
+      stroke-dasharray: 1992;
+      transition: stroke-dashoffset .6s var(--ease-smooth);
+    }
+    #slide-16i .frag.lad__gate.is-pending { opacity: 1; stroke-dashoffset: 1992; }
+    #slide-16i .lad__gate--3 { stroke: var(--accent-3); }
+    #slide-16i .lad__q { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
+    #slide-16i .lad__sub { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); transition: opacity .3s ease; }
+    #slide-16i .lad__sub--llm { fill: var(--accent-3); }
+    #slide-16i .frag.lad__q.is-current, #slide-16i .frag.lad__q.is-past { transition-delay: .35s; }
+    #slide-16i .frag.lad__sub.is-current, #slide-16i .frag.lad__sub.is-past { transition-delay: .5s; }
+
+    /* the exits, coded by what they mean */
+    #slide-16i .lad__exit line, #slide-16i .lad__exit .lad__elbow { fill: none; stroke: var(--edge); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-16i .lad__exit path { fill: var(--edge); }
+    #slide-16i .lad__exit--out { --edge: var(--stone); }
+    #slide-16i .lad__exit--verify { --edge: var(--accent-3); }
+    #slide-16i .lad__exit { clip-path: inset(0 0 0 0); transition: clip-path .4s var(--ease-smooth); }
+    #slide-16i .frag.lad__exit.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-16i .frag.lad__exit.is-current, #slide-16i .frag.lad__exit.is-past { transition-delay: .45s; }
+    #slide-16i .lad__out { font-family: var(--font-mono); font-size: var(--t-micro); transition: opacity .3s ease; }
+    #slide-16i .lad__out--out { fill: var(--fg-1); }
+    #slide-16i .lad__out--verify { fill: var(--accent-3); }
+    #slide-16i .frag.lad__out.is-current, #slide-16i .frag.lad__out.is-past { transition-delay: .7s; }
+
+    /* the warning, in the footnote voice */
+    #slide-16i .lad__note { font-family: var(--font-body); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+
+    /* you fall one gate per step; later rules win, so back-stepping lifts you */
+    #slide-16i .lad__pill rect { fill: var(--accent-3); }
+    #slide-16i .lad__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-16i .lad__pill {
+      transform-box: fill-box; transform-origin: 50% 50%;
+      transition: transform .55s var(--ease-smooth);
+    }
+    #slide-16i:has(.lad__gate--1:not(.is-pending)) .lad__pill { transform: translateY(118px); }
+    #slide-16i:has(.lad__gate--2:not(.is-pending)) .lad__pill { transform: translateY(266px); }
+    #slide-16i:has(.lad__gate--3:not(.is-pending)) .lad__pill { transform: translateY(414px); }
+    #slide-16i:has(.lad__gate--4:not(.is-pending)) .lad__pill { transform: translateY(562px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-16i .lad__gate, #slide-16i .lad__q, #slide-16i .lad__sub, #slide-16i .lad__exit,
+      #slide-16i .lad__out, #slide-16i .lad__note, #slide-16i .lad__pill {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

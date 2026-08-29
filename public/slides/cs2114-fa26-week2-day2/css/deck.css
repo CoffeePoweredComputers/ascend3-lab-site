@@ -1,0 +1,870 @@
+/* Deck layout + runtime states. The canvas is a fixed 1920×1080 stage (keep in
+   sync with "canvas" in studio.config.json); js/deck.js scales it to the
+   viewport with a transform — author everything in canvas pixels. */
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  overflow: hidden;
+  color: var(--fg-0);
+  font-family: var(--font-body, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;   /* keep macOS Firefox in step with the line above */
+}
+
+/* ---- fixed canvas, scaled to the viewport via transform ---- */
+.deck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  background: var(--bg-0);
+}
+
+/* ---- slides: one visible at a time (js/deck.js toggles .is-active) ---- */
+.deck > section.slide { display: none; }
+.slide {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: var(--s-7) var(--s-8);
+  overflow: hidden;
+}
+.deck > section.slide.is-active { display: flex; }   /* must out-specify the hide rule above */
+
+/* default typography (canvas pixels) */
+.slide h1, .slide h2, .slide h3 { font-family: var(--font-display, inherit); }
+.slide h1, .slide h2 { color: var(--accent-1); }   /* VT maroon headings */
+.slide h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 var(--s-4); }
+.slide h2 { font-size: var(--t-h2); line-height: 1.1; margin: 0 0 var(--s-4); }
+.slide h3 { font-size: var(--t-h3); line-height: 1.2; margin: 0 0 var(--s-3); }
+.slide p  { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+.slide ul, .slide ol { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+.slide li { margin: var(--s-2) 0; }
+.slide a { color: var(--accent-2); }
+.slide img { max-width: 100%; max-height: 100%; }
+
+.slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+.slide__number {
+  position: absolute;
+  right: var(--s-5);
+  bottom: var(--s-4);
+  padding: var(--s-1) var(--s-3);
+  border-radius: 999px;
+  background: var(--bg-1);
+  font-size: var(--t-small);
+  color: var(--fg-1);
+}
+
+/* ---- step engine: .frag[data-step] reveal states, classes set by js/deck.js ---- */
+.frag { transition: opacity .35s ease, transform .35s ease; }
+.frag.is-pending { opacity: 0; }
+/* Screen-reader-only text: context a visual (a strike, an arrow) carries
+   for sighted viewers. Both clip forms so every engine, old and new, hides it. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.frag.is-current,
+.frag.is-past { opacity: 1; }
+.frag--dim.is-pending { opacity: 0.3; }
+
+/* ---- speaker notes live inside the slide but never render ---- */
+aside.notes { display: none; }   /* speaker notes: in the slide, never rendered */
+
+/* One per slide, right after the heading: what the slide shows and how it
+   builds, for someone who cannot see it (WCAG 1.1.1). Hidden by .sr-only, and
+   js/deck.js wires it onto the slide's role="img" figures via aria-describedby. */
+.slide__desc { /* .sr-only carries the hiding; this class is the hook */ }
+
+/* ---- motion (WCAG 2.2.2): js/deck.js puts .no-motion on <html> when the
+   viewer presses `m` or the focus-revealed button. Blunt on purpose — this is
+   what stops the title/closing mist loops. ---- */
+html.no-motion *,
+html.no-motion *::before,
+html.no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+.deck__motion {
+  position: fixed; left: 8px; top: 8px; z-index: 100;
+  width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  border: 0; padding: 0; background: transparent; color: transparent;
+}
+.deck__motion:focus, .deck__motion:focus-visible {
+  width: auto; height: auto; clip: auto; clip-path: none; overflow: visible;
+  padding: 10px 16px; border: 2px solid currentColor; border-radius: var(--r-1, 6px);
+  background: var(--bg-0, #fff); color: var(--fg-0, #000);
+  font: inherit; font-size: 16px; cursor: pointer;
+}
+
+/* ---- UA-default coverage: browsers disagree on the default styling of these
+   elements (monospace sizing especially), so the deck pins every one a slide
+   can plausibly contain. Portability rule: never rely on browser defaults. ---- */
+.slide code, .slide kbd, .slide samp { font-family: var(--font-mono, monospace); font-size: 0.9em; }
+.slide pre {
+  font-family: var(--font-mono, monospace);
+  font-size: calc(var(--t-body) * 0.8);
+  line-height: 1.5;
+  margin: 0 0 var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--bg-1);
+  border-radius: var(--r-1);
+  overflow: hidden;               /* slides never scroll — clipping = authoring bug to fix */
+}
+.slide pre code { font-size: 100%; }
+.slide blockquote {
+  margin: 0 0 var(--s-3);
+  padding-left: var(--s-3);
+  border-left: 4px solid var(--accent-3);
+  font-family: var(--font-display);
+  font-size: var(--t-body);
+  line-height: 1.3;
+}
+.slide table { border-collapse: collapse; font-size: var(--t-body); }
+.slide th, .slide td { text-align: left; padding: var(--s-1) var(--s-3); border-bottom: 2px solid var(--bg-1); }
+.slide th { color: var(--fg-1); }
+.slide hr { border: 0; border-top: 2px solid var(--bg-1); margin: var(--s-4) 0; }
+
+/* ---- dashed stand-in for an image not yet supplied (data-src = intended path) ---- */
+.img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 240px;
+  padding: var(--s-4);
+  border: 3px dashed var(--fg-1);
+  border-radius: var(--r-2);
+  color: var(--fg-1);
+  font-size: var(--t-small);
+  text-align: center;
+}
+.img-placeholder::after { content: attr(data-src); font-size: 24px; opacity: 0.65; }
+
+/* ==========================================================================
+   Deck components — every pattern used by more than one slide lives here.
+   Slides carry structure + draggable geometry only; colour, type, spacing and
+   radii always resolve through css/tokens.css. Kept in step with day 1.
+   ========================================================================== */
+
+/* ---- slide head: optional kicker over the title -------------------------- */
+.slide__head { flex: 0 0 auto; margin-bottom: var(--s-5); }
+.slide__head h1, .slide__head h2 { margin-bottom: 0; }
+.slide__kicker {
+  font-family: var(--font-body);
+  font-size: var(--t-small);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-1);
+  margin: 0 0 var(--s-2);
+}
+
+/* ---- small muted footnote ----------------------------------------------- */
+.note { font-size: var(--t-small); color: var(--fg-1); }
+
+.slide__lede {
+  font-size: var(--t-h3);
+  line-height: 1.25;
+  color: var(--fg-1);
+  margin: var(--s-3) 0 0;
+  max-width: 1400px;
+}
+
+/* ---- flat tile: the deck's category-coded panel — full colour border ----- */
+.tile {
+  --edge: var(--accent-1);
+  box-sizing: border-box;
+  padding: var(--s-3) var(--s-4);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+}
+.tile--a2 { --edge: var(--accent-2); }
+.tile--a3 { --edge: var(--accent-3); }
+.tile--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+.tile h3 { font-size: var(--t-body); margin-bottom: var(--s-2); }
+.tile--display h3 { font-size: var(--t-h3); }   /* hero tiles keep the display scale */
+.tile p, .tile ul, .tile ol { font-size: var(--t-small); }
+.tile > :last-child { margin-bottom: 0; }
+.tile__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  color: var(--edge);
+  margin: 0 0 var(--s-1);
+}
+
+/* ---- grids -------------------------------------------------------------- */
+.grid { display: grid; gap: var(--s-3); align-content: start; }
+.grid--2 { grid-template-columns: 1fr 1fr; }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+/* Code question: source pane left (wide enough for ~34 mono chars), the ask right. */
+.grid--code { grid-template-columns: 1.15fr 1fr; align-items: center; }
+/* Cells that are list items — resets the list chrome so a <ul>/<ol> can carry a
+   tile board. Scoped under .slide to out-specify the `.slide ul` type ramp. */
+.slide .grid--tiles { list-style: none; padding: 0; margin: 0; }
+.slide .grid--tiles > li { margin: 0; }
+
+/* ---- vertical stack: a column of blocks on the standard gutter ----------- */
+.stack { display: flex; flex-direction: column; gap: var(--s-3); }
+
+/* ---- pill chips ---------------------------------------------------------- */
+/* Every list component below carries .slide: the `.slide ul, .slide ol` type
+   ramp sets padding-left, and a bare .chips/.checklist/.steps would lose to it. */
+.slide .chips { display: flex; flex-wrap: wrap; gap: var(--s-2); list-style: none; padding: 0; margin: 0; }
+.chips li {
+  margin: 0;
+  padding: var(--s-1) var(--s-3);
+  border: 2px solid var(--accent-1);
+  border-radius: 999px;
+  font-size: var(--t-small);
+  color: var(--accent-1);
+}
+
+/* ---- checklist ---------------------------------------------------------- */
+.slide .checklist { list-style: none; padding: 0; font-size: var(--t-small); }
+.checklist li { position: relative; padding-left: var(--s-6); }
+.checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--accent-3);
+  border-radius: var(--r-1);
+}
+
+/* ---- numbered arc: big display numerals instead of bullets -------------- */
+.slide .steps { list-style: none; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; position: relative; padding-left: var(--s-7); }
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -0.18em;
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  color: var(--accent-3);
+}
+
+/* ---- source editor: a code pane with a filename bar and a numbered gutter.
+   Chrome is stone-toned on purpose — content tiles carry the accent edges, so
+   "this is code" and "this is the ask" never read as the same kind of box.
+   Lines are <li> so each one is selectable and can take its own step. ------ */
+.editor {
+  --chrome: color-mix(in srgb, var(--stone) 70%, var(--fg-0));
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;                   /* anchors the .editor__pc program counter */
+  border: 3px solid var(--chrome);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+  overflow: hidden;                     /* keeps the bar inside the rounded corners */
+}
+.editor__bar {
+  margin: 0;                            /* the bar is often a <p> — kill the type ramp's margin */
+  padding: var(--s-1) var(--s-3);
+  border-bottom: 3px solid var(--chrome);
+  background: color-mix(in srgb, var(--stone) 30%, var(--bg-1));
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: var(--fg-0);
+}
+/* Out-specifies the base ".slide ol" rule — a bare .editor__code would lose. */
+.slide .editor__code {
+  margin: 0;
+  padding: var(--s-2) var(--s-4) var(--s-2) 0;
+  list-style: none;
+  counter-reset: line;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--fg-0);
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--stone) 20%, var(--bg-1)) 0 calc(var(--s-6) + var(--s-2)),
+    transparent calc(var(--s-6) + var(--s-2)));
+}
+.slide .editor__code li {
+  margin: 0;
+  counter-increment: line;
+  white-space: pre;
+}
+.editor__code li::before {              /* right-aligned line number in the gutter */
+  content: counter(line);
+  display: inline-block;
+  width: var(--s-6);
+  margin-right: var(--s-4);
+  text-align: right;
+  font-size: var(--t-micro);
+  color: var(--chrome);
+}
+/* Syntax ink — keep it to keywords and literals; everything else stays --fg-0. */
+.tok-key { color: var(--accent-1); font-weight: 700; }
+.tok-num { color: var(--accent-2); }
+
+/* ---- lettered answers: the choices of a peer-instruction or practice
+   question. Lettered because that is how the room calls them out, and the
+   marker takes the heading maroon so the letter reads before the text. An
+   option's source lines take .opts__code — the chrome size, so the longest
+   assertion still clears its column. Used by the three vote slides and the
+   practice questions. Day 1 carried this per-slide; it earns a component
+   here. ------------------------------------------------------------------ */
+.slide .opts { list-style-type: upper-alpha; padding-left: var(--s-4); font-size: var(--t-small); }
+.opts li { margin: var(--s-2) 0; }
+.opts li::marker { color: var(--accent-1); }
+/* An option is often a claim plus a gloss, so its paragraphs stack tight and
+   stay at the option size — `.slide p` would otherwise pull them back up to
+   the body ramp. */
+.slide .opts li p { margin: 0; font-size: var(--t-small); }
+.slide .opts li p + p { margin-top: var(--s-1); }
+.slide .opts__code {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.5;
+}
+
+/* ---- reference diagram: names on the left, heap objects on the right, one
+   arrow per name. Two names sharing an object = one box spanning both rows. */
+.refs {
+  display: grid;
+  grid-template-columns: max-content var(--s-7) minmax(300px, max-content) 1fr;
+  gap: var(--s-3) 0;
+  align-items: center;
+  margin: 0;
+}
+.refs__var {
+  position: relative;
+  grid-column: 1;
+  margin: 0;                            /* a stray type-ramp margin would tilt the arrow */
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--accent-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--bg-0);
+  text-align: center;
+}
+.refs__var::after {                     /* shaft, crossing the empty spacer column */
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: var(--s-7);
+  margin-top: -2px;
+  border-top: 4px solid var(--accent-2);
+}
+.refs__var::before {                    /* head, tip landing on the object's edge */
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-left: calc(var(--s-7) - 20px);
+  transform: translateY(-50%);
+  border: 14px solid transparent;
+  border-right: 0;
+  border-left: 20px solid var(--accent-2);
+}
+.refs__obj {
+  --edge: var(--accent-1);
+  grid-column: 3;
+  box-sizing: border-box;
+  padding: var(--s-2) var(--s-3);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+}
+.refs__obj--shared { grid-row: span 2; }
+.refs__obj--changed { --edge: var(--accent-3); }   /* the object this step altered */
+/* Unreachable after a reassignment — drawn as garbage, not as live state. */
+.refs__obj--dead { --edge: var(--fg-1); opacity: 0.45; }
+.refs__type {
+  margin-bottom: var(--s-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.2;
+  color: var(--edge);
+}
+.refs__field {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--fg-0);
+}
+.refs figcaption {
+  grid-column: 1 / -1;
+  margin-top: var(--s-2);
+  font-size: var(--t-small);
+  line-height: 1.35;
+  color: var(--fg-1);
+}
+
+/* ---- warm-up slides: question at left, stepped walkthrough rail at right.
+   The rail compacts .refs/.tile so a full before→code→after sequence fits one
+   column; the slide modifier steps the heading down so both columns clear the
+   canvas. Used by the peer-instruction warm-ups. */
+.slide--warmup h2 { font-size: var(--t-h3); }
+.slide--warmup .tile h3 { font-size: var(--t-small); }
+.slide--warmup .stack { gap: var(--s-2); }
+
+/* ---- vote card: QR + short link on a white plate. The plate is --paper on
+   purpose — scanners want dark-on-light and a guaranteed quiet zone, and true
+   white reads as "this is a handout, point your phone here" against the
+   mortar ground. Used by both peer-instruction vote slides. ---------------- */
+.scan {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  background: var(--paper);
+  border-radius: var(--r-2);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
+}
+.scan img { display: block; width: 100%; }
+/* .slide prefixes out-specify the `.slide p` base type ramp. */
+.slide .scan__link {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);   /* full course host must fit the 640px card on one line */
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--accent-2);
+}
+.slide .scan__hint { margin: 0; font-size: var(--t-micro); color: var(--fg-1); }
+
+/* ==========================================================================
+   codewalk — the code-walkthrough component (paired with js/code-walk.js,
+   which holds the authoring guide). Left: an .editor whose program counter is
+   a single bar gliding line to line. Right: a memory diagram laid out by grid
+   (names col 1, objects col 3, inline grid-row only — never measured pixels);
+   arrows are drawn and animated by the engine from live layout.
+   ========================================================================== */
+
+/* manim's default rate function (smootherstep) as a CSS easing — the deck's
+   "3b1b" curve, mirrored exactly by js/code-walk.js for the wires. Browsers
+   without linear() (none current) fall back to the ease-in-out declared first. */
+:root { --ease-smooth: cubic-bezier(0.45, 0.05, 0.55, 0.95); }
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-smooth: linear(0, 0.001 5%, 0.009 10%, 0.027 15%, 0.058 20%,
+      0.104 25%, 0.163 30%, 0.235 35%, 0.317 40%, 0.407 45%, 0.5 50%,
+      0.593 55%, 0.683 60%, 0.765 65%, 0.837 70%, 0.896 75%, 0.942 80%,
+      0.973 85%, 0.991 90%, 0.999 95%, 1);
+  }
+}
+
+/* ---- editor states. Lines stay visible the whole time — "has this run yet"
+   is carried by the pc bar, not by hiding code. Answer lines (--new) do hide
+   until reached, so the solution can't be read before the vote resolves.
+   Selectors carry .editor__code/.frag because studio-anim.css loads after
+   this file and its bare .frag rules would win an order tiebreak. ---------- */
+.editor__code .walkline { transition: opacity .35s ease; }
+.editor__code .frag.walkline.is-pending { opacity: 1; }
+.editor__code .frag.walkline--new.is-pending { opacity: 0; }   /* after the rule above — order decides */
+.editor__code .walkline--new::before { color: var(--accent-3); }   /* gutter: "this line is yours" */
+.editor__code .walkline--ran { opacity: 0.55; }   /* recap of code that already ran on a previous slide */
+/* The program counter: js/code-walk.js sets translateY/height to the current
+   .walkline; the transition makes it glide instead of jump-cut. Translucent
+   wash, so it can sit above the static code without a z-order fight. */
+.editor__pc {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0;
+  background: color-mix(in srgb, var(--accent-1) 10%, transparent);
+  box-shadow: inset 6px 0 0 var(--accent-1);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .55s var(--ease-smooth), height .55s var(--ease-smooth), opacity .3s ease;
+}
+.editor__pc.is-on { opacity: 1; }
+
+/* ---- the memory diagram ---- */
+.codewalk { display: flex; flex-direction: column; gap: var(--s-3); }
+.codewalk__heap {
+  position: relative;                   /* wire coordinates resolve against this */
+  display: grid;
+  grid-template-columns: max-content 250px max-content;   /* names · wire run · objects */
+  row-gap: var(--s-4);
+  align-content: start;
+}
+.codewalk .heap-name {
+  grid-column: 1;
+  align-self: center;                   /* centres the pill on its object row */
+  justify-self: start;
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 108px;
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-1);
+  background: var(--accent-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--bg-0);
+  text-align: center;
+}
+.codewalk .heap-obj {
+  --edge: var(--accent-1);
+  grid-column: 3;
+  position: relative;                   /* anchors the unreachable wash */
+  box-sizing: border-box;
+  min-width: 380px;
+  padding: var(--s-2) var(--s-3);
+  border: 3px solid var(--edge);
+  border-radius: var(--r-2);
+  background: var(--bg-1);
+  transition: border-color .5s ease;
+}
+.codewalk .heap-obj__type {
+  margin: 0 0 var(--s-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.2;
+  color: var(--edge);
+  transition: color .5s ease;
+}
+/* Entrances follow manim's vocabulary — nothing drifts into place. Pills
+   FadeIn (pure opacity); objects GrowFromCenter (pure scale on the smoother-
+   step curve, opacity resolving early so the grow carries the motion). */
+.codewalk .frag.heap-name { transition: opacity .45s ease; }
+.codewalk .frag.heap-obj { transition: opacity .25s ease, transform .55s var(--ease-smooth); }
+.codewalk .frag.heap-obj.is-pending { opacity: 0; transform: scale(0.4); }
+/* Field values stack in one grid cell. A mutation does NOT slide anywhere —
+   js/code-walk.js rolls the digits in place, manim's ChangeDecimalToValue
+   (the incoming element starts showing the OLD number, so this crossfade is
+   invisible). The plain fade below is the fallback for non-numeric values
+   and the whole story under snaps and reduced motion. */
+.codewalk .heap-obj__field { display: grid; }
+.codewalk .heap-val {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--fg-0);
+  transition: opacity .3s ease;
+}
+.codewalk .frag.heap-val.is-pending { opacity: 0; }
+.codewalk .frag.heap-val--old.is-pending { opacity: 1; }
+.codewalk .frag.heap-val--old.is-current,
+.codewalk .frag.heap-val--old.is-past { opacity: 0; }
+/* Before/after variant: the two values sit side by side instead of stacking.
+   Markup: old "<p>id = <span class=heap-val__num>456</span></p>",
+           new "<p><span class=sr-only>now </span>789</p>"
+   (screen readers get "id = 456, now 789" — the strike itself is decoration).
+   On the step the old number takes a strike that draws on left→right (Create,
+   no drift), the old line dims, then the new value fades in beside it. The
+   engine skips these fields (nothing to roll). Scrubbing back reverses it.
+   The number is an inline-block so its absolutely positioned strike has a
+   real box to resolve against (an inline's fragment box differs per engine)
+   and, with line-height 1, a whole-pixel height; the strike is a border, not
+   a background, so it survives forced-colors mode. */
+.codewalk .heap-obj__field--strike { display: flex; align-items: baseline; gap: var(--s-2); }
+.codewalk .heap-obj__field--strike .heap-val { grid-area: auto; transition: opacity .3s ease, color .3s ease; }
+.codewalk .heap-obj__field--strike .frag.heap-val--old.is-current,
+.codewalk .heap-obj__field--strike .frag.heap-val--old.is-past { opacity: 1; color: var(--fg-1); }
+.codewalk .heap-val__num { position: relative; display: inline-block; line-height: 1; }
+.codewalk .heap-val__num::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 2px);
+  height: 0;
+  border-top: 3px solid currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .35s var(--ease-smooth);
+}
+.codewalk .frag.heap-val--old.is-current .heap-val__num::after,
+.codewalk .frag.heap-val--old.is-past .heap-val__num::after { transform: scaleX(1); }
+/* the new value waits for the strike; on the way back it leaves first */
+.codewalk .heap-obj__field--strike .frag.heap-val:not(.heap-val--old).is-current,
+.codewalk .heap-obj__field--strike .frag.heap-val:not(.heap-val--old).is-past { transition-delay: .25s; }
+/* The write lands: the card takes a single soft breath when a new (non --old)
+   value becomes current. Replays symmetrically when scrubbing back onto it. */
+.codewalk .heap-obj:has(> .heap-obj__field > .heap-val.is-current:not(.heap-val--old)) {
+  animation: cw-pulse .7s var(--ease-smooth);
+}
+@keyframes cw-pulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+/* Garbage wash: from the step an object becomes unreachable it dims under a
+   mortar veil and its edge goes stone (via :has, so the border fades with
+   it). Without a data-step — plus .heap-obj--dead — it is recap state. */
+.codewalk .heap-obj__gone {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: calc(var(--r-2) - 3px);
+  background: color-mix(in srgb, var(--bg-0) 88%, transparent);   /* strong enough that the dead values can't fight the label */
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  color: var(--fg-1);
+  transition: opacity .55s ease;
+}
+.codewalk .frag.heap-obj__gone.is-pending { opacity: 0; }
+.codewalk .heap-obj--dead,
+.codewalk .heap-obj:has(> .heap-obj__gone.is-current),
+.codewalk .heap-obj:has(> .heap-obj__gone.is-past) { --edge: var(--fg-1); }
+/* Wires: geometry is 100% engine-drawn — style only lives here. */
+.codewalk .heap-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.codewalk .wire__line {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.codewalk .wire__head { fill: var(--accent-2); }
+/* Narration rail: one caption per step, stacked in a single grid cell; only
+   the is-current one shows, rising in like a voiceover line. min-height
+   reserves two lines so the heap never shifts as captions change. */
+.codewalk__caps { display: grid; min-height: 110px; align-content: start; }
+.codewalk .walkcap {
+  grid-area: 1 / 1;
+  margin: 0;
+  font-size: var(--t-small);
+  line-height: 1.35;
+  color: var(--fg-1);
+  transition: opacity .4s ease;    /* plain crossfade — narration never drifts */
+}
+.codewalk .frag.walkcap.is-pending,
+.codewalk .frag.walkcap.is-past { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .editor__pc, .codewalk .heap-val, .codewalk .heap-obj__field--strike .heap-val,
+  .codewalk .heap-val__num::after, .codewalk .walkcap, .codewalk .heap-obj,
+  .codewalk .heap-obj__gone, .editor__code .walkline { transition: none; }
+  /* !important: the :has() pulse rule above out-specifies anything sane here */
+  .codewalk .heap-obj { animation: none !important; }
+}
+
+/* ---- motto hero — one big display-scale sentence with accent-bold clauses.
+   Scoped under .slide so it outranks the `.slide p` base type rules. */
+.slide .motto {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--t-h1);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--fg-0);
+}
+/* A full sentence rather than a slogan — drops a step so it still fits. */
+.slide .motto--tight { font-size: var(--t-h2); line-height: 1.15; }
+.slide .motto b { color: var(--accent-1); }
+
+/* ---- title + section-divider layouts ------------------------------------ */
+.slide--title, .slide--section { justify-content: center; }
+.slide--title h1 { max-width: 1320px; }
+
+/* Fully centred composition (cover). */
+.slide--center { align-items: center; text-align: center; }
+
+/* Section divider: one of 02-today's chapter tabs at full size — kicker,
+   the numeral in the tabs' orange, the tab's caption as the title. Used by
+   the three chapter dividers (03b, 08b, 13b). */
+.divider .slide__head { margin-bottom: 0; }
+.divider__n {
+  margin: 0 0 var(--s-3);
+  font-family: var(--font-display);
+  font-size: var(--t-h1);
+  line-height: 1;
+  color: var(--accent-3);
+}
+.divider h2 { max-width: 1320px; }
+
+/* Opt-out of the stone edge; the ridge widens to fill the freed strip.
+   Doubled class keeps this above the later .slide::before rule in the cascade. */
+.slide.slide--nostone::before { content: none; }
+.slide--nostone .decor--ridge { left: 0; width: 1920px; }
+
+/* ---- moodboard motifs: Hokie Stone course + Blue Ridge silhouette ------- */
+.decor { position: absolute; pointer-events: none; }
+.decor--ridge { left: 75px; bottom: 0; width: 1845px; height: 320px; }
+
+/* ---- Hokie Stone edge — abstract, in the ridges' visual language --------
+   Flat tone-on-tone rubble shapes: assets/stone-edge.svg is an alpha-varied
+   mask over one token-mixed colour, so hue lives in tokens.css and the
+   mortar joints are the slide ground showing through. */
+.slide::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 72px;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--stone) 60%, var(--bg-0));
+  mask-image: url("../assets/stone-edge.svg");
+  mask-size: 72px 300px;
+  mask-repeat: repeat-y;
+}
+
+/* Receding Blue Ridge haze: palest ridge furthest back, deepening forward. */
+.ridge-far  { fill: var(--accent-2); opacity: 0.18; }
+.ridge-mid  { fill: var(--accent-2); opacity: 0.34; }
+.ridge-near { fill: var(--accent-2); opacity: 0.58; }
+
+/* ---- valley mist (cover) — cream haze drifting between the ridge planes.
+   Static opacities are the reduced-motion fallback; with motion allowed each
+   band drifts and breathes on its own period, desynced by negative delays. */
+.mist { fill: var(--bg-0); opacity: 0.5; }
+.mist--b { opacity: 0.42; }
+.mist--c { opacity: 0.36; }
+@media (prefers-reduced-motion: no-preference) {
+  .mist--a {
+    animation: mist-drift 26s ease-in-out infinite alternate,
+               mist-breathe 11s ease-in-out infinite alternate;
+  }
+  .mist--b {
+    animation: mist-drift 34s ease-in-out infinite alternate-reverse,
+               mist-breathe 15s ease-in-out infinite alternate;
+    animation-delay: -14s, -5s;
+  }
+  .mist--c {
+    animation: mist-drift 21s ease-in-out infinite alternate,
+               mist-breathe 9s ease-in-out infinite alternate-reverse;
+    animation-delay: -6s, -3s;
+  }
+}
+@keyframes mist-drift {
+  from { transform: translate(-160px, 5px); }
+  to   { transform: translate(160px, -5px); }
+}
+@keyframes mist-breathe {
+  from { opacity: 0.22; }
+  to   { opacity: 0.6; }
+}
+
+/* ---- setting sun (closing) — sinks behind the ridge while the slide is up.
+   Slides are display:none until active, so the animation restarts on arrival. */
+@media (prefers-reduced-motion: no-preference) {
+  .sun-set { animation: sun-set 60s linear forwards; }
+}
+@keyframes sun-set {
+  from { transform: translateY(0); }
+  to   { transform: translateY(240px); }
+}
+
+/* ---- dusk (closing) — night falls in step with .sun-set ------------------ */
+.slide--dusk { background: var(--bg-0); }
+/* "Thanks" rides out the whole sunset unchanged: a cream pill keeps its own
+   ground, so no ink animation is needed as the sky sinks to night.
+   position: relative lifts the head into positioned paint order — it follows
+   .night in the DOM, so the overlay can never fade in on top of the pill. */
+.slide--dusk .slide__head { position: relative; }
+.slide--dusk h1 {
+  width: fit-content;
+  margin-inline: auto;
+  padding: var(--s-2) var(--s-5);
+  border-radius: 999px;
+  background: var(--bg-0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slide--dusk { animation: dusk-fall 60s linear forwards; }
+}
+/* Sky sinks through maroon dusk mid-way, then on down to night-black. Animate
+   the real property, not --bg-0: an unregistered custom property can't
+   interpolate, so it would snap at the animation midpoint. */
+@keyframes dusk-fall {
+  45% { background-color: var(--fg-0); }
+  to  { background-color: var(--night); }
+}
+
+/* Valley mist dims from cream to stone-gray in step with the darkening sky.
+   Repeats the drift/breathe lists because a shorthand here would clobber them. */
+@media (prefers-reduced-motion: no-preference) {
+  .slide--dusk .mist--a {
+    animation: mist-drift 26s ease-in-out infinite alternate,
+               mist-breathe 11s ease-in-out infinite alternate,
+               mist-dusk 60s linear forwards;
+  }
+  .slide--dusk .mist--b {
+    animation: mist-drift 34s ease-in-out infinite alternate-reverse,
+               mist-breathe 15s ease-in-out infinite alternate,
+               mist-dusk 60s linear forwards;
+    animation-delay: -14s, -5s, 0s;
+  }
+  .slide--dusk .mist--c {
+    animation: mist-drift 21s ease-in-out infinite alternate,
+               mist-breathe 9s ease-in-out infinite alternate-reverse,
+               mist-dusk 60s linear forwards;
+    animation-delay: -6s, -3s, 0s;
+  }
+}
+@keyframes mist-dusk { to { fill: color-mix(in srgb, var(--stone) 45%, var(--night)); } }
+
+/* Ridges harden from translucent blue haze into near-solid blue-black
+   silhouettes as the sky sinks — least blue (darkest) at the front. */
+@media (prefers-reduced-motion: no-preference) {
+  .slide--dusk .ridge-far  { animation: ridge-dusk-far 60s linear forwards; }
+  .slide--dusk .ridge-mid  { animation: ridge-dusk-mid 60s linear forwards; }
+  .slide--dusk .ridge-near { animation: ridge-dusk-near 60s linear forwards; }
+}
+@keyframes ridge-dusk-far  { to { fill: color-mix(in srgb, var(--accent-2) 30%, var(--night)); opacity: 0.9; } }
+@keyframes ridge-dusk-mid  { to { fill: color-mix(in srgb, var(--accent-2) 18%, var(--night)); opacity: 0.96; } }
+@keyframes ridge-dusk-near { to { fill: color-mix(in srgb, var(--accent-2) 8%, var(--night)); opacity: 1; } }
+
+/* ---- nightfall (closing) — gentle crossfade to twilight in step with
+   .sun-set. Only opacity/fill/color animate — no @property needed. */
+.night {
+  background: linear-gradient(180deg,
+    var(--night) 55%,
+    color-mix(in srgb, var(--accent-1) 18%, var(--night)));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .night { animation: night-fall 60s linear forwards; }
+  .slide--dusk .ridge-occluder { animation: night-mass 60s linear forwards; }
+  .night circle { animation: star-twinkle 3.4s ease-in-out infinite; }
+  .night circle:nth-child(2n) { animation-duration: 2.6s; animation-delay: -1.1s; }
+  .night circle:nth-child(3n) { animation-duration: 4.2s; animation-delay: -2.3s; }
+  .night circle:nth-child(5n) { animation-duration: 5.1s; animation-delay: -0.7s; }
+  .night circle:nth-child(7n) { animation-duration: 1.9s; animation-delay: -0.4s; }
+  .night circle:nth-child(11n) { animation-duration: 6.3s; animation-delay: -3.1s; }
+}
+@keyframes night-fall { to { opacity: 1; } }
+@keyframes night-mass { to { fill: var(--night); } }  /* mountains darken with the sky */
+/* Endpoints are left unset so each star rests at its own attribute opacity:
+   dip near-dark, glint past the base to full bright, settle back. */
+@keyframes star-twinkle {
+  38% { opacity: 0.08; }
+  52% { opacity: 1; }
+}

@@ -1,0 +1,178 @@
+<section class="slide slide--warmup" id="slide-12" data-sid="12-uml-answer:1">
+  <header class="slide__head" data-sid="12-uml-answer:2">
+    <p class="slide__kicker" data-sid="12-uml-answer:3">PRACTICE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="12-uml-answer:4">Diagram to code, line for line</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="12-uml-answer:5">Two columns. On the left, a compact UML box for Student: its name row reads Student extends Person, then the two fields studentID and school, then the five-argument constructor and the two getters. On the right, Student.java, all twelve lines visible from the start: it extends Person, declares the two new fields, takes all five values in its constructor and passes the first three up with a call to super before assigning its own two, and adds a getter for each new field. Four steps pair diagram and code by colour, each drawing a ring around one part of the diagram and a matching coloured edge on its code lines: maroon for the arrow and extends Person; blue for the two fields and the two private lines; orange for the constructor and its six lines, super first; the deadline mix for the two getters. A caption under both columns names each pairing; the last reads: nothing from Person is repeated, a Student already has all of it.</p>
+
+  <!-- The answer is a translation, so the picture is a bilingual page: the
+       diagram on the left, the code on the right, and colour is the pairing.
+       Nothing is hidden — every line of Student.java is on screen from the
+       start; each step only rings one member of the diagram and edges its
+       lines in the same ink, so by step 4 the whole class is colour-coded and
+       the one thing NOT on the page (Person's members) is the point.
+       step 1: the arrow → extends Person (maroon, the rule).
+       step 2: the two − fields → the two private lines (blue).
+       step 3: the constructor → six lines, super first (orange, the work).
+       step 4: the two + getters → the getters (deadline mix). -->
+  <div class="slide__body stack" data-sid="12-uml-answer:6">
+    <div class="pair" data-sid="12-uml-answer:25">
+      <div class="uml" data-sid="12-uml-answer:26">
+        <p class="uml__name m-ext" data-sid="12-uml-answer:27">Student &rarr; Person</p>
+        <ul class="uml__members" data-sid="12-uml-answer:28">
+          <li class="m-field" data-sid="12-uml-answer:29">- studentID : int</li>
+          <li class="m-field" data-sid="12-uml-answer:30">- school : String</li>
+        </ul>
+        <ul class="uml__members" data-sid="12-uml-answer:31">
+          <li class="m-ctor" data-sid="12-uml-answer:32">+ Student(String na, int ag,<br>double he, int sId, String sch)</li>
+          <li class="m-getter" data-sid="12-uml-answer:33">+ getStudentID() : int</li>
+          <li class="m-getter" data-sid="12-uml-answer:34">+ getSchool() : String</li>
+        </ul>
+      </div>
+      <div class="editor" data-sid="12-uml-answer:7">
+        <p class="editor__bar" data-sid="12-uml-answer:8">Student.java</p>
+        <ol class="editor__code" data-sid="12-uml-answer:9">
+          <li class="l-ext" data-sid="12-uml-answer:10"><span class="tok-key">public class</span> Student <span class="tok-key">extends</span> Person {</li>
+          <li class="l-field" data-sid="12-uml-answer:11">    <span class="tok-key">private int</span> studentID;</li>
+          <li class="l-field" data-sid="12-uml-answer:12">    <span class="tok-key">private</span> String school;</li>
+          <li class="l-ctor" data-sid="12-uml-answer:13">    <span class="tok-key">public</span> Student(String na, <span class="tok-key">int</span> ag, <span class="tok-key">double</span> he,</li>
+          <li class="l-ctor" data-sid="12-uml-answer:14">                   <span class="tok-key">int</span> sId, String sch) {</li>
+          <li class="l-ctor" data-sid="12-uml-answer:15">        <span class="tok-key">super</span>(na, ag, he);</li>
+          <li class="l-ctor" data-sid="12-uml-answer:16">        studentID = sId;</li>
+          <li class="l-ctor" data-sid="12-uml-answer:17">        school = sch;</li>
+          <li class="l-ctor" data-sid="12-uml-answer:18">    }</li>
+          <li class="l-getter" data-sid="12-uml-answer:19">    <span class="tok-key">public int</span> getStudentID() { <span class="tok-key">return</span> studentID; }</li>
+          <li class="l-getter" data-sid="12-uml-answer:20">    <span class="tok-key">public</span> String getSchool() { <span class="tok-key">return</span> school; }</li>
+          <li data-sid="12-uml-answer:21">}</li>
+        </ol>
+      </div>
+    </div>
+    <!-- narration rail: one caption per step, stacked in one cell; only the current one shows -->
+    <div class="pair-caps" data-sid="12-uml-answer:35">
+      <p class="pair-cap pair-1 frag" data-step="1" data-sid="12-uml-answer:36">The arrow became one word: <b>extends</b> is the whole relationship.</p>
+      <p class="pair-cap pair-2 frag" data-step="2" data-sid="12-uml-answer:37">Only the <b>new fields</b> are declared &mdash; the other three live in Person.</p>
+      <p class="pair-cap pair-3 frag" data-step="3" data-sid="12-uml-answer:38"><b>super(na, ag, he)</b> first: a Person has to exist before a Student can.</p>
+      <p class="pair-cap pair-4 frag" data-step="4" data-sid="12-uml-answer:39">Nothing from Person is repeated &mdash; a Student already has <b>all of it</b>.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="12-uml-answer:23"></div>
+  <aside class="notes" data-sid="12-uml-answer:24">Answer: Student extends Person, declares only studentID and school, takes five values in its constructor and sends the first three up with super(na, ag, he) before assigning its own two, and adds a getter for each new field &mdash; nothing from Person is repeated. Walk the diagram and the code together rather than reading the code alone: every minus sign became a private field, every plus sign became a public method, and the arrow became the word extends. Step 1 &mdash; the name row rings maroon and line 1 edges maroon: extends is the whole inheritance relationship. Step 2 &mdash; the two minus fields ring blue, lines 2&ndash;3 edge blue: only the new fields are declared here. Step 3 &mdash; the constructor rings orange, lines 4&ndash;9 edge orange; the constructor is where people get stuck: Student takes five values but only owns two, so the other three go straight up to Person, and super(na, ag, he) has to be the first statement in the constructor because a Person has to exist before it can be a Student. Step 4 &mdash; the two plus getters ring in the deadline mix, lines 10&ndash;11 with them; point at what is NOT on the page: name, age, heightInCM, their getters and toString are all still there, because the arrow promised them. Plant, last line before advancing: Now: what happens when a reference promises an object and there is none.</aside>
+
+  <style>
+    /* Slide-local: a bilingual page — the compact Student UML box at left, the
+       code at right, and colour as the pairing. The UML box is the same
+       three-compartment notation as slide 11 (stone chrome, because it is
+       notation); each member and each code line carries an --edge for its
+       pairing — maroon the rule (extends), blue the fields, orange the work
+       (the constructor), the deadline mix the getters. The code is fully
+       visible from step 0; a step only rings the diagram member and edges the
+       matching lines, driven by :has() off the caption frags so a back-step
+       unwinds it. Motion is manim's only: recolour in place (outline, edge,
+       token ink) and a plain crossfade on the captions — nothing moves. Code
+       at the chrome size so the wrapped signature stays on two readable lines.
+       Used by this slide only, all values from tokens. */
+    #slide-12 .pair {
+      --chrome: color-mix(in srgb, var(--stone) 70%, var(--fg-0));
+      display: grid;
+      grid-template-columns: 620px 1fr;
+      gap: var(--s-3);
+      align-items: start;
+    }
+    #slide-12 .editor__code { font-size: var(--t-micro); }
+
+    /* the compact UML box */
+    #slide-12 .uml {
+      box-sizing: border-box;
+      min-width: 0;
+      border: 3px solid var(--chrome);
+      border-radius: var(--r-1);
+      background: var(--bg-1);
+    }
+    #slide-12 .uml__name {
+      margin: 0;
+      padding: var(--s-1) var(--s-3);
+      border-bottom: 3px solid var(--chrome);
+      font-family: var(--font-display);
+      font-size: var(--t-small);
+      line-height: 1.3;
+      text-align: center;
+      color: var(--chrome);
+    }
+    #slide-12 .uml__members {
+      margin: 0;
+      padding: var(--s-2) var(--s-3);
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      line-height: 1.5;
+    }
+    #slide-12 .uml__members + .uml__members { border-top: 3px solid var(--chrome); }
+    /* members get a little air for their ring (negative margin keeps the text
+       where it was) and a hanging indent for the wrapped signature */
+    #slide-12 .uml__members li {
+      margin: 0 calc(-1 * var(--s-1));
+      padding: 0 var(--s-1) 0 calc(var(--s-1) + 2ch);
+      text-indent: -2ch;
+    }
+
+    /* the pairing inks — one --edge per pair, shared by member, lines and caption */
+    #slide-12 .m-ext,    #slide-12 .l-ext,    #slide-12 .pair-1 { --edge: var(--accent-1); }
+    #slide-12 .m-field,  #slide-12 .l-field,  #slide-12 .pair-2 { --edge: var(--accent-2); }
+    #slide-12 .m-ctor,   #slide-12 .l-ctor,   #slide-12 .pair-3 { --edge: var(--accent-3); }
+    #slide-12 .m-getter, #slide-12 .l-getter, #slide-12 .pair-4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+
+    /* rings on the diagram: recolour in place from transparent */
+    #slide-12 .m-ext, #slide-12 .m-field, #slide-12 .m-ctor, #slide-12 .m-getter {
+      outline: 4px solid transparent;
+      outline-offset: -2px;
+      border-radius: var(--r-1);
+      transition: outline-color .3s ease;
+    }
+    #slide-12:has(.frag.pair-1:not(.is-pending)) .m-ext,
+    #slide-12:has(.frag.pair-2:not(.is-pending)) .m-field,
+    #slide-12:has(.frag.pair-3:not(.is-pending)) .m-ctor,
+    #slide-12:has(.frag.pair-4:not(.is-pending)) .m-getter { outline-color: var(--edge); }
+
+    /* edges on the code: an inset left bar (no reflow — the same construction
+       as the codewalk's program counter) plus a wash, and the line's keyword
+       tokens take the pair's ink */
+    #slide-12 .editor__code li {
+      box-shadow: inset 6px 0 0 transparent;
+      transition: box-shadow .3s ease, background-color .3s ease;
+    }
+    #slide-12 .editor__code .tok-key { transition: color .3s ease; }
+    #slide-12:has(.frag.pair-1:not(.is-pending)) .l-ext,
+    #slide-12:has(.frag.pair-2:not(.is-pending)) .l-field,
+    #slide-12:has(.frag.pair-3:not(.is-pending)) .l-ctor,
+    #slide-12:has(.frag.pair-4:not(.is-pending)) .l-getter {
+      box-shadow: inset 6px 0 0 var(--edge);
+      background-color: color-mix(in srgb, var(--edge) 10%, transparent);
+    }
+    #slide-12:has(.frag.pair-1:not(.is-pending)) .l-ext .tok-key,
+    #slide-12:has(.frag.pair-2:not(.is-pending)) .l-field .tok-key,
+    #slide-12:has(.frag.pair-3:not(.is-pending)) .l-ctor .tok-key,
+    #slide-12:has(.frag.pair-4:not(.is-pending)) .l-getter .tok-key { color: var(--edge); }
+
+    /* the narration rail: one cell, only the current caption shows; one line
+       reserved so the columns above never shift */
+    #slide-12 .pair-caps { display: grid; min-height: 52px; align-content: start; }
+    #slide-12 .pair-cap {
+      grid-area: 1 / 1;
+      margin: 0;
+      font-size: var(--t-small);
+      line-height: 1.35;
+      color: var(--fg-1);
+      transition: opacity .4s ease;   /* plain crossfade — narration never drifts */
+    }
+    #slide-12 .pair-cap b { color: var(--edge); }
+    #slide-12 .frag.pair-cap.is-pending,
+    #slide-12 .frag.pair-cap.is-past { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-12 .m-ext, #slide-12 .m-field, #slide-12 .m-ctor, #slide-12 .m-getter,
+      #slide-12 .editor__code li, #slide-12 .editor__code .tok-key, #slide-12 .pair-cap {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

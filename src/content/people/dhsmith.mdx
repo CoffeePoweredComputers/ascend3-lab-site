@@ -20,19 +20,20 @@ courses:
       - label: Week 1 · Day 2
         url: /slides/cs2114-fa26-week1-day2/
         kind: slides
-# Publishing a new lecture deck (a Slide Studio folder) is two steps:
+      - label: Week 2 · Day 1
+        url: /slides/cs2114-fa26-week2-day1/
+        kind: slides
+      - label: Week 2 · Day 2
+        url: /slides/cs2114-fa26-week2-day2/
+        kind: slides
+# The `materials` list above is maintained by `npm run lectures`. It scans the
+# lecture folder named in scripts/lectures.config.json, shows which decks are
+# new, changed or not yet committed, publishes the ones you pick, adds their
+# entry here, then commits and pushes — which is the deploy. Add --dry-run to
+# see what it would do without touching anything.
 #
-#   node scripts/publish-slides.mjs "<path to deck folder>" cs2114-fa26-week<N>-day<N>
-#
-# (quote the path — deck folders have spaces), then add one line under the
-# course's `materials`:
-#
-#       - label: Week <N> · Day <N>
-#         url: /slides/cs2114-fa26-week<N>-day<N>/
-#         kind: slides
-#
-# Materials can also point at any external URL (syllabus, repo, video…);
-# only `code` and `title` are required on a course.
+# Materials can also point at any external URL (syllabus, repo, video…); add
+# those by hand. Only `code` and `title` are required on a course.
 ---
 
 David directs the [ASCEND Lab](/), where his research focuses on computing

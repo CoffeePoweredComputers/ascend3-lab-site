@@ -1,0 +1,52 @@
+<section class="slide slide--warmup" id="slide-08" data-sid="08-vote-branch:1">
+  <header class="slide__head" data-sid="08-vote-branch:2">
+    <p class="slide__kicker" data-sid="08-vote-branch:3">PEER INSTRUCTION &middot; VOTE 3</p>
+    <h2 data-sid="08-vote-branch:4">Which test reaches 100% branch coverage?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08-vote-branch:5">A peer-instruction question. On the left, a method returning 1 for a positive number, minus 1 for a negative number and 0 otherwise &mdash; three branches. On the right, four candidate tests: one checking 5 and minus 3; one checking 10, 0 and 2; one checking minus 9 and 0; and one checking 7, minus 2 and 0.</p>
+  <div class="slide__body grid grid--code" data-sid="08-vote-branch:6">
+    <div class="editor" data-sid="08-vote-branch:7">
+      <p class="editor__bar" data-sid="08-vote-branch:8">the method under test</p>
+      <ol class="editor__code" data-sid="08-vote-branch:9">
+        <li data-sid="08-vote-branch:10"><span class="tok-key">public int</span> getSign(<span class="tok-key">int</span> x) {</li>
+        <li data-sid="08-vote-branch:11">    <span class="tok-key">if</span> (x &gt; <span class="tok-num">0</span>) {</li>
+        <li data-sid="08-vote-branch:12">        <span class="tok-key">return</span> <span class="tok-num">1</span>;</li>
+        <li data-sid="08-vote-branch:13">    } <span class="tok-key">else if</span> (x &lt; <span class="tok-num">0</span>) {</li>
+        <li data-sid="08-vote-branch:14">        <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
+        <li data-sid="08-vote-branch:15">    } <span class="tok-key">else</span> {</li>
+        <li data-sid="08-vote-branch:16">        <span class="tok-key">return</span> <span class="tok-num">0</span>;</li>
+        <li data-sid="08-vote-branch:17">    }</li>
+        <li data-sid="08-vote-branch:18">}</li>
+      </ol>
+    </div>
+    <ol class="opts" data-sid="08-vote-branch:19">
+      <li data-sid="08-vote-branch:20">
+        <p class="opts__code" data-sid="08-vote-branch:21">assertEquals(1, getSign(5));</p>
+        <p class="opts__code" data-sid="08-vote-branch:22">assertEquals(-1, getSign(-3));</p>
+      </li>
+      <li data-sid="08-vote-branch:23">
+        <p class="opts__code" data-sid="08-vote-branch:24">assertEquals(1, getSign(10));</p>
+        <p class="opts__code" data-sid="08-vote-branch:25">assertEquals(0, getSign(0));</p>
+        <p class="opts__code" data-sid="08-vote-branch:26">assertEquals(-1, getSign(2));</p>
+      </li>
+      <li data-sid="08-vote-branch:27">
+        <p class="opts__code" data-sid="08-vote-branch:28">assertEquals(-1, getSign(-9));</p>
+        <p class="opts__code" data-sid="08-vote-branch:29">assertEquals(0, getSign(0));</p>
+      </li>
+      <li data-sid="08-vote-branch:30">
+        <p class="opts__code" data-sid="08-vote-branch:31">assertEquals(1, getSign(7));</p>
+        <p class="opts__code" data-sid="08-vote-branch:32">assertEquals(-1, getSign(-2));</p>
+        <p class="opts__code" data-sid="08-vote-branch:33">assertEquals(1, getSign(0));</p>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="08-vote-branch:34"></div>
+  <aside class="notes" data-sid="08-vote-branch:35">Answer: D &mdash; 7, minus 2 and 0 are the only set that enters all three branches. A never reaches the else. B looks like three cases but 10 and 2 are both positive, so it never reaches the negative branch. C never reaches the positive one. The sting in D is worth the whole question: its last assertion expects 1 where the method returns 0, so the test fails &mdash; and still has 100% coverage. Coverage asks &ldquo;did this line run&rdquo;, not &ldquo;is it right&rdquo;, which is exactly why Web-CAT scores the two separately.</aside>
+
+  <style>
+    /* Slide-local: code drops to the chrome size so both columns read from the
+       back of the room, same as the other two vote panes. All values from
+       tokens. */
+    #slide-08 .editor__code { font-size: var(--t-micro); }
+  </style>
+</section>
