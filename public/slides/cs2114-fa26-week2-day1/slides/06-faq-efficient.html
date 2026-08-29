@@ -4,22 +4,25 @@
     <h2 data-sid="06-faq-efficient:4">Q: Wouldn&rsquo;t it be more efficient to just tell us the right answer?</h2>
     <p class="yg__ask" data-sid="06-faq-efficient:18">A: Have you had a yoga class where you just listen to the person telling what you could do?</p>
   </header>
-  <p class="sr-only slide__desc" data-sid="06-faq-efficient:5">A yoga class, drawn. Four students sit cross-legged on their mats, watching attentively, while the instructor stands on a mat at the right in a full warrior pose, in orange, talking. The title asks the question, and the answer under it is another question: have you had a yoga class where you just listen to the person telling what you could do? Then the punchline lands &mdash; two words, me neither &mdash; and the room inverts: the instructor comes out of the pose and simply stands, going grey, while all four students rise into the pose themselves, in orange, one after another. Last, a line notes that you have to work your own muscle.</p>
+  <p class="sr-only slide__desc" data-sid="06-faq-efficient:5">A yoga class, drawn. Four students sit cross-legged on their mats, hands on their knees, watching attentively, while the instructor stands on a mat at the right in tree pose &mdash; one foot tucked to the inner thigh, palms together overhead &mdash; in orange, talking. The title asks the question, and the answer under it is another question: have you had a yoga class where you just listen to the person telling what you could do? Then the punchline lands &mdash; two words, me neither &mdash; and the room inverts: the same four students stand up out of their seat and rise into tree pose themselves, in orange, one after another, while the instructor lowers the foot and the arms and simply stands there, going grey. Last, a line notes that you have to work your own muscle.</p>
 
   <!-- The answer is an absurd picture, so it is drawn rather than photographed:
        a yoga class where the only person doing yoga is at the front. Step 1 is
        the whole argument in one beat — the orange leaves the instructor and
        lands on every mat, and the instructor is left standing there watching.
-       Step 2 says the one thing the drawing cannot. The leaving layers are
-       inverted frags (visible while pending, gone once the step lands); the
-       arriving ones grow from where they stand. viewBox = the body's rect
-       under a two-line heading; the Q/A head is taller, so the drawing scales
-       down to fit, bottom-anchored. -->
+       Step 2 says the one thing the drawing cannot.
+       Nobody appears or vanishes: every figure is an articulated skeleton
+       (nested <g> joints, each limb drawn hanging straight down from its joint
+       and rotated about it by CSS), and a pose is one set of joint angles. The
+       step swaps the angle set, so the seated students genuinely stand up into
+       the pose and the instructor genuinely comes out of it — Transform, not
+       crossfade. viewBox = the body's rect under a two-line heading; the Q/A
+       head is taller, so the drawing scales down to fit, bottom-anchored. -->
   <div class="slide__body" data-sid="06-faq-efficient:6">
     <svg class="yg" viewBox="128 372 1664 612" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A yoga class where only the instructor is doing the poses, until everyone is"
+         aria-label="A yoga class where only the instructor is doing the pose, until everyone is"
          data-sid="06-faq-efficient:7">
-      <!-- the mats stay put; only who is doing anything on them changes -->
+      <!-- the mats stay put; only what happens on them changes -->
       <g class="yg__mats" data-sid="06-faq-efficient:8">
         <rect x="270" y="940" width="220" height="36" rx="18"/>
         <rect x="530" y="940" width="220" height="36" rx="18"/>
@@ -28,37 +31,72 @@
         <rect x="1380" y="940" width="280" height="36" rx="18"/>
       </g>
 
-      <!-- step 0: the class watches -->
-      <g class="yg__watch frag" data-step="1" data-sid="06-faq-efficient:9">
-        <g><circle cx="380" cy="856" r="26"/><path d="M380 882V918M346 902H414M328 940L380 918L432 940"/></g>
-        <g><circle cx="640" cy="856" r="26"/><path d="M640 882V918M606 902H674M588 940L640 918L692 940"/></g>
-        <g><circle cx="900" cy="856" r="26"/><path d="M900 882V918M866 902H934M848 940L900 918L952 940"/></g>
-        <g><circle cx="1160" cy="856" r="26"/><path d="M1160 882V918M1126 902H1194M1108 940L1160 918L1212 940"/></g>
-      </g>
-
-      <!-- step 0: and the instructor does all the poses, talking -->
-      <g class="yg__teach frag" data-step="1" data-sid="06-faq-efficient:10">
-        <circle cx="1520" cy="690" r="30"/>
-        <path d="M1520 720V820M1430 764H1610M1520 820L1440 890L1440 940M1520 820L1620 940"/>
-        <g class="yg__say" data-sid="06-faq-efficient:11">
-          <path d="M1466 664A44 44 0 0 0 1466 716"/>
-          <path d="M1446 652A62 62 0 0 0 1446 728"/>
-          <path d="M1426 640A80 80 0 0 0 1426 740"/>
+      <!-- the class: seated and watching, then standing in the pose. Each figure
+           is the same skeleton, pelvis at its local origin, placed by --x. -->
+      <g class="yg__class frag" data-step="1" data-sid="06-faq-efficient:9">
+        <g class="yg__fig" style="--x: 380px; --i: 0">
+          <g class="yg__torso">
+            <path d="M0 0V-80"/><circle cx="0" cy="-106" r="24"/>
+            <g class="yg__arm yg__arm--l"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+            <g class="yg__arm yg__arm--r"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+          </g>
+          <g class="yg__legs">
+            <g class="yg__leg yg__leg--l"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+            <g class="yg__leg yg__leg--r"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+          </g>
+        </g>
+        <g class="yg__fig" style="--x: 640px; --i: 1">
+          <g class="yg__torso">
+            <path d="M0 0V-80"/><circle cx="0" cy="-106" r="24"/>
+            <g class="yg__arm yg__arm--l"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+            <g class="yg__arm yg__arm--r"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+          </g>
+          <g class="yg__legs">
+            <g class="yg__leg yg__leg--l"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+            <g class="yg__leg yg__leg--r"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+          </g>
+        </g>
+        <g class="yg__fig" style="--x: 900px; --i: 2">
+          <g class="yg__torso">
+            <path d="M0 0V-80"/><circle cx="0" cy="-106" r="24"/>
+            <g class="yg__arm yg__arm--l"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+            <g class="yg__arm yg__arm--r"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+          </g>
+          <g class="yg__legs">
+            <g class="yg__leg yg__leg--l"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+            <g class="yg__leg yg__leg--r"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+          </g>
+        </g>
+        <g class="yg__fig" style="--x: 1160px; --i: 3">
+          <g class="yg__torso">
+            <path d="M0 0V-80"/><circle cx="0" cy="-106" r="24"/>
+            <g class="yg__arm yg__arm--l"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+            <g class="yg__arm yg__arm--r"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+          </g>
+          <g class="yg__legs">
+            <g class="yg__leg yg__leg--l"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+            <g class="yg__leg yg__leg--r"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+          </g>
         </g>
       </g>
 
-      <!-- step 1: everyone works their own muscle -->
-      <g class="yg__pose frag" data-step="1" data-sid="06-faq-efficient:12">
-        <g class="yg__poser" style="--i: 0"><circle cx="380" cy="750" r="22"/><path d="M380 772V850M314 798H446M380 850L322 902L322 940M380 850L450 940"/></g>
-        <g class="yg__poser" style="--i: 1"><circle cx="640" cy="750" r="22"/><path d="M640 772V850M574 798H706M640 850L582 902L582 940M640 850L710 940"/></g>
-        <g class="yg__poser" style="--i: 2"><circle cx="900" cy="750" r="22"/><path d="M900 772V850M834 798H966M900 850L842 902L842 940M900 850L970 940"/></g>
-        <g class="yg__poser" style="--i: 3"><circle cx="1160" cy="750" r="22"/><path d="M1160 772V850M1094 798H1226M1160 850L1102 902L1102 940M1160 850L1230 940"/></g>
-      </g>
-
-      <!-- step 1: and the instructor is left standing there -->
-      <g class="yg__stand frag" data-step="1" data-sid="06-faq-efficient:13">
-        <circle cx="1520" cy="697" r="30"/>
-        <path d="M1520 727V844M1520 757L1476 814M1520 757L1564 812M1520 844L1492 940M1520 844L1548 940"/>
+      <!-- the instructor: same skeleton, a little bigger, in the pose and talking;
+           then out of the pose, just standing there -->
+      <g class="yg__fig yg__teach frag" data-step="1" style="--x: 1520px; --k: 1.2" data-sid="06-faq-efficient:10">
+        <g class="yg__torso" data-sid="06-faq-efficient:12">
+          <path d="M0 0V-80"/><circle cx="0" cy="-106" r="24"/>
+          <g class="yg__arm yg__arm--l"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+          <g class="yg__arm yg__arm--r"><path d="M0 -72V-28"/><g class="yg__fore"><path d="M0 -28V12"/></g></g>
+        </g>
+        <g class="yg__legs" data-sid="06-faq-efficient:13">
+          <g class="yg__leg yg__leg--l"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+          <g class="yg__leg yg__leg--r"><path d="M0 0V54"/><g class="yg__shin"><path d="M0 54V106"/></g></g>
+        </g>
+        <g class="yg__say" data-sid="06-faq-efficient:11">
+          <path d="M-45 -128A37 37 0 0 0 -45 -84"/>
+          <path d="M-62 -138A52 52 0 0 0 -62 -74"/>
+          <path d="M-78 -148A67 67 0 0 0 -78 -64"/>
+        </g>
       </g>
     </svg>
 
@@ -72,40 +110,80 @@
     /* Slide-local: the yoga room. Same pen as the deck's other rooms — figures
        are stroked paths with round joins, no fills. The argument is carried by
        one colour move: orange is whoever is working, so it starts on the
-       instructor and ends on all four mats. Leaving layers are inverted frags;
-       arriving figures grow from the mat they stand on. Used by this slide
-       only, all values from tokens; viewBox = the body's rect. */
+       instructor and ends on all four mats.
+       Skeleton: pelvis at the figure's origin; spine up 80, head r24 above it;
+       arms hang from the shoulder (0,-72) as upper arm 44 + forearm 40; legs
+       hang from the hip as thigh 54 + shin 52. Every limb is authored pointing
+       straight down and rotated about its own joint — positive = clockwise on
+       screen — so a pose is nothing but a set of angles, and changing the set
+       moves the body through the change. Used by this slide only, all values
+       from tokens; viewBox = the body's rect. */
     #slide-06 .slide__body { position: relative; }
     #slide-06 .yg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
     #slide-06 .yg__mats rect { fill: none; stroke: var(--fg-1); stroke-width: 5; }
-    #slide-06 .yg__watch circle, #slide-06 .yg__watch path,
-    #slide-06 .yg__stand circle, #slide-06 .yg__stand path {
-      fill: none; stroke: var(--fg-1); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round;
+    #slide-06 .yg__fig circle, #slide-06 .yg__fig path {
+      fill: none; stroke-linecap: round; stroke-linejoin: round;
     }
-    #slide-06 .yg__teach circle, #slide-06 .yg__teach path,
-    #slide-06 .yg__pose circle, #slide-06 .yg__pose path {
-      fill: none; stroke: var(--accent-3); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round;
-    }
-    #slide-06 .yg__say path { stroke-width: 5; }
+    #slide-06 .yg__say path { stroke-width: 4px; }
 
-    /* the two layers that leave: inverted frags */
-    #slide-06 .yg__watch, #slide-06 .yg__teach { transition: opacity .3s ease; }
-    #slide-06 .frag.yg__watch.is-pending, #slide-06 .frag.yg__teach.is-pending { opacity: 1; }
-    #slide-06 .frag.yg__watch.is-current, #slide-06 .frag.yg__watch.is-past,
-    #slide-06 .frag.yg__teach.is-current, #slide-06 .frag.yg__teach.is-past { opacity: 0; }
-
-    /* the two layers that arrive: grow from the mat, left to right */
-    #slide-06 .yg__poser, #slide-06 .yg__stand {
-      transform-box: fill-box; transform-origin: 50% 100%;
-      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    /* --- the rig: root places and scales the figure, joints rotate --- */
+    #slide-06 .yg__fig {
+      transform-box: view-box; transform-origin: 0 0;
+      transform: translate(var(--x), var(--y)) scale(var(--k, 1));
+      stroke: var(--fg-1); stroke-width: 7px;
+      transition: transform .75s cubic-bezier(0.2, 0.9, 0.25, 1), stroke .45s ease, stroke-width .45s ease;
+      transition-delay: var(--d, 0s);
     }
-    #slide-06 .frag.yg__pose.is-pending { opacity: 1; }
-    #slide-06 .yg__pose.is-pending .yg__poser { opacity: 0; transform: scale(0.3); }
-    #slide-06 .yg__pose.is-current .yg__poser,
-    #slide-06 .yg__pose.is-past .yg__poser { transition-delay: calc(.3s + var(--i) * 90ms); }
-    #slide-06 .frag.yg__stand.is-pending { opacity: 0; transform: scale(0.3); }
-    #slide-06 .frag.yg__stand.is-current, #slide-06 .frag.yg__stand.is-past { transition-delay: .2s; }
+    #slide-06 .yg__arm, #slide-06 .yg__fore, #slide-06 .yg__leg, #slide-06 .yg__shin {
+      transform-box: view-box; transform-origin: 0 0;
+      transition: transform .75s var(--ease-smooth); transition-delay: var(--d, 0s);
+    }
+    #slide-06 .yg__arm  { transform-origin: 0 -72px; }
+    #slide-06 .yg__fore { transform-origin: 0 -28px; }
+    #slide-06 .yg__shin { transform-origin: 0 54px; }
+    #slide-06 .yg__arm--l { transform: rotate(var(--ua-l)); }
+    #slide-06 .yg__arm--r { transform: rotate(var(--ua-r)); }
+    #slide-06 .yg__arm--l .yg__fore { transform: rotate(var(--fa-l)); }
+    #slide-06 .yg__arm--r .yg__fore { transform: rotate(var(--fa-r)); }
+    #slide-06 .yg__leg--l { transform: rotate(var(--th-l)); }
+    #slide-06 .yg__leg--r { transform: rotate(var(--th-r)); }
+    #slide-06 .yg__leg--l .yg__shin { transform: rotate(var(--sh-l)); }
+    #slide-06 .yg__leg--r .yg__shin { transform: rotate(var(--sh-r)); }
+
+    /* --- the poses --- */
+    /* tree pose, the default: standing on the left leg, right foot tucked to
+       the inner thigh above the knee, palms together over the head */
+    #slide-06 .yg__fig {
+      --y: 834px;
+      --ua-l: 153deg; --fa-l: 54deg; --ua-r: -153deg; --fa-r: -54deg;
+      --th-l: 0deg; --sh-l: 0deg; --th-r: -78deg; --sh-r: 141deg;
+    }
+    /* seated cross-legged, feet crossed, hands resting on the thighs */
+    #slide-06 .yg__class.is-pending .yg__fig {
+      --y: 910px;
+      --ua-l: 12deg; --fa-l: 6deg; --ua-r: -12deg; --fa-r: -6deg;
+      --th-l: 58deg; --sh-l: -158deg; --th-r: -58deg; --sh-r: 158deg;
+    }
+    /* just standing there, arms at the sides */
+    #slide-06 .yg__teach { --y: 813px; }
+    #slide-06 .yg__teach.is-current, #slide-06 .yg__teach.is-past {
+      --y: 811px;
+      --ua-l: 14deg; --fa-l: 4deg; --ua-r: -14deg; --fa-r: -4deg;
+      --th-l: 5deg; --sh-l: 0deg; --th-r: -5deg; --sh-r: 0deg;
+    }
+
+    /* --- the step: nothing appears, the same bodies move and the orange moves --- */
+    #slide-06 .frag.yg__class.is-pending, #slide-06 .frag.yg__teach.is-pending { opacity: 1; }
+    #slide-06 .yg__class.is-current .yg__fig, #slide-06 .yg__class.is-past .yg__fig {
+      stroke: var(--accent-3); stroke-width: 9px;
+      --d: calc(.2s + var(--i) * 140ms);                  /* left to right, one after another */
+    }
+    #slide-06 .yg__teach { stroke-width: 5.8px; }         /* x1.2 = the class's 7 */
+    #slide-06 .yg__teach.is-pending { stroke: var(--accent-3); stroke-width: 7.5px; }
+    #slide-06 .yg__teach.is-current, #slide-06 .yg__teach.is-past { --d: .1s; }
+    #slide-06 .yg__say { transition: opacity .3s ease; }
+    #slide-06 .yg__teach.is-current .yg__say, #slide-06 .yg__teach.is-past .yg__say { opacity: 0; }
 
     /* Q and A in the head, one voice: same face, same size, one under the other */
     #slide-06 .slide__head h2, #slide-06 .yg__ask {
@@ -128,7 +206,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-06 .yg__watch, #slide-06 .yg__teach, #slide-06 .yg__poser, #slide-06 .yg__stand, #slide-06 .yg__motto {
+      #slide-06 .yg__fig, #slide-06 .yg__arm, #slide-06 .yg__fore, #slide-06 .yg__leg, #slide-06 .yg__shin,
+      #slide-06 .yg__say, #slide-06 .yg__motto {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }

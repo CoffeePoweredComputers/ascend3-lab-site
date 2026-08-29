@@ -1,6 +1,6 @@
 <section class="slide" id="slide-02" data-sid="02-course-info:1">
   <header class="slide__head" data-sid="02-course-info:2">
-    <h2 data-sid="02-course-info:3">Week 2 &mdash; and what lands this week</h2>
+    <h2 data-sid="02-course-info:3">Week 2 and 3 Overview</h2>
   </header>
   <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted column labelled now on Wednesday. First a bracket draws across both weeks &mdash; the calendar on Canvas: Week 2 this week, Week 3 next week, and Week 4 posted beyond the right-hand edge. Then a maroon-orange Week 2 homework bar leaves the now column and stops at Friday, with a pole rising at the Friday tick. Then the Challenge Exercise 01 bar runs solid through Monday and fades across the week to Friday, with a range line under the axis marked your lab day: it is due before your lab section, and sections meet all week. Then a lab room is drawn above the axis &mdash; four students seated and one orange UTA standing among them &mdash; and attendance is required from this week on. Last, a stone pole rises at next Monday, where Week 3 begins: Project 1, with teams formed in this week's lab and Deliverable 1 due at your Week 3 lab. A caption under the axis reads: And then Project 1, next week.</p>
 
@@ -34,24 +34,24 @@
 
       <!-- step 4: the room the attendance rule is about -->
       <g class="wk__lab frag" data-step="4" data-sid="02-course-info:13">
-        <rect class="wk__room" x="640" y="250" width="640" height="180" rx="14" data-sid="02-course-info:14"/>
+        <rect class="wk__room" x="640" y="240" width="640" height="180" rx="14" data-sid="02-course-info:14"/>
         <g class="wk__seats" data-sid="02-course-info:15">
-          <g class="wk__seat" style="--i: 0" data-sid="02-course-info:16"><use href="#w2d2-02-seat" x="760" y="316" data-sid="02-course-info:17"/></g>
-          <g class="wk__seat" style="--i: 1" data-sid="02-course-info:18"><use href="#w2d2-02-seat" x="880" y="316" data-sid="02-course-info:19"/></g>
-          <g class="wk__seat" style="--i: 2" data-sid="02-course-info:20"><use href="#w2d2-02-seat" x="1000" y="316" data-sid="02-course-info:21"/></g>
-          <g class="wk__seat" style="--i: 3" data-sid="02-course-info:22"><use href="#w2d2-02-seat" x="1120" y="316" data-sid="02-course-info:23"/></g>
+          <g class="wk__seat" style="--i: 0" data-sid="02-course-info:16"><use href="#w2d2-02-seat" x="760" y="306" data-sid="02-course-info:17"/></g>
+          <g class="wk__seat" style="--i: 1" data-sid="02-course-info:18"><use href="#w2d2-02-seat" x="880" y="306" data-sid="02-course-info:19"/></g>
+          <g class="wk__seat" style="--i: 2" data-sid="02-course-info:20"><use href="#w2d2-02-seat" x="1000" y="306" data-sid="02-course-info:21"/></g>
+          <g class="wk__seat" style="--i: 3" data-sid="02-course-info:22"><use href="#w2d2-02-seat" x="1120" y="306" data-sid="02-course-info:23"/></g>
         </g>
         <g class="wk__uta" data-sid="02-course-info:24">
-          <circle cx="1210" cy="300" r="18" data-sid="02-course-info:25"/>
-          <path d="M1210 318V372M1210 332L1184 358M1210 332L1236 356M1210 372L1194 412M1210 372L1228 412" data-sid="02-course-info:26"/>
+          <circle cx="1210" cy="290" r="18" data-sid="02-course-info:25"/>
+          <path d="M1210 308V362M1210 322L1184 348M1210 322L1236 346M1210 362L1194 402M1210 362L1228 402" data-sid="02-course-info:26"/>
         </g>
       </g>
-      <text class="wk__roomcap frag" data-step="4" data-anim="fade" x="960" y="478" data-sid="02-course-info:27">attendance required from this week</text>
+      <text class="wk__roomcap frag" data-step="4" data-anim="fade" x="960" y="460" data-sid="02-course-info:27">attendance required from this week</text>
 
       <!-- step 1: Canvas is the calendar, so the calendar draws on -->
       <path class="wk__bracket frag" data-step="1" pathLength="100" d="M128 544v-16H960v16M960 544v-16H1792v16" data-sid="02-course-info:28"/>
-      <text class="wk__axislabel frag" data-step="1" data-anim="fade" x="544" y="520" data-sid="02-course-info:29">Week 2 &middot; this week</text>
-      <text class="wk__axislabel frag" data-step="1" data-anim="fade" x="1376" y="520" data-sid="02-course-info:30">Week 3 &middot; next week</text>
+      <text class="wk__axislabel wk__axislabel--week frag" data-step="1" data-anim="fade" x="544" y="520" data-sid="02-course-info:29">Week 2 &middot; this week</text>
+      <text class="wk__axislabel wk__axislabel--week frag" data-step="1" data-anim="fade" x="1376" y="520" data-sid="02-course-info:30">Week 3 &middot; next week</text>
       <text class="wk__axislabel wk__axislabel--end frag" data-step="1" data-anim="fade" x="1780" y="520" data-sid="02-course-info:31">Week 4 &rarr;</text>
 
       <!-- step 0: the two weeks -->
@@ -115,6 +115,7 @@
     #slide-02 .wk__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
     #slide-02 .wk__tick--due { stroke: var(--fg-0); stroke-width: 4; }
     #slide-02 .wk__axislabel { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .wk__axislabel--week { font-size: var(--t-small); }             /* the two weeks the room is in, read from the back row */
     #slide-02 .wk__axislabel--end { text-anchor: end; fill: var(--stone); }   /* the week past the edge: posted, not yours yet */
     #slide-02 .frag.wk__axislabel.is-current, #slide-02 .frag.wk__axislabel.is-past { transition-delay: .5s; }
 
@@ -127,11 +128,11 @@
     #slide-02 .wk__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
     #slide-02 .wk__ink--stone { --edge: var(--stone); }
     #slide-02 .wk__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }
-    #slide-02 .wk__bar--tail { fill-opacity: .35; transition-duration: .4s; }
+    #slide-02 .wk__bar--tail { fill-opacity: .6; transition-duration: .4s; }
     #slide-02 .frag.wk__bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
     #slide-02 .frag.wk__bar--tail.is-current, #slide-02 .frag.wk__bar--tail.is-past { transition-delay: .35s; }
     #slide-02 .wk__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
-    #slide-02 .wk__label--tail { fill: var(--edge); }   /* dark on the pale tail, where bg-0 would vanish */
+    #slide-02 .wk__label--tail { fill: var(--fg-0); }   /* ink on the tail: at .6 the edge colour no longer separates from it */
     #slide-02 .frag.wk__label.is-current, #slide-02 .frag.wk__label.is-past { transition-delay: .45s; }
     #slide-02 .wk__pole {
       fill: none; stroke: var(--edge); stroke-width: 4; stroke-linecap: round;

@@ -3,10 +3,13 @@
     <p class="slide__kicker" data-sid="04-project-1:3">PROJECT 1 &middot; WEEKS 3&ndash;5</p>
     <h2 data-sid="04-project-1:4">Project 1 &mdash; Learning to Scope</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04-project-1:5">Four numbered steps down the left, arriving one at a time: teams of three and a small Java app of your own choosing; Deliverable 1, a one-page scope in Week 3; Deliverable 2, the specification in Week 4; Deliverable 3, the build with JUnit tests and a lightning talk in Week 5. At right, a dashed trail rises from bottom-left to top-right through three waypoint discs labelled Week 3 scope, Week 4 spec and Week 5 build, with a small grey Labor Day tick on the trail just before the first. On step 1 three orange busts, the team, stand up at the foot of the trail. Each of steps 2 to 4 walks the team along the trail to the next waypoint; the disc turns orange and a document grows above their heads: first a one-page sheet with five short lines, then a blueprint with three class boxes and two arrows, then a laptop with a tick on its screen and a small 3-minute tag. On step 5 a test list grows beside the laptop, normal case and bad input, each with a blue tick, and a caption under the scene asks what a test actually proves.</p>
+  <p class="sr-only slide__desc" data-sid="04-project-1:5">At left, the P1 column of Week 1&rsquo;s project table: the tag P1, the title Learning to Scope, then four rows that light up one per step &mdash; teams of three, formed in lab this week; Week 3, scope, one page; Week 4, spec, the blueprint; Week 5, final, code and JUnit tests &mdash; and the lesson line, define before you build. At right, a dashed trail rises from bottom-left to top-right through three waypoint discs labelled Week 3 scope, Week 4 spec and Week 5 final, with a small grey Labor Day tick on the trail just before the first. On step 1 three orange busts, the team, stand up at the foot of the trail. Each of steps 2 to 4 walks the team along the trail to the next waypoint; the disc turns orange and a document grows above their heads: first a one-page sheet with five short lines, then a blueprint with three class boxes and two arrows, then a laptop with a tick on its screen and a small 3-minute tag. On step 5 a test list grows beside the laptop, normal case and bad input, each with a blue tick, and a caption under the scene asks what a test actually proves.</p>
 
-  <!-- The project as a trail, because every project here runs the same loop
-       and the loop is a route: scope, then spec, then build, one week each,
+  <!-- The card at left is Week 1's project table with only the P1 column
+       kept, because the room has seen it: this slide adds the dates and the
+       team, not a new explanation. The project as a trail, because every
+       project here runs the same loop and the loop is a route: scope, then
+       spec, then build, one week each,
        and you cannot be at the build without having stood at the scope. The
        walkers are three busts in a cluster (orange: the ones doing the work)
        because the unit of work is the team, not the student. At each
@@ -19,15 +22,25 @@
        the test list grows beside the laptop and the caption asks the
        question. One SVG in its own 980×616 box, 1:1 with canvas px. -->
   <div class="slide__body pj" data-sid="04-project-1:6">
-    <ol class="steps pj__steps" data-sid="04-project-1:7">
-      <li class="frag" data-step="1" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:8">Teams of 3, formed in your lab this week. A small Java app of your own choosing &mdash; kept small.</li>
-      <li class="frag" data-step="2" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:9">Deliverable 1 &middot; Scope &mdash; one page, five questions. Week 3, at your lab.</li>
-      <li class="frag" data-step="3" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:10">Deliverable 2 &middot; Specification &mdash; the blueprint: classes, signatures, where validation lives, a test plan. Week 4.</li>
-      <li class="frag" data-step="4" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:11">Deliverable 3 &middot; Build &mdash; working code, JUnit tests, a 3-minute lightning talk. Week 5.</li>
-    </ol>
+    <!-- Week 1's project table (W1D1 11-three-projects), the P1 column only:
+         same tag, same accent, same rows, same terseness — so the room reads it
+         as "you have seen this". Rows sit dimmed and light up as the team
+         reaches each waypoint; the header and the lesson line are static. -->
+    <table class="pj__card" data-sid="04-project-1:7">
+      <thead data-sid="04-project-1:64">
+        <tr data-sid="04-project-1:65"><th scope="col" class="pj__proj" data-sid="04-project-1:8"><p class="pj__ptag" data-sid="04-project-1:66">P1</p>Learning to Scope</th></tr>
+      </thead>
+      <tbody data-sid="04-project-1:67">
+        <tr class="frag frag--dim" data-step="1" data-sid="04-project-1:9"><td data-sid="04-project-1:68"><span class="pj__k" data-sid="04-project-1:69">Teams</span>3, formed in lab this week</td></tr>
+        <tr class="frag frag--dim" data-step="2" data-sid="04-project-1:10"><td data-sid="04-project-1:70"><span class="pj__k" data-sid="04-project-1:71">Week 3</span>Scope &mdash; one page</td></tr>
+        <tr class="frag frag--dim" data-step="3" data-sid="04-project-1:11"><td data-sid="04-project-1:72"><span class="pj__k" data-sid="04-project-1:73">Week 4</span>Spec &mdash; the blueprint</td></tr>
+        <tr class="frag frag--dim" data-step="4" data-sid="04-project-1:74"><td data-sid="04-project-1:75"><span class="pj__k" data-sid="04-project-1:76">Week 5</span>Final &mdash; code, JUnit tests</td></tr>
+        <tr class="pj__lesson" data-sid="04-project-1:77"><td data-sid="04-project-1:78">Define before you build</td></tr>
+      </tbody>
+    </table>
 
     <svg class="pj__scene" viewBox="0 0 980 616" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A rising trail with three waypoints, Week 3 scope, Week 4 spec and Week 5 build; a team of three walks it one week at a time, leaving a scope sheet, a blueprint and a working laptop behind, and a test list grows beside the laptop at the end"
+         aria-label="A rising trail with three waypoints, Week 3 scope, Week 4 spec and Week 5 final; a team of three walks it one week at a time, leaving a scope sheet, a blueprint and a working laptop behind, and a test list grows beside the laptop at the end"
          data-sid="04-project-1:12">
       <defs data-sid="04-project-1:13">
         <g id="w2d2-04-wp" data-sid="04-project-1:14"><circle r="16" data-sid="04-project-1:15"/></g>
@@ -43,7 +56,7 @@
            recolours the one just reached, after the walk -->
       <g class="pj__wp frag" data-step="2" data-sid="04-project-1:22"><use class="pj__disc" href="#w2d2-04-wp" x="330" y="510" data-sid="04-project-1:23"/><text class="pj__label" x="330" y="554" data-sid="04-project-1:24">Week 3 &middot; scope</text></g>
       <g class="pj__wp frag" data-step="3" data-sid="04-project-1:25"><use class="pj__disc" href="#w2d2-04-wp" x="590" y="440" data-sid="04-project-1:26"/><text class="pj__label" x="590" y="484" data-sid="04-project-1:27">Week 4 &middot; spec</text></g>
-      <g class="pj__wp frag" data-step="4" data-sid="04-project-1:28"><use class="pj__disc" href="#w2d2-04-wp" x="840" y="370" data-sid="04-project-1:29"/><text class="pj__label" x="840" y="414" data-sid="04-project-1:30">Week 5 &middot; build</text></g>
+      <g class="pj__wp frag" data-step="4" data-sid="04-project-1:28"><use class="pj__disc" href="#w2d2-04-wp" x="840" y="370" data-sid="04-project-1:29"/><text class="pj__label" x="840" y="414" data-sid="04-project-1:30">Week 5 &middot; final</text></g>
 
       <!-- step 2: Deliverable 1, the one-page scope, above the team's heads at Week 3 -->
       <g class="pj__doc pj__d1 frag" data-step="2" data-sid="04-project-1:31">
@@ -91,10 +104,10 @@
       </g>
     </svg>
 
-    <p class="note pj__cap frag" data-step="5" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:60">Deliverable 3 needs JUnit tests &mdash; one normal case and one bad-input case per method. So what does a test actually prove?</p>
+    <p class="note pj__cap frag" data-step="5" data-anim="fade" style="--anim-delay: .3s" data-sid="04-project-1:60">The final build needs JUnit tests &mdash; a normal case and a bad-input case per method. So what does a test actually prove?</p>
   </div>
   <div class="slide__number" data-sid="04-project-1:61"></div>
-  <aside class="notes" data-sid="04-project-1:62">Project 1 runs Weeks 3&ndash;5, Sep 7&ndash;25, and every project this term runs the same loop: scope, then spec, then build. P1 is the lightest of the three; its job is to teach you to define what you are building before you build it, and the scope and the spec count as much as the code, maybe more. Step 1 &mdash; three orange busts stand up at the foot of the trail: teams of 3, formed in this week&rsquo;s lab &mdash; orientation, GitHub, and your initial group &mdash; and posted on Canvas; check Canvas for your group. The app is your own choosing: a task tracker, a vending-machine simulator, a flashcard quiz, a budget tool, a small text adventure. Keep it buildable in about two weeks of coding; a focused MVP that works beats an ambitious one that does not. Three requirements whatever the idea: object-oriented Java (multiple classes with separate responsibilities, arrays where they fit); GitHub, to collaborate with version control and to turn in; and robust exception handling, which means surviving bad input without crashing (validate, fail gracefully, re-prompt), not an empty try/catch around everything. The grey tick before the first waypoint is Labor Day, Monday Sep 7: Week 3 meets Tue&ndash;Fri and Monday lab sections do not meet that day, so confirm the Deliverable 1 hand-in time for your section. Step 2 &mdash; the team walks to Week 3 and a one-page sheet grows: the scope document, due at the start of your lab session, answering five questions: what are you building, in a paragraph a non-CS person could understand; what is your MVP; what are the stretch goals; what bad input must it survive; what do you not know how to do yet. Step 3 &mdash; Week 4, the specification, 3&ndash;5 pages, due at your lab: class design with one job per class; a system diagram of boxes and arrows, required; data and state (the fields, and which collection or structure stores the core data and why); method signatures, the contract a teammate or GenAI builds against; where validation lives; a test plan with one normal case and one bad-input case per public method; division of work; and a revised scope. Step 4 &mdash; Week 5, the build, due at your lab: working code that handles bad input, a handful of JUnit tests (at least one normal and one bad-input case per key method), an individual half-to-one-page writeup, and a 3-minute lightning talk in discussion section. Grading is EMRN per deliverable, no points, and the grading sessions with the TAs are oral exams: learn all parts of your system, and do not offload to GenAI without following what it is doing. Everything is due the day of your lab. On GenAI: bring your own idea first, then use it as a brainstorming partner; do not one-shot prompt the assignment; collaborate and discuss first, then critique the GenAI output as a group. Seating: never sit with your project group in lecture; always sit with them in discussion. Step 5 &mdash; the test list grows beside the laptop, one normal case and one bad input, and the caption asks what a test actually proves. Leave it hanging. Part 2 answers that.</aside>
+  <aside class="notes" data-sid="04-project-1:62">The card at left is the P1 column of the project table from the first day &mdash; say &ldquo;you have seen this&rdquo; and point at the lesson line, define before you build; today adds the team and the dates. Project 1 runs Weeks 3&ndash;5, Sep 7&ndash;25, and every project this term runs the same loop: scope, then spec, then build. P1 is the lightest of the three; its job is to teach you to define what you are building before you build it, and the scope and the spec count as much as the code, maybe more. Step 1 &mdash; three orange busts stand up at the foot of the trail: teams of 3, formed in this week&rsquo;s lab &mdash; orientation, GitHub, and your initial group &mdash; and posted on Canvas; check Canvas for your group. The app is your own choosing: a task tracker, a vending-machine simulator, a flashcard quiz, a budget tool, a small text adventure. Keep it buildable in about two weeks of coding; a focused MVP that works beats an ambitious one that does not. Three requirements whatever the idea: object-oriented Java (multiple classes with separate responsibilities, arrays where they fit); GitHub, to collaborate with version control and to turn in; and robust exception handling, which means surviving bad input without crashing (validate, fail gracefully, re-prompt), not an empty try/catch around everything. The grey tick before the first waypoint is Labor Day, Monday Sep 7: Week 3 meets Tue&ndash;Fri and Monday lab sections do not meet that day, so confirm the Deliverable 1 hand-in time for your section. Step 2 &mdash; the team walks to Week 3 and a one-page sheet grows: the scope document, due at the start of your lab session, answering five questions: what are you building, in a paragraph a non-CS person could understand; what is your MVP; what are the stretch goals; what bad input must it survive; what do you not know how to do yet. Step 3 &mdash; Week 4, the specification, 3&ndash;5 pages, due at your lab: class design with one job per class; a system diagram of boxes and arrows, required; data and state (the fields, and which collection or structure stores the core data and why); method signatures, the contract a teammate or GenAI builds against; where validation lives; a test plan with one normal case and one bad-input case per public method; division of work; and a revised scope. Step 4 &mdash; Week 5, the build, due at your lab: working code that handles bad input, a handful of JUnit tests (at least one normal and one bad-input case per key method), an individual half-to-one-page writeup, and a 3-minute lightning talk in discussion section. Grading is EMRN per deliverable, no points, and the grading sessions with the TAs are oral exams: learn all parts of your system, and do not offload to GenAI without following what it is doing. Everything is due the day of your lab. On GenAI: bring your own idea first, then use it as a brainstorming partner; do not one-shot prompt the assignment; collaborate and discuss first, then critique the GenAI output as a group. Seating: never sit with your project group in lecture; always sit with them in discussion. Step 5 &mdash; the test list grows beside the laptop, one normal case and one bad input, and the caption asks what a test actually proves. Leave it hanging. Part 2 answers that.</aside>
 
   <style data-sid="04-project-1:63">
     /* Slide-local: the project as a trail. Three waypoints on a rising dashed
@@ -107,15 +120,32 @@
        stagger), real moves (the cluster travels by transform; later rules
        win, so a back-step unwinds), recolour in place (a reached disc and its
        label), GrowFromCenter (the documents, the laptop, the tick, the test
-       list) and FadeIn (the steps, the tag, the caption). Used by this slide
+       list), the card's rows undim (Week 1's table idiom) and FadeIn (the
+       tag, the caption). Used by this slide
        only, all values from tokens. Geometry: trail head (100 560), waypoints
        (330 510) (590 440) (840 370); the caption spans both columns because
        at --t-small it needs the full width to sit in two lines. */
-    #slide-04 .pj { display: grid; grid-template-columns: 1fr 980px; gap: var(--s-2) var(--s-4); align-items: start; }
-    #slide-04 .pj__steps li { font-size: var(--t-small); line-height: 1.3; padding-left: var(--s-6); margin: var(--s-1) 0; }
-    #slide-04 .pj__steps li:first-child { margin-top: 0; }
-    #slide-04 .pj__steps li:last-child { margin-bottom: 0; }
-    #slide-04 .pj__scene { display: block; width: 980px; height: 616px; overflow: visible; }
+    #slide-04 .pj { display: grid; grid-template-columns: 1fr 900px; gap: var(--s-2) var(--s-4); align-items: start; }
+    /* the scene keeps its 980×616 drawing box and is shown at 900×566, so the
+       card's column is 732px wide and every row stays on one line */
+    #slide-04 .pj__scene { display: block; width: 900px; height: 566px; overflow: visible; }
+
+    /* the card: Week 1's .data table, P1 column only (that deck's rules, copied,
+       since this is the only slide here that draws a table) */
+    #slide-04 .pj__card { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
+    #slide-04 .pj__card th, #slide-04 .pj__card td {
+      padding: var(--s-2) var(--s-3);
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.3;
+      border-bottom: 2px solid color-mix(in srgb, var(--fg-1) 45%, transparent);
+    }
+    #slide-04 .pj__proj { --edge: var(--accent-3); border-top: var(--s-1) solid var(--edge); font-family: var(--font-display); font-size: var(--t-body); font-weight: 400; color: var(--fg-0); }
+    #slide-04 .pj__ptag { margin: 0 0 var(--s-1); font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.2; color: var(--edge); }
+    #slide-04 .pj__k { display: inline-block; min-width: 130px; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+    #slide-04 .pj__lesson td { font-family: var(--font-display); font-size: var(--t-body); color: var(--accent-1); border-bottom: 0; }
+    #slide-04 .pj__card .frag { transition: opacity .35s ease; }
+    #slide-04 .pj__card .frag.is-current, #slide-04 .pj__card .frag.is-past { transition-delay: .5s; }
     #slide-04 .pj__cap { grid-column: 1 / -1; margin: 0; font-size: var(--t-small); line-height: 1.25; }
 
     /* the world: trail, the Labor Day tick */
@@ -177,7 +207,7 @@
     @media (prefers-reduced-motion: reduce) {
       #slide-04 .pj__team, #slide-04 .pj__bust, #slide-04 .pj__disc, #slide-04 .pj__label,
       #slide-04 .pj__doc, #slide-04 .pj__laptop, #slide-04 .pj__ok, #slide-04 .pj__tag, #slide-04 .pj__tests,
-      #slide-04 .pj__steps .frag, #slide-04 .pj__cap {
+      #slide-04 .pj__card .frag, #slide-04 .pj__cap {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }

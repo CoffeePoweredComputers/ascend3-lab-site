@@ -262,6 +262,81 @@ html.no-motion *::after {
   color: var(--accent-3);
 }
 
+/* ---- chat transcript: a question bubble at the right on a wash of the link
+   blue, an answer bubble at the left on the raised-panel tone with an --edge
+   outline (stone by default; .chat__msg--us takes the maroon when the answerer
+   is the course), each with a small mono speaker label. The answer bubble
+   carries a .steps list. Tails are rotated squares; the answer's has two
+   border sides so it continues the outline. The answer turn GrowFromCenters
+   about its tail corner. Used by 16f and 16g — the same question, put to the
+   model and then to us. ---------------------------------------------------- */
+.slide .chat { display: flex; flex-direction: column; gap: var(--s-3); }
+.chat__turn { display: flex; flex-direction: column; }
+.chat__turn--q { align-self: flex-end; align-items: flex-end; max-width: 1000px; }
+.chat__turn--a { align-self: flex-start; align-items: flex-start; max-width: 1400px; }
+.slide .chat__who {
+  margin: 0 var(--s-3) var(--s-1);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--fg-1);
+}
+.slide .chat__msg {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: var(--r-3);
+  font-size: var(--t-small);
+  line-height: 1.45;
+  color: var(--fg-0);
+}
+.slide .chat__msg--q {
+  padding: var(--s-2) var(--s-4);
+  background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-0));
+}
+.chat__msg--q::after {
+  content: "";
+  position: absolute;
+  right: 40px;
+  bottom: -10px;
+  width: 24px;
+  height: 24px;
+  background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-0));
+  transform: rotate(45deg);
+}
+.slide .chat__msg--a {
+  --edge: var(--stone);
+  padding: var(--s-3) var(--s-4);
+  border: 3px solid var(--edge);
+  background: var(--bg-1);
+}
+.slide .chat__msg--us { --edge: var(--accent-1); }
+.chat__msg--a::before {
+  content: "";
+  position: absolute;
+  left: 40px;
+  bottom: -14px;
+  width: 24px;
+  height: 24px;
+  background: var(--bg-1);
+  border-right: 3px solid var(--edge);
+  border-bottom: 3px solid var(--edge);
+  transform: rotate(45deg);
+}
+.slide .chat__msg--a .steps { font-size: var(--t-small); line-height: 1.45; }
+.slide .chat__msg--a .steps .note { margin: var(--s-1) 0 0; font-size: var(--t-micro); line-height: 1.4; }
+.slide .chat__after { margin: 0; }
+/* the answer arrives: GrowFromCenter about the tail corner, opacity resolving early */
+.slide .chat__turn--a {
+  transform-origin: 0 100%;
+  transition: opacity .25s ease, transform .55s var(--ease-smooth);
+}
+.slide .frag.chat__turn--a.is-pending { opacity: 0; transform: scale(0.4); }
+@media (prefers-reduced-motion: reduce) {
+  .slide .chat__turn--a { transition-duration: 0s !important; transition-delay: 0s !important; }
+}
+
 /* ---- source editor: a code pane with a filename bar and a numbered gutter.
    Chrome is stone-toned on purpose — content tiles carry the accent edges, so
    "this is code" and "this is the ask" never read as the same kind of box.

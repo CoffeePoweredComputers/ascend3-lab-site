@@ -9,17 +9,16 @@
        ran clean to its last line and died there. Each column is the divider
        that follows it, so the three chapter slides are a callback rather than
        an announcement. Titles here are the tab captions; the dividers carry
-       the same words full size. Drawings in the deck's two-weight pen;
-       columns are dealt in by growing from centre.
+       the same words full size. Each drawing sits on the rule above its own
+       numeral and title, in the deck's two-weight pen; columns are dealt in by
+       growing from centre.
        step 1: the contract and the bag — Part 1 is vocabulary, then Project 1.
        step 2: the laptop with a tick and a cross — Part 2 is the three votes.
        step 3: three lines ticked, the last one crossed — Part 3 is the practice. -->
   <div class="slide__body" data-sid="01b-today:5">
     <ol class="grid ag" data-sid="01b-today:6">
       <li class="ag__ch frag" data-step="1" data-sid="01b-today:7">
-        <p class="ag__n" data-sid="01b-today:8">01</p>
-        <h3 data-sid="01b-today:9">Project 1, and the three words it needs</h3>
-        <svg viewBox="0 0 400 260" role="img" aria-label="A contract sheet with a signature line, and a small bag beside it" data-sid="01b-today:10">
+        <svg viewBox="34 10 338 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A contract sheet with a signature line, and a small bag beside it" data-sid="01b-today:10">
           <g class="paper"><rect x="40" y="16" width="180" height="228" rx="8"/></g>
           <g class="stone"><path d="M68 56h124M68 88h96M68 120h112M68 152h84"/></g>
           <g class="ink"><path d="M68 212h124"/></g>
@@ -30,11 +29,11 @@
             <path d="M313 146l-16-18M313 146l16-18"/>
           </g>
         </svg>
+        <p class="ag__n" data-sid="01b-today:8">01</p>
+        <h3 data-sid="01b-today:9">Project 1, and the three words it needs</h3>
       </li>
       <li class="ag__ch frag" data-step="2" data-sid="01b-today:11">
-        <p class="ag__n" data-sid="01b-today:12">02</p>
-        <h3 data-sid="01b-today:13">What does a test prove?</h3>
-        <svg viewBox="0 0 400 260" role="img" aria-label="An open laptop whose screen shows a tick and a cross" data-sid="01b-today:14">
+        <svg viewBox="74 72 252 162" preserveAspectRatio="xMidYMax meet" role="img" aria-label="An open laptop whose screen shows a tick and a cross" data-sid="01b-today:14">
           <g class="ink">
             <path d="M112 78h176v106H112z"/>
             <path d="M96 196h208l16 32H80z"/>
@@ -42,11 +41,11 @@
           <g class="edge"><path d="M136 134l18 18l34-40"/></g>
           <g class="fail"><path d="M216 112l40 40M256 112l-40 40"/></g>
         </svg>
+        <p class="ag__n" data-sid="01b-today:12">02</p>
+        <h3 data-sid="01b-today:13">What does a test prove?</h3>
       </li>
       <li class="ag__ch frag" data-step="3" data-sid="01b-today:15">
-        <p class="ag__n" data-sid="01b-today:16">03</p>
-        <h3 data-sid="01b-today:17">Every line ran. It still blew up.</h3>
-        <svg viewBox="0 0 400 260" role="img" aria-label="Three code lines, each ticked as run, with a cross at the end of the last" data-sid="01b-today:18">
+        <svg viewBox="28 48 314 162" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Three code lines, each ticked as run, with a cross at the end of the last" data-sid="01b-today:18">
           <g class="ink">
             <rect x="84" y="56" width="216" height="32" rx="6"/>
             <rect x="112" y="114" width="150" height="32" rx="6"/>
@@ -55,6 +54,8 @@
           <g class="edge"><path d="M34 74l9 9l17-20M34 132l9 9l17-20M34 190l9 9l17-20"/></g>
           <g class="fail"><path d="M304 172l32 32M336 172l-32 32"/></g>
         </svg>
+        <p class="ag__n" data-sid="01b-today:16">03</p>
+        <h3 data-sid="01b-today:17">Every line ran. It still blew up.</h3>
       </li>
     </ol>
   </div>
@@ -63,27 +64,29 @@
 
   <style>
     /* Slide-local: the agenda as three previews of the argument. Each column is
-       a chapter tab in the sister decks' grammar — a rule across the top, a
-       display numeral in the tabs' orange, the caption as the title — with the
-       drawing of what that chapter is about underneath. Three columns of 539,
-       set here rather than with the shared .grid--3 so the list chrome and the
-       stretch rows travel with the tab. Three pen inks inside the art: neutral
-       for the world, orange for the thing being pointed at, maroon for the
-       failure; a sheet is paper with stone text lines. Columns are dealt in by
-       growing from centre. Used by this slide only, all values from tokens. */
+       a chapter tab in day 1's grammar — a rule across the top, a display
+       numeral in the tabs' orange, the caption as the title — with the drawing
+       of what that chapter is about sitting on the rule above them. Three
+       columns of 539 rather than the shared .grid--3, so the list chrome
+       travels with the tab. The drawing box is a fixed 360 so the rules line up
+       across columns whatever the title's line count; each viewBox is cropped
+       to its art and bottom-anchored so the drawing fills the column width and
+       rests on the rule. Three pen inks inside the art: neutral for the world,
+       orange for the thing being pointed at, maroon for the failure; a sheet is
+       paper with stone text lines. Columns are dealt in by growing from centre.
+       Used by this slide only, all values from tokens. */
     #slide-01b .slide .ag, #slide-01b .ag {
       grid-template-columns: repeat(3, 1fr);
       list-style: none; padding: 0; margin: 0;
-      grid-auto-rows: 1fr; align-content: stretch;
     }
-    #slide-01b .ag__ch {
-      display: flex; flex-direction: column; margin: 0;
-      padding-top: var(--s-3);
+    #slide-01b .ag__ch { display: flex; flex-direction: column; margin: 0; }
+    #slide-01b .ag__ch svg { display: block; flex: 0 0 auto; width: 100%; height: 360px; margin-bottom: var(--s-3); }
+    #slide-01b .ag__n {
+      margin: 0 0 var(--s-1); padding-top: var(--s-3);
       border-top: 4px solid var(--accent-1);
+      font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-3);
     }
-    #slide-01b .ag__n { margin: 0 0 var(--s-1); font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-3); }
-    #slide-01b .ag__ch h3 { flex: 0 0 auto; font-size: var(--t-body); line-height: 1.15; margin-bottom: var(--s-3); }
-    #slide-01b .ag__ch svg { display: block; flex: 1 1 0; min-height: 0; width: 100%; }
+    #slide-01b .ag__ch h3 { flex: 0 0 auto; font-size: var(--t-body); line-height: 1.15; margin-bottom: 0; }
 
     #slide-01b .ag .ink,
     #slide-01b .ag .paper,

@@ -3,24 +3,29 @@
     <p class="slide__kicker" data-sid="13-vote-student:3">PEER INSTRUCTION &middot; VOTE 2</p>
     <h2 data-sid="13-vote-student:4">What is the expected output of this snippet?</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="13-vote-student:5">A second peer-instruction question. On the left, the Student class with a constructor, a setter and a print method, and under it a three-line program that makes an array of eighty Students, sets a name on the first slot and prints it. On the right, four answers to choose between.</p>
+  <p class="sr-only slide__desc" data-sid="13-vote-student:5">A second peer-instruction question. On the left, the Student class with a name field, a constructor, a setter and a print method. On the right, a three-line program that makes an array of eighty Students, sets a name on the first slot and prints it, and under it four answers to choose between.</p>
   <div class="slide__body grid grid--code" data-sid="13-vote-student:6">
+    <div class="editor" data-sid="13-vote-student:8">
+      <p class="editor__bar" data-sid="13-vote-student:9">Student.java</p>
+      <ol class="editor__code" data-sid="13-vote-student:10">
+        <li data-sid="13-vote-student:11"><span class="tok-key">public class</span> Student {</li>
+        <li data-sid="13-vote-student:12">    String name;</li>
+        <li data-sid="13-vote-student:34"></li>
+        <li data-sid="13-vote-student:13">    <span class="tok-key">public</span> Student(String name) {</li>
+        <li data-sid="13-vote-student:35">        <span class="tok-key">this</span>.name = name;</li>
+        <li data-sid="13-vote-student:36">    }</li>
+        <li data-sid="13-vote-student:37"></li>
+        <li data-sid="13-vote-student:14">    <span class="tok-key">public void</span> setName(String name) {</li>
+        <li data-sid="13-vote-student:15">        <span class="tok-key">this</span>.name = name;</li>
+        <li data-sid="13-vote-student:16">    }</li>
+        <li data-sid="13-vote-student:38"></li>
+        <li data-sid="13-vote-student:17">    <span class="tok-key">public void</span> print() {</li>
+        <li data-sid="13-vote-student:18">        System.out.println(name);</li>
+        <li data-sid="13-vote-student:19">    }</li>
+        <li data-sid="13-vote-student:20">}</li>
+      </ol>
+    </div>
     <div class="stack" data-sid="13-vote-student:7">
-      <div class="editor" data-sid="13-vote-student:8">
-        <p class="editor__bar" data-sid="13-vote-student:9">Student.java</p>
-        <ol class="editor__code" data-sid="13-vote-student:10">
-          <li data-sid="13-vote-student:11"><span class="tok-key">public class</span> Student {</li>
-          <li data-sid="13-vote-student:12">    String name;</li>
-          <li data-sid="13-vote-student:13">    <span class="tok-key">public</span> Student(String n) { name = n; }</li>
-          <li data-sid="13-vote-student:14">    <span class="tok-key">public void</span> setName(String n) {</li>
-          <li data-sid="13-vote-student:15">        name = n;</li>
-          <li data-sid="13-vote-student:16">    }</li>
-          <li data-sid="13-vote-student:17">    <span class="tok-key">public void</span> print() {</li>
-          <li data-sid="13-vote-student:18">        System.out.println(name);</li>
-          <li data-sid="13-vote-student:19">    }</li>
-          <li data-sid="13-vote-student:20">}</li>
-        </ol>
-      </div>
       <div class="editor" data-sid="13-vote-student:21">
         <p class="editor__bar" data-sid="13-vote-student:22">your program</p>
         <ol class="editor__code" data-sid="13-vote-student:23">
@@ -29,24 +34,31 @@
           <li data-sid="13-vote-student:26">myClass[<span class="tok-num">0</span>].print();</li>
         </ol>
       </div>
+      <ol class="opts" data-sid="13-vote-student:27">
+        <li data-sid="13-vote-student:28">The code will not compile</li>
+        <li data-sid="13-vote-student:29">A NullPointerException is thrown</li>
+        <li data-sid="13-vote-student:30">Jordan</li>
+        <li data-sid="13-vote-student:31">None of the other choices</li>
+      </ol>
     </div>
-    <ol class="opts" data-sid="13-vote-student:27">
-      <li data-sid="13-vote-student:28">The code will not compile</li>
-      <li data-sid="13-vote-student:29">A NullPointerException is thrown</li>
-      <li data-sid="13-vote-student:30">Jordan</li>
-      <li data-sid="13-vote-student:31">None of the other choices</li>
-    </ol>
   </div>
   <div class="slide__number" data-sid="13-vote-student:32"></div>
   <aside class="notes" data-sid="13-vote-student:33">Answer: B &mdash; a NullPointerException on line 2. `new Student[80]` makes eighty slots, not eighty Students; every slot holds null until something is assigned into it. It compiles fine, which is exactly why A is tempting. This one matters for the projects: an array of objects has to be filled twice &mdash; once for the array, once for each element.</aside>
 
   <style>
-    /* Slide-local: same vote pane as the first question — code at the chrome
-       size so the widest line clears the column, lettered answers in the
+    /* Slide-local: the same vote pane as the first question, with the class
+       source in full. Fifteen lines of Student.java take the whole left
+       column, so the program moves to the right column over the answers (the
+       two editors stacked ran past the pane). Even columns, as on the
+       walkthrough — the wide line here is the array declaration on the
+       right. Code at the chrome size on a slightly tighter leading so the
+       class clears the pane with room to spare; answers lettered in the
        heading maroon. Used by this slide only, all values from tokens. */
-    #slide-13 .editor__code { font-size: var(--t-micro); }
+    #slide-13 .grid--code { grid-template-columns: 1fr 1fr; }
+    #slide-13 .slide__body { align-items: start; }   /* both columns start level, as on the first vote */
+    #slide-13 .editor__code { font-size: var(--t-micro); line-height: 1.3; }
     #slide-13 .opts { list-style-type: upper-alpha; padding-left: var(--s-5); font-size: var(--t-small); }
     #slide-13 .opts li { margin: var(--s-2) 0; }
-    #slide-13 .opts li::marker { color: var(--accent-1); }
+    #slide-13 .opts::marker, #slide-13 .opts li::marker { color: var(--accent-1); }
   </style>
 </section>

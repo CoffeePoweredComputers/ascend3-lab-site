@@ -1,9 +1,8 @@
 <section class="slide" id="slide-16f" data-sid="16f-llm-risks:1">
   <header class="slide__head" data-sid="16f-llm-risks:2">
-    <p class="slide__kicker" data-sid="16f-llm-risks:3">WE ASKED A CHATBOT</p>
     <h2 data-sid="16f-llm-risks:4">What are the risks of using an LLM in this course?</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="16f-llm-risks:5">A chat transcript, drawn. At the top right, a pale blue bubble labelled you holds the question as typed: what are the risks of using an LLM in CS 2114. Then a grey bubble labelled model grows in from the left with the model&rsquo;s own answer, three numbered risks arriving one at a time. One: shallow understanding, from over-reliance &mdash; it reads as learning while you are doing it, and the bill arrives on the test. Two: misconceptions, from code that is plausible and wrong &mdash; confident, well formatted, and subtly not what you asked for. Three: debugging skills that never develop &mdash; the problem-solving got skipped, so the muscle was never worked. Under the transcript, a small line notes that this is the model&rsquo;s own answer to the question, and that it is also the right one. Last, in full ink, our own answer: the projects are hard enough that it cannot do them for you.</p>
+  <p class="sr-only slide__desc" data-sid="16f-llm-risks:5">A chat transcript, drawn. At the top right, a pale blue bubble labelled you holds the question as typed: what are the risks of using an LLM in CS 2114. Then a grey bubble labelled model grows in from the left with the model&rsquo;s own answer, three numbered risks arriving one at a time. One: shallow understanding, from over-reliance &mdash; it reads as learning while you are doing it, and the bill arrives on the test. Two: misconceptions, from code that is plausible and wrong &mdash; confident, well formatted, and subtly not what you asked for. Three: debugging skills that never develop &mdash; the problem-solving got skipped, so the muscle was never worked. Last, a line under the transcript notes that this is the model&rsquo;s own answer to the question, and that it is also the right one.</p>
 
   <!-- The joke is "we asked the chatbot and it told on itself", and a numbered
        list does not carry that; a transcript does. The question is typed in
@@ -11,18 +10,16 @@
        model's bubble, and the three risks land inside it one per step. The
        bubble reserves its whole height from step 0 (pending frags keep their
        boxes), so nothing below it shifts. The text is ours — this is drawn,
-       not screenshotted — so it restyles with the deck. The risks are the
-       model's answer; the benefit is ours, and it is the last line: the
-       projects are hard enough that the model cannot do them for you, which
-       is exactly what makes them the place to learn to use one. -->
+       not screenshotted — so it restyles with the deck. The next slide (16g)
+       puts the same question to us and answers it with the benefits. -->
   <div class="slide__body chat" data-sid="16f-llm-risks:6">
-    <div class="chat__turn chat__turn--you" data-sid="16f-llm-risks:17">
+    <div class="chat__turn chat__turn--q" data-sid="16f-llm-risks:17">
       <p class="chat__who" data-sid="16f-llm-risks:18">you</p>
-      <p class="chat__msg chat__msg--you" data-sid="16f-llm-risks:19">What are the risks of using an LLM in CS 2114?</p>
+      <p class="chat__msg chat__msg--q" data-sid="16f-llm-risks:19">What are the risks of using an LLM in CS 2114?</p>
     </div>
-    <div class="chat__turn chat__turn--model frag" data-step="1" data-sid="16f-llm-risks:20">
+    <div class="chat__turn chat__turn--a frag" data-step="1" data-sid="16f-llm-risks:20">
       <p class="chat__who" data-sid="16f-llm-risks:21">model</p>
-      <div class="chat__msg chat__msg--model" data-sid="16f-llm-risks:22">
+      <div class="chat__msg chat__msg--a" data-sid="16f-llm-risks:22">
         <ol class="steps" data-sid="16f-llm-risks:7">
           <li class="frag" data-step="1" data-sid="16f-llm-risks:8">
             Shallow understanding, from over-reliance.
@@ -40,88 +37,16 @@
       </div>
     </div>
     <p class="note chat__after frag" data-step="4" data-sid="16f-llm-risks:14">That is the model&rsquo;s own answer to the question. It is also the right one.</p>
-    <p class="chat__ours frag" data-step="5" data-sid="16f-llm-risks:23">Ours: the projects are hard enough that it cannot do them for you.</p>
   </div>
   <div class="slide__number" data-sid="16f-llm-risks:15"></div>
-  <aside class="notes" data-sid="16f-llm-risks:16">The joke lands on its own &mdash; do not explain it. The transcript is drawn, not a screenshot, so the wording is ours: say that if anyone asks which model. Number two is the one to dwell on, because it is the one they cannot self-diagnose: you only find out the explanation was wrong when something built on it breaks. Tie it back to the Web-CAT report we just read: plausible code that fails a test is the same problem, and the report is the thing that tells you rather than the code looking right. The last line is the benefit, and it is ours rather than the model&rsquo;s: we teach you to use these tools by giving you design problems hard enough that the model cannot simply do them for you. If you do use one on a project, you are using it on something genuinely complex &mdash; deciding what to build, checking what it hands you, fitting the pieces together &mdash; and that is the skill industry actually wants. The next slide is the order to do it in.</aside>
+  <aside class="notes" data-sid="16f-llm-risks:16">The joke lands on its own &mdash; do not explain it. The transcript is drawn, not a screenshot, so the wording is ours: say that if anyone asks which model. Number two is the one to dwell on, because it is the one they cannot self-diagnose: you only find out the explanation was wrong when something built on it breaks. Tie it back to the two votes: code that reads right and does the wrong thing is the same problem, and only running it &mdash; or a test &mdash; tells you, never the code looking right. The next slide puts the same question to us: the benefits.</aside>
 
   <style>
-    /* Slide-local: a chat transcript in the deck's own materials. The question
-       bubble sits right on a wash of the link blue with a small "you" label;
-       the answer bubble sits left on the raised-panel tone with a stone edge
-       and a "model" label, and keeps the deck's numbered-arc numerals for the
-       three risks. Tails are rotated squares: the model's carries two border
-       sides so it reads as part of the outlined bubble. The heading is the
-       question, so it drops a step (06's Q/A move) and the bubble repeats it
-       short, as typed. Two closing lines: the aside about the model in the
-       footnote voice, then our answer in full ink at the transcript size, so
-       the benefit is the last thing the eye lands on. Vertical spacing runs
-       one step tighter than the deck default (head gap, bubble padding, list
-       margins) so the transcript plus both closing lines leave slack above
-       the slide number. Motion is manim's only: the answer bubble grows from
-       its tail corner, each risk and the closing lines FadeIn. Used by this
-       slide only, all values from tokens. */
-    #slide-16f .slide__head { margin-bottom: var(--s-3); }
+    /* Slide-local: only the heading, which is the question, so it drops a
+       step (06's Q/A move) and the bubble repeats it short, as typed. The
+       transcript — bubbles, labels, tails, the GrowFromCenter arrival — is
+       the shared .chat component in deck.css, which 16g reuses with the
+       answer bubble in the course's maroon. */
     #slide-16f .slide__head h2 { font-size: var(--t-h3); line-height: 1.2; }
-    #slide-16f .chat { display: flex; flex-direction: column; gap: var(--s-2); }
-    #slide-16f .chat__turn { display: flex; flex-direction: column; }
-    #slide-16f .chat__turn--you { align-self: flex-end; align-items: flex-end; max-width: 1000px; }
-    #slide-16f .chat__turn--model { align-self: flex-start; align-items: flex-start; max-width: 1400px; }
-    #slide-16f .chat__who {
-      margin: 0 var(--s-3) var(--s-1);
-      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2;
-      letter-spacing: 0.04em; color: var(--fg-1);
-    }
-    #slide-16f .chat__msg {
-      position: relative;
-      box-sizing: border-box;
-      margin: 0;
-      border-radius: var(--r-3);
-      font-size: var(--t-small); line-height: 1.45; color: var(--fg-0);
-    }
-    /* the question: a wash of the link blue, tail at the bottom right */
-    #slide-16f .chat__msg--you {
-      padding: var(--s-2) var(--s-4);
-      background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-0));
-    }
-    #slide-16f .chat__msg--you::after {
-      content: "";
-      position: absolute; right: 40px; bottom: -10px;
-      width: 24px; height: 24px;
-      background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-0));
-      transform: rotate(45deg);
-    }
-    /* the answer: raised panel, stone edge, tail at the bottom left; the
-       tail's two border sides continue the bubble's outline */
-    #slide-16f .chat__msg--model {
-      padding: var(--s-2) var(--s-4);
-      border: 3px solid var(--stone);
-      background: var(--bg-1);
-    }
-    #slide-16f .chat__msg--model::before {
-      content: "";
-      position: absolute; left: 40px; bottom: -14px;
-      width: 24px; height: 24px;
-      background: var(--bg-1);
-      border-right: 3px solid var(--stone);
-      border-bottom: 3px solid var(--stone);
-      transform: rotate(45deg);
-    }
-    #slide-16f .steps { font-size: var(--t-small); line-height: 1.45; }
-    #slide-16f .steps li { margin: var(--s-1) 0; }
-    #slide-16f .steps .note { margin: var(--s-1) 0 0; font-size: var(--t-micro); line-height: 1.4; }
-    #slide-16f .chat__after { margin: 0; font-size: var(--t-micro); line-height: 1.4; }
-    #slide-16f .chat__ours { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
-
-    /* the answer arrives: GrowFromCenter about the tail corner, opacity resolving early */
-    #slide-16f .chat__turn--model {
-      transform-origin: 0 100%;
-      transition: opacity .25s ease, transform .55s var(--ease-smooth);
-    }
-    #slide-16f .frag.chat__turn--model.is-pending { opacity: 0; transform: scale(0.4); }
-
-    @media (prefers-reduced-motion: reduce) {
-      #slide-16f .chat__turn--model { transition-duration: 0s !important; transition-delay: 0s !important; }
-    }
   </style>
 </section>

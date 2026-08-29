@@ -2,7 +2,7 @@
   <header class="slide__head" data-sid="07-the-deal:2">
     <h2 data-sid="07-the-deal:3">What I do, and what you do</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="07-the-deal:4">One room, two sides of a deal. On the left, a board and a figure standing at it. First a maroon question mark grows on the board and three lines appear beneath the figure: pose the problem, guide you in, answer your questions. Then the right-hand side answers: three students each grow an orange square of their own work, arrows draw between them so each square feeds the next person, and each student is labelled &mdash; prepare, engage, ask and offer. Last the whole scene blurs behind a veil and one line is left standing: I expect every member of this class to contribute to a positive environment of mutual aid and cooperation.</p>
+  <p class="sr-only slide__desc" data-sid="07-the-deal:4">One room, two sides of a deal. On the left, a board and a figure standing at it, captioned your tutor. First a maroon question mark grows on the board and three lines appear beneath the figure: pose the problem, guide you in, answer your questions. Then the right-hand side, captioned the apprentices, answers: three students each grow an orange square of their own work, arrows draw between them so each square feeds the next person, and each student is labelled &mdash; prepare, engage, seek help give help. Last the whole scene blurs behind a veil and one line is left standing: I expect every member of this class to contribute to a positive environment of mutual aid and cooperation.</p>
 
   <!-- Two slides' worth of duty lists, drawn as one deal. The left half is what
        the front of the room is for — a problem, not a reading; the right half is
@@ -19,6 +19,7 @@
       </defs>
 
       <!-- my side -->
+      <text class="dl__role frag" data-step="1" data-anim="fade" x="370" y="262">your tutor</text>
       <rect class="dl__board" x="180" y="280" width="380" height="210" rx="8" data-sid="07-the-deal:7"/>
       <text class="dl__q frag" data-step="1" x="370" y="432" data-sid="07-the-deal:8">?</text>
       <g class="dl__lead" data-sid="07-the-deal:9">
@@ -30,6 +31,7 @@
       <text class="dl__mine frag" data-step="1" data-anim="fade" style="--i: 2" x="180" y="934" data-sid="07-the-deal:12">answer your questions</text>
 
       <!-- your side -->
+      <text class="dl__role frag" data-step="2" data-anim="fade" x="1230" y="262">the apprentices</text>
       <g class="dl__people" data-sid="07-the-deal:13">
         <use href="#w2-deal-person" x="900" y="520"/>
         <use href="#w2-deal-person" x="1230" y="520"/>
@@ -46,7 +48,7 @@
       </g>
       <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 0" x="900" y="812" data-sid="07-the-deal:19">prepare</text>
       <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 1" x="1230" y="812" data-sid="07-the-deal:20">engage</text>
-      <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 2" x="1560" y="812" data-sid="07-the-deal:21">ask, and offer</text>
+      <text class="dl__yours frag" data-step="2" data-anim="fade" style="--i: 2" x="1560" y="812" data-sid="07-the-deal:21">seek help, give help</text>
     </svg>
   </div>
   <div class="slide__number" data-sid="07-the-deal:22"></div>
@@ -68,6 +70,9 @@
        slide only, all values from tokens; viewBox = the body's rect. */
     #slide-07 .slide__body { position: relative; }
     #slide-07 .dl { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* role captions, one per side */
+    #slide-07 .dl__role { font-family: var(--font-display); font-size: var(--t-body); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
 
     /* my side */
     #slide-07 .dl__board { fill: none; stroke: var(--fg-1); stroke-width: 5; }
@@ -120,7 +125,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       #slide-07 .slide__head, #slide-07 .slide__body { transition-duration: 0s !important; }
-      #slide-07 .dl__q, #slide-07 .dl__mine, #slide-07 .dl__piece, #slide-07 .dl__pass,
+      #slide-07 .dl__role, #slide-07 .dl__q, #slide-07 .dl__mine, #slide-07 .dl__piece, #slide-07 .dl__pass,
       #slide-07 .dl__yours, #slide-07 .dl__veil {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
