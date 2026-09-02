@@ -4,7 +4,7 @@
     <h2 data-sid="10-week2-practice:4">Week 2 Coding Practice (on PrairieLearn)</h2>
     <p class="slide__lede" data-sid="10-week2-practice:45">PrairieLearn &rsaquo; Assessments &rsaquo; Coding Practice &mdash; the stop number is the question number</p>
   </header>
-  <p class="sr-only slide__desc" data-sid="10-week2-practice:5">A note in the top left corner says where to go: PrairieLearn, then Assessments, then the Coding Practice assessment &mdash; the stop number is the question number. A dashed trail rises and falls across the body like a hiking route. Two stops numbered like the PrairieLearn questions sit on it and appear left to right, one per step, each with its title: 01, find the line that throws, below the first dip; 03, fix a method that breaks on null arguments, above the second rise. Last, a small maroon hazard marker &mdash; a circle with a slash through it &mdash; grows onto both stops in turn, and a caption under the trail reads: both are the same exception; that is not an accident.</p>
+  <p class="sr-only slide__desc" data-sid="10-week2-practice:5">A line under the heading says where to go: PrairieLearn, then Assessments, then the Coding Practice assessment &mdash; the stop number is the question number. A dashed trail rises and falls across the body like a hiking route. Two stops numbered like the PrairieLearn questions sit on it and appear left to right, one per step, each with its title: 01, find the line that throws, below the first dip; 03, fix a method that breaks on null arguments, above the second rise. Last, a small maroon hazard marker &mdash; a circle with a slash through it &mdash; grows onto both stops in turn, and a caption under the trail reads: both are the same exception; that is not an accident.</p>
 
   <!-- The two questions are one walk — this section runs them left to
        right — so they are drawn as stops on a trail, and the thing a tile
@@ -14,8 +14,10 @@
        never crosses a word. (Cut 2026-09-01 from four stops to two: the UML
        question and the Employee-array repeat of Monday went with their
        slides.) The discs carry the PrairieLearn question numbers — 01 and 03,
-       not walk order — and a static signpost note in the top-left corner
-       gives the path: PrairieLearn › Assessments › Coding Practice.
+       not walk order — and the header lede gives the path: PrairieLearn ›
+       Assessments › Coding Practice. The lede makes the body a step shorter
+       than the viewBox comment below assumes; "meet" scales the map down to
+       fit, and the plant caption is bottom-anchored so it stays inside.
        step 1: 01, find the line that throws. step 2: 03, fix a
        method that breaks on null. step 3: the null hazard grows onto both,
        staggered, and the caption says the plant. One SVG in canvas px; the
@@ -108,8 +110,10 @@
     #slide-10 .hz.is-pending .hz__mark { opacity: 0; transform: scale(0.3); }
     #slide-10 .hz.is-current .hz__mark, #slide-10 .hz.is-past .hz__mark { transition-delay: calc(var(--i) * 120ms); }
 
-    /* the signpost: static, top-left, clear of the second peak's title */
-    #slide-10 .where { position: absolute; left: 0; top: 0; margin: 0; max-width: 640px; line-height: 1.5; }
+    /* the signpost is the header lede, dropped to the note size — in flow,
+       so it can never sit on the trail; the map's "meet" scaling gives it
+       room by shrinking the drawing a step instead */
+    #slide-10 .slide__lede { font-size: var(--t-small); }
 
     /* the caption: plain fade, after the last marker has landed */
     #slide-10 .cap { position: absolute; margin: 0; transition: opacity .3s ease; }
