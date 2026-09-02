@@ -3,54 +3,55 @@
     <p class="slide__kicker" data-sid="08b-walk-branch:3">VOTE 3 &middot; THE ANSWER</p>
     <h2 data-sid="08b-walk-branch:4">Covered &mdash; and wrong</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="08b-walk-branch:5">On the left, the method under test: getSign returns 1 when x is greater than 0, minus 1 when x is less than 0, and 0 otherwise. On the right, the four candidate tests in a two-by-two grid, lettered A to D in orange. Each option shows its own assertions in mono and, below them, the same picture of getSign: three lanes side by side, headed x greater than 0, x less than 0, and else, and footed 1, minus 1, and 0. Option by option, the assertions appear above the lanes, each one&rsquo;s input drops in at the mouth of the lane it enters, that lane fills blue from the top down, and a counter reads two of three branches for A, for B and for C, and three of three for D. Last, on D, a maroon cross covers the 0 at the foot of the else lane and the 1 that D&rsquo;s third assertion expects turns maroon &mdash; the lane ran, and the expectation was wrong. A caption under the code: coverage asks did this line run; it never asks was it right; Project 1 asks for both, a normal case and a bad-input case per method.</p>
+  <p class="sr-only slide__desc" data-sid="08b-walk-branch:5">On the left, the method under test: getSign returns 1 when x is greater than 0, minus 1 when x is less than 0, and 0 otherwise. On the right, the four candidate tests in a two-by-two grid of raised cards, lettered A to D in orange. Each card shows that option&rsquo;s assertions in mono and, below them, the same picture of getSign: three lanes side by side, headed x greater than 0, x less than 0, and else, and footed 1, minus 1, and 0. Option by option, the assertions appear above the lanes, each one&rsquo;s input drops in at the mouth of the lane it enters, that lane fills blue from the top down, and a counter reads two of three branches for A, for B and for C, and three of three for D. Last, on D, a maroon cross covers the 0 at the foot of the else lane and the 1 that D&rsquo;s third assertion expects turns maroon &mdash; the lane ran, and the expectation was wrong. A caption along the bottom: coverage asks did this line run; it never asks was it right; Project 1 asks for both, a normal case and a bad-input case per method.</p>
 
   <!-- The lanes only argue if the assertions are next to them, so the answer
        slide carries the vote's material: the method on the left, and each
-       option's real assertions sitting ABOVE its own copy of the three lanes,
-       at the code pane's size, so an input can be read in the assertion and
-       then watched dropping into a lane. Branch coverage is then a picture,
-       not a percentage — B's three assertions visibly land in two lanes, D's
-       three land in three. Then the sting: D lights every lane and its last
-       assertion still fails, so a maroon cross lands on a lane that is already
-       blue and the expected value it contradicts turns maroon in D's own
-       source. Blue is "measured"; maroon is "wrong"; the counter does not move.
+       option in its own raised card — the letter, that option's real
+       assertions at the code pane's size, and its copy of the three lanes
+       below them, so an input can be read in the assertion and then watched
+       dropping into a lane. The cards make the 2×2 grouping explicit: what
+       belongs to B never bleeds into what belongs to D. Branch coverage is
+       then a picture, not a percentage — B's three assertions visibly land in
+       two lanes, D's three land in three. Then the sting: D lights every lane
+       and its last assertion still fails, so a maroon cross lands on a lane
+       that is already blue and the expected value it contradicts turns maroon
+       in D's own source. Blue is "measured"; maroon is "wrong"; the counter
+       does not move.
        step 1: A — 5 and −3 take the outer lanes; the else lane stays empty; 2 / 3.
        step 2: B — 10 and 2 both take the x > 0 lane; 0 takes else; x < 0 never runs; 2 / 3.
        step 3: C — −9 and 0; the x > 0 lane never runs; 2 / 3.
        step 4: D — 7, −2, 0: every lane fills; 3 / 3.
        step 5: the cross grows over the 0 at the foot of the lane D ran, D's
-       expected 1 goes maroon, and the caption lands under the code.
-       The scene SVG is in its own pixels (viewBox 1080×640 = the right cell,
-       1:1 so the 28px assertion text renders at true size). -->
+       expected 1 goes maroon, and the caption lands under everything.
+       The scene SVG is in its own pixels (viewBox 1104×620 = the right cell,
+       ~1:1 so the 28px assertion text renders at true size). -->
   <div class="slide__body grid grid--code" data-sid="08b-walk-branch:6">
-    <div class="stack" data-sid="08b-walk-branch:64">
-      <div class="editor" data-sid="08b-walk-branch:65">
-        <p class="editor__bar" data-sid="08b-walk-branch:66">the method under test</p>
-        <ol class="editor__code" data-sid="08b-walk-branch:67">
-          <li data-sid="08b-walk-branch:68"><span class="tok-key">public int</span> getSign(<span class="tok-key">int</span> x) {</li>
-          <li data-sid="08b-walk-branch:69">    <span class="tok-key">if</span> (x &gt; <span class="tok-num">0</span>) {</li>
-          <li data-sid="08b-walk-branch:70">        <span class="tok-key">return</span> <span class="tok-num">1</span>;</li>
-          <li data-sid="08b-walk-branch:71">    } <span class="tok-key">else if</span> (x &lt; <span class="tok-num">0</span>) {</li>
-          <li data-sid="08b-walk-branch:72">        <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
-          <li data-sid="08b-walk-branch:73">    } <span class="tok-key">else</span> {</li>
-          <li data-sid="08b-walk-branch:74">        <span class="tok-key">return</span> <span class="tok-num">0</span>;</li>
-          <li data-sid="08b-walk-branch:75">    }</li>
-          <li data-sid="08b-walk-branch:76">}</li>
-        </ol>
-      </div>
-      <p class="note cap frag" data-step="5" data-anim="fade" data-sid="08b-walk-branch:61">Coverage asks &ldquo;did this line run&rdquo;. It never asks &ldquo;was it right&rdquo;. Project 1 asks for both: a normal case and a bad-input case per method.</p>
+    <div class="editor" data-sid="08b-walk-branch:65">
+      <p class="editor__bar" data-sid="08b-walk-branch:66">the method under test</p>
+      <ol class="editor__code" data-sid="08b-walk-branch:67">
+        <li data-sid="08b-walk-branch:68"><span class="tok-key">public int</span> getSign(<span class="tok-key">int</span> x) {</li>
+        <li data-sid="08b-walk-branch:69">    <span class="tok-key">if</span> (x &gt; <span class="tok-num">0</span>) {</li>
+        <li data-sid="08b-walk-branch:70">        <span class="tok-key">return</span> <span class="tok-num">1</span>;</li>
+        <li data-sid="08b-walk-branch:71">    } <span class="tok-key">else if</span> (x &lt; <span class="tok-num">0</span>) {</li>
+        <li data-sid="08b-walk-branch:72">        <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
+        <li data-sid="08b-walk-branch:73">    } <span class="tok-key">else</span> {</li>
+        <li data-sid="08b-walk-branch:74">        <span class="tok-key">return</span> <span class="tok-num">0</span>;</li>
+        <li data-sid="08b-walk-branch:75">    }</li>
+        <li data-sid="08b-walk-branch:76">}</li>
+      </ol>
     </div>
 
-    <svg class="ln" viewBox="0 0 1080 640" preserveAspectRatio="xMidYMid meet" role="img"
-         aria-label="The four candidate tests in a two-by-two grid, each with its assertions above its own copy of the three lanes of getSign, lit by the inputs it sends"
+    <svg class="ln" viewBox="0 0 1104 620" preserveAspectRatio="xMidYMid meet" role="img"
+         aria-label="The four candidate tests in a two-by-two grid of cards, each with its assertions above its own copy of the three lanes of getSign, lit by the inputs it sends"
          data-sid="08b-walk-branch:7">
       <defs data-sid="08b-walk-branch:8">
-        <!-- the lane glyph: origin = top-left of the first track -->
+        <!-- the lane glyph: origin = top-left of the first track. Tracks sit on
+             the slide ground so they read against the raised card behind them. -->
         <g id="w2d2-08b-lanes" data-sid="08b-walk-branch:9">
-          <rect class="track" x="0" y="0" width="88" height="58" rx="10" style="fill: var(--bg-1); stroke: var(--stone); stroke-width: 4" data-sid="08b-walk-branch:10"/>
-          <rect class="track" x="112" y="0" width="88" height="58" rx="10" style="fill: var(--bg-1); stroke: var(--stone); stroke-width: 4" data-sid="08b-walk-branch:11"/>
-          <rect class="track" x="224" y="0" width="88" height="58" rx="10" style="fill: var(--bg-1); stroke: var(--stone); stroke-width: 4" data-sid="08b-walk-branch:12"/>
+          <rect class="track" x="0" y="0" width="88" height="58" rx="10" style="fill: var(--bg-0); stroke: var(--stone); stroke-width: 4" data-sid="08b-walk-branch:10"/>
+          <rect class="track" x="112" y="0" width="88" height="58" rx="10" style="fill: var(--bg-0); stroke: var(--stone); stroke-width: 4" data-sid="08b-walk-branch:11"/>
+          <rect class="track" x="224" y="0" width="88" height="58" rx="10" style="fill: var(--bg-0); stroke: var(--stone); stroke-width: 4" data-sid="08b-walk-branch:12"/>
           <text class="gate" x="44" y="-10" style="font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle" data-sid="08b-walk-branch:13">x &gt; 0</text>
           <text class="gate" x="156" y="-10" style="font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle" data-sid="08b-walk-branch:14">x &lt; 0</text>
           <text class="gate" x="268" y="-10" style="font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle" data-sid="08b-walk-branch:15">else</text>
@@ -60,102 +61,116 @@
         </g>
       </defs>
 
-      <!-- step 0: a 2×2 of options, each the same three lanes; the letter sits
-           beside the lanes, the option's assertions land above them -->
-      <use href="#w2d2-08b-lanes" x="96" y="186" data-sid="08b-walk-branch:19"/>
-      <text class="letter" x="24" y="234" data-sid="08b-walk-branch:20">A</text>
-      <use href="#w2d2-08b-lanes" x="644" y="186" data-sid="08b-walk-branch:21"/>
-      <text class="letter" x="572" y="234" data-sid="08b-walk-branch:22">B</text>
-      <use href="#w2d2-08b-lanes" x="96" y="526" data-sid="08b-walk-branch:23"/>
-      <text class="letter" x="24" y="574" data-sid="08b-walk-branch:24">C</text>
-      <use href="#w2d2-08b-lanes" x="644" y="526" data-sid="08b-walk-branch:25"/>
-      <text class="letter" x="572" y="574" data-sid="08b-walk-branch:26">D</text>
+      <!-- step 0: the 2×2 of option cards, each the same three lanes; the
+           letter sits beside the lanes, the assertions land above them -->
+      <rect class="card" x="0" y="0" width="536" height="296" data-sid="08b-walk-branch:86"/>
+      <rect class="card" x="568" y="0" width="536" height="296" data-sid="08b-walk-branch:87"/>
+      <rect class="card" x="0" y="324" width="536" height="296" data-sid="08b-walk-branch:88"/>
+      <rect class="card" x="568" y="324" width="536" height="296" data-sid="08b-walk-branch:89"/>
+      <use href="#w2d2-08b-lanes" x="76" y="188" data-sid="08b-walk-branch:19"/>
+      <text class="letter" x="36" y="238" data-sid="08b-walk-branch:20">A</text>
+      <use href="#w2d2-08b-lanes" x="644" y="188" data-sid="08b-walk-branch:21"/>
+      <text class="letter" x="604" y="238" data-sid="08b-walk-branch:22">B</text>
+      <use href="#w2d2-08b-lanes" x="76" y="512" data-sid="08b-walk-branch:23"/>
+      <text class="letter" x="36" y="562" data-sid="08b-walk-branch:24">C</text>
+      <use href="#w2d2-08b-lanes" x="644" y="512" data-sid="08b-walk-branch:25"/>
+      <text class="letter" x="604" y="562" data-sid="08b-walk-branch:26">D</text>
 
       <!-- step 1: A — 5 and -3; the else lane never runs -->
-      <text class="asrt frag" data-step="1" data-anim="fade" style="--i: 0" x="48" y="42" data-sid="08b-walk-branch:77">assertEquals(1, getSign(5));</text>
-      <text class="asrt frag" data-step="1" data-anim="fade" style="--i: 1" x="48" y="74" data-sid="08b-walk-branch:78">assertEquals(-1, getSign(-3));</text>
-      <text class="in frag" data-step="1" data-anim="fade" style="--i: 0" x="140" y="148" data-sid="08b-walk-branch:27">5</text>
-      <text class="in frag" data-step="1" data-anim="fade" style="--i: 1" x="252" y="148" data-sid="08b-walk-branch:28">-3</text>
-      <rect class="fill frag" data-step="1" style="--i: 0" x="100" y="190" width="80" height="50" rx="7" data-sid="08b-walk-branch:29"/>
-      <rect class="fill frag" data-step="1" style="--i: 1" x="212" y="190" width="80" height="50" rx="7" data-sid="08b-walk-branch:30"/>
+      <text class="asrt frag" data-step="1" data-anim="fade" style="--i: 0" x="16" y="44" data-sid="08b-walk-branch:77">assertEquals(1, getSign(5));</text>
+      <text class="asrt frag" data-step="1" data-anim="fade" style="--i: 1" x="16" y="76" data-sid="08b-walk-branch:78">assertEquals(-1, getSign(-3));</text>
+      <text class="in frag" data-step="1" data-anim="fade" style="--i: 0" x="120" y="150" data-sid="08b-walk-branch:27">5</text>
+      <text class="in frag" data-step="1" data-anim="fade" style="--i: 1" x="232" y="150" data-sid="08b-walk-branch:28">-3</text>
+      <rect class="fill frag" data-step="1" style="--i: 0" x="80" y="192" width="80" height="50" rx="7" data-sid="08b-walk-branch:29"/>
+      <rect class="fill frag" data-step="1" style="--i: 1" x="192" y="192" width="80" height="50" rx="7" data-sid="08b-walk-branch:30"/>
       <g class="count frag" data-step="1" style="--i: 1" data-sid="08b-walk-branch:31">
-        <text class="count__n" x="428" y="214" data-sid="08b-walk-branch:32">2 / 3</text>
-        <text class="count__unit" x="428" y="244" data-sid="08b-walk-branch:33">branches</text>
+        <text class="count__n" x="416" y="216" data-sid="08b-walk-branch:32">2 / 3</text>
+        <text class="count__unit" x="416" y="246" data-sid="08b-walk-branch:33">branches</text>
       </g>
 
       <!-- step 2: B — 10, 0, 2; 10 and 2 are both positive, so x < 0 never runs -->
-      <text class="asrt frag" data-step="2" data-anim="fade" style="--i: 0" x="596" y="42" data-sid="08b-walk-branch:79">assertEquals(1, getSign(10));</text>
-      <text class="asrt frag" data-step="2" data-anim="fade" style="--i: 1" x="596" y="74" data-sid="08b-walk-branch:80">assertEquals(0, getSign(0));</text>
-      <text class="asrt frag" data-step="2" data-anim="fade" style="--i: 2" x="596" y="106" data-sid="08b-walk-branch:81">assertEquals(-1, getSign(2));</text>
-      <text class="in frag" data-step="2" data-anim="fade" style="--i: 0" x="674" y="148" data-sid="08b-walk-branch:34">10</text>
-      <text class="in frag" data-step="2" data-anim="fade" style="--i: 1" x="912" y="148" data-sid="08b-walk-branch:35">0</text>
-      <text class="in frag" data-step="2" data-anim="fade" style="--i: 2" x="708" y="148" data-sid="08b-walk-branch:36">2</text>
-      <rect class="fill frag" data-step="2" style="--i: 0" x="648" y="190" width="80" height="50" rx="7" data-sid="08b-walk-branch:37"/>
-      <rect class="fill frag" data-step="2" style="--i: 1" x="872" y="190" width="80" height="50" rx="7" data-sid="08b-walk-branch:38"/>
+      <text class="asrt frag" data-step="2" data-anim="fade" style="--i: 0" x="584" y="44" data-sid="08b-walk-branch:79">assertEquals(1, getSign(10));</text>
+      <text class="asrt frag" data-step="2" data-anim="fade" style="--i: 1" x="584" y="76" data-sid="08b-walk-branch:80">assertEquals(0, getSign(0));</text>
+      <text class="asrt frag" data-step="2" data-anim="fade" style="--i: 2" x="584" y="108" data-sid="08b-walk-branch:81">assertEquals(-1, getSign(2));</text>
+      <text class="in frag" data-step="2" data-anim="fade" style="--i: 0" x="674" y="150" data-sid="08b-walk-branch:34">10</text>
+      <text class="in frag" data-step="2" data-anim="fade" style="--i: 1" x="912" y="150" data-sid="08b-walk-branch:35">0</text>
+      <text class="in frag" data-step="2" data-anim="fade" style="--i: 2" x="708" y="150" data-sid="08b-walk-branch:36">2</text>
+      <rect class="fill frag" data-step="2" style="--i: 0" x="648" y="192" width="80" height="50" rx="7" data-sid="08b-walk-branch:37"/>
+      <rect class="fill frag" data-step="2" style="--i: 1" x="872" y="192" width="80" height="50" rx="7" data-sid="08b-walk-branch:38"/>
       <g class="count frag" data-step="2" style="--i: 2" data-sid="08b-walk-branch:39">
-        <text class="count__n" x="976" y="214" data-sid="08b-walk-branch:40">2 / 3</text>
-        <text class="count__unit" x="976" y="244" data-sid="08b-walk-branch:41">branches</text>
+        <text class="count__n" x="984" y="216" data-sid="08b-walk-branch:40">2 / 3</text>
+        <text class="count__unit" x="984" y="246" data-sid="08b-walk-branch:41">branches</text>
       </g>
 
       <!-- step 3: C — -9 and 0; the x > 0 lane never runs -->
-      <text class="asrt frag" data-step="3" data-anim="fade" style="--i: 0" x="48" y="382" data-sid="08b-walk-branch:82">assertEquals(-1, getSign(-9));</text>
-      <text class="asrt frag" data-step="3" data-anim="fade" style="--i: 1" x="48" y="414" data-sid="08b-walk-branch:83">assertEquals(0, getSign(0));</text>
-      <text class="in frag" data-step="3" data-anim="fade" style="--i: 0" x="252" y="488" data-sid="08b-walk-branch:42">-9</text>
-      <text class="in frag" data-step="3" data-anim="fade" style="--i: 1" x="364" y="488" data-sid="08b-walk-branch:43">0</text>
-      <rect class="fill frag" data-step="3" style="--i: 0" x="212" y="530" width="80" height="50" rx="7" data-sid="08b-walk-branch:44"/>
-      <rect class="fill frag" data-step="3" style="--i: 1" x="324" y="530" width="80" height="50" rx="7" data-sid="08b-walk-branch:45"/>
+      <text class="asrt frag" data-step="3" data-anim="fade" style="--i: 0" x="16" y="368" data-sid="08b-walk-branch:82">assertEquals(-1, getSign(-9));</text>
+      <text class="asrt frag" data-step="3" data-anim="fade" style="--i: 1" x="16" y="400" data-sid="08b-walk-branch:83">assertEquals(0, getSign(0));</text>
+      <text class="in frag" data-step="3" data-anim="fade" style="--i: 0" x="232" y="474" data-sid="08b-walk-branch:42">-9</text>
+      <text class="in frag" data-step="3" data-anim="fade" style="--i: 1" x="344" y="474" data-sid="08b-walk-branch:43">0</text>
+      <rect class="fill frag" data-step="3" style="--i: 0" x="192" y="516" width="80" height="50" rx="7" data-sid="08b-walk-branch:44"/>
+      <rect class="fill frag" data-step="3" style="--i: 1" x="304" y="516" width="80" height="50" rx="7" data-sid="08b-walk-branch:45"/>
       <g class="count frag" data-step="3" style="--i: 1" data-sid="08b-walk-branch:46">
-        <text class="count__n" x="428" y="554" data-sid="08b-walk-branch:47">2 / 3</text>
-        <text class="count__unit" x="428" y="584" data-sid="08b-walk-branch:48">branches</text>
+        <text class="count__n" x="416" y="540" data-sid="08b-walk-branch:47">2 / 3</text>
+        <text class="count__unit" x="416" y="570" data-sid="08b-walk-branch:48">branches</text>
       </g>
 
       <!-- step 4: D — 7, -2, 0; every lane runs. Its third assertion is the sting,
            so it carries the tspan that goes maroon at step 5. -->
-      <text class="asrt frag" data-step="4" data-anim="fade" style="--i: 0" x="596" y="382" data-sid="08b-walk-branch:84">assertEquals(1, getSign(7));</text>
-      <text class="asrt frag" data-step="4" data-anim="fade" style="--i: 1" x="596" y="414" data-sid="08b-walk-branch:85">assertEquals(-1, getSign(-2));</text>
-      <text class="asrt frag" data-step="4" data-anim="fade" style="--i: 2" x="596" y="446" data-sid="08b-walk-branch:58">assertEquals(<tspan class="assert__exp" data-sid="08b-walk-branch:59">1</tspan>, getSign(0));</text>
-      <text class="in frag" data-step="4" data-anim="fade" style="--i: 0" x="688" y="488" data-sid="08b-walk-branch:49">7</text>
-      <text class="in frag" data-step="4" data-anim="fade" style="--i: 1" x="800" y="488" data-sid="08b-walk-branch:50">-2</text>
-      <text class="in frag" data-step="4" data-anim="fade" style="--i: 2" x="912" y="488" data-sid="08b-walk-branch:51">0</text>
-      <rect class="fill frag" data-step="4" style="--i: 0" x="648" y="530" width="80" height="50" rx="7" data-sid="08b-walk-branch:52"/>
-      <rect class="fill frag" data-step="4" style="--i: 1" x="760" y="530" width="80" height="50" rx="7" data-sid="08b-walk-branch:53"/>
-      <rect class="fill frag" data-step="4" style="--i: 2" x="872" y="530" width="80" height="50" rx="7" data-sid="08b-walk-branch:54"/>
+      <text class="asrt frag" data-step="4" data-anim="fade" style="--i: 0" x="584" y="368" data-sid="08b-walk-branch:84">assertEquals(1, getSign(7));</text>
+      <text class="asrt frag" data-step="4" data-anim="fade" style="--i: 1" x="584" y="400" data-sid="08b-walk-branch:85">assertEquals(-1, getSign(-2));</text>
+      <text class="asrt frag" data-step="4" data-anim="fade" style="--i: 2" x="584" y="432" data-sid="08b-walk-branch:58">assertEquals(<tspan class="assert__exp" data-sid="08b-walk-branch:59">1</tspan>, getSign(0));</text>
+      <text class="in frag" data-step="4" data-anim="fade" style="--i: 0" x="688" y="474" data-sid="08b-walk-branch:49">7</text>
+      <text class="in frag" data-step="4" data-anim="fade" style="--i: 1" x="800" y="474" data-sid="08b-walk-branch:50">-2</text>
+      <text class="in frag" data-step="4" data-anim="fade" style="--i: 2" x="912" y="474" data-sid="08b-walk-branch:51">0</text>
+      <rect class="fill frag" data-step="4" style="--i: 0" x="648" y="516" width="80" height="50" rx="7" data-sid="08b-walk-branch:52"/>
+      <rect class="fill frag" data-step="4" style="--i: 1" x="760" y="516" width="80" height="50" rx="7" data-sid="08b-walk-branch:53"/>
+      <rect class="fill frag" data-step="4" style="--i: 2" x="872" y="516" width="80" height="50" rx="7" data-sid="08b-walk-branch:54"/>
       <g class="count frag" data-step="4" style="--i: 2" data-sid="08b-walk-branch:55">
-        <text class="count__n" x="976" y="554" data-sid="08b-walk-branch:56">3 / 3</text>
-        <text class="count__unit" x="976" y="584" data-sid="08b-walk-branch:57">branches</text>
+        <text class="count__n" x="984" y="540" data-sid="08b-walk-branch:56">3 / 3</text>
+        <text class="count__unit" x="984" y="570" data-sid="08b-walk-branch:57">branches</text>
       </g>
 
       <!-- step 5: the sting — the lane ran, and the expectation was wrong -->
-      <path class="cross frag" data-step="5" d="M896 582 L928 614 M928 582 L896 614" data-sid="08b-walk-branch:60"/>
+      <path class="cross frag" data-step="5" d="M896 570 L928 602 M928 570 L896 602" data-sid="08b-walk-branch:60"/>
     </svg>
+
+    <p class="note cap frag" data-step="5" data-anim="fade" data-sid="08b-walk-branch:61">Coverage asks &ldquo;did this line run&rdquo;. It never asks &ldquo;was it right&rdquo;. Project 1 asks for both: a normal case and a bad-input case per method.</p>
   </div>
   <div class="slide__number" data-sid="08b-walk-branch:62"></div>
   <aside class="notes" data-sid="08b-walk-branch:63">Answer: D &mdash; 7, minus 2 and 0 are the only set that enters all three branches. The method stays on the left the whole time, and each option keeps its own assertions above its lanes, so the room can check the claim rather than take it. Step 1 &mdash; A: 5 takes the positive lane, minus 3 the negative one; the else lane never runs. Two of three. Step 2 &mdash; B: three assertions, and the room reads that as three cases &mdash; but 10 and 2 are both positive, so they land in the same lane and the negative branch never runs. Two of three. Counting assertions is not counting branches. Step 3 &mdash; C: minus 9 and 0; the positive lane never runs. Two of three. Step 4 &mdash; D: 7, minus 2, 0 &mdash; every lane fills, three of three, 100% branch coverage. Step 5 &mdash; the sting, worth the whole question: read D&rsquo;s third assertion off the slide, assertEquals(1, getSign(0)) &mdash; it expects 1 where the method returns 0, so the test fails, and the counter does not move. It still has 100% coverage. Coverage asks &ldquo;did this line run&rdquo;, not &ldquo;is it right&rdquo;, which is exactly why Project 1&rsquo;s final build needs two kinds of JUnit test per method &mdash; a normal case and a bad-input case. A line that ran is not a line that was right. Plant: Part 3 &mdash; code where every line runs and one still explodes.</aside>
 
   <style>
-    /* Slide-local: the method under test on the left, the four candidate tests
-       in a 2×2 on the right. One lane glyph — three tracks on the panel ground
-       with a stone edge, gates above, return values below — used once per
-       option, each option's real assertions sitting above its lanes at the code
-       pane's size (t-micro) so the source and the picture argue together. Blue
-       is the measure: an input FadeIns at the mouth of the lane it takes and
-       the lane FILLS by a top-to-bottom clip wipe (Create); each lane is its
-       own frag so a back-step empties it. The counter fades in after the last
-       lane; at step 5 the cross grows over a lane that is already blue and D's
-       expected value recolours maroon (a :has() state, so a back-step undoes
-       it). Motion is manim's only: FadeIn, Create by wipe, GrowFromCenter,
-       recolour in place. The scene SVG is in its own pixels (viewBox 1080×640 =
-       the right cell, 1:1). Used by this slide only, all values from tokens. */
+    /* Slide-local: the method under test on the left; on the right a 2×2 of
+       raised option cards with real gutters between them, so each option reads
+       as one group — the letter, that option's real assertions at the code
+       pane's size (t-micro), and its own copy of the lane glyph (three tracks
+       on the slide ground with a stone edge, gates above, return values below).
+       Blue is the measure: an input FadeIns at the mouth of the lane it takes
+       and the lane FILLS by a top-to-bottom clip wipe (Create); each lane is
+       its own frag so a back-step empties it. The counter fades in after the
+       last lane; at step 5 the cross grows over a lane that is already blue and
+       D's expected value recolours maroon (a :has() state, so a back-step
+       undoes it). Motion is manim's only: FadeIn, Create by wipe,
+       GrowFromCenter, recolour in place. The caption is a full-width bottom
+       row so the code column holds only the editor and nothing crowds it. The
+       scene SVG is in its own pixels (viewBox 1104×620 = the right cell, ~1:1).
+       Used by this slide only, all values from tokens. */
     #slide-08b .slide__body {
-      grid-template-columns: 560px minmax(0, 1fr);
-      grid-template-rows: minmax(0, 1fr);
-      column-gap: var(--s-3);
+      grid-template-columns: 536px minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: var(--s-3);
       align-items: stretch;
     }
 
-    /* the code: chrome size, same pane as the vote slide it answers */
+    /* the code: chrome size, same pane as the vote slide it answers; it keeps
+       its natural height so the lines never outrun the box */
+    #slide-08b .editor { align-self: start; }
     #slide-08b .editor__code { font-size: var(--t-micro); }
     #slide-08b .ln { width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: visible; }
+
+    /* the option cards: the raised panel tone with a stone edge — one card,
+       one option, and the gutters between cards do the grouping */
+    #slide-08b .card { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; rx: 18; }
 
     /* the glyph */
     /* track/gate/foot ink lives inline on the defs content — class rules on
@@ -193,8 +208,8 @@
     #slide-08b .frag.cross.is-pending { opacity: 0; transform: scale(0.3); }
     #slide-08b .frag.cross.is-current, #slide-08b .frag.cross.is-past { transition-delay: .35s; }
 
-    /* the caption closes the left column, under the code */
-    #slide-08b .cap { margin: 0; font-size: var(--t-micro); line-height: 1.4; transition: opacity .3s ease; }
+    /* the caption spans both columns on the body's bottom row */
+    #slide-08b .cap { grid-column: 1 / -1; margin: 0; font-size: var(--t-micro); line-height: 1.4; transition: opacity .3s ease; }
     #slide-08b .frag.cap.is-current, #slide-08b .frag.cap.is-past { transition-delay: .5s; }
 
     @media (prefers-reduced-motion: reduce) {
