@@ -677,6 +677,57 @@ html.no-motion *::after {
   .codewalk .heap-obj { animation: none !important; }
 }
 
+/* ---- debrief rows: the options that are not the answer, judged one line
+   each once the answer is on the wall. A maroon cross for "fails, or does
+   not compile"; an orange bang for "passes, and proves nothing" — the
+   dangerous one. Markup, one row per option:
+     <li class="dbr__row frag" data-step="N" style="--i: 0">
+       <svg class="dbr__mk" viewBox="-24 -24 48 48"><path class="dbr__cross" d="M-14 -14L14 14M14 -14L-14 14"/></svg>
+       <span class="dbr__opt">B</span> <span class="dbr__txt">why</span>
+     </li>
+   (the bang: <circle class="dbr__disc" r="22"/><text class="dbr__bang" y="10">!</text>)
+   Each row is one frag and stays in the flow; --i staggers the rows. Motion
+   is manim's only: the mark GrowFromCenter, the words FadeIn. Used by the
+   vote answer slides (06b, 07b). ------------------------------------------ */
+.slide .dbr {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  font-size: var(--t-small);
+  line-height: 1.3;
+}
+.slide .dbr__row { display: flex; align-items: center; gap: var(--s-2); margin: 0; }
+.dbr__mk {
+  flex: 0 0 auto;
+  width: var(--s-5);
+  height: var(--s-5);
+  overflow: visible;
+  transform-origin: 50% 50%;
+  transition: opacity .2s ease, transform .5s var(--ease-smooth);
+}
+.dbr__cross { fill: none; stroke: var(--accent-1); stroke-width: 7; stroke-linecap: round; }
+.dbr__disc { fill: var(--accent-3); }
+.dbr__bang { font-family: var(--font-mono); font-size: var(--t-micro); font-weight: 700; fill: var(--paper); text-anchor: middle; }
+.dbr__opt { flex: 0 0 auto; min-width: 1.1em; color: var(--accent-1); font-weight: 700; }
+.dbr__txt { color: var(--fg-0); }
+/* Optional first line restating the option (the room has forgotten it):
+   <span class="dbr__txt"><span class="dbr__code">assertNull(…)</span>verdict</span> */
+.dbr__code { display: block; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-1); }
+.dbr__opt, .dbr__txt { transition: opacity .3s ease; }
+/* the row itself never hides (it keeps its box); its parts do */
+.frag.dbr__row.is-pending { opacity: 1; }
+.dbr__row.is-pending .dbr__mk { opacity: 0; transform: scale(0.3); }
+.dbr__row.is-pending .dbr__opt, .dbr__row.is-pending .dbr__txt { opacity: 0; }
+.dbr__row.is-current .dbr__mk, .dbr__row.is-past .dbr__mk { transition-delay: calc(var(--i, 0) * .2s); }
+.dbr__row.is-current .dbr__opt, .dbr__row.is-past .dbr__opt,
+.dbr__row.is-current .dbr__txt, .dbr__row.is-past .dbr__txt { transition-delay: calc(.15s + var(--i, 0) * .2s); }
+@media (prefers-reduced-motion: reduce) {
+  .dbr__mk, .dbr__opt, .dbr__txt { transition: none; }
+}
+
 /* ---- motto hero — one big display-scale sentence with accent-bold clauses.
    Scoped under .slide so it outranks the `.slide p` base type rules. */
 .slide .motto {

@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="07b-walk-cases:3">VOTE 2 &middot; THE ANSWER</p>
     <h2 data-sid="07b-walk-cases:4">Two exits, two assertions</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="07b-walk-cases:5">On the left, the six-line method under test. On the right, the same method drawn as a fork: a blue entry pill labelled name at the top, a gate below it asking name.equals(""), and two ways out. Step one: the input "" appears beside the entry and the left path draws down, marked true, to a stone label null; line 3 of the code, return null, rings. Step two: the input "Hannah" appears and the right path draws down, marked false, to an orange Hokie box that grows; line 5, return new Hokie, rings. Step three: option A&rsquo;s two assertions stamp an orange tick at each exit, assertNull beside null and assertNotNull at the corner of the Hokie box, with the assertion text in mono next to each tick. Step four: under the code, three rows mark the other options, B with a maroon cross, a Hokie never equals a String; C with an orange exclamation disc, passes, and proves nothing; D with a maroon cross, does not compile; and a caption under the fork reads: One assertion per exit. C is the dangerous one: it passes.</p>
+  <p class="sr-only slide__desc" data-sid="07b-walk-cases:5">On the left, the six-line method under test. On the right, the same method drawn as a fork: a blue entry pill labelled name at the top, a gate below it asking name.equals(""), and two ways out. Step one: the input "" appears beside the entry and the left path draws down, marked true, to a stone label null; line 3 of the code, return null, rings. Step two: the input "Hannah" appears and the right path draws down, marked false, to an orange Hokie box that grows; line 5, return new Hokie, rings. Step three: option A&rsquo;s two assertions stamp an orange tick at each exit, assertNull beside null and assertNotNull at the corner of the Hokie box, with the assertion text in mono next to each tick. Step four: under the code, three rows mark the other options, each restating its assertion in mono above the verdict: B, assertEquals against "Hannah", with a maroon cross, a Hokie never equals a String; C, assertNotEquals against "Hannah", with an orange exclamation disc, passes, and proves nothing; D, assertNull of not createHokie, with a maroon cross, does not compile; and a caption under the fork reads: One assertion per exit. C is the dangerous one: it passes.</p>
 
   <!-- The method has two return statements, so the picture is a fork: one way
        in, a gate, two ways out. Once the fork is on the wall a covering test is
@@ -35,17 +35,17 @@
         <li class="dbr__row frag" data-step="4" style="--i: 0" data-sid="07b-walk-cases:18">
           <svg class="dbr__mk" viewBox="-24 -24 48 48" aria-hidden="true" data-sid="07b-walk-cases:19"><path class="dbr__cross" d="M-14 -14L14 14M14 -14L-14 14" data-sid="07b-walk-cases:20"/></svg>
           <span class="dbr__opt" data-sid="07b-walk-cases:21">B</span>
-          <span class="dbr__txt" data-sid="07b-walk-cases:22">a Hokie never equals a String</span>
+          <span class="dbr__txt" data-sid="07b-walk-cases:22"><span class="dbr__code">assertEquals("Hannah", &hellip;)</span>a Hokie never equals a String</span>
         </li>
         <li class="dbr__row frag" data-step="4" style="--i: 1" data-sid="07b-walk-cases:23">
           <svg class="dbr__mk" viewBox="-24 -24 48 48" aria-hidden="true" data-sid="07b-walk-cases:24"><circle class="dbr__disc" r="22" data-sid="07b-walk-cases:25"/><text class="dbr__bang" x="0" y="10" data-sid="07b-walk-cases:26">!</text></svg>
           <span class="dbr__opt" data-sid="07b-walk-cases:27">C</span>
-          <span class="dbr__txt" data-sid="07b-walk-cases:28">passes, and proves nothing</span>
+          <span class="dbr__txt" data-sid="07b-walk-cases:28"><span class="dbr__code">assertNotEquals("Hannah", &hellip;)</span>passes, and proves nothing</span>
         </li>
         <li class="dbr__row frag" data-step="4" style="--i: 2" data-sid="07b-walk-cases:29">
           <svg class="dbr__mk" viewBox="-24 -24 48 48" aria-hidden="true" data-sid="07b-walk-cases:30"><path class="dbr__cross" d="M-14 -14L14 14M14 -14L-14 14" data-sid="07b-walk-cases:31"/></svg>
           <span class="dbr__opt" data-sid="07b-walk-cases:32">D</span>
-          <span class="dbr__txt" data-sid="07b-walk-cases:33">does not compile: <code data-sid="07b-walk-cases:34">!object</code></span>
+          <span class="dbr__txt" data-sid="07b-walk-cases:33"><span class="dbr__code">assertNull(!createHokie("Hannah"))</span>does not compile: <code data-sid="07b-walk-cases:34">!object</code></span>
         </li>
       </ol>
     </div>
@@ -99,7 +99,7 @@
         </svg>
       </div>
       <!-- step 4: the caption, after the debrief rows have landed -->
-      <p class="note fork__cap frag" data-step="4" data-anim="fade" style="--anim-delay: .8s" data-sid="07b-walk-cases:66">One assertion per exit. C is the dangerous one: it passes.</p>
+      
     </div>
   </div>
   <div class="slide__number" data-sid="07b-walk-cases:67"></div>
@@ -115,8 +115,8 @@
        (inputs, tags, labels, the caption), Create by dashoffset (the two
        exits), grow from base (arrowheads), GrowFromCenter (the Hokie, the ticks,
        the debrief marks), recolour in place (each return line rings as its exit
-       draws, a :has() state so a back-step un-rings it). Used by this slide
-       only, all values from tokens. */
+       draws, a :has() state so a back-step un-rings it). The debrief rows are
+       deck.css's .dbr. Used by this slide only, all values from tokens. */
     #slide-07b .slide__body {
       grid-template-columns: 760px minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
@@ -200,36 +200,12 @@
     #slide-07b .fk__assert--end { text-anchor: end; }
     #slide-07b .frag.fk__assert.is-current, #slide-07b .frag.fk__assert.is-past { transition-delay: calc(.3s + var(--i) * .3s); }
 
-    /* step 4: the debrief rows — a group frag each; the mark grows, the words fade */
-    #slide-07b .dbr {
-      list-style: none; margin: 0; padding: 0;
-      display: flex; flex-direction: column; gap: var(--s-1);
-      font-size: var(--t-small); line-height: 1.3;
-    }
-    #slide-07b .dbr__row { display: flex; align-items: center; gap: var(--s-2); margin: 0; }
-    #slide-07b .dbr__mk {
-      flex: 0 0 auto; width: var(--s-5); height: var(--s-5); overflow: visible;
-      transform-origin: 50% 50%;
-      transition: opacity .2s ease, transform .5s var(--ease-smooth);
-    }
-    #slide-07b .dbr__cross { fill: none; stroke: var(--accent-1); stroke-width: 7; stroke-linecap: round; }
-    #slide-07b .dbr__disc { fill: var(--accent-3); }
-    #slide-07b .dbr__bang { font-family: var(--font-mono); font-size: var(--t-micro); font-weight: 700; fill: var(--paper); text-anchor: middle; }
-    #slide-07b .dbr__opt { flex: 0 0 auto; min-width: 1.1em; color: var(--accent-1); font-weight: 700; }
-    #slide-07b .dbr__txt { color: var(--fg-0); }
-    #slide-07b .dbr__opt, #slide-07b .dbr__txt { transition: opacity .3s ease; }
-    #slide-07b .frag.dbr__row.is-pending { opacity: 1; }
-    #slide-07b .dbr__row.is-pending .dbr__mk { opacity: 0; transform: scale(0.3); }
-    #slide-07b .dbr__row.is-pending .dbr__opt, #slide-07b .dbr__row.is-pending .dbr__txt { opacity: 0; }
-    #slide-07b .dbr__row.is-current .dbr__mk, #slide-07b .dbr__row.is-past .dbr__mk { transition-delay: calc(var(--i) * .2s); }
-    #slide-07b .dbr__row.is-current .dbr__opt, #slide-07b .dbr__row.is-past .dbr__opt,
-    #slide-07b .dbr__row.is-current .dbr__txt, #slide-07b .dbr__row.is-past .dbr__txt { transition-delay: calc(.15s + var(--i) * .2s); }
+    /* step 4: the debrief rows are deck.css's .dbr component (shared with 06b) */
 
     @media (prefers-reduced-motion: reduce) {
       #slide-07b .editor__code li, #slide-07b .fk__in, #slide-07b .fk__path, #slide-07b .fk__head,
       #slide-07b .fk__tag, #slide-07b .fk__null, #slide-07b .fk__hokie, #slide-07b .fk__badge,
-      #slide-07b .fk__assert, #slide-07b .dbr__mk, #slide-07b .dbr__opt, #slide-07b .dbr__txt,
-      #slide-07b .fork__cap {
+      #slide-07b .fk__assert, #slide-07b .fork__cap {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }

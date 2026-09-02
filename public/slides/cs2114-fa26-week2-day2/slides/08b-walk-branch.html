@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-branch:1">
   <header class="slide__head" data-sid="08b-walk-branch:2">
     <p class="slide__kicker" data-sid="08b-walk-branch:3">VOTE 3 &middot; THE ANSWER</p>
-    <h2 data-sid="08b-walk-branch:4">Covered &mdash; and wrong</h2>
+    <h2 data-sid="08b-walk-branch:4">Coverage</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="08b-walk-branch:5">On the left, the method under test: getSign returns 1 when x is greater than 0, minus 1 when x is less than 0, and 0 otherwise. On the right, the four candidate tests in a two-by-two grid of raised cards, lettered A to D in orange. Each card shows that option&rsquo;s assertions in mono and, below them, the same picture of getSign: three lanes side by side, headed x greater than 0, x less than 0, and else, and footed 1, minus 1, and 0. Option by option, the assertions appear above the lanes, each one&rsquo;s input drops in at the mouth of the lane it enters, that lane fills blue from the top down, and a counter reads two of three branches for A, for B and for C, and three of three for D. Last, on D, a maroon cross covers the 0 at the foot of the else lane and the 1 that D&rsquo;s third assertion expects turns maroon &mdash; the lane ran, and the expectation was wrong. A caption along the bottom: coverage asks did this line run; it never asks was it right; Project 1 asks for both, a normal case and a bad-input case per method.</p>
+  <p class="sr-only slide__desc" data-sid="08b-walk-branch:5">On the left, the method under test: getSign returns 1 when x is greater than 0, minus 1 when x is less than 0, and 0 otherwise. On the right, the four candidate tests in a two-by-two grid of raised cards, lettered A to D in orange. Each card shows that option&rsquo;s assertions in mono and, below them, the same picture of getSign: three lanes side by side, headed x greater than 0, x less than 0, and else, and footed 1, minus 1, and 0. Option by option, the assertions appear above the lanes, each one&rsquo;s input drops in at the mouth of the lane it enters, that lane fills blue from the top down, the matching return line in the method on the left lights blue, and a counter reads two of three branches for A, for B and for C, and three of three for D. Last, on D, a maroon cross covers the 0 at the foot of the else lane and the 1 that D&rsquo;s third assertion expects turns maroon &mdash; the lane ran, and the expectation was wrong. A caption along the bottom: coverage asks did this line run; it never asks was it right; Project 1 asks for both, a normal case and a bad-input case per method.</p>
 
   <!-- The lanes only argue if the assertions are next to them, so the answer
        slide carries the vote's material: the method on the left, and each
@@ -32,11 +32,11 @@
       <ol class="editor__code" data-sid="08b-walk-branch:67">
         <li data-sid="08b-walk-branch:68"><span class="tok-key">public int</span> getSign(<span class="tok-key">int</span> x) {</li>
         <li data-sid="08b-walk-branch:69">    <span class="tok-key">if</span> (x &gt; <span class="tok-num">0</span>) {</li>
-        <li data-sid="08b-walk-branch:70">        <span class="tok-key">return</span> <span class="tok-num">1</span>;</li>
+        <li class="ret ret--pos" data-sid="08b-walk-branch:70">        <span class="tok-key">return</span> <span class="tok-num">1</span>;</li>
         <li data-sid="08b-walk-branch:71">    } <span class="tok-key">else if</span> (x &lt; <span class="tok-num">0</span>) {</li>
-        <li data-sid="08b-walk-branch:72">        <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
+        <li class="ret ret--neg" data-sid="08b-walk-branch:72">        <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
         <li data-sid="08b-walk-branch:73">    } <span class="tok-key">else</span> {</li>
-        <li data-sid="08b-walk-branch:74">        <span class="tok-key">return</span> <span class="tok-num">0</span>;</li>
+        <li class="ret ret--zero" data-sid="08b-walk-branch:74">        <span class="tok-key">return</span> <span class="tok-num">0</span>;</li>
         <li data-sid="08b-walk-branch:75">    }</li>
         <li data-sid="08b-walk-branch:76">}</li>
       </ol>
@@ -166,6 +166,29 @@
        its natural height so the lines never outrun the box */
     #slide-08b .editor { align-self: start; }
     #slide-08b .editor__code { font-size: var(--t-micro); }
+
+    /* the return lines light in the code as the option's inputs reach them:
+       the same blue wash as the lanes, with the editor's program-counter bar
+       on the left edge. Keyed on which step is current via :has(), so a
+       back-step turns a line off again. Step 5 keeps D's three lit — the lane
+       ran; the cross is about what it returned, not whether it ran. */
+    #slide-08b .ret { transition: background-color .3s ease, box-shadow .3s ease; }
+    #slide-08b:has(.count[data-step="1"].is-current) .ret--pos,
+    #slide-08b:has(.count[data-step="2"].is-current) .ret--pos,
+    #slide-08b:has(.count[data-step="4"].is-current) .ret--pos,
+    #slide-08b:has(.cross.is-current) .ret--pos,
+    #slide-08b:has(.count[data-step="1"].is-current) .ret--neg,
+    #slide-08b:has(.count[data-step="3"].is-current) .ret--neg,
+    #slide-08b:has(.count[data-step="4"].is-current) .ret--neg,
+    #slide-08b:has(.cross.is-current) .ret--neg,
+    #slide-08b:has(.count[data-step="2"].is-current) .ret--zero,
+    #slide-08b:has(.count[data-step="3"].is-current) .ret--zero,
+    #slide-08b:has(.count[data-step="4"].is-current) .ret--zero,
+    #slide-08b:has(.cross.is-current) .ret--zero {
+      background-color: color-mix(in srgb, var(--accent-2) 12%, transparent);
+      box-shadow: inset 6px 0 0 var(--accent-2);
+    }
+
     #slide-08b .ln { width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: visible; }
 
     /* the option cards: the raised panel tone with a stone edge — one card,
@@ -214,7 +237,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       #slide-08b .asrt, #slide-08b .assert__exp, #slide-08b .in, #slide-08b .fill,
-      #slide-08b .count, #slide-08b .cross, #slide-08b .cap {
+      #slide-08b .count, #slide-08b .cross, #slide-08b .cap, #slide-08b .ret {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }
