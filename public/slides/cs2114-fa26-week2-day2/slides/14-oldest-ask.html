@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="14-oldest-ask:3">PRACTICE 3 &middot; NULL POINTER</p>
     <h2 data-sid="14-oldest-ask:4">Make getOldest survive a null</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="14-oldest-ask:5">On the left, an editor holds the method a coworker wrote: getOldest takes three Person parameters and returns the oldest by comparing getAge calls in a chain of if and else branches. On the right, a scene annotates it. First three head-and-shoulders figures grow in a row, tagged with ages 58, 31 and 44, and an arrow wipes across to a fourth figure tagged 58 wearing an orange oldest badge: the method working as intended. Then the middle figure fades to a dashed grey outline, its tag becomes null, and a maroon cross grows over the output: the method fails whenever one of the three is null. Then a rule tile appears: if a parameter is null, return the oldest of the people who are not; if all three are null, return null. Last, a caption: fix it, and work out how you would explain the problem to the coworker who wrote it.</p>
+  <p class="sr-only slide__desc" data-sid="14-oldest-ask:5">On the left, an editor holds the method a coworker wrote: getOldest takes three Person parameters and returns the oldest by comparing getAge calls in a chain of if and else branches. On the right, a scene annotates it. First three head-and-shoulders figures grow in a row, tagged with ages 58, 31 and 44, and an arrow wipes across to a fourth figure tagged 58 wearing an orange oldest badge: the method working as intended. Then the middle figure fades to a dashed grey outline, its tag becomes null, the output figure and its badge vanish, and a maroon cross grows in the empty place: the method fails whenever one of the three is null. Then a rule tile appears: if a parameter is null, return the oldest of the people who are not; if all three are null, return null. Last, a caption: fix it, and work out how you would explain the problem to the coworker who wrote it.</p>
 
   <!-- Reworked 2026-09-01: the scene alone was confusing — the room was asked
        to fix a method it had not seen. The code now sits on the slide from
@@ -15,8 +15,8 @@
        the column at the chrome size (the next slide shows it full width).
        Step 1: the three inputs stand up, the arrow wipes to the output, the
        badge grows — how it should work. Step 2: the middle Person fades to a
-       dashed stone ghost tagged null and a maroon cross grows over the
-       output — it fails. Step 3: the rule tile. Step 4: the ask — this is not
+       dashed stone ghost tagged null, the output figure and badge fade away,
+       and a maroon cross grows where the output was — it crashes. Step 3: the rule tile. Step 4: the ask — this is not
        just a patch, it is an explanation owed to a coworker. -->
   <div class="slide__body oa" data-sid="14-oldest-ask:6">
     <div class="editor" data-sid="14-oldest-ask:7">
@@ -41,7 +41,7 @@
 
     <div class="oa__side" data-sid="14-oldest-ask:24">
       <svg class="oa__scene" viewBox="0 0 612 208" preserveAspectRatio="xMidYMin meet" role="img"
-           aria-label="Three people go into getOldest and the oldest comes out wearing a badge, until the middle slot is empty — null — and the output takes a cross"
+           aria-label="Three people go into getOldest and the oldest comes out wearing a badge, until the middle slot is empty — null — and the output vanishes, leaving a cross"
            data-sid="14-oldest-ask:25">
         <defs data-sid="14-oldest-ask:26">
           <g id="w2d2-14-seat" data-sid="14-oldest-ask:27"><circle class="head" r="24" style="fill: var(--bg-0); stroke-width: 5" data-sid="14-oldest-ask:28"/><path class="sh" d="M-40 72v-16a40 40 0 0 1 80 0v16" style="fill: none; stroke-width: 5; stroke-linecap: round" data-sid="14-oldest-ask:29"/></g>
@@ -74,7 +74,7 @@
           <text x="520" y="28" data-sid="14-oldest-ask:48">oldest</text>
         </g>
 
-        <!-- step 2: the middle slot empties (driven off this cross by :has) and the output fails -->
+        <!-- step 2: the middle slot empties and the output vanishes (both driven off this cross by :has); the cross marks the crash -->
         <path class="oa__cross frag" data-step="2" d="M480 68L560 148M560 68L480 148" data-sid="14-oldest-ask:49"/>
       </svg>
 
@@ -88,7 +88,7 @@
     </div>
   </div>
   <div class="slide__number" data-sid="14-oldest-ask:54"></div>
-  <aside class="notes" data-sid="14-oldest-ask:55">Your coworker wrote a method that takes three Person objects and returns the oldest of them; it fails whenever one or more of the parameters is null. The code is on screen from the start &mdash; read the shape out loud before any step: three parameters, a chain of comparisons, every branch calls getAge on something. Step 1 &mdash; the three Persons stand up (58, 31, 44), the arrow carries them through the method, and the 58 comes out wearing the badge: this is what the coworker meant it to do, and on non-null input it does exactly that. Step 2 &mdash; the middle one was never there: the slot goes to a dashed ghost tagged null, and the output takes a cross. Say it plainly: the method does not return the wrong person, it does not return at all &mdash; it throws, on the first getAge call whose receiver is null. Step 3 &mdash; the two rules for the fix, read them out: with some nulls, the oldest of the rest; with all three null, null. Step 4 &mdash; the explaining half is not decoration: &ldquo;it crashes on null&rdquo; is a symptom, and the coworker needs the cause and the rule that prevents it. Give the groups time on the code here. Then: where exactly does it throw first? The next slide walks it.</aside>
+  <aside class="notes" data-sid="14-oldest-ask:55">Your coworker wrote a method that takes three Person objects and returns the oldest of them; it fails whenever one or more of the parameters is null. The code is on screen from the start &mdash; read the shape out loud before any step: three parameters, a chain of comparisons, every branch calls getAge on something. Step 1 &mdash; the three Persons stand up (58, 31, 44), the arrow carries them through the method, and the 58 comes out wearing the badge: this is what the coworker meant it to do, and on non-null input it does exactly that. Step 2 &mdash; the middle one was never there: the slot goes to a dashed ghost tagged null, the output disappears, and a cross marks the crash. Say it plainly: the method does not return the wrong person, it does not return at all &mdash; it throws, on the first getAge call whose receiver is null. Step 3 &mdash; the two rules for the fix, read them out: with some nulls, the oldest of the rest; with all three null, null. Step 4 &mdash; the explaining half is not decoration: &ldquo;it crashes on null&rdquo; is a symptom, and the coworker needs the cause and the rule that prevents it. Give the groups time on the code here. Then: where exactly does it throw first? The next slide walks it.</aside>
 
   <style>
     /* Slide-local: the getOldest question, code left and scene right. The
@@ -100,8 +100,9 @@
        cannot reach inside a <use>. Motion is manim's only: the seats grow from
        their base (a figure standing up), the arrow Creates by clip wipe, the
        badge and the cross grow from centre, the ghost and the null tag are a
-       plain crossfade driven by :has() off the cross, the tile and the caption
-       FadeIn. Geometry: editor column 1020px (96px gutter + 52 chars at the
+       plain crossfade driven by :has() off the cross, the output and badge
+       fade out on the same trigger so the cross stands alone, the tile and
+       the caption FadeIn. Geometry: editor column 1020px (96px gutter + 52 chars at the
        chrome size + padding), scene viewBox 612 wide = the right column at the
        body's 1664, so it renders 1:1; seats on y 68, ages on y 180, badge in
        the top band. Used by this slide only, all values from tokens. */
@@ -155,6 +156,10 @@
     #slide-14:has(.frag.oa__cross:not(.is-pending)) .oa__age--live { opacity: 0; transition-delay: 0s; }
     #slide-14:has(.frag.oa__cross:not(.is-pending)) .oa__ghost,
     #slide-14:has(.frag.oa__cross:not(.is-pending)) .oa__age--null { opacity: 1; }
+    /* the output is gone, not crossed out: the figure and its badge fade away
+       and the cross grows in the empty place */
+    #slide-14:has(.frag.oa__cross:not(.is-pending)) .oa__out,
+    #slide-14:has(.frag.oa__cross:not(.is-pending)) .oa__badge { opacity: 0; transition: opacity .4s ease; transition-delay: 0s; }
     #slide-14 .oa__cross {
       fill: none; stroke: var(--accent-1); stroke-width: 10; stroke-linecap: round;
       transform-box: fill-box; transform-origin: 50% 50%;
