@@ -1,0 +1,57 @@
+<section class="slide" id="slide-18e" data-sid="18e-webcat-results:1">
+  <header class="slide__head" data-sid="18e-webcat-results:2">
+    <p class="slide__kicker" data-sid="18e-webcat-results:3">WEB-CAT &middot; STEP 4 OF 4</p>
+    <h2 data-sid="18e-webcat-results:4">Review your results in Web-CAT</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="18e-webcat-results:5">A screenshot of a Web-CAT Result Summary page for a first try at the Week 2 homework: a final score of 2 out of 100, Style/Coding and Correctness/Testing score bars, a Submit Again button, a File Details table with per-file autograder comments, and collapsed sections for test results and a code-coverage score of 22 percent. Three numbered points arrive one at a time: Web-CAT opens your Result Summary automatically once processing finishes; review your Style/Coding and Correctness/Testing scores side by side; check File Details and the test results below for specific, line-level feedback.</p>
+
+  <!-- STEP 4 of the imported Web-CAT guide: where the feedback lands. Same
+       grammar as 18b/18c — the screenshot anchors from step 0, the three
+       numbered points arrive one per step, plain fade. The screenshot is a
+       real try #1 scoring 2/100 on purpose: a low first try plus Submit
+       Again is the story of the page. -->
+  <div class="slide__body wc" data-sid="18e-webcat-results:6">
+    <ol class="wc__steps" data-sid="18e-webcat-results:7">
+      <li class="frag" data-step="1" data-anim="fade" data-sid="18e-webcat-results:8">
+        <span class="wc__n" data-sid="18e-webcat-results:9">1</span>
+        <span class="wc__txt" data-sid="18e-webcat-results:10">Web-CAT opens your <b class="wc__key" data-sid="18e-webcat-results:11">Result Summary</b> automatically once processing finishes.</span>
+      </li>
+      <li class="frag" data-step="2" data-anim="fade" data-sid="18e-webcat-results:12">
+        <span class="wc__n" data-sid="18e-webcat-results:13">2</span>
+        <span class="wc__txt" data-sid="18e-webcat-results:14">Review your <b class="wc__key" data-sid="18e-webcat-results:15">Style/Coding</b> and <b class="wc__key" data-sid="18e-webcat-results:16">Correctness/Testing</b> scores side by side.</span>
+      </li>
+      <li class="frag" data-step="3" data-anim="fade" data-sid="18e-webcat-results:17">
+        <span class="wc__n" data-sid="18e-webcat-results:18">3</span>
+        <span class="wc__txt" data-sid="18e-webcat-results:19">Check <b class="wc__key" data-sid="18e-webcat-results:20">File Details</b> and the test results below for specific, line-level feedback.</span>
+      </li>
+    </ol>
+    <figure class="wc__shot" data-sid="18e-webcat-results:21">
+      <img src="assets/webcat-results.png" alt="A Web-CAT Result Summary for HW Week 02: Polymorphism, try 1: final score 2.0 out of 100, Style/Coding and Correctness/Testing bars, a Submit Again button, a File Details table, and collapsed sections for test results and 22 percent code coverage." data-sid="18e-webcat-results:22">
+    </figure>
+  </div>
+  <div class="slide__number" data-sid="18e-webcat-results:23"></div>
+  <aside class="notes" data-sid="18e-webcat-results:24">Step 4 of the Web-CAT guide. The screenshot is a real first try &mdash; 2.0/100, submitted five days early &mdash; and that is the point to make out loud: a low early try is information, not a verdict, and the Submit Again button sits right at the top of the page. Tie it back to Part 2 of today: Correctness/Testing is 75 of the 100 points, the &ldquo;Code Coverage from Your Tests&rdquo; section at the bottom reads 22%, and both are measured from the student&rsquo;s <em>own</em> tests &mdash; the normal-case-and-bad-input habit from the votes is exactly what moves this page.</aside>
+
+  <style data-sid="18e-webcat-results:25">
+    /* Slide-local: STEP slide of the imported Web-CAT guide, sister of
+       18b/18c — numbered points left, the real screenshot on a white --paper
+       plate right. Used by this slide only, all values from tokens. */
+    #slide-18e .wc { display: grid; grid-template-columns: 1fr 940px; gap: var(--s-6); align-items: center; }
+
+    #slide-18e .wc__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-4); }
+    #slide-18e .wc__steps li { display: grid; grid-template-columns: 64px 1fr; gap: var(--s-3); align-items: start; margin: 0; font-size: var(--t-small); line-height: 1.45; }
+    #slide-18e .wc__n {
+      width: 64px; height: 64px; border-radius: 999px;
+      background: var(--accent-1); color: var(--paper);
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 64px; text-align: center;
+    }
+    #slide-18e .wc__key { color: var(--accent-1); }
+
+    #slide-18e .wc__shot {
+      margin: 0; padding: var(--s-3);
+      background: var(--paper); border-radius: var(--r-2);
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
+    }
+    #slide-18e .wc__shot img { display: block; width: 100%; height: auto; border-radius: var(--r-1); }
+  </style>
+</section>

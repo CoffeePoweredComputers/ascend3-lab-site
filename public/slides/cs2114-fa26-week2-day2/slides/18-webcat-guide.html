@@ -1,0 +1,74 @@
+<section class="slide" id="slide-18" data-sid="18-webcat-guide:1">
+  <header class="slide__head" data-sid="18-webcat-guide:2">
+    <p class="slide__kicker" data-sid="18-webcat-guide:3">COURSE GUIDE &middot; WEB-CAT</p>
+    <h2 data-sid="18-webcat-guide:4">Submitting your assignment for grading</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="18-webcat-guide:5">Cover of a four-step course guide: sending your Eclipse project to Web-CAT for automated feedback and grading. Three station cards appear left to right with arrows between them: one, Eclipse, where the submission starts; two, the VT CAS login, finished in your regular browser; three, the Web-CAT results page, where the scores and the line-level feedback land.</p>
+
+  <!-- Appendix cover, imported 2026-09-01 from "Submitting Your Assignment -
+       Web-CAT Guide.pptx". The three stations are the three tools a submission
+       passes through; the four STEP slides after this walk them left to right.
+       step 1: the Eclipse station grows.
+       step 2: an arrow fades in, the CAS station grows.
+       step 3: an arrow fades in, the results station grows. -->
+  <div class="slide__body wg" data-sid="18-webcat-guide:6">
+    <p class="wg__lede" data-sid="18-webcat-guide:7">A step-by-step guide to sending your Eclipse project to Web-CAT for automated feedback and grading.</p>
+    <div class="wg__flow" data-sid="18-webcat-guide:8">
+      <div class="wg__stop frag" data-step="1" data-sid="18-webcat-guide:9">
+        <p class="wg__n" data-sid="18-webcat-guide:10">1</p>
+        <p class="wg__t" data-sid="18-webcat-guide:11">Eclipse</p>
+        <p class="wg__d" data-sid="18-webcat-guide:12">the submission starts in the IDE</p>
+      </div>
+      <p class="wg__arrow frag" data-step="2" data-anim="fade" data-sid="18-webcat-guide:13">&rarr;</p>
+      <div class="wg__stop frag" data-step="2" data-sid="18-webcat-guide:14">
+        <p class="wg__n" data-sid="18-webcat-guide:15">2</p>
+        <p class="wg__t" data-sid="18-webcat-guide:16">VT CAS Login</p>
+        <p class="wg__d" data-sid="18-webcat-guide:17">sign in &mdash; in your regular browser</p>
+      </div>
+      <p class="wg__arrow frag" data-step="3" data-anim="fade" data-sid="18-webcat-guide:18">&rarr;</p>
+      <div class="wg__stop frag" data-step="3" data-sid="18-webcat-guide:19">
+        <p class="wg__n" data-sid="18-webcat-guide:20">3</p>
+        <p class="wg__t" data-sid="18-webcat-guide:21">Web-CAT Results</p>
+        <p class="wg__d" data-sid="18-webcat-guide:22">scores and line-level feedback</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="18-webcat-guide:23"></div>
+  <aside class="notes" data-sid="18-webcat-guide:24">Appendix, imported 2026-09-01 from the &ldquo;Submitting Your Assignment&rdquo; Web-CAT course guide. Walk it when homework submission comes up &mdash; the Week 2 homework due Friday goes in exactly this way, and the screenshots on the next slides are from the live Fall 2026 course instance (HW Week 02: Polymorphism). The shape to plant before stepping through: the submission <em>starts</em> in Eclipse, the sign-in <em>finishes</em> in your regular browser &mdash; not inside Eclipse &mdash; and the feedback lands on the Web-CAT results page, where you can submit again.</aside>
+
+  <style data-sid="18-webcat-guide:25">
+    /* Slide-local: the guide's cover — three white station plates joined by
+       arrows, the three tools a submission passes through. The plates take
+       --paper like the vote card's scan plate: true white against the mortar
+       ground reads as "this is a handout". Motion is manim's only: plates
+       GrowFromCenter, arrows plain FadeIn just ahead of the plate they point
+       at. Used by this slide only, all values from tokens. */
+    #slide-18 .wg { display: flex; flex-direction: column; }
+    #slide-18 .wg__lede { font-size: var(--t-body); color: var(--fg-1); margin: 0 0 var(--s-5); }
+    #slide-18 .wg__flow { flex: 1; display: flex; align-items: center; justify-content: center; gap: var(--s-5); }
+
+    #slide-18 .wg__stop {
+      box-sizing: border-box; width: 420px; padding: var(--s-5) var(--s-4);
+      display: flex; flex-direction: column; align-items: center; gap: var(--s-2);
+      background: var(--paper); border-radius: var(--r-2);
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-18 .frag.wg__stop.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-18 .frag.wg__stop.is-current, #slide-18 .frag.wg__stop.is-past { transition-delay: .1s; }
+
+    #slide-18 .wg__n {
+      margin: 0; width: 96px; height: 96px; border-radius: 999px;
+      background: var(--accent-1); color: var(--paper);
+      font-family: var(--font-display); font-size: var(--t-h3); line-height: 96px; text-align: center;
+    }
+    #slide-18 .wg__t { margin: 0; font-family: var(--font-display); font-size: var(--t-h3); line-height: 1.2; color: var(--fg-0); text-align: center; }
+    #slide-18 .wg__d { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); text-align: center; }
+
+    #slide-18 .wg__arrow { margin: 0; font-family: var(--font-display); font-size: var(--t-h2); color: var(--fg-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-18 .wg__stop { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,63 @@
+<section class="slide" id="slide-18d" data-sid="18d-webcat-cas:1">
+  <header class="slide__head" data-sid="18d-webcat-cas:2">
+    <p class="slide__kicker" data-sid="18d-webcat-cas:3">WEB-CAT &middot; STEP 3 OF 4</p>
+    <h2 data-sid="18d-webcat-cas:4">Complete the CAS login in your browser</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="18d-webcat-cas:5">Three lettered cards arrive left to right. A: reopen in your regular browser &mdash; a browser window opens with a message asking you to reopen the page outside Eclipse, and cookies must be enabled for the CAS login to work. B: click the reopen link &mdash; follow the reopen-this-page-in-your-regular-browser link to continue. C: confirm your submission &mdash; a message confirms Web-CAT received your submission and is processing it; click through if you are not redirected automatically.</p>
+
+  <!-- STEP 3 of the imported Web-CAT guide: the one step that happens outside
+       Eclipse, so it is the one students lose. No screenshot in the source
+       guide either — the three moves are drawn as three cards, arriving one
+       per step (GrowFromCenter), left to right in the order they happen. -->
+  <div class="slide__body cas" data-sid="18d-webcat-cas:6">
+    <div class="cas__cards" data-sid="18d-webcat-cas:7">
+      <div class="cas__card frag" data-step="1" data-sid="18d-webcat-cas:8">
+        <p class="cas__chip" data-sid="18d-webcat-cas:9">A</p>
+        <h3 class="cas__t" data-sid="18d-webcat-cas:10">Reopen in your regular browser</h3>
+        <p class="cas__d" data-sid="18d-webcat-cas:11">A browser window opens with a message asking you to reopen the page outside Eclipse &mdash; cookies must be enabled for the CAS login to work.</p>
+      </div>
+      <div class="cas__card frag" data-step="2" data-sid="18d-webcat-cas:12">
+        <p class="cas__chip" data-sid="18d-webcat-cas:13">B</p>
+        <h3 class="cas__t" data-sid="18d-webcat-cas:14">Click the reopen link</h3>
+        <p class="cas__d" data-sid="18d-webcat-cas:15">Follow the &ldquo;reopen this page in your regular browser&rdquo; link to continue.</p>
+      </div>
+      <div class="cas__card frag" data-step="3" data-sid="18d-webcat-cas:16">
+        <p class="cas__chip" data-sid="18d-webcat-cas:17">C</p>
+        <h3 class="cas__t" data-sid="18d-webcat-cas:18">Confirm your submission</h3>
+        <p class="cas__d" data-sid="18d-webcat-cas:19">A message confirms Web-CAT received your submission and is processing it &mdash; click through if you aren&rsquo;t redirected automatically.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="18d-webcat-cas:20"></div>
+  <aside class="notes" data-sid="18d-webcat-cas:21">Step 3 of the Web-CAT guide, and the step where submissions get lost: the sign-in cannot finish inside Eclipse's embedded window, so a browser opens and asks to be reopened outside it. Two failure modes to name out loud: cookies blocked in the browser makes the CAS login loop without ever succeeding, and closing the browser at the &ldquo;received and processing&rdquo; message is fine &mdash; but closing it <em>before</em> the confirmation means nothing was submitted. The confirmation message on card C is the receipt; until it appears, the submission has not happened.</aside>
+
+  <style data-sid="18d-webcat-cas:22">
+    /* Slide-local: the three moves of the CAS hand-off as three raised --bg-1
+       tiles, left to right in the order they happen, lettered like the
+       sub-steps in the source guide. Motion is manim's only: cards
+       GrowFromCenter, one per step. Used by this slide only, all values from
+       tokens. */
+    #slide-18d .cas { display: flex; align-items: center; }
+    #slide-18d .cas__cards { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); align-items: stretch; }
+
+    #slide-18d .cas__card {
+      box-sizing: border-box; padding: var(--s-4);
+      display: flex; flex-direction: column; gap: var(--s-3);
+      background: var(--bg-1); border-radius: var(--r-2);
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-18d .frag.cas__card.is-pending { opacity: 0; transform: scale(0.3); }
+
+    #slide-18d .cas__chip {
+      margin: 0; width: 64px; height: 64px; border-radius: 999px;
+      background: var(--accent-1); color: var(--paper);
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 64px; text-align: center;
+    }
+    #slide-18d .cas__t { margin: 0; font-size: var(--t-small); line-height: 1.25; color: var(--accent-1); }
+    #slide-18d .cas__d { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-18d .cas__card { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

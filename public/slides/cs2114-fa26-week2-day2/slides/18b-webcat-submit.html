@@ -1,0 +1,58 @@
+<section class="slide" id="slide-18b" data-sid="18b-webcat-submit:1">
+  <header class="slide__head" data-sid="18b-webcat-submit:2">
+    <p class="slide__kicker" data-sid="18b-webcat-submit:3">WEB-CAT &middot; STEP 1 OF 4</p>
+    <h2 data-sid="18b-webcat-submit:4">Start the submission in Eclipse</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="18b-webcat-submit:5">A screenshot of Eclipse with the Project menu open and Submit Assignment highlighted; Download Assignment sits directly below it in the same menu. Three numbered points arrive one at a time: confirm your Eclipse setup is working correctly before you begin; open the Project menu in the Eclipse toolbar; choose Submit Assignment.</p>
+
+  <!-- STEP 1 of the imported Web-CAT guide: where the submission starts.
+       The screenshot is the anchor and stays put from step 0; the three
+       numbered points arrive one per step, plain fade. The maroon runs are
+       the menu items a student must actually find on screen. -->
+  <div class="slide__body wc" data-sid="18b-webcat-submit:6">
+    <ol class="wc__steps" data-sid="18b-webcat-submit:7">
+      <li class="frag" data-step="1" data-anim="fade" data-sid="18b-webcat-submit:8">
+        <span class="wc__n" data-sid="18b-webcat-submit:9">1</span>
+        <span class="wc__txt" data-sid="18b-webcat-submit:10">Confirm your Eclipse setup is working correctly before you begin.</span>
+      </li>
+      <li class="frag" data-step="2" data-anim="fade" data-sid="18b-webcat-submit:11">
+        <span class="wc__n" data-sid="18b-webcat-submit:12">2</span>
+        <span class="wc__txt" data-sid="18b-webcat-submit:13">Open the <b class="wc__key" data-sid="18b-webcat-submit:14">Project</b> menu in the Eclipse toolbar.</span>
+      </li>
+      <li class="frag" data-step="3" data-anim="fade" data-sid="18b-webcat-submit:15">
+        <span class="wc__n" data-sid="18b-webcat-submit:16">3</span>
+        <span class="wc__txt" data-sid="18b-webcat-submit:17">Choose <b class="wc__key" data-sid="18b-webcat-submit:18">Submit Assignment&hellip;</b> &mdash; the Download Assignment option sits directly below it.</span>
+      </li>
+    </ol>
+    <figure class="wc__shot" data-sid="18b-webcat-submit:19">
+      <img src="assets/webcat-eclipse-menu.png" alt="Eclipse with the Project menu open; Submit Assignment is highlighted, with Download Assignment directly below it. The JUnit pane on the left shows 2 of 2 tests passing." data-sid="18b-webcat-submit:20">
+    </figure>
+  </div>
+  <div class="slide__number" data-sid="18b-webcat-submit:21"></div>
+  <aside class="notes" data-sid="18b-webcat-submit:22">Step 1 of the Web-CAT guide. Two things to say over the screenshot: the JUnit pane on its left edge shows 2/2 green <em>before</em> submitting &mdash; run your tests locally first, so Web-CAT confirms what you already know instead of telling you something new. And the misclick to warn about out loud: <em>Download</em> Assignment sits directly below <em>Submit</em> Assignment in the same menu &mdash; downloading when you meant to submit leaves nothing graded.</aside>
+
+  <style data-sid="18b-webcat-submit:23">
+    /* Slide-local: STEP slide of the imported Web-CAT guide — the numbered
+       points on the left, the real screenshot on a white --paper plate on the
+       right (the vote card's handout plate). The screenshot is static; only
+       the points step, plain fade. The maroon keys are the words to find on
+       screen. Used by this slide only, all values from tokens. */
+    #slide-18b .wc { display: grid; grid-template-columns: 1fr 940px; gap: var(--s-6); align-items: center; }
+
+    #slide-18b .wc__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-4); }
+    #slide-18b .wc__steps li { display: grid; grid-template-columns: 64px 1fr; gap: var(--s-3); align-items: start; margin: 0; font-size: var(--t-small); line-height: 1.45; }
+    #slide-18b .wc__n {
+      width: 64px; height: 64px; border-radius: 999px;
+      background: var(--accent-1); color: var(--paper);
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 64px; text-align: center;
+    }
+    #slide-18b .wc__key { color: var(--accent-1); }
+
+    #slide-18b .wc__shot {
+      margin: 0; padding: var(--s-3);
+      background: var(--paper); border-radius: var(--r-2);
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
+    }
+    #slide-18b .wc__shot img { display: block; width: 100%; height: auto; border-radius: var(--r-1); }
+  </style>
+</section>

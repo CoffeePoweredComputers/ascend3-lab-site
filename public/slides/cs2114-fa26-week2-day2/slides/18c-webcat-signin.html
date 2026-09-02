@@ -1,0 +1,57 @@
+<section class="slide" id="slide-18c" data-sid="18c-webcat-signin:1">
+  <header class="slide__head" data-sid="18c-webcat-signin:2">
+    <p class="slide__kicker" data-sid="18c-webcat-signin:3">WEB-CAT &middot; STEP 2 OF 4</p>
+    <h2 data-sid="18c-webcat-signin:4">Select your assignment and sign in</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="18c-webcat-signin:5">A screenshot of Eclipse's Submit an Assignment for Grading dialog: a project field, a list of CS 2114 assignments with HW Week 02 Polymorphism selected, and an Authentication window over it asking for a username and password. Three numbered points arrive one at a time: pick your project, then select the correct assignment from the list; enter your VT username and password when the authentication window appears; click OK, then Finish, to send off your submission.</p>
+
+  <!-- STEP 2 of the imported Web-CAT guide: the dialog and the sign-in.
+       Same grammar as 18b — the screenshot anchors from step 0, the three
+       numbered points arrive one per step, plain fade. -->
+  <div class="slide__body wc" data-sid="18c-webcat-signin:6">
+    <ol class="wc__steps" data-sid="18c-webcat-signin:7">
+      <li class="frag" data-step="1" data-anim="fade" data-sid="18c-webcat-signin:8">
+        <span class="wc__n" data-sid="18c-webcat-signin:9">1</span>
+        <span class="wc__txt" data-sid="18c-webcat-signin:10">Pick your project, then select the correct assignment from the list.</span>
+      </li>
+      <li class="frag" data-step="2" data-anim="fade" data-sid="18c-webcat-signin:11">
+        <span class="wc__n" data-sid="18c-webcat-signin:12">2</span>
+        <span class="wc__txt" data-sid="18c-webcat-signin:13">Enter your <b class="wc__key" data-sid="18c-webcat-signin:14">VT username and password</b> when the authentication window appears.</span>
+      </li>
+      <li class="frag" data-step="3" data-anim="fade" data-sid="18c-webcat-signin:15">
+        <span class="wc__n" data-sid="18c-webcat-signin:16">3</span>
+        <span class="wc__txt" data-sid="18c-webcat-signin:17">Click <b class="wc__key" data-sid="18c-webcat-signin:18">OK</b>, then <b class="wc__key" data-sid="18c-webcat-signin:19">Finish</b>, to send off your submission.</span>
+      </li>
+    </ol>
+    <figure class="wc__shot" data-sid="18c-webcat-signin:20">
+      <img src="assets/webcat-signin.png" alt="The Submit an Assignment for Grading dialog with HW Week 02: Polymorphism selected in the CS 2114 list, and the Authentication window over it asking for a VT username and password." data-sid="18c-webcat-signin:21">
+    </figure>
+  </div>
+  <div class="slide__number" data-sid="18c-webcat-signin:22"></div>
+  <aside class="notes" data-sid="18c-webcat-signin:23">Step 2 of the Web-CAT guide. The list in the screenshot shows the whole semester &mdash; most rows are marked (not published); the one to pick is the one whose name matches the assignment, here HW Week 02: Polymorphism. The credentials are the VT username and password &mdash; the same pair CAS asks for &mdash; and the placeholder text in the screenshot says exactly that. OK closes the authentication window; Finish is what actually sends the submission.</aside>
+
+  <style data-sid="18c-webcat-signin:24">
+    /* Slide-local: STEP slide of the imported Web-CAT guide, sister of 18b —
+       numbered points left, the real screenshot on a white --paper plate
+       right. The dialog screenshot is nearly square, so its column is
+       narrower than 18b's and sized to clear the body height. Used by this
+       slide only, all values from tokens. */
+    #slide-18c .wc { display: grid; grid-template-columns: 1fr 720px; gap: var(--s-6); align-items: center; }
+
+    #slide-18c .wc__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-4); }
+    #slide-18c .wc__steps li { display: grid; grid-template-columns: 64px 1fr; gap: var(--s-3); align-items: start; margin: 0; font-size: var(--t-small); line-height: 1.45; }
+    #slide-18c .wc__n {
+      width: 64px; height: 64px; border-radius: 999px;
+      background: var(--accent-1); color: var(--paper);
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 64px; text-align: center;
+    }
+    #slide-18c .wc__key { color: var(--accent-1); }
+
+    #slide-18c .wc__shot {
+      margin: 0; padding: var(--s-3);
+      background: var(--paper); border-radius: var(--r-2);
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--fg-0) 24%, transparent);
+    }
+    #slide-18c .wc__shot img { display: block; width: 100%; height: auto; border-radius: var(--r-1); }
+  </style>
+</section>

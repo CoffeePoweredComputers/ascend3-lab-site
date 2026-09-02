@@ -1,7 +1,8 @@
 <section class="slide slide--warmup" id="slide-06" data-sid="06-vote-setup:1">
   <header class="slide__head" data-sid="06-vote-setup:2">
     <p class="slide__kicker" data-sid="06-vote-setup:3">PEER INSTRUCTION &middot; VOTE 1</p>
-    <h2 data-sid="06-vote-setup:4">Which of these test classes pass? Select all that apply.</h2>
+    <h2 data-sid="06-vote-setup:4">Which of these test classes pass?</h2>
+    <p class="slide__lede" data-sid="06-vote-setup:35">Select all that apply</p>
   </header>
   <p class="sr-only slide__desc" data-sid="06-vote-setup:5">A peer-instruction question. On the left, a test class with a private String field, a setUp method whose body is left blank, and a test that asserts the field equals the word foo. On the right, four candidates for that blank line: a new local variable declared inside setUp, an assignment inside setUp, the same assignment but in a method spelled with a capital S, and the claim that none of them work because setUp must be called by hand.</p>
   <div class="slide__body grid grid--code" data-sid="06-vote-setup:6">
@@ -35,11 +36,13 @@
       </li>
       <li data-sid="06-vote-setup:30">
         <p data-sid="06-vote-setup:31">None of them.</p>
-        <p class="note" data-sid="06-vote-setup:32">You have to call the setup method yourself, at the top of each test.</p>
+        <p class="note" data-sid="06-vote-setup:32">You have to call setUp() yourself, at the top of each test.</p>
       </li>
     </ol>
   </div>
   <div class="slide__number" data-sid="06-vote-setup:33"></div>
+  <aside class="notes" data-sid="06-vote-setup:34">Answer: B &mdash; and only B. A declares a brand-new local variable that dies at the closing brace &mdash; the field is still null, so the assertion fails on null against "foo". C does not even compile: the shared shape carries @Override, and javac refuses to believe SetUp overrides anything &mdash; the capital S is the entire bug, and @Override is exactly what catches it. Without @Override it would compile, never run, and leave the field null. D is the misconception the question exists for &mdash; setUp is called for you, before every test method, which is exactly why it is the place to build fixtures. Do not walk it through before the second vote.</aside>
+
   <style>
     /* Slide-local: code drops to the chrome size so the widest line
        (the assertEquals) clears its column with room to spare — a vote slide
@@ -47,5 +50,4 @@
        vote panes. All values from tokens. */
     #slide-06 .editor__code { font-size: var(--t-micro); }
   </style>
-  <aside class="notes" data-sid="06-vote-setup:34">Answer: B only. A declares a brand-new local variable that dies at the closing brace &mdash; the field is still null, so the assertion fails on null against "foo". C never runs at all: JUnit calls setUp, not SetUp, so the field is still null; the capital S is the entire bug, and @Override is what would have caught it. D is the misconception the question exists for &mdash; setUp is called for you, before every test method, which is exactly why it is the place to build fixtures. Do not walk it through before the second vote.</aside>
 </section>

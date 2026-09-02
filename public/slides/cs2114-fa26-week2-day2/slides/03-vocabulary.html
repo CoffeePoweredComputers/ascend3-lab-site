@@ -1,243 +1,165 @@
 <section class="slide" id="slide-03" data-sid="03-vocabulary:1">
   <header class="slide__head" data-sid="03-vocabulary:2">
-    <p class="slide__kicker" data-sid="03-vocabulary:3">VOCABULARY</p>
+    <p class="slide__kicker" data-sid="03-vocabulary:3">PROJECT 1 &middot; WEEKS 3&ndash;5</p>
     <h2 data-sid="03-vocabulary:4">Project 1: Key Words</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="03-vocabulary:5">On the left a stick figure, the client, faces a contract sheet titled Bag that lists add, remove, contains and size over a signature line; the sheet draws itself first and is labelled Interface, written down. A tall stone wall stands to the right of the sheet. Behind the wall a row of six array slots grows, one of them holding an item, labelled Data structure, how. Beneath it a chain of three linked nodes grows, arrow by arrow, ending in a null slash: a second way to keep the same promise. Then the wall is labelled Abstract data type, what, and a short arrow from the client to the sheet shows that the client only ever sees the sheet. Last the caption: a Bag is an ADT; ArrayBag keeps the promise with an array; your Project 1 spec asks both: the promise, and how you keep it.</p>
+  <p class="sr-only slide__desc" data-sid="03-vocabulary:5">Two panels, one per key word. On the left, object-oriented Java, glossed one job per class: three class boxes grow in a small constellation, one above two, each with a name line and two stub lines, and two blue wires draw down from the top box to the other two; under it, multiple classes, separate responsibilities. On the right, exception handling, glossed survive bad input: a terminal panel asks enter your age and receives abc in maroon; a maroon cross grows below it labelled crash. Then an orange tick grows beside the cross, labelled catch, ask again, and the cross dims: the program validates and re-prompts instead of dying. Last, a caption: that is the whole list, no data structures required; the full brief is on Canvas, Project 1, Overview &mdash; the plan is next.</p>
 
-  <!-- Three definitions drawn as one scene, because the definitions only mean
-       something in relation to each other. The sheet is the interface: the
-       promise, written down. The wall is the abstraction: the client on the
-       left can read the sheet and cannot see past the wall. The two boxes
-       behind the wall are data structures: two different ways of keeping the
-       same promise, and the client cannot tell which one is there. Step 1 the
-       sheet draws on; step 2 the array grows; step 3 the chain grows beside
-       it; step 4 the wall gets its name and the client's line of sight stops
-       at the sheet; step 5 the caption lands the Bag. One SVG in canvas px,
-       viewBox = the body's rect. -->
+  <!-- Project 1's own two key words, drawn — not the data-structures
+       vocabulary, which is semester material and waits for the 3.1 reading.
+       The project is a general introduction to Java: what it requires is
+       object-oriented Java and robust exception handling (the Canvas
+       overview's own list), so those are the two panels. Left: responsibility
+       as a picture — three small classes wired together, no one box doing
+       everything. Right: the overview's own story — the program expects a
+       number, the user types abc, and the untrained fate (a maroon crash)
+       is replaced by the trained one (catch, ask again). Step 1: the OO
+       panel. Step 2: the exceptions panel and the crash. Step 3: the tick
+       grows, the cross dims — recolour in place. Step 4: the caption closes
+       the list and points at the full brief on Canvas. One SVG in canvas px;
+       viewBox = the body's rect under a kicker and a one-line heading
+       (top = 96 + 52 + 16 + 88 + 48 = 300). -->
   <div class="slide__body" data-sid="03-vocabulary:6">
-    <svg class="vb" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A client facing a contract sheet, a stone wall behind it, and behind the wall an array and a linked chain that both keep the sheet's promise"
+    <svg class="kw" viewBox="128 300 1664 684" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Two panels: three small classes wired together for object-oriented Java, and a terminal that survives the input abc by re-prompting instead of crashing"
          data-sid="03-vocabulary:7">
 
-      <!-- step 0: the client and the wall -->
-      <g class="vb__client" data-sid="03-vocabulary:8">
-        <circle cx="270" cy="470" r="26" data-sid="03-vocabulary:9"/>
-        <path d="M270 496V614M270 526L228 576M270 526L342 520M270 614L246 688M270 614L294 688" data-sid="03-vocabulary:10"/>
-      </g>
-      <rect class="vb__wall" x="840" y="330" width="80" height="530" data-sid="03-vocabulary:11"/>
-      <path class="vb__mortar" d="M840 396H920M840 462H920M840 528H920M840 594H920M840 660H920M840 726H920M840 792H920M880 330V396M880 462V528M880 594V660M880 726V792" data-sid="03-vocabulary:12"/>
-
-      <!-- step 1: the sheet draws on, then its title, the four operations, the signature line -->
-      <g class="vb__sheet frag" data-step="1" data-sid="03-vocabulary:13">
-        <path class="vb__outline" pathLength="100" d="M440 340 H720 L760 380 V760 H440 Z" data-sid="03-vocabulary:14"/>
-        <path class="vb__fold" pathLength="100" d="M720 340 V380 H760" data-sid="03-vocabulary:15"/>
-        <text class="vb__title" x="600" y="412" data-sid="03-vocabulary:16">Bag</text>
-        <text class="vb__op" style="--i: 0" x="484" y="476" data-sid="03-vocabulary:17">add</text>
-        <text class="vb__op" style="--i: 1" x="484" y="522" data-sid="03-vocabulary:18">remove</text>
-        <text class="vb__op" style="--i: 2" x="484" y="568" data-sid="03-vocabulary:19">contains</text>
-        <text class="vb__op" style="--i: 3" x="484" y="614" data-sid="03-vocabulary:20">size</text>
-        <line class="vb__sign" x1="484" y1="700" x2="716" y2="700" data-sid="03-vocabulary:21"/>
-        <text class="vb__signed" x="484" y="728" data-sid="03-vocabulary:22">signed:</text>
-      </g>
-      <text class="vb__lab vb__lab--1 frag" data-step="1" data-anim="fade" x="600" y="812" data-sid="03-vocabulary:23"><tspan class="vb__name" data-sid="03-vocabulary:24">Interface</tspan><tspan data-sid="03-vocabulary:25"> &mdash; written down</tspan></text>
-
-      <!-- step 2: behind the wall, an array of slots grows, one slot holding an item -->
-      <g class="vb__array frag" data-step="2" data-sid="03-vocabulary:26">
-        <rect class="vb__slot vb__slot--full" style="--i: 0" x="1040" y="400" width="96" height="96" rx="8" data-sid="03-vocabulary:27"/>
-        <rect class="vb__slot" style="--i: 1" x="1148" y="400" width="96" height="96" rx="8" data-sid="03-vocabulary:28"/>
-        <rect class="vb__slot" style="--i: 2" x="1256" y="400" width="96" height="96" rx="8" data-sid="03-vocabulary:29"/>
-        <rect class="vb__slot" style="--i: 3" x="1364" y="400" width="96" height="96" rx="8" data-sid="03-vocabulary:30"/>
-        <rect class="vb__slot" style="--i: 4" x="1472" y="400" width="96" height="96" rx="8" data-sid="03-vocabulary:31"/>
-        <rect class="vb__slot" style="--i: 5" x="1580" y="400" width="96" height="96" rx="8" data-sid="03-vocabulary:32"/>
-        <text class="vb__item" x="1088" y="458" data-sid="03-vocabulary:33">"hi"</text>
-        <text class="vb__idx" x="1088" y="528" data-sid="03-vocabulary:34">0</text>
-        <text class="vb__idx" x="1196" y="528" data-sid="03-vocabulary:35">1</text>
-        <text class="vb__idx" x="1304" y="528" data-sid="03-vocabulary:36">2</text>
-        <text class="vb__idx" x="1412" y="528" data-sid="03-vocabulary:37">3</text>
-        <text class="vb__idx" x="1520" y="528" data-sid="03-vocabulary:38">4</text>
-        <text class="vb__idx" x="1628" y="528" data-sid="03-vocabulary:39">5</text>
-      </g>
-      <text class="vb__lab vb__lab--2 frag" data-step="2" data-anim="fade" x="1365" y="590" data-sid="03-vocabulary:40"><tspan class="vb__name" data-sid="03-vocabulary:41">Data structure</tspan><tspan data-sid="03-vocabulary:42"> &mdash; how</tspan></text>
-
-      <!-- step 3: a chain of linked nodes grows beside the array — node, arrow, node, arrow, node, null -->
-      <g class="vb__chain frag" data-step="3" data-sid="03-vocabulary:43">
-        <g class="vb__node" style="--i: 0" data-sid="03-vocabulary:44">
-          <rect x="1040" y="640" width="150" height="80" rx="10" data-sid="03-vocabulary:45"/>
-          <path d="M1140 640V720" data-sid="03-vocabulary:46"/>
+      <!-- step 1: key word 1 — object-oriented Java -->
+      <g class="kw__oo frag" data-step="1" data-sid="03-vocabulary:8">
+        <text class="kw__label" x="530" y="386" data-sid="03-vocabulary:9"><tspan class="kw__name" data-sid="03-vocabulary:10">Object-oriented Java</tspan><tspan data-sid="03-vocabulary:11"> &mdash; one job per class</tspan></text>
+        <g class="kw__box" style="--i: 0" data-sid="03-vocabulary:12">
+          <rect x="430" y="440" width="200" height="110" rx="8" data-sid="03-vocabulary:13"/>
+          <path class="kw__title" d="M454 474h96" data-sid="03-vocabulary:14"/>
+          <path class="kw__stub" d="M454 500h152M454 524h120" data-sid="03-vocabulary:15"/>
         </g>
-        <g class="vb__link" style="--i: 0" data-sid="03-vocabulary:47">
-          <circle cx="1165" cy="680" r="7" data-sid="03-vocabulary:48"/>
-          <line x1="1165" y1="680" x2="1266" y2="680" data-sid="03-vocabulary:49"/>
-          <path d="M1290 680L1264 667V693Z" data-sid="03-vocabulary:50"/>
+        <g class="kw__box" style="--i: 1" data-sid="03-vocabulary:16">
+          <rect x="300" y="646" width="200" height="110" rx="8" data-sid="03-vocabulary:17"/>
+          <path class="kw__title" d="M324 680h84" data-sid="03-vocabulary:18"/>
+          <path class="kw__stub" d="M324 706h152M324 730h108" data-sid="03-vocabulary:19"/>
         </g>
-        <g class="vb__node" style="--i: 1" data-sid="03-vocabulary:51">
-          <rect x="1290" y="640" width="150" height="80" rx="10" data-sid="03-vocabulary:52"/>
-          <path d="M1390 640V720" data-sid="03-vocabulary:53"/>
+        <g class="kw__box" style="--i: 2" data-sid="03-vocabulary:20">
+          <rect x="560" y="646" width="200" height="110" rx="8" data-sid="03-vocabulary:21"/>
+          <path class="kw__title" d="M584 680h108" data-sid="03-vocabulary:22"/>
+          <path class="kw__stub" d="M584 706h152M584 730h96" data-sid="03-vocabulary:23"/>
         </g>
-        <g class="vb__link" style="--i: 1" data-sid="03-vocabulary:54">
-          <circle cx="1415" cy="680" r="7" data-sid="03-vocabulary:55"/>
-          <line x1="1415" y1="680" x2="1516" y2="680" data-sid="03-vocabulary:56"/>
-          <path d="M1540 680L1514 667V693Z" data-sid="03-vocabulary:57"/>
-        </g>
-        <g class="vb__node" style="--i: 2" data-sid="03-vocabulary:58">
-          <rect x="1540" y="640" width="150" height="80" rx="10" data-sid="03-vocabulary:59"/>
-          <path d="M1640 640V720" data-sid="03-vocabulary:60"/>
-        </g>
-        <path class="vb__null" pathLength="100" d="M1650 706L1680 654" data-sid="03-vocabulary:61"/>
+        <path class="kw__wire" pathLength="100" d="M498 552L426 638M440 630L426 638L430 622" data-sid="03-vocabulary:24"/>
+        <path class="kw__wire" pathLength="100" d="M562 552L634 638M620 630L634 638L630 622" data-sid="03-vocabulary:25"/>
+        <text class="kw__gloss" x="530" y="822" data-sid="03-vocabulary:26">multiple classes, separate responsibilities</text>
       </g>
-      <text class="vb__small vb__small--chain frag" data-step="3" data-anim="fade" x="1365" y="784" data-sid="03-vocabulary:62">a second way to keep the same promise</text>
 
-      <!-- step 4: the wall gets its name; the client's line of sight stops at the sheet -->
-      <g class="vb__look frag" data-step="4" data-sid="03-vocabulary:63">
-        <line x1="358" y1="520" x2="406" y2="520" data-sid="03-vocabulary:64"/>
-        <path d="M426 520L400 507V533Z" data-sid="03-vocabulary:65"/>
+      <!-- step 2: key word 2 — exception handling, and the fate to avoid -->
+      <g class="kw__ex frag" data-step="2" data-sid="03-vocabulary:27">
+        <text class="kw__label" x="1390" y="386" data-sid="03-vocabulary:28"><tspan class="kw__name" data-sid="03-vocabulary:29">Exception handling</tspan><tspan data-sid="03-vocabulary:30"> &mdash; survive bad input</tspan></text>
+        <g class="kw__term" data-sid="03-vocabulary:31">
+          <rect x="1180" y="436" width="420" height="150" rx="10" data-sid="03-vocabulary:32"/>
+          <text class="kw__line" x="1208" y="492" data-sid="03-vocabulary:33">enter your age:</text>
+          <text class="kw__line" x="1208" y="546" data-sid="03-vocabulary:34">&gt; <tspan class="kw__bad" data-sid="03-vocabulary:35">abc</tspan></text>
+        </g>
+        <path class="kw__crash" d="M1256 636l52 52M1308 636l-52 52" data-sid="03-vocabulary:36"/>
+        <text class="kw__fate kw__fate--crash" x="1282" y="746" data-sid="03-vocabulary:37">crash</text>
       </g>
-      <text class="vb__small vb__small--note frag" data-step="4" data-anim="fade" x="270" y="744" data-sid="03-vocabulary:66"><tspan x="270" data-sid="03-vocabulary:67">only ever sees</tspan><tspan x="270" dy="36" data-sid="03-vocabulary:68">the sheet</tspan></text>
-      <text class="vb__lab vb__lab--3 frag" data-step="4" data-anim="fade" x="880" y="300" data-sid="03-vocabulary:69"><tspan class="vb__name" data-sid="03-vocabulary:70">Abstract data type</tspan><tspan data-sid="03-vocabulary:71"> &mdash; what</tspan></text>
 
-      <!-- step 5: the caption lands the Bag -->
-      <g class="vb__cap frag" data-step="5" data-sid="03-vocabulary:72">
-        <text class="vb__cap-1" x="960" y="904" data-sid="03-vocabulary:73">A Bag is an ADT. <tspan class="vb__code" data-sid="03-vocabulary:74">ArrayBag</tspan> keeps the promise with an array.</text>
-        <text class="vb__cap-2 vb__plant" x="960" y="956" data-sid="03-vocabulary:75">Your Project 1 spec asks both: the promise, and how you keep it.</text>
+      <!-- step 3: the trained fate — catch it and ask again; the cross dims -->
+      <g class="kw__ok frag" data-step="3" data-sid="03-vocabulary:38">
+        <path class="kw__tick" d="M1452 664l18 18l38-44" data-sid="03-vocabulary:39"/>
+        <text class="kw__fate kw__fate--ok" x="1482" y="746" data-sid="03-vocabulary:40">catch &middot; ask again</text>
+        <text class="kw__gloss" x="1390" y="822" data-sid="03-vocabulary:41">validate &middot; fail gracefully &middot; re-prompt</text>
+      </g>
+
+      <!-- step 4: the caption closes the list and points at the brief -->
+      <g class="kw__cap frag" data-step="4" data-sid="03-vocabulary:42">
+        <text class="kw__cap-1" x="960" y="904" data-sid="03-vocabulary:43">That is the whole list &mdash; no data structures required.</text>
+        <text class="kw__cap-2" x="960" y="956" data-sid="03-vocabulary:44">Full brief on Canvas: Project 1 &middot; Overview. The plan &mdash; next.</text>
       </g>
     </svg>
   </div>
-  <div class="slide__number" data-sid="03-vocabulary:76"></div>
-  <aside class="notes" data-sid="03-vocabulary:77">Step 0: a client at left, a stone wall to the right of where the sheet will be. Say nothing about the wall yet. Step 1 &mdash; the sheet draws on: a contract titled Bag with four lines, add, remove, contains, size, and a signature line. This is the interface: the promise, written down in Java. A class that implements it has signed the contract. Step 2 &mdash; behind the wall an array of slots grows, one slot holding an item: a data structure, the how. A concrete way of holding the collection in memory. Step 3 &mdash; a chain of linked nodes grows under it: a second way to keep the same promise. Point at both and say the client on the left cannot tell which one is back there, and does not need to. Step 4 &mdash; the wall gets its name: abstract data type, the what. The arrow stops at the sheet: the client only ever sees the sheet. Land the last line slowly: it is the whole point of the course. Two classes can implement the same interface, behave identically from the outside, and differ completely inside &mdash; that is the difference students will be asked about on every test this semester. Step 5 &mdash; the caption: a Bag is an ADT; ArrayBag keeps the promise with an array, and it is not the only class that could. Project 1&rsquo;s specification asks exactly these two questions of every class you design: what does it promise &mdash; the method signatures &mdash; and how does it keep the promise &mdash; which structure holds the data, and why that one. That is where we go next.</aside>
+  <div class="slide__number" data-sid="03-vocabulary:45"></div>
+  <aside class="notes" data-sid="03-vocabulary:46">Project 1 is a general introduction to Java &mdash; no data structures &mdash; and its brief names exactly two technical key words; this slide is those two words and nothing else. Step 1 &mdash; object-oriented Java: multiple classes with clear, separate responsibilities, arrays where they fit, and no one class doing everything. Point at the constellation: three small classes, each with one job, wired together &mdash; if one box holds all the code, the design part of the grade has nowhere to live. Step 2 &mdash; robust exception handling, told exactly as the overview tells it: the program expects a number and the user types abc. The maroon cross is the untrained fate: an unhandled exception and a dead program. Step 3 &mdash; the trained fate: validate the inputs that actually matter, fail gracefully, catch it and re-prompt. Say the warning out loud: this does not mean wrapping everything in empty try/catch blocks &mdash; an empty catch is not handling, it is hiding. Step 4 &mdash; that is the whole technical list. The overview&rsquo;s third requirement is GitHub &mdash; collaborate with version control and turn in through it &mdash; and the standing advice is keep it small: an MVP that works beats an ambitious app that does not. The full brief is the Project 1 overview page on Canvas &mdash; read it with your team this week. Next: the plan, three weeks, three deliverables.</aside>
 
   <style>
-    /* Slide-local: the abstraction wall. A client (--fg-1 stick figure) faces a
-       contract sheet on --paper; a stone band stands behind the sheet and hides
-       two boxes that both keep the sheet's promise, an array of slots and a
-       chain of linked nodes. The vocabulary names sit in the heading voice
-       (display, maroon) with a mono gloss. Motion is manim's only: the sheet
-       Creates by dashoffset, the slots and nodes GrowFromCenter (staggered on
-       the way in only), the arrows Create by clip wipe, the null slash draws
-       on, labels FadeIn. Group frags stay opaque while pending and their
-       children take the from-states, so a back-step clears a layer at once.
-       viewBox = the body's rect. Used by this slide only, all values from
-       tokens. */
+    /* Slide-local: Project 1's two key words as two panels. Left, the OO
+       constellation: three paper class boxes (a name line, two stone stubs)
+       wired by blue arrows — structure ink, as on the Week 4 blueprint. Right,
+       the exceptions story: a terminal on the editor's chrome tones takes the
+       maroon input abc; the crash is a maroon cross, the trained fate an
+       orange tick, and when the tick lands the cross dims — a recolour in
+       place driven by :has() off the step-3 frag, so a back-step restores it.
+       Motion is manim's only: boxes GrowFromCenter on a stagger, wires Create
+       by dashoffset, the terminal and labels FadeIn, the cross and tick
+       GrowFromCenter, captions FadeIn. Drawn direct — no defs/use glyphs.
+       Used by this slide only, all values from tokens. */
     #slide-03 .slide__body { position: relative; }
-    #slide-03 .vb { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    #slide-03 .kw { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
-    /* vocabulary labels: the name in the heading voice, the gloss in mono */
-    #slide-03 .vb__lab {
-      font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle;
-      transition: opacity .3s ease;
-    }
-    #slide-03 .vb__name { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); }
-    #slide-03 .vb__small {
-      font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle;
-      transition: opacity .3s ease;
-    }
+    /* panel headers and glosses */
+    #slide-03 .kw__label { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-1); text-anchor: middle; }
+    #slide-03 .kw__name { font-family: var(--font-display); font-size: var(--t-body); fill: var(--accent-1); }
+    #slide-03 .kw__gloss { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
 
-    /* step 0: the client and the wall */
-    #slide-03 .vb__client circle, #slide-03 .vb__client path {
-      fill: none; stroke: var(--fg-1); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round;
-    }
-    #slide-03 .vb__wall { fill: color-mix(in srgb, var(--stone) 30%, var(--bg-0)); }
-    #slide-03 .vb__mortar { fill: none; stroke: color-mix(in srgb, var(--stone) 55%, var(--bg-0)); stroke-width: 4; stroke-linecap: round; }
-
-    /* step 1: the sheet draws on, then its title, its lines, its signature line, its name */
-    #slide-03 .frag.vb__sheet.is-pending { opacity: 1; }
-    #slide-03 .vb__outline, #slide-03 .vb__fold {
-      fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round;
-      stroke-dasharray: 100 200;   /* dash covers the whole path at offset 0 */
-      stroke-dashoffset: 0;
-      transition: stroke-dashoffset .6s var(--ease-smooth), fill-opacity .3s ease;
-    }
-    #slide-03 .vb__outline { fill: var(--paper); fill-opacity: 1; }
-    #slide-03 .vb__fold { transition-duration: .2s; }
-    /* offset 102, not 100: a round cap ending exactly at the start would show as a dot */
-    #slide-03 .vb__sheet.is-pending .vb__outline { stroke-dashoffset: 102; fill-opacity: 0; }
-    #slide-03 .vb__sheet.is-pending .vb__fold { stroke-dashoffset: 102; }
-    #slide-03 .vb__sheet.is-current .vb__fold, #slide-03 .vb__sheet.is-past .vb__fold { transition-delay: .5s; }
-    #slide-03 .vb__title { font-family: var(--font-display); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-03 .vb__op { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
-    #slide-03 .vb__sign { fill: none; stroke: var(--fg-1); stroke-width: 3; stroke-linecap: round; }
-    #slide-03 .vb__signed { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); }
-    #slide-03 .vb__title, #slide-03 .vb__op, #slide-03 .vb__sign, #slide-03 .vb__signed { transition: opacity .3s ease; }
-    #slide-03 .vb__sheet.is-pending .vb__title, #slide-03 .vb__sheet.is-pending .vb__op,
-    #slide-03 .vb__sheet.is-pending .vb__sign, #slide-03 .vb__sheet.is-pending .vb__signed { opacity: 0; }
-    #slide-03 .vb__sheet.is-current .vb__title, #slide-03 .vb__sheet.is-past .vb__title { transition-delay: .55s; }
-    #slide-03 .vb__sheet.is-current .vb__op, #slide-03 .vb__sheet.is-past .vb__op { transition-delay: calc(.65s + var(--i) * 80ms); }
-    #slide-03 .vb__sheet.is-current .vb__sign, #slide-03 .vb__sheet.is-past .vb__sign,
-    #slide-03 .vb__sheet.is-current .vb__signed, #slide-03 .vb__sheet.is-past .vb__signed { transition-delay: 1s; }
-    #slide-03 .frag.vb__lab--1.is-current, #slide-03 .frag.vb__lab--1.is-past { transition-delay: 1.1s; }
-
-    /* step 2: LaggedStart(GrowFromCenter) on the slots, left to right; the item and indices after */
-    #slide-03 .frag.vb__array.is-pending { opacity: 1; }
-    #slide-03 .vb__slot {
-      fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5;
+    /* the OO constellation */
+    #slide-03 .kw__box rect { fill: var(--paper); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-03 .kw__title { fill: none; stroke: var(--fg-0); stroke-width: 6; stroke-linecap: round; }
+    #slide-03 .kw__stub { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-03 .kw__wire { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-03 .kw__box {
       transform-box: fill-box; transform-origin: 50% 50%;
-      transition: opacity .2s ease, transform .45s var(--ease-smooth);
+      transition: opacity .2s ease, transform .5s var(--ease-smooth);
     }
-    #slide-03 .vb__slot--full { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
-    #slide-03 .vb__array.is-pending .vb__slot { opacity: 0; transform: scale(.3); }
-    #slide-03 .vb__array.is-current .vb__slot, #slide-03 .vb__array.is-past .vb__slot { transition-delay: calc(var(--i) * 70ms); }
-    #slide-03 .vb__item { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
-    #slide-03 .vb__idx { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; }
-    #slide-03 .vb__item, #slide-03 .vb__idx { transition: opacity .3s ease; }
-    #slide-03 .vb__array.is-pending .vb__item, #slide-03 .vb__array.is-pending .vb__idx { opacity: 0; }
-    #slide-03 .vb__array.is-current .vb__idx, #slide-03 .vb__array.is-past .vb__idx { transition-delay: .45s; }
-    #slide-03 .vb__array.is-current .vb__item, #slide-03 .vb__array.is-past .vb__item { transition-delay: .55s; }
-    #slide-03 .frag.vb__lab--2.is-current, #slide-03 .frag.vb__lab--2.is-past { transition-delay: .7s; }
+    #slide-03 .frag.kw__oo.is-pending { opacity: 1; }
+    #slide-03 .kw__oo.is-pending .kw__box { opacity: 0; transform: scale(0.3); }
+    #slide-03 .kw__oo.is-current .kw__box, #slide-03 .kw__oo.is-past .kw__box { transition-delay: calc(var(--i) * 120ms); }
+    #slide-03 .kw__wire { stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-03 .kw__oo.is-pending .kw__wire { stroke-dashoffset: 100; }
+    #slide-03 .kw__oo.is-current .kw__wire, #slide-03 .kw__oo.is-past .kw__wire { stroke-dashoffset: 0; transition-delay: .55s; }
+    #slide-03 .kw__oo .kw__label, #slide-03 .kw__oo .kw__gloss { transition: opacity .3s ease; }
+    #slide-03 .kw__oo.is-pending .kw__label, #slide-03 .kw__oo.is-pending .kw__gloss { opacity: 0; }
+    #slide-03 .kw__oo.is-current .kw__gloss, #slide-03 .kw__oo.is-past .kw__gloss { transition-delay: .8s; }
 
-    /* step 3: node, link, node, link, node, null — each beat after the last */
-    #slide-03 .frag.vb__chain.is-pending { opacity: 1; }
-    #slide-03 .vb__node rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5; }
-    #slide-03 .vb__node path { fill: none; stroke: var(--fg-1); stroke-width: 5; }
-    #slide-03 .vb__node {
+    /* the exceptions panel: terminal, bad input, the crash */
+    #slide-03 .kw__term rect { fill: var(--bg-1); stroke: color-mix(in srgb, var(--stone) 70%, var(--fg-0)); stroke-width: 3; }
+    #slide-03 .kw__line { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-03 .kw__bad { fill: var(--accent-1); }
+    #slide-03 .kw__crash {
+      fill: none; stroke: var(--accent-1); stroke-width: 10; stroke-linecap: round;
       transform-box: fill-box; transform-origin: 50% 50%;
-      transition: opacity .2s ease, transform .45s var(--ease-smooth);
+      transition: opacity .3s ease, transform .45s var(--ease-smooth);
     }
-    #slide-03 .vb__chain.is-pending .vb__node { opacity: 0; transform: scale(.3); }
-    #slide-03 .vb__chain.is-current .vb__node, #slide-03 .vb__chain.is-past .vb__node { transition-delay: calc(var(--i) * .5s); }
-    #slide-03 .vb__link line { stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
-    #slide-03 .vb__link path, #slide-03 .vb__link circle { fill: var(--fg-1); }
-    #slide-03 .vb__link { clip-path: inset(0 0 0 0); transition: clip-path .35s var(--ease-smooth); }
-    #slide-03 .vb__chain.is-pending .vb__link { clip-path: inset(0 100% 0 0); }
-    #slide-03 .vb__chain.is-current .vb__link, #slide-03 .vb__chain.is-past .vb__link { transition-delay: calc(.3s + var(--i) * .5s); }
-    #slide-03 .vb__null {
-      fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round;
-      stroke-dasharray: 100 200;
-      transition: stroke-dashoffset .3s var(--ease-smooth);
+    #slide-03 .kw__fate { font-family: var(--font-mono); font-size: var(--t-micro); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-03 .kw__fate--crash { fill: var(--accent-1); }
+    #slide-03 .kw__fate--ok { fill: var(--accent-3); }
+    #slide-03 .kw__ex .kw__label, #slide-03 .kw__ex .kw__term { transition: opacity .3s ease; }
+    #slide-03 .frag.kw__ex.is-pending { opacity: 1; }
+    #slide-03 .kw__ex.is-pending .kw__label, #slide-03 .kw__ex.is-pending .kw__term,
+    #slide-03 .kw__ex.is-pending .kw__fate--crash { opacity: 0; }
+    #slide-03 .kw__ex.is-pending .kw__crash { opacity: 0; transform: scale(0.3); }
+    #slide-03 .kw__ex.is-current .kw__crash, #slide-03 .kw__ex.is-past .kw__crash { transition-delay: .5s; }
+    #slide-03 .kw__ex.is-current .kw__fate--crash, #slide-03 .kw__ex.is-past .kw__fate--crash { transition-delay: .75s; }
+
+    /* the recovery: tick grows, the cross dims in place (a back-step restores it) */
+    #slide-03 .kw__tick {
+      fill: none; stroke: var(--accent-3); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round;
+      transform-box: fill-box; transform-origin: 50% 50%;
+      transition: opacity .3s ease, transform .45s var(--ease-smooth);
     }
-    #slide-03 .vb__chain.is-pending .vb__null { stroke-dashoffset: 102; }
-    #slide-03 .vb__chain.is-current .vb__null, #slide-03 .vb__chain.is-past .vb__null { transition-delay: 1.3s; }
-    #slide-03 .frag.vb__small--chain.is-current, #slide-03 .frag.vb__small--chain.is-past { transition-delay: 1.4s; }
+    #slide-03 .frag.kw__ok.is-pending { opacity: 1; }
+    #slide-03 .kw__ok.is-pending .kw__tick { opacity: 0; transform: scale(0.3); }
+    #slide-03 .kw__ok .kw__fate--ok, #slide-03 .kw__ok .kw__gloss { transition: opacity .3s ease; }
+    #slide-03 .kw__ok.is-pending .kw__fate--ok, #slide-03 .kw__ok.is-pending .kw__gloss { opacity: 0; }
+    #slide-03 .kw__ok.is-current .kw__fate--ok, #slide-03 .kw__ok.is-past .kw__fate--ok { transition-delay: .35s; }
+    #slide-03 .kw__ok.is-current .kw__gloss, #slide-03 .kw__ok.is-past .kw__gloss { transition-delay: .5s; }
+    #slide-03 .kw__crash, #slide-03 .kw__fate--crash { transition-property: opacity, transform; }
+    #slide-03:has(.frag.kw__ok:not(.is-pending)) .kw__crash,
+    #slide-03:has(.frag.kw__ok:not(.is-pending)) .kw__fate--crash { opacity: .25; transition-delay: 0s; }
 
-    /* step 4: the line of sight wipes from the hand to the sheet; then the note, then the wall's name */
-    #slide-03 .vb__look line { stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
-    #slide-03 .vb__look path { fill: var(--fg-1); }
-    #slide-03 .vb__look { clip-path: inset(0 0 0 0); transition: clip-path .45s var(--ease-smooth); }
-    #slide-03 .frag.vb__look.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
-    #slide-03 .frag.vb__small--note.is-current, #slide-03 .frag.vb__small--note.is-past { transition-delay: .4s; }
-    #slide-03 .frag.vb__lab--3.is-current, #slide-03 .frag.vb__lab--3.is-past { transition-delay: .6s; }
+    /* the caption */
+    #slide-03 .kw__cap-1 { font-family: var(--font-display); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-03 .kw__cap-2 { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
 
-    /* step 5: the caption, its plant line a beat later in the heading voice */
-    #slide-03 .frag.vb__cap.is-pending { opacity: 1; }
-    #slide-03 .vb__cap text {
-      font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-1); text-anchor: middle;
-      transition: opacity .35s ease;
-    }
-    #slide-03 .vb__cap .vb__code { font-family: var(--font-mono); }
-    #slide-03 .vb__cap .vb__plant { font-family: var(--font-display); fill: var(--accent-1); }
-    #slide-03 .vb__cap.is-pending text { opacity: 0; }
-    #slide-03 .vb__cap.is-current .vb__cap-2, #slide-03 .vb__cap.is-past .vb__cap-2 { transition-delay: .45s; }
-
-    /* Group children are not .frag, so the engine's reduced-motion rule does
-       not reach them; !important for the same reason it uses it. */
     @media (prefers-reduced-motion: reduce) {
-      #slide-03 .vb__lab, #slide-03 .vb__small,
-      #slide-03 .vb__outline, #slide-03 .vb__fold, #slide-03 .vb__title, #slide-03 .vb__op,
-      #slide-03 .vb__sign, #slide-03 .vb__signed,
-      #slide-03 .vb__slot, #slide-03 .vb__item, #slide-03 .vb__idx,
-      #slide-03 .vb__node, #slide-03 .vb__link, #slide-03 .vb__null,
-      #slide-03 .vb__look, #slide-03 .vb__cap text {
-        transition-duration: 0s !important;
-        transition-delay: 0s !important;
+      #slide-03 .kw__box, #slide-03 .kw__wire, #slide-03 .kw__label, #slide-03 .kw__gloss,
+      #slide-03 .kw__term, #slide-03 .kw__crash, #slide-03 .kw__tick, #slide-03 .kw__fate,
+      #slide-03 .kw__cap-1, #slide-03 .kw__cap-2 {
+        transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }
   </style>

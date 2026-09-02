@@ -3,132 +3,117 @@
     <p class="slide__kicker" data-sid="14-oldest-ask:3">PRACTICE 3 &middot; NULL POINTER</p>
     <h2 data-sid="14-oldest-ask:4">Make getOldest survive a null</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="14-oldest-ask:5">A room. On the left a coworker, drawn in neutral ink, holds out a sheet headed getOldest. First three head-and-shoulders figures grow in a row in the middle, tagged with ages &mdash; 58, 31, 44 &mdash; and an arrow wipes across to a fourth figure on the right, tagged 58 and wearing an orange oldest badge: the method working. Then the middle figure fades to a dashed grey outline, its tag becomes null, and a maroon cross grows over the output: it fails whenever one of the three is null. Then a rule tile appears below the scene: if a parameter is null, return the oldest of the people who are not; if all three are null, return null. Last, an orange figure at the far right &mdash; you &mdash; opens a speech bubble back toward the coworker reading here is why it breaks, and a caption: fix it, and work out how you would explain the problem to the coworker who wrote it.</p>
+  <p class="sr-only slide__desc" data-sid="14-oldest-ask:5">On the left, an editor holds the method a coworker wrote: getOldest takes three Person parameters and returns the oldest by comparing getAge calls in a chain of if and else branches. On the right, a scene annotates it. First three head-and-shoulders figures grow in a row, tagged with ages 58, 31 and 44, and an arrow wipes across to a fourth figure tagged 58 wearing an orange oldest badge: the method working as intended. Then the middle figure fades to a dashed grey outline, its tag becomes null, and a maroon cross grows over the output: the method fails whenever one of the three is null. Then a rule tile appears: if a parameter is null, return the oldest of the people who are not; if all three are null, return null. Last, a caption: fix it, and work out how you would explain the problem to the coworker who wrote it.</p>
 
-  <!-- The question as a scene rather than two sentences of prose: a coworker
-       hands over a piece of work, three Persons go in, one comes out wearing
-       the mark. Drawing the method as people makes "null" visible as an EMPTY
-       PLACE in the row — a slot with nobody in it — which is exactly the
-       thing the code on the next slide cannot see. Step 1: the three inputs
-       stand up, the arrow wipes to the output, the badge grows — how it should
-       work. Step 2: the middle Person fades to a dashed stone ghost tagged
-       null and a maroon cross grows over the output — it fails. Step 3: the
-       rule tile under the scene. Step 4: you (orange) open a bubble back
-       toward the coworker: this is not just a patch, it is an explanation.
-       One SVG in canvas px; viewBox = the body's rect under a kicker and a
-       one-line heading (top = 96 + 52 + 16 + 88 + 48 = 300). -->
-  <div class="slide__body" data-sid="14-oldest-ask:6">
-    <svg class="oa" viewBox="128 300 1664 684" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="A coworker hands over getOldest; three people go in, one comes out wearing the oldest badge, until one of the three is null"
-         data-sid="14-oldest-ask:7">
-      <defs>
-        <g id="w2d2-14-seat"><circle class="head" r="24"/><path class="sh" d="M-40 72v-16a40 40 0 0 1 80 0v16"/></g>
-      </defs>
-
-      <!-- step 0: the coworker, holding out the sheet -->
-      <g class="oa__cw" data-sid="14-oldest-ask:8">
-        <circle cx="270" cy="440" r="26"/>
-        <path d="M270 466V584M270 496L228 546M270 496L342 490M270 584L246 658M270 584L294 658"/>
-      </g>
-      <text class="oa__who" x="270" y="686" data-sid="14-oldest-ask:9">coworker</text>
-      <g class="oa__sheet" data-sid="14-oldest-ask:10">
-        <rect x="348" y="416" width="190" height="150" rx="8"/>
-        <text x="443" y="458" data-sid="14-oldest-ask:11">getOldest</text>
-        <path d="M374 490h138M374 516h104M374 542h122"/>
-      </g>
-
-      <!-- step 0: you, at the far right, in the deck's "doing the work" orange -->
-      <g class="oa__you" data-sid="14-oldest-ask:12">
-        <circle cx="1700" cy="440" r="26"/>
-        <path d="M1700 466V584M1700 496L1658 546M1700 496L1742 542M1700 584L1676 658M1700 584L1724 658"/>
-      </g>
-      <text class="oa__who oa__who--you" x="1700" y="686" data-sid="14-oldest-ask:13">you</text>
-
-      <!-- step 1: the three parameters stand up, one after another -->
-      <g class="oa__ins frag" data-step="1" data-sid="14-oldest-ask:14">
-        <use class="oa__in" style="--i: 0" href="#w2d2-14-seat" x="760" y="470" data-sid="14-oldest-ask:15"/>
-        <g class="oa__in oa__in--mid" style="--i: 1" data-sid="14-oldest-ask:16">
-          <use class="oa__solid" href="#w2d2-14-seat" x="920" y="470" data-sid="14-oldest-ask:17"/>
-          <use class="oa__ghost" href="#w2d2-14-seat" x="920" y="470" data-sid="14-oldest-ask:18"/>
-        </g>
-        <use class="oa__in" style="--i: 2" href="#w2d2-14-seat" x="1080" y="470" data-sid="14-oldest-ask:19"/>
-      </g>
-      <text class="oa__age frag" data-step="1" data-anim="fade" style="--i: 0" x="760" y="582" data-sid="14-oldest-ask:20">58</text>
-      <text class="oa__age oa__age--live frag" data-step="1" data-anim="fade" style="--i: 1" x="920" y="582" data-sid="14-oldest-ask:21">31</text>
-      <text class="oa__age oa__age--null" x="920" y="582" data-sid="14-oldest-ask:22">null</text>
-      <text class="oa__age frag" data-step="1" data-anim="fade" style="--i: 2" x="1080" y="582" data-sid="14-oldest-ask:23">44</text>
-
-      <!-- step 1: the arrow wipes to the output; the output stands up; the badge grows -->
-      <g class="oa__pass frag" data-step="1" data-sid="14-oldest-ask:24">
-        <line x1="1150" y1="500" x2="1236" y2="500"/><path d="M1260 500L1234 487V513Z"/>
-      </g>
-      <g class="oa__out frag" data-step="1" data-sid="14-oldest-ask:25">
-        <use href="#w2d2-14-seat" x="1330" y="470" data-sid="14-oldest-ask:26"/>
-        <text class="oa__age" x="1330" y="582" data-sid="14-oldest-ask:27">58</text>
-      </g>
-      <g class="oa__badge frag" data-step="1" data-sid="14-oldest-ask:28">
-        <rect x="1260" y="396" width="140" height="40" rx="20"/>
-        <text x="1330" y="424" data-sid="14-oldest-ask:29">oldest</text>
-      </g>
-
-      <!-- step 2: the middle slot empties (driven off this cross by :has) and the output fails -->
-      <path class="oa__cross frag" data-step="2" d="M1290 440L1370 520M1370 440L1290 520" data-sid="14-oldest-ask:30"/>
-
-      <!-- step 4: you, back to the coworker -->
-      <g class="oa__bubble frag" data-step="4" data-sid="14-oldest-ask:31">
-        <path d="M1126 304H1594a16 16 0 0 1 16 16V356a16 16 0 0 1-16 16H1568L1660 404L1530 372H1126a16 16 0 0 1-16-16V320a16 16 0 0 1 16-16Z"/>
-        <text x="1360" y="348" data-sid="14-oldest-ask:32">here is why it breaks</text>
-      </g>
-    </svg>
-
-    <!-- step 3: the rule, under the scene -->
-    <div class="tile tile--a3 oa__rule frag" data-step="3" data-anim="fade" data-sid="14-oldest-ask:33">
-      <p class="tile__label" data-sid="14-oldest-ask:34">what it should do instead</p>
-      <p data-sid="14-oldest-ask:35">If a parameter is null, return the oldest of the people who are not. If all three are null, return null.</p>
+  <!-- Reworked 2026-09-01: the scene alone was confusing — the room was asked
+       to fix a method it had not seen. The code now sits on the slide from
+       step 0, in the editor-left scene-right grammar of practice 1, and the
+       figures annotate it: three Persons go in, one comes out wearing the
+       mark, and "null" is visible as an EMPTY PLACE in the row — a slot with
+       nobody in it — which is exactly the thing the code cannot see. The
+       74-character signature wraps onto a continuation line so the method fits
+       the column at the chrome size (the next slide shows it full width).
+       Step 1: the three inputs stand up, the arrow wipes to the output, the
+       badge grows — how it should work. Step 2: the middle Person fades to a
+       dashed stone ghost tagged null and a maroon cross grows over the
+       output — it fails. Step 3: the rule tile. Step 4: the ask — this is not
+       just a patch, it is an explanation owed to a coworker. -->
+  <div class="slide__body oa" data-sid="14-oldest-ask:6">
+    <div class="editor" data-sid="14-oldest-ask:7">
+      <p class="editor__bar" data-sid="14-oldest-ask:8">the method your coworker wrote</p>
+      <ol class="editor__code" data-sid="14-oldest-ask:9">
+        <li data-sid="14-oldest-ask:10"><span class="tok-key">public</span> Person getOldest(Person personA,</li>
+        <li data-sid="14-oldest-ask:11">        Person personB, Person personC) {</li>
+        <li data-sid="14-oldest-ask:12">    <span class="tok-key">if</span> (personA.getAge() &gt;= personB.getAge()) {</li>
+        <li data-sid="14-oldest-ask:13">        <span class="tok-key">if</span> (personA.getAge() &gt;= personC.getAge()) {</li>
+        <li data-sid="14-oldest-ask:14">            <span class="tok-key">return</span> personA;</li>
+        <li data-sid="14-oldest-ask:15">        } <span class="tok-key">else</span> {</li>
+        <li data-sid="14-oldest-ask:16">            <span class="tok-key">return</span> personC;</li>
+        <li data-sid="14-oldest-ask:17">        }</li>
+        <li data-sid="14-oldest-ask:18">    } <span class="tok-key">else if</span> (personB.getAge() &gt;= personC.getAge()) {</li>
+        <li data-sid="14-oldest-ask:19">        <span class="tok-key">return</span> personB;</li>
+        <li data-sid="14-oldest-ask:20">    } <span class="tok-key">else</span> {</li>
+        <li data-sid="14-oldest-ask:21">        <span class="tok-key">return</span> personC;</li>
+        <li data-sid="14-oldest-ask:22">    }</li>
+        <li data-sid="14-oldest-ask:23">}</li>
+      </ol>
     </div>
-    <!-- step 4: the ask, under you -->
-    <p class="note oa__cta frag" data-step="4" data-anim="fade" style="--anim-delay: .35s" data-sid="14-oldest-ask:36">Fix it &mdash; and work out how you would explain the problem to the coworker who wrote it.</p>
+
+    <div class="oa__side" data-sid="14-oldest-ask:24">
+      <svg class="oa__scene" viewBox="0 0 612 208" preserveAspectRatio="xMidYMin meet" role="img"
+           aria-label="Three people go into getOldest and the oldest comes out wearing a badge, until the middle slot is empty — null — and the output takes a cross"
+           data-sid="14-oldest-ask:25">
+        <defs data-sid="14-oldest-ask:26">
+          <g id="w2d2-14-seat" data-sid="14-oldest-ask:27"><circle class="head" r="24" style="fill: var(--bg-0); stroke-width: 5" data-sid="14-oldest-ask:28"/><path class="sh" d="M-40 72v-16a40 40 0 0 1 80 0v16" style="fill: none; stroke-width: 5; stroke-linecap: round" data-sid="14-oldest-ask:29"/></g>
+        </defs>
+
+        <!-- step 1: the three parameters stand up, one after another -->
+        <g class="oa__ins frag" data-step="1" data-sid="14-oldest-ask:30">
+          <use class="oa__in" style="--i: 0" href="#w2d2-14-seat" x="70" y="68" data-sid="14-oldest-ask:31"/>
+          <g class="oa__in oa__in--mid" style="--i: 1" data-sid="14-oldest-ask:32">
+            <use class="oa__solid" href="#w2d2-14-seat" x="185" y="68" data-sid="14-oldest-ask:33"/>
+            <use class="oa__ghost" href="#w2d2-14-seat" x="185" y="68" data-sid="14-oldest-ask:34"/>
+          </g>
+          <use class="oa__in" style="--i: 2" href="#w2d2-14-seat" x="300" y="68" data-sid="14-oldest-ask:35"/>
+        </g>
+        <text class="oa__age frag" data-step="1" data-anim="fade" style="--i: 0" x="70" y="180" data-sid="14-oldest-ask:36">58</text>
+        <text class="oa__age oa__age--live frag" data-step="1" data-anim="fade" style="--i: 1" x="185" y="180" data-sid="14-oldest-ask:37">31</text>
+        <text class="oa__age oa__age--null" x="185" y="180" data-sid="14-oldest-ask:38">null</text>
+        <text class="oa__age frag" data-step="1" data-anim="fade" style="--i: 2" x="300" y="180" data-sid="14-oldest-ask:39">44</text>
+
+        <!-- step 1: the arrow wipes to the output; the output stands up; the badge grows -->
+        <g class="oa__pass frag" data-step="1" data-sid="14-oldest-ask:40">
+          <line x1="345" y1="100" x2="415" y2="100" data-sid="14-oldest-ask:41"/><path d="M439 100L413 87V113Z" data-sid="14-oldest-ask:42"/>
+        </g>
+        <g class="oa__out frag" data-step="1" data-sid="14-oldest-ask:43">
+          <use href="#w2d2-14-seat" x="520" y="68" data-sid="14-oldest-ask:44"/>
+          <text class="oa__age" x="520" y="180" data-sid="14-oldest-ask:45">58</text>
+        </g>
+        <g class="oa__badge frag" data-step="1" data-sid="14-oldest-ask:46">
+          <rect x="450" y="0" width="140" height="40" rx="20" data-sid="14-oldest-ask:47"/>
+          <text x="520" y="28" data-sid="14-oldest-ask:48">oldest</text>
+        </g>
+
+        <!-- step 2: the middle slot empties (driven off this cross by :has) and the output fails -->
+        <path class="oa__cross frag" data-step="2" d="M480 68L560 148M560 68L480 148" data-sid="14-oldest-ask:49"/>
+      </svg>
+
+      <!-- step 3: the rule -->
+      <div class="tile tile--a3 oa__rule frag" data-step="3" data-anim="fade" data-sid="14-oldest-ask:50">
+        <p class="tile__label" data-sid="14-oldest-ask:51">what it should do instead</p>
+        <p data-sid="14-oldest-ask:52">If a parameter is null, return the oldest of the people who are not. If all three are null, return null.</p>
+      </div>
+      <!-- step 4: the ask -->
+      <p class="note oa__cta frag" data-step="4" data-anim="fade" style="--anim-delay: .35s" data-sid="14-oldest-ask:53">Fix it &mdash; and work out how you would explain the problem to the coworker who wrote it.</p>
+    </div>
   </div>
-  <div class="slide__number" data-sid="14-oldest-ask:37"></div>
-  <aside class="notes" data-sid="14-oldest-ask:38">Your coworker wrote a method that takes three Person objects and returns the oldest of them; it fails whenever one or more of the parameters is null. Set the specification before showing the code, so they read the code looking for a specific failure rather than skimming it. Step 1 &mdash; the three Persons stand up (58, 31, 44), the arrow carries them through the method, and the 58 comes out wearing the badge: this is what the coworker meant it to do. Step 2 &mdash; the middle one was never there: the slot goes to a dashed ghost tagged null, and the output takes a cross. Say it plainly: the method does not return the wrong person, it does not return at all &mdash; it throws. Step 3 &mdash; the two rules for the fix, read them out: with some nulls, the oldest of the rest; with all three null, null. Step 4 &mdash; the explaining half is not decoration: &ldquo;it crashes on null&rdquo; is a symptom, and the coworker needs the cause and the rule that prevents it. Here is the code.</aside>
+  <div class="slide__number" data-sid="14-oldest-ask:54"></div>
+  <aside class="notes" data-sid="14-oldest-ask:55">Your coworker wrote a method that takes three Person objects and returns the oldest of them; it fails whenever one or more of the parameters is null. The code is on screen from the start &mdash; read the shape out loud before any step: three parameters, a chain of comparisons, every branch calls getAge on something. Step 1 &mdash; the three Persons stand up (58, 31, 44), the arrow carries them through the method, and the 58 comes out wearing the badge: this is what the coworker meant it to do, and on non-null input it does exactly that. Step 2 &mdash; the middle one was never there: the slot goes to a dashed ghost tagged null, and the output takes a cross. Say it plainly: the method does not return the wrong person, it does not return at all &mdash; it throws, on the first getAge call whose receiver is null. Step 3 &mdash; the two rules for the fix, read them out: with some nulls, the oldest of the rest; with all three null, null. Step 4 &mdash; the explaining half is not decoration: &ldquo;it crashes on null&rdquo; is a symptom, and the coworker needs the cause and the rule that prevents it. Give the groups time on the code here. Then: where exactly does it throw first? The next slide walks it.</aside>
 
   <style>
-    /* Slide-local: the getOldest room. The coworker and you are the deck's
-       whole-body figures (neutral ink for the coworker, orange for whoever is
-       doing the work); the three parameters and the output are r=24 seats,
-       coloured through their parent group so the ghost can be the same shape
-       in stone with a dash. The sheet is a piece of the coworker's work: paper
-       with an orange edge. Motion is manim's only: the seats grow from their
-       base (a figure standing up), the arrow Creates by clip wipe, the badge
-       and the cross grow from centre, the ghost and the null tag are a plain
-       crossfade driven by :has() off the cross, the bubble grows from its tail
-       at you, the tile and the caption FadeIn. Scene geometry is canvas px
-       (busts on y 470, feet on 658, the lower band from 672 down); the tile
-       and caption are HTML positioned in the body's own px, which match the
-       viewBox one to one. Used by this slide only, all values from tokens. */
-    #slide-14 .slide__body { position: relative; }
-    #slide-14 .oa { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    /* Slide-local: the getOldest question, code left and scene right. The
+       editor takes the chrome size so the whole method fits its column (the
+       74-char signature wraps onto a continuation line; the next slide shows
+       the same method full width). The scene annotates the code: three r=24
+       seats in, one out wearing the badge; the ghost is the same seat glyph in
+       stone with a dash, coloured through its parent group because selectors
+       cannot reach inside a <use>. Motion is manim's only: the seats grow from
+       their base (a figure standing up), the arrow Creates by clip wipe, the
+       badge and the cross grow from centre, the ghost and the null tag are a
+       plain crossfade driven by :has() off the cross, the tile and the caption
+       FadeIn. Geometry: editor column 1020px (96px gutter + 52 chars at the
+       chrome size + padding), scene viewBox 612 wide = the right column at the
+       body's 1664, so it renders 1:1; seats on y 68, ages on y 180, badge in
+       the top band. Used by this slide only, all values from tokens. */
+    #slide-14 .oa { display: grid; grid-template-columns: 1020px 1fr; gap: var(--s-4); align-items: start; }
+    #slide-14 .editor__code { font-size: var(--t-micro); padding-block: var(--s-1); }
+    #slide-14 .oa__side { display: flex; flex-direction: column; gap: var(--s-3); min-width: 0; }
+    #slide-14 .oa__scene { display: block; width: 100%; height: auto; overflow: visible; }
 
-    /* the people */
-    #slide-14 .oa__cw circle, #slide-14 .oa__cw path,
-    #slide-14 .oa__you circle, #slide-14 .oa__you path {
-      fill: none; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round;
-    }
-    #slide-14 .oa__cw { stroke: var(--fg-1); }
-    #slide-14 .oa__you { stroke: var(--accent-3); }
-    #slide-14 .oa__who { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
-    #slide-14 .oa__who--you { fill: var(--accent-3); }
-
-    /* the sheet: the coworker's work, held out */
-    #slide-14 .oa__sheet rect { fill: var(--paper); stroke: var(--accent-3); stroke-width: 5; }
-    #slide-14 .oa__sheet path { fill: none; stroke: var(--stone); stroke-width: 5; stroke-linecap: round; }
-    #slide-14 .oa__sheet text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
-
-    /* seats: the glyph carries shape only; stroke colour comes down from each
-       <use>'s parent (selectors cannot reach inside a <use>), so one symbol
-       serves the live seats and the stone ghost alike */
-    #slide-14 .head { fill: var(--bg-0); stroke-width: 5; }
-    #slide-14 .sh { fill: none; stroke-width: 5; stroke-linecap: round; }
+    /* seats: fill and pen weight live inline on the defs glyph (class rules on
+       defs children do not reach <use> clones in the studio's renderer);
+       stroke colour is inherited, so it comes down from each <use>'s parent
+       and one symbol serves the live seats and the stone ghost alike */
     #slide-14 .oa__ins, #slide-14 .oa__out { stroke: var(--fg-0); }
     #slide-14 .oa__ghost { stroke: var(--stone); stroke-dasharray: 8 8; }
     #slide-14 .oa__age { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); stroke: none; text-anchor: middle; }
@@ -178,23 +163,14 @@
     #slide-14 .frag.oa__cross.is-pending { opacity: 0; transform: scale(0.3); }
     #slide-14 .frag.oa__cross.is-current, #slide-14 .frag.oa__cross.is-past { transition-delay: .4s; }
 
-    /* step 3: the rule, in the lower band, left of you */
-    #slide-14 .oa__rule { position: absolute; left: 0; top: 396px; width: 1000px; margin: 0; }
-    #slide-14 .oa__rule p { margin: 0; }
-
-    /* step 4: the bubble grows from its tail at you; the caption fades in under you */
-    #slide-14 .oa__bubble path { fill: var(--paper); stroke: var(--accent-3); stroke-width: 5; stroke-linejoin: round; }
-    #slide-14 .oa__bubble text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-14 .oa__bubble {
-      transform-box: fill-box; transform-origin: 100% 100%;
-      transition: transform .45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity .2s ease;
-    }
-    #slide-14 .frag.oa__bubble.is-pending { opacity: 0; transform: scale(.05); }
-    #slide-14 .oa__cta { position: absolute; left: 1040px; top: 400px; width: 624px; margin: 0; line-height: 1.3; }
+    /* steps 3 and 4: the rule tile and the ask, stacked under the scene */
+    #slide-14 .oa__rule { margin: 0; }
+    #slide-14 .oa__rule p { margin: 0; font-size: var(--t-small); line-height: 1.35; }
+    #slide-14 .oa__cta { margin: 0; line-height: 1.3; }
 
     @media (prefers-reduced-motion: reduce) {
       #slide-14 .oa__in, #slide-14 .oa__age, #slide-14 .oa__pass, #slide-14 .oa__out, #slide-14 .oa__badge,
-      #slide-14 .oa__solid, #slide-14 .oa__ghost, #slide-14 .oa__cross, #slide-14 .oa__bubble,
+      #slide-14 .oa__solid, #slide-14 .oa__ghost, #slide-14 .oa__cross,
       #slide-14 .oa__rule, #slide-14 .oa__cta {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }

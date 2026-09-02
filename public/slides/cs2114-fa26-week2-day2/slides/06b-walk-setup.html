@@ -3,7 +3,14 @@
     <p class="slide__kicker" data-sid="06b-walk-setup:3">VOTE 1 &middot; THE ANSWER</p>
     <h2 data-sid="06b-walk-setup:4">JUnit builds the fixture for you</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="06b-walk-setup:5">A walkthrough of option B. On the left, the test class with the blank filled in &mdash; myStr = "foo" inside setUp &mdash; and a program-counter bar that moves down it; under the code, near the end, a dashed maroon panel appears holding option A&rsquo;s line, String myStr = "foo". On the right, the heap. The class line grows one Option object whose field reads myStr = null, and a pill labelled this draws an arrow to it. The counter moves to setUp and nothing on the heap changes: JUnit is calling it. Then the assignment: null is struck through and "foo" appears beside it. The counter moves to the assertion and a small blue panel stamps in reading stringTest() passed. Then option A: a second pill, myStr, tagged local, draws an arrow to a second box, a String holding "foo", while the maroon panel appears under the code. Last, that String box dims under a veil reading gone at the brace, its pill and arrow go grey, and the Option object&rsquo;s field is exactly as it was.</p>
+  <p class="sr-only slide__desc" data-sid="06b-walk-setup:5">A walkthrough of option B. On the left, the test class with the blank filled in &mdash; myStr = "foo" inside setUp &mdash; and a program-counter bar that moves down it; under the code, near the end, a dashed maroon panel appears holding option A&rsquo;s line, String myStr = "foo". On the right, the heap. The class line grows one Option object whose field reads myStr = null, and a pill labelled this draws an arrow to it. The counter moves to setUp and nothing on the heap changes: JUnit is calling it. Then the assignment: null is struck through and "foo" appears beside it. The counter moves to the assertion and a small blue panel stamps in reading stringTest() passed. Then option A: a second pill, myStr, tagged local, draws an arrow to a second box, a String holding "foo", while the maroon panel appears under the code. Last, that String box dims under a veil reading no name past the brace, its pill and arrow go grey, and the Option object&rsquo;s field is untouched by the local.</p>
+  <!-- The fixture as a heap: the one Option JUnit built, then the second name
+       option A builds instead. step 1: the class line — one Option, this wired
+       to it. step 2: setUp — JUnit calls it, nothing on the heap changes.
+       step 3: the field is written, null struck. step 4: the assertion reads
+       "foo", passes. step 5: option A's local myStr wired to its own String.
+       step 6: the local dies at the brace; its String has no name past it,
+       and option A never touched the field. -->
   <div class="slide__body grid grid--code" data-sid="06b-walk-setup:6">
     <div class="stack" data-sid="06b-walk-setup:7">
       <div class="editor" data-sid="06b-walk-setup:8">
@@ -45,7 +52,7 @@
           <div class="heap-obj__field" data-sid="06b-walk-setup:43">
             <p class="heap-val" data-sid="06b-walk-setup:44">"foo"</p>
           </div>
-          <p class="heap-obj__gone frag" data-step="6" data-sid="06b-walk-setup:45">gone at the brace</p>
+          <p class="heap-obj__gone frag" data-step="6" data-sid="06b-walk-setup:45">no name past the brace</p>
         </div>
 
         <svg class="heap-wires" aria-hidden="true" data-sid="06b-walk-setup:46"></svg>
@@ -55,14 +62,14 @@
         <p class="walkcap frag" data-step="1" data-sid="06b-walk-setup:50">One test object. Its field starts out null.</p>
         <p class="walkcap frag" data-step="2" data-sid="06b-walk-setup:51">JUnit calls setUp() for you, before every test.</p>
         <p class="walkcap frag" data-step="3" data-sid="06b-walk-setup:52">The field is written.</p>
-        <p class="walkcap frag" data-step="4" data-sid="06b-walk-setup:53">The assertion reads the field: foo. Passes.</p>
+        <p class="walkcap frag" data-step="4" data-sid="06b-walk-setup:53">The assertion reads the field: "foo". Passes.</p>
         <p class="walkcap frag" data-step="5" data-sid="06b-walk-setup:54">Option A declares a second, local myStr.</p>
-        <p class="walkcap frag" data-step="6" data-sid="06b-walk-setup:55">It dies at the brace. The field never changed.</p>
+        <p class="walkcap frag" data-step="6" data-sid="06b-walk-setup:55">It dies at the brace. Option A never touched the field.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="06b-walk-setup:56"></div>
-  <aside class="notes" data-sid="06b-walk-setup:57">Answer: B &mdash; and only B. Step 1 &mdash; the counter lands on the class line: JUnit constructs one Option object for each test method, and nobody in this file wrote <b data-sid="06b-walk-setup:58">new Option()</b>; the framework did. Its field myStr is a reference, so it starts out null &mdash; the pill is <b data-sid="06b-walk-setup:59">this</b>, the object the test runs inside. Step 2 &mdash; the counter moves to setUp() and nothing on the heap changes. This is the D debrief: JUnit calls setUp() for you, before every test method. Nobody calls it by hand &mdash; doing so would only build the fixture a second time. That the framework does it is the whole point of a fixture. Step 3 &mdash; line 5 writes the field: null is struck, "foo" lands, the box breathes. Step 4 &mdash; stringTest() reads the field and finds "foo"; the assertion passes and the stamp says so. Step 5 &mdash; option A: <b data-sid="06b-walk-setup:60">String myStr = "foo";</b> begins with a type, so it is a declaration, and a declaration inside a method makes a brand-new local. That local is a second name called myStr, wired to its own String; it never touches the field. Step 6 &mdash; the local dies at setUp&rsquo;s closing brace, so the field is still null and the assertion fails on null against "foo". C is not drawn: JUnit calls setUp, not SetUp, so a method named SetUp never runs and the field stays null &mdash; the capital S is the entire bug, and @Override is what would have caught it, because javac refuses to believe you override something that does not exist. D is the misconception the question exists for: setUp is called for you, before every test &mdash; that is the whole point of a fixture. Plant: A fixture is a promise the test can rely on. Next: does the test check every case?</aside>
+  <aside class="notes" data-sid="06b-walk-setup:57">Answer: B &mdash; and only B. Step 1 &mdash; the counter lands on the class line: JUnit constructs one Option object for each test method, and nobody in this file wrote <b data-sid="06b-walk-setup:58">new Option()</b>; the framework did. Its field myStr is a reference, so it starts out null &mdash; the pill is <b data-sid="06b-walk-setup:59">this</b>, the object the test runs inside. Step 2 &mdash; the counter moves to setUp() and nothing on the heap changes. This is the D debrief: JUnit calls setUp() for you, before every test method. Nobody calls it by hand &mdash; doing so would only build the fixture a second time. That the framework does it is the whole point of a fixture. Step 3 &mdash; line 5 writes the field: null is struck, "foo" lands, the box breathes. Step 4 &mdash; stringTest() reads the field and finds "foo"; the assertion passes and the stamp says so. Step 5 &mdash; option A: <b data-sid="06b-walk-setup:60">String myStr = "foo";</b> begins with a type, so it is a declaration, and a declaration inside a method makes a brand-new local. That local is a second name called myStr, wired to its own String; it never touches the field. Step 6 &mdash; the local dies at setUp&rsquo;s closing brace, so in option A&rsquo;s run the field is still null and the assertion fails on null against "foo" &mdash; the "foo" on the heap now is B&rsquo;s write, not A&rsquo;s. C is not drawn: keep the shared shape&rsquo;s @Override and javac refuses it &mdash; method does not override or implement a method from a supertype; drop the annotation and SetUp is just a method nobody calls, so the field stays null. Either way it does not pass, and the capital S is the entire bug. D is the misconception the question exists for: setUp is called for you, before every test &mdash; that is the whole point of a fixture. Plant: A fixture is a promise the test can rely on. Next: does the test check every case?</aside>
 
   <style>
     /* Slide-local: the vote-1 walkthrough — the fixture JUnit builds, then the

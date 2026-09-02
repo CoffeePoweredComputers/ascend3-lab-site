@@ -3,14 +3,14 @@
     <p class="slide__kicker" data-sid="15-oldest-code:3">PRACTICE 3 &middot; THE CODE</p>
     <h2 data-sid="15-oldest-code:4">Where does this throw, and why?</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="15-oldest-code:5">The coworker's method in an editor: it compares the ages of the three people directly, in a chain of if and else branches, and returns whichever is oldest. Every branch calls getAge on a parameter without ever checking whether that parameter is null. At the bottom right of the editor, the ask: why is this throwing, and where would the null check have to go? First a program-counter bar lands on line 2, the first comparison, captioned throws first, on whichever of A or B is null. Then all six getAge calls take a maroon ring at once, captioned the same bug on every line; patching line 2 just moves the crash. Last, a gap opens above line 2 and a dashed orange band fills it, reading handle the nulls here, before any comparison, captioned the checks go up front, before any comparison.</p>
+  <p class="sr-only slide__desc" data-sid="15-oldest-code:5">The coworker&rsquo;s method in an editor: it compares the ages of the three people directly, in a chain of if and else branches, and returns whichever is oldest. Every branch calls getAge on a parameter without ever checking whether that parameter is null. At the bottom right of the editor, the ask: why is this throwing, and where would the null check have to go? First a program-counter bar lands on line 2, the first comparison, captioned throws first, on whichever of personA or personB is null. Then all six getAge calls take a maroon ring at once, captioned the same bug on every line; patching line 2 just moves the crash. Last, a new orange line grows open above line 2, a plus sign in its gutter, reading handle the nulls here, before any comparison, captioned the checks go up front, before any comparison.</p>
 
   <!-- The whole method on one screen, because the point is that every branch
        has the same bug. Step 1: the codewalk program counter lands on line 2
        — the first dereference, so the first to throw. Step 2: every getAge()
        rings at once — the bug is not on a line, it is in the shape of the
-       method. Step 3: the code makes room above line 2 and a dashed orange
-       band takes the gap — the checks go up front, before any comparison, not
+       method. Step 3: an inserted line grows open above line 2, diff-style,
+       "+" in the gutter — the checks go up front, before any comparison, not
        inside every branch. The ask and the captions share the pocket that the
        short closing lines leave at the bottom right of the editor. -->
   <div class="slide__body" data-sid="15-oldest-code:6">
@@ -19,6 +19,9 @@
       <div class="editor__pc" data-sid="15-oldest-code:27"></div>
       <ol class="editor__code" data-sid="15-oldest-code:9">
         <li data-sid="15-oldest-code:10"><span class="tok-key">public</span> Person getOldest(Person personA, Person personB, Person personC) {</li>
+        <!-- step 3: the insertion — a real line in the flow, so it can never
+             land on top of another; opening it pushes lines 2-13 down -->
+        <li class="ins frag" data-step="3" data-sid="15-oldest-code:34">    // handle the nulls here, before any comparison</li>
         <li class="walkline frag" data-step="1" data-sid="15-oldest-code:11">    <span class="tok-key">if</span> (personA.<span class="call" data-sid="15-oldest-code:28">getAge()</span> &gt;= personB.<span class="call" data-sid="15-oldest-code:29">getAge()</span>) {</li>
         <li data-sid="15-oldest-code:12">        <span class="tok-key">if</span> (personA.<span class="call" data-sid="15-oldest-code:30">getAge()</span> &gt;= personC.<span class="call" data-sid="15-oldest-code:31">getAge()</span>) {</li>
         <li data-sid="15-oldest-code:13">            <span class="tok-key">return</span> personA;</li>
@@ -32,44 +35,53 @@
         <li data-sid="15-oldest-code:21">    }</li>
         <li data-sid="15-oldest-code:22">}</li>
       </ol>
-      <!-- step 3: the insertion band, in the gap line 2 opens above itself -->
-      <div class="ins frag" data-step="3" data-sid="15-oldest-code:34">// handle the nulls here, before any comparison</div>
       <!-- the pocket: the ask, then one caption per step, in the same cell -->
       <div class="caps" data-sid="15-oldest-code:35">
         <div class="tile tile--a3 ask" data-sid="15-oldest-code:23">
           <p data-sid="15-oldest-code:24">Why is this throwing? And where would the null check have to go?</p>
         </div>
-        <p class="note cap cap--1 frag" data-step="1" data-sid="15-oldest-code:36">Throws first, on whichever of A or B is null.</p>
+        <p class="note cap cap--1 frag" data-step="1" data-sid="15-oldest-code:36">Throws first, on whichever of personA or personB is null.</p>
         <p class="note cap cap--2 frag" data-step="2" data-sid="15-oldest-code:37">The same bug on every line. Patching line 2 just moves the crash.</p>
         <p class="note cap cap--3 frag" data-step="3" data-sid="15-oldest-code:38">The checks go up front, before any comparison.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="15-oldest-code:25"></div>
-  <aside class="notes" data-sid="15-oldest-code:26">Answer: line 2 throws first, on whichever of personA or personB is null &mdash; but every line here has the same bug, so patching line 2 alone just moves the crash. The useful move is to name the rule: you cannot call a method on a reference until you know it points at something. Then let them argue about where the checks go; handling the nulls up front, before any comparison, is much easier to read than a null test inside every branch. Step 1 &mdash; the bar lands on line 2: ask which of the two calls on that line goes first (personA.getAge()), so a null personA throws before personB is even looked at. Step 2 &mdash; every getAge() rings at once: six calls, six places to throw; a null check wrapped around line 2 only moves the crash to line 3 or line 8. Step 3 &mdash; the band above line 2: the checks go up front, before any comparison, and the rule tile from the last slide tells you what to return from there. One more, and you have seen it before.</aside>
+  <aside class="notes" data-sid="15-oldest-code:26">Answer: line 2 throws first, on whichever of personA or personB is null &mdash; but every line here has the same bug, so patching line 2 alone just moves the crash. The useful move is to name the rule: you cannot call a method on a reference until you know it points at something. Then let them argue about where the checks go; handling the nulls up front, before any comparison, is much easier to read than a null test inside every branch. Step 1 &mdash; the bar lands on line 2: ask which of the two calls on that line goes first (personA.getAge()), so a null personA throws before personB is even looked at. Step 2 &mdash; every getAge() rings at once: six calls, six places to throw; a null check wrapped around line 2 only moves the crash to line 3 or line 8. Step 3 &mdash; the inserted line above line 2: the checks go up front, before any comparison, and the rule tile from the last slide tells you what to return from there. That closes the practice &mdash; hand straight off to the before-next-class clock.</aside>
 
   <style>
     /* Slide-local: thirteen lines and a long signature, so the code drops to
        the chrome size — the whole method has to be on screen at once for the
-       "every branch has the same bug" point to land. The editor fills the
-       body, so the ask and the three captions live in the pocket its short
-       tail lines leave at the bottom right (lines 9–13 are at most 23 mono
-       characters, under 500px at this size; the pocket starts 586px in and
-       is 1040px wide). Step 1 is the codewalk program counter on line 2.
-       Step 2 rings every getAge() at once — a recolour in place, driven by
-       :has() off the step-2 caption so a back-step clears it. Step 3 is the
-       insertion: line 2 takes a one-line top margin (a real move — lines 2–13
-       make room and the editor grows with them) and a dashed orange band
-       Creates by clip wipe into the gap. Band geometry, measured from the
-       chrome: the bar is 8 + 28 × 1.4 + 8 + 3 = 58.2px, the code's top
-       padding 16px, one line is 28 × 1.5 = 42px, so line 1 spans 74–116px
-       and the gap opens at top: 116px, 42px tall; its left edge is the
-       gutter (64 + 32). Used by this slide only, all values from tokens. */
+       "every branch has the same bug" point to land, and the line numbers
+       have to match the ones the captions cite, so the signature does not
+       wrap here. The editor fills the body, and the ask and the three
+       captions live in the pocket its short tail lines leave at the bottom
+       right (lines 9-13 are at most 23 mono characters, under 500px at this
+       size; the pocket's 1040px start 592px in, clear of them).
+
+       No measured geometry anywhere: step 3's insertion is a real <li>
+       between lines 1 and 2 — it takes no line number, shows "+" in the
+       gutter instead, and opens from height 0 to one line (28 × 1.5 = 42px),
+       pushing lines 2-13 down as it grows; the ink fades in once the gap is
+       mostly open. Being in the flow, it cannot land on top of line 1 or 2
+       no matter what the chrome above it measures. Step 1 is the codewalk
+       program counter on line 2. Step 2 rings every getAge() at once — a
+       recolour in place, driven by :has() off the step-2 caption so a
+       back-step clears it. Used by this slide only, all values from tokens. */
     #slide-15 .editor__code { font-size: var(--t-micro); }
 
-    /* step 3: line 2 makes room (later rule wins; a back-step closes the gap) */
-    #slide-15 .editor__code li:nth-child(2) { transition: margin-top .55s var(--ease-smooth), opacity .35s ease; }
-    #slide-15:has(.frag.cap--3:not(.is-pending)) .editor__code li:nth-child(2) { margin-top: 42px; }
+    /* step 3: the inserted line, diff-style */
+    #slide-15 .editor__code li.ins {
+      counter-increment: none;
+      height: 42px; overflow: hidden;
+      color: var(--accent-3);
+      background: color-mix(in srgb, var(--accent-3) 12%, transparent);
+      transition: height .55s var(--ease-smooth), opacity .35s ease;
+    }
+    #slide-15 .editor__code li.ins::before { content: "+"; color: var(--accent-3); }
+    #slide-15 .editor__code .frag.ins.is-pending { height: 0; opacity: 0; transition-delay: 0s, 0s; }
+    #slide-15 .editor__code .frag.ins.is-current,
+    #slide-15 .editor__code .frag.ins.is-past { transition-delay: 0s, .3s; }
 
     /* step 2: the rings, all six at once */
     #slide-15 .call {
@@ -83,19 +95,6 @@
       color: var(--accent-1);
     }
 
-    /* step 3: the band wipes in once the gap has opened */
-    #slide-15 .ins {
-      position: absolute; left: calc(var(--s-6) + var(--s-4)); right: var(--s-4); top: 116px; height: 42px;
-      box-sizing: border-box; padding: 0 var(--s-2) 0 4ch;
-      border: 3px dashed var(--accent-3); border-radius: var(--r-1);
-      background: color-mix(in srgb, var(--accent-3) 12%, var(--bg-1));
-      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 36px; white-space: pre;
-      color: var(--accent-3);
-      clip-path: inset(0 0 0 0); transition: clip-path .5s var(--ease-smooth);
-    }
-    #slide-15 .frag.ins.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
-    #slide-15 .frag.ins.is-current, #slide-15 .frag.ins.is-past { transition-delay: .35s; }
-
     /* the pocket: one cell, bottom-aligned; the ask leaves on step 1, each caption replaces the last */
     #slide-15 .caps { position: absolute; right: var(--s-4); bottom: var(--s-3); width: 1040px; display: grid; }
     #slide-15 .caps > * { grid-area: 1 / 1; align-self: end; margin: 0; }
@@ -105,7 +104,7 @@
     #slide-15 .frag.cap.is-past { opacity: 0; }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-15 .editor__code li:nth-child(2), #slide-15 .call, #slide-15 .ins, #slide-15 .ask, #slide-15 .cap {
+      #slide-15 .editor__code li.ins, #slide-15 .call, #slide-15 .ask, #slide-15 .cap {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }

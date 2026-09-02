@@ -1,8 +1,8 @@
 <section class="slide" id="slide-02" data-sid="02-course-info:1">
   <header class="slide__head" data-sid="02-course-info:2">
-    <h2 data-sid="02-course-info:3">Week 2 and 3 Overview</h2>
+    <h2 data-sid="02-course-info:3">Week 2 and 3 overview</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted column labelled now on Wednesday. First a bracket draws across both weeks &mdash; the calendar on Canvas: Week 2 this week, Week 3 next week, and Week 4 posted beyond the right-hand edge. Then a maroon-orange Week 2 homework bar leaves the now column and stops at Friday, with a pole rising at the Friday tick. Then the Challenge Exercise 01 bar runs solid through Monday and fades across the week to Friday, with a range line under the axis marked your lab day: it is due before your lab section, and sections meet all week. Then a lab room is drawn above the axis &mdash; four students seated and one orange UTA standing among them &mdash; and attendance is required from this week on. Last, a stone pole rises at next Monday, where Week 3 begins: Project 1, with teams formed in this week's lab and Deliverable 1 due at your Week 3 lab. A caption under the axis reads: And then Project 1, next week.</p>
+  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted column labelled now on Wednesday. First a bracket draws across both weeks &mdash; the calendar on Canvas: Week 2 this week, Week 3 next week, and Week 4 posted beyond the right-hand edge. Then a maroon-orange Week 2 homework bar leaves the now column and stops at Friday, with a pole rising at the Friday tick. Then the Challenge Exercise 01 bar runs solid through Monday and fades across the week to Friday, with a range line under the axis marked your lab day: it is due before your lab section, and sections meet all week. Then a lab room is drawn above the axis &mdash; four students seated and one orange UTA standing among them &mdash; and attendance is required from this week on. Then a stone pole rises at next Monday, where Week 3 begins: Project 1, with teams formed in this week&rsquo;s lab and Deliverable 1 due at your Week 3 lab, and a caption reads: And then Project 1, next week. Last, a blue pill labelled via Web-CAT grows at the Friday end of the homework bar, and the closing caption points at the step-by-step Web-CAT submission guide at the end of this deck.</p>
 
   <!-- Three places work lives, drawn as one clock rather than three cards, so
        the room sees that the three deadlines are three different kinds of
@@ -15,7 +15,10 @@
        started Monday and fades across the lab week, because each section's
        deadline is a different day. Step 4: the room the attendance rule is
        about. Step 5: a stone pole at next Monday, where Week 3 begins — Project 1
-       is next week's work, not this week's, so it is a marker, not a bar. One SVG in canvas px
+       is next week's work, not this week's, so it is a marker, not a bar.
+       Step 6, the last beat: a blue via-Web-CAT pill on the homework bar and
+       a caption pointing at the guide appendix (18-webcat-*) — the slide
+       ends on where the work hands in. One SVG in canvas px
        (viewBox = the body's rect). -->
   <div class="slide__body" data-sid="02-course-info:5">
     <svg class="wk" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
@@ -23,8 +26,8 @@
          data-sid="02-course-info:6">
       <defs data-sid="02-course-info:7">
         <g id="w2d2-02-seat" data-sid="02-course-info:8">
-          <circle class="wk__head" r="24" data-sid="02-course-info:9"/>
-          <path class="wk__shoulders" d="M-40 72v-16a40 40 0 0 1 80 0v16" data-sid="02-course-info:10"/>
+          <circle class="wk__head" r="24" style="fill: var(--bg-0); stroke: var(--fg-1); stroke-width: 5" data-sid="02-course-info:9"/>
+          <path class="wk__shoulders" d="M-40 72v-16a40 40 0 0 1 80 0v16" style="fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round" data-sid="02-course-info:10"/>
         </g>
       </defs>
 
@@ -59,7 +62,7 @@
       <path class="wk__tick" d="M247 790v16M366 790v16M603 790v16M841 790v16M960 790v16M1079 790v16M1198 790v16M1317 790v16M1435 790v16M1554 790v16M1673 790v16" data-sid="02-course-info:33"/>
       <path class="wk__tick wk__tick--due" d="M485 790v28M722 790v28" data-sid="02-course-info:34"/>
       <text class="wk__axislabel" x="722" y="854" data-sid="02-course-info:35">Fri</text>
-      <text class="wk__axislabel frag" data-step="3" data-anim="fade" x="485" y="854" data-sid="02-course-info:36">your lab day</text>
+      <text class="wk__axislabel wk__axislabel--lab frag" data-step="3" data-anim="fade" x="485" y="854" data-sid="02-course-info:36">your lab day</text>
 
       <!-- step 2: PrairieLearn — the homework leaves now and stops at Friday
            (track 5 ends at x = 722; the label is short so it sits inside the
@@ -81,18 +84,28 @@
       <line class="wk__pole wk__ink--stone frag" data-step="5" pathLength="100" x1="1079" y1="790" x2="1079" y2="592" data-sid="02-course-info:44"/>
       <text class="wk__flag frag" data-step="5" data-anim="fade" x="1099" y="604" data-sid="02-course-info:45">Project 1 &middot; from Week 3</text>
       <text class="wk__flag wk__flag--sub frag" data-step="5" data-anim="fade" x="1099" y="640" data-sid="02-course-info:53">teams formed in this week&rsquo;s lab</text>
-      <text class="wk__flag wk__flag--sub frag" data-step="5" data-anim="fade" x="1099" y="676" data-sid="02-course-info:54">Deliverable 1 &middot; Scope, at your Week 3 lab</text>
+      <text class="wk__flag wk__flag--sub frag" data-step="5" data-anim="fade" x="1099" y="676" data-sid="02-course-info:54">Deliverable 1 &middot; Scope, at your lab</text>
+
+      <!-- step 6, the last beat: where the homework hands in. A blue pill —
+           Web-CAT is a tool, so it takes the tool ink — grows at the end of
+           the homework bar, and the caption points at the appendix guide
+           (18-webcat-guide and its four STEP slides) at the end of this deck -->
+      <g class="wk__wcat frag" data-step="6">
+        <rect x="742" y="572" width="230" height="44" rx="22"/>
+        <text x="857" y="602">via Web-CAT</text>
+      </g>
 
       <!-- captions: one sentence per beat in the row under the axis; step 4's
            sentence sits on the room instead, so the row stays empty for that beat -->
       <text class="wk__cap frag" data-step="1" x="960" y="940" data-sid="02-course-info:46">Canvas: Weeks 2, 3 and 4 are posted &mdash; read them together, the next three weeks overlap.</text>
-      <text class="wk__cap frag" data-step="2" x="960" y="940" data-sid="02-course-info:47">PrairieLearn: content pages first, then Homework Week 2 &mdash; due Friday.</text>
+      <text class="wk__cap frag" data-step="2" x="960" y="940" data-sid="02-course-info:47">PrairieLearn: content pages first, then the Week 2 homework &mdash; due Friday.</text>
       <text class="wk__cap frag" data-step="3" x="960" y="940" data-sid="02-course-info:48">Lab: Challenge Exercise 01 is due before your section meets.</text>
       <text class="wk__cap frag" data-step="5" x="960" y="940" data-sid="02-course-info:49">And then Project 1 &mdash; next week.</text>
+      <text class="wk__cap frag" data-step="6" x="960" y="940">Homework goes in through Web-CAT &mdash; the guide is at the end of this deck.</text>
     </svg>
   </div>
   <div class="slide__number" data-sid="02-course-info:50"></div>
-  <aside class="notes" data-sid="02-course-info:51">Say the due dates out loud rather than pointing at them. Step 1 &mdash; Canvas: Weeks 2, 3 and 4 are all posted; read them together, because the next three weeks overlap. Step 2 &mdash; PrairieLearn: content pages first, then Homework Week 2, due Friday &mdash; the one date that is the same for everybody. Step 3 &mdash; Challenge Exercise 01, due before your lab section: say &ldquo;your lab day&rdquo; out loud and point at the faded stretch, because the lab deadline is a different day for each section &mdash; whichever day theirs meets. Step 4 &mdash; attendance is required from this week on; the UTAs are in the room to help you while you are in it. Step 5 &mdash; and then Project 1, which starts next week, not today: a marker at Monday of Week 3. Teams of three are formed in this week&rsquo;s lab &mdash; the lab is orientation: Eclipse check, GitHub, your initial group, posted on Canvas &mdash; and Deliverable 1, the one-page scope, is due at your Week 3 lab session. Monday is Labor Day, so Week 3 meets Tuesday to Friday; Monday sections should confirm their hand-in time. Then move straight into the vocabulary they need before Project 1&rsquo;s specification makes sense.</aside>
+  <aside class="notes" data-sid="02-course-info:51">Say the due dates out loud rather than pointing at them. Step 1 &mdash; Canvas: Weeks 2, 3 and 4 are all posted; read them together, because the next three weeks overlap. Step 2 &mdash; PrairieLearn: content pages first, then the Week 2 homework, due Friday &mdash; the one date that is the same for everybody. Step 3 &mdash; Challenge Exercise 01, due before your lab section: say &ldquo;your lab day&rdquo; out loud and point at the faded stretch, because the lab deadline is a different day for each section &mdash; whichever day theirs meets. Step 4 &mdash; attendance is required from this week on; the UTAs are in the room to help you while you are in it. Step 5 &mdash; and then Project 1, which starts next week, not today: a marker at Monday of Week 3. Teams of three are formed in this week&rsquo;s lab &mdash; the lab is orientation: Eclipse check, GitHub, your initial group, posted on Canvas &mdash; and Deliverable 1, the one-page scope, is due at your Week 3 lab session. Monday is Labor Day, so Week 3 meets Tuesday to Friday; Monday sections should confirm their hand-in time. Step 6 &mdash; last thing: the Week 2 homework goes in through Web-CAT, from inside Eclipse. There is a click-by-click guide at the end of this deck &mdash; submit from Eclipse&rsquo;s Project menu, sign in through VT CAS in your regular browser, read the results page &mdash; so nobody discovers the flow for the first time on Friday night; flip to it now if you want, or find it when you submit. Then straight into Project 1: its two key words, then the plan.</aside>
 
   <style data-sid="02-course-info:52">
     /* Slide-local: the week clock, this week's version. The axis, bars, poles
@@ -142,11 +155,15 @@
     #slide-02 .frag.wk__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
     #slide-02 .frag.wk__pole.is-current, #slide-02 .frag.wk__pole.is-past { stroke-dashoffset: 0; transition-delay: .5s; }
     #slide-02 .frag.wk__range.is-current, #slide-02 .frag.wk__range.is-past { transition-delay: .8s; }
+    /* the lab-day label fades in as the range line reaches Friday, not before it starts */
+    #slide-02 .frag.wk__axislabel.wk__axislabel--lab.is-current, #slide-02 .frag.wk__axislabel.wk__axislabel--lab.is-past { transition-delay: 1s; }
     /* the Project 1 marker's flag, start-anchored beside the pole's top */
     #slide-02 .wk__flag { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
     #slide-02 .wk__flag--sub { font-size: var(--t-micro); fill: var(--fg-1); }
     #slide-02 .frag.wk__flag.is-current, #slide-02 .frag.wk__flag.is-past { transition-delay: .45s; }
     #slide-02 .frag.wk__flag--sub.is-current, #slide-02 .frag.wk__flag--sub.is-past { transition-delay: .65s; }
+    /* the marker has no bar to wait for: its pole draws at once, then the flag lands beside it */
+    #slide-02 .frag.wk__pole.wk__ink--stone.is-current, #slide-02 .frag.wk__pole.wk__ink--stone.is-past { transition-delay: 0s; }
 
     /* the lab room: the outline draws on, then the people grow into it */
     #slide-02 .wk__room {
@@ -156,8 +173,8 @@
     }
     #slide-02 .frag.wk__lab.is-pending { opacity: 1; }
     #slide-02 .wk__lab.is-pending .wk__room { stroke-dashoffset: 1640; }
-    #slide-02 .wk__head { fill: var(--bg-0); stroke: var(--fg-1); stroke-width: 5; }
-    #slide-02 .wk__shoulders { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
+    /* the seat glyph's ink lives inline on the defs content — class rules on
+       defs children do not reach <use> clones in the studio's renderer */
     #slide-02 .wk__uta circle, #slide-02 .wk__uta path {
       fill: none; stroke: var(--accent-3); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round;
     }
@@ -173,6 +190,12 @@
     #slide-02 .wk__roomcap { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
     #slide-02 .frag.wk__roomcap.is-current, #slide-02 .frag.wk__roomcap.is-past { transition-delay: 1s; }
 
+    /* the Web-CAT pill: the tool ink (blue), grown at the homework bar's end */
+    #slide-02 .wk__wcat { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .2s ease, transform .45s var(--ease-smooth); }
+    #slide-02 .frag.wk__wcat.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-02 .wk__wcat rect { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; }
+    #slide-02 .wk__wcat text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+
     /* the caption row: the current beat's sentence, and only that one */
     #slide-02 .wk__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
     #slide-02 .frag.wk__cap.is-current { transition-delay: .6s; }
@@ -180,7 +203,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       #slide-02 .wk__bar, #slide-02 .wk__pole, #slide-02 .wk__label, #slide-02 .wk__bracket, #slide-02 .wk__axislabel,
-      #slide-02 .wk__cap, #slide-02 .wk__flag, #slide-02 .wk__room, #slide-02 .wk__seat, #slide-02 .wk__uta, #slide-02 .wk__roomcap {
+      #slide-02 .wk__cap, #slide-02 .wk__flag, #slide-02 .wk__room, #slide-02 .wk__seat, #slide-02 .wk__uta, #slide-02 .wk__roomcap, #slide-02 .wk__wcat {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }

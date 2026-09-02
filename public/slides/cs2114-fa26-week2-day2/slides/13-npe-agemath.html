@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-13" data-sid="13-npe-agemath:1">
   <header class="slide__head" data-sid="13-npe-agemath:2">
-    <p class="slide__kicker" data-sid="13-npe-agemath:3">PRACTICE 2 &middot; NULL POINTER</p>
+    <p class="slide__kicker" data-sid="13-npe-agemath:3">PRACTICE 1 &middot; NULL POINTER</p>
     <h2 data-sid="13-npe-agemath:4">Which line throws, and which line is the cause?</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="13-npe-agemath:5">A walkthrough of the eight-line method. On the left the code, with a program-counter bar on the running line; on the right, the heap. Line 2 puts a personA pill on the heap with the word null under it and no arrow, because null is not an address; nothing is drawn where a Person would be. Line 3 puts a personB pill below it and grows a Person box with age 10, name Ben and gender F; personB&rsquo;s arrow draws to it. On line 4 a blue line under the heap reads personA is null &mdash; nothing to ask, and the null under personA turns blue. Then the program stops: the counter bar goes dark, the null turns maroon, line 5 is marked as never run, and a panel stamps the exception, a java.lang.NullPointerException at line 4. Last, the answer lands on the code itself: a maroon ring around line 4 tagged threw, then an orange ring around line 2 tagged the cause, and the caption reads: the trace names the line that dereferenced null, never the line that put it there.</p>
+  <p class="sr-only slide__desc" data-sid="13-npe-agemath:5">A walkthrough of the eight-line method. On the left the code, with a program-counter bar on the running line; on the right, the heap. Line 2 puts a personA pill on the heap with the word null under it and no arrow, because null is not an address; nothing is drawn where a Person would be. Line 3 puts a personB pill below it and grows a Person box with age 10, name Ben and grade F; personB&rsquo;s arrow draws to it. On line 4 a blue line under the heap reads personA is null &mdash; nothing to ask, and the null under personA turns blue. Then the program stops: the counter bar goes dark, the null turns maroon, line 5 is marked as never run, and a panel stamps the exception exactly as Java prints it: a NullPointerException, cannot invoke Person.getAge because personA is null, at line 4. Last, the answer lands on the code itself: a maroon ring around line 4 tagged threw, then an orange ring around line 2 tagged the cause, and the caption reads: the trace names the line that dereferenced null, never the line that put it there.</p>
   <div class="slide__body grid grid--code" data-sid="13-npe-agemath:6">
     <div class="stack" data-sid="13-npe-agemath:7">
       <div class="editor" data-sid="13-npe-agemath:8">
@@ -11,9 +11,9 @@
         <div class="editor__pc" data-sid="13-npe-agemath:10"></div>
         <ol class="editor__code" data-sid="13-npe-agemath:11">
           <li data-sid="13-npe-agemath:12"><span class="tok-key">public boolean</span> ageMath() {</li>
-          <li class="walkline frag is-cause" data-step="1" data-sid="13-npe-agemath:13">    Person personA = <span class="tok-key">null</span>;<span class="tag" data-sid="13-npe-agemath:14">the cause</span></li>
+          <li class="walkline frag is-cause" data-step="1" data-sid="13-npe-agemath:13">    Person personA = <span class="tok-key">null</span>;<span class="tag" aria-hidden="true" data-sid="13-npe-agemath:14">the cause</span></li>
           <li class="walkline frag" data-step="2" data-sid="13-npe-agemath:15">    Person personB = <span class="tok-key">new</span> Person(<span class="tok-num">10</span>, "Ben", "F");</li>
-          <li class="walkline frag is-throw" data-step="3" data-sid="13-npe-agemath:16">    <span class="tok-key">if</span> (personA.getAge() &gt; personB.getAge()) {<span class="tag" data-sid="13-npe-agemath:17">threw</span></li>
+          <li class="walkline frag is-throw" data-step="3" data-sid="13-npe-agemath:16">    <span class="tok-key">if</span> (personA.getAge() &gt; personB.getAge()) {<span class="tag" aria-hidden="true" data-sid="13-npe-agemath:17">threw</span></li>
           <li class="walkline" data-sid="13-npe-agemath:18">        <span class="tok-key">return true</span>;<span class="never frag" data-step="4" data-sid="13-npe-agemath:19">   &larr; never runs</span></li>
           <li data-sid="13-npe-agemath:20">    }</li>
           <li data-sid="13-npe-agemath:21">    <span class="tok-key">return false</span>;</li>
@@ -35,13 +35,15 @@
           <p class="heap-obj__type" data-sid="13-npe-agemath:30">Person</p>
           <div class="heap-obj__field" data-sid="13-npe-agemath:31"><p class="heap-val" data-sid="13-npe-agemath:32">age = 10</p></div>
           <div class="heap-obj__field" data-sid="13-npe-agemath:33"><p class="heap-val" data-sid="13-npe-agemath:34">name = "Ben"</p></div>
-          <div class="heap-obj__field" data-sid="13-npe-agemath:35"><p class="heap-val" data-sid="13-npe-agemath:36">gender = "F"</p></div>
+          <div class="heap-obj__field" data-sid="13-npe-agemath:35"><p class="heap-val" data-sid="13-npe-agemath:36">grade = "F"</p></div>
         </div>
         <svg class="heap-wires" aria-hidden="true" data-sid="13-npe-agemath:37"></svg>
       </div>
       <p class="probe frag" data-step="3" data-sid="13-npe-agemath:38">personA is null &mdash; nothing to ask</p>
       <p class="throw frag" data-step="4" data-sid="13-npe-agemath:39">Exception in thread "main"
-<b data-sid="13-npe-agemath:40">java.lang.NullPointerException</b>
+<b data-sid="13-npe-agemath:40">java.lang.NullPointerException</b>:
+  Cannot invoke "Person.getAge()"
+  because <b data-sid="13-npe-agemath:49">"personA" is null</b>
     at Main.ageMath(Main.java:4)</p>
       <div class="codewalk__caps" data-sid="13-npe-agemath:41">
         <p class="walkcap frag" data-step="1" data-sid="13-npe-agemath:42">personA holds null: not an address, nothing to point at.</p>
@@ -53,17 +55,19 @@
     </div>
   </div>
   <div class="slide__number" data-sid="13-npe-agemath:47"></div>
-  <aside class="notes" data-sid="13-npe-agemath:48">Answer: line 4 throws, line 2 is the cause &mdash; and that gap is the whole lesson: the stack trace names the line that dereferenced null, never the line that put null there, and on a real project those two can be in different files. Step 1 &mdash; line 2: personA gets a pill and, under it, the word null. Point at the empty space to its right: no arrow, because null is not an address, and no box, because no Person was made. Step 2 &mdash; line 3: personB gets a real Person, age 10; the arrow draws. Step 3 &mdash; line 4: ask what personA.getAge() is actually asking the machine to do: go to the object personA points at. It points at nothing. The null under the pill goes blue &mdash; this is the reference being followed. Step 4 &mdash; the program counter goes dark, the exception stamps, line 5 is marked never runs. Read the trace aloud: at Main.ageMath(Main.java:4). It says 4, and only 4. Step 5 &mdash; the two rings: maroon on line 4, it threw; orange on line 2, it is the cause. The trace hands you the first; you walk backwards to find the second. Plant: &ldquo;Next one: the null comes in from outside.&rdquo;</aside>
+  <aside class="notes" data-sid="13-npe-agemath:48">Answer: line 4 throws, line 2 is the cause &mdash; and that gap is the whole lesson: the stack trace names the line that dereferenced null, never the line that put null there, and on a real project those two can be in different files. Step 1 &mdash; line 2: personA gets a pill and, under it, the word null. Point at the empty space to its right: no arrow, because null is not an address, and no box, because no Person was made. Step 2 &mdash; line 3: personB gets a real Person, age 10; the arrow draws. (This question&rsquo;s Person takes age, name, grade, in the constructor order PrairieLearn&rsquo;s Person uses &mdash; Ben&rsquo;s "F" is a letter grade, not a gender.) Step 3 &mdash; line 4: ask what personA.getAge() is actually asking the machine to do: go to the object personA points at. It points at nothing. The null under the pill goes blue &mdash; this is the reference being followed. Step 4 &mdash; the program counter goes dark, the exception stamps, line 5 is marked never runs. Read the trace aloud: at Main.ageMath(Main.java:4). It says 4, and only 4 &mdash; and, since JDK 14, it names personA too. Step 5 &mdash; the two rings: maroon on line 4, it threw; orange on line 2, it is the cause. The trace hands you the first; you walk backwards to find the second. Plant: &ldquo;Next one: the null comes in from outside.&rdquo;</aside>
 
   <style>
     /* Slide-local: two names, one null. The wide thing here is the code (the
-       longest line is 48 columns at the chrome size), so the columns are not
-       even: the editor takes what is left after a 610 heap column, which is
+       longest line is 50 columns at the chrome size), so the columns are not
+       even: the editor takes what is left after a 660 heap column, which is
        enough for a short-run heap (two seven-letter pills at the chrome
-       size, a 140 wire run, a 280 Person box) and the exception panel at
-       the chrome size too; at the vote-slide size its "at" line would not
-       clear the column. The editor gives back half its right padding so the
-       "threw" tag has air after the brace on line 4.
+       size, a 140 wire run, a Person box whose widest field is
+       name = "Ben") and the exception panel at the chrome size too,
+       with Monday's JDK 14+ message re-wrapped onto the same lines; at the
+       vote-slide size its "at" line would not clear the column. The editor
+       gives back half its right padding so the "threw" tag has air after
+       the brace on line 4.
 
        personA is a pill with no wire and a small "null" under it: null is
        not an address, and nothing is drawn where an object would be. A
@@ -85,7 +89,7 @@
        orange on line 2 (the cause) a beat later, each with a mono tag at
        the right end of its line. Rings and tags recolour in place; nothing
        drifts. Used by this slide only, all values from tokens. */
-    #slide-13 .grid--code { grid-template-columns: 1fr 610px; align-items: start; }
+    #slide-13 .grid--code { grid-template-columns: 1fr 660px; align-items: start; }
     #slide-13 .editor__code { font-size: var(--t-micro); padding-right: var(--s-2); }
     #slide-13 .codewalk__heap { grid-template-columns: max-content 140px max-content; row-gap: var(--s-3); }   /* one step tighter: the three-line answer caption has to clear the canvas under the heap, probe and panel */
     #slide-13 .codewalk .heap-name, #slide-13 .codewalk .heap-val { font-size: var(--t-micro); }

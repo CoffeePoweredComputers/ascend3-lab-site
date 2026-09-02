@@ -1,88 +1,85 @@
 <section class="slide" id="slide-10" data-sid="10-week2-practice:1">
   <header class="slide__head" data-sid="10-week2-practice:2">
     <p class="slide__kicker" data-sid="10-week2-practice:3">IN LECTURE</p>
-    <h2 data-sid="10-week2-practice:4">Week 2 practice &mdash; we work these here</h2>
+    <h2 data-sid="10-week2-practice:4">Week 2 Coding Practice (on PrairieLearn)</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="10-week2-practice:5">A dashed trail rises and falls across the body like a hiking route. Four numbered stops sit on it and appear left to right, one per step, each with its title: 01, build a child class from a UML diagram, above the first rise; 02, find the line that throws, below the first dip; 03, fix a method that breaks on null arguments, above the second rise; 04, an array of objects that holds no objects, below the second dip. Last, a small maroon hazard marker &mdash; a circle with a slash through it &mdash; grows onto stops 02, 03 and 04 in turn, and a caption under the trail reads: three of the four are the same exception; that is not an accident.</p>
+  <p class="sr-only slide__desc" data-sid="10-week2-practice:5">A note in the top left corner says where to go: PrairieLearn, then Assessments, then the Coding Practice assessment &mdash; the stop number is the question number. A dashed trail rises and falls across the body like a hiking route. Two stops numbered like the PrairieLearn questions sit on it and appear left to right, one per step, each with its title: 01, find the line that throws, below the first dip; 03, fix a method that breaks on null arguments, above the second rise. Last, a small maroon hazard marker &mdash; a circle with a slash through it &mdash; grows onto both stops in turn, and a caption under the trail reads: both are the same exception; that is not an accident.</p>
 
-  <!-- The four questions used to be four tiles. They are one walk — this
-       section runs them left to right — so they are drawn as stops on a trail,
-       and the thing a tile board cannot say is step 5: the same hazard marker
-       lands on three of the four stops. The trail is a wave; stops sit on its
-       peaks and troughs, peaks carry their titles above the disc and troughs
-       below, so the trail never crosses a word. step 1: 01, the UML question,
-       the one that is not about null. steps 2–4: the three null questions.
-       step 5: the null hazard grows onto 02, 03, 04, staggered, and the
-       caption says the plant. One SVG in canvas px (viewBox = the body's
-       rect); the caption is HTML positioned under the trail. -->
+  <!-- The two questions are one walk — this section runs them left to
+       right — so they are drawn as stops on a trail, and the thing a tile
+       board cannot say is step 3: the same hazard marker lands on both
+       stops. The trail is a wave; stops sit on its peaks and troughs, peaks
+       carry their titles above the disc and troughs below, so the trail
+       never crosses a word. (Cut 2026-09-01 from four stops to two: the UML
+       question and the Employee-array repeat of Monday went with their
+       slides.) The discs carry the PrairieLearn question numbers — 01 and 03,
+       not walk order — and a static signpost note in the top-left corner
+       gives the path: PrairieLearn › Assessments › Coding Practice.
+       step 1: 01, find the line that throws. step 2: 03, fix a
+       method that breaks on null. step 3: the null hazard grows onto both,
+       staggered, and the caption says the plant. One SVG in canvas px; the
+       body's rect under a kicker and a one-line heading is y 300..984
+       (96 + 52 + 16 + 88 + 48 = 300), and the viewBox is that rect started
+       60 px higher (y 240) so the drawing renders 1:1 and sits clear of the
+       heading; the caption is HTML positioned under the trail. -->
   <div class="slide__body" data-sid="10-week2-practice:6">
-    <svg class="map" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
-         aria-label="Four practice questions as numbered stops on one trail, three of them marked with the null hazard"
+    <svg class="map" viewBox="128 240 1664 684" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Two practice questions as numbered stops on one trail, both marked with the null hazard"
          data-sid="10-week2-practice:7">
       <defs data-sid="10-week2-practice:8">
         <!-- the null hazard: a maroon disc with a paper circle-and-slash -->
         <g id="w2d2-10-hazard" data-sid="10-week2-practice:9">
-          <circle class="hz__disc" r="22" data-sid="10-week2-practice:10"/>
-          <circle class="hz__glyph" r="9" data-sid="10-week2-practice:11"/>
-          <line class="hz__glyph" x1="-12" y1="12" x2="12" y2="-12" data-sid="10-week2-practice:12"/>
+          <circle class="hz__disc" r="22" style="fill: var(--accent-1); stroke: var(--bg-0); stroke-width: 4" data-sid="10-week2-practice:10"/>
+          <circle class="hz__glyph" r="9" style="fill: none; stroke: var(--paper); stroke-width: 4; stroke-linecap: round" data-sid="10-week2-practice:11"/>
+          <line class="hz__glyph" x1="-12" y1="12" x2="12" y2="-12" style="fill: none; stroke: var(--paper); stroke-width: 4; stroke-linecap: round" data-sid="10-week2-practice:12"/>
         </g>
       </defs>
 
       <!-- step 0: the trail — in from the bottom left, over two rises, out to the right -->
       <path class="trail" d="M128 620 C230 620 240 430 340 430 C540 430 540 640 740 640 C940 640 940 430 1140 430 C1340 430 1340 640 1540 640 C1650 640 1690 500 1792 480" data-sid="10-week2-practice:13"/>
 
-      <!-- step 1: stop 01 on the first rise, title above -->
-      <g class="stop frag" data-step="1" data-sid="10-week2-practice:14">
-        <circle cx="340" cy="430" r="44" data-sid="10-week2-practice:15"/>
-        <text x="340" y="450" data-sid="10-week2-practice:16">01</text>
-      </g>
-      <text class="title frag" data-step="1" data-anim="fade" x="340" y="304" data-sid="10-week2-practice:17"><tspan x="340" data-sid="10-week2-practice:18">Build a child class</tspan><tspan x="340" dy="44" data-sid="10-week2-practice:19">from a UML diagram</tspan></text>
-
-      <!-- step 2: stop 02 in the first dip, title below -->
-      <g class="stop frag" data-step="2" data-sid="10-week2-practice:20">
+      <!-- step 1: stop 01 in the first dip, title below -->
+      <g class="stop frag" data-step="1" data-sid="10-week2-practice:20">
         <circle cx="740" cy="640" r="44" data-sid="10-week2-practice:21"/>
-        <text x="740" y="660" data-sid="10-week2-practice:22">02</text>
+        <text x="740" y="660" data-sid="10-week2-practice:22">01</text>
       </g>
-      <text class="title frag" data-step="2" data-anim="fade" x="740" y="724" data-sid="10-week2-practice:23"><tspan x="740" data-sid="10-week2-practice:24">Find the line</tspan><tspan x="740" dy="44" data-sid="10-week2-practice:25">that throws</tspan></text>
+      <text class="title frag" data-step="1" data-anim="fade" x="740" y="724" data-sid="10-week2-practice:23"><tspan x="740" data-sid="10-week2-practice:24">Find the line</tspan><tspan x="740" dy="44" data-sid="10-week2-practice:25">that throws</tspan></text>
 
-      <!-- step 3: stop 03 on the second rise, title above -->
-      <g class="stop frag" data-step="3" data-sid="10-week2-practice:26">
+      <!-- step 2: stop 02 on the second rise, title above -->
+      <g class="stop frag" data-step="2" data-sid="10-week2-practice:26">
         <circle cx="1140" cy="430" r="44" data-sid="10-week2-practice:27"/>
         <text x="1140" y="450" data-sid="10-week2-practice:28">03</text>
       </g>
-      <text class="title frag" data-step="3" data-anim="fade" x="1140" y="304" data-sid="10-week2-practice:29"><tspan x="1140" data-sid="10-week2-practice:30">Fix a method that breaks</tspan><tspan x="1140" dy="44" data-sid="10-week2-practice:31">on null arguments</tspan></text>
+      <text class="title frag" data-step="2" data-anim="fade" x="1140" y="304" data-sid="10-week2-practice:29"><tspan x="1140" data-sid="10-week2-practice:30">Fix a method that breaks</tspan><tspan x="1140" dy="44" data-sid="10-week2-practice:31">on null arguments</tspan></text>
 
-      <!-- step 4: stop 04 in the second dip, title below -->
-      <g class="stop frag" data-step="4" data-sid="10-week2-practice:32">
-        <circle cx="1540" cy="640" r="44" data-sid="10-week2-practice:33"/>
-        <text x="1540" y="660" data-sid="10-week2-practice:34">04</text>
-      </g>
-      <text class="title frag" data-step="4" data-anim="fade" x="1540" y="724" data-sid="10-week2-practice:35"><tspan x="1540" data-sid="10-week2-practice:36">An array of objects</tspan><tspan x="1540" dy="44" data-sid="10-week2-practice:37">that holds no objects</tspan></text>
-
-      <!-- step 5: the same hazard on 02, 03 and 04 — one group, three markers staggered by --i -->
-      <g class="hz frag" data-step="5" data-sid="10-week2-practice:38">
+      <!-- step 3: the same hazard on both — one group, two markers staggered by --i -->
+      <g class="hz frag" data-step="3" data-sid="10-week2-practice:38">
         <use class="hz__mark" href="#w2d2-10-hazard" x="774" y="608" style="--i: 0" data-sid="10-week2-practice:39"/>
         <use class="hz__mark" href="#w2d2-10-hazard" x="1174" y="398" style="--i: 1" data-sid="10-week2-practice:40"/>
-        <use class="hz__mark" href="#w2d2-10-hazard" x="1574" y="608" style="--i: 2" data-sid="10-week2-practice:41"/>
       </g>
     </svg>
-    <!-- step 5: the plant, under the trail -->
-    <p class="note cap frag" data-step="5" data-anim="fade" style="--anim-delay: .45s; left: 0; top: 630px; width: 1664px" data-sid="10-week2-practice:42">Three of the four are the same exception. That is not an accident.</p>
+    <!-- the signpost: where to go, on screen from step 0 -->
+    <p class="note where" data-sid="10-week2-practice:45">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="10-week2-practice:46">Coding Practice</b><br data-sid="10-week2-practice:47"/>the stop number is the question number</p>
+    <!-- step 3: the plant, under the trail -->
+    <p class="note cap frag" data-step="3" data-anim="fade" style="left: 0; top: 630px; width: 1664px" data-sid="10-week2-practice:42">Both hit a similar exception...</p>
   </div>
   <div class="slide__number" data-sid="10-week2-practice:43"></div>
-  <aside class="notes" data-sid="10-week2-practice:44">Give them the map before the questions so they know how long this section runs. Same groups as the votes: keep the groups from the vote; the discussion is doing the same work here, just without the second round. Step 1 &mdash; stop 01, the UML question: the only one that is not about null. Steps 2 to 4 &mdash; the three null questions, one sentence each; do not solve them here. Step 5 &mdash; the hazard lands on 02, 03 and 04, one after another. Say the plant out loud: this is the error you will meet most this month.</aside>
+  <aside class="notes" data-sid="10-week2-practice:44">Read the signpost first: PrairieLearn &rsaquo; Assessments &rsaquo; Coding Practice &mdash; the assessment holds ten questions, and the stop numbers here are its question numbers, so stop 01 is &ldquo;Null Pointer Exception Practice 1&rdquo; and stop 03 is &ldquo;Null Pointer Exception Practice 3&rdquo;. Give them the map before the questions so they know how long this section runs. Same groups as the votes &mdash; the discussion is doing the same work here, just without the second round. Step 1 &mdash; stop 01, find the line that throws: one sentence, do not solve it here. Step 2 &mdash; stop 03, fix a method that breaks on null arguments (questions 2 and 4 are the same exception again &mdash; name them as the ones to try alone). Step 3 &mdash; the hazard lands on both stops, one after the other. Say the plant out loud: both are the same exception, and that is not an accident &mdash; it is the error you will meet most this month.</aside>
 
   <style>
-    /* Slide-local: the practice map. One trail, four stops; the null hazard is
-       the same marker three times, which is the whole point. Geometry: stops at
-       x 340/740/1140/1540 on the wave's peaks (y 430) and troughs (y 640);
+    /* Slide-local: the practice map. One trail, two stops; the null hazard is
+       the same marker twice, which is the whole point. Geometry: stops at
+       x 740/1140 on the wave's first trough (y 640) and second peak (y 430);
        peak titles sit above the disc, trough titles below, so the trail never
        crosses a word; the caption is HTML under the trail. Ink: trail dashed
        --stone, discs the panel pair, numerals display orange, the hazard
        maroon on a mortar ring with a paper glyph. Motion is manim's only:
        stops GrowFromCenter, titles and the caption FadeIn, hazards
-       GrowFromCenter on a stagger. Used by this slide only, all values from
-       tokens; viewBox = the body's rect. */
+       GrowFromCenter on a stagger; the caption's beat waits for the second
+       marker (120 ms stagger + .45 s grow ≈ .55 s). Used by this slide
+       only, all values from tokens; viewBox = the body's rect under the
+       one-line heading (y 300..984), started at y 240 so the map renders 1:1
+       and 60 px lower. */
     #slide-10 .slide__body { position: relative; }
     #slide-10 .map { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
@@ -101,8 +98,8 @@
     #slide-10 .frag.title.is-current, #slide-10 .frag.title.is-past { transition-delay: .3s; }
 
     /* the hazard: one group frag, its three markers grow on a stagger */
-    #slide-10 .hz__disc { fill: var(--accent-1); stroke: var(--bg-0); stroke-width: 4; }
-    #slide-10 .hz__glyph { fill: none; stroke: var(--paper); stroke-width: 4; stroke-linecap: round; }
+    /* the hazard's ink lives inline on the defs content — class rules on defs
+       children do not reach <use> clones in the studio's renderer */
     #slide-10 .hz__mark {
       transform-box: fill-box; transform-origin: 50% 50%;
       transition: opacity .2s ease, transform .45s var(--ease-smooth);
@@ -111,9 +108,12 @@
     #slide-10 .hz.is-pending .hz__mark { opacity: 0; transform: scale(0.3); }
     #slide-10 .hz.is-current .hz__mark, #slide-10 .hz.is-past .hz__mark { transition-delay: calc(var(--i) * 120ms); }
 
+    /* the signpost: static, top-left, clear of the second peak's title */
+    #slide-10 .where { position: absolute; left: 0; top: 0; margin: 0; max-width: 640px; line-height: 1.5; }
+
     /* the caption: plain fade, after the last marker has landed */
     #slide-10 .cap { position: absolute; margin: 0; transition: opacity .3s ease; }
-    #slide-10 .frag.cap.is-current, #slide-10 .frag.cap.is-past { transition-delay: .45s; }
+    #slide-10 .frag.cap.is-current, #slide-10 .frag.cap.is-past { transition-delay: .55s; }
 
     @media (prefers-reduced-motion: reduce) {
       #slide-10 .stop, #slide-10 .title, #slide-10 .hz__mark, #slide-10 .cap {

@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="07b-walk-cases:3">VOTE 2 &middot; THE ANSWER</p>
     <h2 data-sid="07b-walk-cases:4">Two exits, two assertions</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="07b-walk-cases:5">On the left, the six-line method under test at the chrome size. On the right, the same method drawn as a fork: a blue entry pill labelled name at the top, a gate below it asking name.equals(""), and two ways out. Step one: the input "" appears beside the entry and the left path draws down, marked true, to a stone label null; line 3 of the code, return null, rings. Step two: the input "Hannah" appears and the right path draws down, marked false, to an orange Hokie box that grows; line 5, return new Hokie, rings. Step three: option A's two assertions stamp an orange tick at each exit, assertNull beside null and assertNotNull at the corner of the Hokie box, with the assertion text in mono next to each tick. Step four: under the code, three rows mark the other options, B with a maroon cross, a Hokie never equals a String; C with an orange exclamation disc, passes, and proves nothing; D with a maroon cross, does not compile; and a caption under the fork reads: One assertion per exit. C is the dangerous one: it passes.</p>
+  <p class="sr-only slide__desc" data-sid="07b-walk-cases:5">On the left, the six-line method under test. On the right, the same method drawn as a fork: a blue entry pill labelled name at the top, a gate below it asking name.equals(""), and two ways out. Step one: the input "" appears beside the entry and the left path draws down, marked true, to a stone label null; line 3 of the code, return null, rings. Step two: the input "Hannah" appears and the right path draws down, marked false, to an orange Hokie box that grows; line 5, return new Hokie, rings. Step three: option A&rsquo;s two assertions stamp an orange tick at each exit, assertNull beside null and assertNotNull at the corner of the Hokie box, with the assertion text in mono next to each tick. Step four: under the code, three rows mark the other options, B with a maroon cross, a Hokie never equals a String; C with an orange exclamation disc, passes, and proves nothing; D with a maroon cross, does not compile; and a caption under the fork reads: One assertion per exit. C is the dangerous one: it passes.</p>
 
   <!-- The method has two return statements, so the picture is a fork: one way
        in, a gate, two ways out. Once the fork is on the wall a covering test is
@@ -76,12 +76,12 @@
           <!-- step 2: "Hannah" goes in; the right exit draws and the Hokie grows -->
           <g class="fk__exit fk__exit--hokie" data-sid="07b-walk-cases:50">
             <text class="fk__in fk__in--hokie frag" data-step="2" data-anim="fade" x="570" y="57" data-sid="07b-walk-cases:51">"Hannah"</text>
-            <path class="fk__path fk__path--hokie frag" data-step="2" pathLength="100" d="M540 198V260H820V324" data-sid="07b-walk-cases:52"/>
-            <path class="fk__head frag" data-step="2" d="M820 344L808 322H832Z" data-sid="07b-walk-cases:53"/>
+            <path class="fk__path fk__path--hokie frag" data-step="2" pathLength="100" d="M540 198V260H816V324" data-sid="07b-walk-cases:52"/>
+            <path class="fk__head frag" data-step="2" d="M816 344L804 322H828Z" data-sid="07b-walk-cases:53"/>
             <text class="fk__tag frag" data-step="2" data-anim="fade" x="680" y="248" data-sid="07b-walk-cases:54">false</text>
             <g class="fk__hokie frag" data-step="2" data-sid="07b-walk-cases:55">
-              <rect x="760" y="350" width="120" height="120" rx="10" data-sid="07b-walk-cases:56"/>
-              <text x="820" y="420" data-sid="07b-walk-cases:57">Hokie</text>
+              <rect x="756" y="350" width="120" height="120" rx="10" data-sid="07b-walk-cases:56"/>
+              <text x="816" y="420" data-sid="07b-walk-cases:57">Hokie</text>
             </g>
           </g>
 
@@ -92,10 +92,10 @@
           </g>
           <text class="fk__assert frag" data-step="3" data-anim="fade" style="--i: 0" x="264" y="412" data-sid="07b-walk-cases:61">assertNull(createHokie(""));</text>
           <g class="fk__badge frag" data-step="3" style="--i: 1" data-sid="07b-walk-cases:62">
-            <circle cx="760" cy="470" r="36" data-sid="07b-walk-cases:63"/>
-            <path d="M744 472l11 11l21-24" data-sid="07b-walk-cases:64"/>
+            <circle cx="756" cy="470" r="36" data-sid="07b-walk-cases:63"/>
+            <path d="M740 472l11 11l21-24" data-sid="07b-walk-cases:64"/>
           </g>
-          <text class="fk__assert fk__assert--end frag" data-step="3" data-anim="fade" style="--i: 1" x="712" y="480" data-sid="07b-walk-cases:65">assertNotNull(createHokie("Hannah"));</text>
+          <text class="fk__assert fk__assert--end frag" data-step="3" data-anim="fade" style="--i: 1" x="708" y="480" data-sid="07b-walk-cases:65">assertNotNull(createHokie("Hannah"));</text>
         </svg>
       </div>
       <!-- step 4: the caption, after the debrief rows have landed -->
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div class="slide__number" data-sid="07b-walk-cases:67"></div>
-  <aside class="notes" data-sid="07b-walk-cases:68">Answer: A &mdash; createHokie has exactly two ways out, so a covering test needs one assertion for each: assertNull for the empty name, assertNotNull for any other. Step 1 &mdash; hand it the empty string: name.equals("") is true, the left exit, line 3, return null. Step 2 &mdash; hand it "Hannah": false, the right exit, line 5, a new Hokie. Two inputs, two exits; nothing else can happen in this method, and that is what "every case" means. Step 3 &mdash; A is the only option that stands at both exits and checks each for what it actually is: null is null, the Hokie is not null. Step 4 &mdash; the debrief. B: assertEquals("Hannah", createHokie("Hannah")) compares a Hokie to a String, and a Hokie never equals a String, so B fails against correct code. C: assertNotEquals("Hannah", createHokie("Hannah")) is true &mdash; but it is true of anything that is not the String "Hannah", null included &mdash; so it passes and proves nothing, and the test runner would show it green. D: assertNull(!createHokie("Hannah")) does not compile; ! applies to a boolean, not to an object reference. Name C out loud, it is the dangerous one, because it passes. A passing test is not the same as a good test. Next: 100 % coverage.</aside>
+  <aside class="notes" data-sid="07b-walk-cases:68">Answer: A &mdash; createHokie has exactly two ways out, so a covering test needs one assertion for each: assertNull for the empty name, assertNotNull for any other. Step 1 &mdash; hand it the empty string: name.equals("") is true, the left exit, line 3, return null. Step 2 &mdash; hand it "Hannah": false, the right exit, line 5, a new Hokie. Two inputs, two exits; nothing else can happen in this method, and that is what "every case" means. Step 3 &mdash; A is the only option that stands at both exits and checks each for what it actually is: null is null, the Hokie is not null. Step 4 &mdash; the debrief. B: assertEquals("Hannah", createHokie("Hannah")) compares a Hokie to a String, and a Hokie never equals a String, so B fails against correct code. C: assertNotEquals("Hannah", createHokie("Hannah")) is true &mdash; but it is true of anything that is not the String "Hannah", null included &mdash; so it passes and proves nothing, and the test runner would show it green. D: assertNull(!createHokie("Hannah")) does not compile; ! applies to a boolean, not to an object reference. Name C out loud, it is the dangerous one, because it passes. A passing test is not the same as a good test. Next: 100% coverage.</aside>
 
   <style>
     /* Slide-local: the method as a fork. One way in (the blue name pill), one
