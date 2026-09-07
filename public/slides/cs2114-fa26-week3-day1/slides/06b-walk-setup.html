@@ -1,0 +1,137 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-setup:1">
+  <header class="slide__head" data-sid="06b-walk-setup:2">
+    <p class="slide__kicker" data-sid="06b-walk-setup:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-setup:4">Why does it print &ldquo;not found&rdquo;?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-setup:5">A walkthrough of why the search prints not found even though 250 is in the array. On the left, the loop. On the right, the searched value and the starting flag, then the array drawn as a row of eight cells. Step one shows the row. Step two highlights the cell holding 250: the comparison is true, found becomes true, and a caption reads 250 is successfully found. Step three moves to the next cell, 500: the comparison is false, found is written back to false, and the caption changes to explain there is no break, so the loop keeps going. Step four replaces the caption with the final value of found, false, and the output, not found, and a boxed takeaway lands underneath: the problem is that the next non-matching element writes found back to false, and the fix is to add a break right after found is set true.</p>
+  <div class="slide__body grid grid--code code-dense" data-sid="06b-walk-setup:6">
+    <div class="editor" data-sid="06b-walk-setup:8">
+      <p class="editor__bar" data-sid="06b-walk-setup:9">Search.java</p>
+      <div class="editor__pc" data-sid="06b-walk-setup:10"></div>
+      <ol class="editor__code" data-sid="06b-walk-setup:11">
+        <li data-sid="06b-walk-setup:12"><span class="tok-key">for</span> (<span class="tok-key">int</span> i = 0; i &lt; values.length; i++) {</li>
+        <li class="walkline frag" data-step="2" data-sid="06b-walk-setup:13">    <span class="tok-key">if</span> (values[i] == searchedValue) {</li>
+        <li class="walkline frag" data-step="2" data-sid="06b-walk-setup:14">        found = <span class="tok-key">true</span>;</li>
+        <li data-sid="06b-walk-setup:15">    } <span class="tok-key">else</span> {</li>
+        <li class="walkline frag" data-step="3" data-sid="06b-walk-setup:16">        found = <span class="tok-key">false</span>;</li>
+        <li data-sid="06b-walk-setup:17">    }</li>
+        <li data-sid="06b-walk-setup:18">}</li>
+        <li class="walkline frag" data-step="4" data-sid="06b-walk-setup:19"><span class="tok-key">if</span> (found) {</li>
+        <li data-sid="06b-walk-setup:20">    System.out.println("found " + searchedValue);</li>
+        <li class="walkline frag" data-step="4" data-sid="06b-walk-setup:21">} <span class="tok-key">else</span> {</li>
+        <li class="walkline frag" data-step="4" data-sid="06b-walk-setup:22">    System.out.println("not found");</li>
+        <li data-sid="06b-walk-setup:23">}</li>
+      </ol>
+    </div>
+
+    <div class="trace" data-sid="06b-walk-setup:30">
+      <p class="trace__init frag" data-step="1" data-anim="fade" data-sid="06b-walk-setup:60">searchedValue = 250 &nbsp;&middot;&nbsp; found = false</p>
+      <ol class="trace__row" data-sid="06b-walk-setup:31">
+        <li class="trace__cell frag" data-step="1" style="--i: 0" data-sid="06b-walk-setup:32">3</li>
+        <li class="trace__cell frag" data-step="1" style="--i: 1" data-sid="06b-walk-setup:33">6</li>
+        <li class="trace__cell frag" data-step="1" style="--i: 2" data-sid="06b-walk-setup:34">10</li>
+        <li class="trace__cell frag" data-step="1" style="--i: 3" data-sid="06b-walk-setup:35">12</li>
+        <li class="trace__cell frag" data-step="1" style="--i: 4" data-sid="06b-walk-setup:36">100</li>
+        <li class="trace__cell frag" data-step="1" style="--i: 5" data-sid="06b-walk-setup:37">200</li>
+        <li class="trace__cell trace__cell--hit frag" data-step="2" style="--i: 6" data-sid="06b-walk-setup:38">250</li>
+        <li class="trace__cell trace__cell--miss frag" data-step="3" style="--i: 7" data-sid="06b-walk-setup:39">500</li>
+      </ol>
+
+      <div class="trace__notes" data-sid="06b-walk-setup:61">
+        <div class="trace__note frag" data-step="2" data-sid="06b-walk-setup:40">
+          <p class="trace__eq trace__eq--hit" data-sid="06b-walk-setup:41">250 == 250 &rarr; TRUE</p>
+          <p class="trace__flag trace__flag--hit" data-sid="06b-walk-setup:42">found = true &#10003;</p>
+          <p class="note" data-sid="06b-walk-setup:43">250 is successfully found!</p>
+        </div>
+        <div class="trace__note frag" data-step="3" data-sid="06b-walk-setup:44">
+          <p class="trace__eq trace__eq--miss" data-sid="06b-walk-setup:45">500 == 250 &rarr; FALSE</p>
+          <p class="trace__flag trace__flag--miss" data-sid="06b-walk-setup:46">found = false &#10007;</p>
+          <p class="note trace__warn" data-sid="06b-walk-setup:47">There is no break, so the loop keeps going.</p>
+        </div>
+        <div class="trace__note trace__result frag" data-step="4" data-sid="06b-walk-setup:48">
+          <p class="trace__final" data-sid="06b-walk-setup:49">Final value: found = false</p>
+          <p class="trace__output" data-sid="06b-walk-setup:50">OUTPUT: &ldquo;not found&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="takeaway frag" data-step="4" data-sid="06b-walk-setup:51">
+        <p class="takeaway__row" data-sid="06b-walk-setup:52"><b data-sid="06b-walk-setup:53">The problem:</b> the next non-match writes found back to false.</p>
+        <p class="takeaway__row" data-sid="06b-walk-setup:54"><b data-sid="06b-walk-setup:55">The fix:</b> add <code data-sid="06b-walk-setup:56">break;</code> right after <code data-sid="06b-walk-setup:57">found = true;</code></p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-setup:58"></div>
+  <aside class="notes" data-sid="06b-walk-setup:59">Answer: B &mdash; not found. Step 1 &mdash; lay out the array: eight cells, searching for 250. Step 2 &mdash; the loop reaches index 6: values[i] is 250, the comparison is true, found is set true. Name it out loud: the match happened, the room saw it happen. Step 3 &mdash; the loop is not done. One more index, 500: the comparison is false, and because the if has an else, found is written back to false on every non-matching iteration, including this last one. Step 4 &mdash; the loop ends with found false, so the final if takes its else branch and prints not found. The bug is not the comparison, which is correct at index 6 &mdash; it is that nothing preserves a match once it happens. Two fixes read equally well: break right after found = true, which exits the loop the moment a match lands, or drop the else entirely, since a non-match should leave found exactly as it was. Plant: this is why loops that hunt for one thing usually want an early exit.</aside>
+
+  <style>
+    /* Slide-local: vote 1's answer — the array as a row of cells, matched at 250
+       then overwritten at 500. The code column is 920px (the println line is 49
+       mono characters); the initial values are the caption over the row, since
+       the row IS the array, so the left holds one pane. The three step notes
+       share one grid cell and only the current one shows — the cells keep the
+       history (blue hit at 250, maroon miss at 500), so nothing is lost when one
+       note yields to the next, and the takeaway has room underneath. Verdict
+       colour follows the deck: accent-2 marks the true comparison, accent-1 the
+       false one and the overwrite; the takeaway borrows the fix-panel treatment
+       (orange edge). Motion is manim's: cells GrowFromCenter, notes crossfade.
+       All values from tokens; used by this slide only. */
+    #slide-06b .slide__body { grid-template-columns: 920px minmax(0, 1fr); align-items: start; }
+
+    /* the searched value and the starting flag, over the row */
+    #slide-06b .trace__init { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+
+    /* the array: eight 80px cells, 664px of the 720px column */
+    #slide-06b .trace__row { display: flex; gap: var(--s-1); list-style: none; margin: 0 0 var(--s-3); padding: 0; }
+    #slide-06b .trace__cell {
+      flex: 0 0 80px; width: 80px; height: 80px; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+      font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0);
+      transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .4s var(--ease-smooth), border-color .3s ease, background-color .3s ease;
+    }
+    #slide-06b .frag.trace__cell.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-06b .frag.trace__cell.is-current, #slide-06b .frag.trace__cell.is-past { transition-delay: calc(var(--i) * .06s); }
+    #slide-06b .trace__cell--hit.is-current, #slide-06b .trace__cell--hit.is-past {
+      border-color: var(--accent-2);
+      background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-1));
+    }
+    #slide-06b .trace__cell--miss.is-current, #slide-06b .trace__cell--miss.is-past {
+      border-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 16%, var(--bg-1));
+    }
+
+    /* one note at a time: stacked in a single grid cell, the container sizes to the tallest */
+    #slide-06b .trace__notes { display: grid; margin: 0 0 var(--s-3); }
+    #slide-06b .trace__note { grid-area: 1 / 1; margin: 0; transition: opacity .3s ease; }
+    #slide-06b .frag.trace__note.is-past { opacity: 0; }
+    #slide-06b .trace__eq { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); }
+    #slide-06b .trace__eq--hit { color: var(--accent-2); }
+    #slide-06b .trace__eq--miss { color: var(--accent-1); }
+    #slide-06b .trace__flag { margin: var(--s-1) 0 0; font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; }
+    #slide-06b .trace__flag--hit { color: var(--accent-2); }
+    #slide-06b .trace__flag--miss { color: var(--accent-1); }
+    #slide-06b .trace__note .note { margin: var(--s-1) 0 0; }
+    #slide-06b .trace__warn { color: var(--accent-1); }
+
+    #slide-06b .trace__result {
+      padding: var(--s-2) var(--s-3);
+      border: 3px solid var(--fg-1); border-radius: var(--r-2); background: var(--bg-1);
+    }
+    #slide-06b .trace__final { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
+    #slide-06b .trace__output { margin: var(--s-1) 0 0; font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; color: var(--accent-1); }
+
+    #slide-06b .takeaway {
+      padding: var(--s-2) var(--s-3); border: 3px solid var(--accent-3); border-radius: var(--r-2);
+      background: color-mix(in srgb, var(--accent-3) 10%, var(--bg-1));
+    }
+    #slide-06b .takeaway__row { margin: 0; font-size: var(--t-small); }
+    #slide-06b .takeaway__row + .takeaway__row { margin-top: var(--s-2); }
+    #slide-06b .takeaway__row b { color: var(--accent-1); }
+    #slide-06b .takeaway code { font-family: var(--font-mono); background: var(--bg-0); padding: 0 var(--s-1); border-radius: var(--r-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .trace__cell, #slide-06b .trace__note { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

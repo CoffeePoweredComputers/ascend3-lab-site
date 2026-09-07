@@ -1,0 +1,87 @@
+/* Design tokens — the deck's visual vocabulary. Slides should prefer these
+   (var(--accent-1), var(--s-5), var(--t-h2)) over raw values so restyling the
+   whole deck is a one-file edit. All sizes are canvas pixels (1920×1080).
+
+   These values are kept in step with "week 1 - day 1/css/tokens.css": the two
+   days are one lecture series and must read as one deck. Change both together. */
+
+/* Bundled faces (assets/fonts, OFL-licensed) — local files, so the deck renders
+   offline AND identically in every browser. Only the mono face is referenced by
+   a token below; Inter stays bundled as the escape hatch if the series ever
+   moves off the system stacks. */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Italic-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* text */
+  --fg-0: #2c1a1f;              /* primary text — near-black, maroon cast */
+  --fg-1: #6b4a52;              /* muted text, captions, slide numbers */
+
+  /* surfaces */
+  --bg-0: #f2f1ed;              /* slide background — hokie stone mortar */
+  --bg-1: #e9e3e4;              /* raised panels / tiles */
+  --paper: #ffffff;             /* photo plate / polaroid frame — true white,
+                                   deliberately whiter than any surface tone */
+
+  /* accents */
+  --accent-1: #861f41;          /* primary — VT Chicago maroon */
+  --accent-2: #1c6091;          /* links, secondary — Blue Ridge blue */
+  --accent-3: #b35510;          /* tertiary — VT burnt orange */
+
+  /* Hokie Stone body colour. A genuine cool gray the scale lacks — mixing
+     --fg-0 into the ground gives warm browns, not quarried stone. */
+  --stone: #7d8791;
+
+  /* Night-sky black (closing slide). The ink token is maroon-cast, so dusk
+     landing on it reads red; the sky needs a true blue-black to end on. */
+  --night: #0d1016;
+
+  /* fonts — body/display are the day 1 system stacks, so the two decks set the
+     same text; mono is the bundled face. */
+  --font-body: Verdana, Geneva, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;   /* headings */
+  --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  /* spacing scale */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 48px;
+  --s-6: 64px;
+  --s-7: 96px;
+  --s-8: 128px;
+
+  /* type scale */
+  --t-h1: 120px;
+  --t-h2: 80px;
+  --t-h3: 56px;
+  --t-body: 48px;
+  --t-small: 36px;
+  --t-micro: 28px;              /* chrome only: editor filename bar, gutter line numbers */
+  --t-tag: 21px;                /* smallest legible: map-label subtexts, polaroid captions */
+
+  /* corner radii — cut-stone, barely softened */
+  --r-1: 4px;
+  --r-2: 10px;
+  --r-3: 18px;
+}

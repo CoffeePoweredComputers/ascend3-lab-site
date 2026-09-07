@@ -1,0 +1,90 @@
+<section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-branch:1">
+  <header class="slide__head" data-sid="08b-walk-branch:2">
+    <p class="slide__kicker" data-sid="08b-walk-branch:3">VOTE 3 &middot; THE ANSWER</p>
+    <h2 data-sid="08b-walk-branch:4">Only D fails &mdash; and it fails at run time</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08b-walk-branch:5">The four candidate bodies of contains again, each in a code card with its letter on the left and a verdict beside it on the right, the verdicts arriving one at a time. A, a while loop with a found flag bounded by i less than numberOfEntries: a tick, it works, every index it reads is real. B, return getIndexOf greater than minus one: a tick, any real index is greater than minus one. C, return getFrequencyOf greater than zero: a tick, spelled correctly this time so it compiles, and any count above zero means found. D, a while loop bounded by i less-than-or-equal-to numberOfEntries: a maroon cross, its while line ringed, with the verdict that it reads contents at index numberOfEntries, which does not exist, and throws ArrayIndexOutOfBoundsException; n entries live at indexes 0 to n minus 1.</p>
+
+  <!-- Vote 3 is vote 2 with C spelled right, so the answer is not another
+       trace (07b already walked D off the end of the array) but the verdict
+       on all four: three work, one throws. Cards left, verdicts right, dealt
+       A → B → C → D so D's cross lands last and the room hears "only D" after
+       three ticks. Blue tick = a true measurement, maroon cross = the defect,
+       the deck's usual split; D's while line takes the same ring as on 07b. -->
+  <div class="slide__body code-tag vd" data-sid="08b-walk-branch:6">
+    <p class="vd__letter" data-sid="08b-walk-branch:7">A</p>
+    <ol class="editor__code vd__code" data-sid="08b-walk-branch:8">
+      <li data-sid="08b-walk-branch:9"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
+      <li data-sid="08b-walk-branch:10"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
+      <li data-sid="08b-walk-branch:11"><span class="tok-key">while</span> (!found &amp;&amp; i &lt; numberOfEntries) {</li>
+      <li data-sid="08b-walk-branch:12">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+      <li data-sid="08b-walk-branch:13">        found = <span class="tok-key">true</span>;</li>
+      <li data-sid="08b-walk-branch:14">    }</li>
+      <li data-sid="08b-walk-branch:15">    i++;</li>
+      <li data-sid="08b-walk-branch:16">}</li>
+      <li data-sid="08b-walk-branch:17"><span class="tok-key">return</span> found;</li>
+    </ol>
+    <p class="vd__verdict frag" data-step="1" data-sid="08b-walk-branch:18"><span class="vd__mk vd__mk--ok" data-sid="08b-walk-branch:19">&#10003;</span> <b class="vd__who vd__who--ok" data-sid="08b-walk-branch:20">A works:</b> a flag and <code data-sid="08b-walk-branch:21">i &lt; numberOfEntries</code>, so every index it reads is real.</p>
+
+    <p class="vd__letter" data-sid="08b-walk-branch:22">B</p>
+    <ol class="editor__code vd__code" data-sid="08b-walk-branch:23">
+      <li data-sid="08b-walk-branch:24"><span class="tok-key">return</span> getIndexOf(anEntry) &gt; <span class="tok-num">-1</span>;</li>
+    </ol>
+    <p class="vd__verdict frag" data-step="2" data-sid="08b-walk-branch:25"><span class="vd__mk vd__mk--ok" data-sid="08b-walk-branch:26">&#10003;</span> <b class="vd__who vd__who--ok" data-sid="08b-walk-branch:27">B works:</b> any real index is &gt; &minus;1.</p>
+
+    <p class="vd__letter" data-sid="08b-walk-branch:28">C</p>
+    <ol class="editor__code vd__code" data-sid="08b-walk-branch:29">
+      <li data-sid="08b-walk-branch:30"><span class="tok-key">return</span> getFrequencyOf(anEntry) &gt; <span class="tok-num">0</span>;</li>
+    </ol>
+    <p class="vd__verdict frag" data-step="3" data-sid="08b-walk-branch:31"><span class="vd__mk vd__mk--ok" data-sid="08b-walk-branch:32">&#10003;</span> <b class="vd__who vd__who--ok" data-sid="08b-walk-branch:33">C compiles now,</b> and any count &gt; 0 means found.</p>
+
+    <p class="vd__letter" data-sid="08b-walk-branch:34">D</p>
+    <ol class="editor__code vd__code" data-sid="08b-walk-branch:35">
+      <li data-sid="08b-walk-branch:36"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
+      <li class="bug-line" data-sid="08b-walk-branch:37"><span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
+      <li data-sid="08b-walk-branch:38">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+      <li data-sid="08b-walk-branch:39">        <span class="tok-key">return true</span>;</li>
+      <li data-sid="08b-walk-branch:40">    }</li>
+      <li data-sid="08b-walk-branch:41">    i++;</li>
+      <li data-sid="08b-walk-branch:42">}</li>
+      <li data-sid="08b-walk-branch:43"><span class="tok-key">return false</span>;</li>
+    </ol>
+    <p class="vd__verdict vd__verdict--bad frag" data-step="4" data-sid="08b-walk-branch:44"><span class="vd__mk vd__mk--bad" data-sid="08b-walk-branch:45">&#10007;</span> <b class="vd__who vd__who--bad" data-sid="08b-walk-branch:46">D throws:</b> <code data-sid="08b-walk-branch:47">i &lt;= numberOfEntries</code> reads <code data-sid="08b-walk-branch:48">contents[numberOfEntries]</code>, which does not exist &mdash; ArrayIndexOutOfBoundsException. n entries live at indexes 0 to n&minus;1.</p>
+  </div>
+  <div class="slide__number" data-sid="08b-walk-branch:49"></div>
+  <aside class="notes" data-sid="08b-walk-branch:50">Answer: D &mdash; and this time only D. Deal the verdicts in order and make the room say each one before it lands. Step 1 &mdash; A works: the flag stops the loop early, and the bound i &lt; numberOfEntries means every index it reads is a real one. Verbose, but correct. Step 2 &mdash; B works: getIndexOf hands back a real index or &minus;1, so &ldquo;greater than &minus;1&rdquo; is exactly &ldquo;found&rdquo;. Step 3 &mdash; C works now: in vote 2 it was misspelled and would not compile, which is why &ldquo;could not be used&rdquo; had two answers there; spelled getFrequencyOf it compiles, and any count above zero means the entry is present. Step 4 &mdash; D throws, at run time, only when the entry is not in the bag: i &lt;= numberOfEntries runs one pass too many and reads contents[numberOfEntries], which does not exist. Same off-by-one we walked off the end of the array on the vote 2 answer &mdash; n entries live at indexes 0 to n&minus;1. Plant: a test that only ever looks for entries that ARE in the bag would pass D every time.</aside>
+
+  <style>
+    /* Slide-local: the verdict board — letter · code card · verdict, one row per
+       option, on the body's .code-tag scale (the four bodies are 19 lines, the
+       same size the room just voted on). Rows size to the taller of card and
+       verdict; verdicts are one line for B and C so those rows stay short. Ticks
+       take the tool blue (a true measurement), the cross and D's ringed while
+       line take maroon (the defect), as on 07b. Entrances are plain fades.
+       All values from tokens; used by this slide only. */
+    #slide-08b .vd {
+      display: grid;
+      grid-template-columns: max-content 720px minmax(0, 1fr);
+      column-gap: var(--s-4); row-gap: var(--s-2);
+      align-content: start; align-items: center;
+    }
+    #slide-08b .vd__letter { margin: 0; font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-1); }
+    #slide-08b .vd__code { background: var(--bg-1); border-radius: var(--r-2); }
+    #slide-08b .vd__code li.bug-line {
+      border-radius: var(--r-1);
+      outline: 4px solid transparent; outline-offset: -2px;
+      transition: outline-color .3s ease;
+    }
+    #slide-08b .vd:has(.frag.vd__verdict--bad:not(.is-pending)) .bug-line { outline-color: var(--accent-1); }
+
+    #slide-08b .vd__verdict { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-08b .vd__verdict code { font-family: var(--font-mono); background: var(--bg-1); padding: 0 var(--s-1); border-radius: var(--r-1); }
+    #slide-08b .vd__mk { font-weight: 700; }
+    #slide-08b .vd__mk--ok, #slide-08b .vd__who--ok { color: var(--accent-2); }
+    #slide-08b .vd__mk--bad, #slide-08b .vd__who--bad { color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .vd__verdict, #slide-08b .vd__code li.bug-line { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

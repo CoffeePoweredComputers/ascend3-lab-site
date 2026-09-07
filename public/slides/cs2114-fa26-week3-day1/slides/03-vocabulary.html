@@ -1,0 +1,62 @@
+<section class="slide" id="slide-03" data-sid="03-vocabulary:1">
+  <header class="slide__head" data-sid="03-vocabulary:2">
+    <p class="slide__kicker" data-sid="03-vocabulary:3">PROJECT 1</p>
+    <h2 data-sid="03-vocabulary:4">Deliverable Grading Schedule</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="03-vocabulary:5">Two side-by-side panels. Left, the Scoping Document: a page of loose freehand lines under a magnifying glass, graded this week's lab session. Right, the Specification Document: a page of neat checklist lines with a checkmark, evaluated next week's lab session.</p>
+  <div class="slide__body" data-sid="03-vocabulary:6">
+    <div class="grid grid--2" data-sid="03-vocabulary:50">
+      <div class="tile tile--display dtile frag" data-anim="fade" data-step="1" data-sid="03-vocabulary:51">
+        <p class="tile__label" data-sid="03-vocabulary:52">Deliverable 1</p>
+        <h3 data-sid="03-vocabulary:53">Scoping Document</h3>
+        <svg class="dtile__icon" viewBox="0 0 300 220" aria-hidden="true" data-sid="03-vocabulary:54">
+          <rect class="dw__page" x="40" y="16" width="180" height="176" rx="10"/>
+          <path class="dw__title" d="M64 50h80"/>
+          <path class="dw__wave" d="M64 86q15 -10 30 0t30 0t20 0"/>
+          <path class="dw__wave" d="M64 112q15 -10 30 0t30 0t40 0"/>
+          <path class="dw__wave" d="M64 138q15 -10 30 0t20 0"/>
+          <circle class="dw__glass" cx="190" cy="150" r="16"/>
+          <line class="dw__glass" x1="201" y1="161" x2="214" y2="174"/>
+        </svg>
+        <p data-sid="03-vocabulary:55">Graded this week's lab session.</p>
+      </div>
+      <div class="tile tile--a2 tile--display dtile frag" data-anim="fade" data-step="2" data-sid="03-vocabulary:56">
+        <p class="tile__label" data-sid="03-vocabulary:57">Deliverable 2</p>
+        <h3 data-sid="03-vocabulary:58">Specification Document</h3>
+        <svg class="dtile__icon" viewBox="0 0 300 220" aria-hidden="true" data-sid="03-vocabulary:59">
+          <rect class="dw__page" x="40" y="16" width="180" height="176" rx="10"/>
+          <path class="dw__title" d="M64 50h80"/>
+          <rect class="dw__box" x="64" y="79" width="14" height="14" rx="2"/>
+          <path class="dw__line" d="M86 86h110"/>
+          <rect class="dw__box" x="64" y="105" width="14" height="14" rx="2"/>
+          <path class="dw__line" d="M86 112h90"/>
+          <rect class="dw__box" x="64" y="131" width="14" height="14" rx="2"/>
+          <path class="dw__line" d="M86 138h70"/>
+          <circle class="dw__check-circle" cx="190" cy="150" r="16"/>
+          <path class="dw__check-mark" d="M182 150l6 6l12 -14"/>
+        </svg>
+        <p data-sid="03-vocabulary:60">Evaluated next week's lab session.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="03-vocabulary:45"></div>
+  <aside class="notes" data-sid="03-vocabulary:46">Deliverable 1, the scoping document, is graded this week. Deliverable 2, the specification document, is evaluated next week.</aside>
+
+  <style>
+    /* Slide-local: two comparison panels for the two grading milestones.
+       Left icon (scoping) draws loose freehand lines under a magnifying
+       glass — a draft being reviewed. Right icon (specification) draws a
+       straight checklist with a checkmark — an itemized document signed
+       off. Used by this slide only, all colours from tokens. */
+    #slide-03 .grid { height: 100%; grid-auto-rows: 1fr; }   /* the two panels fill the body, bottom edge on the body's */
+    #slide-03 .dtile { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--s-3); }
+    #slide-03 .dtile__icon { width: 100%; max-width: 400px; height: auto; }
+    #slide-03 .dw__page { fill: var(--paper); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-03 .dw__title { fill: none; stroke: var(--fg-0); stroke-width: 8; stroke-linecap: round; }
+    #slide-03 .dw__wave, #slide-03 .dw__line { fill: none; stroke: var(--stone); stroke-width: 5; stroke-linecap: round; }
+    #slide-03 .dw__box { fill: none; stroke: var(--accent-2); stroke-width: 3; }
+    #slide-03 .dw__glass { fill: none; stroke: var(--accent-1); stroke-width: 6; stroke-linecap: round; }
+    #slide-03 .dw__check-circle { fill: none; stroke: var(--accent-2); stroke-width: 6; }
+    #slide-03 .dw__check-mark { fill: none; stroke: var(--accent-2); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</section>

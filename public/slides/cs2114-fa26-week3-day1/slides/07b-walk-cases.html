@@ -1,0 +1,168 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-cases:1">
+  <header class="slide__head" data-sid="07b-walk-cases:2">
+    <p class="slide__kicker" data-sid="07b-walk-cases:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-cases:4">Why does D throw an exception?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-cases:5">A walkthrough of why option D&rsquo;s contains method fails. On the left, D&rsquo;s code, with its loop condition i less-than-or-equal-to numberOfEntries. On the right, the array drawn as six cells: five real entries at indexes 0 through 4, and a sixth, dashed, out-of-bounds cell at index 5. Step one shows the array with a caption naming the valid range, 0 to 4, for 5 entries. Step two sweeps a highlight through indexes 0 to 4 in order, each a miss, since the searched entry is not in the Bag. Step three moves to index 5: the loop condition 5 less-than-or-equal-to 5 is true, so the loop runs anyway; the ghost cell lights up, contents of 5 does not exist, and an ArrayIndexOutOfBoundsException is thrown. Step four rings the buggy while line in the code, swaps the miss caption for the memory rule that n entries live at indexes 0 through n minus 1, and a strip across the bottom shows the wrong condition i less-than-or-equal-to numberOfEntries beside the correct i less-than numberOfEntries.</p>
+
+  <div class="slide__body grid grid--code code-dense" data-sid="07b-walk-cases:6">
+    <div class="editor" data-sid="07b-walk-cases:8">
+      <p class="editor__bar" data-sid="07b-walk-cases:9">option D &mdash; contains(T)</p>
+      <ol class="editor__code" data-sid="07b-walk-cases:10">
+        <li data-sid="07b-walk-cases:11"><span class="tok-key">public boolean</span> contains(T anEntry) {</li>
+        <li data-sid="07b-walk-cases:12">    <span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
+        <li class="bug-line" data-sid="07b-walk-cases:13">    <span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
+        <li data-sid="07b-walk-cases:14">        <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="07b-walk-cases:15">            <span class="tok-key">return true</span>;</li>
+        <li data-sid="07b-walk-cases:16">        }</li>
+        <li data-sid="07b-walk-cases:17">        i++;</li>
+        <li data-sid="07b-walk-cases:18">    }</li>
+        <li data-sid="07b-walk-cases:19">    <span class="tok-key">return false</span>;</li>
+        <li data-sid="07b-walk-cases:20">}</li>
+      </ol>
+    </div>
+
+    <div class="arr" data-sid="07b-walk-cases:30">
+      <p class="arr__cap frag" data-step="1" data-anim="fade" data-sid="07b-walk-cases:31">numberOfEntries = 5 &rarr; valid indexes 0 to 4</p>
+      <ol class="arr__row" data-sid="07b-walk-cases:32">
+        <li class="arr__cell frag" data-step="1" style="--i: 0" data-sid="07b-walk-cases:33">
+          <span class="arr__miss frag" data-step="2" style="--i: 0" data-sid="07b-walk-cases:34">&#10007;</span>
+          <span class="arr__idx" data-sid="07b-walk-cases:35">0</span>
+        </li>
+        <li class="arr__cell frag" data-step="1" style="--i: 1" data-sid="07b-walk-cases:36">
+          <span class="arr__miss frag" data-step="2" style="--i: 1" data-sid="07b-walk-cases:37">&#10007;</span>
+          <span class="arr__idx" data-sid="07b-walk-cases:38">1</span>
+        </li>
+        <li class="arr__cell frag" data-step="1" style="--i: 2" data-sid="07b-walk-cases:39">
+          <span class="arr__miss frag" data-step="2" style="--i: 2" data-sid="07b-walk-cases:40">&#10007;</span>
+          <span class="arr__idx" data-sid="07b-walk-cases:41">2</span>
+        </li>
+        <li class="arr__cell frag" data-step="1" style="--i: 3" data-sid="07b-walk-cases:42">
+          <span class="arr__miss frag" data-step="2" style="--i: 3" data-sid="07b-walk-cases:43">&#10007;</span>
+          <span class="arr__idx" data-sid="07b-walk-cases:44">3</span>
+        </li>
+        <li class="arr__cell frag" data-step="1" style="--i: 4" data-sid="07b-walk-cases:45">
+          <span class="arr__miss frag" data-step="2" style="--i: 4" data-sid="07b-walk-cases:46">&#10007;</span>
+          <span class="arr__idx" data-sid="07b-walk-cases:47">4</span>
+        </li>
+        <li class="arr__cell arr__cell--ghost frag" data-step="3" data-sid="07b-walk-cases:48">
+          <span class="arr__idx" data-sid="07b-walk-cases:49">5</span>
+        </li>
+      </ol>
+      <div class="arr__caps" data-sid="07b-walk-cases:61">
+        <p class="arr__note frag" data-step="2" data-anim="fade" data-sid="07b-walk-cases:50">anEntry isn&rsquo;t in the Bag: 0 to 4 all miss.</p>
+        <p class="arr__note arr__rule frag" data-step="4" data-anim="fade" data-sid="07b-walk-cases:62"><b data-sid="07b-walk-cases:29">Memory rule:</b> n entries live at indexes 0 to n&minus;1.</p>
+      </div>
+
+      <div class="arr__bug frag" data-step="3" data-anim="fade" data-sid="07b-walk-cases:51">
+        <svg class="arr__mk" viewBox="-24 -24 48 48" aria-hidden="true" data-sid="07b-walk-cases:52"><circle class="arr__disc" r="22" data-sid="07b-walk-cases:53"/><text class="arr__bang" x="0" y="10" data-sid="07b-walk-cases:54">!</text></svg>
+        <div data-sid="07b-walk-cases:55">
+          <p class="arr__eq" data-sid="07b-walk-cases:56">i = 5 &mdash; loop checks <code data-sid="07b-walk-cases:57">5 &lt;= 5</code> &rarr; TRUE, so it runs anyway</p>
+          <p class="arr__err" data-sid="07b-walk-cases:58">contents[5] doesn&rsquo;t exist &mdash; ArrayIndexOutOfBoundsException</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeaway frag" data-step="4" data-anim="fade" data-sid="07b-walk-cases:21">
+      <p class="takeaway__row" data-sid="07b-walk-cases:22"><span class="takeaway__mk takeaway__mk--bad" data-sid="07b-walk-cases:23">&times;</span> <code data-sid="07b-walk-cases:24">i &lt;= numberOfEntries</code></p>
+      <p class="takeaway__row" data-sid="07b-walk-cases:25"><span class="takeaway__mk takeaway__mk--good" data-sid="07b-walk-cases:26">&#10003;</span> <code data-sid="07b-walk-cases:27">i &lt; numberOfEntries</code></p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-cases:59"></div>
+  <aside class="notes" data-sid="07b-walk-cases:60">Answer: D. Step 1 &mdash; lay out the array: 5 entries, so contents has valid indexes 0 through 4; name that range before touching the code. Step 2 &mdash; walk the search: the entry being looked for is not in the Bag, so the comparison misses at every real index, 0 through 4. Step 3 &mdash; the loop condition is i &lt;= numberOfEntries, not i &lt; numberOfEntries, so when i reaches 5 the loop checks 5 &lt;= 5, which is true, and runs one more time; contents[5] is one past the last valid index, and the array throws ArrayIndexOutOfBoundsException. Step 4 &mdash; ring the while line and land the fix: swap &lt;= for &lt;. The rule underneath is the one worth them writing down: n entries live at indexes 0 through n&minus;1, so the last valid index is always one less than the count, never equal to it. Plant: this exact off-by-one is the most common array bug they will write themselves this semester.</aside>
+
+  <style>
+    /* Slide-local: D's bug is an off-by-one on the loop bound, so the picture
+       is the array itself — 5 real cells (indexes 0-4) plus a sixth, dashed
+       "ghost" cell at index 5 that the buggy condition lets the loop reach.
+       Step 1 lays out the row, step 2 sweeps a miss mark through the real
+       cells, step 3 lights the ghost cell and names the exception, step 4 rings
+       the code's while line, swaps the miss caption for the memory rule, and
+       draws the fix strip across the bottom of both columns — the one panel that
+       could not fit under the code. Code column 800px (the widest line needs
+       776), array column 832px (six 120px cells need 800). Colour follows the
+       deck: fg-1/stone for an ordinary miss, accent-1 for the defect, the orange
+       fix-panel edge for what to carry forward. Motion is manim's: cells
+       GrowFromCenter, marks grow, captions crossfade. All values from tokens;
+       used by this slide only. */
+    #slide-07b .slide__body {
+      grid-template-columns: 800px minmax(0, 1fr);
+      column-gap: var(--s-4);
+      align-items: start;
+    }
+    #slide-07b .editor__code li.bug-line {
+      border-radius: var(--r-1);
+      outline: 4px solid transparent; outline-offset: -2px;
+      transition: outline-color .3s ease;
+    }
+    #slide-07b:has(.arr__cell--ghost:not(.is-pending)) .editor__code li.bug-line { outline-color: var(--accent-1); }
+
+    /* the array row: six 120px cells */
+    #slide-07b .arr__cap { margin: 0 0 var(--s-3); font-size: var(--t-small); color: var(--fg-1); }
+    #slide-07b .arr__row {
+      display: flex; gap: var(--s-2); list-style: none; margin: 0 0 var(--s-3); padding: 0;
+    }
+    #slide-07b .arr__cell {
+      position: relative;
+      flex: 0 0 auto; width: 120px; height: 120px;
+      display: flex; align-items: center; justify-content: center;
+      box-sizing: border-box;
+      border: 3px solid var(--stone); border-radius: var(--r-2);
+      background: var(--bg-1);
+      transform-origin: 50% 50%;
+      transition: opacity .2s ease, transform .4s var(--ease-smooth);
+    }
+    #slide-07b .frag.arr__cell.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-07b .frag.arr__cell.is-current, #slide-07b .frag.arr__cell.is-past { transition-delay: calc(var(--i) * .08s); }
+    #slide-07b .arr__idx { font-family: var(--font-mono); font-size: var(--t-h3); color: var(--fg-0); }
+    #slide-07b .arr__miss {
+      position: absolute; top: var(--s-1); right: var(--s-1);
+      font-size: var(--t-small); color: var(--fg-1);
+      transition: opacity .2s ease, transform .3s var(--ease-smooth);
+    }
+    #slide-07b .frag.arr__miss.is-pending { opacity: 0; transform: scale(0.3); }
+    #slide-07b .frag.arr__miss.is-current, #slide-07b .frag.arr__miss.is-past { transition-delay: calc(var(--i) * .15s); }
+    #slide-07b .arr__cell--ghost {
+      border-style: dashed; border-color: var(--accent-1);
+      background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0));
+    }
+    #slide-07b .arr__cell--ghost .arr__idx { color: var(--accent-1); }
+    #slide-07b .frag.arr__cell--ghost.is-pending { opacity: 0; transform: scale(0.5); }
+
+    /* one caption under the row: the step-2 miss note until the step-4 rule replaces it */
+    #slide-07b .arr__caps { display: grid; margin: 0 0 var(--s-3); }
+    #slide-07b .arr__note { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-07b .arr__rule { color: var(--fg-0); }
+    #slide-07b .arr__rule b { color: var(--accent-1); }
+    #slide-07b .arr__caps:has(.arr__rule.is-current) .arr__note:not(.arr__rule),
+    #slide-07b .arr__caps:has(.arr__rule.is-past) .arr__note:not(.arr__rule) { opacity: 0; }
+
+    /* the bug callout: disc + message, accent-1 throughout */
+    #slide-07b .arr__bug { display: flex; align-items: flex-start; gap: var(--s-2); }
+    #slide-07b .arr__mk { flex: 0 0 auto; width: var(--s-5); height: var(--s-5); overflow: visible; margin-top: 4px; }
+    #slide-07b .arr__disc { fill: var(--accent-1); }
+    #slide-07b .arr__bang { font-family: var(--font-mono); font-size: var(--t-micro); font-weight: 700; fill: var(--paper); text-anchor: middle; }
+    #slide-07b .arr__eq { margin: 0; font-size: var(--t-small); color: var(--fg-0); }
+    #slide-07b .arr__eq code { font-family: var(--font-mono); background: var(--bg-1); padding: 0 var(--s-1); border-radius: var(--r-1); }
+    #slide-07b .arr__err { margin: var(--s-1) 0 0; font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; color: var(--accent-1); }
+
+    /* the fix strip: one row across both columns, under the code and the array */
+    #slide-07b .takeaway {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: var(--s-6);
+      padding: var(--s-2) var(--s-4); border: 3px solid var(--accent-3); border-radius: var(--r-2);
+      background: color-mix(in srgb, var(--accent-3) 10%, var(--bg-1));
+    }
+    #slide-07b .takeaway__row { margin: 0; display: flex; align-items: center; gap: var(--s-2); font-size: var(--t-small); }
+    #slide-07b .takeaway__row code { font-family: var(--font-mono); background: var(--bg-0); padding: 0 var(--s-1); border-radius: var(--r-1); }
+    #slide-07b .takeaway__mk { font-weight: 700; width: 1.2em; text-align: center; }
+    #slide-07b .takeaway__mk--bad { color: var(--accent-1); }
+    #slide-07b .takeaway__mk--good { color: var(--accent-2); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .arr__cell, #slide-07b .arr__miss, #slide-07b .arr__note, #slide-07b .editor__code li.bug-line {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

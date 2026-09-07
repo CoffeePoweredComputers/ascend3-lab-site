@@ -1,0 +1,57 @@
+/* ss-anim v2 — slide-studio: generated from lib/animreg.js. A stale version of
+   this file is rewritten on studio upgrade while this header remains; strip the header
+   to take ownership. Deleting the file (and its <link> in index.html) removes studio
+   animations entirely — the deck still works. */
+
+/* entrance from-states, layered on the .frag step system */
+.frag[data-anim].is-pending        { opacity: 0; }
+.frag[data-anim="fade-up"].is-pending{ transform: translateY(28px); }
+.frag[data-anim="fade-down"].is-pending{ transform: translateY(-28px); }
+.frag[data-anim="slide-left"].is-pending{ transform: translateX(44px); }
+.frag[data-anim="slide-right"].is-pending{ transform: translateX(-44px); }
+.frag[data-anim="scale-up"].is-pending{ transform: scale(0.92); }
+.frag[data-anim="scale-down"].is-pending{ transform: scale(1.06); }
+.frag[data-anim].is-current,
+.frag[data-anim].is-past           { opacity: 1; transform: none; }
+
+/* timing knobs — per-element inline custom properties written by the studio,
+   e.g. style="--anim-duration: 600ms; --anim-delay: 120ms". This file links
+   after css/deck.css, so these longhands override its .frag shorthand. */
+.frag { transition-duration: var(--anim-duration, 0.35s); }
+.frag.is-current, .frag.is-past { transition-delay: var(--anim-delay, 0s); }
+.frag.is-pending { transition-delay: 0s; }   /* back-step: leave immediately */
+
+/* named easings */
+.frag[data-anim-ease="smooth"] { transition-timing-function: ease; }
+.frag[data-anim-ease="out"] { transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+.frag[data-anim-ease="snappy"] { transition-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1); }
+.frag[data-anim-ease="bounce"] { transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* slide-to-slide transitions — classes applied by js/studio-motion.js.
+   .ss-leave must re-show the outgoing slide, so it matches the specificity
+   of the deck's `.deck > section.slide.is-active` show rule. */
+.deck > section.slide.ss-leave { display: flex; z-index: 0; pointer-events: none; }
+.deck > section.slide.ss-enter { z-index: 1; }
+.slide.ss-enter[data-transition="fade"] { animation: ss-fade-in var(--slide-duration, 0.4s) ease both; }
+.slide.ss-leave[data-leaving="fade"] { animation: ss-fade-out var(--slide-duration, 0.4s) ease both; }
+.slide.ss-enter[data-transition="slide"] { animation: ss-slide-in var(--slide-duration, 0.45s) cubic-bezier(0.16, 1, 0.3, 1) both; }
+.slide.ss-leave[data-leaving="slide"] { animation: ss-slide-out var(--slide-duration, 0.45s) cubic-bezier(0.16, 1, 0.3, 1) both; }
+.deck[data-dir="back"] > .slide.ss-enter[data-transition="slide"] { animation-name: ss-slide-in-rev; }
+.deck[data-dir="back"] > .slide.ss-leave[data-leaving="slide"] { animation-name: ss-slide-out-rev; }
+.slide.ss-enter[data-transition="zoom"] { animation: ss-zoom-in var(--slide-duration, 0.4s) ease both; }
+.slide.ss-leave[data-leaving="zoom"] { animation: ss-zoom-out var(--slide-duration, 0.4s) ease both; }
+
+@keyframes ss-fade-in  { from { opacity: 0; } }
+@keyframes ss-fade-out { to { opacity: 0; } }
+@keyframes ss-slide-in  { from { transform: translateX(6%); opacity: 0; } }
+@keyframes ss-slide-out { to { transform: translateX(-6%); opacity: 0; } }
+@keyframes ss-slide-in-rev  { from { transform: translateX(-6%); opacity: 0; } }
+@keyframes ss-slide-out-rev { to { transform: translateX(6%); opacity: 0; } }
+@keyframes ss-zoom-in  { from { transform: scale(0.96); opacity: 0; } }
+@keyframes ss-zoom-out { to { transform: scale(1.04); opacity: 0; } }
+
+/* !important: these must beat every attribute-specific rule above */
+@media (prefers-reduced-motion: reduce) {
+  .frag { transition-duration: 0s !important; transition-delay: 0s !important; }
+  .slide.ss-enter, .slide.ss-leave { animation: none !important; }
+}

@@ -1,0 +1,82 @@
+<section class="slide slide--warmup" id="slide-08" data-sid="08-vote-branch:1">
+  <header class="slide__head" data-sid="08-vote-branch:2">
+    <p class="slide__kicker" data-sid="08-vote-branch:3">PEER INSTRUCTION &middot; VOTE 3</p>
+    <h2 data-sid="08-vote-branch:4">Which implementation of contains does not work?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08-vote-branch:5">A peer-instruction question about the ArrayBag class. On the left, the class&rsquo;s two fields &mdash; an array of entries and a count of how many are in use &mdash; plus two given methods in full: getFrequencyOf, which loops over the array counting matches, and getIndexOf, a private helper that loops over the array and returns the index of the first match, or minus one if none is found. On the right, four candidate implementations of contains, labeled A through D. A walks the array with a while loop and a found flag. B returns whether getIndexOf is greater than minus one. C returns whether getFrequencyOf is greater than zero. D walks the array with a while loop whose bound is less-than-or-equal-to numberOfEntries instead of less-than.</p>
+  <div class="slide__body grid grid--code code-tag" data-sid="08-vote-branch:6">
+    <div class="editor" data-sid="08-vote-branch:7">
+      <p class="editor__bar" data-sid="08-vote-branch:8">the ArrayBag class</p>
+      <ol class="editor__code" data-sid="08-vote-branch:9">
+        <li data-sid="08-vote-branch:10"><span class="tok-key">private</span> T[] contents;</li>
+        <li data-sid="08-vote-branch:11"><span class="tok-key">private int</span> numberOfEntries;</li>
+        <li data-sid="08-vote-branch:12">&nbsp;</li>
+        <li data-sid="08-vote-branch:13"><span class="tok-key">public int</span> getFrequencyOf(T anEntry) {</li>
+        <li data-sid="08-vote-branch:14">    <span class="tok-key">int</span> count = <span class="tok-num">0</span>;</li>
+        <li data-sid="08-vote-branch:15">    <span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">0</span>; i &lt; numberOfEntries; i++) {</li>
+        <li data-sid="08-vote-branch:16">        <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="08-vote-branch:17">            count++;</li>
+        <li data-sid="08-vote-branch:18">        }</li>
+        <li data-sid="08-vote-branch:19">    }</li>
+        <li data-sid="08-vote-branch:20">    <span class="tok-key">return</span> count;</li>
+        <li data-sid="08-vote-branch:21">}</li>
+        <li data-sid="08-vote-branch:22">&nbsp;</li>
+        <li data-sid="08-vote-branch:23"><span class="tok-key">private int</span> getIndexOf(T anEntry) {</li>
+        <li data-sid="08-vote-branch:24">    <span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">0</span>; i &lt; numberOfEntries; i++) {</li>
+        <li data-sid="08-vote-branch:25">        <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="08-vote-branch:26">            <span class="tok-key">return</span> i;</li>
+        <li data-sid="08-vote-branch:27">        }</li>
+        <li data-sid="08-vote-branch:28">    }</li>
+        <li data-sid="08-vote-branch:29">    <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
+        <li data-sid="08-vote-branch:30">}</li>
+      </ol>
+    </div>
+    <ol class="opts opts--code" data-sid="08-vote-branch:31">
+      <li data-sid="08-vote-branch:32">
+        <ol class="editor__code" data-sid="08-vote-branch:33">
+          <li data-sid="08-vote-branch:34"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
+          <li data-sid="08-vote-branch:35"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
+          <li data-sid="08-vote-branch:36"><span class="tok-key">while</span> (!found &amp;&amp; i &lt; numberOfEntries) {</li>
+          <li data-sid="08-vote-branch:37">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+          <li data-sid="08-vote-branch:38">        found = <span class="tok-key">true</span>;</li>
+          <li data-sid="08-vote-branch:39">    }</li>
+          <li data-sid="08-vote-branch:40">    i++;</li>
+          <li data-sid="08-vote-branch:41">}</li>
+          <li data-sid="08-vote-branch:42"><span class="tok-key">return</span> found;</li>
+        </ol>
+      </li>
+      <li data-sid="08-vote-branch:43">
+        <ol class="editor__code" data-sid="08-vote-branch:44">
+          <li data-sid="08-vote-branch:45"><span class="tok-key">return</span> getIndexOf(anEntry) &gt; <span class="tok-num">-1</span>;</li>
+        </ol>
+      </li>
+      <li data-sid="08-vote-branch:46">
+        <ol class="editor__code" data-sid="08-vote-branch:47">
+          <li data-sid="08-vote-branch:48"><span class="tok-key">return</span> getFrequencyOf(anEntry) &gt; <span class="tok-num">0</span>;</li>
+        </ol>
+      </li>
+      <li data-sid="08-vote-branch:49">
+        <ol class="editor__code" data-sid="08-vote-branch:50">
+          <li data-sid="08-vote-branch:51"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
+          <li data-sid="08-vote-branch:52"><span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
+          <li data-sid="08-vote-branch:53">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+          <li data-sid="08-vote-branch:54">        <span class="tok-key">return true</span>;</li>
+          <li data-sid="08-vote-branch:55">    }</li>
+          <li data-sid="08-vote-branch:56">    i++;</li>
+          <li data-sid="08-vote-branch:57">}</li>
+          <li data-sid="08-vote-branch:58"><span class="tok-key">return false</span>;</li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="08-vote-branch:59"></div>
+  <aside class="notes" data-sid="08-vote-branch:60">Answer: D &mdash; its bound, i &lt;= numberOfEntries instead of i &lt; numberOfEntries, lets i reach one past the last valid index. With, say, 5 entries the valid indexes are 0 to 4; D's loop still runs the check at i = 5, and contents[5] is out of bounds &mdash; an ArrayIndexOutOfBoundsException, and it fires exactly when the entry being searched for is not in the bag, since that is the only case where the loop runs that far. A is a correct, if verbose, linear scan with a found flag &mdash; i still increments every iteration, so it terminates. B correctly reuses getIndexOf: any non-negative index means a match turned up. C correctly reuses getFrequencyOf: any count greater than zero means the entry is present. D is the only one that cannot be used as written.</aside>
+
+  <style>
+    /* Slide-local: the given class (21 lines) beside four candidate bodies of
+       contains — 44 lines of Java, so the body takes .code-tag (the token floor,
+       tight leading, gutter numerals at the code size) and the options are
+       .opts--code cards. Only the column split lives here; all values from tokens. */
+    #slide-08 .slide__body { grid-template-columns: 900px 1fr; align-items: start; }
+  </style>
+</section>

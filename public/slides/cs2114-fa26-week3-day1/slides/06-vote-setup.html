@@ -1,0 +1,56 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-vote-setup:1">
+  <header class="slide__head" data-sid="06-vote-setup:2">
+    <p class="slide__kicker" data-sid="06-vote-setup:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06-vote-setup:4">What does this array search print?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06-vote-setup:5">A peer-instruction question. On the left, a for loop that walks an array comparing each element to a searched value: on a match it sets a boolean found to true, and on every other iteration it resets found to false, with no early exit. On the right, the initial values &mdash; an eight-element int array ending in two hundred fifty then five hundred, a searched value of two hundred fifty, and found starting false &mdash; and under them four candidates for the printed output: found 250, not found, found 500, and the claim that an IndexOutOfBoundsException is thrown.</p>
+  <div class="slide__body grid grid--code code-dense" data-sid="06-vote-setup:6">
+    <div class="editor" data-sid="06-vote-setup:8">
+      <p class="editor__bar" data-sid="06-vote-setup:9">Search.java</p>
+      <ol class="editor__code" data-sid="06-vote-setup:10">
+        <li data-sid="06-vote-setup:11"><span class="tok-key">for</span> (<span class="tok-key">int</span> i = 0; i &lt; values.length; i++) {</li>
+        <li data-sid="06-vote-setup:12">    <span class="tok-key">if</span> (values[i] == searchedValue) {</li>
+        <li data-sid="06-vote-setup:13">        found = <span class="tok-key">true</span>;</li>
+        <li data-sid="06-vote-setup:14">    } <span class="tok-key">else</span> {</li>
+        <li data-sid="06-vote-setup:15">        found = <span class="tok-key">false</span>;</li>
+        <li data-sid="06-vote-setup:16">    }</li>
+        <li data-sid="06-vote-setup:17">}</li>
+        <li data-sid="06-vote-setup:18"><span class="tok-key">if</span> (found) {</li>
+        <li data-sid="06-vote-setup:19">    System.out.println("found " + searchedValue);</li>
+        <li data-sid="06-vote-setup:20">} <span class="tok-key">else</span> {</li>
+        <li data-sid="06-vote-setup:21">    System.out.println("not found");</li>
+        <li data-sid="06-vote-setup:22">}</li>
+      </ol>
+    </div>
+    <div class="stack" data-sid="06-vote-setup:7">
+      <div class="editor" data-sid="06-vote-setup:23">
+        <p class="editor__bar" data-sid="06-vote-setup:24">initial values</p>
+        <ol class="editor__code" data-sid="06-vote-setup:25">
+          <li data-sid="06-vote-setup:26"><span class="tok-key">int</span>[] values = { <span class="tok-num">3</span>, <span class="tok-num">6</span>, <span class="tok-num">10</span>, <span class="tok-num">12</span>,</li>
+          <li data-sid="06-vote-setup:40">    <span class="tok-num">100</span>, <span class="tok-num">200</span>, <span class="tok-num">250</span>, <span class="tok-num">500</span> };</li>
+          <li data-sid="06-vote-setup:27"><span class="tok-key">int</span> searchedValue = <span class="tok-num">250</span>;</li>
+          <li data-sid="06-vote-setup:28"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
+        </ol>
+      </div>
+      <ol class="opts" data-sid="06-vote-setup:29">
+        <li data-sid="06-vote-setup:30"><p data-sid="06-vote-setup:31"><code>found 250</code></p></li>
+        <li data-sid="06-vote-setup:32"><p data-sid="06-vote-setup:33"><code>not found</code></p></li>
+        <li data-sid="06-vote-setup:34"><p data-sid="06-vote-setup:35"><code>found 500</code></p></li>
+        <li data-sid="06-vote-setup:36"><p data-sid="06-vote-setup:37">An <code>IndexOutOfBoundsException</code> is thrown</p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-vote-setup:38"></div>
+  <aside class="notes" data-sid="06-vote-setup:39">Answer: B &mdash; not found. The loop does reach i = 6, where values[i] is 250 and found is set true &mdash; but the else clause resets found on every non-matching iteration too, and i = 7 (500) is one more comparison after the match, so found ends the loop false. A is the trap: it assumes the match "sticks", which is exactly what the else overwrite prevents. C is not even a message the program can produce &mdash; a true found always prints "found 250", never "found 500". D is wrong because the loop guard i &lt; values.length keeps every index in bounds. Worth naming afterwards: swapping the else for a break the moment found goes true, or dropping the else entirely, is the fix.</aside>
+
+  <style>
+    /* Slide-local: the println line is 49 mono characters, so the code column is
+       920px and the initial values move to the answers' column, above the
+       options — the two panes stacked on the left never fit the body. The array
+       literal breaks over two lines to clear the 720px column (formatting only;
+       the values are Runestone's). Answers are program output, so they are
+       set as code (mono). All values from tokens; used by this slide only. */
+    #slide-06 .slide__body { grid-template-columns: 920px minmax(0, 1fr); align-items: start; }
+    #slide-06 .stack { gap: var(--s-3); }
+  </style>
+</section>
