@@ -92,6 +92,35 @@ previews; `roles.keyholders` may upload the roster, export the PID↔code key (e
 logged), and destroy the key once `status` is `closed`. For a course study, keep course staff out
 of both lists during the semester.
 
+## Piloting with testers who have no VT account
+
+Everything above assumes VT single sign-on. To try an instrument on people outside the
+university, set `eligibility.guestAccess: true` on a **pilot** survey file and hand out a signed
+invite link:
+
+```bash
+npm run invite -- pilot          # link valid 30 days; `-- pilot 7` for a week
+```
+
+One link serves everyone: each person who opens it is issued a fresh `guest:<random>` identity, so
+their transcripts stay separate, and reopening the link resumes rather than restarting. The token
+is an HMAC over the survey id (`src/auth/guest.ts`), so it is only good for that one survey and
+only while its file opts in.
+
+Guests are contained by construction rather than by a check that could be forgotten:
+
+- `guest:<random>` cannot match a PID (`/^[a-z0-9][a-z0-9._-]*$/` admits no colon), so a guest can
+  never appear in `roles` and can never hold researcher or keyholder — there is no value of the
+  invite token that yields an admin session.
+- Any survey whose file does not set `guestAccess` returns 404 to a guest, so an invite to the
+  pilot is not a way into a live study.
+- `dev-login` remains loopback-only and refused in production; the invite route does not change it.
+
+**Leave `guestAccess` false on anything collecting research data.** It is the one switch that
+bypasses VT single sign-on, and consent, roster checks, and the identity keyring all assume a real
+PID behind the session. Pilot data is not research data: keep it in its own survey file and delete
+it when testing ends.
+
 ## Server provisioning (one time, on ascend3.cs.vt.edu)
 
 ```bash

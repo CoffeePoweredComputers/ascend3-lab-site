@@ -14,6 +14,7 @@
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { hasAnyRole, rolesFor } from '../auth/roles.js';
+import { isGuest } from '../auth/guest.js';
 import { HttpError, readJson, requireApiIdentity, type AppContext, type AppEnv, type Ctx } from '../app.js';
 import type { LoadedSurvey } from '../config/load.js';
 import type { Wave } from '../config/schema.js';
@@ -68,6 +69,10 @@ export function participantRoutes(ctx: AppContext): Hono<AppEnv> {
   function resolveSurvey(surveyId: string, pid: string): { loaded: LoadedSurvey; roles: ReturnType<typeof rolesFor> } {
     const loaded = ctx.registry.get(surveyId);
     if (!loaded) throw new HttpError(404, 'no_survey', 'No such survey');
+    // A guest identity is confined to the survey that invited it; every other
+    // survey is simply not there. (Roles are unreachable for guests anyway —
+    // `guest:` can never match a PID — but this keeps them off the instrument.)
+    if (isGuest(pid) && !loaded.config.eligibility.guestAccess) throw new HttpError(404, 'no_survey', 'No such survey');
     const roles = rolesFor(loaded.config, pid);
     if (loaded.config.status === 'draft' && !hasAnyRole(loaded.config, pid)) throw new HttpError(404, 'no_survey', 'No such survey');
     return { loaded, roles };

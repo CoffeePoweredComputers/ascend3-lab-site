@@ -5,10 +5,12 @@
  *   GET  /callback?ticket  ← CAS; validates, sets the session cookie, redirects to `next`
  *   POST /logout           clears our cookie (the page offers the CAS-wide logout link)
  *   GET  /dev-login?pid=   local development only (see env.ts guards)
+ *   GET  /invite?t=        signed guest link for pilot surveys (see auth/guest.ts)
  */
 import { Hono } from 'hono';
 import type { AppContext, AppEnv } from '../app.js';
-import { CasError, casLogoutUrl, clearIdentity, loginUrl, safeNext, setIdentity, validateTicket } from '../auth/cas.js';
+import { CasError, casLogoutUrl, clearIdentity, loginUrl, readIdentity, safeNext, setIdentity, validateTicket } from '../auth/cas.js';
+import { newGuestPid, verifyInvite } from '../auth/guest.js';
 
 export function authRoutes(ctx: AppContext): Hono<AppEnv> {
   const r = new Hono<AppEnv>();
@@ -46,6 +48,24 @@ export function authRoutes(ctx: AppContext): Hono<AppEnv> {
   r.get('/cas-logout', (c) => {
     clearIdentity(c, env);
     return c.redirect(casLogoutUrl(env), 302);
+  });
+
+  /**
+   * Guest entry for a pilot survey. Only the survey named inside the signed
+   * token is reachable, and only while its file sets eligibility.guestAccess.
+   * An existing session (CAS or guest) is left alone, so reopening the link
+   * resumes rather than restarting as somebody new.
+   */
+  r.get('/invite', async (c) => {
+    const surveyId = verifyInvite(env, c.req.query('t') ?? '');
+    if (!surveyId) return c.text('This invite link is invalid or has expired.', 403);
+    const loaded = ctx.registry.get(surveyId);
+    if (!loaded?.config.eligibility.guestAccess) return c.notFound();
+    if (!(await readIdentity(c, env))) {
+      await setIdentity(c, env, newGuestPid());
+      ctx.log.info('auth.guest', { surveyId });
+    }
+    return c.redirect(safeNext(env, `${env.basePath}/s/${surveyId}`), 302);
   });
 
   r.get('/dev-login', async (c) => {

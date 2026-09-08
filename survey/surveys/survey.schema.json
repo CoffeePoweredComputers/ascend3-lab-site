@@ -64,7 +64,8 @@
     "eligibility": {
       "default": {
         "requireAdult": true,
-        "roster": "none"
+        "roster": "none",
+        "guestAccess": false
       },
       "type": "object",
       "properties": {
@@ -82,6 +83,11 @@
             "optional",
             "required"
           ]
+        },
+        "guestAccess": {
+          "default": false,
+          "description": "PILOT ONLY. Allow signed invite links (/auth/invite) so testers without a VT account can take this survey. Guests get a `guest:<random>` identity that can never match a PID and so can never hold a role. Leave false for anything collecting research data — it is the switch that bypasses VT single sign-on.",
+          "type": "boolean"
         }
       }
     },

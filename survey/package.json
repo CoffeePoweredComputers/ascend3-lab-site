@@ -18,6 +18,7 @@
     "bench:model": "tsx scripts/bench-model.ts",
     "schema": "tsx scripts/schema.ts",
     "validate": "tsx scripts/validate.ts",
+    "invite": "tsx scripts/invite.ts",
     "new-survey": "tsx scripts/new-survey.ts"
   },
   "dependencies": {

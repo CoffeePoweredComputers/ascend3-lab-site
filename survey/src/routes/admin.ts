@@ -19,6 +19,7 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import { HttpError, readJson, requireApiIdentity, type AppContext, type AppEnv } from '../app.js';
 import { hasAnyRole, rolesFor } from '../auth/roles.js';
+import { isGuest } from '../auth/guest.js';
 import type { LoadedSurvey } from '../config/load.js';
 import { toCsv } from '../csv.js';
 import { destroyKey, enrollmentCount, exportEnrollments, keyEvents, listRoster, replaceRoster, rosterSize } from '../store/keyring.js';
@@ -40,6 +41,7 @@ export function adminRoutes(ctx: AppContext): Hono<AppEnv> {
 
   function need(surveyId: string, pid: string, role: 'researcher' | 'keyholder'): LoadedSurvey {
     const loaded = ctx.registry.get(surveyId);
+    if (isGuest(pid)) throw new HttpError(404, 'no_survey', 'No such survey');
     if (!loaded || !hasAnyRole(loaded.config, pid)) throw new HttpError(404, 'no_survey', 'No such survey');
     if (!rolesFor(loaded.config, pid)[role]) throw new HttpError(403, 'forbidden', `This action needs the ${role} role`);
     return loaded;

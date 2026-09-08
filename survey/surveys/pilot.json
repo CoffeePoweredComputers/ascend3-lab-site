@@ -1,0 +1,78 @@
+{
+  "$schema": "./survey.schema.json",
+  "id": "pilot",
+  "title": "Pilot — instrument test (not a research study)",
+  "notes": "Throwaway pilot of the IRB #26-817 instrument for testers, including people with no VT account (eligibility.guestAccess). NOT research: no data from this survey may be analysed or reported. Starters, probing and model are copied from irb-26-817 so the pilot exercises the real prompt; the consent screen is replaced with a plain notice. Delete or set status:closed when piloting is done.",
+  "status": "open",
+  "roles": {
+    "researchers": [
+      "dhsmith4"
+    ],
+    "keyholders": [
+      "dhsmith4"
+    ]
+  },
+  "eligibility": {
+    "requireAdult": true,
+    "roster": "none",
+    "guestAccess": true
+  },
+  "consent": {
+    "sheetMarkdown": "# This is a test, not a research study\n\nYou are helping test a survey system before it is used in a real study. **Nothing you type here is research data**, and none of it will be analysed, published, or linked to you.\n\nThe questions are the real ones from the study, and an AI language model running on Virginia Tech's own servers will ask short follow-up questions based on what you write. The model never grades or evaluates anything.\n\nPlease answer as though you had just finished a team programming project — made-up experiences are completely fine, and are what we want. Do not enter anything genuinely sensitive or private, and do not use real names.\n\nYou can skip any question with **Next question** and end at any time with **Stop**. Whatever you have written is kept so we can see how the system behaved.\n\nTranscripts from this pilot are visible to the research team purely to check that the system works, and are deleted when testing ends.",
+    "agreeLabel": "I understand this is a test, not a research study, and I am happy to try it out.",
+    "declineLabel": "No thanks"
+  },
+  "opening": "This is a short adaptive survey — a typed conversation — about the project you just finished. There are no right or wrong answers, and nothing you say affects your grade. Your instructor and TAs won’t see your responses this semester. I’m asking what actually happened on your team — not what should have happened.",
+  "closing": "That's the end of this survey. Thank you — your responses have been recorded. You can review the information sheet at any time from this page.",
+  "waves": [
+    {
+      "id": "pilot",
+      "label": "Pilot run",
+      "opensAt": "2026-09-07T19:55:31+00:00",
+      "closesAt": "2026-12-07T19:55:31+00:00",
+      "starters": [
+        {
+          "id": "ambiguity-unclear",
+          "tag": "ambiguity",
+          "text": "Tell me about a point in this project where it wasn’t clear what you were supposed to do."
+        },
+        {
+          "id": "ambiguity-finished",
+          "tag": "ambiguity",
+          "text": "How did your team decide what counted as a finished product, how did you arrive at that decision, and how did it change throughout the semester?"
+        },
+        {
+          "id": "authority-biggest",
+          "tag": "design-authority",
+          "text": "Think about the biggest design decision on this project. How did that decision actually get made?"
+        },
+        {
+          "id": "authority-disagree",
+          "tag": "design-authority",
+          "text": "Describe a time your team didn’t agree on a design decision. How did you navigate it?"
+        }
+      ]
+    }
+  ],
+  "probing": {
+    "protocol": "DICE",
+    "maxProbesPerStarter": 3,
+    "maxTurnsPerSession": 16,
+    "probeTypes": [
+      "DESCRIPTIVE_EXTERNAL",
+      "DESCRIPTIVE_INTERNAL",
+      "IDIOGRAPHIC",
+      "CLARIFYING",
+      "EXPLANATORY"
+    ],
+    "moveOnToken": "MOVE_ON",
+    "maxQuestionWords": 25,
+    "systemPrompt": "You generate follow-up questions for a short research conversation with a student about their team software project. The main questions are fixed and asked by the application; your only job is the follow-ups.\n\nTask. You are given the current main question, the conversation so far, and how many follow-ups you have already asked on this question (maximum three). Decide whether one more follow-up would draw out something specific about what happened. If yes, output one question. If the response is already specific and complete, or the participant is giving short or closing answers, output MOVE_ON.\n\nProbe types. Choose the type that fits and label it for the study log: DESCRIPTIVE_EXTERNAL (event named but no sequence or participants — ask what happened), DESCRIPTIVE_INTERNAL (procedural answer with no stance or feeling — ask what they recall thinking), IDIOGRAPHIC (generic answer like “usually” or “we’d always” — ask for one specific time; if it stays generic after two tries, MOVE_ON), CLARIFYING (the participant used a vague term of their own — ask what they meant by it), EXPLANATORY (a specific episode is established but not explained — ask why they think it played out that way).\n\nConduct. One question per turn, under 25 words, plain and warm. Never evaluate, praise, or criticize the work, decisions, or team. Never give advice, suggestions, or opinions, including about generative AI or teammates. Never use the words “ambiguity,” “design authority,” or “ownership” unless the participant used them first. Never ask for, repeat, or refer to any person’s name; refer to people by role only. Never ask leading questions or presuppose anything the participant hasn’t said. Ask about what happened, not what should have happened. If the participant raises something distressing or discloses a serious problem, do not press further — output MOVE_ON.\n\nOutput. Either MOVE_ON, or a JSON object: {“probe_type”: …, “trigger”: …, “question”: …}."
+  },
+  "model": {
+    "name": "gpt-oss-120b-thinking-low",
+    "temperature": 0.3,
+    "maxTokens": 1200,
+    "timeoutMs": 45000
+  }
+}

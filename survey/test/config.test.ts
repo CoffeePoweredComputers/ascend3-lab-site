@@ -97,6 +97,10 @@ test('the template validates and scaffolds a draft survey', () => {
 });
 
 test('loadSurveyDir ignores the schema file and scratch files', () => {
+  // Asserts the filter, not the census: adding a survey file must not fail this.
   const ids = loadSurveyDir('surveys').map((s) => s.config.id);
-  assert.deepEqual(ids, ['irb-26-817']);
+  assert.ok(ids.includes('irb-26-817'), 'real surveys load');
+  assert.ok(!ids.some((id) => id.endsWith('.schema') || id.startsWith('_')), 'schema and scratch files are not surveys');
+  assert.equal(new Set(ids).size, ids.length, 'ids are unique');
+  assert.deepEqual([...ids].sort(), ids, 'returned in sorted order');
 });

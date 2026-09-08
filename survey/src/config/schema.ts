@@ -72,8 +72,16 @@ const surveyObject = z.object({
         .enum(['none', 'optional', 'required'])
         .default('none')
         .describe('none = anyone with a VT login; optional = roster match recorded but not enforced; required = must be on the keyholder-uploaded roster.'),
+      guestAccess: z
+        .boolean()
+        .default(false)
+        .describe(
+          'PILOT ONLY. Allow signed invite links (/auth/invite) so testers without a VT account can take this survey. ' +
+            'Guests get a `guest:<random>` identity that can never match a PID and so can never hold a role. ' +
+            'Leave false for anything collecting research data — it is the switch that bypasses VT single sign-on.',
+        ),
     })
-    .default({ requireAdult: true, roster: 'none' }),
+    .default({ requireAdult: true, roster: 'none', guestAccess: false }),
   consent: z.object({
     sheetMarkdown: z.string().min(1).describe('The information sheet, Markdown. Rendered once at boot; also served printable at /s/<id>/info-sheet.'),
     agreeLabel: z.string().min(1).describe('Text beside the consent checkbox.'),
