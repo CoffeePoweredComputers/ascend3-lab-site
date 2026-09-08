@@ -1,0 +1,139 @@
+{
+  "$schema": "./survey.schema.json",
+  "id": "irb-26-817",
+  "title": "CS 2114 project reflections",
+  "irbProtocol": "VT IRB #26-817",
+  "status": "open",
+  "notes": "PLACEHOLDERS TO SET BEFORE RECRUITMENT: (1) roles — during the semester only the non-course-staff researcher may hold researchers/keyholders; the PI is listed here for building and testing only. (2) wave windows are estimates for ~Weeks 5/9/15 of Fall 2026 (w1 was opened early for local testing). (3) the information sheet still contains the '[contact information]' placeholders from the approved HRP-502. Starters, opening and systemPrompt are copied verbatim from Instrument S1 and the System Description (bold markers removed). 2026-09-08: reduced to the FOUR shared starters (two ambiguity, two design authority); the wave-specific and 'completed independently' items from S1 were dropped by the PI — maxTurnsPerSession is 16 (4 × 4).",
+  "roles": {
+    "researchers": [
+      "dhsmith4"
+    ],
+    "keyholders": [
+      "dhsmith4"
+    ]
+  },
+  "eligibility": {
+    "requireAdult": true,
+    "roster": "optional"
+  },
+  "consent": {
+    "sheetMarkdown": "# Consent to Take Part in a Research Study\n\n**VIRGINIA POLYTECHNIC INSTITUTE AND STATE UNIVERSITY**\n\n## Title of research study: Student Experiences of Ambiguity and Shared Design Authority Across Open-Ended Team Projects in a CS2 Course (VT IRB Protocol # 26-817)\n\n## Principal Investigator: David H. Smith IV, Ph.D., Department of Computer Science, Virginia Tech — Phone: +1-360-969-3836 — Email: dhsmith4@vt.edu\n\n**Other study contact(s):** The study's non-course-staff researcher — [contact information] — who has no teaching or grading role in CS 2114 and handles all recruitment, consent, and study data; please contact them first.*  *\n\n## Key Information: The following is a short summary of this study to help you decide whether or not to be a part of this study. More detailed information is listed later on in this form. You are being asked to join a research study because you are enrolled in CS 2114 this fall. The course's three team projects are open-ended — your team chooses what to build — and we want to understand what that is actually like: how you deal with an unclear problem, and how your team makes design decisions. If you join, you would: complete a short adaptive survey after each project (three total, about 15 minutes each) — a typed conversation with a study system. The five main questions are fixed by the research team and always the same; an AI language model operating entirely on Virginia Tech's own servers generates up to three short follow-up questions after each, and it never grades, evaluates, or gives advice; complete three short questionnaires (about 4 minutes each); and, if invited and willing, one paid, recorded interview after final grades are posted. The University Registrar has approved the release of your course records for this study, so we will also collect your grades on the three CS 2114 team projects (Projects 1, 2, and 3) and link them to your coded study data. Nothing else from your academic record would be collected — not your final course grade, not your exam or individual assignment scores, and nothing from your transcript. Participating or not has no effect on your grade. Your instructor and TAs cannot see whether you participated or anything you said during the semester. Your answers are labeled with a code, not your name — confidential, but not anonymous, and we explain below how that works and when the code key is destroyed. Every question is optional, and you can stop any session or leave the study at any time with no consequence.\n\n## Detailed Information: The following is more detailed information about this study in addition to the information listed above.\n\n## Who can I talk to?\n\nIf you have questions, concerns, or complaints, or think the research has hurt you, talk to the research team at the study's non-course-staff researcher at [contact information], or the Principal Investigator, Dr. David H. Smith IV, at dhsmith4@vt.edu.\n\nThis research has been reviewed and approved by the Virginia Tech Institutional Review Board (IRB). You may communicate with them at 540-231-3732 or irb@vt.edu if:\n\n- You have questions about your rights as a research subject\n\n- Your questions, concerns, or complaints are not being answered by the research team\n\n- You cannot reach the research team\n\n- You want to talk to someone besides the research team to provide feedback about this research\n\n## How many people will be studied?\n\nWe plan to include up to 450 people in this research study.\n\n## What happens if I say yes, I want to be in this research?\n\nEverything about the course itself — the projects, your team, and how you are graded — is the same whether or not you join the study. Joining means the following, or some subset of the following depending on what you choose to participate in, are collected as research data:\n\n1. Adaptive surveys after each project (three, ~15 minutes each; after each project final, around Weeks 5, 9, and 15). You log in with your VT account and have a typed conversation with the study system about the project you just finished (for example, \"Tell me about a point in this project where it wasn't clear what you were supposed to do\"). The survey has a fixed structure: five main questions, written by the research team and always the same, each followed by up to three short follow-up questions generated by an AI language model. You can skip any question, and asking to stop ends the session. The system runs entirely on Virginia Tech servers: nothing you type goes to any outside AI company. The system will never grade you, evaluate your project, give advice, or ask for your teammates' names (if you mention a name, it is removed before analysis). You can stop instantly at any time, and stopping ends the session immediately. If you bring up something difficult, the system is instructed not to press you on it, and you can always skip or stop.\n\n2. Short questionnaires (three, ~4 minutes each; around Weeks 2, 9, and 15) about your background, your comfort with open-ended work, and your team's decision-making. The first questionnaire includes optional demographic questions; every one has a \"prefer not to say\" option, and none of it is shared with your instructor or TAs.\n\n3. An interview for some participants (45–60 minutes, audio recorded, paid). After final grades post, 20–30 participants will be invited to a recorded conversation with the study's non-course-staff researcher about the semester. A separate verbal consent, including consent to recording, happens before it starts.\n\n4. Project grades (requires your written permission). The University Registrar has approved the release of these records for this study. Your grades on the three CS 2114 team projects — Projects 1, 2, and 3 — would be linked to your coded study data to describe how outcomes evolved across the semester. No other part of your academic record is collected: not your final course grade, not your exam or individual assignment scores, and nothing from your transcript. This linkage happens only if you give written permission at the end of this sheet.\n\nYou interact only with the study system and the non-course-staff researcher. Your instructor and TAs are not involved in the research during the semester and cannot see your participation or your answers.\n\n## What happens if I say yes, but I change my mind later?\n\nYou can leave the research at any time, for any reason, and it will not be held against you.\n\nIf you decide to leave the research, contact the investigator so that the investigator can stop sending you adaptive-survey and questionnaire invitations and confirm what you would like done with your information.\n\nIf you withdraw, you can choose whether the data already collected from you stays in the study or is destroyed; if you ask us to destroy it, your adaptive surveys, questionnaires, and any interview data will be deleted. If you simply skip an adaptive survey or stop a session partway, whatever you completed is kept unless you tell us otherwise.\n\n## Is there any way being in this study could be bad for me? (Detailed Risks)\n\nPsychological. Talking about team conflict or a frustrating project can be mildly uncomfortable. The discomfort is brief and no worse than everyday reflection on coursework; you can skip anything and stop at any time, and the system is instructed not to press on difficult topics.\n\nGrade-related worry (coercion). Because researchers also have roles in the course, you might worry participation could matter for your grade. It cannot: the instructor and TAs cannot see who joined or what anyone said during the semester, the study application has no course-staff access at all, consent is handled by a researcher with no teaching or grading role, and the interviews happen only after final grades post.\n\nPrivacy. This is the main risk. Your answers describe real situations on your team, and in a single class some demographic categories are small enough that combinations could point to one person. Protections: your data is labeled with a code and the only key is held by the non-course-staff researcher, everything is stored and processed on Virginia Tech systems only (including the AI), teammate names are removed, demographics are only ever reported in aggregate with small groups suppressed, and demographic details are never combined with quotations or team-level details in anything we publish.\n\nAcademic integrity. If you mention something like unauthorized help, the system stops asking about it. Nothing you say is given to course staff during the semester or used for discipline.\n\n## What happens to the information collected for the research?\n\nWe will make every effort to limit the use and disclosure of your personal information, including research study and medical records, only to people who have a need to review this information. We cannot promise complete confidentiality. Organizations that may inspect and copy your information include the IRB, Human Research Protection Program, and other authorized representatives of Virginia Tech. \n\nThere are limits to confidentiality that Virginia Tech requires us to tell you about. If you disclose discrimination or sexual violence involving a student, members of the research team are required to report it consistent with the university's Title IX obligations, and we will tell you if that applies and connect you with both reporting and confidential resources. If you show signs of intending to harm yourself or others, we will connect you with appropriate help (Cook Counseling Center / TimelyCare; the 988 Suicide and Crisis Lifeline; Virginia Tech Police at 540-382-4343, or 911 in an emergency) and notify the appropriate university office. Suspected abuse, neglect, or exploitation of a vulnerable adult must be reported to Adult Protective Services as required by Virginia law.\n\nOnce final grades post and the interview invitations have gone out, the key linking your name to your code is destroyed; from then on the adaptive-survey and questionnaire data is de-identified. Interview recordings are destroyed after transcription is checked (no later than one year after data collection ends). The remaining de-identified data — adaptive-survey transcripts and logs, questionnaire responses, coded data, and (if approved) coded grade outcomes — is kept in Virginia Tech–approved, access-controlled storage for at least three years and may be kept indefinitely for continued scholarly work. Access is limited to the Principal Investigator and approved research team members.\n\nIf identifiers are removed from your private information or samples that are collected during this research, that information or those samples could be used for future research studies or distributed to another investigator for future research studies without your additional informed consent.\n\n  The results of this research study may be presented in summary form at conferences, in presentations, reports to the funder, academic papers, and as part of a thesis/dissertation.\n\n## Can I be removed from the research without my OK?\n\n*** ***The person in charge of the research study or the sponsor can remove you from the research study without your approval. Possible reasons for removal include you are no longer enrolled in CS 2114, or the study is discontinued. If that happens, the choices described above about your already-collected data still apply.\n\n## What else do I need to know?\n\nIf anything in this study — or the projects themselves — raises something you would like support with, Virginia Tech resources include the Cook Counseling Center (540-231-6557), TimelyCare (no-cost virtual care for students), and the Dean of Students Office (540-231-3787).\n\nIf you agree to take part, you can earn a small amount of course extra credit for completing the adaptive surveys and questionnaires (1% of your final course grade in total, pro-rated by how many waves you complete). If you would rather not join the study, you can earn the same extra credit through an alternative activity that takes about the same time and effort — your instructor is told only who earned the credit, never which route you took or anything you said. If you are invited to and complete an interview after final grades post, you will receive a $25 eGift card of your choosing, sent by email by the non-course-staff researcher.\n\n* **** ***Any expenses accrued for seeking or receiving medical or mental health treatment will be your responsibility and not that of the research project, research team, or Virginia Tech.\n\n*** ***This study does not produce individual results or scores for you, so there are no individual results to return to you. Summary findings from the study are available to you on request. \n\n**Electronic consent:**\n\nThis information sheet is shown in the study system before any research question. By checking \"I am 18 or older, I have read this information, and I agree to participate\" and selecting Continue, you consent to take part. You can download or print this sheet, and you can change your mind at any time. If you select \"I do not wish to participate,\" the system closes and no record of your choice is visible to your instructor or TAs. Interview participants will additionally be asked for verbal consent, including consent to audio recording, before the interview begins.\n\n**Consent to participate and permission to release education records (FERPA)**\n\nYour grades on the three CS 2114 team projects are part of your education record and are protected by the Family Educational Rights and Privacy Act (FERPA). Virginia Tech cannot release them to the research team without your written permission. Entering your name and the date below records your consent to take part in this study and, if you check the second box, gives that permission.\n\n**Records to be released: **your grades on the three CS 2114 team projects (Projects 1, 2, and 3). No other assignment or exam scores, no final course grade, and no other transcript or academic record information will be released.\n\n**Purpose of the release: **research analysis of how project outcomes relate to students’ experiences of open-ended team projects, as described in this information sheet.\n\n**Released to: **the Principal Investigator and approved members of the research team for VT IRB Protocol # 26-817.\n\nGiving this permission is voluntary and separate from the rest of the study. You may take part in the study without it — if you leave the second box unchecked, no grade information about you is collected. You may withdraw the permission at any time by contacting the research team, although that cannot undo a release that has already happened.\n",
+    "agreeLabel": "I am 18 or older, I have read this information, and I agree to take part in this study.",
+    "declineLabel": "I do not wish to participate",
+    "ferpa": {
+      "enabled": true,
+      "label": "I give permission for Virginia Tech to release my three project grades to the research team, as described above.",
+      "requireNameAndDate": true
+    }
+  },
+  "opening": "This is a short adaptive survey — a typed conversation — about the project you just finished. There are no right or wrong answers, and nothing you say affects your grade. Your instructor and TAs won’t see your responses this semester. I’m asking what actually happened on your team — not what should have happened.",
+  "closing": "That's the end of this survey. Thank you — your responses have been recorded. You can review the information sheet at any time from this page.",
+  "waves": [
+    {
+      "id": "w1",
+      "label": "Project 1",
+      "opensAt": "2026-09-01T00:00:00-04:00",
+      "closesAt": "2026-10-05T00:00:00-04:00",
+      "starters": [
+        {
+          "id": "ambiguity-unclear",
+          "tag": "ambiguity",
+          "text": "Tell me about a point in this project where it wasn’t clear what you were supposed to do."
+        },
+        {
+          "id": "ambiguity-finished",
+          "tag": "ambiguity",
+          "text": "How did your team decide what counted as a finished product, how did you arrive at that decision, and how did it change throughout the semester?"
+        },
+        {
+          "id": "authority-biggest",
+          "tag": "design-authority",
+          "text": "Think about the biggest design decision on this project. How did that decision actually get made?"
+        },
+        {
+          "id": "authority-disagree",
+          "tag": "design-authority",
+          "text": "Describe a time your team didn’t agree on a design decision. How did you navigate it?"
+        }
+      ]
+    },
+    {
+      "id": "w2",
+      "label": "Project 2",
+      "opensAt": "2026-10-19T00:00:00-04:00",
+      "closesAt": "2026-11-02T00:00:00-05:00",
+      "starters": [
+        {
+          "id": "ambiguity-unclear",
+          "tag": "ambiguity",
+          "text": "Tell me about a point in this project where it wasn’t clear what you were supposed to do."
+        },
+        {
+          "id": "ambiguity-finished",
+          "tag": "ambiguity",
+          "text": "How did your team decide what counted as a finished product, how did you arrive at that decision, and how did it change throughout the semester?"
+        },
+        {
+          "id": "authority-biggest",
+          "tag": "design-authority",
+          "text": "Think about the biggest design decision on this project. How did that decision actually get made?"
+        },
+        {
+          "id": "authority-disagree",
+          "tag": "design-authority",
+          "text": "Describe a time your team didn’t agree on a design decision. How did you navigate it?"
+        }
+      ]
+    },
+    {
+      "id": "w3",
+      "label": "Project 3",
+      "opensAt": "2026-11-30T00:00:00-05:00",
+      "closesAt": "2026-12-14T00:00:00-05:00",
+      "starters": [
+        {
+          "id": "ambiguity-unclear",
+          "tag": "ambiguity",
+          "text": "Tell me about a point in this project where it wasn’t clear what you were supposed to do."
+        },
+        {
+          "id": "ambiguity-finished",
+          "tag": "ambiguity",
+          "text": "How did your team decide what counted as a finished product, how did you arrive at that decision, and how did it change throughout the semester?"
+        },
+        {
+          "id": "authority-biggest",
+          "tag": "design-authority",
+          "text": "Think about the biggest design decision on this project. How did that decision actually get made?"
+        },
+        {
+          "id": "authority-disagree",
+          "tag": "design-authority",
+          "text": "Describe a time your team didn’t agree on a design decision. How did you navigate it?"
+        }
+      ]
+    }
+  ],
+  "probing": {
+    "protocol": "DICE",
+    "maxProbesPerStarter": 3,
+    "maxTurnsPerSession": 16,
+    "probeTypes": [
+      "DESCRIPTIVE_EXTERNAL",
+      "DESCRIPTIVE_INTERNAL",
+      "IDIOGRAPHIC",
+      "CLARIFYING",
+      "EXPLANATORY"
+    ],
+    "moveOnToken": "MOVE_ON",
+    "maxQuestionWords": 25,
+    "systemPrompt": "You generate follow-up questions for a short research conversation with a student about their team software project. The main questions are fixed and asked by the application; your only job is the follow-ups.\n\nTask. You are given the current main question, the conversation so far, and how many follow-ups you have already asked on this question (maximum three). Decide whether one more follow-up would draw out something specific about what happened. If yes, output one question. If the response is already specific and complete, or the participant is giving short or closing answers, output MOVE_ON.\n\nProbe types. Choose the type that fits and label it for the study log: DESCRIPTIVE_EXTERNAL (event named but no sequence or participants — ask what happened), DESCRIPTIVE_INTERNAL (procedural answer with no stance or feeling — ask what they recall thinking), IDIOGRAPHIC (generic answer like “usually” or “we’d always” — ask for one specific time; if it stays generic after two tries, MOVE_ON), CLARIFYING (the participant used a vague term of their own — ask what they meant by it), EXPLANATORY (a specific episode is established but not explained — ask why they think it played out that way).\n\nConduct. One question per turn, under 25 words, plain and warm. Never evaluate, praise, or criticize the work, decisions, or team. Never give advice, suggestions, or opinions, including about generative AI or teammates. Never use the words “ambiguity,” “design authority,” or “ownership” unless the participant used them first. Never ask for, repeat, or refer to any person’s name; refer to people by role only. Never ask leading questions or presuppose anything the participant hasn’t said. Ask about what happened, not what should have happened. If the participant raises something distressing or discloses a serious problem, do not press further — output MOVE_ON.\n\nOutput. Either MOVE_ON, or a JSON object: {“probe_type”: …, “trigger”: …, “question”: …}."
+  },
+  "model": {
+    "name": "gpt-oss-120b-thinking-low",
+    "temperature": 0.3,
+    "maxTokens": 1200,
+    "timeoutMs": 45000
+  }
+}

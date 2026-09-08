@@ -1,0 +1,39 @@
+{
+  "id": "my-study",
+  "title": "My study",
+  "irbProtocol": "VT IRB #00-000",
+  "notes": "TEMPLATE. Copy with `npm run new-survey -- <id> \"Title\"`. Edit roles, waves, starters, consent.sheetMarkdown, systemPrompt; set status to open when recruitment starts. Everything a participant sees is in this file.",
+  "status": "draft",
+  "roles": { "researchers": ["your-pid"], "keyholders": ["your-pid"] },
+  "eligibility": { "requireAdult": true, "roster": "none" },
+  "consent": {
+    "sheetMarkdown": "# Information sheet\n\nReplace this with the IRB-approved information sheet, in Markdown. It is shown before any question and is always available from the page header.",
+    "agreeLabel": "I am 18 or older, I have read this information, and I agree to take part in this study.",
+    "declineLabel": "I do not wish to participate"
+  },
+  "opening": "This is a short adaptive survey — a typed conversation. There are no right or wrong answers. I'm asking about what actually happened, not what should have happened.",
+  "closing": "That's the end of this survey. Thank you — your responses have been recorded.",
+  "waves": [
+    {
+      "id": "w1",
+      "label": "Wave 1",
+      "opensAt": "2026-01-01T00:00:00-05:00",
+      "closesAt": "2027-01-01T00:00:00-05:00",
+      "starters": [
+        { "id": "q1", "tag": "topic-a", "text": "Tell me about a recent time when [the situation you study] came up." },
+        { "id": "q2", "tag": "topic-a", "text": "How did you decide what to do about it?" },
+        { "id": "q3", "tag": "topic-b", "text": "Looking back, what would you tell someone facing the same thing?" }
+      ]
+    }
+  ],
+  "probing": {
+    "protocol": "DICE",
+    "maxProbesPerStarter": 3,
+    "maxTurnsPerSession": 12,
+    "probeTypes": ["DESCRIPTIVE_EXTERNAL", "DESCRIPTIVE_INTERNAL", "IDIOGRAPHIC", "CLARIFYING", "EXPLANATORY"],
+    "moveOnToken": "MOVE_ON",
+    "maxQuestionWords": 25,
+    "systemPrompt": "You generate follow-up questions for a short research conversation. The main questions are fixed and asked by the application; your only job is the follow-ups.\n\nTask. You are given the current main question, the conversation so far, and how many follow-ups you have already asked on this question. Decide whether one more follow-up would draw out something specific about what happened. If yes, output one question. If the response is already specific and complete, or the participant is giving short or closing answers, output MOVE_ON.\n\nProbe types. Choose the type that fits and label it for the study log: DESCRIPTIVE_EXTERNAL (an event is named but not what happened — ask for the sequence or who was involved), DESCRIPTIVE_INTERNAL (a procedural answer with no stance or feeling — ask what they recall thinking), IDIOGRAPHIC (a generic answer like \"usually\" or \"we always\" — ask for one specific time; if it stays generic after two tries, MOVE_ON), CLARIFYING (the participant used a vague term of their own — ask what they meant by it), EXPLANATORY (a specific episode is established but not explained — ask why they think it played out that way).\n\nConduct. One question per turn, under 25 words, plain and warm. Never evaluate, praise, or criticize. Never give advice, suggestions, or opinions. Never ask for, repeat, or refer to any person's name; refer to people by role only. Never ask leading questions or presuppose anything the participant has not said. Ask about what happened, not what should have happened. If the participant raises something distressing or discloses a serious problem, do not press further — output MOVE_ON.\n\nOutput. Either MOVE_ON, or a JSON object: {\"probe_type\": ..., \"trigger\": ..., \"question\": ...}."
+  },
+  "model": { "name": "gpt-oss-120b-thinking-low", "temperature": 0.3, "maxTokens": 1200, "timeoutMs": 45000 }
+}

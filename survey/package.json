@@ -1,0 +1,36 @@
+{
+  "name": "ascend-survey",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Adaptive survey service: fixed starter questions with LLM-generated follow-up probes (first use: VT IRB #26-817). Runs beside the static ASCEND site; see README.md.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "migrate": "node dist/db/migrate.js",
+    "migrate:dev": "tsx src/db/migrate.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "bench:model": "tsx scripts/bench-model.ts",
+    "schema": "tsx scripts/schema.ts",
+    "validate": "tsx scripts/validate.ts",
+    "new-survey": "tsx scripts/new-survey.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.0",
+    "hono": "^4.7.0",
+    "marked": "^18.0.5",
+    "pg": "^8.13.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.11.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.9.0"
+  }
+}

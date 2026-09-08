@@ -1,0 +1,38 @@
+{
+  "id": "e2e-demo",
+  "title": "E2E demo survey",
+  "status": "open",
+  "notes": "Test fixture: one wave that is always open, two starters, two probes max, cap 5 so the turn cap trims the second starter's probes.",
+  "roles": { "researchers": ["researcher1", "both1"], "keyholders": ["keyholder1", "both1"] },
+  "eligibility": { "requireAdult": true, "roster": "optional" },
+  "consent": {
+    "sheetMarkdown": "# Demo sheet\n\nThis is a **test**.",
+    "agreeLabel": "I agree",
+    "declineLabel": "No thanks",
+    "ferpa": { "enabled": true, "label": "Release my grades", "requireNameAndDate": true }
+  },
+  "opening": "Opening text.",
+  "closing": "Closing text.",
+  "waves": [
+    {
+      "id": "w1",
+      "label": "Wave 1",
+      "opensAt": "2000-01-01T00:00:00Z",
+      "closesAt": "2100-01-01T00:00:00Z",
+      "starters": [
+        { "id": "s1", "tag": "a", "text": "Tell me about a time something was unclear." },
+        { "id": "s2", "tag": "b", "text": "How did your team decide it was done?" }
+      ]
+    }
+  ],
+  "probing": {
+    "protocol": "DICE",
+    "maxProbesPerStarter": 2,
+    "maxTurnsPerSession": 5,
+    "probeTypes": ["DESCRIPTIVE_EXTERNAL", "IDIOGRAPHIC", "CLARIFYING"],
+    "moveOnToken": "MOVE_ON",
+    "maxQuestionWords": 25,
+    "systemPrompt": "Test prompt. Output MOVE_ON or JSON."
+  },
+  "model": { "name": "mock-model", "temperature": 0, "maxTokens": 100, "timeoutMs": 5000 }
+}

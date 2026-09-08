@@ -1,0 +1,31 @@
+# systemd --user unit for the ASCEND adaptive survey service.
+#
+# Install (once, as the deploying user on ascend3.cs.vt.edu):
+#   sudo loginctl enable-linger "$USER"          # user services run without a login session; cron can restart them
+#   mkdir -p ~/.config/systemd/user
+#   cp ~/ascend3-lab-site/survey/deploy/ascend-survey.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now ascend-survey
+#   journalctl --user -u ascend-survey -f          # logs (ids and outcomes only — never response text)
+#
+# From cron (autodeploy.sh → survey/deploy/deploy.sh) `systemctl --user` needs
+# XDG_RUNTIME_DIR=/run/user/<uid>; deploy.sh sets it.
+
+[Unit]
+Description=ASCEND adaptive survey service (nginx proxies /survey/ to 127.0.0.1:8787)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/ascend3-lab-site/survey
+EnvironmentFile=%h/ascend3-lab-site/survey/.env
+ExecStart=/usr/bin/node dist/server.js
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

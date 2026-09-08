@@ -1,0 +1,58 @@
+# Checks the adaptive survey service (survey/) on every change to it:
+# typecheck, validate survey definitions, confirm the editor schema is current,
+# and run the test suite — including the end-to-end tests, which need Postgres.
+# The static site has its own workflow; this one never builds Astro.
+name: Survey service check
+
+on:
+  push:
+    paths: ['survey/**', '.github/workflows/survey-check.yml']
+  pull_request:
+    paths: ['survey/**', '.github/workflows/survey-check.yml']
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: survey
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: survey/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run validate
+      - run: npm run schema -- --check
+      - name: Provision the test database
+        run: |
+          sed -e 's/CHANGE_ME_OWNER/owner/' -e 's/CHANGE_ME_SURVEY/survey/' -e 's/CHANGE_ME_KEYRING/keyring/' deploy/provision.sql \
+            | PGPASSWORD=postgres psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -f -
+          cat > .env <<'EOF'
+          NODE_ENV=test
+          PORT=8787
+          BASE_URL=http://127.0.0.1:8787/survey
+          CAS_BASE_URL=https://login.vt.edu/profile/cas
+          SESSION_SECRET=ci-only-secret-not-for-production-0123456789abcdef
+          LLM_PROVIDER=mock
+          SURVEY_DATABASE_URL=postgresql://survey_app:survey@127.0.0.1:5432/ascend_survey
+          KEYRING_DATABASE_URL=postgresql://keyring_app:keyring@127.0.0.1:5432/ascend_survey
+          MIGRATE_DATABASE_URL=postgresql://survey_owner:owner@127.0.0.1:5432/ascend_survey
+          DEV_LOGIN_ENABLED=1
+          EOF
+      - run: npm run migrate:dev
+      - run: npm test

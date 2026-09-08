@@ -1,0 +1,326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ascend3.cs.vt.edu/survey/survey.schema.json",
+  "title": "ASCEND adaptive survey definition",
+  "description": "One file per survey in survey/surveys/<id>.json. Fixed starter questions per wave; an LLM asks up to N follow-ups per question under the systemPrompt. Cross-field rules (non-overlapping waves, prompt mentions the move-on token, cap ≥ starters) are checked by `npm run validate`, not by this schema.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Editor hint only, e.g. \"./survey.schema.json\". Ignored by the service and excluded from the config version.",
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Survey id; the file must be named <id>.json and participants open /survey/s/<id>."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Shown in the page header and admin."
+    },
+    "irbProtocol": {
+      "description": "e.g. \"VT IRB #26-817\". Shown to researchers only.",
+      "type": "string"
+    },
+    "notes": {
+      "description": "Free-text operator notes (JSON has no comments). Never shown to participants.",
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "open",
+        "closed"
+      ],
+      "description": "draft = invisible to participants (researchers can still preview); open = sessions may start; closed = no new sessions, key may be destroyed."
+    },
+    "roles": {
+      "type": "object",
+      "properties": {
+        "researchers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "description": "PIDs who may view/export CODED data and run preview sessions."
+        },
+        "keyholders": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$"
+          },
+          "description": "PIDs who may upload the roster, export the PID↔code key, and destroy it."
+        }
+      },
+      "required": [
+        "researchers",
+        "keyholders"
+      ]
+    },
+    "eligibility": {
+      "default": {
+        "requireAdult": true,
+        "roster": "none"
+      },
+      "type": "object",
+      "properties": {
+        "requireAdult": {
+          "default": true,
+          "description": "Require the 18+ confirmation at consent.",
+          "type": "boolean"
+        },
+        "roster": {
+          "default": "none",
+          "description": "none = anyone with a VT login; optional = roster match recorded but not enforced; required = must be on the keyholder-uploaded roster.",
+          "type": "string",
+          "enum": [
+            "none",
+            "optional",
+            "required"
+          ]
+        }
+      }
+    },
+    "consent": {
+      "type": "object",
+      "properties": {
+        "sheetMarkdown": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The information sheet, Markdown. Rendered once at boot; also served printable at /s/<id>/info-sheet."
+        },
+        "agreeLabel": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Text beside the consent checkbox."
+        },
+        "declineLabel": {
+          "default": "I do not wish to participate",
+          "type": "string",
+          "minLength": 1
+        },
+        "ferpa": {
+          "description": "Optional separate permission (e.g. FERPA records release). Omit if not needed.",
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Text beside the optional records-release checkbox."
+            },
+            "requireNameAndDate": {
+              "default": true,
+              "description": "Require a typed full name and date when the box is ticked (stored in the keyring only).",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "enabled",
+            "label"
+          ]
+        }
+      },
+      "required": [
+        "sheetMarkdown",
+        "agreeLabel"
+      ]
+    },
+    "opening": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Shown before the first question and as the first message of the conversation."
+    },
+    "closing": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Shown when the session ends."
+    },
+    "waves": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "description": "Stable id for the wave (e.g. \"w1\"). Appears in exports."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Shown to participants and researchers (e.g. \"Project 1\")."
+          },
+          "opensAt": {
+            "type": "string",
+            "description": "When participants may start this wave (ISO-8601 with offset)."
+          },
+          "closesAt": {
+            "type": "string",
+            "description": "When the wave closes; active sessions are marked expired after this."
+          },
+          "starters": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                  "description": "Stable id for this question, unique within the wave. Appears in exports."
+                },
+                "tag": {
+                  "description": "Free label for analysis grouping (e.g. \"ambiguity\"). Never shown to participants.",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "The question exactly as the participant sees it."
+                },
+                "maxProbes": {
+                  "description": "Overrides probing.maxProbesPerStarter for this question only.",
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "id",
+                "text"
+              ]
+            },
+            "description": "The fixed questions, in the order asked. List them in full for every wave."
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "opensAt",
+          "closesAt",
+          "starters"
+        ]
+      },
+      "description": "One or more non-overlapping windows. A participant gets one session per wave."
+    },
+    "probing": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of the probing protocol, for the record (e.g. \"DICE\")."
+        },
+        "maxProbesPerStarter": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991,
+          "description": "Follow-ups allowed per question before moving on."
+        },
+        "maxTurnsPerSession": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "description": "Cap on questions presented per session (starters + follow-ups). Starters are always presented; the cap trims follow-ups."
+        },
+        "probeTypes": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Allowed probe_type labels. A reply with any other label is treated as a parse error and the session moves on."
+        },
+        "moveOnToken": {
+          "default": "MOVE_ON",
+          "description": "Literal the model outputs to end the follow-ups on a question.",
+          "type": "string",
+          "minLength": 1
+        },
+        "maxQuestionWords": {
+          "default": 25,
+          "description": "Follow-ups longer than this are still asked but flagged \"overlength\".",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "systemPrompt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The fixed, researcher-authored system prompt. Must mention moveOnToken and require {\"probe_type\",\"trigger\",\"question\"} JSON."
+        }
+      },
+      "required": [
+        "protocol",
+        "maxProbesPerStarter",
+        "maxTurnsPerSession",
+        "probeTypes",
+        "systemPrompt"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ARC model id, e.g. \"gpt-oss-120b-thinking-low\". See `npm run bench:model`."
+        },
+        "temperature": {
+          "default": 0.3,
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "maxTokens": {
+          "default": 1200,
+          "description": "Completion budget. Reasoning models count their thinking against it; 1200 is a safe floor.",
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 9007199254740991
+        },
+        "timeoutMs": {
+          "default": 45000,
+          "description": "Per-call timeout. On timeout the session moves on and records llm_error.",
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 9007199254740991
+        },
+        "reasoningEffort": {
+          "description": "Sent as `reasoning_effort` (OpenAI-compatible). Lower = faster. ARC also exposes `-thinking-low/-high` model ids.",
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "status",
+    "roles",
+    "consent",
+    "opening",
+    "closing",
+    "waves",
+    "probing",
+    "model"
+  ]
+}
