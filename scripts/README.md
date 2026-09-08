@@ -13,3 +13,7 @@ outgrew it (Dashboard tab, rolling `EDATE` month columns, `TODAY()` cells, threa
 comments), so the generator was retired in Aug 2026 rather than kept as a stale
 second source of truth. If you change the workbook, also update the shared Google
 Sheet ("make a copy" link in the project-management module) to match.
+
+## Not a script: `survey/`
+
+The adaptive-survey web service (its own `package.json`, deployed by `survey/deploy/deploy.sh` from `autodeploy.sh`) lives in `survey/` — see `survey/README.md`.

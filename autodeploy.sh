@@ -32,4 +32,11 @@ if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^package-lock\.json$'; the
 fi
 
 ./update.sh
+
+# Survey service (survey/): rebuild + migrate + restart only when the pull
+# touched it. Its deploy.sh stops before restarting on any failure, so a bad
+# migration leaves the running service untouched.
+if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^survey/'; then
+  ./survey/deploy/deploy.sh
+fi
 echo "── $(date '+%F %T') deployed $(git rev-parse --short HEAD)"

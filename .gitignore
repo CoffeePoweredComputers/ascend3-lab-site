@@ -28,3 +28,7 @@ firebase-debug.log
 # OS
 .DS_Store
 Thumbs.db
+
+# Survey service (survey/): keep the committed example, ignore real env + build output
+!survey/.env.example
+survey/dist/
