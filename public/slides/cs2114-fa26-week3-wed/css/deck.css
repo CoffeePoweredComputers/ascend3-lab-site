@@ -957,3 +957,50 @@ html.no-motion *::after {
   .verdict__txt, .verdict__opt--wrong .verdict__txt::after { transition: none !important; }
 }
 
+/* ---- discussion timer: the manim arc, pinned to the top right of a vote
+   slide and driven by js/timer.js. It is a .frag on the slide's step, so the
+   key that advances the deck starts it and the next press moves on; it stays
+   visible while pending (idle, 5:00) so the room sees the clock coming. The
+   ring un-draws clockwise from twelve (stroke-dashoffset, set every 250 ms
+   and gliding between ticks), a dot rides the tip (the hand group rotates),
+   the five minute ticks go stone as the tip passes them, and the digits
+   change in place. Stone while idle, the wire's blue while it runs, orange in
+   the last minute, maroon at zero with two breaths. Markup in js/timer.js's
+   header; the tick geometry is static (r 50→56, every 72°). ---------------- */
+.slide .timer {
+  --edge: var(--stone);
+  position: absolute;
+  top: var(--s-7);
+  right: var(--s-8);
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+}
+.slide .frag.timer.is-pending { opacity: 1; }         /* the clock is on screen before it runs */
+.slide .timer__arc { display: block; width: 150px; height: 150px; overflow: visible; }
+.slide .timer__track { fill: none; stroke: var(--stone); stroke-opacity: .25; stroke-width: 8; }
+.slide .timer__tick { stroke: var(--fg-1); stroke-width: 3; stroke-linecap: round; transition: stroke .3s ease, stroke-opacity .3s ease; }
+.slide .timer__tick.is-past { stroke: var(--stone); stroke-opacity: .5; }
+.slide .timer__ring {
+  fill: none; stroke: var(--edge); stroke-width: 8; stroke-linecap: round;
+  stroke-dasharray: 389.6;                            /* 2π · 62 */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset .25s linear, stroke .3s ease;
+}
+.slide .timer__hand { transform-box: view-box; transform-origin: 75px 75px; transition: transform .25s linear; }
+.slide .timer--snap .timer__ring, .slide .timer--snap .timer__hand { transition: none; }   /* a reset lands, it does not glide back */
+.slide .timer__dot { fill: var(--edge); transition: fill .3s ease, opacity .3s ease; }
+.slide .timer__time {
+  font-family: var(--font-mono); font-size: 32px; font-weight: 700;
+  font-variant-numeric: tabular-nums; text-anchor: middle;
+  fill: var(--edge); transition: fill .3s ease;
+}
+.slide .timer[data-state="running"] { --edge: var(--accent-2); }
+.slide .timer[data-state="running"].timer--last { --edge: var(--accent-3); }
+.slide .timer[data-state="done"] { --edge: var(--accent-1); animation: timer-done .7s var(--ease-smooth) 2; }
+.slide .timer[data-state="done"] .timer__dot { opacity: 0; }
+@keyframes timer-done { 50% { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) {
+  .slide .timer { animation: none !important; }
+  .slide .timer__ring, .slide .timer__hand, .slide .timer__tick, .slide .timer__dot, .slide .timer__time { transition: none; }
+}

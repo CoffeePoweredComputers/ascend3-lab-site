@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="03-today:3">WEDNESDAY &middot; MONDAY WAS LABOR DAY</p>
     <h2 data-sid="03-today:4">Five questions, straight to your groups</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="03-today:5">The peer-instruction routine drawn as five numbered stations in a ring joined by arcs. Top: from the Canvas home page, open the Week 3 assignments Peer Instruction W03D1 and W03D2 in Runestone. Right: work the question through silently, on your own, and answer. Lower right: discuss the question with your group first. Lower left: enter your answer after the discussion. Left: we go through it together, wrong answers included. An orange arc runs from the fifth station back round to the first, and a caption under the ring reads: five questions today, Peer Instruction W03D1, then W03D2. On the one step, three maroon lines strike through the second station&rsquo;s label, its disc and the two arcs through it turn grey, and an orange arrow draws straight from station one to station three, labelled: today, straight to your group.</p>
+  <p class="sr-only slide__desc" data-sid="03-today:5">The peer-instruction routine drawn as five numbered stations in a ring joined by arcs. Top: from the Canvas home page, open the Week 3 assignments Peer Instruction W03D1 and W03D2 in Runestone. Right: work the question through silently, on your own, and answer. Lower right: discuss the question with your group first. Lower left: enter your answer after the discussion. Left: we go through it together, wrong answers included. An orange arc runs from the fifth station back round to the first, and a caption under the ring reads: five questions today, Peer Instruction W03D1, then W03D2. On the one step, three maroon lines strike through the second station&rsquo;s label, its disc and the two arcs through it turn grey, and an orange arrow draws straight from station one to station three, labelled inside the ring: today, straight to your group.</p>
 
   <!-- The overview for the section that lost Monday: the routine ring of the
        sister decks, with the one change drawn rather than said — the silent
@@ -73,7 +73,7 @@
         <path class="lp__strike" style="--i: 2" pathLength="100" d="M1290 585h168" data-sid="03-today:61"/>
         <path class="lp__chord" pathLength="100" d="M979.8 430.9 L1086.2 758.6" data-sid="03-today:62"/>
         <path class="lp__head lp__chordhead" transform="translate(1093 779.5) rotate(72)" d="M0 0 L-22 -10 L-22 10 Z" data-sid="03-today:63"/>
-        <text class="lp__today" x="1000" y="648" data-sid="03-today:64">today: straight to your group</text>
+        <text class="lp__today" x="900" y="636" data-sid="03-today:64"><tspan x="900" y="636">today: straight</tspan><tspan x="900" y="670">to your group</tspan></text>
       </g>
 
       <!-- the plant, under the closed ring -->
@@ -123,7 +123,7 @@
     #slide-03 .lp__skip.is-current .lp__chord, #slide-03 .lp__skip.is-past .lp__chord { stroke-dashoffset: 0; transition-delay: .5s; }
     #slide-03 .lp__chordhead { fill: var(--accent-3); opacity: 0; transition: opacity .2s ease; }
     #slide-03 .lp__skip.is-current .lp__chordhead, #slide-03 .lp__skip.is-past .lp__chordhead { opacity: 1; transition-delay: 1s; }
-    #slide-03 .lp__today { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: end; opacity: 0; transition: opacity .3s ease; }
+    #slide-03 .lp__today { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }   /* inside the ring, left of the chord (x ≈ 1046 at y 636), clear of the 4→5 arc (x ≈ 700) */
     #slide-03 .lp__skip.is-current .lp__today, #slide-03 .lp__skip.is-past .lp__today { opacity: 1; transition-delay: 1.1s; }
     /* what the shortcut leaves behind goes stone */
     #slide-03 .lp:has(.lp__skip:not(.is-pending)) .lp__stop--alone circle { stroke: var(--stone); }

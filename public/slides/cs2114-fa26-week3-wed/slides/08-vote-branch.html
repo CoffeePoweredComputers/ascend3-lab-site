@@ -3,68 +3,69 @@
     <p class="slide__kicker" data-sid="08-vote-branch:3">PEER INSTRUCTION &middot; VOTE 3</p>
     <h2 data-sid="08-vote-branch:4">Which implementation of contains does not work?</h2>
   </header>
+  <div class="timer frag" data-step="1" data-timer="300" data-state="idle" role="timer" aria-label="Five-minute discussion timer; it starts on the slide's step" data-sid="08-vote-branch:103"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="08-vote-branch:104"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="08-vote-branch:105"/><g class="timer__ticks" data-sid="08-vote-branch:106"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="08-vote-branch:107"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="08-vote-branch:108"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="08-vote-branch:109"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="08-vote-branch:110"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="08-vote-branch:111"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="08-vote-branch:112"/><g class="timer__hand" data-sid="08-vote-branch:113"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="08-vote-branch:114"/></g><text class="timer__time" x="75" y="88" data-sid="08-vote-branch:115">5:00</text></svg></div>
   <p class="sr-only slide__desc" data-sid="08-vote-branch:5">A peer-instruction question about the ArrayBag class. On the left, the class&rsquo;s two fields &mdash; an array of entries and a count of how many are in use &mdash; plus two given methods in full: getFrequencyOf, which loops over the array counting matches, and getIndexOf, a private helper that loops over the array and returns the index of the first match, or minus one if none is found. On the right, four candidate implementations of contains, labeled A through D. A walks the array with a while loop and a found flag. B returns whether getIndexOf is greater than minus one. C returns whether getFrequencyOf is greater than zero. D walks the array with a while loop whose bound is less-than-or-equal-to numberOfEntries instead of less-than.</p>
   <div class="slide__body grid grid--code code-tag" data-sid="08-vote-branch:6">
     <div class="editor" data-sid="08-vote-branch:7">
       <p class="editor__bar" data-sid="08-vote-branch:8">the ArrayBag class</p>
       <ol class="editor__code" data-sid="08-vote-branch:9">
-        <li data-sid="08-vote-branch:10"><span class="tok-key">private</span> T[] contents;</li>
-        <li data-sid="08-vote-branch:11"><span class="tok-key">private int</span> numberOfEntries;</li>
+        <li data-sid="08-vote-branch:10"><span class="tok-key" data-sid="08-vote-branch:66">private</span> T[] contents;</li>
+        <li data-sid="08-vote-branch:11"><span class="tok-key" data-sid="08-vote-branch:67">private int</span> numberOfEntries;</li>
         <li data-sid="08-vote-branch:12">&nbsp;</li>
-        <li data-sid="08-vote-branch:13"><span class="tok-key">public int</span> getFrequencyOf(T anEntry) {</li>
-        <li data-sid="08-vote-branch:14">    <span class="tok-key">int</span> count = <span class="tok-num">0</span>;</li>
-        <li data-sid="08-vote-branch:15">    <span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">0</span>; i &lt; numberOfEntries; i++) {</li>
-        <li data-sid="08-vote-branch:16">        <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="08-vote-branch:13"><span class="tok-key" data-sid="08-vote-branch:68">public int</span> getFrequencyOf(T anEntry) {</li>
+        <li data-sid="08-vote-branch:14">    <span class="tok-key" data-sid="08-vote-branch:69">int</span> count = <span class="tok-num" data-sid="08-vote-branch:70">0</span>;</li>
+        <li data-sid="08-vote-branch:15">    <span class="tok-key" data-sid="08-vote-branch:71">for</span> (<span class="tok-key" data-sid="08-vote-branch:72">int</span> i = <span class="tok-num" data-sid="08-vote-branch:73">0</span>; i &lt; numberOfEntries; i++) {</li>
+        <li data-sid="08-vote-branch:16">        <span class="tok-key" data-sid="08-vote-branch:74">if</span> (anEntry.equals(contents[i])) {</li>
         <li data-sid="08-vote-branch:17">            count++;</li>
         <li data-sid="08-vote-branch:18">        }</li>
         <li data-sid="08-vote-branch:19">    }</li>
-        <li data-sid="08-vote-branch:20">    <span class="tok-key">return</span> count;</li>
+        <li data-sid="08-vote-branch:20">    <span class="tok-key" data-sid="08-vote-branch:75">return</span> count;</li>
         <li data-sid="08-vote-branch:21">}</li>
         <li data-sid="08-vote-branch:22">&nbsp;</li>
-        <li data-sid="08-vote-branch:23"><span class="tok-key">private int</span> getIndexOf(T anEntry) {</li>
-        <li data-sid="08-vote-branch:24">    <span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">0</span>; i &lt; numberOfEntries; i++) {</li>
-        <li data-sid="08-vote-branch:25">        <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
-        <li data-sid="08-vote-branch:26">            <span class="tok-key">return</span> i;</li>
+        <li data-sid="08-vote-branch:23"><span class="tok-key" data-sid="08-vote-branch:76">private int</span> getIndexOf(T anEntry) {</li>
+        <li data-sid="08-vote-branch:24">    <span class="tok-key" data-sid="08-vote-branch:77">for</span> (<span class="tok-key" data-sid="08-vote-branch:78">int</span> i = <span class="tok-num" data-sid="08-vote-branch:79">0</span>; i &lt; numberOfEntries; i++) {</li>
+        <li data-sid="08-vote-branch:25">        <span class="tok-key" data-sid="08-vote-branch:80">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="08-vote-branch:26">            <span class="tok-key" data-sid="08-vote-branch:81">return</span> i;</li>
         <li data-sid="08-vote-branch:27">        }</li>
         <li data-sid="08-vote-branch:28">    }</li>
-        <li data-sid="08-vote-branch:29">    <span class="tok-key">return</span> <span class="tok-num">-1</span>;</li>
+        <li data-sid="08-vote-branch:29">    <span class="tok-key" data-sid="08-vote-branch:82">return</span> <span class="tok-num" data-sid="08-vote-branch:83">-1</span>;</li>
         <li data-sid="08-vote-branch:30">}</li>
       </ol>
     </div>
     <ol class="opts opts--code" data-sid="08-vote-branch:31">
       <li data-sid="08-vote-branch:32">
         <ol class="editor__code" data-sid="08-vote-branch:33">
-          <li data-sid="08-vote-branch:34"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
-          <li data-sid="08-vote-branch:35"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-          <li data-sid="08-vote-branch:36"><span class="tok-key">while</span> (!found &amp;&amp; i &lt; numberOfEntries) {</li>
-          <li data-sid="08-vote-branch:37">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
-          <li data-sid="08-vote-branch:38">        found = <span class="tok-key">true</span>;</li>
+          <li data-sid="08-vote-branch:34"><span class="tok-key" data-sid="08-vote-branch:84">boolean</span> found = <span class="tok-key" data-sid="08-vote-branch:85">false</span>;</li>
+          <li data-sid="08-vote-branch:35"><span class="tok-key" data-sid="08-vote-branch:86">int</span> i = <span class="tok-num" data-sid="08-vote-branch:87">0</span>;</li>
+          <li data-sid="08-vote-branch:36"><span class="tok-key" data-sid="08-vote-branch:88">while</span> (!found &amp;&amp; i &lt; numberOfEntries) {</li>
+          <li data-sid="08-vote-branch:37">    <span class="tok-key" data-sid="08-vote-branch:89">if</span> (anEntry.equals(contents[i])) {</li>
+          <li data-sid="08-vote-branch:38">        found = <span class="tok-key" data-sid="08-vote-branch:90">true</span>;</li>
           <li data-sid="08-vote-branch:39">    }</li>
           <li data-sid="08-vote-branch:40">    i++;</li>
           <li data-sid="08-vote-branch:41">}</li>
-          <li data-sid="08-vote-branch:42"><span class="tok-key">return</span> found;</li>
+          <li data-sid="08-vote-branch:42"><span class="tok-key" data-sid="08-vote-branch:91">return</span> found;</li>
         </ol>
       </li>
       <li data-sid="08-vote-branch:43">
         <ol class="editor__code" data-sid="08-vote-branch:44">
-          <li data-sid="08-vote-branch:45"><span class="tok-key">return</span> getIndexOf(anEntry) &gt; <span class="tok-num">-1</span>;</li>
+          <li data-sid="08-vote-branch:45"><span class="tok-key" data-sid="08-vote-branch:92">return</span> getIndexOf(anEntry) &gt; <span class="tok-num" data-sid="08-vote-branch:93">-1</span>;</li>
         </ol>
       </li>
       <li data-sid="08-vote-branch:46">
         <ol class="editor__code" data-sid="08-vote-branch:47">
-          <li data-sid="08-vote-branch:48"><span class="tok-key">return</span> getFrequencyOf(anEntry) &gt; <span class="tok-num">0</span>;</li>
+          <li data-sid="08-vote-branch:48"><span class="tok-key" data-sid="08-vote-branch:94">return</span> getFrequencyOf(anEntry) &gt; <span class="tok-num" data-sid="08-vote-branch:95">0</span>;</li>
         </ol>
       </li>
       <li data-sid="08-vote-branch:49">
         <ol class="editor__code" data-sid="08-vote-branch:50">
-          <li data-sid="08-vote-branch:51"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-          <li data-sid="08-vote-branch:52"><span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
-          <li data-sid="08-vote-branch:53">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
-          <li data-sid="08-vote-branch:54">        <span class="tok-key">return true</span>;</li>
+          <li data-sid="08-vote-branch:51"><span class="tok-key" data-sid="08-vote-branch:96">int</span> i = <span class="tok-num" data-sid="08-vote-branch:97">0</span>;</li>
+          <li data-sid="08-vote-branch:52"><span class="tok-key" data-sid="08-vote-branch:98">while</span> (i &lt;= numberOfEntries) {</li>
+          <li data-sid="08-vote-branch:53">    <span class="tok-key" data-sid="08-vote-branch:99">if</span> (anEntry.equals(contents[i])) {</li>
+          <li data-sid="08-vote-branch:54">        <span class="tok-key" data-sid="08-vote-branch:100">return true</span>;</li>
           <li data-sid="08-vote-branch:55">    }</li>
           <li data-sid="08-vote-branch:56">    i++;</li>
           <li data-sid="08-vote-branch:57">}</li>
-          <li data-sid="08-vote-branch:58"><span class="tok-key">return false</span>;</li>
+          <li data-sid="08-vote-branch:58"><span class="tok-key" data-sid="08-vote-branch:101">return false</span>;</li>
         </ol>
       </li>
     </ol>
@@ -72,7 +73,7 @@
   <div class="slide__number" data-sid="08-vote-branch:59"></div>
   <aside class="notes" data-sid="08-vote-branch:60">Answer: D &mdash; its bound, i &lt;= numberOfEntries instead of i &lt; numberOfEntries, lets i reach one past the last valid index. With, say, 5 entries the valid indexes are 0 to 4; D's loop still runs the check at i = 5, and contents[5] is out of bounds &mdash; an ArrayIndexOutOfBoundsException, and it fires exactly when the entry being searched for is not in the bag, since that is the only case where the loop runs that far. A is a correct, if verbose, linear scan with a found flag &mdash; i still increments every iteration, so it terminates. B correctly reuses getIndexOf: any non-negative index means a match turned up. C correctly reuses getFrequencyOf: any count greater than zero means the entry is present. D is the only one that cannot be used as written.</aside>
 
-  <style>
+  <style data-sid="08-vote-branch:102">
     /* Slide-local: the given class (21 lines) beside four candidate bodies of
        contains — 44 lines of Java, so the body takes .code-tag (the token floor,
        tight leading, gutter numerals at the code size) and the options are

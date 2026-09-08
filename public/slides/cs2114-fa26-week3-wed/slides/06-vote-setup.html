@@ -3,21 +3,22 @@
     <p class="slide__kicker" data-sid="06-vote-setup:3">PEER INSTRUCTION &middot; VOTE 1</p>
     <h2 data-sid="06-vote-setup:4">What does this array search print?</h2>
   </header>
+  <div class="timer frag" data-step="1" data-timer="300" data-state="idle" role="timer" aria-label="Five-minute discussion timer; it starts on the slide's step" data-sid="06-vote-setup:72"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-setup:73"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-setup:74"/><g class="timer__ticks" data-sid="06-vote-setup:75"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-setup:76"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-setup:77"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-setup:78"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-setup:79"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-setup:80"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-setup:81"/><g class="timer__hand" data-sid="06-vote-setup:82"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-setup:83"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-setup:84">5:00</text></svg></div>
   <p class="sr-only slide__desc" data-sid="06-vote-setup:5">A peer-instruction question. On the left, a for loop that walks an array comparing each element to a searched value: on a match it sets a boolean found to true, and on every other iteration it resets found to false, with no early exit. On the right, the initial values &mdash; an eight-element int array ending in two hundred fifty then five hundred, a searched value of two hundred fifty, and found starting false &mdash; and under them four candidates for the printed output: found 250, not found, found 500, and the claim that an IndexOutOfBoundsException is thrown.</p>
   <div class="slide__body grid grid--code code-dense" data-sid="06-vote-setup:6">
     <div class="editor" data-sid="06-vote-setup:8">
       <p class="editor__bar" data-sid="06-vote-setup:9">Search.java</p>
       <ol class="editor__code" data-sid="06-vote-setup:10">
-        <li data-sid="06-vote-setup:11"><span class="tok-key">for</span> (<span class="tok-key">int</span> i = 0; i &lt; values.length; i++) {</li>
-        <li data-sid="06-vote-setup:12">    <span class="tok-key">if</span> (values[i] == searchedValue) {</li>
-        <li data-sid="06-vote-setup:13">        found = <span class="tok-key">true</span>;</li>
-        <li data-sid="06-vote-setup:14">    } <span class="tok-key">else</span> {</li>
-        <li data-sid="06-vote-setup:15">        found = <span class="tok-key">false</span>;</li>
+        <li data-sid="06-vote-setup:11"><span class="tok-key" data-sid="06-vote-setup:46">for</span> (<span class="tok-key" data-sid="06-vote-setup:47">int</span> i = 0; i &lt; values.length; i++) {</li>
+        <li data-sid="06-vote-setup:12">    <span class="tok-key" data-sid="06-vote-setup:48">if</span> (values[i] == searchedValue) {</li>
+        <li data-sid="06-vote-setup:13">        found = <span class="tok-key" data-sid="06-vote-setup:49">true</span>;</li>
+        <li data-sid="06-vote-setup:14">    } <span class="tok-key" data-sid="06-vote-setup:50">else</span> {</li>
+        <li data-sid="06-vote-setup:15">        found = <span class="tok-key" data-sid="06-vote-setup:51">false</span>;</li>
         <li data-sid="06-vote-setup:16">    }</li>
         <li data-sid="06-vote-setup:17">}</li>
-        <li data-sid="06-vote-setup:18"><span class="tok-key">if</span> (found) {</li>
+        <li data-sid="06-vote-setup:18"><span class="tok-key" data-sid="06-vote-setup:52">if</span> (found) {</li>
         <li data-sid="06-vote-setup:19">    System.out.println("found " + searchedValue);</li>
-        <li data-sid="06-vote-setup:20">} <span class="tok-key">else</span> {</li>
+        <li data-sid="06-vote-setup:20">} <span class="tok-key" data-sid="06-vote-setup:53">else</span> {</li>
         <li data-sid="06-vote-setup:21">    System.out.println("not found");</li>
         <li data-sid="06-vote-setup:22">}</li>
       </ol>
@@ -26,24 +27,24 @@
       <div class="editor" data-sid="06-vote-setup:23">
         <p class="editor__bar" data-sid="06-vote-setup:24">initial values</p>
         <ol class="editor__code" data-sid="06-vote-setup:25">
-          <li data-sid="06-vote-setup:26"><span class="tok-key">int</span>[] values = { <span class="tok-num">3</span>, <span class="tok-num">6</span>, <span class="tok-num">10</span>, <span class="tok-num">12</span>,</li>
-          <li data-sid="06-vote-setup:40">    <span class="tok-num">100</span>, <span class="tok-num">200</span>, <span class="tok-num">250</span>, <span class="tok-num">500</span> };</li>
-          <li data-sid="06-vote-setup:27"><span class="tok-key">int</span> searchedValue = <span class="tok-num">250</span>;</li>
-          <li data-sid="06-vote-setup:28"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
+          <li data-sid="06-vote-setup:26"><span class="tok-key" data-sid="06-vote-setup:54">int</span>[] values = { <span class="tok-num" data-sid="06-vote-setup:55">3</span>, <span class="tok-num" data-sid="06-vote-setup:56">6</span>, <span class="tok-num" data-sid="06-vote-setup:57">10</span>, <span class="tok-num" data-sid="06-vote-setup:58">12</span>,</li>
+          <li data-sid="06-vote-setup:40">    <span class="tok-num" data-sid="06-vote-setup:59">100</span>, <span class="tok-num" data-sid="06-vote-setup:60">200</span>, <span class="tok-num" data-sid="06-vote-setup:61">250</span>, <span class="tok-num" data-sid="06-vote-setup:62">500</span> };</li>
+          <li data-sid="06-vote-setup:27"><span class="tok-key" data-sid="06-vote-setup:63">int</span> searchedValue = <span class="tok-num" data-sid="06-vote-setup:64">250</span>;</li>
+          <li data-sid="06-vote-setup:28"><span class="tok-key" data-sid="06-vote-setup:65">boolean</span> found = <span class="tok-key" data-sid="06-vote-setup:66">false</span>;</li>
         </ol>
       </div>
       <ol class="opts" data-sid="06-vote-setup:29">
-        <li data-sid="06-vote-setup:30"><p data-sid="06-vote-setup:31"><code>found 250</code></p></li>
-        <li data-sid="06-vote-setup:32"><p data-sid="06-vote-setup:33"><code>not found</code></p></li>
-        <li data-sid="06-vote-setup:34"><p data-sid="06-vote-setup:35"><code>found 500</code></p></li>
-        <li data-sid="06-vote-setup:36"><p data-sid="06-vote-setup:37">An <code>IndexOutOfBoundsException</code> is thrown</p></li>
+        <li data-sid="06-vote-setup:30"><p data-sid="06-vote-setup:31"><code data-sid="06-vote-setup:67">found 250</code></p></li>
+        <li data-sid="06-vote-setup:32"><p data-sid="06-vote-setup:33"><code data-sid="06-vote-setup:68">not found</code></p></li>
+        <li data-sid="06-vote-setup:34"><p data-sid="06-vote-setup:35"><code data-sid="06-vote-setup:69">found 500</code></p></li>
+        <li data-sid="06-vote-setup:36"><p data-sid="06-vote-setup:37">An <code data-sid="06-vote-setup:70">IndexOutOfBoundsException</code> is thrown</p></li>
       </ol>
     </div>
   </div>
   <div class="slide__number" data-sid="06-vote-setup:38"></div>
   <aside class="notes" data-sid="06-vote-setup:39">Answer: B &mdash; not found. The loop does reach i = 6, where values[i] is 250 and found is set true &mdash; but the else clause resets found on every non-matching iteration too, and i = 7 (500) is one more comparison after the match, so found ends the loop false. A is the trap: it assumes the match "sticks", which is exactly what the else overwrite prevents. C is not even a message the program can produce &mdash; a true found always prints "found 250", never "found 500". D is wrong because the loop guard i &lt; values.length keeps every index in bounds. Worth naming afterwards: swapping the else for a break the moment found goes true, or dropping the else entirely, is the fix.</aside>
 
-  <style>
+  <style data-sid="06-vote-setup:71">
     /* Slide-local: the println line is 49 mono characters, so the code column is
        920px and the initial values move to the answers' column, above the
        options — the two panes stacked on the left never fit the body. The array
