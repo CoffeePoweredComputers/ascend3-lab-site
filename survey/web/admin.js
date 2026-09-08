@@ -134,6 +134,29 @@
           notice('Preview session opened in a new tab.');
         });
         setupSessions(node, s);
+
+        // Guest invite link — only for surveys whose file opts in (pilots).
+        if (s.guestAccess) {
+          const box = f('invite');
+          const urlEl = $('[data-invite-url]', node);
+          const copyEl = $('[data-invite-copy]', node);
+          box.hidden = false;
+          $('[data-invite]', node).addEventListener('click', async () => {
+            const days = Number($('[data-invite-days]', node).value);
+            const r = await api('/s/' + s.id + '/invite', { method: 'POST', body: { days: days } });
+            if (!r.ok) { setError(r.json.message || 'Could not create an invite link.'); return; }
+            urlEl.value = r.json.url;
+            urlEl.hidden = false;
+            copyEl.hidden = false;
+            $('[data-invite-expires]', node).textContent = 'expires ' + fmtWhen(r.json.expiresAt);
+            urlEl.focus(); urlEl.select();
+          });
+          copyEl.addEventListener('click', async () => {
+            urlEl.select();
+            try { await navigator.clipboard.writeText(urlEl.value); notice('Invite link copied — send it to as many testers as you like.'); }
+            catch (_) { notice('Select the link and copy it with Ctrl/Cmd+C.'); }
+          });
+        }
       }
 
       const kh = f('keyholder');

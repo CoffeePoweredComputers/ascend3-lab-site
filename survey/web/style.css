@@ -141,6 +141,9 @@ code { font-family: var(--font-mono); font-size: 0.85em; background: var(--card-
 .btn--ghost { background: transparent; border-color: var(--border); color: var(--text); }
 .btn--ghost:hover { background: var(--card); border-color: var(--border-strong); }
 .btn--quiet { background: transparent; border-color: transparent; color: var(--muted); }
+
+/* Guest invite link: wide enough to read, selectable in one click. */
+.invite__url { flex: 1 1 26rem; min-width: 0; font-family: var(--font-mono); font-size: 0.78rem; padding: 0.4rem 0.5rem; border: 1px solid var(--border); border-radius: 0.4rem; background: var(--card-muted); color: var(--text); }
 .btn--quiet:hover { color: var(--danger); background: var(--danger-soft); border-color: transparent; }
 .btn--danger { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 45%, var(--border)); }
 .btn--danger:hover { background: var(--danger-soft); border-color: var(--danger); }

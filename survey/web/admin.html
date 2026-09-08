@@ -80,6 +80,19 @@
       <select data-preview-wave aria-label="Wave for preview"></select>
       <button type="button" class="btn btn--primary" data-preview>Start a preview session</button>
     </div>
+    <div class="actions" data-f="invite" hidden>
+      <label class="check small">Guest invite link, valid
+        <select data-invite-days aria-label="How long the invite link stays valid">
+          <option value="7">7 days</option>
+          <option value="30" selected>30 days</option>
+          <option value="90">90 days</option>
+        </select>
+      </label>
+      <button type="button" class="btn" data-invite>Create link</button>
+      <input class="invite__url" data-invite-url readonly hidden aria-label="Guest invite link">
+      <button type="button" class="btn" data-invite-copy hidden>Copy</button>
+      <span class="muted small" data-invite-expires></span>
+    </div>
     <section class="sessions" data-f="sessions">
       <div class="sessions__head">
         <h3>Sessions</h3>

@@ -19,7 +19,7 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import { HttpError, readJson, requireApiIdentity, type AppContext, type AppEnv } from '../app.js';
 import { hasAnyRole, rolesFor } from '../auth/roles.js';
-import { isGuest } from '../auth/guest.js';
+import { inviteUrl, isGuest } from '../auth/guest.js';
 import type { LoadedSurvey } from '../config/load.js';
 import { toCsv } from '../csv.js';
 import { destroyKey, enrollmentCount, exportEnrollments, keyEvents, listRoster, replaceRoster, rosterSize } from '../store/keyring.js';
@@ -74,6 +74,7 @@ export function adminRoutes(ctx: AppContext): Hono<AppEnv> {
         enrollments: roles.keyholder ? await enrollmentCount(ctx.pools.keyring, s.config.id) : null,
         rosterSize: roles.keyholder ? await rosterSize(ctx.pools.keyring, s.config.id) : null,
         rosterMode: s.config.eligibility.roster,
+        guestAccess: s.config.eligibility.guestAccess,
         waves: s.config.waves.map((w) => ({
           id: w.id,
           label: w.label,
@@ -86,6 +87,24 @@ export function adminRoutes(ctx: AppContext): Hono<AppEnv> {
       });
     }
     return c.json({ pid, surveys: out });
+  });
+
+  /**
+   * Mint a guest invite link (pilot surveys only — see auth/guest.ts). The link
+   * is not a secret held by the server: it is a signed statement that this
+   * survey accepts guests until a date, so re-minting does not revoke earlier
+   * links. They expire on their own; rotating SESSION_SECRET kills them all.
+   */
+  r.post('/s/:surveyId/invite', async (c) => {
+    const pid = c.get('pid');
+    const loaded = need(c.req.param('surveyId'), pid, 'researcher');
+    if (!loaded.config.eligibility.guestAccess) {
+      throw new HttpError(400, 'no_guests', 'This survey does not accept guest invite links');
+    }
+    const { days } = await readJson(c, z.object({ days: z.number().int().min(1).max(365).default(30) }));
+    const expiresAt = new Date(Date.now() + days * 86_400_000);
+    ctx.log.info('invite.mint', { surveyId: loaded.config.id, days });
+    return c.json({ url: inviteUrl(ctx.env, loaded.config.id, expiresAt), expiresAt: expiresAt.toISOString() });
   });
 
   r.get('/s/:surveyId/export/:file', async (c) => {
