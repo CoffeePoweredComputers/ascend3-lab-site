@@ -1,0 +1,44 @@
+<section class="slide" id="slide-02a" data-sid="02a-absences-makeups:1">
+  <header class="slide__head" data-sid="02a-absences-makeups:2">
+    <h2 data-sid="02a-absences-makeups:3">Absences, Drops &amp; Make-Ups</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02a-absences-makeups:4">Three category tiles describing built-in grade drops. Peer instruction and PrairieLearn modules each drop your four lowest scores, in blue. Homework and challenge exercises drop your three lowest, in orange. Below the tiles, a note that thirteen grades are dropped automatically with no request needed, and that there are no individual extensions or make-ups without a documented accommodation.</p>
+  <div class="slide__body" data-sid="02a-absences-makeups:5">
+    <ul class="grid grid--2 grid--tiles" data-sid="02a-absences-makeups:6">
+      <li class="tile tile--a2" data-sid="02a-absences-makeups:7">
+        <h3 data-sid="02a-absences-makeups:8">Peer instruction <span class="tile__count">4</span></h3>
+        <p data-sid="02a-absences-makeups:9">Your four lowest are dropped.</p>
+        <hr>
+        <p class="tile__note" data-sid="02a-absences-makeups:10">Covers the lectures you have to miss.</p>
+      </li>
+      <li class="tile tile--a2" data-sid="02a-absences-makeups:11">
+        <h3 data-sid="02a-absences-makeups:12">PrairieLearn modules <span class="tile__count">4</span></h3>
+        <p data-sid="02a-absences-makeups:13">Your four lowest are dropped.</p>
+        <hr>
+        <p class="tile__note" data-sid="02a-absences-makeups:14">Covers the week that got away from you.</p>
+      </li>
+      <li class="tile tile--a3" data-sid="02a-absences-makeups:15">
+        <h3 data-sid="02a-absences-makeups:16">Homework &amp; challenge <span class="tile__count">2</span></h3>
+        <p data-sid="02a-absences-makeups:17">Your three lowest are dropped.</p>
+        <hr>
+        <p class="tile__note" data-sid="02a-absences-makeups:18">Covers the sick week, the interview week.</p>
+      </li>
+    </ul>
+    <p class="slide__lede" data-sid="02a-absences-makeups:19">13 grades are dropped automatically &mdash; no request needed. There are no individual extensions or make-ups unless you have a documented accommodation.</p>
+  </div>
+  <div class="slide__number" data-sid="02a-absences-makeups:20"></div>
+  <aside class="notes" data-sid="02a-absences-makeups:21">Say the totals out loud: four lowest peer-instruction scores and four lowest PrairieLearn-module scores are dropped automatically, and three lowest homework/challenge-exercise scores are dropped too &mdash; thirteen grades in all, no request needed. The only path to an individual extension or make-up is a documented accommodation.</aside>
+
+  <style>
+    /* Slide-local: three category tiles reuse the deck's flat .tile component
+       (blue for the two drop-4 categories, orange for the drop-3 category).
+       The count sits in the tile's edge colour and the divider is a faint
+       tint of that same colour, so each tile keeps one hue. All values from
+       tokens; used by this slide only. */
+    #slide-02a .tile h3 { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-2); }
+    #slide-02a .tile__count { font-family: var(--font-mono); color: var(--edge); }
+    #slide-02a .tile hr { border-top-color: color-mix(in srgb, var(--edge) 35%, transparent); margin: var(--s-2) 0; }
+    #slide-02a .tile__note { color: var(--fg-1); }
+    #slide-02a .slide__lede { font-size: var(--t-small); font-weight: 700; max-width: none; margin-top: var(--s-4); }
+  </style>
+</section>

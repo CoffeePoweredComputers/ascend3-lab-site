@@ -1,0 +1,61 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-vote-gap:1">
+  <header class="slide__head" data-sid="09-vote-gap:2">
+    <p class="slide__kicker" data-sid="09-vote-gap:3">PEER INSTRUCTION &middot; VOTE 4</p>
+    <h2 data-sid="09-vote-gap:4">What is the most efficient way to close the gap?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09-vote-gap:5">A peer-instruction question. On the left, the question stem &mdash; the most efficient approach to dealing with a gap left in an array after removing an entry would be to &mdash; over a drawing of an array of six cells holding ant, bee, a dashed empty cell at index 2, dog, eel and fox, with numberOfEntries equal to 6 above and the words index 2 was just removed below. On the right, the four ways to complete the sentence: A, replace the entry being removed with the first entry in the array and replace the first entry with null; B, shift subsequent entries and replace the duplicate reference to the last entry with null; C, replace the entry being removed with the last entry in the array and replace the last entry with null; D, replace the entry being removed with null. Nothing builds.</p>
+
+  <!-- The question is text-only in Runestone, so the situation it describes
+       is drawn: a bag's array, an entry just removed from the middle, the gap
+       it left. The picture says what a gap is and nothing about closing it.
+       The stem and the four completions are quoted from the question. -->
+  <div class="slide__body gap" data-sid="09-vote-gap:6">
+    <div class="stack" data-sid="09-vote-gap:7">
+      <p class="gap__stem" data-sid="09-vote-gap:8">The most efficient approach to dealing with a gap left in an array after removing an entry would be to &hellip;</p>
+      <div class="gap__fig" data-sid="09-vote-gap:9">
+        <p class="gap__count" data-sid="09-vote-gap:10">numberOfEntries = 6</p>
+        <ol class="gap__row" data-sid="09-vote-gap:11">
+          <li class="gap__cell" data-sid="09-vote-gap:12"><span class="gap__idx" data-sid="09-vote-gap:13">0</span><span class="gap__val" data-sid="09-vote-gap:14">ant</span></li>
+          <li class="gap__cell" data-sid="09-vote-gap:15"><span class="gap__idx" data-sid="09-vote-gap:16">1</span><span class="gap__val" data-sid="09-vote-gap:17">bee</span></li>
+          <li class="gap__cell gap__cell--gap" data-sid="09-vote-gap:18"><span class="gap__idx" data-sid="09-vote-gap:19">2</span></li>
+          <li class="gap__cell" data-sid="09-vote-gap:20"><span class="gap__idx" data-sid="09-vote-gap:21">3</span><span class="gap__val" data-sid="09-vote-gap:22">dog</span></li>
+          <li class="gap__cell" data-sid="09-vote-gap:23"><span class="gap__idx" data-sid="09-vote-gap:24">4</span><span class="gap__val" data-sid="09-vote-gap:25">eel</span></li>
+          <li class="gap__cell" data-sid="09-vote-gap:26"><span class="gap__idx" data-sid="09-vote-gap:27">5</span><span class="gap__val" data-sid="09-vote-gap:28">fox</span></li>
+        </ol>
+        <p class="gap__note" data-sid="09-vote-gap:29">index 2 was just removed</p>
+      </div>
+    </div>
+    <ol class="opts" data-sid="09-vote-gap:30">
+      <li data-sid="09-vote-gap:31"><p data-sid="09-vote-gap:32">replace the entry being removed with the first entry in the array and replace the first entry with null</p></li>
+      <li data-sid="09-vote-gap:33"><p data-sid="09-vote-gap:34">shift subsequent entries and replace the duplicate reference to the last entry with null</p></li>
+      <li data-sid="09-vote-gap:35"><p data-sid="09-vote-gap:36">replace the entry being removed with the last entry in the array and replace the last entry with null</p></li>
+      <li data-sid="09-vote-gap:37"><p data-sid="09-vote-gap:38">replace the entry being removed with null</p></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="09-vote-gap:39"></div>
+  <aside class="notes" data-sid="09-vote-gap:40">Answer: C &mdash; copy the last entry into the gap, null the old last slot, count down one. One move whatever the size, and legal because a bag has no order: nothing has to stay where it was. A moves the gap instead of closing it &mdash; the first entry fills index 2 and index 0 is now the hole. B is correct but not efficient: every entry after the gap shifts one to the left, n moves instead of one; it is the answer a list would need, and the discussion usually turns on whether a bag needs it. D leaves null in the middle of the live entries, and every loop over 0 to numberOfEntries minus 1 &mdash; contains, getFrequencyOf, toString &mdash; now lands on a hole. Runestone activity vtcs2_arraybags_efficiency.</aside>
+
+  <style data-sid="09-vote-gap:41">
+    /* Slide-local: the stem and the array on the left (six 120px cells = 800),
+       the four completions on the right. The gap takes the maroon dashed edge
+       the deck uses for a slot that should not be read; the live cells are the
+       stone-edged panels the answer slide reuses, so the two slides show one
+       array. Static — nothing here is a step. All values from tokens; used by
+       this slide only. */
+    #slide-09 .gap { display: grid; grid-template-columns: 800px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-09 .stack { gap: var(--s-4); }
+    #slide-09 .gap__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+    #slide-09 .gap__count { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+    #slide-09 .gap__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+    #slide-09 .gap__cell {
+      position: relative; flex: 0 0 auto; width: 120px; height: 120px; margin: 0; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+    }
+    #slide-09 .gap__idx { position: absolute; top: var(--s-1); left: var(--s-2); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
+    #slide-09 .gap__val { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
+    #slide-09 .gap__cell--gap { border-style: dashed; border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 10%, var(--bg-0)); }
+    #slide-09 .gap__cell--gap .gap__idx { color: var(--accent-1); }
+    #slide-09 .gap__note { margin: var(--s-2) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-1); }
+  </style>
+</section>

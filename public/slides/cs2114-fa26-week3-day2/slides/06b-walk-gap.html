@@ -1,0 +1,191 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-gap:1">
+  <header class="slide__head" data-sid="06b-walk-gap:2">
+    <p class="slide__kicker" data-sid="06b-walk-gap:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-gap:4">Move the last entry into the gap &mdash; one move</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-gap:5">A walkthrough of option C as the four lines inside removeEntry do it. On the left, those lines in an editor with a program-counter bar: result equals contents at givenIndex; contents at givenIndex equals contents at numberOfEntries minus 1; contents at numberOfEntries minus 1 equals null; numberOfEntries decrements. On the right, the heap: a pill labelled this points at an ArrayBag box holding numberOfEntries equals 6 and, under the label contents, a strip of seven slots reading ant, bee, cat, dog, eel, fox and null at indexes 0 to 6, then an ellipsis. Under the box, two more pills: givenIndex holding 2, and result holding null. Step one, the bar on line 1: slot 2 rings blue, null under result is struck through and cat appears beside it. Step two, lines 2 and 3: a copy of fox travels from slot 5 into slot 2, covering cat, and slot 2 turns blue; the caption says the last entry is copied into the gap, one assignment, option C. Step three, line 4: fox in slot 5 becomes null. Step four, line 5: 6 is struck through and 5 appears beside it, the box breathes, and slot 5 onward go dashed and grey, past the count. Step five: the bar fades out and three rows appear under the code judging the other options: A, the gap moves to index 0; B, correct but n moves; D, every loop lands on a hole. The caption reads: a bag has no order, so the last entry can go anywhere.</p>
+
+  <!-- The answer to "what is the most efficient way" is the code that does
+       it, so the four lines of removeEntry run on the left under the codewalk
+       program-counter bar while the bag changes on the right — in the heap
+       grammar of the earlier decks: this → the ArrayBag, its count as a
+       struck field, its array as a slot strip inside the box (13b's
+       Student[80] picture), the method's locals as value pills under it.
+       fox is COPIED, not moved: a copy travels from slot 5 to slot 2 (a
+       real translate — the value went somewhere) and the original stays
+       until line 4 nulls it. Recolours and the copy are keyed to the caption
+       frags through :has(), so a back-step reverses them. Step 5 has no
+       walkline, so the bar fades out and the debrief rows arrive. -->
+  <div class="slide__body grid grid--code code-dense" data-sid="06b-walk-gap:6">
+    <div class="stack" data-sid="06b-walk-gap:7">
+      <div class="editor" data-sid="06b-walk-gap:8">
+        <p class="editor__bar" data-sid="06b-walk-gap:9">inside removeEntry(int givenIndex)</p>
+        <div class="editor__pc" data-sid="06b-walk-gap:10"></div>
+        <ol class="editor__code" data-sid="06b-walk-gap:11">
+          <li class="walkline frag" data-step="1" data-sid="06b-walk-gap:12">result = contents[givenIndex];</li>
+          <li class="walkline frag" data-step="2" data-sid="06b-walk-gap:13">contents[givenIndex] =</li>
+          <li class="walkline frag" data-step="2" data-sid="06b-walk-gap:14">    contents[numberOfEntries - <span class="tok-num" data-sid="06b-walk-gap:15">1</span>];</li>
+          <li class="walkline frag" data-step="3" data-sid="06b-walk-gap:16">contents[numberOfEntries - <span class="tok-num" data-sid="06b-walk-gap:17">1</span>] = <span class="tok-key" data-sid="06b-walk-gap:18">null</span>;</li>
+          <li class="walkline frag" data-step="4" data-sid="06b-walk-gap:19">numberOfEntries--;</li>
+        </ol>
+      </div>
+      <ol class="dbr" data-sid="06b-walk-gap:20">
+        <li class="dbr__row frag" data-step="5" style="--i: 0" data-sid="06b-walk-gap:21"><span class="dbr__mk dbr__mk--bad" data-sid="06b-walk-gap:22">&#10007;</span><span class="dbr__opt" data-sid="06b-walk-gap:23">A</span><span class="dbr__txt" data-sid="06b-walk-gap:24">the gap moves to index 0; it does not close</span></li>
+        <li class="dbr__row frag" data-step="5" style="--i: 1" data-sid="06b-walk-gap:25"><span class="dbr__mk dbr__mk--slow" data-sid="06b-walk-gap:26">!</span><span class="dbr__opt" data-sid="06b-walk-gap:27">B</span><span class="dbr__txt" data-sid="06b-walk-gap:28">shift everything left: correct, but n moves</span></li>
+        <li class="dbr__row frag" data-step="5" style="--i: 2" data-sid="06b-walk-gap:29"><span class="dbr__mk dbr__mk--bad" data-sid="06b-walk-gap:30">&#10007;</span><span class="dbr__opt" data-sid="06b-walk-gap:31">D</span><span class="dbr__txt" data-sid="06b-walk-gap:32">leave null in the middle: every loop hits it</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk" data-sid="06b-walk-gap:33">
+      <div class="codewalk__heap" data-sid="06b-walk-gap:34">
+        <p class="heap-name" data-wire="0:bag" style="grid-row: 1;" data-sid="06b-walk-gap:35">this</p>
+        <div class="heap-obj" data-obj="bag" style="grid-row: 1;" data-sid="06b-walk-gap:36">
+          <p class="heap-obj__type" data-sid="06b-walk-gap:37">ArrayBag</p>
+          <p class="heap-val cnt" data-sid="06b-walk-gap:38">numberOfEntries = <span class="cnt__v cnt__v--0" data-sid="06b-walk-gap:39">6</span><span class="cnt__v cnt__v--1" data-sid="06b-walk-gap:40"><span class="sr-only" data-sid="06b-walk-gap:41">now </span>5</span></p>
+          <p class="heap-obj__label" data-sid="06b-walk-gap:42">contents</p>
+          <ol class="slots" data-sid="06b-walk-gap:43">
+            <li class="slot" data-sid="06b-walk-gap:44"><span class="slot__i" data-sid="06b-walk-gap:45">0</span><span class="slot__v" data-sid="06b-walk-gap:46"><span class="sv" data-sid="06b-walk-gap:47">ant</span></span></li>
+            <li class="slot" data-sid="06b-walk-gap:48"><span class="slot__i" data-sid="06b-walk-gap:49">1</span><span class="slot__v" data-sid="06b-walk-gap:50"><span class="sv" data-sid="06b-walk-gap:51">bee</span></span></li>
+            <li class="slot slot--2" data-sid="06b-walk-gap:52"><span class="slot__i" data-sid="06b-walk-gap:53">2</span><span class="slot__v" data-sid="06b-walk-gap:54"><span class="sv sv--cat" data-sid="06b-walk-gap:55">cat</span></span></li>
+            <li class="slot" data-sid="06b-walk-gap:56"><span class="slot__i" data-sid="06b-walk-gap:57">3</span><span class="slot__v" data-sid="06b-walk-gap:58"><span class="sv" data-sid="06b-walk-gap:59">dog</span></span></li>
+            <li class="slot" data-sid="06b-walk-gap:60"><span class="slot__i" data-sid="06b-walk-gap:61">4</span><span class="slot__v" data-sid="06b-walk-gap:62"><span class="sv" data-sid="06b-walk-gap:63">eel</span></span></li>
+            <li class="slot slot--5" data-sid="06b-walk-gap:64"><span class="slot__i" data-sid="06b-walk-gap:65">5</span><span class="slot__v" data-sid="06b-walk-gap:66"><span class="sv sv--fox" data-sid="06b-walk-gap:67">fox</span><span class="sv sv--null sv--fox-null" data-sid="06b-walk-gap:68">null</span><span class="sv sv--copy" data-sid="06b-walk-gap:69">fox</span></span></li>
+            <li class="slot slot--6" data-sid="06b-walk-gap:70"><span class="slot__i" data-sid="06b-walk-gap:71">6</span><span class="slot__v" data-sid="06b-walk-gap:72"><span class="sv sv--null" data-sid="06b-walk-gap:73">null</span></span></li>
+            <li class="slot slot--gap" data-sid="06b-walk-gap:74"><span class="slot__i" data-sid="06b-walk-gap:75">&nbsp;</span><span class="slot__v slot__v--gap" data-sid="06b-walk-gap:76"><span class="sv" data-sid="06b-walk-gap:77">&hellip;</span></span></li>
+          </ol>
+        </div>
+        <svg class="heap-wires" aria-hidden="true" data-sid="06b-walk-gap:78"></svg>
+      </div>
+      <div class="locals" data-sid="06b-walk-gap:79">
+        <div class="local" data-sid="06b-walk-gap:80">
+          <p class="heap-name" data-sid="06b-walk-gap:81">givenIndex</p>
+          <p class="local__val" data-sid="06b-walk-gap:82">2</p>
+        </div>
+        <div class="local" data-sid="06b-walk-gap:83">
+          <p class="heap-name" data-sid="06b-walk-gap:84">result</p>
+          <p class="local__val" data-sid="06b-walk-gap:85"><span class="lv lv--old" data-sid="06b-walk-gap:86">null</span><span class="lv lv--new" data-sid="06b-walk-gap:87"><span class="sr-only" data-sid="06b-walk-gap:88">now </span>"cat"</span></p>
+        </div>
+      </div>
+      <div class="codewalk__caps" data-sid="06b-walk-gap:89">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-gap:90">givenIndex is 2: result now names the entry at index 2, cat &mdash; the one being handed back.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-gap:91">The last entry, fox, is copied into index 2, over cat. One assignment &mdash; that is option C.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-gap:92">Index 5 is set to null, so fox is in the bag once.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-gap:93">The count comes down: five entries, at indexes 0 to 4. Nothing was shifted.</p>
+        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="06b-walk-gap:94">A bag has no order, so the last entry can go anywhere. That is why one move is enough.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-gap:95"></div>
+  <aside class="notes" data-sid="06b-walk-gap:96">Answer: C &mdash; and the four lines on the left are how removeEntry does it, which is the code vote 2 hands them. The picture is the one to name out loud: this is the bag, the bag owns a count and an array, and the two method locals sit under it. Step 1 &mdash; line 1: result takes the entry at givenIndex, cat, so the caller gets it back; slot 2 still holds cat too &mdash; two names for one entry, for a moment. Step 2 &mdash; lines 2 and 3: the last entry, fox, is copied into index 2 over cat; watch the copy travel. One assignment, no loop. Ask: is anything wrong with fox being at index 2 now? No &mdash; a bag has no order. Step 3 &mdash; line 4: index 5 is set to null, otherwise fox would be in the bag twice. Step 4 &mdash; line 5: numberOfEntries comes down to 5; the live entries are 0 to 4, and everything from slot 5 on is past the count whatever it holds. Step 5 &mdash; the other three: A moves the gap to index 0 instead of closing it; B, shifting, is the list answer &mdash; correct, and n moves instead of one; D leaves a null hole that contains, getFrequencyOf and toString would all trip over. Plant: these four lines are removeEntry; vote 2 is about calling it.</aside>
+
+  <style data-sid="06b-walk-gap:97">
+    /* Slide-local: code left (720px — the chrome size with the long
+       assignment broken over two lines, formatting only), the heap right in
+       the codewalk grammar. One object, the ArrayBag, wired from `this` at
+       step 0; its array is the slot strip inside the box (13b's picture), its
+       count a struck field done locally because the strike is keyed to a
+       caption. The method's locals — givenIndex, result — are value pills
+       under the heap, 13-npe's "a name holding a value, not an address". The
+       run narrows to 100 so seven 76px slots and the ellipsis clear the
+       column. fox is COPIED: .sv--copy sits over the original in slot 5 and
+       translates three slot pitches (3 × 84) left on the smootherstep — a
+       real move — while cat fades under it; slot 5's own fox crossfades to
+       null a step later. Slot edges: blue for the slot being read or written,
+       stone dashed for slots past the count. Everything is keyed to the
+       caption frags through :has(), so scrubbing back reverses it; the box
+       breathes on the count write with its own keyframes name (the
+       component's pulse needs a heap-val frag). All values from tokens; used
+       by this slide only. */
+    #slide-06b .slide__body { grid-template-columns: 720px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-06b .stack { gap: var(--s-4); }
+    #slide-06b .codewalk__heap { grid-template-columns: max-content 100px max-content; }
+    #slide-06b .codewalk .heap-name, #slide-06b .codewalk .heap-val { font-size: var(--t-micro); }
+    #slide-06b .codewalk .heap-obj { padding: var(--s-2); }
+    #slide-06b .heap-obj__label { margin: var(--s-2) 0 var(--s-1); font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-1); }
+
+    /* the count: struck in place on line 5 */
+    #slide-06b .cnt { margin: 0; }
+    #slide-06b .cnt__v { position: relative; display: inline-block; line-height: 1; margin-right: var(--s-2); transition: color .3s ease, opacity .3s ease; }
+    #slide-06b .cnt__v::after {
+      content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 0;
+      border-top: 3px solid currentColor; transform: scaleX(0); transform-origin: left center;
+      transition: transform .35s var(--ease-smooth);
+    }
+    #slide-06b .cnt__v--1 { opacity: 0; }
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .cnt__v--0 { color: var(--fg-1); }
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .cnt__v--0::after { transform: scaleX(1); }
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .cnt__v--1 { opacity: 1; transition-delay: .25s; }
+    @keyframes cw-pulse-cnt { 0% { transform: scale(1); } 35% { transform: scale(1.025); } 100% { transform: scale(1); } }
+    #slide-06b .codewalk:has(.cap--4.is-current) .heap-obj { animation: cw-pulse-cnt .7s var(--ease-smooth); }
+
+    /* the array: seven slots and an ellipsis, fixed pitch so a copy can travel by slot */
+    #slide-06b .slots { display: flex; align-items: flex-end; gap: var(--s-1); margin: 0; padding: 0; list-style: none; }
+    #slide-06b .slots li { margin: 0; }
+    #slide-06b .slot { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); }
+    #slide-06b .slot__i { font-family: var(--font-mono); font-size: var(--t-tag); line-height: 1; color: var(--fg-1); transition: color .3s ease; }
+    #slide-06b .slot__v {
+      position: relative; display: grid; box-sizing: border-box; width: 76px; height: 46px;
+      border: 2px solid var(--fg-1); border-radius: var(--r-1); background: transparent;
+      font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-0);
+      transition: border-color .3s ease, background-color .3s ease;
+    }
+    #slide-06b .slot__v--gap { width: 40px; border-color: transparent; color: var(--stone); }
+    #slide-06b .sv { grid-area: 1 / 1; display: flex; align-items: center; justify-content: center; transition: opacity .3s ease; }
+    #slide-06b .sv--null { color: var(--stone); }
+    #slide-06b .sv--fox-null { opacity: 0; }
+    #slide-06b .sv--copy { position: absolute; inset: 0; opacity: 0; transition: opacity .2s ease, transform .7s var(--ease-smooth); }
+    /* step 1: slot 2 is read */
+    #slide-06b .codewalk:has(.cap--1:not(.is-pending)) .slot--2 .slot__v { border-color: var(--accent-2); }
+    /* step 2: the copy travels three slots left, cat goes under it, slot 2 takes the write */
+    #slide-06b .codewalk:has(.cap--2:not(.is-pending)) .sv--copy { opacity: 1; transform: translateX(-252px); }
+    #slide-06b .codewalk:has(.cap--2:not(.is-pending)) .sv--cat { opacity: 0; transition-delay: .4s; }
+    #slide-06b .codewalk:has(.cap--2:not(.is-pending)) .slot--2 .slot__v { background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-1)); }
+    /* step 3: slot 5's own fox becomes null */
+    #slide-06b .codewalk:has(.cap--3:not(.is-pending)) .sv--fox { opacity: 0; }
+    #slide-06b .codewalk:has(.cap--3:not(.is-pending)) .sv--fox-null { opacity: 1; }
+    /* step 4: slots from the count on are past it */
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .slot--5 .slot__v,
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .slot--6 .slot__v { border-style: dashed; border-color: var(--stone); }
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .slot--5 .slot__i,
+    #slide-06b .codewalk:has(.cap--4:not(.is-pending)) .slot--6 .slot__i { color: var(--stone); }
+
+    /* the method's locals: a name holding a value, not an address */
+    #slide-06b .locals { display: flex; gap: var(--s-5); margin: var(--s-3) 0 0; }
+    #slide-06b .local { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); }
+    #slide-06b .local .heap-name { padding: var(--s-1) var(--s-2); }
+    #slide-06b .local__val { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-0); }
+    #slide-06b .lv { position: relative; display: inline-block; line-height: 1; transition: color .3s ease, opacity .3s ease; }
+    #slide-06b .lv--old::after {
+      content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 0;
+      border-top: 3px solid currentColor; transform: scaleX(0); transform-origin: left center;
+      transition: transform .35s var(--ease-smooth);
+    }
+    #slide-06b .lv--new { margin-left: var(--s-2); opacity: 0; }
+    #slide-06b .codewalk:has(.cap--1:not(.is-pending)) .lv--old { color: var(--fg-1); }
+    #slide-06b .codewalk:has(.cap--1:not(.is-pending)) .lv--old::after { transform: scaleX(1); }
+    #slide-06b .codewalk:has(.cap--1:not(.is-pending)) .lv--new { opacity: 1; transition-delay: .25s; }
+
+    #slide-06b .codewalk__caps { min-height: 150px; }
+    #slide-06b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    /* the debrief: one row per option that is not the answer */
+    #slide-06b .dbr { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--s-2); font-size: var(--t-small); line-height: 1.3; }
+    #slide-06b .dbr__row { display: flex; align-items: flex-start; gap: var(--s-2); margin: 0; transition: opacity .3s ease; }
+    #slide-06b .dbr__row.is-current, #slide-06b .dbr__row.is-past { transition-delay: calc(var(--i, 0) * .2s); }
+    #slide-06b .dbr__mk {
+      flex: 0 0 auto; width: var(--s-5); height: var(--s-5); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: var(--t-micro); font-weight: 700; color: var(--paper);
+    }
+    #slide-06b .dbr__mk--bad { background: var(--accent-1); }
+    #slide-06b .dbr__mk--slow { background: var(--accent-3); }
+    #slide-06b .dbr__opt { flex: 0 0 auto; min-width: 1.1em; padding-top: 2px; color: var(--accent-1); font-weight: 700; }
+    #slide-06b .dbr__txt { padding-top: 2px; color: var(--fg-0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .cnt__v, #slide-06b .cnt__v::after, #slide-06b .slot__v, #slide-06b .slot__i, #slide-06b .sv, #slide-06b .sv--copy,
+      #slide-06b .lv, #slide-06b .lv--old::after, #slide-06b .dbr__row { transition-duration: 0s !important; transition-delay: 0s !important; }
+      #slide-06b .heap-obj { animation: none !important; }
+    }
+  </style>
+</section>

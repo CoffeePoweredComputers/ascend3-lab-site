@@ -1,0 +1,104 @@
+<section class="slide slide--warmup" id="slide-10" data-sid="10-practice-tostring:1">
+  <header class="slide__head" data-sid="10-practice-tostring:2">
+    <p class="slide__kicker" data-sid="10-practice-tostring:3">PRACTICE 2 &middot; PRAIRIELEARN &rsaquo; CODING PRACTICE</p>
+    <h2 data-sid="10-practice-tostring:4">Write toString for the ArrayBag</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10-practice-tostring:5">A coding-practice prompt. Across the top, the task: return the items currently in the bag in the form open bracket, item, comma, item, comma, item, close bracket, in the order they appear in the underlying array; each item except the last is followed by a comma and a space; an empty bag returns a pair of empty brackets. Left, an excerpt of ArrayBag.java: the three fields &mdash; the contents array, MAX equal to 25, and numberOfEntries &mdash; the constructor that allocates a 25-slot Object array, and the toString stub with its TODO comment returning null. Right, the example from the question: a bag of Strings receiving H, E, L, L and O, and the call bag1.toString() returning the string open bracket H comma E comma L comma L comma O close bracket. Under the example, hints arrive one at a time: the array has 25 slots, how many are in use, while the numberOfEntries field and the new Object of MAX line are ringed in blue; then, which item is the one not followed by a comma; then, an empty bag prints empty brackets, does yours. Last, a maroon line: the same bound as removeEntry, numberOfEntries, not 25.</p>
+
+  <!-- The workout is the loop the whole hour was about, so the slide gives the
+       room the question and the trap, not the code: the prompt across the top,
+       the class excerpt that matters (a 25-slot array, a count) on the left, the
+       question's own example on the right, and three hints that arrive one at a
+       time in a single caption slot. Nothing here is a solution — PrairieLearn
+       grades it — so hint 1 rings the two lines that decide the bound and the
+       plant names it. Code is quoted from the question; the excerpt keeps only
+       the fields, the constructor and the stub. -->
+  <div class="slide__body cw" data-sid="10-practice-tostring:6">
+    <p class="cw__task" data-sid="10-practice-tostring:7">Return the items in the bag as <code data-sid="10-practice-tostring:8">[item, item, item]</code>, in the order they appear in the array. Each item except the last is followed by a comma and a space. An empty bag returns <code data-sid="10-practice-tostring:9">"[]"</code>.</p>
+
+    <div class="editor code-tag" data-sid="10-practice-tostring:10">
+      <p class="editor__bar" data-sid="10-practice-tostring:11">ArrayBag.java &mdash; excerpt</p>
+      <ol class="editor__code" data-sid="10-practice-tostring:12">
+        <li data-sid="10-practice-tostring:13"><span class="tok-key">private</span> T[] contents;</li>
+        <li data-sid="10-practice-tostring:14"><span class="tok-key">private static final int</span> MAX = <span class="tok-num">25</span>;</li>
+        <li class="cw__key" data-sid="10-practice-tostring:15"><span class="tok-key">private int</span> numberOfEntries;</li>
+        <li data-sid="10-practice-tostring:16">&nbsp;</li>
+        <li data-sid="10-practice-tostring:17">@SuppressWarnings("unchecked")</li>
+        <li data-sid="10-practice-tostring:18"><span class="tok-key">public</span> ArrayBag() {</li>
+        <li class="cw__key" data-sid="10-practice-tostring:19">    T[] tempBag = (T[]) <span class="tok-key">new</span> Object[MAX];</li>
+        <li data-sid="10-practice-tostring:20">    contents = tempBag;</li>
+        <li data-sid="10-practice-tostring:21">    numberOfEntries = <span class="tok-num">0</span>;</li>
+        <li data-sid="10-practice-tostring:22">}</li>
+        <li data-sid="10-practice-tostring:23">&nbsp;</li>
+        <li data-sid="10-practice-tostring:24">@Override</li>
+        <li data-sid="10-practice-tostring:25"><span class="tok-key">public</span> String toString() {</li>
+        <li data-sid="10-practice-tostring:26">    // TODO: Implement this method.</li>
+        <li data-sid="10-practice-tostring:27">    <span class="tok-key">return null</span>;</li>
+        <li data-sid="10-practice-tostring:28">}</li>
+      </ol>
+    </div>
+
+    <div class="stack code-dense" data-sid="10-practice-tostring:29">
+      <div class="editor" data-sid="10-practice-tostring:30">
+        <p class="editor__bar" data-sid="10-practice-tostring:31">the example</p>
+        <ol class="editor__code" data-sid="10-practice-tostring:32">
+          <li data-sid="10-practice-tostring:33">ArrayBag&lt;String&gt; bag1 = <span class="tok-key">new</span> ArrayBag&lt;&gt;();</li>
+          <li data-sid="10-practice-tostring:34">bag1.add("H");</li>
+          <li data-sid="10-practice-tostring:35">bag1.add("E");</li>
+          <li data-sid="10-practice-tostring:36">bag1.add("L");</li>
+          <li data-sid="10-practice-tostring:37">bag1.add("L");</li>
+          <li data-sid="10-practice-tostring:38">bag1.add("O");</li>
+          <li data-sid="10-practice-tostring:39">&nbsp;</li>
+          <li data-sid="10-practice-tostring:40">bag1.toString();  // returns "[H, E, L, L, O]"</li>
+        </ol>
+      </div>
+      <div class="cw__hints" data-sid="10-practice-tostring:41">
+        <p class="cw__hint cw__hint--1 frag" data-step="1" data-sid="10-practice-tostring:42"><b data-sid="10-practice-tostring:43">Hint 1:</b> the array has 25 slots. How many are in use?</p>
+        <p class="cw__hint frag" data-step="2" data-sid="10-practice-tostring:44"><b data-sid="10-practice-tostring:45">Hint 2:</b> which item is the one not followed by a comma?</p>
+        <p class="cw__hint frag" data-step="3" data-sid="10-practice-tostring:46"><b data-sid="10-practice-tostring:47">Hint 3:</b> an empty bag prints <code data-sid="10-practice-tostring:48">[]</code> &mdash; does yours?</p>
+        <p class="cw__hint cw__plant frag" data-step="4" data-sid="10-practice-tostring:49">Same bound as removeEntry: numberOfEntries, not 25.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10-practice-tostring:50"></div>
+  <aside class="notes" data-sid="10-practice-tostring:51">PrairieLearn &rsaquo; Assessments &rsaquo; Coding Practice &rsaquo; question 2, ArrayBag toString. Read the task once, point at the example, and give them eight minutes in their vote groups; the solution never goes on screen &mdash; PrairieLearn grades it. Hint 1 when the first hands go up: the array has 25 slots and the bag has five things in it, so which number is the loop bound? Ring the two lines. The two wrong bounds are both visible in the output, not as exceptions: i &lt;= numberOfEntries prints an extra null, i &lt; contents.length prints twenty of them. Hint 2 for the fencepost: every item but the last is followed by a comma and a space &mdash; either test for the last index, or add the separator before every item after the first. Hint 3: an empty bag must return the two brackets and nothing else, which a loop that runs zero times gives for free. For me: a StringBuilder starting with the open bracket, a for loop from 0 to numberOfEntries minus one appending the item and, when i is less than numberOfEntries minus one, a comma and a space, then the close bracket. Plant: the same bound as removeEntry &mdash; both votes and this workout turn on numberOfEntries, never on the array&rsquo;s length.</aside>
+
+  <style>
+    /* Slide-local: task across the top, the class excerpt left (token floor:
+       sixteen lines beside a 28px example), the example and a single hint slot
+       right. Hints stack in one grid cell and crossfade, so the column never
+       moves; hint 1 rings the two lines that decide the bound in the tool blue
+       (a measurement), and the plant takes the heading maroon. Entrances are
+       plain fades. All values from tokens; used by this slide only. */
+    #slide-10 .cw {
+      display: grid;
+      grid-template-columns: 640px minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: var(--s-3);
+      align-items: start;
+    }
+    #slide-10 .cw__task { grid-column: 1 / -1; margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+    #slide-10 .cw__task code { font-family: var(--font-mono); background: var(--bg-1); padding: 0 var(--s-1); border-radius: var(--r-1); }
+    #slide-10 .stack { gap: var(--s-3); }
+
+    /* the two lines that decide the bound, ringed while hint 1 is up */
+    #slide-10 .editor__code li.cw__key {
+      border-radius: var(--r-1);
+      outline: 4px solid transparent; outline-offset: -2px;
+      transition: outline-color .3s ease;
+    }
+    #slide-10 .cw:has(.cw__hint--1.is-current) .editor__code li.cw__key { outline-color: var(--accent-2); }
+
+    /* one hint at a time */
+    #slide-10 .cw__hints { display: grid; align-content: start; }
+    #slide-10 .cw__hint { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-10 .cw__hint b { color: var(--accent-2); }
+    #slide-10 .cw__hint code { font-family: var(--font-mono); background: var(--bg-1); padding: 0 var(--s-1); border-radius: var(--r-1); }
+    #slide-10 .frag.cw__hint.is-past { opacity: 0; }
+    #slide-10 .cw__plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10 .cw__hint, #slide-10 .editor__code li.cw__key { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
