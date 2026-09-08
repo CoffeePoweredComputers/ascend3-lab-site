@@ -1,0 +1,164 @@
+<section class="slide slide--warmup" id="slide-10b" data-sid="10b-tostring-code:1">
+  <header class="slide__head" data-sid="10b-tostring-code:2">
+    <p class="slide__kicker" data-sid="10b-tostring-code:3">PRACTICE 2 &middot; THE CODE</p>
+    <h2 data-sid="10b-tostring-code:4">Where does the loop stop, and where does the comma go?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10b-tostring-code:5">A walkthrough of the toString plan. On the left, the stub from the question in an editor: the Override annotation, the method signature, the TODO comment and return null. Between the signature and the TODO, plan lines open one at a time, diff-style with a plus sign in the gutter: the result starts as an opening bracket; for i from 0 up to numberOfEntries minus 1, append contents of i, then a comma and a space unless i is the last; close with a bracket. On the right, the bag&rsquo;s array as a row of cells: five filled cells H, E, L, L, O at indexes 0 to 4, three empty dashed cells at 5, 6 and 7, and an ellipsis to index 24; above them, numberOfEntries equals 5 and contents.length equals 25. Under the row, the string bag1.toString() builds: an opening bracket; then H comma E comma L comma L comma O as the five filled cells light up in turn; then the four separators highlighted in blue; then the closing bracket, matching the example. Then a second line: a new empty bag prints two brackets, the loop having run zero times. Last, two maroon lines show the wrong bounds&rsquo; output: i less-than-or-equal-to numberOfEntries prints an extra null, i less than contents.length prints twenty of them. A caption under the column changes with each step.</p>
+
+  <!-- Week 2's practice grammar: the question's own code on the left with the
+       answer arriving as inserted comment lines (the plan, not the Java —
+       PrairieLearn grades the Java); the picture on the right — the array as
+       cells, with the string growing under it — so the two things people get
+       wrong are visible: the bound (five of twenty-five slots) and the
+       fencepost (a separator after every item but the last). Steps:
+       1: "[" opens — the string is one bracket.
+       2: the for line opens; cells 0..4 light up in turn; the string is [H, E, L, L, O.
+       3: the separator line opens; the four ", " runs go blue.
+       4: the close line opens; the string is the example's.
+       5: the empty bag — zero passes, brackets only.
+       6: the two wrong bounds, in maroon: both print nulls, neither throws. -->
+  <div class="slide__body grid grid--code code-dense" data-sid="10b-tostring-code:6">
+    <div class="editor" data-sid="10b-tostring-code:7">
+      <p class="editor__bar" data-sid="10b-tostring-code:8">toString &mdash; the plan, in the stub</p>
+      <ol class="editor__code" data-sid="10b-tostring-code:9">
+        <li data-sid="10b-tostring-code:10">@Override</li>
+        <li data-sid="10b-tostring-code:11"><span class="tok-key">public</span> String toString() {</li>
+        <li class="ins frag" data-step="1" data-sid="10b-tostring-code:12">    // result starts as "["</li>
+        <li class="ins frag" data-step="2" data-sid="10b-tostring-code:13">    // for i = 0 up to numberOfEntries - 1:</li>
+        <li class="ins frag" data-step="2" data-sid="10b-tostring-code:14">    //     append contents[i]</li>
+        <li class="ins frag" data-step="3" data-sid="10b-tostring-code:15">    //     then ", " unless i is the last</li>
+        <li class="ins frag" data-step="4" data-sid="10b-tostring-code:16">    // close with "]"</li>
+        <li data-sid="10b-tostring-code:17">    // TODO: Implement this method.</li>
+        <li data-sid="10b-tostring-code:18">    <span class="tok-key">return null</span>;</li>
+        <li data-sid="10b-tostring-code:19">}</li>
+      </ol>
+    </div>
+
+    <div class="tr" data-sid="10b-tostring-code:20">
+      <p class="tr__meta" data-sid="10b-tostring-code:21"><span class="tr__n" data-sid="10b-tostring-code:22">numberOfEntries = 5</span><span class="tr__len" data-sid="10b-tostring-code:23">contents.length = 25</span></p>
+      <ol class="tr__row" data-sid="10b-tostring-code:24">
+        <li class="tr__cell tr__cell--live" style="--i: 0" data-sid="10b-tostring-code:25">H</li>
+        <li class="tr__cell tr__cell--live" style="--i: 1" data-sid="10b-tostring-code:26">E</li>
+        <li class="tr__cell tr__cell--live" style="--i: 2" data-sid="10b-tostring-code:27">L</li>
+        <li class="tr__cell tr__cell--live" style="--i: 3" data-sid="10b-tostring-code:28">L</li>
+        <li class="tr__cell tr__cell--live" style="--i: 4" data-sid="10b-tostring-code:29">O</li>
+        <li class="tr__cell tr__cell--empty" data-sid="10b-tostring-code:30"></li>
+        <li class="tr__cell tr__cell--empty" data-sid="10b-tostring-code:31"></li>
+        <li class="tr__cell tr__cell--empty" data-sid="10b-tostring-code:32"></li>
+        <li class="tr__more" data-sid="10b-tostring-code:33">&hellip;</li>
+      </ol>
+      <ol class="tr__idx" data-sid="10b-tostring-code:34">
+        <li data-sid="10b-tostring-code:35">0</li><li data-sid="10b-tostring-code:36">1</li><li data-sid="10b-tostring-code:37">2</li><li data-sid="10b-tostring-code:38">3</li><li data-sid="10b-tostring-code:39">4</li><li data-sid="10b-tostring-code:40">5</li><li data-sid="10b-tostring-code:41">6</li><li data-sid="10b-tostring-code:42">7</li><li data-sid="10b-tostring-code:43">24</li>
+      </ol>
+
+      <div class="tr__out" data-sid="10b-tostring-code:44">
+        <p class="tr__label" data-sid="10b-tostring-code:45">bag1.toString()</p>
+        <div class="tr__str" data-sid="10b-tostring-code:46">
+          <p class="tr__val v1 frag" data-step="1" data-sid="10b-tostring-code:47">[</p>
+          <p class="tr__val v2 frag" data-step="2" data-sid="10b-tostring-code:48">[H, E, L, L, O</p>
+          <p class="tr__val v3 frag" data-step="3" data-sid="10b-tostring-code:49">[H<b data-sid="10b-tostring-code:50">, </b>E<b data-sid="10b-tostring-code:51">, </b>L<b data-sid="10b-tostring-code:52">, </b>L<b data-sid="10b-tostring-code:53">, </b>O</p>
+          <p class="tr__val v4 frag" data-step="4" data-sid="10b-tostring-code:54">[H, E, L, L, O]</p>
+        </div>
+      </div>
+      <div class="tr__out frag" data-step="5" data-sid="10b-tostring-code:55">
+        <p class="tr__label" data-sid="10b-tostring-code:56">new ArrayBag&lt;&gt;().toString()</p>
+        <p class="tr__val" data-sid="10b-tostring-code:57">[]</p>
+      </div>
+      <div class="tr__bad frag" data-step="6" data-sid="10b-tostring-code:58">
+        <p class="tr__badline" data-sid="10b-tostring-code:59"><code data-sid="10b-tostring-code:60">i &lt;= numberOfEntries</code> &rarr; [H, E, L, L, O, null]</p>
+        <p class="tr__badline" data-sid="10b-tostring-code:61"><code data-sid="10b-tostring-code:62">i &lt; contents.length</code> &rarr; [H, E, L, L, O, null, null, &hellip;]</p>
+      </div>
+
+      <div class="tr__caps" data-sid="10b-tostring-code:63">
+        <p class="tr__cap frag" data-step="1" data-sid="10b-tostring-code:64">Start with the opening bracket.</p>
+        <p class="tr__cap frag" data-step="2" data-sid="10b-tostring-code:65">i runs 0 to numberOfEntries &minus; 1: five items, and the twenty empty slots never come up.</p>
+        <p class="tr__cap frag" data-step="3" data-sid="10b-tostring-code:66">A separator after every item but the last &mdash; the fencepost.</p>
+        <p class="tr__cap frag" data-step="4" data-sid="10b-tostring-code:67">Close the bracket. That is the example&rsquo;s string.</p>
+        <p class="tr__cap frag" data-step="5" data-sid="10b-tostring-code:68">Empty bag: the loop runs zero times and the brackets are all that is left.</p>
+        <p class="tr__cap tr__cap--plant frag" data-step="6" data-sid="10b-tostring-code:69">Both wrong bounds print nulls, and neither throws. Test with a bag that is not full.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10b-tostring-code:70"></div>
+  <aside class="notes" data-sid="10b-tostring-code:71">The plan, not the Java &mdash; PrairieLearn grades the Java, and the comment lines are the shape any correct answer has. Step 1 &mdash; the result starts as one bracket; say the word &ldquo;starts&rdquo;: whatever they build, it opens before the loop. Step 2 &mdash; the loop: i from 0 up to numberOfEntries minus 1. Point at the row: five filled cells light up, the three dashed ones and the twenty behind them never come up. This is the bound the whole hour has been about. Step 3 &mdash; the fencepost: every item but the last is followed by a comma and a space; the four separators go blue. Either test for the last index, or add the separator before every item after the first &mdash; both are fine, and both are one comparison. Step 4 &mdash; the close bracket, and the string is exactly the example&rsquo;s. Step 5 &mdash; the empty bag: numberOfEntries is 0, the loop runs zero times, and the two brackets are all that is left &mdash; a correct loop gets this case for free, which is the point of asking about it. Step 6 &mdash; the two wrong bounds, and neither throws: i &lt;= numberOfEntries prints one extra null, i &lt; contents.length prints twenty. Vote 3&rsquo;s D only threw because that bag was full; here the array has room, so the mistake is silent and shows up as output. Plant: test with a bag that is not full &mdash; a full bag hides the bound. Hand off to the closing clock.</aside>
+
+  <style>
+    /* Slide-local: Week 2's practice grammar. Left, the stub with the plan
+       arriving as inserted comment lines — real list items in the flow with "+" in
+       the gutter, opening from height 0 to one line (28 × 1.5 = 42) and taking
+       no line number, so lines 1-5 keep the question's numbering and nothing
+       lands on top of anything. Right, the array as 80px cells (five live,
+       three empty, an ellipsis to 24) with the string growing beneath in one
+       stacked cell: each version is a plain crossfade of the last (a value
+       replaced, not counted up), and a version stays until a later one takes
+       over. Ink follows the deck: blue for the items the loop reads and the
+       separators it writes (a measurement), stone dashes for the slots it never
+       touches, maroon for the wrong outputs. All values from tokens; used by
+       this slide only. */
+    #slide-10b .slide__body { grid-template-columns: 800px minmax(0, 1fr); align-items: start; }
+
+    /* the inserted plan lines, diff-style */
+    #slide-10b .editor__code li.ins {
+      counter-increment: none;
+      height: 42px; overflow: hidden;
+      color: var(--accent-3);
+      background: color-mix(in srgb, var(--accent-3) 12%, transparent);
+      transition: height .55s var(--ease-smooth), opacity .35s ease;
+    }
+    #slide-10b .editor__code li.ins::before { content: "+"; color: var(--accent-3); }
+    #slide-10b .editor__code .frag.ins.is-pending { height: 0; opacity: 0; transition-delay: 0s, 0s; }
+    #slide-10b .editor__code .frag.ins.is-current,
+    #slide-10b .editor__code .frag.ins.is-past { transition-delay: 0s, .3s; }
+
+    /* the array: what the loop reads, and what it must not */
+    #slide-10b .tr__meta { display: flex; justify-content: space-between; margin: 0 0 var(--s-1); font-family: var(--font-mono); font-size: var(--t-micro); }
+    #slide-10b .tr__n { color: var(--accent-2); }
+    #slide-10b .tr__len { color: var(--stone); }
+    #slide-10b .tr__row, #slide-10b .tr__idx { display: flex; gap: var(--s-1); list-style: none; margin: 0; padding: 0; }
+    #slide-10b .tr__cell {
+      flex: 0 0 80px; width: 80px; height: 80px; box-sizing: border-box; margin: 0;
+      display: flex; align-items: center; justify-content: center;
+      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+      font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0);
+      transition: border-color .3s ease, background-color .3s ease;
+    }
+    #slide-10b .tr__cell--empty { border-style: dashed; background: transparent; }
+    #slide-10b .tr__more { flex: 0 0 auto; margin: 0; align-self: center; padding-left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-small); color: var(--stone); }
+    #slide-10b .tr__idx { margin: var(--s-1) 0 var(--s-3); }
+    #slide-10b .tr__idx li { flex: 0 0 80px; margin: 0; text-align: center; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
+    #slide-10b .tr__idx li:last-child { flex: 0 0 auto; padding-left: var(--s-1); color: var(--stone); }
+    /* the loop reads cells 0..4, in turn, while the for line is open */
+    #slide-10b .tr:has(.v2:not(.is-pending)) .tr__cell--live {
+      border-color: var(--accent-2);
+      background: color-mix(in srgb, var(--accent-2) 16%, var(--bg-1));
+      transition-delay: calc(var(--i) * .1s);
+    }
+
+    /* the string, growing: one cell, later versions cover earlier ones */
+    #slide-10b .tr__out { margin: 0 0 var(--s-2); }
+    #slide-10b .tr__label { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.45; color: var(--fg-1); }
+    #slide-10b .tr__str { display: grid; }
+    #slide-10b .tr__val { grid-area: 1 / 1; margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-10b .tr__val b { color: var(--accent-2); }
+    #slide-10b .tr__str:has(.v2:not(.is-pending)) .v1,
+    #slide-10b .tr__str:has(.v3:not(.is-pending)) .v2,
+    #slide-10b .tr__str:has(.v4:not(.is-pending)) .v3 { opacity: 0; }
+
+    /* the two wrong bounds */
+    #slide-10b .tr__bad { margin: 0 0 var(--s-3); }
+    #slide-10b .tr__badline { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.45; color: var(--accent-1); }
+    #slide-10b .tr__badline code { font-family: var(--font-mono); font-size: 100%; background: color-mix(in srgb, var(--accent-1) 12%, var(--bg-0)); padding: 0 var(--s-1); border-radius: var(--r-1); }
+
+    /* one caption at a time */
+    #slide-10b .tr__caps { display: grid; }
+    #slide-10b .tr__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .35s ease; }
+    #slide-10b .frag.tr__cap.is-past { opacity: 0; }
+    #slide-10b .tr__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10b .editor__code li.ins, #slide-10b .tr__cell, #slide-10b .tr__val, #slide-10b .tr__cap {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>
