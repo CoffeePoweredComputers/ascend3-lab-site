@@ -16,7 +16,7 @@
     <ol class="editor__code vd__code" data-sid="08b-walk-branch:8">
       <li data-sid="08b-walk-branch:9"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
       <li data-sid="08b-walk-branch:10"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-      <li data-sid="08b-walk-branch:11"><span class="tok-key">while</span> (!found &amp;&amp; i &lt; numberOfEntries) {</li>
+      <li data-sid="08b-walk-branch:11"><span class="tok-key">while</span> ( !found &amp;&amp; (i &lt; numberOfEntries)) {</li>
       <li data-sid="08b-walk-branch:12">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
       <li data-sid="08b-walk-branch:13">        found = <span class="tok-key">true</span>;</li>
       <li data-sid="08b-walk-branch:14">    }</li>
@@ -41,7 +41,7 @@
     <p class="vd__letter" data-sid="08b-walk-branch:34">D</p>
     <ol class="editor__code vd__code" data-sid="08b-walk-branch:35">
       <li data-sid="08b-walk-branch:36"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-      <li class="bug-line" data-sid="08b-walk-branch:37"><span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
+      <li class="bug-line" data-sid="08b-walk-branch:37"><span class="tok-key">while</span> ((i &lt;= numberOfEntries)) {</li>
       <li data-sid="08b-walk-branch:38">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
       <li data-sid="08b-walk-branch:39">        <span class="tok-key">return true</span>;</li>
       <li data-sid="08b-walk-branch:40">    }</li>

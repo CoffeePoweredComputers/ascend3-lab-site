@@ -11,7 +11,7 @@
       <ol class="editor__code" data-sid="07b-walk-cases:10">
         <li data-sid="07b-walk-cases:11"><span class="tok-key">public boolean</span> contains(T anEntry) {</li>
         <li data-sid="07b-walk-cases:12">    <span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-        <li class="bug-line" data-sid="07b-walk-cases:13">    <span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
+        <li class="bug-line" data-sid="07b-walk-cases:13">    <span class="tok-key">while</span> ((i &lt;= numberOfEntries)) {</li>
         <li data-sid="07b-walk-cases:14">        <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
         <li data-sid="07b-walk-cases:15">            <span class="tok-key">return true</span>;</li>
         <li data-sid="07b-walk-cases:16">        }</li>

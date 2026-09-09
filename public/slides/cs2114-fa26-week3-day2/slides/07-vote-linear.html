@@ -1,0 +1,66 @@
+<section class="slide slide--warmup" id="slide-07" data-sid="07-vote-linear:1">
+  <header class="slide__head" data-sid="07-vote-linear:2">
+    <p class="slide__kicker" data-sid="07-vote-linear:3">PEER INSTRUCTION &middot; VOTE 2</p>
+    <h2 data-sid="07-vote-linear:4">Which operation takes linear time?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07-vote-linear:5">A peer-instruction question. On the left, the question stem &mdash; suppose you are designing an unsorted ArrayBag class which has fields contents and numberOfEntries; which of the following would require linear, O of n, time in the worst case, even with the most efficient implementation &mdash; over a drawing of the bag&rsquo;s array: six cells holding ant, bee, cat, dog, eel and fox at indexes 0 to 5, a dashed empty cell at index 6 past the count, and numberOfEntries equals 6 above. Two short lines under the drawing gloss the terms: linear time, the steps grow with the count; constant time, the same few steps at any count. On the right, the four options: A, removing a random element from the bag; B, checking whether the bag contains a given entry; C, adding a new entry to the bag; D, returning the current size of the bag. Nothing builds; there is no step.</p>
+
+  <!-- The question is text-only in Runestone, so the bag it describes is
+       drawn: contents with six live entries and one free slot past the
+       count, the same array vote 1 used, so the two votes are about one bag.
+       The stem and the four options are quoted from the question. Runestone
+       sets the O(n) inside the parentheses as math; the deck writes it in
+       text. "Linear" is Week 5 vocabulary (5.1 Efficiency), so a two-line
+       gloss sits under the drawing: it defines the term and says nothing
+       about which operation earns it. -->
+  <div class="slide__body lb" data-sid="07-vote-linear:6">
+    <div class="stack" data-sid="07-vote-linear:7">
+      <p class="lb__stem" data-sid="07-vote-linear:8">Suppose you are designing an unsorted ArrayBag class which has fields contents and numberOfEntries. Which of the following would require linear (O(n)) time in the worst case, even with the most efficient implementation?</p>
+      <div class="lb__fig" data-sid="07-vote-linear:9">
+        <p class="lb__count" data-sid="07-vote-linear:10">numberOfEntries = 6</p>
+        <ol class="lb__row" data-sid="07-vote-linear:11">
+          <li class="lb__cell" data-sid="07-vote-linear:12"><span class="lb__idx" data-sid="07-vote-linear:13">0</span><span class="lb__val" data-sid="07-vote-linear:14">ant</span></li>
+          <li class="lb__cell" data-sid="07-vote-linear:15"><span class="lb__idx" data-sid="07-vote-linear:16">1</span><span class="lb__val" data-sid="07-vote-linear:17">bee</span></li>
+          <li class="lb__cell" data-sid="07-vote-linear:18"><span class="lb__idx" data-sid="07-vote-linear:19">2</span><span class="lb__val" data-sid="07-vote-linear:20">cat</span></li>
+          <li class="lb__cell" data-sid="07-vote-linear:21"><span class="lb__idx" data-sid="07-vote-linear:22">3</span><span class="lb__val" data-sid="07-vote-linear:23">dog</span></li>
+          <li class="lb__cell" data-sid="07-vote-linear:24"><span class="lb__idx" data-sid="07-vote-linear:25">4</span><span class="lb__val" data-sid="07-vote-linear:26">eel</span></li>
+          <li class="lb__cell" data-sid="07-vote-linear:27"><span class="lb__idx" data-sid="07-vote-linear:28">5</span><span class="lb__val" data-sid="07-vote-linear:29">fox</span></li>
+          <li class="lb__cell lb__cell--free" data-sid="07-vote-linear:30"><span class="lb__idx" data-sid="07-vote-linear:31">6</span></li>
+        </ol>
+        <p class="lb__note" data-sid="07-vote-linear:32">linear time: the steps grow with the count<br data-sid="07-vote-linear:33">constant time: the same few steps at any count</p>
+      </div>
+    </div>
+    <ol class="opts" data-sid="07-vote-linear:34">
+      <li data-sid="07-vote-linear:35"><p data-sid="07-vote-linear:36">Removing a random element from the bag</p></li>
+      <li data-sid="07-vote-linear:37"><p data-sid="07-vote-linear:38">Checking whether the bag contains a given entry</p></li>
+      <li data-sid="07-vote-linear:39"><p data-sid="07-vote-linear:40">Adding a new entry to the bag</p></li>
+      <li data-sid="07-vote-linear:41"><p data-sid="07-vote-linear:42">Returning the current size of the bag</p></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="07-vote-linear:43"></div>
+  <aside class="notes" data-sid="07-vote-linear:44">Answer: B. The question as printed: &ldquo;Suppose you are designing an unsorted ArrayBag class which has fields contents and numberOfEntries. Which of the following would require linear (O(n)) time in the worst case, even with the most efficient implementation?&rdquo; Before the groups start, say what linear means in one breath &mdash; the number of steps grows with the count, against constant, the same few steps at any count; O(n) gets its proper introduction in the Week 5 efficiency module, so this is a preview. Two things groups trip on. A: &ldquo;a random element&rdquo; means remove() with no argument, an unspecified entry, and vote 1 just showed that as one move; removing a specific entry by value would need contains first, and that is linear. C: add is one write at contents[numberOfEntries]; the array growing when full is the caveat, not the rule. Runestone sets the O(n) inside the parentheses as math &mdash; if the projector shows them empty, say it out loud. Runestone activity id unverified.</aside>
+
+  <style data-sid="07-vote-linear:45">
+    /* Slide-local: the stem and the bag on the left (seven 100px cells and
+       six gutters = 796), the four options on the right. Live cells are the
+       stone-edged panels of vote 1; the free slot past the count is dashed
+       stone, not the maroon gap, because nothing is wrong with it. Static:
+       nothing here is a step. All values from tokens; used by this slide
+       only. */
+    #slide-07 .lb { display: grid; grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-07 .stack { gap: var(--s-4); }
+    #slide-07 .lb__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+    #slide-07 .lb__count { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+    #slide-07 .lb__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+    #slide-07 .lb__cell {
+      position: relative; flex: 0 0 auto; width: 100px; height: 100px; margin: 0; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+    }
+    #slide-07 .lb__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
+    #slide-07 .lb__val { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
+    #slide-07 .lb__cell--free { border-style: dashed; background: transparent; }
+    #slide-07 .lb__cell--free .lb__idx { color: var(--stone); }
+    #slide-07 .lb__note { margin: var(--s-2) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+  </style>
+</section>

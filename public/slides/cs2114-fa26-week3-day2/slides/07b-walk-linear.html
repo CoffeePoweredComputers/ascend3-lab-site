@@ -1,0 +1,113 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-linear:1">
+  <header class="slide__head" data-sid="07b-walk-linear:2">
+    <p class="slide__kicker" data-sid="07b-walk-linear:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-linear:4">Only contains has to look at every entry</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-linear:5">The bag from the vote across the top: numberOfEntries equals 6 in a small box, then the seven-cell array, ant, bee, cat, dog, eel and fox at indexes 0 to 5 and a dashed free cell at index 6, with a one-line caption under it. Below, the four options in a board, each with its letter, its text and a verdict, the verdicts arriving one at a time, dealt D, C, A, then B. Step one, D: the count box outlines blue and the caption reads size reads numberOfEntries, nothing in the array; the verdict, a boxed 1, says constant, one read of the count, the array is never touched. Step two, C: the free cell at index 6 turns blue and the caption reads add writes contents at 6, count 6 to 7; the verdict says constant, one write at contents at numberOfEntries and the count goes up one. Step three, A: the cell holding fox turns blue and the caption reads remove reads contents at 5, nulls it, count 6 to 5; the verdict says constant, vote 1&rsquo;s move, the last entry comes out in one move because any entry will do. Step four, B: the six live cells turn maroon one after another from index 0 and the caption reads contains compares x with contents at 0 through 5, every entry; the verdict, a boxed n, says linear, x is compared with every entry, and when x is not there that is all n of them.</p>
+
+  <!-- Vote 1 defused the trap in A (one move, because a bag has no order),
+       so this answer is a verdict board, not a trace: the same bag across
+       the top, and each option's verdict lights the slots that operation
+       touches. Dealt D → C → A → B, the three one-move answers first, so
+       "linear" lands last on the one that has to sweep. Blue = a slot or
+       field read or written once (the tool colour, a measurement); the
+       sweep is maroon, the deck's colour for the cost. The caption under
+       the row says what was touched, one line per step. Rows keep the
+       vote's A–D order; only the verdicts arrive out of order. -->
+  <div class="slide__body lw" data-sid="07b-walk-linear:6">
+    <div class="lw__fig" data-sid="07b-walk-linear:7">
+      <p class="lw__count" data-sid="07b-walk-linear:8"><span class="lw__countbox" data-sid="07b-walk-linear:9">numberOfEntries = 6</span></p>
+      <ol class="lw__row" data-sid="07b-walk-linear:10">
+        <li class="lw__cell lw__cell--live" style="--i: 0" data-sid="07b-walk-linear:11"><span class="lw__idx" data-sid="07b-walk-linear:12">0</span><span class="lw__val" data-sid="07b-walk-linear:13">ant</span></li>
+        <li class="lw__cell lw__cell--live" style="--i: 1" data-sid="07b-walk-linear:14"><span class="lw__idx" data-sid="07b-walk-linear:15">1</span><span class="lw__val" data-sid="07b-walk-linear:16">bee</span></li>
+        <li class="lw__cell lw__cell--live" style="--i: 2" data-sid="07b-walk-linear:17"><span class="lw__idx" data-sid="07b-walk-linear:18">2</span><span class="lw__val" data-sid="07b-walk-linear:19">cat</span></li>
+        <li class="lw__cell lw__cell--live" style="--i: 3" data-sid="07b-walk-linear:20"><span class="lw__idx" data-sid="07b-walk-linear:21">3</span><span class="lw__val" data-sid="07b-walk-linear:22">dog</span></li>
+        <li class="lw__cell lw__cell--live" style="--i: 4" data-sid="07b-walk-linear:23"><span class="lw__idx" data-sid="07b-walk-linear:24">4</span><span class="lw__val" data-sid="07b-walk-linear:25">eel</span></li>
+        <li class="lw__cell lw__cell--live lw__cell--last" style="--i: 5" data-sid="07b-walk-linear:26"><span class="lw__idx" data-sid="07b-walk-linear:27">5</span><span class="lw__val" data-sid="07b-walk-linear:28">fox</span></li>
+        <li class="lw__cell lw__cell--free" data-sid="07b-walk-linear:29"><span class="lw__idx" data-sid="07b-walk-linear:30">6</span></li>
+      </ol>
+      <div class="lw__caps" data-sid="07b-walk-linear:31">
+        <p class="lw__cap frag" data-step="1" data-sid="07b-walk-linear:32">size: reads numberOfEntries &mdash; nothing in the array</p>
+        <p class="lw__cap frag" data-step="2" data-sid="07b-walk-linear:33">add: writes contents[6], count 6 &rarr; 7</p>
+        <p class="lw__cap frag" data-step="3" data-sid="07b-walk-linear:34">remove(): reads contents[5], nulls it, count 6 &rarr; 5</p>
+        <p class="lw__cap lw__cap--bad frag" data-step="4" data-sid="07b-walk-linear:35">contains(x): compares x with contents[0] &hellip; contents[5] &mdash; every entry</p>
+      </div>
+    </div>
+
+    <div class="lw__board" data-sid="07b-walk-linear:36">
+      <p class="lw__letter" data-sid="07b-walk-linear:37">A</p>
+      <p class="lw__text" data-sid="07b-walk-linear:38">Removing a random element from the bag</p>
+      <p class="lw__verdict lw__v--a frag" data-step="3" data-sid="07b-walk-linear:39"><span class="lw__cost" data-sid="07b-walk-linear:40">1</span> <b class="lw__who--ok" data-sid="07b-walk-linear:41">constant:</b> vote 1&rsquo;s move &mdash; the last entry comes out, one move. Any entry will do, so nothing is searched.</p>
+
+      <p class="lw__letter" data-sid="07b-walk-linear:42">B</p>
+      <p class="lw__text" data-sid="07b-walk-linear:43">Checking whether the bag contains a given entry</p>
+      <p class="lw__verdict lw__v--b frag" data-step="4" data-sid="07b-walk-linear:44"><span class="lw__cost lw__cost--n" data-sid="07b-walk-linear:45">n</span> <b class="lw__who--bad" data-sid="07b-walk-linear:46">linear:</b> x is compared with every entry &mdash; and when x is not there, that is all n of them.</p>
+
+      <p class="lw__letter" data-sid="07b-walk-linear:47">C</p>
+      <p class="lw__text" data-sid="07b-walk-linear:48">Adding a new entry to the bag</p>
+      <p class="lw__verdict lw__v--c frag" data-step="2" data-sid="07b-walk-linear:49"><span class="lw__cost" data-sid="07b-walk-linear:50">1</span> <b class="lw__who--ok" data-sid="07b-walk-linear:51">constant:</b> one write, at <code data-sid="07b-walk-linear:52">contents[numberOfEntries]</code>, and the count goes up one.</p>
+
+      <p class="lw__letter" data-sid="07b-walk-linear:53">D</p>
+      <p class="lw__text" data-sid="07b-walk-linear:54">Returning the current size of the bag</p>
+      <p class="lw__verdict lw__v--d frag" data-step="1" data-sid="07b-walk-linear:55"><span class="lw__cost" data-sid="07b-walk-linear:56">1</span> <b class="lw__who--ok" data-sid="07b-walk-linear:57">constant:</b> one read of <code data-sid="07b-walk-linear:58">numberOfEntries</code>. The array is never touched.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-linear:59"></div>
+  <aside class="notes" data-sid="07b-walk-linear:60">Answer: B &mdash; and deal the three one-move answers first, so the room hears why each is constant before the linear one lands. Step 1 &mdash; D: size is one read of numberOfEntries; the array is never touched. Step 2 &mdash; C: add writes the first free slot, contents[numberOfEntries], and counts up &mdash; one write at any count. If someone asks about a full array: it has to grow, and that copy is the one time add costs more; the question says most efficient implementation, so the everyday case is the answer. Step 3 &mdash; A: remove() of an unspecified entry is exactly the move vote 1 walked &mdash; read the last entry, null its slot, count down. No search, because any entry will do; that is what &ldquo;unsorted&rdquo; and &ldquo;random&rdquo; buy. Removing a specific entry by value would be contains plus that move, so linear &mdash; name it, because that reading is what makes groups pick A. Step 4 &mdash; B: contains(x) compares x with entries until one matches, and when x is not in the bag it compares with all n of them; the worst case grows with the count, so linear, and the sweep across the row is the cost. Plant: the count is the bag &mdash; everything a bag can do in one move, it does at the end. Only &ldquo;is it here?&rdquo; has to look. Week 5 puts names on the two shapes: O(1) and O(n).</aside>
+
+  <style data-sid="07b-walk-linear:61">
+    /* Slide-local: the verdict board under the bag. The bag row is vote 1's
+       drawing at 100px; the count sits in a box so it can light as a field.
+       Each verdict, while it is the current step, lights what its operation
+       touches (:has on the body): the count box
+       for D, the free slot for C, the last live slot for A — all blue, one
+       read or write — and for B every live slot goes maroon in index order,
+       staggered by --i, and stays, because B is the answer. The caption row
+       is one grid cell: the current step's line shows, a past one fades.
+       Entrances are plain fades. All values from tokens; used by this slide
+       only. */
+    #slide-07b .lw { display: grid; row-gap: var(--s-4); align-content: start; }
+    #slide-07b .lw__fig { display: grid; row-gap: var(--s-1); justify-items: start; }
+    #slide-07b .lw__count { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+    #slide-07b .lw__countbox { display: inline-block; padding: 0 var(--s-2); border-radius: var(--r-1); outline: 4px solid transparent; outline-offset: -1px; transition: outline-color .3s ease, color .3s ease; }
+    #slide-07b .lw__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+    #slide-07b .lw__cell {
+      position: relative; flex: 0 0 auto; width: 100px; height: 100px; margin: 0; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+      transition: border-color .3s ease, background-color .3s ease;
+    }
+    #slide-07b .lw__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
+    #slide-07b .lw__val { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
+    #slide-07b .lw__cell--free { border-style: dashed; background: transparent; }
+    #slide-07b .lw__cell--free .lw__idx { color: var(--stone); }
+
+    /* the caption row: one cell, the current step's line only */
+    #slide-07b .lw__caps { display: grid; }
+    #slide-07b .lw__cap { grid-area: 1 / 1; margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--accent-2); transition: opacity .3s ease; }
+    #slide-07b .lw__cap--bad { color: var(--accent-1); }
+    #slide-07b .frag.lw__cap.is-past { opacity: 0; }
+    #slide-07b .frag.lw__cap.is-current { transition-delay: .2s; }
+
+    /* the board: letter · the option as voted on · the verdict */
+    #slide-07b .lw__board { display: grid; grid-template-columns: max-content 600px minmax(0, 1fr); column-gap: var(--s-4); row-gap: var(--s-2); align-items: center; }
+    #slide-07b .lw__letter { margin: 0; font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-1); }
+    #slide-07b .lw__text { margin: 0; font-size: var(--t-micro); line-height: 1.35; color: var(--fg-1); }
+    #slide-07b .lw__verdict { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-07b .lw__verdict code { font-family: var(--font-mono); background: var(--bg-1); padding: 0 var(--s-1); border-radius: var(--r-1); }
+    #slide-07b .lw__cost { display: inline-block; min-width: 1.4em; padding: 0 var(--s-1); border: 3px solid var(--accent-2); border-radius: var(--r-1); font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; text-align: center; color: var(--accent-2); vertical-align: middle; }
+    #slide-07b .lw__who--ok { color: var(--accent-2); }
+    #slide-07b .lw__cost--n, #slide-07b .lw__who--bad { border-color: var(--accent-1); color: var(--accent-1); }
+
+    /* what each operation touches, lit while its verdict is the current step */
+    #slide-07b .lw:has(.frag.lw__v--d.is-current) .lw__countbox { outline-color: var(--accent-2); color: var(--accent-2); }
+    #slide-07b .lw:has(.frag.lw__v--c.is-current) .lw__cell--free { border-style: solid; border-color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-0)); }
+    #slide-07b .lw:has(.frag.lw__v--a.is-current) .lw__cell--last { border-color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-0)); }
+    /* B's sweep stays once it has landed: it is the answer */
+    #slide-07b .lw:has(.frag.lw__v--b:not(.is-pending)) .lw__cell--live { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 10%, var(--bg-0)); transition-delay: calc(var(--i) * .12s); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .lw__cell, #slide-07b .lw__countbox, #slide-07b .lw__cap, #slide-07b .lw__verdict { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

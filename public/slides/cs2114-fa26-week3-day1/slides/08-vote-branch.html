@@ -1,7 +1,7 @@
 <section class="slide slide--warmup" id="slide-08" data-sid="08-vote-branch:1">
   <header class="slide__head" data-sid="08-vote-branch:2">
     <p class="slide__kicker" data-sid="08-vote-branch:3">PEER INSTRUCTION &middot; VOTE 3</p>
-    <h2 data-sid="08-vote-branch:4">Which implementation of contains does not work?</h2>
+    <h2 data-sid="08-vote-branch:4">Which implementation of contains could not be used?</h2>
   </header>
   <p class="sr-only slide__desc" data-sid="08-vote-branch:5">A peer-instruction question about the ArrayBag class. On the left, the class&rsquo;s two fields &mdash; an array of entries and a count of how many are in use &mdash; plus two given methods in full: getFrequencyOf, which loops over the array counting matches, and getIndexOf, a private helper that loops over the array and returns the index of the first match, or minus one if none is found. On the right, four candidate implementations of contains, labeled A through D. A walks the array with a while loop and a found flag. B returns whether getIndexOf is greater than minus one. C returns whether getFrequencyOf is greater than zero. D walks the array with a while loop whose bound is less-than-or-equal-to numberOfEntries instead of less-than.</p>
   <div class="slide__body grid grid--code code-tag" data-sid="08-vote-branch:6">
@@ -36,7 +36,7 @@
         <ol class="editor__code" data-sid="08-vote-branch:33">
           <li data-sid="08-vote-branch:34"><span class="tok-key">boolean</span> found = <span class="tok-key">false</span>;</li>
           <li data-sid="08-vote-branch:35"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-          <li data-sid="08-vote-branch:36"><span class="tok-key">while</span> (!found &amp;&amp; i &lt; numberOfEntries) {</li>
+          <li data-sid="08-vote-branch:36"><span class="tok-key">while</span> ( !found &amp;&amp; (i &lt; numberOfEntries)) {</li>
           <li data-sid="08-vote-branch:37">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
           <li data-sid="08-vote-branch:38">        found = <span class="tok-key">true</span>;</li>
           <li data-sid="08-vote-branch:39">    }</li>
@@ -58,7 +58,7 @@
       <li data-sid="08-vote-branch:49">
         <ol class="editor__code" data-sid="08-vote-branch:50">
           <li data-sid="08-vote-branch:51"><span class="tok-key">int</span> i = <span class="tok-num">0</span>;</li>
-          <li data-sid="08-vote-branch:52"><span class="tok-key">while</span> (i &lt;= numberOfEntries) {</li>
+          <li data-sid="08-vote-branch:52"><span class="tok-key">while</span> ((i &lt;= numberOfEntries)) {</li>
           <li data-sid="08-vote-branch:53">    <span class="tok-key">if</span> (anEntry.equals(contents[i])) {</li>
           <li data-sid="08-vote-branch:54">        <span class="tok-key">return true</span>;</li>
           <li data-sid="08-vote-branch:55">    }</li>
