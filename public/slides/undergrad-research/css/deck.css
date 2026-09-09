@@ -1,0 +1,728 @@
+/* Deck layout + runtime states. The canvas is a fixed 1920×1080 stage (keep in
+   sync with "canvas" in studio.config.json); js/deck.js scales it to the
+   viewport with a transform — author everything in canvas pixels. */
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--fg-0);          /* letterbox around the white canvas */
+  color: var(--fg-0);
+  font-family: var(--font-body, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;   /* keep macOS Firefox in step with the line above */
+}
+
+/* ---- fixed canvas, scaled to the viewport via transform ---- */
+.deck {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  background: var(--bg-0);
+}
+
+/* ---- slides: one visible at a time (js/deck.js toggles .is-active) ---- */
+.deck > section.slide { display: none; }
+.slide {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: var(--s-7) var(--s-8);
+  overflow: hidden;
+}
+.deck > section.slide.is-active { display: flex; }   /* must out-specify the hide rule above */
+
+/* default typography (canvas pixels) */
+.slide h1, .slide h2, .slide h3 { font-family: var(--font-display, inherit); }
+.slide h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 var(--s-4); }
+.slide h2 { font-size: var(--t-h2); line-height: 1.1; margin: 0 0 var(--s-4); }
+.slide h3 { font-size: var(--t-h3); line-height: 1.2; margin: 0 0 var(--s-3); }
+.slide p  { font-size: var(--t-body); line-height: 1.45; margin: 0 0 var(--s-3); }
+.slide ul, .slide ol { font-size: var(--t-body); line-height: 1.45; margin: 0; padding-left: 1.1em; }
+.slide li { margin: var(--s-2) 0; }
+.slide a { color: var(--accent-1); }
+.slide img { max-width: 100%; max-height: 100%; }
+
+.slide__body { flex: 1; min-height: 0; font-size: var(--t-body); }
+.slide .slide__number {
+  position: absolute;
+  right: var(--s-5);
+  bottom: var(--s-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  color: var(--fg-1);
+}
+
+/* ---- step engine: .frag[data-step] reveal states, classes set by js/deck.js ---- */
+.frag { transition: opacity .35s ease, transform .35s ease; }
+.frag.is-pending { opacity: 0; }
+.frag.is-current,
+.frag.is-past { opacity: 1; }
+
+/* ---- speaker notes live inside the slide but never render ---- */
+aside.notes { display: none; }
+
+/* ---- screen-reader-only text: present in the page and in the accessibility
+   tree, painted nowhere. Both clip forms so every engine, old and new, hides
+   it. NEVER display:none it — that would take it out of the accessibility tree
+   too, which is the whole point of the class. ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* One per slide, right after the heading: what the slide shows and how it
+   builds, for someone who cannot see it (WCAG 1.1.1). js/deck.js wires it onto
+   the slide's role="img" figures as their aria-describedby. Slide Studio's
+   Describe tab writes and reviews these — see PLAN-describe.md. */
+.slide__desc { /* .sr-only carries the hiding; this class is the hook */ }
+
+/* ---- motion (WCAG 2.2.2): js/deck.js puts .no-motion on <html> when the
+   viewer presses `m` or the focus-revealed button. Blunt on purpose — a
+   viewer who asks for stillness gets stillness, including step transitions.
+   Separate from the OS preference, which individual rules honour with
+   @media (prefers-reduced-motion: reduce). ---- */
+html.no-motion *,
+html.no-motion *::before,
+html.no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+/* The control itself: invisible until it has keyboard focus (skip-link
+   pattern), so it never lands on a designed slide, then a plain readable
+   button in the corner. */
+.deck__motion {
+  position: fixed;
+  left: 8px;
+  top: 8px;
+  z-index: 100;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+}
+.deck__motion:focus,
+.deck__motion:focus-visible {
+  width: auto;
+  height: auto;
+  clip: auto;
+  clip-path: none;
+  overflow: visible;
+  padding: 10px 16px;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  background: var(--bg-0, #fff);
+  color: var(--fg-0, #000);
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ---- UA-default coverage: browsers disagree on the default styling of these
+   elements (monospace sizing especially), so the deck pins every one a slide
+   can plausibly contain. Portability rule: never rely on browser defaults. ---- */
+.slide code, .slide kbd, .slide samp { font-family: var(--font-mono, monospace); font-size: 0.9em; }
+.slide pre {
+  font-family: var(--font-mono, monospace);
+  font-size: calc(var(--t-body) * 0.8);
+  line-height: 1.5;
+  margin: 0 0 var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--bg-1);
+  border-radius: var(--r-1);
+  overflow: hidden;               /* slides never scroll — clipping = authoring bug to fix */
+}
+.slide pre code { font-size: 100%; }
+.slide blockquote {
+  font-size: var(--t-body);
+  margin: 0 0 var(--s-3);
+  padding: var(--s-2) var(--s-4);
+  border-left: 6px solid var(--accent-1);
+}
+.slide table { border-collapse: collapse; font-size: var(--t-body); }
+.slide th, .slide td { text-align: left; padding: var(--s-1) var(--s-3); border-bottom: 2px solid var(--border-1); }
+.slide th { color: var(--fg-1); }
+.slide hr { border: 0; border-top: 2px solid var(--border-1); margin: var(--s-4) 0; }
+
+/* ---- dashed stand-in for an image not yet supplied (data-src = intended path) ---- */
+.img-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 240px;
+  padding: var(--s-4);
+  border: 3px dashed var(--fg-1);
+  border-radius: var(--r-2);
+  color: var(--fg-1);
+  font-size: var(--t-small);
+  text-align: center;
+}
+.img-placeholder::after { content: attr(data-src); font-size: var(--t-label); opacity: 0.65; }
+
+/* ---- shared slide patterns (ASCEND theme). Anything used on more than one
+   slide lives here as a class — never copy a style block into a slide. ---- */
+
+/* small mono label above a heading: "Agenda", "01 · Updates", "ASCEND Lab" */
+.slide .slide__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  margin: 0 0 var(--s-3);
+}
+
+/* lab logo (assets/ascend-logo.svg) — height only, width follows the art */
+.slide__logo { display: block; height: 120px; width: auto; }
+
+/* hero slide — a 1920×1080 cut of the lab homepage: centred logo lockup with
+   fog banks drifting along the bottom (light-mode hero of
+   ascend_website/HeroSection.astro). */
+/* One left margin, one focal point. Small mark top-left; the lockup
+   (accent rule → one dominant title → meta) sits low-left, its baseline
+   clear of the fog horizon. */
+.slide--hero {
+  align-items: flex-start;
+  padding-bottom: 320px;
+}
+.slide--hero .slide__logo { height: 112px; margin-bottom: auto; }
+.slide--hero h1::before {         /* short accent rule — the one colour on the slide */
+  content: '';
+  display: block;
+  width: 96px;
+  height: 6px;
+  margin-bottom: var(--s-4);
+  background: var(--accent-1);
+  border-radius: var(--r-1);
+}
+.slide--hero h1 {
+  font-size: var(--t-hero);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0 0 var(--s-5);
+}
+.slide .hero__meta {
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--fg-1);
+  margin: 0;
+}
+
+/* fog: bottom band, 130% wide so the drift never shows an edge; behind the content */
+.hero__fog { position: absolute; pointer-events: none; left: -288px; bottom: 0; width: 2496px; height: 280px; z-index: 1; }
+.hero__fog-far  { fill: var(--bg-3);     fill-opacity: 0.35; animation: hero-drift 26s ease-in-out infinite alternate; }
+.hero__fog-mid  { fill: var(--border-1); fill-opacity: 0.45; animation: hero-drift 18s ease-in-out infinite alternate-reverse; }
+.hero__fog-near { fill: var(--bg-0);                         animation: hero-drift 14s ease-in-out infinite alternate; }
+.slide--hero .slide__logo, .hero__tagline, .slide--hero h1, .hero__meta { position: relative; z-index: 2; }
+@keyframes hero-drift { from { transform: translateX(-40px); } to { transform: translateX(40px); } }
+@media (prefers-reduced-motion: reduce) { .hero__fog path { animation: none; } }
+
+/* section divider: tinted background, oversized heading, blue rule */
+.slide--section { justify-content: center; background: var(--bg-1); }
+.slide--section h2 { font-size: var(--t-h1); font-weight: 700; padding-top: var(--s-4); border-top: 6px solid var(--accent-1); max-width: 1200px; }
+.slide--section p { color: var(--fg-1); max-width: 1300px; }
+
+/* equal columns; gap chosen so 2 or 3 columns come out at whole pixels
+   (1664 − 64 = 1600 → 800 each; 1664 − 128 = 1536 → 512 each) */
+.cols { display: flex; align-items: flex-start; gap: var(--s-6); flex: 1; min-height: 0; }
+.cols > * { flex: 1 1 0; min-width: 0; }
+
+/* raised card — a project, a person, a takeaway */
+.slide__card {
+  box-sizing: border-box;
+  padding: var(--s-4);
+  background: var(--bg-1);
+  border: 2px solid var(--border-1);
+  border-radius: var(--r-2);
+}
+.slide__card h3 { font-size: var(--t-body); margin-bottom: var(--s-2); }
+.slide__card p, .slide__card ul, .slide__card ol { font-size: var(--t-small); }
+.slide__card li { margin: var(--s-1) 0; }
+.slide__card--accent { border-color: var(--accent-1); border-width: 3px; }
+
+/* Beamer-style section nav: every section name across the top with one dot
+   per slide in it (first dot = the divider). States are authored per slide:
+   .is-current on the section <li> and the dot; .is-done on dots already
+   shown. ASCEND blue rule underneath, small mark at the right. */
+.has-beamer { padding-top: 168px; }         /* 104px bar + one --s-6 of air */
+.beamer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: 104px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--s-8);
+  border-bottom: 4px solid var(--accent-1);
+}
+.beamer ul { list-style: none; margin: 0; padding: 0; line-height: 1; }
+.beamer__sections { display: flex; gap: var(--s-5); }   /* five sections + logo must fit 1664px */
+.beamer .beamer__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  color: var(--fg-1);
+}
+.beamer .beamer__section.is-current { color: var(--fg-0); }
+.beamer .beamer__name { margin: 0; font-family: var(--font-display); font-size: var(--t-label); font-weight: 600; line-height: 1.2; }
+.beamer__dots { display: flex; gap: 8px; }
+.beamer__dots li { width: 12px; height: 12px; margin: 0; border-radius: 50%; background: var(--bg-2); }
+.beamer__dots .is-done { background: var(--accent-1); opacity: 0.4; }
+.beamer__dots .is-current { background: var(--accent-1); }
+.beamer__logo { height: 48px; width: auto; }
+
+/* horizontal timeline: a rail across the top, one node per item, each item a
+   column beneath its node (4 items: (1664 − 96) / 4 = 392px each) */
+.slide .timeline {
+  position: relative;
+  display: flex;
+  gap: var(--s-4);
+  flex: 1;
+  min-height: 0;
+  margin: var(--s-3) 0 0;
+  padding: var(--s-5) 0 0;
+  list-style: none;
+  font-size: var(--t-small);
+  line-height: 1.35;
+}
+.slide .timeline::before {                    /* the rail */
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 11px;
+  height: 4px;
+  background: var(--bg-2);
+  border-radius: var(--r-1);
+}
+.slide .timeline__item { position: relative; flex: 1 1 0; min-width: 0; margin: 0; }
+.slide .timeline__item::before {              /* the node */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(-1 * var(--s-5));
+  width: 26px;
+  height: 26px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: var(--bg-0);
+  border: 6px solid var(--accent-1);
+}
+.slide .timeline__date { font-family: var(--font-mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.04em; color: var(--accent-1); margin: 0 0 var(--s-1); }
+.slide .timeline__item h3 { font-size: var(--t-small); line-height: 1.2; margin: 0 0 var(--s-1); }
+.slide .timeline__meta { font-size: var(--t-label); color: var(--fg-1); margin: 0 0 var(--s-2); }
+.slide .timeline__rel  { font-size: var(--t-label); color: var(--fg-1); margin: var(--s-2) 0 0; }
+.slide .timeline__text { font-size: var(--t-small); margin: 0; }   /* body copy under a node, readable size */
+
+/* alternating rail: a fixed 620px band centred in the leftover height, the
+   rail through its middle (y 310), one node per column at the column centre
+   (196px in). Odd items hang a card ABOVE the rail, even items BELOW, each
+   tied to its node by a short stem, so four cards read left→right by date
+   while getting 600px each — wider than a 392px column. Same-side neighbours
+   sit 144px apart and the set mirrors left↔right (card offsets 0 / −104 /
+   −104 / −208, stems 196 / 300 / 300 / 404 in). Nodes are .frag--mark
+   (always visible, state-coloured); the card is its own .frag that grows
+   out of the rail (fade-up above, fade-down below). */
+.slide .timeline--alt { flex: 0 0 auto; height: 620px; margin: auto 0; padding: 0; }
+.slide .timeline--alt::before { top: 308px; }
+.slide .timeline--alt .timeline__item::before { left: 183px; top: 297px; }
+.slide .timeline--alt .timeline__item.is-pending::before { border-color: var(--border-1); }
+.slide .timeline--alt .timeline__item.is-current::before { background: var(--accent-1); }
+.slide .timeline__card {
+  position: absolute;
+  left: 0;
+  width: 600px;
+  box-sizing: border-box;
+  padding: var(--s-3);
+  background: var(--bg-1);
+  border-radius: var(--r-2);
+}
+.slide .timeline__card::before {              /* stem from the card edge to the node */
+  content: '';
+  position: absolute;
+  left: 194px;
+  width: 4px;
+  height: 51px;                               /* 64px card→rail gap minus the 13px node radius */
+  background: var(--accent-1);
+}
+.slide .timeline__item:nth-child(odd)  .timeline__card { bottom: 374px; }
+.slide .timeline__item:nth-child(odd)  .timeline__card::before { top: 100%; }
+.slide .timeline__item:nth-child(even) .timeline__card { top: 374px; }
+.slide .timeline__item:nth-child(even) .timeline__card::before { bottom: 100%; }
+.slide .timeline__item:nth-child(2) .timeline__card,
+.slide .timeline__item:nth-child(3) .timeline__card { left: -104px; }
+.slide .timeline__item:nth-child(2) .timeline__card::before,
+.slide .timeline__item:nth-child(3) .timeline__card::before { left: 298px; }
+.slide .timeline__item:nth-child(4) .timeline__card { left: -208px; }
+.slide .timeline__item:nth-child(4) .timeline__card::before { left: 402px; }
+.slide .timeline__card h3 { margin-bottom: var(--s-1); }
+
+/* step-engine variants (build on .frag, see js/deck.js):
+   --mark: never hidden, only re-coloured by state (a rail node, a tab)
+   --solo: visible only while current (stacked panels sharing one box) */
+.slide .frag.frag--mark.is-pending { opacity: 1; transform: none; }
+.slide .frag.frag--solo.is-past { opacity: 0; pointer-events: none; }   /* out-specifies studio-anim's [data-anim].is-past */
+
+/* people — the website's PeopleStack: a row of overlapping 64px circular
+   headshots (assets/people/<first>.jpg, square 240px crops), each with a 3px
+   ring and a 3px surface-coloured gap, names listed once beside the stack.
+   --initials is the no-photo fallback (two letters); --lead rings in accent;
+   --tbd is a dashed empty slot. The row is .people: stack + names. */
+.slide .people { display: flex; align-items: center; gap: var(--s-2); margin: 0 0 var(--s-1); }
+.slide .people__names { font-size: var(--t-label); font-weight: 600; margin: 0; }
+.slide .avatars { display: flex; margin: 0; padding: 0; list-style: none; font-size: var(--t-label); }
+.slide .avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 76px;                       /* 64px photo + 3px gap + 3px ring, each side */
+  height: 76px;
+  margin: 0;
+  padding: 3px;
+  border-radius: 50%;
+  border: 3px solid var(--border-1);
+  background: var(--bg-1);           /* the gap between photo and ring */
+  overflow: hidden;
+}
+.slide .avatar + .avatar { margin-left: -16px; }
+.slide .avatar img { display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+.slide .avatar--initials { font-family: var(--font-display); font-weight: 700; color: var(--accent-1); }
+.slide .avatar--lead { border-color: var(--accent-1); }
+.slide .avatar--tbd  { border-style: dashed; color: var(--fg-1); }
+
+/* schedule table: tabular figures, muted header, blank cells read as slots */
+.slide .schedule { width: 100%; font-size: var(--t-small); font-variant-numeric: tabular-nums; }
+.slide .schedule th { font-family: var(--font-mono); font-size: var(--t-label); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.slide .schedule td { padding-top: var(--s-1); padding-bottom: var(--s-1); }   /* seven weeks + header must leave slack */
+
+/* icebreaker (slide 03): mountain slope down the left with a climber swinging
+   an ice axe on a loop; the text column sits to its right. Art is one <svg>
+   whose viewBox (900×976) starts just under the beamer rule. */
+.icebreaker__art { position: absolute; left: 0; top: 104px; width: 900px; height: 976px; z-index: 1; }
+.icebreaker__panel { position: relative; z-index: 2; flex: 1; min-height: 0; display: flex; flex-direction: column; margin-left: 640px; }
+.icebreaker__mountain { fill: var(--bg-1); }
+.icebreaker__ridge { fill: none; stroke: var(--border-1); stroke-width: 6; stroke-linejoin: round; }
+/* the mountaineer: limbs are round-capped strokes, props are filled shapes */
+.icebreaker__climber { fill: none; stroke: var(--fg-0); stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+.icebreaker__solid  { fill: var(--fg-0); stroke: none; }            /* head, fists, axe collar */
+.icebreaker__torso  { stroke-width: 22; }                            /* parka */
+.icebreaker__boot   { stroke-width: 14; }
+.icebreaker__beanie { fill: var(--accent-1); stroke: var(--accent-1); stroke-width: 12; }
+.icebreaker__pom    { fill: var(--bg-3); stroke: none; }
+.icebreaker__pack   { fill: var(--accent-2); stroke: none; }
+.icebreaker__handle { stroke: var(--accent-3); stroke-width: 9; }    /* wooden haft */
+.icebreaker__blade  { fill: var(--fg-1); stroke: var(--fg-0); stroke-width: 3; }   /* steel head */
+.icebreaker__rope   { fill: none; stroke: var(--accent-1); stroke-width: 5; stroke-linecap: round; }
+.icebreaker__anchor { fill: none; stroke: var(--fg-0); stroke-width: 5; stroke-linecap: round; }
+/* one strike only: slow wind-up over the shoulder, pause, fast swing down, then
+   the pick stays planted in the ice (forwards) — shards burst on the impact */
+.icebreaker__pick { transform-origin: 0 0; animation: icebreaker-swing 1.8s 1 forwards; }
+.icebreaker__shard { fill: var(--accent-1); opacity: 0; animation: icebreaker-shard 2.4s ease-out 1 forwards; }
+@keyframes icebreaker-swing {
+  0%   { transform: rotate(-24deg); animation-timing-function: ease-in-out; }
+  50%  { transform: rotate(58deg);  animation-timing-function: linear; }
+  75%  { transform: rotate(58deg);  animation-timing-function: cubic-bezier(0.7, 0, 1, 1); }
+  100% { transform: rotate(-32deg); }
+}
+@keyframes icebreaker-shard {
+  0%, 74% { opacity: 0; transform: translate(0, 0); }
+  75%     { opacity: 1; transform: translate(0, 0); }
+  100%    { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+@media (prefers-reduced-motion: reduce) { .icebreaker__pick, .icebreaker__shard { animation: none; } }
+
+/* rule-separated rows — a roster (slide 07) or a project list (slide 14).
+   Each row is one flex line: fixed-width lead columns + one fluid column, all
+   whole pixels of the 1664px content width (300 + 32 + 860 + 32 + 440;
+   560 + 32 + 1072). .rows__head is the optional column-label line above. */
+.slide .rows { list-style: none; margin: 0; padding: 0; font-size: var(--t-small); line-height: 1.4; }
+.slide .rows > li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  margin: 0;
+  padding: var(--s-2) 0;
+  border-top: 2px solid var(--border-1);
+}
+.slide .rows > li:last-child { border-bottom: 2px solid var(--border-1); }
+.slide .rows--dense > li { padding: var(--s-1) 0; }
+.slide .rows__who   { flex: 0 0 300px; }
+.slide .rows__title { flex: 0 0 560px; }
+.slide .rows__main  { flex: 1 1 0; min-width: 0; }
+.slide .rows__side  { flex: 0 0 440px; }
+.slide .rows__head { display: flex; gap: var(--s-4); margin: 0 0 var(--s-1); }
+.slide .rows__head p {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-1);
+  margin: 0;
+}
+.slide .rows p { font-size: var(--t-small); line-height: 1.4; margin: 0; }
+.slide .rows h3 { font-size: var(--t-small); line-height: 1.2; margin: 0; }
+.slide ul.rows__main { margin: 0; padding-left: 1.1em; font-size: var(--t-small); }
+.slide ul.rows__main > li { margin: 0 0 var(--s-1); }
+.slide .rows .rows__tag {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  margin: 0 0 var(--s-1);
+}
+.slide .rows .rows__meta { font-size: var(--t-label); color: var(--fg-1); margin: var(--s-1) 0 0; }
+
+/* definition list: term bold, one <div> per term/description pair so a pair
+   is one click and one reveal step. --small drops both to the small size. */
+.slide dl { margin: 0; font-size: var(--t-body); line-height: 1.45; }
+.slide dl > div { margin: 0 0 var(--s-2); }
+.slide dt { font-weight: 600; }
+.slide dd { margin: 0; }
+.slide .dl--small { font-size: var(--t-small); }
+
+/* sample-image collage (slide 11): a row of equal-width photos cropped to a
+   common band, so source shots of wildly different shape still line up. Gap
+   chosen so the row divides evenly (960 − 48 = 912 → 304 each). */
+.slide .collage { display: flex; gap: var(--s-3); margin-top: var(--s-2); }
+.slide .collage img {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 144px;
+  object-fit: cover;
+  border: 2px solid var(--border-1);
+  border-radius: var(--r-1);
+}
+
+/* figures: no UA margin; .qr = a square code with its URL underneath */
+.slide figure { margin: 0; }
+.slide .qr { display: flex; flex-direction: column; align-items: center; }
+.slide .qr img { display: block; width: 400px; height: 400px; }
+.slide .qr figcaption { font-family: var(--font-mono); font-size: var(--t-label); color: var(--fg-1); margin: var(--s-2) 0 0; }
+
+/* mono footer label, bottom-left (pairs with .slide__number bottom-right) */
+.slide .slide__foot {
+  position: absolute;
+  left: var(--s-8);
+  bottom: var(--s-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  color: var(--fg-1);
+}
+/* footer chrome sits above full-bleed art (dividers, the route) */
+.slide .slide__foot, .slide .slide__number { z-index: 2; }
+
+/* ---- alpine art vocabulary: the mountain language of the title fog and the
+   icebreaker slope, shared by the section dividers and the schedule route.
+   All of it is decorative SVG (no data-sid, no text inside). ---- */
+.alp__mountain { fill: var(--bg-1); }
+.alp__ridge { fill: none; stroke: var(--border-1); stroke-width: 6; stroke-linejoin: round; }
+.alp__node { fill: var(--bg-0); stroke: var(--accent-1); stroke-width: 6; }
+/* the flag: fg pole, accent pennant that waves gently */
+.alp__pole { fill: none; stroke: var(--fg-0); stroke-width: 5; stroke-linecap: round; }
+.alp__pennant { fill: var(--accent-1); transform-box: fill-box; transform-origin: left center; animation: alp-wave 2.6s ease-in-out infinite alternate; }
+@keyframes alp-wave { from { transform: rotate(-3deg); } to { transform: rotate(4deg); } }
+/* the mini climber (static cousin of the icebreaker mountaineer): round-capped
+   fg strokes, accent beanie, trekking pole in the trailing hand */
+.alp__limb  { fill: none; stroke: var(--fg-0); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.alp__torso { fill: none; stroke: var(--fg-0); stroke-width: 14; stroke-linecap: round; }
+.alp__solid { fill: var(--fg-0); stroke: none; }
+.alp__beanie { fill: var(--accent-1); stroke: var(--accent-1); stroke-width: 6; }
+.alp__pom { fill: var(--bg-3); stroke: none; }
+.alp__stick { fill: none; stroke: var(--accent-3); stroke-width: 5; stroke-linecap: round; }
+@media (prefers-reduced-motion: reduce) { .alp__pennant { animation: none; } }
+
+/* section divider (slides 02/04/06/12/08): mountain elevation profile along
+   the bottom, five waypoints — one per beamer section — at rising altitude.
+   The per-slide class .divider--at-N marks the current section: waypoints
+   before it get planted flags, N gets the climber (at the summit, N=5, he
+   also plants the flag), later ones stay bare rings. The five slides' markup
+   is identical apart from that class and the words. */
+.slide--divider { padding-top: 232px; }
+.slide--divider h2 { font-size: var(--t-h1); font-weight: 700; padding-top: var(--s-4); border-top: 6px solid var(--accent-1); max-width: 1200px; }
+.slide--divider > p { color: var(--fg-1); max-width: 1300px; }
+.slide--divider .slide__kicker, .slide--divider h2, .slide--divider > p { position: relative; z-index: 2; }
+.divider__art { position: absolute; left: 0; bottom: 0; width: 1920px; height: 460px; z-index: 1; overflow: visible; }
+.alp__wp .alp__flag, .alp__wp .alp__climber { display: none; }
+.divider--at-2 .alp__wp:nth-of-type(-n+1) .alp__flag,
+.divider--at-3 .alp__wp:nth-of-type(-n+2) .alp__flag,
+.divider--at-4 .alp__wp:nth-of-type(-n+3) .alp__flag,
+.divider--at-5 .alp__wp:nth-of-type(-n+5) .alp__flag { display: inline; }
+.divider--at-1 .alp__wp:nth-of-type(1) .alp__climber,
+.divider--at-2 .alp__wp:nth-of-type(2) .alp__climber,
+.divider--at-3 .alp__wp:nth-of-type(3) .alp__climber,
+.divider--at-4 .alp__wp:nth-of-type(4) .alp__climber,
+.divider--at-5 .alp__wp:nth-of-type(5) .alp__climber { display: inline; }
+.divider--at-5 .alp__wp:nth-of-type(5) .alp__flag { transform: translateX(32px); }
+
+/* sheet variant of .schedule (slide 09): full gridlines, a muted week-number
+   gutter, and blank presenter cells, so the signup table reads as the actual
+   lab spreadsheet waiting to be filled in. The full semester runs as two
+   side-by-side half-width sheets inside a .cols. */
+.slide .schedule--sheet { width: 100%; border-collapse: collapse; border: 2px solid var(--border-1); }
+.slide .schedule--sheet th, .slide .schedule--sheet td { border: 2px solid var(--bg-2); height: 48px; }
+.slide .schedule--sheet thead th { background: var(--bg-1); border-bottom: 2px solid var(--border-1); }
+.slide .schedule--sheet .schedule__num { width: 72px; text-align: center; font-family: var(--font-mono); color: var(--fg-1); background: var(--bg-1); }
+.slide .schedule--sheet th:nth-child(2) { width: 200px; }
+.slide .schedule--sheet .schedule__break td { color: var(--fg-1); font-style: italic; }
+
+/* rope team (slide 07): one column per person — big avatar threaded on a
+   shared rope (anchored at both ends, icebreaker-style), card of NOW/NEXT
+   beneath. Columns reveal one per step; the rope is there from step 0. */
+.team { position: relative; }
+.team__rope { position: absolute; left: 0; top: 0; width: 1664px; height: 160px; overflow: visible; }
+.team__rope-line { fill: none; stroke: var(--accent-1); stroke-width: 5; stroke-linecap: round; }
+.team__ring { fill: none; stroke: var(--fg-0); stroke-width: 5; }
+.team__cols { position: relative; z-index: 2; display: flex; gap: var(--s-6); list-style: none; margin: 0; padding: 0; }
+.slide .team__col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; margin: 0; }
+.slide .avatar--lg { width: 152px; height: 152px; padding: 4px; border-width: 4px; }
+.slide .avatar--lg img { width: 136px; height: 136px; }
+.slide .team__col h3 { font-size: var(--t-body); margin: var(--s-1) 0 var(--s-2); }
+.slide .team__card { align-self: stretch; flex: 1 1 auto; padding: var(--s-3); }   /* equal card heights; tighter than the base card */
+.slide .team__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  margin: 0 0 var(--s-1);
+}
+.slide .team__label + .team__label, .slide .team__card ul + .team__label { margin-top: var(--s-3); }
+.slide .team__next { color: var(--fg-1); }
+
+/* before→after lockup (slide 10): the old way as a muted pill, the new way
+   as an accent pill */
+.slide .shift { display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-2); font-family: var(--font-display); font-size: var(--t-h3); font-weight: 600; line-height: 1.2; }
+.slide .shift__from, .slide .shift__to { padding: var(--s-1) var(--s-4); border-radius: 999px; white-space: nowrap; }
+.slide .shift__from { background: var(--bg-1); color: var(--fg-1); }
+.slide .shift__to { background: var(--accent-1); color: var(--bg-0); }
+.slide .shift__arrow { color: var(--fg-1); }
+
+/* loop-back arrow under a .timeline (slide 10): a rounded return bracket
+   from the last node's column back up to the first, label above its rail.
+   Pair with .timeline--capped so the bracket hugs the items it connects. */
+.slide .timeline--capped { flex: 0 0 auto; }
+.slide .timeline__loop { position: relative; flex: 0 0 auto; margin-top: var(--s-3); }
+.slide .timeline__loop svg { display: block; width: 1664px; height: 80px; overflow: visible; }
+.slide .timeline__loop-line { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.slide .timeline__loop-head { fill: var(--accent-2); }
+.slide .timeline__loop p { position: absolute; left: 0; right: 0; top: 12px; text-align: center; font-family: var(--font-mono); font-size: var(--t-label); font-weight: 600; color: var(--accent-2); margin: 0; }
+
+/* 2×2 tile grid (slide 11): compact cards with a stroke-style icon, mono
+   kicker, one line, and a mono meta line */
+.slide .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); align-content: start; }
+.slide .tile__icon { width: 64px; height: 64px; fill: none; stroke: var(--fg-0); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: var(--s-2); }
+.slide .tile__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--t-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  margin: 0 0 var(--s-1);
+}
+.slide .tile p { margin: 0; }
+.slide .tile .tile__meta { font-size: var(--t-label); color: var(--fg-1); margin-top: var(--s-1); }
+.slide__card--callout { border-color: var(--accent-3); border-width: 3px; }
+
+/* trailhead signpost (slide 13): arrow-tipped boards on a post, one reveal
+   step each. The post is the ::before; the chevron tip is a clip-path, so
+   boards get an accent left edge (unclipped) instead of a full border. */
+.slide .signpost { position: relative; flex: 1 1 0; display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-5) 0; }
+.slide .signpost::before {
+  content: '';
+  position: absolute;
+  left: 96px;
+  top: -16px;
+  bottom: -64px;
+  width: 20px;
+  box-sizing: border-box;
+  background: var(--bg-2);
+  border: 3px solid var(--border-1);
+  border-radius: var(--r-1);
+}
+.slide .signpost__board {
+  position: relative;
+  align-self: flex-start;
+  max-width: 1000px;
+  padding: var(--s-3) 96px var(--s-3) var(--s-4);
+  background: var(--bg-1);
+  border-left: 8px solid var(--accent-1);
+  clip-path: polygon(0 0, calc(100% - 48px) 0, 100% 50%, calc(100% - 48px) 100%, 0 100%);
+}
+.slide .signpost__board p { font-family: var(--font-display); font-size: var(--t-body); font-weight: 600; line-height: 1.25; margin: 0; }
+.slide .signpost__board--key { background: var(--accent-1); border-left-color: var(--accent-1); }
+.slide .signpost__board--key p { color: var(--bg-0); font-size: var(--t-h3); }
+
+/* area-tag colour coding (slide 14): green + amber variants of .rows__tag */
+.slide .rows .rows__tag--green { color: var(--accent-2); }
+.slide .rows .rows__tag--amber { color: var(--accent-3); }
+
+
+/* checklist (slide 14): empty accent tick boxes in place of bullets */
+.slide .checklist { list-style: none; margin: 0; padding: 0; }
+.slide .checklist li { position: relative; padding-left: 52px; margin: var(--s-2) 0; }
+.slide .checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  border: 3px solid var(--accent-1);
+  border-radius: var(--r-1);
+  background: var(--bg-0);
+}
+
+/* area-coloured kickers (project slides 09–13): green + amber variants,
+   matching the .rows__tag colours on the overview */
+.slide .slide__kicker--green { color: var(--accent-2); }
+.slide .slide__kicker--amber { color: var(--accent-3); }
+
+/* project page (slides 09–13): one-sentence lede under the title, then two
+   columns — "already there" + "what you'll do" on the left (960px), a card of
+   skills / mentor / data gate on the right (640px); 960 + 64 + 640 = 1664 */
+.slide .project__lede { font-size: var(--t-small); line-height: 1.4; max-width: 1500px; margin: 0 0 var(--s-4); }
+.slide .project__main p:not(.tile__kicker), .slide .project__main ul { font-size: var(--t-small); line-height: 1.4; }
+.slide .project__main p:not(.tile__kicker) { margin: 0; }
+.slide .project__main li { margin: var(--s-1) 0; }
+.slide .project__main > div + div { margin-top: var(--s-4); }
+.slide .project__card .tile__kicker { margin-top: var(--s-3); }
+.slide .project__card .tile__kicker:first-child { margin-top: 0; }
+.slide .project__card p:not(.tile__kicker) { margin: 0; }
+.slide .project__card .people { margin: 0; }

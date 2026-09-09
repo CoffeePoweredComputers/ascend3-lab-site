@@ -1,0 +1,146 @@
+<!-- Section divider — "waypoints on the ascent": a mountain elevation profile
+     along the bottom with five waypoints, one per beamer section. The
+     divider--at-N class picks which waypoint shows the climber (current
+     section) and which show planted flags (done). The art block is identical
+     across all five dividers (colours + states in css/deck.css, .divider__* /
+     .alp__*); edit words in the HTML elements only. -->
+<section data-sid="07-projects:1" class="slide has-beamer slide--divider divider--at-3" id="slide-07" data-transition="slide">
+  <header data-sid="07-projects:2" class="beamer">
+    <ul data-sid="07-projects:3" class="beamer__sections">
+      <li data-sid="07-projects:4" class="beamer__section">
+        <p data-sid="07-projects:5" class="beamer__name">Intro &amp; Icebreaker</p>
+        <ul data-sid="07-projects:6" class="beamer__dots"><li data-sid="07-projects:7" class="is-done"></li><li data-sid="07-projects:8" class="is-done"></li></ul>
+      </li>
+      <li data-sid="07-projects:9" class="beamer__section">
+        <p data-sid="07-projects:10" class="beamer__name">The Studio</p>
+        <ul data-sid="07-projects:11" class="beamer__dots"><li data-sid="07-projects:12" class="is-done"></li><li data-sid="07-projects:13" class="is-done"></li><li data-sid="07-projects:14" class="is-done"></li></ul>
+      </li>
+      <li data-sid="07-projects:15" class="beamer__section is-current">
+        <p data-sid="07-projects:16" class="beamer__name">Projects</p>
+        <ul data-sid="07-projects:17" class="beamer__dots"><li data-sid="07-projects:18" class="is-current"></li><li data-sid="07-projects:19"></li><li data-sid="07-projects:20"></li><li data-sid="07-projects:21"></li><li data-sid="07-projects:22"></li><li data-sid="07-projects:23"></li><li data-sid="07-projects:24"></li></ul>
+      </li>
+      <li data-sid="07-projects:25" class="beamer__section">
+        <p data-sid="07-projects:26" class="beamer__name">Sign Up &amp; Access</p>
+        <ul data-sid="07-projects:27" class="beamer__dots"><li data-sid="07-projects:28"></li><li data-sid="07-projects:29"></li><li data-sid="07-projects:30"></li></ul>
+      </li>
+      <li data-sid="07-projects:31" class="beamer__section">
+        <p data-sid="07-projects:32" class="beamer__name">Action Items</p>
+        <ul data-sid="07-projects:33" class="beamer__dots"><li data-sid="07-projects:34"></li><li data-sid="07-projects:35"></li></ul>
+      </li>
+    </ul>
+    <img data-sid="07-projects:36" class="beamer__logo" src="assets/ascend-logo.svg" alt="">
+  </header>
+
+  <!-- The ascent: ridge rising to a summit, five waypoints (one per section). -->
+  <svg class="divider__art" viewBox="0 0 1920 460" aria-hidden="true" focusable="false">
+    <path class="alp__mountain" d="M0 424 L90 404 L180 390 L250 400 L320 368 L410 352 L470 358 L530 330 L600 346 L660 306 L740 296 L810 268 L880 260 L950 276 L1010 230 L1090 220 L1160 186 L1230 170 L1300 190 L1360 140 L1440 122 L1510 92 L1580 70 L1650 122 L1710 150 L1770 190 L1830 212 L1920 244 L1920 460 L0 460 Z"/>
+    <path class="alp__ridge" d="M0 424 L90 404 L180 390 L250 400 L320 368 L410 352 L470 358 L530 330 L600 346 L660 306 L740 296 L810 268 L880 260 L950 276 L1010 230 L1090 220 L1160 186 L1230 170 L1300 190 L1360 140 L1440 122 L1510 92 L1580 70 L1650 122 L1710 150 L1770 190 L1830 212 L1920 244"/>
+    <g class="alp__wp" transform="translate(180 390)">
+      <circle class="alp__node" r="10"/>
+      <g class="alp__flag">
+        <path class="alp__pole" d="M0 -4 L0 -78"/>
+        <path class="alp__pennant" d="M0 -78 L44 -66 L0 -54 Z"/>
+      </g>
+      <g class="alp__climber">
+        <path class="alp__stick" d="M-9 -74 L-19 -6"/>
+        <path class="alp__limb" d="M-8 -6 L2 -36"/>
+        <path class="alp__limb" d="M14 -6 L6 -36"/>
+        <path class="alp__torso" d="M4 -36 L10 -66"/>
+        <path class="alp__limb" d="M8 -62 L-13 -46"/>
+        <circle class="alp__solid" cx="-13" cy="-46" r="5"/>
+        <path class="alp__limb" d="M8 -62 L20 -44"/>
+        <circle class="alp__solid" cx="20" cy="-44" r="5"/>
+        <circle class="alp__solid" cx="16" cy="-82" r="11"/>
+        <path class="alp__beanie" d="M6 -84 Q7 -96 16 -97 Q25 -96 26 -84 Z"/>
+        <circle class="alp__pom" cx="16" cy="-101" r="4.5"/>
+      </g>
+    </g>
+    <g class="alp__wp" transform="translate(530 330)">
+      <circle class="alp__node" r="10"/>
+      <g class="alp__flag">
+        <path class="alp__pole" d="M0 -4 L0 -78"/>
+        <path class="alp__pennant" d="M0 -78 L44 -66 L0 -54 Z"/>
+      </g>
+      <g class="alp__climber">
+        <path class="alp__stick" d="M-9 -74 L-19 -6"/>
+        <path class="alp__limb" d="M-8 -6 L2 -36"/>
+        <path class="alp__limb" d="M14 -6 L6 -36"/>
+        <path class="alp__torso" d="M4 -36 L10 -66"/>
+        <path class="alp__limb" d="M8 -62 L-13 -46"/>
+        <circle class="alp__solid" cx="-13" cy="-46" r="5"/>
+        <path class="alp__limb" d="M8 -62 L20 -44"/>
+        <circle class="alp__solid" cx="20" cy="-44" r="5"/>
+        <circle class="alp__solid" cx="16" cy="-82" r="11"/>
+        <path class="alp__beanie" d="M6 -84 Q7 -96 16 -97 Q25 -96 26 -84 Z"/>
+        <circle class="alp__pom" cx="16" cy="-101" r="4.5"/>
+      </g>
+    </g>
+    <g class="alp__wp" transform="translate(880 260)">
+      <circle class="alp__node" r="10"/>
+      <g class="alp__flag">
+        <path class="alp__pole" d="M0 -4 L0 -78"/>
+        <path class="alp__pennant" d="M0 -78 L44 -66 L0 -54 Z"/>
+      </g>
+      <g class="alp__climber">
+        <path class="alp__stick" d="M-9 -74 L-19 -6"/>
+        <path class="alp__limb" d="M-8 -6 L2 -36"/>
+        <path class="alp__limb" d="M14 -6 L6 -36"/>
+        <path class="alp__torso" d="M4 -36 L10 -66"/>
+        <path class="alp__limb" d="M8 -62 L-13 -46"/>
+        <circle class="alp__solid" cx="-13" cy="-46" r="5"/>
+        <path class="alp__limb" d="M8 -62 L20 -44"/>
+        <circle class="alp__solid" cx="20" cy="-44" r="5"/>
+        <circle class="alp__solid" cx="16" cy="-82" r="11"/>
+        <path class="alp__beanie" d="M6 -84 Q7 -96 16 -97 Q25 -96 26 -84 Z"/>
+        <circle class="alp__pom" cx="16" cy="-101" r="4.5"/>
+      </g>
+    </g>
+    <g class="alp__wp" transform="translate(1230 170)">
+      <circle class="alp__node" r="10"/>
+      <g class="alp__flag">
+        <path class="alp__pole" d="M0 -4 L0 -78"/>
+        <path class="alp__pennant" d="M0 -78 L44 -66 L0 -54 Z"/>
+      </g>
+      <g class="alp__climber">
+        <path class="alp__stick" d="M-9 -74 L-19 -6"/>
+        <path class="alp__limb" d="M-8 -6 L2 -36"/>
+        <path class="alp__limb" d="M14 -6 L6 -36"/>
+        <path class="alp__torso" d="M4 -36 L10 -66"/>
+        <path class="alp__limb" d="M8 -62 L-13 -46"/>
+        <circle class="alp__solid" cx="-13" cy="-46" r="5"/>
+        <path class="alp__limb" d="M8 -62 L20 -44"/>
+        <circle class="alp__solid" cx="20" cy="-44" r="5"/>
+        <circle class="alp__solid" cx="16" cy="-82" r="11"/>
+        <path class="alp__beanie" d="M6 -84 Q7 -96 16 -97 Q25 -96 26 -84 Z"/>
+        <circle class="alp__pom" cx="16" cy="-101" r="4.5"/>
+      </g>
+    </g>
+    <g class="alp__wp" transform="translate(1580 70)">
+      <circle class="alp__node" r="10"/>
+      <g class="alp__flag">
+        <path class="alp__pole" d="M0 -4 L0 -78"/>
+        <path class="alp__pennant" d="M0 -78 L44 -66 L0 -54 Z"/>
+      </g>
+      <g class="alp__climber">
+        <path class="alp__stick" d="M-9 -74 L-19 -6"/>
+        <path class="alp__limb" d="M-8 -6 L2 -36"/>
+        <path class="alp__limb" d="M14 -6 L6 -36"/>
+        <path class="alp__torso" d="M4 -36 L10 -66"/>
+        <path class="alp__limb" d="M8 -62 L-13 -46"/>
+        <circle class="alp__solid" cx="-13" cy="-46" r="5"/>
+        <path class="alp__limb" d="M8 -62 L20 -44"/>
+        <circle class="alp__solid" cx="20" cy="-44" r="5"/>
+        <circle class="alp__solid" cx="16" cy="-82" r="11"/>
+        <path class="alp__beanie" d="M6 -84 Q7 -96 16 -97 Q25 -96 26 -84 Z"/>
+        <circle class="alp__pom" cx="16" cy="-101" r="4.5"/>
+      </g>
+    </g>
+  </svg>
+
+  <p data-sid="07-projects:37" class="slide__kicker">03</p>
+  <h2 data-sid="07-projects:38">Projects</h2>
+  <p data-sid="07-projects:39" class="sr-only slide__desc">Section divider: "Projects". Along the bottom, a mountain profile rises to a summit with five waypoints, one per section of the session; flags are planted at the first two waypoints, a small climber stands at the third, and the rest are still ahead as bare rings.</p>
+  <p data-sid="07-projects:40">Five projects recruiting — what's involved, what's already there, and who you'd work with.</p>
+  <p data-sid="07-projects:41" class="slide__number"></p>
+  <aside data-sid="07-projects:42" class="notes">The one-line overview first, then one slide per project.</aside>
+</section>

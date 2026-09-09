@@ -1,5 +1,21 @@
 [
   {
+    "date": "2026-09-02",
+    "type": "general",
+    "title": "Undergrad Research Studio kickoff",
+    "description": "Slides from the fall kickoff of the ASCEND Undergrad Research Studio — how the weekly studio session works, the five projects recruiting this semester, and how to sign on through the site.",
+    "links": [
+      {
+        "text": "View slides",
+        "url": "/slides/undergrad-research/"
+      },
+      {
+        "text": "Sign up",
+        "url": "/undergrad/"
+      }
+    ]
+  },
+  {
     "date": "2026-08-14",
     "type": "talk",
     "title": "Talk at IT-vest: Code-generation Based Grading",

@@ -1,0 +1,105 @@
+<!-- Icebreaker — a mountain slope fills the left, with a stick-figure climber
+     swinging an ice axe into it (shards fly on each strike); the prompt and its
+     two bullets sit in a column on the right. The mountain is genuine vector
+     art (colours + motion in css/deck.css, .icebreaker__*); edit words in the
+     HTML elements only. -->
+<section data-sid="03-icebreaker:1" class="slide has-beamer" id="slide-03" data-transition="fade">
+  <header data-sid="03-icebreaker:2" class="beamer">
+    <ul data-sid="03-icebreaker:3" class="beamer__sections">
+      <li data-sid="03-icebreaker:4" class="beamer__section is-current">
+        <p data-sid="03-icebreaker:5" class="beamer__name">Intro &amp; Icebreaker</p>
+        <ul data-sid="03-icebreaker:6" class="beamer__dots"><li data-sid="03-icebreaker:7" class="is-done"></li><li data-sid="03-icebreaker:8" class="is-current"></li></ul>
+      </li>
+      <li data-sid="03-icebreaker:9" class="beamer__section">
+        <p data-sid="03-icebreaker:10" class="beamer__name">The Studio</p>
+        <ul data-sid="03-icebreaker:11" class="beamer__dots"><li data-sid="03-icebreaker:12"></li><li data-sid="03-icebreaker:13"></li><li data-sid="03-icebreaker:14"></li></ul>
+      </li>
+      <li data-sid="03-icebreaker:15" class="beamer__section">
+        <p data-sid="03-icebreaker:16" class="beamer__name">Projects</p>
+        <ul data-sid="03-icebreaker:17" class="beamer__dots"><li data-sid="03-icebreaker:18"></li><li data-sid="03-icebreaker:19"></li><li data-sid="03-icebreaker:20"></li><li data-sid="03-icebreaker:21"></li><li data-sid="03-icebreaker:22"></li><li data-sid="03-icebreaker:23"></li><li data-sid="03-icebreaker:24"></li></ul>
+      </li>
+      <li data-sid="03-icebreaker:25" class="beamer__section">
+        <p data-sid="03-icebreaker:26" class="beamer__name">Sign Up &amp; Access</p>
+        <ul data-sid="03-icebreaker:27" class="beamer__dots"><li data-sid="03-icebreaker:28"></li><li data-sid="03-icebreaker:29"></li><li data-sid="03-icebreaker:30"></li></ul>
+      </li>
+      <li data-sid="03-icebreaker:31" class="beamer__section">
+        <p data-sid="03-icebreaker:32" class="beamer__name">Action Items</p>
+        <ul data-sid="03-icebreaker:33" class="beamer__dots"><li data-sid="03-icebreaker:34"></li><li data-sid="03-icebreaker:35"></li></ul>
+      </li>
+    </ul>
+    <img data-sid="03-icebreaker:36" class="beamer__logo" src="assets/ascend-logo.svg" alt="">
+  </header>
+
+  <!-- Mountain + climber. viewBox origin = canvas (0,104), just under the beamer rule. -->
+  <svg class="icebreaker__art" viewBox="0 0 900 976" role="img" focusable="false"
+       aria-label="A bearded mountaineer in a beanie and parka, backpack on and roped to two anchors down the slope, stands on a steep mountain slope and swings a pickaxe over his shoulder into the ice; small shards fly off with each strike.">
+    <!-- slope: mountain body is below-left of the ridge -->
+    <path class="icebreaker__mountain" d="M0 0 L90 110 L170 160 L150 215 L260 275 L265 320 L355 385 L375 435 L420 520 L470 565 L510 585 L530 660 L585 750 L640 815 L730 880 L820 956 L840 976 L0 976 Z"/>
+    <path class="icebreaker__ridge" d="M0 0 L90 110 L170 160 L150 215 L260 275 L265 320 L355 385 L375 435 L420 520 L470 565 L510 585 L530 660 L585 750 L640 815 L730 880 L820 956 L840 976"/>
+
+    <!-- protection: rope from the climber's harness runs down through two
+         anchors (pins driven into the slope, each with a ring) and off the bottom -->
+    <g class="icebreaker__anchor">
+      <path d="M542 702 L562 690"/>
+      <circle cx="568" cy="687" r="7"/>
+      <path d="M677 859 L692 838"/>
+      <circle cx="696" cy="833" r="7"/>
+    </g>
+    <path class="icebreaker__rope" d="M484 482 Q540 610 568 687 Q650 780 696 833 Q740 910 790 976"/>
+
+    <!-- ice shards: burst from where the pick bites, off into the sky -->
+    <g transform="translate(316 356)">
+      <polygon class="icebreaker__shard" style="--dx: -22px; --dy: -84px" points="0,0 10,-6 12,6"/>
+      <polygon class="icebreaker__shard" style="--dx: 16px; --dy: -108px" points="0,0 -10,-8 -2,8"/>
+      <polygon class="icebreaker__shard" style="--dx: 56px; --dy: -76px" points="0,0 6,-12 -6,-8"/>
+      <polygon class="icebreaker__shard" style="--dx: 84px; --dy: -34px" points="0,0 12,-2 8,10"/>
+      <polygon class="icebreaker__shard" style="--dx: -6px; --dy: -132px" points="0,0 8,-4 4,8"/>
+    </g>
+
+    <!-- mountaineer, standing on the slope, facing up-slope (left): beanie,
+         parka, backpack, boots. Draw order = back to front. -->
+    <g class="icebreaker__climber">
+      <rect class="icebreaker__pack" x="490" y="414" width="28" height="56" rx="9"/>
+      <circle class="icebreaker__solid" cx="484" cy="482" r="6"/>
+      <path d="M484 480 L452 498 L438 536"/>
+      <path d="M484 480 L498 530 L502 581"/>
+      <path class="icebreaker__boot" d="M431 530 L445 542"/>
+      <path class="icebreaker__boot" d="M493 576 L511 586"/>
+      <path class="icebreaker__torso" d="M472 410 L484 478"/>
+      <path d="M474 426 L404 456"/>
+      <circle class="icebreaker__solid" cx="404" cy="456" r="9"/>
+      <circle class="icebreaker__solid" cx="458" cy="384" r="24"/>
+      <path class="icebreaker__beanie" d="M438 380 Q440 356 458 354 Q476 356 478 380 Z"/>
+      <circle class="icebreaker__pom" cx="458" cy="344" r="8"/>
+      <!-- swinging arm + pickaxe: pivots at the shoulder (group origin). The axe
+           is drawn in its own frame at the fist: handle straight up, curved
+           double-pointed head across the top. -->
+      <g transform="translate(476 414)">
+        <g class="icebreaker__pick">
+          <path d="M0 0 L-54 -62"/>
+          <g transform="translate(-54 -62) rotate(-4)">
+            <path class="icebreaker__handle" d="M0 22 L0 -104"/>
+            <path class="icebreaker__blade" d="M-50 -76 Q-26 -120 0 -117 Q26 -120 50 -76 Q24 -98 0 -97 Q-24 -98 -50 -76 Z"/>
+            <circle class="icebreaker__solid" cx="0" cy="-105" r="6"/>
+            <circle class="icebreaker__solid" cx="0" cy="0" r="9"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  <div data-sid="03-icebreaker:37" class="icebreaker__panel">
+    <p data-sid="03-icebreaker:38" class="slide__kicker">Icebreaker</p>
+    <h2 data-sid="03-icebreaker:39">Getting to Know Everyone</h2>
+    <p data-sid="03-icebreaker:40" class="sr-only slide__desc">Left, a mountaineer in a beanie and parka, backpack on and roped to two anchors down the slope, stands on a steep mountain slope and swings a pickaxe over his shoulder into the ice, shards flying with each strike. Right, the icebreaker prompt as the heading, with three bullets revealed in steps: name, where you're at and your year; the topics you're interested in, or that you're just getting oriented; then your summer thing in thirty seconds.</p>
+    <div data-sid="03-icebreaker:41" class="slide__body">
+      <ul data-sid="03-icebreaker:42">
+        <li data-sid="03-icebreaker:43" class="frag" data-step="1" data-anim="fade-up" data-anim-ease="out">Name, where you're at, and what year you're in</li>
+        <li data-sid="03-icebreaker:44" class="frag" data-step="2" data-anim="fade-up" data-anim-ease="out">Topics you're interested in — or just getting a feel for what's going on</li>
+        <li data-sid="03-icebreaker:45" class="frag" data-step="3" data-anim="fade-up" data-anim-ease="out">What you did this summer!!</li>
+      </ul>
+    </div>
+  </div>
+  <p data-sid="03-icebreaker:46" class="slide__number"></p>
+  <aside data-sid="03-icebreaker:47" class="notes">Full round of intros: name, where you're at, year, interests (new folks: fine to say you're just figuring out what research even is), then the summer thing. Keep each to about a minute.</aside>
+</section>

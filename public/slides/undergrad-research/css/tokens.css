@@ -1,0 +1,89 @@
+/* Design tokens — the deck's visual vocabulary. Slides should prefer these
+   (var(--accent-1), var(--s-5), var(--t-h2)) over raw values so restyling the
+   whole deck is a one-file edit. All sizes are canvas pixels (1920×1080).
+
+   Theme: ASCEND "Summit Alpine" — mirrors the lab website (clean, light,
+   blue primary / forest green / amber). Keep in step with
+   ascend_website/src/styles/global.css when the site's palette changes. */
+
+/* Bundled fonts (assets/fonts, OFL-licensed) — local files, so decks still
+   render offline AND identically in every browser. A system stack like
+   `system-ui` resolves to a different face per browser/OS, which changes glyph
+   widths and therefore where every line wraps; a bundled file pins the metrics.
+   The system stacks below are fallback only, for the instant before load. */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter-Italic-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../assets/fonts/PlusJakartaSans-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/JetBrainsMono-Variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* text */
+  --fg-0: #0f172a;              /* primary text (slate 900) */
+  --fg-1: #64748b;              /* muted text, captions, slide numbers */
+
+  /* surfaces */
+  --bg-0: #ffffff;              /* slide background */
+  --bg-1: #f1f5f9;              /* raised panels / tiles / section dividers */
+  --bg-2: #e2e8f0;              /* deeper surface: table stripes, rules */
+  --bg-3: #94a3b8;              /* deepest surface: far fog, disabled */
+  --border-1: #cbd5e1;          /* card + rule borders */
+
+  /* accents */
+  --accent-1: #2563eb;          /* primary highlight — ASCEND blue */
+  --accent-2: #166534;          /* secondary — forest green */
+  --accent-3: #d97706;          /* tertiary — amber / callouts */
+
+  /* fonts — bundled faces first (see @font-face above); never name a font here
+     that is not bundled, or every machine substitutes its own and rewraps */
+  --font-body: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;   /* headings */
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  /* spacing scale */
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 48px;
+  --s-6: 64px;
+  --s-7: 96px;
+  --s-8: 128px;
+
+  /* type scale */
+  --t-hero: 160px;              /* title slide only */
+  --t-h1: 112px;
+  --t-h2: 76px;
+  --t-h3: 52px;
+  --t-body: 40px;
+  --t-small: 30px;
+  --t-label: 24px;              /* kickers, footers, mono labels */
+
+  /* corner radii */
+  --r-1: 8px;
+  --r-2: 16px;
+  --r-3: 28px;
+}
