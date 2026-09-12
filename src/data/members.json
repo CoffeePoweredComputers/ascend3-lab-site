@@ -16,13 +16,13 @@
       "role": "PhD Student",
       "photo": "/assets/people/monisha.jpg",
       "bio": "AI-assisted learning and assessment for introductory CS, focusing on databases.",
-      "website": null,
+      "website": "https://smamonisha.github.io/",
       "email": null
     },
     {
       "id": "minsun",
       "name": "Minsun Kim",
-      "role": "Incoming PhD Student",
+      "role": "PhD Student",
       "photo": "/assets/people/minsun.jpg",
       "bio": "AI-driven educational technologies and LLM applications.",
       "website": "https://min-sunnying.github.io",
@@ -31,7 +31,7 @@
     {
       "id": "fariha",
       "name": "Fariha Anjum Shifa",
-      "role": "Incoming PhD Student",
+      "role": "PhD Student",
       "photo": "/assets/people/fariha.jpg",
       "bio": "Language barriers and translanguaging in learning to code.",
       "website": "https://farihanjum.github.io/",
@@ -68,6 +68,15 @@
       "photo": "/assets/people/vanshika.jpg",
       "bio": "PrairieLearn assessment tools for algorithm comprehension.",
       "website": "https://www.linkedin.com/in/vanshika-punekar/",
+      "email": null
+    },
+    {
+      "id": "valeria",
+      "name": "Valeria Rosado",
+      "role": "Undergraduate Researcher",
+      "photo": "/assets/people/valeria.jpg",
+      "bio": "",
+      "website": null,
       "email": null
     }
   ],
