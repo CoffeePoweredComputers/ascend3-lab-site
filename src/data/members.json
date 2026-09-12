@@ -75,7 +75,16 @@
       "name": "Valeria Rosado",
       "role": "Undergraduate Researcher",
       "photo": "/assets/people/valeria.jpg",
-      "bio": "",
+      "bio": "Visual debugger for program comprehension.",
+      "website": null,
+      "email": null
+    },
+    {
+      "id": "shri",
+      "name": "Shriram Anand",
+      "role": "Undergraduate Researcher",
+      "photo": "/assets/people/shri.jpg",
+      "bio": "Visual debugger for program comprehension.",
       "website": null,
       "email": null
     }
