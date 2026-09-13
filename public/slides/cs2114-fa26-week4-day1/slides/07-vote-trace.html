@@ -19,19 +19,19 @@
     <p class="vt__stem" data-sid="07-vote-trace:35">Suppose a linked chain of Integers referenced by the variable head contains data 20, 30, 10, 5 in that order. Consider the execution of the following snippet:</p>
     <svg class="vt__chain" viewBox="0 0 1664 74" role="img" aria-label="The chain from the stem: head refers to a Link holding 20, then 30, then 10, then 5, whose next is null; each Link shows its data and next fields" data-sid="07-vote-trace:36">
       <rect class="vt__pill" x="0" y="15" width="130" height="44" rx="6" data-sid="07-vote-trace:37"/><text class="vt__pt" x="65" y="50" data-sid="07-vote-trace:38">head</text>
-      <path class="vt__arr" d="M130 37 C 136 37, 144 37, 150 42" data-sid="07-vote-trace:39"/><path class="vt__ah" d="M162 37 L150 31 L150 43 Z" data-sid="07-vote-trace:40"/>
+      <path class="vt__arr" d="M130 37 C 136 37, 144 37, 150 37" data-sid="07-vote-trace:39"/><path class="vt__ah" d="M162 37 L150 31 L150 43 Z" data-sid="07-vote-trace:40"/>
       <rect class="vt__box" x="162" y="2" width="200" height="70" rx="8" data-sid="07-vote-trace:41"/><path class="vt__div" d="M272 2v70" data-sid="07-vote-trace:42"/>
       <text class="vt__f" x="172" y="25" data-sid="07-vote-trace:43">data</text><text class="vt__f" x="282" y="25" data-sid="07-vote-trace:44">next</text>
       <text class="vt__v" x="217" y="59" data-sid="07-vote-trace:45">20</text>
-      <path class="vt__arr" d="M362 37 C 376 37, 390 37, 404 42" data-sid="07-vote-trace:46"/><path class="vt__ah" d="M416 37 L404 31 L404 43 Z" data-sid="07-vote-trace:47"/>
+      <path class="vt__arr" d="M362 37 C 376 37, 390 37, 404 37" data-sid="07-vote-trace:46"/><path class="vt__ah" d="M416 37 L404 31 L404 43 Z" data-sid="07-vote-trace:47"/>
       <rect class="vt__box" x="422" y="2" width="200" height="70" rx="8" data-sid="07-vote-trace:48"/><path class="vt__div" d="M532 2v70" data-sid="07-vote-trace:49"/>
       <text class="vt__f" x="432" y="25" data-sid="07-vote-trace:50">data</text><text class="vt__f" x="542" y="25" data-sid="07-vote-trace:51">next</text>
       <text class="vt__v" x="477" y="59" data-sid="07-vote-trace:52">30</text>
-      <path class="vt__arr" d="M622 37 C 636 37, 650 37, 664 42" data-sid="07-vote-trace:53"/><path class="vt__ah" d="M676 37 L664 31 L664 43 Z" data-sid="07-vote-trace:54"/>
+      <path class="vt__arr" d="M622 37 C 636 37, 650 37, 664 37" data-sid="07-vote-trace:53"/><path class="vt__ah" d="M676 37 L664 31 L664 43 Z" data-sid="07-vote-trace:54"/>
       <rect class="vt__box" x="682" y="2" width="200" height="70" rx="8" data-sid="07-vote-trace:55"/><path class="vt__div" d="M792 2v70" data-sid="07-vote-trace:56"/>
       <text class="vt__f" x="692" y="25" data-sid="07-vote-trace:57">data</text><text class="vt__f" x="802" y="25" data-sid="07-vote-trace:58">next</text>
       <text class="vt__v" x="737" y="59" data-sid="07-vote-trace:59">10</text>
-      <path class="vt__arr" d="M882 37 C 896 37, 910 37, 924 42" data-sid="07-vote-trace:60"/><path class="vt__ah" d="M936 37 L924 31 L924 43 Z" data-sid="07-vote-trace:61"/>
+      <path class="vt__arr" d="M882 37 C 896 37, 910 37, 924 37" data-sid="07-vote-trace:60"/><path class="vt__ah" d="M936 37 L924 31 L924 43 Z" data-sid="07-vote-trace:61"/>
       <rect class="vt__box" x="942" y="2" width="200" height="70" rx="8" data-sid="07-vote-trace:62"/><path class="vt__div" d="M1052 2v70" data-sid="07-vote-trace:63"/>
       <text class="vt__f" x="952" y="25" data-sid="07-vote-trace:64">data</text><text class="vt__f" x="1062" y="25" data-sid="07-vote-trace:65">next</text>
       <text class="vt__v" x="997" y="59" data-sid="07-vote-trace:66">5</text>
@@ -66,9 +66,10 @@
        ring (4:00), side by side with a label under each; the first press
        starts the vote, the second starts the discussion and finishes the vote
        (this deck's timer.js) */
+    #slide-07 .timer { top: var(--s-6); }   /* up from --s-7 so the labels clear the stem */
     #slide-07 .timer--vote { right: calc(var(--s-8) + 190px); }
     #slide-07 .frag.timer.is-past { opacity: .55; }
-    #slide-07 .tlabel { position: absolute; top: calc(var(--s-7) + 156px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-07 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
     #slide-07 .tlabel--vote { right: calc(var(--s-8) + 190px); }
     #slide-07 .tlabel--discuss { right: var(--s-8); }
     /* Slide-local: the stem across both columns at the small size (wednesday's

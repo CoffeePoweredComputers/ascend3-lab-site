@@ -70,9 +70,10 @@
        ring (4:00), side by side with a label under each; the first press
        starts the vote, the second starts the discussion and finishes the vote
        (this deck's timer.js) */
+    #slide-09 .timer { top: var(--s-6); }   /* up from --s-7 so the labels clear the stem */
     #slide-09 .timer--vote { right: calc(var(--s-8) + 190px); }
     #slide-09 .frag.timer.is-past { opacity: .55; }
-    #slide-09 .tlabel { position: absolute; top: calc(var(--s-7) + 156px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-09 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
     #slide-09 .tlabel--vote { right: calc(var(--s-8) + 190px); }
     #slide-09 .tlabel--discuss { right: var(--s-8); }
     /* Slide-local: the stem at the small size across the top, then the four
