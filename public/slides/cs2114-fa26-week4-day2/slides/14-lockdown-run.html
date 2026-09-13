@@ -1,0 +1,44 @@
+<section class="slide" id="slide-14" data-sid="14-lockdown-run:1">
+  <header class="slide__head" data-sid="14-lockdown-run:2">
+    <h2 data-sid="14-lockdown-run:3">Practice in LockDown Browser: ten minutes</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="14-lockdown-run:4">On the left, three numbered steps: one, Canvas, then the practice assignment, which opens LockDown Browser; two, inside it, PrairieLearn, Test #1 Practice, start a new instance; three, work until the timer ends, and if any step fails, file a 4help ticket today. On the right, a large clock ring reading ten minutes; on the slide&rsquo;s one step it starts, its ring emptying clockwise, turning orange in the last minute and maroon when done. A line under the steps reads: you do not need to finish; the goal is to check the setup.</p>
+
+  <!-- The rehearsal. The slide is a signpost and a clock and nothing else,
+       because everyone in the room is looking at a laptop: the three moves
+       to get into the exam browser, and the deck's timer ring at ten minutes
+       instead of five, four times its vote size and centred so the back row
+       can read it. The ring is a .frag on step 1, so one press starts it;
+       timer.js resets it when the slide is left, which the notes say out
+       loud. The Canvas assignment name is the instructor's to fill. -->
+  <div class="slide__body lr" data-sid="14-lockdown-run:5">
+    <div class="stack" data-sid="14-lockdown-run:6">
+      <ol class="steps lr__steps" data-sid="14-lockdown-run:7">
+        <li data-sid="14-lockdown-run:8">Canvas &rsaquo; <b class="lr__ph" data-sid="14-lockdown-run:9">[practice assignment]</b>. <b data-sid="14-lockdown-run:10">LockDown Browser</b> opens.</li>
+        <li data-sid="14-lockdown-run:11">Inside it: PrairieLearn &rsaquo; <b data-sid="14-lockdown-run:12">Test #1 Practice</b> &rsaquo; start a new instance</li>
+        <li data-sid="14-lockdown-run:13">Work until the timer ends. If any step fails, file a ticket at <b data-sid="14-lockdown-run:14">4help.vt.edu</b> today.</li>
+      </ol>
+      <p class="note lr__cap" data-sid="14-lockdown-run:15">You do not need to finish. The goal is to check the setup.</p>
+    </div>
+    <div class="timer frag" data-step="1" data-timer="600" data-state="idle" role="timer" aria-label="Ten-minute practice-exam timer; it starts on the slide's step" data-sid="14-lockdown-run:16"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="14-lockdown-run:17"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="14-lockdown-run:18"/><g class="timer__ticks" data-sid="14-lockdown-run:19"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="14-lockdown-run:20"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="14-lockdown-run:21"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="14-lockdown-run:22"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="14-lockdown-run:23"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="14-lockdown-run:24"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="14-lockdown-run:25"/><g class="timer__hand" data-sid="14-lockdown-run:26"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="14-lockdown-run:27"/></g><text class="timer__time" x="75" y="88" data-sid="14-lockdown-run:28">10:00</text></svg></div>
+  </div>
+  <div class="slide__number" data-sid="14-lockdown-run:29"></div>
+  <aside class="notes" data-sid="14-lockdown-run:30">Read the three steps, then press once to start the timer. The next press leaves the slide and resets the timer, so do not press anything for ten minutes. Step 1: Canvas, the practice assignment [name it; confirm it exists and launches LockDown Browser before class]. Step 2: in LockDown Browser, PrairieLearn &rsaquo; Test #1 Practice &rsaquo; new instance &mdash; different questions from Part 2. Step 3: work until the timer ends; the ring turns orange for the last minute and maroon at zero. Walk the room and find the students whose browser did not launch, whose login failed, or whose battery is low; they file a 4help ticket today. Finishing is not the goal. When the timer ends, close LockDown Browser and take questions.</aside>
+
+  <style data-sid="14-lockdown-run:31">
+    /* Slide-local: the steps and the caption on the left (760 px), the deck's
+       timer ring on the right at 400 px — position static instead of the
+       vote-slide corner pin, centred in its cell; the digits scale with the
+       SVG. The names to find take the heading maroon; the placeholder the
+       tabs' orange. Ten minutes: data-timer 600, seed text 10:00 (timer.js
+       rewrites it). All values from tokens; used by this slide only. */
+    #slide-14 .lr { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-6); align-items: center; }
+    #slide-14 .lr__steps { margin: 0; font-size: var(--t-small); line-height: 1.35; }
+    #slide-14 .lr__steps li { margin: 0 0 var(--s-4); }
+    #slide-14 .lr__steps b { color: var(--accent-1); }
+    #slide-14 .lr__ph { color: var(--accent-3); }
+    #slide-14 .lr__cap { margin: 0; color: var(--accent-1); }
+    #slide-14 .timer { position: static; top: auto; right: auto; justify-self: center; }
+    #slide-14 .timer__arc { width: 400px; height: 400px; }
+  </style>
+</section>

@@ -1,0 +1,34 @@
+<section class="slide slide--center" id="slide-15" data-sid="15-questions:1">
+  <header class="slide__head" data-sid="15-questions:2">
+    <h2 data-sid="15-questions:3">Your questions</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="15-questions:4">A centred slide. Under the heading, five chips name the topics of the test &mdash; objects and references; testing and exceptions; types; bags on arrays; linked chains &mdash; and a sixth reads anything else. A line beneath says: later questions go to Piazza; turn on notifications for instructor posts.</p>
+
+  <!-- The floor is open; the slide just holds the five topic names up so a
+       question can start from one of them, and says where the answers go
+       when the hour is over. Static. -->
+  <div class="slide__body qs" data-sid="15-questions:5">
+    <ul class="chips qs__chips" data-sid="15-questions:6">
+      <li data-sid="15-questions:7">objects &amp; references</li>
+      <li data-sid="15-questions:8">testing &amp; exceptions</li>
+      <li data-sid="15-questions:9">types</li>
+      <li data-sid="15-questions:10">bags on arrays</li>
+      <li data-sid="15-questions:11">linked chains</li>
+      <li class="qs__any" data-sid="15-questions:12">anything else</li>
+    </ul>
+    <p class="note qs__cap" data-sid="15-questions:13">Later questions: Piazza. Turn on notifications for instructor posts.</p>
+  </div>
+  <div class="slide__number" data-sid="15-questions:14"></div>
+  <aside class="notes" data-sid="15-questions:15">Start with the topics students named in Part 2. Anything not answered in class goes to Piazza; answers are posted for both sections, so turn on notifications for instructor posts. If nobody asks: which topic would you least like to see first on the test?</aside>
+
+  <style data-sid="15-questions:16">
+    /* Slide-local: the six chips centred in a wrapping row, the Piazza line
+       under them; "anything else" takes the stone edge so the five topics
+       read as the set. Static; all values from tokens; used by this slide
+       only. */
+    #slide-15 .qs { display: grid; row-gap: var(--s-6); justify-items: center; align-content: center; }
+    #slide-15 .qs__chips { justify-content: center; max-width: 1400px; gap: var(--s-3); }
+    #slide-15 .qs__any { border-color: var(--stone); color: var(--fg-1); }
+    #slide-15 .qs__cap { margin: 0; text-align: center; max-width: 1400px; }
+  </style>
+</section>

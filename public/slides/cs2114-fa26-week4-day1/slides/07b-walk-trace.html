@@ -1,0 +1,201 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-trace:1">
+  <header class="slide__head" data-sid="07b-walk-trace:2">
+    <p class="slide__kicker" data-sid="07b-walk-trace:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-trace:4">30. The node holding 5 is unreachable.</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-trace:5">A walkthrough of the eight lines. On the left, an editor with a program-counter bar over the current line. On the right, the chain drawn as four Link boxes, 20 and 30 on the top row, 10 and 5 on the bottom row, each with a data compartment and a next compartment, joined by blue arrows: 20 to 30, 30 wrapping down to 10, 10 to 5, and 5 to the word null. A blue pill labelled head points at 20. Step one: a pill labelled p appears beside 20. Step two: a pill labelled q appears above 30. Step three: a pill labelled r appears beside 10. Step four: the arrow from 20 moves from 30 to 10. Step five: the arrow from 30 moves to a null beside it. Step six: the arrow from 10 moves from 5 to 30; the box holding 5 and its arrow turn grey, labelled unreachable. Step seven: 20, then 10, then 30 are ringed in blue in turn and a pill reads myVal equals 30. Step eight: the five answers return under both columns, A, C, D and E struck through in turn and B, 30, left standing. A caption under the editor changes with each step.</p>
+
+  <!-- Vote 1 is three arrows moving, so the answer draws the arrows moving.
+       The chain wraps like text — 20 30 on the top row, 10 5 below — so the
+       three rewired arrows have somewhere to go: 20→10 goes down, 30→null
+       goes right, 10→30 goes up, and none of them crosses another. Arrows are
+       single cubics that SWING: the CSS d property transitions between two
+       path strings with the same command shape, selected with the deck's
+       :has(.cap--k:not(.is-pending)) idiom, so a back-step swings them home.
+       The node nobody points at any more turns stone — that is what "garbage"
+       looks like. Reference arrows are blue (wires); variables are ink pills;
+       head keeps 04's blue. Steps follow the lines one for one; the verdict
+       strip closes. -->
+  <div class="slide__body grid grid--code code-dense" data-sid="07b-walk-trace:6">
+    <div class="stack" data-sid="07b-walk-trace:7">
+      <div class="editor" data-sid="07b-walk-trace:8">
+        <p class="editor__bar" data-sid="07b-walk-trace:9">the snippet</p>
+        <div class="editor__pc" data-sid="07b-walk-trace:10"></div>
+        <ol class="editor__code" data-sid="07b-walk-trace:11">
+          <li class="walkline frag" data-step="1" data-sid="07b-walk-trace:12">Link p = head;</li>
+          <li class="walkline frag" data-step="2" data-sid="07b-walk-trace:13">Link q = p.getNext();</li>
+          <li class="walkline frag" data-step="3" data-sid="07b-walk-trace:14">Link r = q.getNext();</li>
+          <li class="walkline frag" data-step="4" data-sid="07b-walk-trace:15">p.setNext(r);</li>
+          <li class="walkline frag" data-step="5" data-sid="07b-walk-trace:16">q.setNext(<span class="tok-key" data-sid="07b-walk-trace:17">null</span>);</li>
+          <li class="walkline frag" data-step="6" data-sid="07b-walk-trace:18">r.setNext(q);</li>
+          <li class="walkline frag" data-step="7" data-sid="07b-walk-trace:19">Integer myVal = p.next.next.data;</li>
+          <li class="walkline frag" data-step="8" data-sid="07b-walk-trace:20">System.out.println(myVal);</li>
+        </ol>
+      </div>
+      <div class="codewalk" data-sid="07b-walk-trace:21">
+        <div class="codewalk__caps" data-sid="07b-walk-trace:22">
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="07b-walk-trace:23">p refers to the first node, the one holding 20.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="07b-walk-trace:24">q refers to p&rsquo;s next: the node holding 30.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-trace:25">r refers to q&rsquo;s next: the node holding 10.</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="07b-walk-trace:26">p.setNext(r): the node holding 20 now points to the node holding 10.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="07b-walk-trace:27">q.setNext(null): the node holding 30 now points to null.</p>
+          <p class="walkcap cap--6 frag" data-step="6" data-sid="07b-walk-trace:28">r.setNext(q): the node holding 10 now points to the node holding 30. Nothing references the node holding 5.</p>
+          <p class="walkcap cap--7 frag" data-step="7" data-sid="07b-walk-trace:29">p.next is the node holding 10; p.next.next is the one holding 30; its data is 30.</p>
+          <p class="walkcap cap--8 frag" data-step="8" data-sid="07b-walk-trace:30">Prints 30. The chain is now 20, 10, 30.</p>
+        </div>
+      </div>
+    </div>
+
+    <svg class="sc" viewBox="0 0 992 520" role="img"
+         aria-label="Four Link boxes holding 20, 30, 10 and 5 with blue reference arrows that are rewired one line at a time" data-sid="07b-walk-trace:31">
+      <defs data-sid="07b-walk-trace:32">
+        <marker id="w4d1-07b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07b-walk-trace:33">
+          <path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="07b-walk-trace:34"/>
+        </marker>
+        <marker id="w4d1-07b-head-stone" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07b-walk-trace:35">
+          <path d="M0 0 L12 6 L0 12 Z" style="fill: var(--stone)" data-sid="07b-walk-trace:36"/>
+        </marker>
+      </defs>
+
+      <!-- head, from the start -->
+      <g class="sc__pill sc__pill--head" data-sid="07b-walk-trace:37"><rect x="150" y="0" width="70" height="40" rx="6" data-sid="07b-walk-trace:38"/><text x="185" y="27" data-sid="07b-walk-trace:39">head</text></g>
+      <path class="sc__ref" d="M185 40 C 185 52, 185 62, 185 74" data-sid="07b-walk-trace:40"/>
+
+      <!-- the four nodes -->
+      <g class="sc__node n20" data-sid="07b-walk-trace:41">
+        <rect class="sc__hop" x="82" y="72" width="186" height="116" rx="14" data-sid="07b-walk-trace:42"/>
+        <text class="sc__type" x="90" y="70" data-sid="07b-walk-trace:43">Link</text>
+        <rect class="sc__box" x="90" y="80" width="170" height="100" rx="10" data-sid="07b-walk-trace:44"/><path class="sc__div" d="M185 80v100" data-sid="07b-walk-trace:45"/>
+        <text class="sc__f" x="100" y="104" data-sid="07b-walk-trace:46">data</text><text class="sc__f" x="195" y="104" data-sid="07b-walk-trace:47">next</text>
+        <text class="sc__v" x="137" y="146" data-sid="07b-walk-trace:48">20</text>
+      </g>
+      <g class="sc__node n30" data-sid="07b-walk-trace:49">
+        <rect class="sc__hop" x="452" y="72" width="186" height="116" rx="14" data-sid="07b-walk-trace:50"/>
+        <text class="sc__type" x="460" y="70" data-sid="07b-walk-trace:51">Link</text>
+        <rect class="sc__box" x="460" y="80" width="170" height="100" rx="10" data-sid="07b-walk-trace:52"/><path class="sc__div" d="M555 80v100" data-sid="07b-walk-trace:53"/>
+        <text class="sc__f" x="470" y="104" data-sid="07b-walk-trace:54">data</text><text class="sc__f" x="565" y="104" data-sid="07b-walk-trace:55">next</text>
+        <text class="sc__v" x="507" y="146" data-sid="07b-walk-trace:56">30</text>
+      </g>
+      <g class="sc__node n10" data-sid="07b-walk-trace:57">
+        <rect class="sc__hop" x="82" y="342" width="186" height="116" rx="14" data-sid="07b-walk-trace:58"/>
+        <text class="sc__type" x="90" y="340" data-sid="07b-walk-trace:59">Link</text>
+        <rect class="sc__box" x="90" y="350" width="170" height="100" rx="10" data-sid="07b-walk-trace:60"/><path class="sc__div" d="M185 350v100" data-sid="07b-walk-trace:61"/>
+        <text class="sc__f" x="100" y="374" data-sid="07b-walk-trace:62">data</text><text class="sc__f" x="195" y="374" data-sid="07b-walk-trace:63">next</text>
+        <text class="sc__v" x="137" y="416" data-sid="07b-walk-trace:64">10</text>
+      </g>
+      <g class="sc__node n5" data-sid="07b-walk-trace:65">
+        <text class="sc__type" x="460" y="340" data-sid="07b-walk-trace:66">Link</text>
+        <rect class="sc__box" x="460" y="350" width="170" height="100" rx="10" data-sid="07b-walk-trace:67"/><path class="sc__div" d="M555 350v100" data-sid="07b-walk-trace:68"/>
+        <text class="sc__f" x="470" y="374" data-sid="07b-walk-trace:69">data</text><text class="sc__f" x="565" y="374" data-sid="07b-walk-trace:70">next</text>
+        <text class="sc__v" x="507" y="416" data-sid="07b-walk-trace:71">5</text>
+        <text class="sc__gone" x="545" y="490" data-sid="07b-walk-trace:72">unreachable</text>
+      </g>
+
+      <!-- the arrows out of each next compartment; three of them swing -->
+      <path class="sc__arr arr--20" d="M260 130 C 320 130, 390 130, 454 130" data-sid="07b-walk-trace:73"/>
+      <path class="sc__arr arr--30" d="M630 130 C 800 130, 215 180, 215 344" data-sid="07b-walk-trace:74"/>
+      <path class="sc__arr arr--10" d="M260 400 C 320 400, 390 400, 454 400" data-sid="07b-walk-trace:75"/>
+      <path class="sc__arr arr--5" d="M630 400 C 660 400, 680 400, 700 400" data-sid="07b-walk-trace:76"/>
+      <text class="sc__null" x="712" y="412" data-sid="07b-walk-trace:77">null</text>
+      <text class="sc__null sc__null--30" x="712" y="142" data-sid="07b-walk-trace:78">null</text>
+
+      <!-- the three locals, one per line -->
+      <g class="sc__pill frag" data-step="1" data-anim="fade" data-sid="07b-walk-trace:79"><rect x="0" y="100" width="50" height="40" rx="6" data-sid="07b-walk-trace:80"/><text x="25" y="127" data-sid="07b-walk-trace:81">p</text></g>
+      <path class="sc__ref frag" data-step="1" pathLength="100" d="M50 120 C 62 120, 72 120, 84 120" data-sid="07b-walk-trace:82"/>
+      <path class="sc__refhead frag" data-step="1" data-anim="fade" d="M84 120 L72 114 L72 126 Z" data-sid="07b-walk-trace:83"/>
+      <g class="sc__pill frag" data-step="2" data-anim="fade" data-sid="07b-walk-trace:84"><rect x="575" y="0" width="50" height="40" rx="6" data-sid="07b-walk-trace:85"/><text x="600" y="27" data-sid="07b-walk-trace:86">q</text></g>
+      <path class="sc__ref frag" data-step="2" pathLength="100" d="M600 40 C 600 52, 600 62, 600 74" data-sid="07b-walk-trace:87"/>
+      <path class="sc__refhead frag" data-step="2" data-anim="fade" d="M600 74 L594 62 L606 62 Z" data-sid="07b-walk-trace:88"/>
+      <g class="sc__pill frag" data-step="3" data-anim="fade" data-sid="07b-walk-trace:89"><rect x="0" y="370" width="50" height="40" rx="6" data-sid="07b-walk-trace:90"/><text x="25" y="397" data-sid="07b-walk-trace:91">r</text></g>
+      <path class="sc__ref frag" data-step="3" pathLength="100" d="M50 390 C 62 390, 72 390, 84 390" data-sid="07b-walk-trace:92"/>
+      <path class="sc__refhead frag" data-step="3" data-anim="fade" d="M84 390 L72 384 L72 396 Z" data-sid="07b-walk-trace:93"/>
+
+      <!-- step 7: the result -->
+      <g class="sc__pill sc__pill--val frag" data-step="7" data-anim="fade" data-sid="07b-walk-trace:94"><rect x="700" y="230" width="230" height="44" rx="6" data-sid="07b-walk-trace:95"/><text x="815" y="260" data-sid="07b-walk-trace:96">myVal = 30</text></g>
+    </svg>
+
+    <ol class="verdict frag" data-step="8" data-sid="07b-walk-trace:97">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-trace:98"><span class="verdict__txt" data-sid="07b-walk-trace:99">10</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-trace:100"><span class="verdict__txt" data-sid="07b-walk-trace:101">30</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07b-walk-trace:102"><span class="verdict__txt" data-sid="07b-walk-trace:103">5</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07b-walk-trace:104"><span class="verdict__txt" data-sid="07b-walk-trace:105">null</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="07b-walk-trace:106"><span class="verdict__txt" data-sid="07b-walk-trace:107">Nothing; A Null Pointer Exception is thrown</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-trace:108"></div>
+  <aside class="notes" data-sid="07b-walk-trace:109">Answer: B &mdash; 30. Walk one line at a time; each setNext changes one reference. Step 1: p refers to the first node, 20. Step 2: q refers to 30&rsquo;s node. Step 3: r refers to 10&rsquo;s node. Step 4: p.setNext(r) &mdash; 20&rsquo;s node now points to 10&rsquo;s node. Step 5: q.setNext(null) &mdash; 30&rsquo;s node now points to null. Step 6: r.setNext(q) &mdash; 10&rsquo;s node now points to 30&rsquo;s node. Nothing references the node holding 5; it will be garbage collected. Step 7: p.next is 10&rsquo;s node, p.next.next is 30&rsquo;s node, its data is 30. Field access compiles because Link&rsquo;s fields are public. Step 8: the answers. A (10) is p.next.data. C (5) assumes the chain is 20, 10, 5. D and E assume q.setNext(null) cut the chain in the middle. Next: Vote 2 &mdash; every loop follows references like these, and the question is what happens at null.</aside>
+
+  <style data-sid="07b-walk-trace:110">
+    /* Slide-local: the snippet at the chrome size on the left with its caption
+       row under it; the scene on the right in a 992 × 520 box (the editor takes
+       640, the gutter 32). Boxes are 04's Link boxes at 170 × 100 in a 2 × 2
+       layout; the chain wraps like text so the rewired arrows never cross.
+       Arrows: blue, marker heads (fill inline on the marker — the studio's
+       renderer ignores class rules on defs children) on static and swinging
+       arrows only — a drawn-on arrow gets a separate head that fades in after
+       its shaft, since a marker would sit at the tip first; the three that move are
+       single cubics whose d transitions between two same-shaped paths under
+       the :has() state rules — Transform, a real move. Pills FadeIn, their
+       arrows Create by dashoffset; the orphaned node turns stone; the hops of
+       step 7 are blue rings fading in on a stagger. The verdict strip spans
+       both columns under everything. All values from tokens; used by this
+       slide only. */
+    #slide-07b .slide__body { grid-template-columns: 640px minmax(0, 1fr); column-gap: var(--s-4); row-gap: var(--s-4); align-items: start; }
+    #slide-07b .sc { display: block; width: 100%; height: 520px; overflow: visible; }
+    #slide-07b .codewalk__caps { min-height: 150px; }
+
+    /* pills: head keeps 04's blue; the locals are ink; the result is ink too */
+    #slide-07b .sc__pill rect { fill: var(--fg-0); }
+    #slide-07b .sc__pill--head rect { fill: var(--accent-2); }
+    #slide-07b .sc__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-07b .sc__pill { transition: opacity .3s ease; }
+    #slide-07b .frag.sc__pill--val.is-current, #slide-07b .frag.sc__pill--val.is-past { transition-delay: 1.4s; }
+    #slide-07b .sc__ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w4d1-07b-head); }
+    #slide-07b .frag.sc__ref { marker-end: none; stroke-dasharray: 100; transition: stroke-dashoffset .4s var(--ease-smooth); }   /* drawn-on refs: the head is a separate element that lands after the shaft */
+    #slide-07b .sc__refhead { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-07b .frag.sc__refhead.is-current, #slide-07b .frag.sc__refhead.is-past { transition-delay: .55s; }
+    #slide-07b .frag.sc__ref.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-07b .frag.sc__ref.is-current, #slide-07b .frag.sc__ref.is-past { stroke-dashoffset: 0; transition-delay: .2s; }
+
+    /* the boxes */
+    #slide-07b .sc__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5; transition: stroke .4s ease, fill .4s ease; }
+    #slide-07b .sc__div { fill: none; stroke: var(--fg-1); stroke-width: 5; transition: stroke .4s ease; }
+    #slide-07b .sc__type, #slide-07b .sc__f { font-family: var(--font-mono); fill: var(--fg-1); transition: fill .4s ease; }
+    #slide-07b .sc__type { font-size: var(--t-micro); }
+    #slide-07b .sc__f { font-size: var(--t-tag); }
+    #slide-07b .sc__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: fill .4s ease; }
+    #slide-07b .sc__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); transition: opacity .3s ease; }
+    #slide-07b .sc__null--30 { opacity: 0; }
+    #slide-07b .sc__gone { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+
+    /* the arrows that swing: same command shape both ends, so d interpolates */
+    #slide-07b .sc__arr { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w4d1-07b-head); transition: d .7s var(--ease-smooth), stroke .4s ease; }
+    #slide-07b .slide__body:has(.cap--4:not(.is-pending)) .arr--20 { d: path("M222 180 C 222 250, 150 250, 150 344"); }
+    #slide-07b .slide__body:has(.cap--5:not(.is-pending)) .arr--30 { d: path("M630 130 C 660 130, 680 130, 700 130"); }
+    #slide-07b .slide__body:has(.cap--5:not(.is-pending)) .sc__null--30 { opacity: 1; transition-delay: .5s; }
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .arr--10 { d: path("M260 400 C 330 400, 545 300, 545 186"); }
+    /* step 6: nothing points at 5 any more */
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .n5 .sc__box,
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .n5 .sc__div { stroke: var(--stone); transition-delay: .5s; }
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .n5 .sc__box { fill: var(--bg-0); }
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .n5 .sc__v,
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .n5 .sc__type,
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .n5 .sc__f { fill: var(--stone); transition-delay: .5s; }
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .arr--5 { stroke: var(--stone); marker-end: url(#w4d1-07b-head-stone); transition-delay: .5s; }
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .sc__gone { opacity: 1; transition-delay: .9s; }
+
+    /* step 7: the hops — three rings, one after another */
+    #slide-07b .sc__hop { fill: none; stroke: var(--accent-2); stroke-width: 6; opacity: 0; transition: opacity .3s ease; }
+    #slide-07b .slide__body:has(.cap--7:not(.is-pending)) .n20 .sc__hop { opacity: 1; }
+    #slide-07b .slide__body:has(.cap--7:not(.is-pending)) .n10 .sc__hop { opacity: 1; transition-delay: .5s; }
+    #slide-07b .slide__body:has(.cap--7:not(.is-pending)) .n30 .sc__hop { opacity: 1; transition-delay: 1s; }
+
+    /* the five answers back, under both columns */
+    #slide-07b .verdict { grid-column: 1 / -1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .sc__pill, #slide-07b .sc__ref, #slide-07b .sc__refhead, #slide-07b .sc__arr, #slide-07b .sc__box, #slide-07b .sc__div, #slide-07b .sc__type,
+      #slide-07b .sc__f, #slide-07b .sc__v, #slide-07b .sc__null, #slide-07b .sc__gone, #slide-07b .sc__hop { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

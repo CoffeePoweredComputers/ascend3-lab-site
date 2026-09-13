@@ -1,0 +1,70 @@
+<section class="slide" id="slide-04" data-sid="04-test-map:1">
+  <header class="slide__head" data-sid="04-test-map:2">
+    <h2 data-sid="04-test-map:3">Thirteen questions, five topics</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-test-map:4">Five tiles in a row, arriving one per step, each a topic of Test 1 with the questions it holds and its share of the 72 points. Objects and references: equals, aliasing, a reference that changes &mdash; three questions, sixteen points. Testing and exceptions: a test for a remove that throws, testing equals, which cases a test set covers, checked against runtime exceptions &mdash; four questions, twenty-eight points. Types: a UML diagram with super and override, an upcast, generics &mdash; three questions, twelve points. Bags on arrays: add, remove and contains on an ArrayBag &mdash; one question, eight points. Linked chains: trace a rewiring, write a walk &mdash; two questions, eight points. A caption under the tiles reads: each topic has come up in lecture already; the next five slides are one question from each.</p>
+
+  <!-- The test as a map, not a syllabus: five topics, each with the
+       questions it holds and what it weighs. The topics are the practice
+       exam's thirteen banks grouped by the skill they test, and the weights
+       are the practice exam's own point values — every student sees those the
+       moment they open it, so nothing here is a leak. Tiles carry the heading
+       maroon (the rule); the points take the orange of "yours". One tile per
+       step, left to right, then the caption. -->
+  <div class="slide__body tm" data-sid="04-test-map:5">
+    <ol class="grid grid--tiles tm__topics" data-sid="04-test-map:6">
+      <li class="tile tm__tile frag" data-step="1" data-sid="04-test-map:7">
+        <h3 data-sid="04-test-map:8">Objects &amp; references</h3>
+        <ul class="tm__qs" data-sid="04-test-map:9"><li data-sid="04-test-map:10">write equals</li><li data-sid="04-test-map:11">two names, one object</li><li data-sid="04-test-map:12">a reference re-pointed</li></ul>
+        <p class="tm__pts" data-sid="04-test-map:13">3 questions &middot; 16 pts</p>
+      </li>
+      <li class="tile tm__tile frag" data-step="2" data-sid="04-test-map:14">
+        <h3 data-sid="04-test-map:15">Testing &amp; exceptions</h3>
+        <ul class="tm__qs" data-sid="04-test-map:16"><li data-sid="04-test-map:17">test a remove that throws</li><li data-sid="04-test-map:18">test equals</li><li data-sid="04-test-map:19">which cases are covered</li><li data-sid="04-test-map:20">checked vs runtime</li></ul>
+        <p class="tm__pts" data-sid="04-test-map:21">4 questions &middot; 28 pts</p>
+      </li>
+      <li class="tile tm__tile frag" data-step="3" data-sid="04-test-map:22">
+        <h3 data-sid="04-test-map:23">Types</h3>
+        <ul class="tm__qs" data-sid="04-test-map:24"><li data-sid="04-test-map:25">UML: super &amp; override</li><li data-sid="04-test-map:26">an upcast</li><li data-sid="04-test-map:27">generics</li></ul>
+        <p class="tm__pts" data-sid="04-test-map:28">3 questions &middot; 12 pts</p>
+      </li>
+      <li class="tile tm__tile frag" data-step="4" data-sid="04-test-map:29">
+        <h3 data-sid="04-test-map:30">Bags on arrays</h3>
+        <ul class="tm__qs" data-sid="04-test-map:31"><li data-sid="04-test-map:32">add, remove, contains on ArrayBag</li></ul>
+        <p class="tm__pts" data-sid="04-test-map:33">1 question &middot; 8 pts</p>
+      </li>
+      <li class="tile tm__tile frag" data-step="5" data-sid="04-test-map:34">
+        <h3 data-sid="04-test-map:35">Linked chains</h3>
+        <ul class="tm__qs" data-sid="04-test-map:36"><li data-sid="04-test-map:37">trace a rewiring</li><li data-sid="04-test-map:38">write a walk</li></ul>
+        <p class="tm__pts" data-sid="04-test-map:39">2 questions &middot; 8 pts</p>
+      </li>
+    </ol>
+    <p class="note tm__cap frag" data-step="5" data-anim="fade" data-sid="04-test-map:40">Each topic has come up in lecture already. The next five slides are one question from each.</p>
+  </div>
+  <div class="slide__number" data-sid="04-test-map:41"></div>
+  <aside class="notes" data-sid="04-test-map:42">Five topics, thirteen questions, seventy-two points &mdash; the same structure as the practice exam in Part 2. Step 1: objects and references &mdash; writing equals, two variables referring to one object, a reference reassigned; sixteen points. Step 2: testing and exceptions, the largest at twenty-eight &mdash; a test for a remove that throws, a test for equals, which cases a set of tests covers, checked versus runtime exceptions. Step 3: types &mdash; a UML diagram with super and override, an upcast, generics; twelve. Step 4: bags on arrays &mdash; one eight-point question on add, remove or contains for ArrayBag. Step 5: linked chains &mdash; trace a rewiring, write a traversal; eight. Question formats: multiple choice, checkbox, select a code block, fill in blanks in Java, an array trace, true/false. Next: one question from each topic.</aside>
+
+  <style data-sid="04-test-map:43">
+    /* Slide-local: five tiles in one row (300 px each on the 1664 body),
+       each the topic's name, its questions at the chrome size and its
+       weight in the tabs' orange; the caption under the row on the last
+       step. Tiles GrowFromCenter one per step. All values from tokens; used
+       by this slide only. */
+    #slide-04 .tm { display: grid; row-gap: var(--s-5); align-content: start; }
+    #slide-04 .tm__topics { grid-template-columns: repeat(5, 1fr); gap: var(--s-4); align-items: stretch; }
+    #slide-04 .tm__tile { display: flex; flex-direction: column; padding: var(--s-3); }
+    #slide-04 .tm__tile h3 { font-size: var(--t-small); line-height: 1.15; margin: 0 0 var(--s-3); min-height: 2.3em; color: var(--accent-1); }
+    #slide-04 .tm__qs { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.35; color: var(--fg-0); flex: 1 0 auto; }
+    #slide-04 .tm__qs li { margin: 0 0 var(--s-1); padding-left: var(--s-3); position: relative; line-height: 1.35; }
+    #slide-04 .tm__qs li::before { content: ""; position: absolute; left: 0; top: .55em; width: 10px; height: 10px; border-radius: 50%; background: var(--fg-1); }
+    #slide-04 .tm__pts { margin: var(--s-3) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-3); }
+    #slide-04 .tm__tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04 .frag.tm__tile.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-04 .tm__cap { margin: 0; transition: opacity .3s ease; }
+    #slide-04 .frag.tm__cap.is-current, #slide-04 .frag.tm__cap.is-past { transition-delay: .6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .tm__tile, #slide-04 .tm__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,77 @@
+<section class="slide" id="slide-13" data-sid="13-test-day:1">
+  <header class="slide__head" data-sid="13-test-day:2">
+    <h2 data-sid="13-test-day:3">Test 1: rules</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="13-test-day:4">On the left, a checklist of the rules: in lecture, Wednesday for MW and Thursday for TR; on PrairieLearn inside LockDown Browser, launched from Canvas; 45 minutes, marked as to be confirmed, one attempt; closed book, no notes, IDE, web or talking; laptop only, phone away, pen and paper allowed; accommodations booked in RegisterBlast by Friday September 18 for MW or Monday September 21 for TR. On the right, two cards arriving in turn: DO, in orange &mdash; charge your laptop, bring your student ID, install LockDown Browser today, log in to PrairieLearn from Canvas once; and DON&rsquo;T, in maroon &mdash; open Eclipse or any other program, use your phone, discuss the test until both sections have taken it, leave before the end. A line under the cards reads: Test 1 Redo, Thursday October 1, in class.</p>
+
+  <!-- The rules of the hour, said once and concretely: a checklist of what
+       the room is, then DO and DON'T cards with named actions, not
+       principles (the deck's standing rule). DO takes the orange of "yours
+       to do", DON'T the maroon of the rule. The duration is the 4.1 page's
+       "45 minutes" and is marked until the instructor confirms it. The
+       cards arrive on two presses; the checklist is on screen from the
+       start. -->
+  <div class="slide__body td" data-sid="13-test-day:5">
+    <ul class="checklist td__rules" data-sid="13-test-day:6">
+      <li data-sid="13-test-day:7">In lecture: <b data-sid="13-test-day:8">Wednesday</b> (MW) &middot; <b data-sid="13-test-day:9">Thursday</b> (TR)</li>
+      <li data-sid="13-test-day:10">On PrairieLearn, inside <b data-sid="13-test-day:11">LockDown Browser</b>, launched from Canvas</li>
+      <li data-sid="13-test-day:12"><span class="td__ph" data-sid="13-test-day:13">[45 minutes]</span> &middot; one attempt</li>
+      <li data-sid="13-test-day:14">Closed book: no notes, IDE, web, or talking</li>
+      <li data-sid="13-test-day:15">Laptop only; phone away. Pen and paper allowed.</li>
+      <li data-sid="13-test-day:16">SSD accommodations: book in RegisterBlast <b data-sid="13-test-day:38">by Fri Sep 18</b> (MW) &middot; <b data-sid="13-test-day:39">by Mon Sep 21</b> (TR)</li>
+    </ul>
+    <div class="stack td__cards" data-sid="13-test-day:18">
+      <div class="tile tile--a3 frag" data-step="1" data-sid="13-test-day:19">
+        <h3 data-sid="13-test-day:20">DO</h3>
+        <ul class="td__list" data-sid="13-test-day:21">
+          <li data-sid="13-test-day:22">charge your laptop</li>
+          <li data-sid="13-test-day:23">bring your student ID</li>
+          <li data-sid="13-test-day:24">install LockDown Browser <b data-sid="13-test-day:25">today</b></li>
+          <li data-sid="13-test-day:26">log in to PrairieLearn from Canvas once</li>
+        </ul>
+      </div>
+      <div class="tile frag" data-step="2" data-sid="13-test-day:27">
+        <h3 data-sid="13-test-day:28">DON&rsquo;T</h3>
+        <ul class="td__list" data-sid="13-test-day:29">
+          <li data-sid="13-test-day:30">open Eclipse or any other program</li>
+          <li data-sid="13-test-day:31">use your phone</li>
+          <li data-sid="13-test-day:32">discuss the test until both sections have taken it</li>
+          <li data-sid="13-test-day:33">leave before the end</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note td__redo frag" data-step="2" data-anim="fade" data-sid="13-test-day:34">Test 1 Redo: Thursday October 1, in class.</p>
+  </div>
+  <div class="slide__number" data-sid="13-test-day:35"></div>
+  <aside class="notes" data-sid="13-test-day:36">Laptops closed. The rules. In lecture &mdash; Wednesday for MW, Thursday for TR &mdash; on PrairieLearn in LockDown Browser, launched from Canvas. [Confirm the length: the 4.1 page says 45 minutes; update the slide.] One attempt. Closed book: no notes, IDE, web, or talking. Laptop only; phone away before you sit down, after completing two-factor login; pen and paper allowed. SSD accommodations: book the seat in RegisterBlast through the Canvas Testing Accommodations link &mdash; by Friday September 18 for MW, Monday September 21 for TR (the slide before this one has the details). Step 1, DO: charge the laptop, bring your student ID, install LockDown Browser today from the Canvas link, log in to PrairieLearn from Canvas once. Step 2, DON&rsquo;T: no other programs, no phone, no discussing the test until both sections have taken it, no leaving early. Test 1 Redo: Thursday October 1, in class. Next: the practice run.</aside>
+
+  <style data-sid="13-test-day:37">
+    /* Slide-local: the checklist at 900 px on the left, the two cards stacked
+       on the right, the redo line under the checklist. Checklist items at the
+       small size with the words to find in bold; the placeholder in the tabs'
+       orange so it is impossible to miss in Studio. Cards GrowFromCenter on
+       their presses; the redo line fades in with the second. All values from
+       tokens; used by this slide only. */
+    #slide-13 .td { display: grid; grid-template-columns: 900px minmax(0, 1fr); column-gap: var(--s-6); row-gap: var(--s-4); align-items: start; }
+    #slide-13 .td__rules { grid-column: 1; grid-row: 1; }
+    #slide-13 .td__cards { grid-column: 2; grid-row: 1 / 3; }
+    #slide-13 .td__redo { grid-column: 1; grid-row: 2; }
+    #slide-13 .td__rules { margin: 0; }
+    #slide-13 .td__rules li { margin: 0 0 var(--s-2); line-height: 1.3; }
+    #slide-13 .td__rules b { color: var(--accent-1); }
+    #slide-13 .td__ph { color: var(--accent-3); }
+    #slide-13 .td__cards .tile { padding: var(--s-3) var(--s-4); }
+    #slide-13 .td__cards h3 { font-size: var(--t-small); margin: 0 0 var(--s-2); color: var(--edge); letter-spacing: .1em; }
+    #slide-13 .td__list { list-style: none; margin: 0; padding: 0; font-size: var(--t-micro); line-height: 1.35; color: var(--fg-0); }
+    #slide-13 .td__list li { margin: 0 0 var(--s-1); padding-left: var(--s-3); position: relative; line-height: 1.35; }
+    #slide-13 .td__list li::before { content: ""; position: absolute; left: 0; top: .5em; width: 10px; height: 10px; border-radius: 50%; background: var(--edge); }
+    #slide-13 .td__list b { color: var(--edge); }
+    #slide-13 .td__cards .tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-13 .td__cards .frag.tile.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-13 .td__redo { margin: 0; color: var(--accent-1); transition: opacity .3s ease; }
+    #slide-13 .frag.td__redo.is-current, #slide-13 .frag.td__redo.is-past { transition-delay: .5s; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-13 .td__cards .tile, #slide-13 .td__redo { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

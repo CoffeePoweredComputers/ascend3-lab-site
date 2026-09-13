@@ -1,0 +1,147 @@
+<section class="slide" id="slide-11" data-sid="11-linkedbag-add:1">
+  <header class="slide__head" data-sid="11-linkedbag-add:2">
+    <h2 data-sid="11-linkedbag-add:3">LinkedBag.add: a new node at the front, in constant time</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-linkedbag-add:4">On the left, an editor with a program-counter bar and the seven lines of LinkedBag&rsquo;s add method: public boolean add of T newEntry; Node newNode equals new Node of newEntry; newNode dot next equals firstNode; firstNode equals newNode; numberOfEntries plus plus; return true; and the closing brace. On the right, a chain: a blue pill labelled firstNode points down at a node holding ant, which points at bee, which points at cat, which points at the word null; under the chain, numberOfEntries equals 3. Step one: a new node holding dog appears to the left of the chain, its next compartment reading null. Step two: an arrow draws from the new node to ant, and its null disappears. Step three: the firstNode arrow moves from ant to the new node. Step four: the 3 is struck through and a 4 appears beside it. Step five: the caption reads that this is constant time &mdash; no array, no resizing, no shifting &mdash; and that traversals cost more. A caption under the editor changes with each step.</p>
+
+  <!-- Same BagInterface as Week 3, a chain underneath. add is five lines and
+       every one of them is on the picture: a box grows (line 2), its arrow
+       draws to the old first node (line 3), the bag's one arrow swings to
+       it (line 4), the count strikes 3 → 4 (line 5). The order of lines 3 and
+       4 is the whole lesson — swap them and the chain is lost — so the two
+       arrows move on two separate keypresses. The code is the Carrano /
+       OpenDSA form module 4.3's video teaches (the PL page itself carries no
+       code), so this editor is the deck's own, not quoted material. The plant
+       hands the cost of the walk to Week 5. Skip this slide live if the votes
+       ran long — the practice map covers the same ground. -->
+  <div class="slide__body grid grid--code code-dense" data-sid="11-linkedbag-add:5">
+    <div class="stack" data-sid="11-linkedbag-add:6">
+      <div class="editor" data-sid="11-linkedbag-add:7">
+        <p class="editor__bar" data-sid="11-linkedbag-add:8">LinkedBag.add &mdash; module 4.3</p>
+        <div class="editor__pc" data-sid="11-linkedbag-add:9"></div>
+        <ol class="editor__code" data-sid="11-linkedbag-add:10">
+          <li data-sid="11-linkedbag-add:11"><span class="tok-key" data-sid="11-linkedbag-add:12">public boolean</span> add(T newEntry) {</li>
+          <li class="walkline frag" data-step="1" data-sid="11-linkedbag-add:13">    Node newNode = <span class="tok-key" data-sid="11-linkedbag-add:14">new</span> Node(newEntry);</li>
+          <li class="walkline frag" data-step="2" data-sid="11-linkedbag-add:15">    newNode.next = firstNode;</li>
+          <li class="walkline frag" data-step="3" data-sid="11-linkedbag-add:16">    firstNode = newNode;</li>
+          <li class="walkline frag" data-step="4" data-sid="11-linkedbag-add:17">    numberOfEntries++;</li>
+          <li class="walkline frag" data-step="5" data-sid="11-linkedbag-add:18">    <span class="tok-key" data-sid="11-linkedbag-add:19">return true</span>;</li>
+          <li data-sid="11-linkedbag-add:20">}</li>
+        </ol>
+      </div>
+      <div class="codewalk" data-sid="11-linkedbag-add:21">
+        <div class="codewalk__caps" data-sid="11-linkedbag-add:22">
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="11-linkedbag-add:23">A new node holding dog. Its next is null; it is not in the chain yet.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="11-linkedbag-add:24">newNode.next = firstNode: the new node points to the old first node.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="11-linkedbag-add:25">firstNode = newNode: firstNode now points to the new node. If lines 3 and 4 were swapped, the chain would be lost.</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="11-linkedbag-add:26">numberOfEntries++: the count goes from 3 to 4.</p>
+          <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="11-linkedbag-add:27">Constant time: no array, no resizing, no shifting. Traversals (contains, remove) cost more; that is Week 5.</p>
+        </div>
+      </div>
+    </div>
+
+    <svg class="lb" viewBox="0 0 872 320" role="img"
+         aria-label="A chain ant, bee, cat under a firstNode pill; a new node dog is linked in at the front and the count goes from 3 to 4" data-sid="11-linkedbag-add:28">
+      <defs data-sid="11-linkedbag-add:29">
+        <marker id="w4d1-11-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="11-linkedbag-add:30">
+          <path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="11-linkedbag-add:31"/>
+        </marker>
+      </defs>
+
+      <g class="lb__pill" data-sid="11-linkedbag-add:32"><rect x="190" y="0" width="170" height="44" rx="8" data-sid="11-linkedbag-add:33"/><text x="275" y="30" data-sid="11-linkedbag-add:34">firstNode</text></g>
+      <path class="lb__arr lb__arr--first" d="M275 44 C 275 66, 275 94, 275 114" data-sid="11-linkedbag-add:35"/>
+
+      <!-- the chain as it stands -->
+      <g class="lb__node" data-sid="11-linkedbag-add:36">
+        <rect class="lb__box" x="210" y="120" width="130" height="80" rx="8" data-sid="11-linkedbag-add:37"/><path class="lb__div" d="M280 120v80" data-sid="11-linkedbag-add:38"/>
+        <text class="lb__f" x="218" y="142" data-sid="11-linkedbag-add:39">data</text><text class="lb__f" x="288" y="142" data-sid="11-linkedbag-add:40">next</text>
+        <text class="lb__v" x="245" y="180" data-sid="11-linkedbag-add:41">ant</text>
+      </g>
+      <path class="lb__arr" d="M340 160 C 355 160, 370 160, 384 160" data-sid="11-linkedbag-add:42"/>
+      <g class="lb__node" data-sid="11-linkedbag-add:43">
+        <rect class="lb__box" x="390" y="120" width="130" height="80" rx="8" data-sid="11-linkedbag-add:44"/><path class="lb__div" d="M460 120v80" data-sid="11-linkedbag-add:45"/>
+        <text class="lb__f" x="398" y="142" data-sid="11-linkedbag-add:46">data</text><text class="lb__f" x="468" y="142" data-sid="11-linkedbag-add:47">next</text>
+        <text class="lb__v" x="425" y="180" data-sid="11-linkedbag-add:48">bee</text>
+      </g>
+      <path class="lb__arr" d="M520 160 C 535 160, 550 160, 564 160" data-sid="11-linkedbag-add:49"/>
+      <g class="lb__node" data-sid="11-linkedbag-add:50">
+        <rect class="lb__box" x="570" y="120" width="130" height="80" rx="8" data-sid="11-linkedbag-add:51"/><path class="lb__div" d="M640 120v80" data-sid="11-linkedbag-add:52"/>
+        <text class="lb__f" x="578" y="142" data-sid="11-linkedbag-add:53">data</text><text class="lb__f" x="648" y="142" data-sid="11-linkedbag-add:54">next</text>
+        <text class="lb__v" x="605" y="180" data-sid="11-linkedbag-add:55">cat</text>
+      </g>
+      <path class="lb__arr" d="M700 160 C 715 160, 730 160, 744 160" data-sid="11-linkedbag-add:56"/>
+      <text class="lb__null" x="756" y="172" data-sid="11-linkedbag-add:57">null</text>
+
+      <!-- step 1: the new node; step 2: its arrow -->
+      <g class="lb__node lb__node--new frag" data-step="1" data-sid="11-linkedbag-add:58">
+        <rect class="lb__box" x="30" y="120" width="130" height="80" rx="8" data-sid="11-linkedbag-add:59"/><path class="lb__div" d="M100 120v80" data-sid="11-linkedbag-add:60"/>
+        <text class="lb__f" x="38" y="142" data-sid="11-linkedbag-add:61">data</text><text class="lb__f" x="108" y="142" data-sid="11-linkedbag-add:62">next</text>
+        <text class="lb__v" x="65" y="180" data-sid="11-linkedbag-add:63">dog</text>
+        <text class="lb__mini" x="130" y="180" data-sid="11-linkedbag-add:64">null</text>
+      </g>
+      <path class="lb__arr lb__arr--new frag" data-step="2" pathLength="100" d="M160 160 C 175 160, 190 160, 204 160" data-sid="11-linkedbag-add:65"/>
+      <path class="lb__head frag" data-step="2" data-anim="fade" d="M204 160 L192 154 L192 166 Z" data-sid="11-linkedbag-add:66"/>
+
+      <!-- the count: two values, one strike -->
+      <text class="lb__cnt" x="800" y="270" data-sid="11-linkedbag-add:67">numberOfEntries =</text>
+      <text class="lb__cnt lb__cnt--v lb__cnt--0" x="822" y="270" data-sid="11-linkedbag-add:68">3</text>
+      <path class="lb__strike" pathLength="100" d="M810 261 H834" data-sid="11-linkedbag-add:69"/>
+      <text class="lb__cnt lb__cnt--v lb__cnt--1" x="856" y="270" data-sid="11-linkedbag-add:70">4</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="11-linkedbag-add:71"></div>
+  <aside class="notes">Same interface as Week 3, with a chain instead of an array. Step 1, line 2: a new node holding dog; its next is null, so it is not in any chain yet. Step 2, line 3: the new node points to the old first node, ant. dog, ant, bee, cat is now a chain, but firstNode still refers to ant. Step 3, line 4: firstNode now refers to dog. Ask what happens if lines 3 and 4 are swapped: firstNode refers to dog first, then dog.next = firstNode makes dog point to itself, and ant, bee, cat are unreachable. Step 4: numberOfEntries goes from 3 to 4. Step 5: the same steps for any chain length &mdash; no full array, no resizing, no shifting. Traversals (contains, getFrequencyOf, remove) are where the chain costs more; that comparison is Week 5. If time is short, skip this slide; the practice map covers add and toString.</aside>
+
+  <style data-sid="11-linkedbag-add:73">
+    /* Slide-local: add at the chrome size on the left with its captions,
+       the chain on the right in an 872 × 320 box. Boxes are 04's Link boxes
+       at 130 × 80 on a 180 px pitch, the pill 04's blue reference, arrows
+       blue with marker heads (fill inline on the marker for the studio's
+       renderer). Motion is manim's only: the new node GrowFromCenter, its
+       arrow Create by dashoffset, firstNode's arrow SWINGS by a d transition
+       between two same-shaped cubics, the count strikes (Create) and the new
+       digit fades in — no roll. State is the :has(.cap--k:not(.is-pending))
+       idiom off the caption frags. All values from tokens; used by this
+       slide only. */
+    #slide-11 .slide__body { grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-11 .lb { display: block; width: 100%; height: 320px; overflow: visible; }
+    #slide-11 .codewalk__caps { min-height: 150px; }
+    #slide-11 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-11 .lb__pill rect { fill: var(--accent-2); }
+    #slide-11 .lb__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-11 .lb__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-11 .lb__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-11 .lb__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-11 .lb__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11 .lb__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); }
+    #slide-11 .lb__mini { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-11 .lb__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w4d1-11-head); }
+
+    /* step 1: the new node grows; its own little null goes when its arrow arrives */
+    #slide-11 .lb__node--new { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-11 .frag.lb__node--new.is-pending { opacity: 0; transform: scale(0.4); }
+    /* step 2: the shaft draws on, then its head lands (a marker would show first) */
+    #slide-11 .frag.lb__arr { marker-end: none; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-11 .lb__head { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-11 .frag.lb__head.is-current, #slide-11 .frag.lb__head.is-past { transition-delay: .5s; }
+    #slide-11 .frag.lb__arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-11 .frag.lb__arr.is-current, #slide-11 .frag.lb__arr.is-past { stroke-dashoffset: 0; }
+    #slide-11 .slide__body:has(.cap--2:not(.is-pending)) .lb__mini { opacity: 0; }
+    /* step 3: firstNode swings */
+    #slide-11 .lb__arr--first { transition: d .7s var(--ease-smooth); }
+    #slide-11 .slide__body:has(.cap--3:not(.is-pending)) .lb__arr--first { d: path("M275 44 C 275 70, 95 60, 95 114"); }
+    /* step 4: the count — strike the 3, land the 4 */
+    #slide-11 .lb__cnt { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; }
+    #slide-11 .lb__cnt--v { text-anchor: middle; transition: fill .3s ease, opacity .3s ease; }
+    #slide-11 .lb__cnt--1 { opacity: 0; }
+    #slide-11 .lb__strike { fill: none; stroke: var(--fg-1); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .35s var(--ease-smooth); }
+    #slide-11 .slide__body:has(.cap--4:not(.is-pending)) .lb__cnt--0 { fill: var(--fg-1); }
+    #slide-11 .slide__body:has(.cap--4:not(.is-pending)) .lb__strike { stroke-dashoffset: 0; }
+    #slide-11 .slide__body:has(.cap--4:not(.is-pending)) .lb__cnt--1 { opacity: 1; transition-delay: .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .lb__node--new, #slide-11 .lb__arr, #slide-11 .lb__head, #slide-11 .lb__arr--first, #slide-11 .lb__mini, #slide-11 .lb__cnt--v, #slide-11 .lb__strike { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

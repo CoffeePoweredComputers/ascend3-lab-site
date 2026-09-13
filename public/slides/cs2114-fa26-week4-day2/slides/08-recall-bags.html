@@ -1,0 +1,91 @@
+<section class="slide slide--warmup" id="slide-08" data-sid="08-recall-bags:1">
+  <header class="slide__head" data-sid="08-recall-bags:2">
+    <p class="slide__kicker" data-sid="08-recall-bags:3">RECALL &middot; WEEK 3 &middot; BAGS ON ARRAYS</p>
+    <h2 data-sid="08-recall-bags:4">Which implementation of contains could not be used?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08-recall-bags:5">A recall of a Week 3 peer-instruction question about the ArrayBag class. On the left, the class&rsquo;s two fields &mdash; an array of entries and a count of how many are in use &mdash; plus two given methods in full: getFrequencyOf, which loops over the array counting matches, and getIndexOf, a private helper that loops over the array and returns the index of the first match, or minus one if none is found. On the right, the bodies of four candidate implementations of contains, labeled A through D. A walks the array with a while loop and a found flag. B returns whether getIndexOf is greater than minus one. C returns whether a misspelled getFreuqencyOf is greater than zero. D walks the array with a while loop whose bound is less-than-or-equal-to numberOfEntries instead of less-than. On the one step, four short verdicts return under both columns, A, B and C struck through in turn and D left standing.</p>
+  <div class="slide__body grid grid--code code-tag" data-sid="08-recall-bags:6">
+    <div class="editor" data-sid="08-recall-bags:7">
+      <p class="editor__bar" data-sid="08-recall-bags:8">the ArrayBag class</p>
+      <ol class="editor__code" data-sid="08-recall-bags:9">
+        <li data-sid="08-recall-bags:10"><span class="tok-key" data-sid="08-recall-bags:11">private</span> T[] contents;</li>
+        <li data-sid="08-recall-bags:12"><span class="tok-key" data-sid="08-recall-bags:13">private int</span> numberOfEntries;</li>
+        <li data-sid="08-recall-bags:14"><span class="tok-key" data-sid="08-recall-bags:15">public int</span> getFrequencyOf(T anEntry) {</li>
+        <li data-sid="08-recall-bags:16">    <span class="tok-key" data-sid="08-recall-bags:17">int</span> count = <span class="tok-num" data-sid="08-recall-bags:18">0</span>;</li>
+        <li data-sid="08-recall-bags:19">    <span class="tok-key" data-sid="08-recall-bags:20">for</span> (<span class="tok-key" data-sid="08-recall-bags:21">int</span> i = <span class="tok-num" data-sid="08-recall-bags:22">0</span>; i &lt; numberOfEntries; i++) {</li>
+        <li data-sid="08-recall-bags:23">        <span class="tok-key" data-sid="08-recall-bags:24">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="08-recall-bags:25">            count++;</li>
+        <li data-sid="08-recall-bags:26">        }</li>
+        <li data-sid="08-recall-bags:27">    }</li>
+        <li data-sid="08-recall-bags:28">    <span class="tok-key" data-sid="08-recall-bags:29">return</span> count;</li>
+        <li data-sid="08-recall-bags:30">}</li>
+        <li data-sid="08-recall-bags:31"><span class="tok-key" data-sid="08-recall-bags:32">private int</span> getIndexOf(T anEntry) {</li>
+        <li data-sid="08-recall-bags:33">    <span class="tok-key" data-sid="08-recall-bags:34">for</span> (<span class="tok-key" data-sid="08-recall-bags:35">int</span> i = <span class="tok-num" data-sid="08-recall-bags:36">0</span>; i &lt; numberOfEntries; i++) {</li>
+        <li data-sid="08-recall-bags:37">        <span class="tok-key" data-sid="08-recall-bags:38">if</span> (anEntry.equals(contents[i])) {</li>
+        <li data-sid="08-recall-bags:39">            <span class="tok-key" data-sid="08-recall-bags:40">return</span> i;</li>
+        <li data-sid="08-recall-bags:41">        }</li>
+        <li data-sid="08-recall-bags:42">    }</li>
+        <li data-sid="08-recall-bags:43">    <span class="tok-key" data-sid="08-recall-bags:44">return</span> <span class="tok-num" data-sid="08-recall-bags:45">-1</span>;</li>
+        <li data-sid="08-recall-bags:46">}</li>
+      </ol>
+    </div>
+    <ol class="opts opts--code" data-sid="08-recall-bags:47">
+      <li data-sid="08-recall-bags:48">
+        <ol class="editor__code" data-sid="08-recall-bags:49">
+          <li data-sid="08-recall-bags:50"><span class="tok-key" data-sid="08-recall-bags:51">boolean</span> found = <span class="tok-key" data-sid="08-recall-bags:52">false</span>;</li>
+          <li data-sid="08-recall-bags:53"><span class="tok-key" data-sid="08-recall-bags:54">int</span> i = <span class="tok-num" data-sid="08-recall-bags:55">0</span>;</li>
+          <li data-sid="08-recall-bags:56"><span class="tok-key" data-sid="08-recall-bags:57">while</span> ( !found &amp;&amp; (i &lt; numberOfEntries)) {</li>
+          <li data-sid="08-recall-bags:58">    <span class="tok-key" data-sid="08-recall-bags:59">if</span> (anEntry.equals(contents[i])) {</li>
+          <li data-sid="08-recall-bags:60">        found = <span class="tok-key" data-sid="08-recall-bags:61">true</span>;</li>
+          <li data-sid="08-recall-bags:62">    }</li>
+          <li data-sid="08-recall-bags:63">    i++;</li>
+          <li data-sid="08-recall-bags:64">}</li>
+          <li data-sid="08-recall-bags:65"><span class="tok-key" data-sid="08-recall-bags:66">return</span> found;</li>
+        </ol>
+      </li>
+      <li data-sid="08-recall-bags:67">
+        <ol class="editor__code" data-sid="08-recall-bags:68">
+          <li data-sid="08-recall-bags:69"><span class="tok-key" data-sid="08-recall-bags:70">return</span> getIndexOf(anEntry) &gt; <span class="tok-num" data-sid="08-recall-bags:71">-1</span>;</li>
+        </ol>
+      </li>
+      <li data-sid="08-recall-bags:72">
+        <ol class="editor__code" data-sid="08-recall-bags:73">
+          <li data-sid="08-recall-bags:74"><span class="tok-key" data-sid="08-recall-bags:75">return</span> getFreuqencyOf(anEntry) &gt; <span class="tok-num" data-sid="08-recall-bags:76">0</span>;</li>
+        </ol>
+      </li>
+      <li data-sid="08-recall-bags:77">
+        <ol class="editor__code" data-sid="08-recall-bags:78">
+          <li data-sid="08-recall-bags:79"><span class="tok-key" data-sid="08-recall-bags:80">int</span> i = <span class="tok-num" data-sid="08-recall-bags:81">0</span>;</li>
+          <li data-sid="08-recall-bags:82"><span class="tok-key" data-sid="08-recall-bags:83">while</span> ((i &lt;= numberOfEntries)) {</li>
+          <li data-sid="08-recall-bags:84">    <span class="tok-key" data-sid="08-recall-bags:85">if</span> (anEntry.equals(contents[i])) {</li>
+          <li data-sid="08-recall-bags:86">        <span class="tok-key" data-sid="08-recall-bags:87">return true</span>;</li>
+          <li data-sid="08-recall-bags:88">    }</li>
+          <li data-sid="08-recall-bags:89">    i++;</li>
+          <li data-sid="08-recall-bags:90">}</li>
+          <li data-sid="08-recall-bags:91"><span class="tok-key" data-sid="08-recall-bags:92">return false</span>;</li>
+        </ol>
+      </li>
+    </ol>
+    <ol class="verdict frag" data-step="1" data-sid="08-recall-bags:93">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="08-recall-bags:94"><span class="verdict__txt" data-sid="08-recall-bags:95">correct scan</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="08-recall-bags:96"><span class="verdict__txt" data-sid="08-recall-bags:97">correct: index &ge; 0</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="08-recall-bags:98"><span class="verdict__txt" data-sid="08-recall-bags:99">misspelled</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="08-recall-bags:100"><span class="verdict__txt" data-sid="08-recall-bags:101">&lt;= reads past the last entry</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="08-recall-bags:102"></div>
+  <aside class="notes" data-sid="08-recall-bags:103">Answer: D. Its condition i &lt;= numberOfEntries lets i reach one past the last valid index; contents at that index is null or out of bounds, so the method throws. Show of hands, then the answer. One eight-point test question is in this topic: add, remove or contains on the array bag. A is a correct linear scan. B correctly reuses getIndexOf. C is misspelled and does not compile, so it is also unusable; D is the one to trace. Next: contains on a chain is a traversal to null.</aside>
+
+  <style data-sid="08-recall-bags:104">
+    /* Slide-local: W3D1's vote pane re-shown as recall, the two spacer lines
+       dropped and the verdict strip under both columns on its one step. The
+       given class (19 lines) beside four candidate bodies of
+       contains — 44 lines of Java, so the body takes .code-tag (the token floor,
+       tight leading, gutter numerals at the code size) and the options are
+       .opts--code cards showing each body without the shared signature, which
+       the question names. Only the column split lives here; all values from tokens. */
+    #slide-08 .slide__body { grid-template-columns: 900px 1fr; align-items: start; row-gap: var(--s-3); }
+    #slide-08 .opts--code > li { margin: calc(var(--s-1) / 2) 0; }   /* four cards + the strip in 685 */
+    #slide-08 .verdict { grid-column: 1 / -1; }
+  </style>
+</section>

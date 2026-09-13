@@ -1,0 +1,66 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-recall-tests:1">
+  <header class="slide__head" data-sid="06-recall-tests:2">
+    <p class="slide__kicker" data-sid="06-recall-tests:3">RECALL &middot; WEEK 2 &middot; TESTING &amp; EXCEPTIONS</p>
+    <h2 data-sid="06-recall-tests:4">Which test covers every case of this method?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06-recall-tests:5">A recall of a Week 2 peer-instruction question. On the left, a factory method that returns null when the name is the empty string and a new Hokie otherwise. On the right, four candidate test methods, each two assertions long: assertNull with assertNotNull; assertEquals against null with assertEquals against the string Hannah; assertEquals against null with assertNotEquals; and assertNull twice, the second one negating its argument. On the one step, the four answers return under both columns as short verdicts, B, C and D struck through in turn and A left standing.</p>
+  <div class="slide__body grid grid--code" data-sid="06-recall-tests:6">
+    <div class="editor" data-sid="06-recall-tests:7">
+      <p class="editor__bar" data-sid="06-recall-tests:8">the method under test</p>
+      <ol class="editor__code" data-sid="06-recall-tests:9">
+        <li data-sid="06-recall-tests:10"><span class="tok-key" data-sid="06-recall-tests:11">public</span> Hokie createHokie(String name) {</li>
+        <li data-sid="06-recall-tests:12">    <span class="tok-key" data-sid="06-recall-tests:13">if</span> (name.equals("")) {</li>
+        <li data-sid="06-recall-tests:14">        <span class="tok-key" data-sid="06-recall-tests:15">return null</span>;</li>
+        <li data-sid="06-recall-tests:16">    }</li>
+        <li data-sid="06-recall-tests:17">    <span class="tok-key" data-sid="06-recall-tests:18">return new</span> Hokie(name);</li>
+        <li data-sid="06-recall-tests:19">}</li>
+      </ol>
+    </div>
+    <ol class="opts" data-sid="06-recall-tests:20">
+      <li data-sid="06-recall-tests:21">
+        <p class="opts__code" data-sid="06-recall-tests:22">assertNull(createHokie(""));</p>
+        <p class="opts__code" data-sid="06-recall-tests:23">assertNotNull(createHokie("Hannah"));</p>
+      </li>
+      <li data-sid="06-recall-tests:24">
+        <p class="opts__code" data-sid="06-recall-tests:25">assertEquals(null, createHokie(""));</p>
+        <p class="opts__code" data-sid="06-recall-tests:26">assertEquals("Hannah", createHokie("Hannah"));</p>
+      </li>
+      <li data-sid="06-recall-tests:27">
+        <p class="opts__code" data-sid="06-recall-tests:28">assertEquals(null, createHokie(""));</p>
+        <p class="opts__code" data-sid="06-recall-tests:29">assertNotEquals("Hannah", createHokie("Hannah"));</p>
+      </li>
+      <li data-sid="06-recall-tests:30">
+        <p class="opts__code" data-sid="06-recall-tests:31">assertNull(createHokie(""));</p>
+        <p class="opts__code" data-sid="06-recall-tests:32">assertNull(!createHokie("Hannah"));</p>
+      </li>
+    </ol>
+    <ol class="verdict frag" data-step="1" data-sid="06-recall-tests:33">
+      <li class="verdict__opt verdict__opt--right" data-sid="06-recall-tests:34"><span class="verdict__txt" data-sid="06-recall-tests:35">one assertion per case</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06-recall-tests:36"><span class="verdict__txt" data-sid="06-recall-tests:37">a Hokie is never equal to a String</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06-recall-tests:38"><span class="verdict__txt" data-sid="06-recall-tests:39">passes but tests nothing</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06-recall-tests:40"><span class="verdict__txt" data-sid="06-recall-tests:41">does not compile</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06-recall-tests:42"></div>
+  <aside class="notes" data-sid="06-recall-tests:43">Answer: A. The method has two cases &mdash; empty name returns null, anything else returns an object &mdash; so a covering test needs one assertion per case. Show of hands, then the answer. Four test questions are in this topic: which cases a set of tests covers, a test for a method that throws, a test for equals, and checked versus runtime exceptions. Ask the exception variant: if createHokie threw IllegalArgumentException for the empty name, what does the test look like? (A try block that fails if the call returns, with the pass in the catch; or JUnit&rsquo;s expected attribute.) B compares a Hokie to a String, never equal. C passes but tests nothing. D does not compile.</aside>
+
+  <style data-sid="06-recall-tests:44">
+    /* Slide-local: W2D2's vote pane, re-shown as recall with the verdict strip
+       under both columns on its one step. Code drops to the chrome size with 07b's compact gutter
+       (32px numbers + 16px, band to 40px) and a narrower right pad, and the
+       split is nudged off grid--code's default so the longest assertion on
+       the right (option C, 49 mono chars) clears its column without wrapping:
+       editor 725px of 756, options 852px of text width for 823. Whole-canvas
+       pixel geometry for the split; all values from tokens. */
+    #slide-06 .editor__code {
+      font-size: var(--t-micro);
+      padding-right: var(--s-2);
+      background: linear-gradient(90deg,
+        color-mix(in srgb, var(--stone) 20%, var(--bg-1)) 0 calc(var(--s-4) + var(--s-1)),
+        transparent calc(var(--s-4) + var(--s-1)));
+    }
+    #slide-06 .editor__code li::before { width: var(--s-4); margin-right: var(--s-2); }
+    #slide-06 .slide__body { grid-template-columns: 756px 1fr; row-gap: var(--s-4); align-items: start; }
+    #slide-06 .verdict { grid-column: 1 / -1; }
+  </style>
+</section>

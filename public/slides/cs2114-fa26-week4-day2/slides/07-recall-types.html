@@ -1,0 +1,69 @@
+<section class="slide slide--warmup" id="slide-07" data-sid="07-recall-types:1">
+  <header class="slide__head" data-sid="07-recall-types:2">
+    <p class="slide__kicker" data-sid="07-recall-types:3">RECALL &middot; WEEK 2 &middot; TYPES</p>
+    <h2 data-sid="07-recall-types:4">What is printed?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07-recall-types:5">A recall question on inheritance and polymorphism. On the left, an editor: class Shape with a method area returning 0.0; class Circle extends Shape with a private field r, a constructor taking r, and an overriding area returning pi times r times r; then two lines: Shape s equals new Circle of 2.0; System out println of s dot area. On the right, a small UML pair &mdash; a Circle box with a hollow-headed arrow up to a Shape box &mdash; and four options: A, 0.0 &mdash; s is declared a Shape; B, 12.566370614359172 &mdash; the object is a Circle; C, does not compile, Shape has no field r; D, ClassCastException at run time. On the one step, the four answers return under both columns, A, C and D struck through in turn and B left standing.</p>
+
+  <!-- The types topic has no earlier vote slide, so this is the deck's own
+       smallest possible upcast: a variable of the parent type holding a child,
+       and the one question that matters — whose method runs. The UML pair is
+       on the slide because the test draws one. Ungraded recall: static, the
+       verdict on the one step. -->
+  <div class="slide__body grid grid--code code-dense" data-sid="07-recall-types:6">
+    <div class="editor" data-sid="07-recall-types:7">
+      <p class="editor__bar" data-sid="07-recall-types:8">Shape and Circle, then two lines</p>
+      <ol class="editor__code" data-sid="07-recall-types:9">
+        <li data-sid="07-recall-types:10"><span class="tok-key" data-sid="07-recall-types:11">class</span> Shape {</li>
+        <li data-sid="07-recall-types:12">    <span class="tok-key" data-sid="07-recall-types:13">double</span> area() { <span class="tok-key" data-sid="07-recall-types:14">return</span> <span class="tok-num" data-sid="07-recall-types:15">0.0</span>; }</li>
+        <li data-sid="07-recall-types:16">}</li>
+        <li data-sid="07-recall-types:17"><span class="tok-key" data-sid="07-recall-types:18">class</span> Circle <span class="tok-key" data-sid="07-recall-types:19">extends</span> Shape {</li>
+        <li data-sid="07-recall-types:20">    <span class="tok-key" data-sid="07-recall-types:21">private double</span> r;</li>
+        <li data-sid="07-recall-types:22">    Circle(<span class="tok-key" data-sid="07-recall-types:23">double</span> r) { <span class="tok-key" data-sid="07-recall-types:24">this</span>.r = r; }</li>
+        <li data-sid="07-recall-types:25">    @Override <span class="tok-key" data-sid="07-recall-types:26">double</span> area() { <span class="tok-key" data-sid="07-recall-types:27">return</span> Math.PI * r * r; }</li>
+        <li data-sid="07-recall-types:28">}</li>
+        <li data-sid="07-recall-types:29">Shape s = <span class="tok-key" data-sid="07-recall-types:30">new</span> Circle(<span class="tok-num" data-sid="07-recall-types:31">2.0</span>);</li>
+        <li data-sid="07-recall-types:32">System.out.println(s.area());</li>
+      </ol>
+    </div>
+    <div class="stack" data-sid="07-recall-types:33">
+      <svg class="uml" viewBox="0 0 560 200" role="img" aria-label="UML: Circle inherits from Shape" data-sid="07-recall-types:34">
+        <rect class="uml__box" x="180" y="10" width="200" height="60" rx="4" data-sid="07-recall-types:35"/><text class="uml__t" x="280" y="48" data-sid="07-recall-types:36">Shape</text>
+        <rect class="uml__box" x="180" y="130" width="200" height="60" rx="4" data-sid="07-recall-types:37"/><text class="uml__t" x="280" y="168" data-sid="07-recall-types:38">Circle</text>
+        <path class="uml__gen" d="M280 130 V86" data-sid="07-recall-types:39"/><path class="uml__tri" d="M280 70 L266 86 H294 Z" data-sid="07-recall-types:40"/>
+      </svg>
+      <ol class="opts" data-sid="07-recall-types:41">
+        <li data-sid="07-recall-types:42"><p data-sid="07-recall-types:43">0.0 &mdash; s is declared a Shape</p></li>
+        <li data-sid="07-recall-types:44"><p data-sid="07-recall-types:45">12.566370614359172 &mdash; the object is a Circle</p></li>
+        <li data-sid="07-recall-types:46"><p data-sid="07-recall-types:47">Does not compile: Shape has no field r</p></li>
+        <li data-sid="07-recall-types:48"><p data-sid="07-recall-types:49">ClassCastException at run time</p></li>
+      </ol>
+    </div>
+    <ol class="verdict frag" data-step="1" data-sid="07-recall-types:50">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07-recall-types:51"><span class="verdict__txt" data-sid="07-recall-types:52">the object&rsquo;s type picks the method</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="07-recall-types:53"><span class="verdict__txt" data-sid="07-recall-types:54">Circle&rsquo;s area runs</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07-recall-types:55"><span class="verdict__txt" data-sid="07-recall-types:56">s.area() compiles; s.r would not</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07-recall-types:57"><span class="verdict__txt" data-sid="07-recall-types:58">an upcast does not throw</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="07-recall-types:59"></div>
+  <aside class="notes" data-sid="07-recall-types:60">Answer: B &mdash; 12.566370614359172. Show of hands, then the answer. s is declared as Shape, so the compiler checks that Shape has an area method; at run time the object is a Circle, so Circle&rsquo;s area runs. The variable&rsquo;s type determines what you may call; the object&rsquo;s type determines which method runs. A assumes the declared type picks the method. C confuses the two: s.r would not compile, s.area() does. D: assigning a Circle to a Shape variable is an upcast, always legal; ClassCastException is the other direction. Three test questions in this topic: this, reading a UML diagram (superclass, overridden method), and generics.</aside>
+
+  <style data-sid="07-recall-types:61">
+    /* Slide-local: ten lines at the chrome size on the left (the widest, the
+       overriding area, is 55 mono chars, so the editor takes 1000 px), the
+       UML pair and the four options on the right, the verdict strip under
+       both on the one step. UML in the deck's pen: stone boxes, the
+       generalisation arrow's hollow head is a paper-filled triangle. Static
+       otherwise; all values from tokens; used by this slide only. */
+    #slide-07 .slide__body { grid-template-columns: 1000px minmax(0, 1fr); column-gap: var(--s-5); row-gap: var(--s-4); align-items: start; }
+    #slide-07 .stack { gap: var(--s-3); }
+    #slide-07 .uml { display: block; width: 560px; height: 200px; overflow: visible; }
+    #slide-07 .uml__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07 .uml__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-07 .uml__gen { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07 .uml__tri { fill: var(--paper); stroke: var(--fg-1); stroke-width: 4; stroke-linejoin: round; }
+    #slide-07 .opts li p { font-size: var(--t-micro); }
+    #slide-07 .verdict { grid-column: 1 / -1; }
+  </style>
+</section>

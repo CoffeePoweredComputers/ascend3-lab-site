@@ -1,0 +1,66 @@
+<section class="slide slide--warmup" id="slide-05" data-sid="05-recall-refs:1">
+  <header class="slide__head" data-sid="05-recall-refs:2">
+    <p class="slide__kicker" data-sid="05-recall-refs:3">RECALL &middot; WEEK 2 &middot; OBJECTS &amp; REFERENCES</p>
+    <h2 data-sid="05-recall-refs:4">What does the last line print?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="05-recall-refs:5">A recall of a Week 2 peer-instruction question. On the left, a nine-line program that makes a Movie, points a second name at the same one, updates the year through that second name, then points it at a third movie and updates the year again, before printing through the first name. On the right, a summary of what the Movie class offers, and four answers to choose between: in 2021; in 1984; in 2024; in 1984, 2024. On the one step, the four answers return under both columns, A, C and D struck through in turn and B, in 1984, left standing.</p>
+  <div class="slide__body grid grid--code" data-sid="05-recall-refs:6">
+    <div class="editor" data-sid="05-recall-refs:7">
+      <p class="editor__bar" data-sid="05-recall-refs:8">your program</p>
+      <ol class="editor__code" data-sid="05-recall-refs:9">
+        <li data-sid="05-recall-refs:10">Movie film1 = <span class="tok-key" data-sid="05-recall-refs:11">new</span> Movie();</li>
+        <li data-sid="05-recall-refs:12">film1.setMovie("Dune", "sci-fi", <span class="tok-num" data-sid="05-recall-refs:13">2021</span>);</li>
+        <li data-sid="05-recall-refs:14">Movie film2 = film1;</li>
+        <li data-sid="05-recall-refs:15">film2.updateYear(<span class="tok-num" data-sid="05-recall-refs:16">1984</span>);</li>
+        <li data-sid="05-recall-refs:17">Movie film3 = <span class="tok-key" data-sid="05-recall-refs:18">new</span> Movie();</li>
+        <li data-sid="05-recall-refs:19">film3.setMovie("Dune", "sci-fi", <span class="tok-num" data-sid="05-recall-refs:20">2021</span>);</li>
+        <li data-sid="05-recall-refs:21">film2 = film3;</li>
+        <li data-sid="05-recall-refs:22">film2.updateYear(<span class="tok-num" data-sid="05-recall-refs:23">2024</span>);</li>
+        <li data-sid="05-recall-refs:24">film1.print();</li>
+      </ol>
+    </div>
+    <div class="stack" data-sid="05-recall-refs:25">
+      <div class="tile tile--a2" data-sid="05-recall-refs:26">
+        <p class="tile__label" data-sid="05-recall-refs:27">class Movie</p>
+        <ul class="api" data-sid="05-recall-refs:28">
+          <li data-sid="05-recall-refs:29">title, genre, year</li>
+          <li data-sid="05-recall-refs:30">setMovie(title, genre, year)</li>
+          <li data-sid="05-recall-refs:31">updateYear(year)</li>
+          <li data-sid="05-recall-refs:32">print() &rarr; "title genre movie in year"</li>
+        </ul>
+      </div>
+      <ol class="opts" data-sid="05-recall-refs:33">
+        <li data-sid="05-recall-refs:34">&hellip; in 2021</li>
+        <li data-sid="05-recall-refs:35">&hellip; in 1984</li>
+        <li data-sid="05-recall-refs:36">&hellip; in 2024</li>
+        <li data-sid="05-recall-refs:37">&hellip; in 1984, 2024</li>
+      </ol>
+    </div>
+    <ol class="verdict frag" data-step="1" data-sid="05-recall-refs:38">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="05-recall-refs:39"><span class="verdict__txt" data-sid="05-recall-refs:40">&hellip; in 2021</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="05-recall-refs:41"><span class="verdict__txt" data-sid="05-recall-refs:42">&hellip; in 1984</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="05-recall-refs:43"><span class="verdict__txt" data-sid="05-recall-refs:44">&hellip; in 2024</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="05-recall-refs:45"><span class="verdict__txt" data-sid="05-recall-refs:46">&hellip; in 1984, 2024</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="05-recall-refs:47"></div>
+  <aside class="notes" data-sid="05-recall-refs:48">Answer: B &mdash; Dune sci-fi movie in 1984. Show of hands for A&ndash;D, then press once for the answer. Line 3 makes film2 refer to the same object as film1, so line 4&rsquo;s update through film2 is visible through film1. Line 7 makes film2 refer to film3&rsquo;s object, so line 8 does not affect film1&rsquo;s object. A assumes film2 got a copy; C assumes the last updateYear reaches everything; D assumes the object keeps its history. Two test questions are this move; a third asks you to write equals for a class like Movie.</aside>
+
+  <style data-sid="05-recall-refs:49">
+    /* Slide-local: W2D1's vote pane, re-shown as recall with the verdict strip
+       under both columns on its one step. Code drops to the chrome size so the widest line
+       (setMovie with three arguments) clears the column instead of clipping —
+       a vote slide the room cannot read is worse than a smaller face. The class
+       summary is an API, not prose, so it takes the mono voice; the answers are
+       lettered because that is how the room will call them out. Used by this
+       slide only, all values from tokens. */
+    #slide-05 .slide__body { align-items: start; row-gap: var(--s-4); }
+    #slide-05 .verdict { grid-column: 1 / -1; }   /* both columns start level; the shorter ask column no longer floats mid-pane */
+    #slide-05 .editor__code, #slide-05 .api { font-size: var(--t-micro); }
+    #slide-05 .api { list-style: none; padding: 0; font-family: var(--font-mono); line-height: 1.5; }
+    #slide-05 .api li { margin: 0; }
+    #slide-05 .opts { list-style-type: upper-alpha; padding-left: var(--s-5); font-size: var(--t-small); }
+    #slide-05 .opts li { margin: var(--s-2) 0; }
+    #slide-05 .opts::marker, #slide-05 .opts li::marker { color: var(--accent-1); }
+  </style>
+</section>

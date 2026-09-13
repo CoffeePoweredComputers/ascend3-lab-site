@@ -1,0 +1,77 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-recall-chain:1">
+  <header class="slide__head" data-sid="09-recall-chain:2">
+    <p class="slide__kicker" data-sid="09-recall-chain:3">RECALL &middot; WEEK 4 &middot; LINKED CHAINS</p>
+    <h2 data-sid="09-recall-chain:4">What is myVal?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09-recall-chain:5">A recall question on linked chains. Across the top, the chain drawn as on the Day 1 slide: a blue pill labelled head with an arrow into a Link box holding 7, then boxes holding 3, 9 and 4, each reached by a blue arrow from the previous box&rsquo;s next compartment, the last arrow ending at the word null. Below, on the left, a four-line snippet: Link p equals head; Link q equals head dot next; Link r equals q dot next; Integer myVal equals q dot data. On the right, four options: A, 7; B, 3; C, 9; D, 4. On the one step, the four answers return under both columns, A, C and D struck through in turn and B, 3, left standing.</p>
+
+  <!-- The F25 deck's "sample optional MCQ", with new values so it is not
+       Monday's chain again: three names planted on a chain and one read
+       through raw fields. Tracing is one of the two chain questions on the
+       test; the chain is drawn the way 04 drew it on Monday, so the picture
+       does the recalling. Ungraded: static, the verdict on the one step. -->
+  <div class="slide__body rc code-dense" data-sid="09-recall-chain:6">
+    <svg class="rc__scene" viewBox="0 0 1664 200" role="img" aria-label="A linked chain of four Link boxes holding 7, 3, 9 and 4, reached from a head pill, ending at null" data-sid="09-recall-chain:7">
+      <defs data-sid="09-recall-chain:8">
+        <marker id="w4d2-09-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="09-recall-chain:9">
+          <path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="09-recall-chain:10"/>
+        </marker>
+      </defs>
+      <g class="rc__pill" data-sid="09-recall-chain:11"><rect x="60" y="80" width="130" height="60" rx="8" data-sid="09-recall-chain:12"/><text x="125" y="122" data-sid="09-recall-chain:13">head</text></g>
+      <path class="rc__arr" d="M190 110 C 210 110, 225 110, 244 110" data-sid="09-recall-chain:14"/>
+      <g class="rc__node" data-sid="09-recall-chain:15"><text class="rc__type" x="250" y="46" data-sid="09-recall-chain:16">Link</text><rect class="rc__box" x="250" y="56" width="240" height="110" rx="10" data-sid="09-recall-chain:17"/><path class="rc__div" d="M380 56v110" data-sid="09-recall-chain:18"/><text class="rc__f" x="260" y="82" data-sid="09-recall-chain:19">data</text><text class="rc__f" x="390" y="82" data-sid="09-recall-chain:20">next</text><text class="rc__v" x="315" y="140" data-sid="09-recall-chain:21">7</text></g>
+      <path class="rc__arr" d="M490 110 C 520 110, 544 110, 574 110" data-sid="09-recall-chain:22"/>
+      <g class="rc__node" data-sid="09-recall-chain:23"><text class="rc__type" x="580" y="46" data-sid="09-recall-chain:24">Link</text><rect class="rc__box" x="580" y="56" width="240" height="110" rx="10" data-sid="09-recall-chain:25"/><path class="rc__div" d="M710 56v110" data-sid="09-recall-chain:26"/><text class="rc__f" x="590" y="82" data-sid="09-recall-chain:27">data</text><text class="rc__f" x="720" y="82" data-sid="09-recall-chain:28">next</text><text class="rc__v" x="645" y="140" data-sid="09-recall-chain:29">3</text></g>
+      <path class="rc__arr" d="M820 110 C 850 110, 874 110, 904 110" data-sid="09-recall-chain:30"/>
+      <g class="rc__node" data-sid="09-recall-chain:31"><text class="rc__type" x="910" y="46" data-sid="09-recall-chain:32">Link</text><rect class="rc__box" x="910" y="56" width="240" height="110" rx="10" data-sid="09-recall-chain:33"/><path class="rc__div" d="M1040 56v110" data-sid="09-recall-chain:34"/><text class="rc__f" x="920" y="82" data-sid="09-recall-chain:35">data</text><text class="rc__f" x="1050" y="82" data-sid="09-recall-chain:36">next</text><text class="rc__v" x="975" y="140" data-sid="09-recall-chain:37">9</text></g>
+      <path class="rc__arr" d="M1150 110 C 1180 110, 1204 110, 1234 110" data-sid="09-recall-chain:38"/>
+      <g class="rc__node" data-sid="09-recall-chain:39"><text class="rc__type" x="1240" y="46" data-sid="09-recall-chain:40">Link</text><rect class="rc__box" x="1240" y="56" width="240" height="110" rx="10" data-sid="09-recall-chain:41"/><path class="rc__div" d="M1370 56v110" data-sid="09-recall-chain:42"/><text class="rc__f" x="1250" y="82" data-sid="09-recall-chain:43">data</text><text class="rc__f" x="1380" y="82" data-sid="09-recall-chain:44">next</text><text class="rc__v" x="1305" y="140" data-sid="09-recall-chain:45">4</text></g>
+      <path class="rc__arr" d="M1480 110 C 1500 110, 1514 110, 1532 110" data-sid="09-recall-chain:46"/>
+      <text class="rc__null" x="1548" y="122" data-sid="09-recall-chain:47">null</text>
+    </svg>
+    <div class="editor" data-sid="09-recall-chain:48">
+      <p class="editor__bar" data-sid="09-recall-chain:49">the snippet</p>
+      <ol class="editor__code" data-sid="09-recall-chain:50">
+        <li data-sid="09-recall-chain:51">Link p = head;</li>
+        <li data-sid="09-recall-chain:52">Link q = head.next;</li>
+        <li data-sid="09-recall-chain:53">Link r = q.next;</li>
+        <li data-sid="09-recall-chain:54">Integer myVal = q.data;</li>
+      </ol>
+    </div>
+    <ol class="opts" data-sid="09-recall-chain:55">
+      <li data-sid="09-recall-chain:56"><p data-sid="09-recall-chain:57">7</p></li>
+      <li data-sid="09-recall-chain:58"><p data-sid="09-recall-chain:59">3</p></li>
+      <li data-sid="09-recall-chain:60"><p data-sid="09-recall-chain:61">9</p></li>
+      <li data-sid="09-recall-chain:62"><p data-sid="09-recall-chain:63">4</p></li>
+    </ol>
+    <ol class="verdict frag" data-step="1" data-sid="09-recall-chain:64">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="09-recall-chain:65"><span class="verdict__txt" data-sid="09-recall-chain:66">7 is p.data</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="09-recall-chain:67"><span class="verdict__txt" data-sid="09-recall-chain:68">3 &mdash; q is head.next</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="09-recall-chain:69"><span class="verdict__txt" data-sid="09-recall-chain:70">9 is r.data</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="09-recall-chain:71"><span class="verdict__txt" data-sid="09-recall-chain:72">4 is the last node&rsquo;s data</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="09-recall-chain:73"></div>
+  <aside class="notes" data-sid="09-recall-chain:74">Answer: B &mdash; 3. Show of hands, then the answer. Nothing is rewired: p refers to the first node, q to head.next (the second), r to q.next (the third); q.data is 3. Field access compiles because Link&rsquo;s fields are public. Two test questions in this topic: a trace like this, usually with setNext calls &mdash; draw the references before answering &mdash; and a traversal to write, like Vote 2 on Day 1. Next: Part 2.</aside>
+
+  <style data-sid="09-recall-chain:75">
+    /* Slide-local: Monday's chain drawing across the top (04's Link boxes at
+       240 × 110 on a 330 px pitch, 1664 × 200), then the snippet at the chrome
+       size on the left and the four options on the right, the verdict strip
+       under both on the one step. Arrows blue with marker heads (fill inline
+       on the marker for the studio's renderer). Static otherwise; all values
+       from tokens; used by this slide only. */
+    #slide-09 .rc { display: grid; grid-template-columns: 900px minmax(0, 1fr); column-gap: var(--s-5); row-gap: var(--s-4); align-items: start; }
+    #slide-09 .rc__scene { grid-column: 1 / -1; display: block; width: 100%; height: 200px; overflow: visible; }
+    #slide-09 .rc__pill rect { fill: var(--accent-2); }
+    #slide-09 .rc__pill text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--bg-0); text-anchor: middle; }
+    #slide-09 .rc__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-09 .rc__div { fill: none; stroke: var(--fg-1); stroke-width: 5; }
+    #slide-09 .rc__type { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-09 .rc__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-09 .rc__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-09 .rc__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); }
+    #slide-09 .rc__arr { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w4d2-09-head); }
+    #slide-09 .verdict { grid-column: 1 / -1; }
+  </style>
+</section>

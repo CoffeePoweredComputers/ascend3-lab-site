@@ -1,0 +1,54 @@
+<section class="slide" id="slide-11" data-sid="11-practice-together:1">
+  <header class="slide__head" data-sid="11-practice-together:2">
+    <h2 data-sid="11-practice-together:3">Practice on PrairieLearn</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-practice-together:4">On the left, a blue-edged signpost card: PrairieLearn, then Assessments, then Test #1 Practice; thirteen questions, different questions each attempt, not for credit, unlimited attempts. On the right, three numbered steps arriving in turn: one, work one question on your own; two, compare with your neighbours; three, note the topic that took longest. A caption under the steps reads: about twelve minutes, in a normal browser.</p>
+
+  <!-- Part 2 is a work period, so the slide is a signpost and three
+       instructions, nothing that competes with a laptop. The routine is the
+       peer-instruction routine without the vote: alone, then together, then
+       decide what to study. The signpost is the PrairieLearn path in the
+       tool's blue; the steps are the deck's display numerals. -->
+  <div class="slide__body pt" data-sid="11-practice-together:5">
+    <div class="tile tile--a2 pt__sign" data-sid="11-practice-together:6">
+      <p class="tile__label" data-sid="11-practice-together:7">where</p>
+      <p class="pt__path" data-sid="11-practice-together:8">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="11-practice-together:9">Test #1 Practice</b></p>
+      <ul class="pt__facts" data-sid="11-practice-together:10">
+        <li data-sid="11-practice-together:11">13 questions, same format as Test 1</li>
+        <li data-sid="11-practice-together:12">different questions each attempt; unlimited attempts</li>
+        <li data-sid="11-practice-together:13">not for credit; open from <span class="pt__ph" data-sid="11-practice-together:14">[open date]</span> until the test</li>
+      </ul>
+    </div>
+    <ol class="steps pt__steps" data-sid="11-practice-together:15">
+      <li class="frag" data-step="1" data-anim="fade" data-sid="11-practice-together:16">Work one question on your own. Pen and paper are allowed, as on the test.</li>
+      <li class="frag" data-step="2" data-anim="fade" data-sid="11-practice-together:17">Compare with your neighbours: same answer, same reasoning?</li>
+      <li class="frag" data-step="3" data-anim="fade" data-sid="11-practice-together:18">Note the topic that took longest. Study that one first.</li>
+    </ol>
+    <p class="note pt__cap frag" data-step="3" data-anim="fade" data-sid="11-practice-together:19">About twelve minutes, in a normal browser.</p>
+  </div>
+  <div class="slide__number" data-sid="11-practice-together:20"></div>
+  <aside class="notes" data-sid="11-practice-together:21">Laptops open, normal browser. PrairieLearn &rsaquo; Assessments &rsaquo; Test #1 Practice: thirteen questions in the format of Test 1, different questions each attempt, not for credit, open until the test [confirm the open date and that students can see the assessment before class]. Step 1: one question on your own; pen and paper are allowed here and on the test. Step 2: compare with your neighbours &mdash; same answer, same reasoning? Step 3: note the topic that took longest; study that first, then take another attempt. Walk the room for about twelve minutes and note which topics students name; Part 3&rsquo;s questions start from them. Then laptops closed for the rules.</aside>
+
+  <style data-sid="11-practice-together:22">
+    /* Slide-local: the signpost card on the left at 620 px, the three steps
+       on the right, the caption under the steps; the path line at the small
+       size with the assessment name in the heading maroon, the facts at the
+       chrome size. Steps FadeIn one per press. The [open date] placeholder is
+       the instructor's to fill. All values from tokens; used by this slide
+       only. */
+    #slide-11 .pt { display: grid; grid-template-columns: 620px minmax(0, 1fr); column-gap: var(--s-6); row-gap: var(--s-4); align-items: start; }
+    #slide-11 .pt__sign { grid-row: 1 / 3; }
+    #slide-11 .pt__path { margin: 0 0 var(--s-3); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-11 .pt__path b { color: var(--accent-1); }
+    #slide-11 .pt__facts { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+    #slide-11 .pt__facts li { margin: 0 0 var(--s-2); }
+    #slide-11 .pt__ph { color: var(--accent-3); }
+    #slide-11 .pt__steps { margin: 0; font-size: var(--t-small); line-height: 1.35; }
+    #slide-11 .pt__steps li { margin: 0 0 var(--s-4); min-height: 2.6em; transition: opacity .3s ease; }
+    #slide-11 .pt__cap { margin: 0; transition: opacity .3s ease; }
+    #slide-11 .frag.pt__cap.is-current, #slide-11 .frag.pt__cap.is-past { transition-delay: .4s; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .pt__steps li, #slide-11 .pt__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

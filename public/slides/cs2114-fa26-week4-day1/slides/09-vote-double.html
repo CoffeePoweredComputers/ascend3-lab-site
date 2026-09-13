@@ -1,0 +1,76 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-vote-double:1">
+  <header class="slide__head" data-sid="09-vote-double:2">
+    <p class="slide__kicker" data-sid="09-vote-double:3">PEER INSTRUCTION &middot; VOTE 2</p>
+    <h2 data-sid="09-vote-double:4">Which one doubles every other value?</h2>
+  </header>
+  <div class="timer frag" data-step="1" data-timer="300" data-state="idle" role="timer" aria-label="Five-minute discussion timer; it starts on the slide&apos;s step" data-sid="09-vote-double:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="09-vote-double:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="09-vote-double:7"/><g class="timer__ticks" data-sid="09-vote-double:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="09-vote-double:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="09-vote-double:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="09-vote-double:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="09-vote-double:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="09-vote-double:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="09-vote-double:14"/><g class="timer__hand" data-sid="09-vote-double:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="09-vote-double:16"/></g><text class="timer__time" x="75" y="88" data-sid="09-vote-double:17">5:00</text></svg></div>
+  <p class="sr-only slide__desc" data-sid="09-vote-double:18">A peer-instruction question. Across the top, the stem: which of the following correctly doubles every other value in any arbitrary linked chain of Integers, starting with the first node referenced by head, that is, positions 0, 2, 4 and so on. Below, four numbered code cards in a two-by-two grid. A: curr starts at head; while curr is not null, set curr&rsquo;s data to twice its value, move curr to its next, and if curr is not null move it once more. B: the same loop, but curr starts at head dot getNext. C: curr starts at head; while curr is not null and curr&rsquo;s next is not null, double curr&rsquo;s data and move curr two along with getNext dot getNext. D: curr starts at head; while curr is not null, double curr&rsquo;s data and move curr two along with getNext dot getNext. A five-minute discussion timer sits in the top right corner. Nothing builds.</p>
+
+  <!-- The four options as Runestone shows them — numbered code, which the
+       gutter reproduces — in a two-by-two grid at the token floor: stacked in
+       one column the 26 lines would run 74 px past the body. The h2 is the
+       deck's one-line paraphrase; the stem itself is quoted in full under it,
+       because "any arbitrary" is the word the whole question turns on. Static.
+       Runestone activity vtcs2_linkedchains_tracing_5_202507. -->
+  <div class="slide__body vd code-tag" data-sid="09-vote-double:19">
+    <p class="vd__stem" data-sid="09-vote-double:20">Which of the following correctly doubles every other value in any arbitrary linked chain of Integers, starting with the first node referenced by head (i.e., positions 0, 2, 4, &hellip;)?</p>
+    <ol class="opts opts--code vd__opts" data-sid="09-vote-double:21">
+      <li data-sid="09-vote-double:22">
+        <ol class="editor__code" data-sid="09-vote-double:23">
+          <li data-sid="09-vote-double:24">Link curr = head;</li>
+          <li data-sid="09-vote-double:25"><span class="tok-key" data-sid="09-vote-double:26">while</span> (curr != <span class="tok-key" data-sid="09-vote-double:27">null</span>) {</li>
+          <li data-sid="09-vote-double:28">    curr.setData((Integer) curr.getData() * <span class="tok-num" data-sid="09-vote-double:29">2</span>);</li>
+          <li data-sid="09-vote-double:30">    curr = curr.getNext();</li>
+          <li data-sid="09-vote-double:31">    <span class="tok-key" data-sid="09-vote-double:32">if</span> (curr != <span class="tok-key" data-sid="09-vote-double:33">null</span>) {</li>
+          <li data-sid="09-vote-double:34">        curr = curr.getNext();</li>
+          <li data-sid="09-vote-double:35">    }</li>
+          <li data-sid="09-vote-double:36">}</li>
+        </ol>
+      </li>
+      <li data-sid="09-vote-double:37">
+        <ol class="editor__code" data-sid="09-vote-double:38">
+          <li data-sid="09-vote-double:39">Link curr = head.getNext();</li>
+          <li data-sid="09-vote-double:40"><span class="tok-key" data-sid="09-vote-double:41">while</span> (curr != <span class="tok-key" data-sid="09-vote-double:42">null</span>) {</li>
+          <li data-sid="09-vote-double:43">    curr.setData((Integer) curr.getData() * <span class="tok-num" data-sid="09-vote-double:44">2</span>);</li>
+          <li data-sid="09-vote-double:45">    curr = curr.getNext();</li>
+          <li data-sid="09-vote-double:46">    <span class="tok-key" data-sid="09-vote-double:47">if</span> (curr != <span class="tok-key" data-sid="09-vote-double:48">null</span>) {</li>
+          <li data-sid="09-vote-double:49">        curr = curr.getNext();</li>
+          <li data-sid="09-vote-double:50">    }</li>
+          <li data-sid="09-vote-double:51">}</li>
+        </ol>
+      </li>
+      <li data-sid="09-vote-double:52">
+        <ol class="editor__code" data-sid="09-vote-double:53">
+          <li data-sid="09-vote-double:54">Link curr = head;</li>
+          <li data-sid="09-vote-double:55"><span class="tok-key" data-sid="09-vote-double:56">while</span> (curr != <span class="tok-key" data-sid="09-vote-double:57">null</span> &amp;&amp; curr.getNext() != <span class="tok-key" data-sid="09-vote-double:58">null</span>) {</li>
+          <li data-sid="09-vote-double:59">    curr.setData((Integer) curr.getData() * <span class="tok-num" data-sid="09-vote-double:60">2</span>);</li>
+          <li data-sid="09-vote-double:61">    curr = curr.getNext().getNext();</li>
+          <li data-sid="09-vote-double:62">}</li>
+        </ol>
+      </li>
+      <li data-sid="09-vote-double:63">
+        <ol class="editor__code" data-sid="09-vote-double:64">
+          <li data-sid="09-vote-double:65">Link curr = head;</li>
+          <li data-sid="09-vote-double:66"><span class="tok-key" data-sid="09-vote-double:67">while</span> (curr != <span class="tok-key" data-sid="09-vote-double:68">null</span>) {</li>
+          <li data-sid="09-vote-double:69">    curr.setData((Integer) curr.getData() * <span class="tok-num" data-sid="09-vote-double:70">2</span>);</li>
+          <li data-sid="09-vote-double:71">    curr = curr.getNext().getNext();</li>
+          <li data-sid="09-vote-double:72">}</li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="09-vote-double:73"></div>
+  <aside class="notes">Answer: A. The question as printed: &ldquo;Which of the following correctly doubles every other value in any arbitrary linked chain of Integers, starting with the first node referenced by head (i.e., positions 0, 2, 4, &hellip;)?&rdquo; Silent first answer, then the timer. On a four-node chain like Vote 1&rsquo;s, C and D also work; they fail on odd lengths. B starts at head.getNext(), positions 1, 3, 5, and throws on an empty chain. C&rsquo;s condition curr.getNext() != null stops it before the last node of an odd-length chain, so that node is not doubled. D calls curr.getNext().getNext() without checking; on the last node of an odd-length chain curr.getNext() is null and the call throws a NullPointerException. A moves one node, checks for null, then moves one more. If a group says C and D work, ask them to try a chain of three. Runestone activity: vtcs2_linkedchains_tracing_5_202507.</aside>
+
+  <style data-sid="09-vote-double:75">
+    /* Slide-local: the stem at the small size across the top, then the four
+       cards two by two at the token floor with the gutter numbering Runestone
+       shows. A and B are eight lines, C and D five, so the rows are uneven by
+       design; the 64 px column gap leaves room for the second column's letter
+       marker. Static; all values from tokens; used by this slide only. */
+    #slide-09 .vd { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-09 .vd__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+    #slide-09 .vd__opts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-6); align-items: start; }
+    #slide-09 .vd__opts > li { margin: 0; }
+  </style>
+</section>

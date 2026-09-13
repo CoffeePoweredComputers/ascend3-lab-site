@@ -1,0 +1,193 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-double:1">
+  <header class="slide__head" data-sid="09b-walk-double:2">
+    <p class="slide__kicker" data-sid="09b-walk-double:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="09b-walk-double:4">A. B, C and D fail on an odd-length chain.</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09b-walk-double:5">Four lanes in a two-by-two grid, one per option, each showing the same three-node chain holding 1, 2 and 3 with a null at the end, and a pill labelled curr under the node it is on. Step one: curr appears under the first node in lanes A, C and D, and under the second node in lane B. Step two: the node curr is on is doubled in every lane &mdash; 1 becomes 2 in A, C and D; 2 becomes 4 in B. Step three: curr moves two nodes along. In A and D it lands on the third node. In B it runs off the end; a cross appears and the lane reads prints 1, 4, 3. In C the loop&rsquo;s guard stops it with the third node untouched; a cross appears and the lane reads prints 2, 2, 3. Step four: A doubles the third node, 3 becomes 6, curr steps off the end and a tick appears: prints 2, 2, 6. D doubles the third node too, then asks null for its next: a maroon cross lands on the null and the lane reads NullPointerException. Step five: the four answers return under the lanes, B, C and D struck through in turn and A left standing; the caption says that on a four-node chain C and D also give the right answer, so odd-length and empty chains must be tested.</p>
+
+  <!-- Vote 2 is four loops on one chain, so the answer runs all four side
+       by side on the chain that tells them apart: three nodes, odd length.
+       Lanes advance in lock-step by loop iteration, so one keypress moves
+       every curr and the room compares columns. curr is an ink pill that
+       actually travels by node pitch (a real move, on non-pending states
+       only); a doubled value crossfades and its compartment takes the orange
+       of a write; B and C finish early and their pills turn stone; D ends on
+       a maroon cross over the null it asked. Ticks and crosses are 01b's
+       glyphs. The coda caption names the trap — Vote 1's four nodes — and
+       the verdict strip closes. -->
+  <div class="slide__body wd" data-sid="09b-walk-double:6">
+    <div class="wd__lanes" data-sid="09b-walk-double:7">
+      <svg class="ln lane--a" viewBox="0 0 808 200" role="img" aria-label="Option A run on a three-node chain holding 1, 2 and 3" data-sid="09b-walk-double:8">
+        <text class="ln__letter" x="30" y="108" data-sid="09b-walk-double:9">A</text>
+        <g class="ln__node n1" data-sid="09b-walk-double:10">
+          <rect class="ln__box" x="90" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:11"/><path class="ln__div" d="M160 50v80" data-sid="09b-walk-double:12"/>
+          <text class="ln__v v--old" x="125" y="102" data-sid="09b-walk-double:13">1</text><text class="ln__v v--new" x="125" y="102" data-sid="09b-walk-double:14">2</text>
+        </g>
+        <g class="ln__node n2" data-sid="09b-walk-double:15">
+          <rect class="ln__box" x="270" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:16"/><path class="ln__div" d="M340 50v80" data-sid="09b-walk-double:17"/>
+          <text class="ln__v v--old" x="305" y="102" data-sid="09b-walk-double:18">2</text><text class="ln__v v--new" x="305" y="102" data-sid="09b-walk-double:19">4</text>
+        </g>
+        <g class="ln__node n3" data-sid="09b-walk-double:20">
+          <rect class="ln__box" x="450" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:21"/><path class="ln__div" d="M520 50v80" data-sid="09b-walk-double:22"/>
+          <text class="ln__v v--old" x="485" y="102" data-sid="09b-walk-double:23">3</text><text class="ln__v v--new" x="485" y="102" data-sid="09b-walk-double:24">6</text>
+        </g>
+        <path class="ln__arr" d="M220 90h44M400 90h44M580 90h44" data-sid="09b-walk-double:25"/>
+        <text class="ln__null" x="636" y="102" data-sid="09b-walk-double:26">null</text>
+        <g class="ln__curr frag" data-step="1" data-anim="fade" data-sid="09b-walk-double:27"><rect x="120" y="145" width="70" height="36" rx="6" data-sid="09b-walk-double:28"/><text x="155" y="171" data-sid="09b-walk-double:29">curr</text></g>
+        <path class="ln__npe" d="M654 62l30 30M684 62l-30 30" data-sid="09b-walk-double:30"/>
+        <path class="ln__ok" d="M420 26l12 12l22 -28" data-sid="09b-walk-double:31"/>
+        <path class="ln__bad" d="M424 10l24 24M448 10l-24 24" data-sid="09b-walk-double:32"/>
+        <text class="ln__out" x="808" y="38" data-sid="09b-walk-double:33">prints 2, 2, 6</text>
+      </svg>
+      <svg class="ln lane--b" viewBox="0 0 808 200" role="img" aria-label="Option B run on a three-node chain holding 1, 2 and 3" data-sid="09b-walk-double:34">
+        <text class="ln__letter" x="30" y="108" data-sid="09b-walk-double:35">B</text>
+        <g class="ln__node n1" data-sid="09b-walk-double:36">
+          <rect class="ln__box" x="90" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:37"/><path class="ln__div" d="M160 50v80" data-sid="09b-walk-double:38"/>
+          <text class="ln__v v--old" x="125" y="102" data-sid="09b-walk-double:39">1</text><text class="ln__v v--new" x="125" y="102" data-sid="09b-walk-double:40">2</text>
+        </g>
+        <g class="ln__node n2" data-sid="09b-walk-double:41">
+          <rect class="ln__box" x="270" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:42"/><path class="ln__div" d="M340 50v80" data-sid="09b-walk-double:43"/>
+          <text class="ln__v v--old" x="305" y="102" data-sid="09b-walk-double:44">2</text><text class="ln__v v--new" x="305" y="102" data-sid="09b-walk-double:45">4</text>
+        </g>
+        <g class="ln__node n3" data-sid="09b-walk-double:46">
+          <rect class="ln__box" x="450" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:47"/><path class="ln__div" d="M520 50v80" data-sid="09b-walk-double:48"/>
+          <text class="ln__v v--old" x="485" y="102" data-sid="09b-walk-double:49">3</text><text class="ln__v v--new" x="485" y="102" data-sid="09b-walk-double:50">6</text>
+        </g>
+        <path class="ln__arr" d="M220 90h44M400 90h44M580 90h44" data-sid="09b-walk-double:51"/>
+        <text class="ln__null" x="636" y="102" data-sid="09b-walk-double:52">null</text>
+        <g class="ln__curr frag" data-step="1" data-anim="fade" data-sid="09b-walk-double:53"><rect x="120" y="145" width="70" height="36" rx="6" data-sid="09b-walk-double:54"/><text x="155" y="171" data-sid="09b-walk-double:55">curr</text></g>
+        <path class="ln__npe" d="M654 62l30 30M684 62l-30 30" data-sid="09b-walk-double:56"/>
+        <path class="ln__ok" d="M420 26l12 12l22 -28" data-sid="09b-walk-double:57"/>
+        <path class="ln__bad" d="M424 10l24 24M448 10l-24 24" data-sid="09b-walk-double:58"/>
+        <text class="ln__out" x="808" y="38" data-sid="09b-walk-double:59">prints 1, 4, 3</text>
+      </svg>
+      <svg class="ln lane--c" viewBox="0 0 808 200" role="img" aria-label="Option C run on a three-node chain holding 1, 2 and 3" data-sid="09b-walk-double:60">
+        <text class="ln__letter" x="30" y="108" data-sid="09b-walk-double:61">C</text>
+        <g class="ln__node n1" data-sid="09b-walk-double:62">
+          <rect class="ln__box" x="90" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:63"/><path class="ln__div" d="M160 50v80" data-sid="09b-walk-double:64"/>
+          <text class="ln__v v--old" x="125" y="102" data-sid="09b-walk-double:65">1</text><text class="ln__v v--new" x="125" y="102" data-sid="09b-walk-double:66">2</text>
+        </g>
+        <g class="ln__node n2" data-sid="09b-walk-double:67">
+          <rect class="ln__box" x="270" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:68"/><path class="ln__div" d="M340 50v80" data-sid="09b-walk-double:69"/>
+          <text class="ln__v v--old" x="305" y="102" data-sid="09b-walk-double:70">2</text><text class="ln__v v--new" x="305" y="102" data-sid="09b-walk-double:71">4</text>
+        </g>
+        <g class="ln__node n3" data-sid="09b-walk-double:72">
+          <rect class="ln__box" x="450" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:73"/><path class="ln__div" d="M520 50v80" data-sid="09b-walk-double:74"/>
+          <text class="ln__v v--old" x="485" y="102" data-sid="09b-walk-double:75">3</text><text class="ln__v v--new" x="485" y="102" data-sid="09b-walk-double:76">6</text>
+        </g>
+        <path class="ln__arr" d="M220 90h44M400 90h44M580 90h44" data-sid="09b-walk-double:77"/>
+        <text class="ln__null" x="636" y="102" data-sid="09b-walk-double:78">null</text>
+        <g class="ln__curr frag" data-step="1" data-anim="fade" data-sid="09b-walk-double:79"><rect x="120" y="145" width="70" height="36" rx="6" data-sid="09b-walk-double:80"/><text x="155" y="171" data-sid="09b-walk-double:81">curr</text></g>
+        <path class="ln__npe" d="M654 62l30 30M684 62l-30 30" data-sid="09b-walk-double:82"/>
+        <path class="ln__ok" d="M420 26l12 12l22 -28" data-sid="09b-walk-double:83"/>
+        <path class="ln__bad" d="M424 10l24 24M448 10l-24 24" data-sid="09b-walk-double:84"/>
+        <text class="ln__out" x="808" y="38" data-sid="09b-walk-double:85">prints 2, 2, 3</text>
+      </svg>
+      <svg class="ln lane--d" viewBox="0 0 808 200" role="img" aria-label="Option D run on a three-node chain holding 1, 2 and 3" data-sid="09b-walk-double:86">
+        <text class="ln__letter" x="30" y="108" data-sid="09b-walk-double:87">D</text>
+        <g class="ln__node n1" data-sid="09b-walk-double:88">
+          <rect class="ln__box" x="90" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:89"/><path class="ln__div" d="M160 50v80" data-sid="09b-walk-double:90"/>
+          <text class="ln__v v--old" x="125" y="102" data-sid="09b-walk-double:91">1</text><text class="ln__v v--new" x="125" y="102" data-sid="09b-walk-double:92">2</text>
+        </g>
+        <g class="ln__node n2" data-sid="09b-walk-double:93">
+          <rect class="ln__box" x="270" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:94"/><path class="ln__div" d="M340 50v80" data-sid="09b-walk-double:95"/>
+          <text class="ln__v v--old" x="305" y="102" data-sid="09b-walk-double:96">2</text><text class="ln__v v--new" x="305" y="102" data-sid="09b-walk-double:97">4</text>
+        </g>
+        <g class="ln__node n3" data-sid="09b-walk-double:98">
+          <rect class="ln__box" x="450" y="50" width="130" height="80" rx="8" data-sid="09b-walk-double:99"/><path class="ln__div" d="M520 50v80" data-sid="09b-walk-double:100"/>
+          <text class="ln__v v--old" x="485" y="102" data-sid="09b-walk-double:101">3</text><text class="ln__v v--new" x="485" y="102" data-sid="09b-walk-double:102">6</text>
+        </g>
+        <path class="ln__arr" d="M220 90h44M400 90h44M580 90h44" data-sid="09b-walk-double:103"/>
+        <text class="ln__null" x="636" y="102" data-sid="09b-walk-double:104">null</text>
+        <g class="ln__curr frag" data-step="1" data-anim="fade" data-sid="09b-walk-double:105"><rect x="120" y="145" width="70" height="36" rx="6" data-sid="09b-walk-double:106"/><text x="155" y="171" data-sid="09b-walk-double:107">curr</text></g>
+        <path class="ln__npe" d="M654 62l30 30M684 62l-30 30" data-sid="09b-walk-double:108"/>
+        <path class="ln__ok" d="M420 26l12 12l22 -28" data-sid="09b-walk-double:109"/>
+        <path class="ln__bad" d="M424 10l24 24M448 10l-24 24" data-sid="09b-walk-double:110"/>
+        <text class="ln__out" x="808" y="38" data-sid="09b-walk-double:111">NullPointerException</text>
+      </svg>
+    </div>
+    <div class="codewalk" data-sid="09b-walk-double:112">
+      <div class="codewalk__caps" data-sid="09b-walk-double:113">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="09b-walk-double:114">Line 1: A, C and D start curr at head. B starts at head.getNext(), position 1.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="09b-walk-double:115">First iteration: each doubles the node curr is on.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="09b-walk-double:116">curr moves two nodes. B reaches null and stops: 1, 4, 3. C&rsquo;s condition fails because node 3&rsquo;s next is null: 2, 2, 3.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="09b-walk-double:117">A doubles node 3, moves to null, and stops. D doubles node 3, then calls getNext() on null.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="09b-walk-double:118">Only A is correct for every length. On a four-node chain, C and D also give the right answer. Test odd-length and empty chains.</p>
+      </div>
+    </div>
+    <ol class="verdict frag" data-step="5" data-sid="09b-walk-double:119">
+      <li class="verdict__opt verdict__opt--right" data-sid="09b-walk-double:120"><span class="verdict__txt" data-sid="09b-walk-double:121">correct for every length</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="09b-walk-double:122"><span class="verdict__txt" data-sid="09b-walk-double:123">starts at position 1</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="09b-walk-double:124"><span class="verdict__txt" data-sid="09b-walk-double:125">skips the last node of an odd-length chain</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="09b-walk-double:126"><span class="verdict__txt" data-sid="09b-walk-double:127">NullPointerException on an odd-length chain</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-double:128"></div>
+  <aside class="notes" data-sid="09b-walk-double:129">Answer: A. All four run on a chain of three; odd length is where C and D differ from A. Step 1: A, C and D set curr to head; B sets curr to head.getNext(), the second node. Step 2: each doubles the node curr is on &mdash; 1 becomes 2 in A, C and D; B doubles 2 to 4. Step 3: moving two nodes. A: to node 2, check, to node 3. B: to node 3, then to null; the loop ends with 1, 4, 3. C: curr.getNext().getNext() reaches node 3; the condition curr.getNext() != null is false, so the loop ends with node 3 not doubled: 2, 2, 3. D: reaches node 3; its condition only checks curr != null, so it continues. Step 4: A doubles node 3, moves to null, stops: 2, 2, 6. D doubles node 3, then calls curr.getNext().getNext(); node 3&rsquo;s next is null, so getNext() on null throws a NullPointerException. Step 5: on Vote 1&rsquo;s four-node chain, C and D both produce 40, 30, 20, 5 and look correct. &ldquo;Any arbitrary chain&rdquo; means test odd-length, one-node and empty chains. A is the only loop that never calls a method on null. The practice problems test the same thing.</aside>
+
+  <style data-sid="09b-walk-double:130">
+    /* Slide-local: four lanes two by two (808 × 200 each), the caption row,
+       the verdict strip. A lane is 04's Link box at 130 × 80 on a 180 px
+       pitch, so a pill move is 180 per node and 520 to the null; the letter
+       at the display size in the muted ink; ticks orange, crosses maroon, as
+       01b drew them. Values are two stacked texts (old/new) that crossfade —
+       no roll — and the written compartment takes an orange wash. State is
+       chosen with the :has(.cap--k:not(.is-pending)) idiom off the caption
+       frags, so every lane is a pure function of the step and back-steps
+       undo. Pills move only in non-pending states (a real move, never a
+       drift). All values from tokens; used by this slide only. */
+    #slide-09b .wd { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-09b .wd__lanes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3) var(--s-5); }
+    #slide-09b .ln { display: block; width: 100%; height: 200px; overflow: visible; }
+    #slide-09b .codewalk__caps { min-height: 100px; }
+
+    #slide-09b .ln__letter { font-family: var(--font-display); font-size: var(--t-h3); fill: var(--fg-1); text-anchor: middle; }
+    #slide-09b .ln__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .4s ease; }
+    #slide-09b .ln__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-09b .ln__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; }
+    #slide-09b .ln__arrhead { fill: var(--accent-2); }
+    #slide-09b .ln__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); }
+    #slide-09b .ln__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-09b .v--new { opacity: 0; }
+
+    /* curr: an ink pill that travels by node pitch; stone once its loop is over */
+    #slide-09b .ln__curr rect { fill: var(--fg-0); transition: fill .3s ease; }
+    #slide-09b .ln__curr text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-09b .ln__curr { transition: opacity .3s ease, transform .6s var(--ease-smooth); }
+    #slide-09b .lane--b .ln__curr { transform: translateX(180px); }
+    /* step 2: the node curr is on is doubled */
+    #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--a .n1 .v--old, #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--c .n1 .v--old,
+    #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--d .n1 .v--old, #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--b .n2 .v--old { opacity: 0; }
+    #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--a .n1 .v--new, #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--c .n1 .v--new,
+    #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--d .n1 .v--new, #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--b .n2 .v--new { opacity: 1; }
+    #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--a .n1 .ln__box, #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--c .n1 .ln__box,
+    #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--d .n1 .ln__box, #slide-09b .wd:has(.cap--2:not(.is-pending)) .lane--b .n2 .ln__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-1)); }
+    /* step 3: two along — B and C are finished */
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--a .ln__curr, #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--d .ln__curr { transform: translateX(360px); }
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--c .ln__curr { transform: translateX(360px); }
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--c .ln__curr rect { fill: var(--stone); transition-delay: .6s; }
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--b .ln__curr { transform: translateX(520px); }
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--b .ln__curr rect { fill: var(--stone); transition-delay: .6s; }
+    /* step 4: A finishes cleanly, D asks null */
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .n3 .v--old, #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--d .n3 .v--old { opacity: 0; }
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .n3 .v--new, #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--d .n3 .v--new { opacity: 1; }
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .n3 .ln__box, #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--d .n3 .ln__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-1)); }
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .ln__curr { transform: translateX(520px); transition-delay: .5s; }
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .ln__curr rect { fill: var(--stone); transition-delay: 1.1s; }
+
+    /* outcomes: the printed line and a tick or a cross, when a lane is done */
+    #slide-09b .ln__out { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; opacity: 0; transition: opacity .3s ease; }
+    #slide-09b .ln__ok, #slide-09b .ln__bad, #slide-09b .ln__npe { fill: none; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity .3s ease; }
+    #slide-09b .ln__ok { stroke: var(--accent-3); }
+    #slide-09b .ln__bad, #slide-09b .ln__npe { stroke: var(--accent-1); }
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--b .ln__out, #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--b .ln__bad,
+    #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--c .ln__out, #slide-09b .wd:has(.cap--3:not(.is-pending)) .lane--c .ln__bad { opacity: 1; transition-delay: .8s; }
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .ln__out, #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--a .ln__ok { opacity: 1; transition-delay: 1.2s; }
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--d .ln__out, #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--d .ln__bad,
+    #slide-09b .wd:has(.cap--4:not(.is-pending)) .lane--d .ln__npe { opacity: 1; transition-delay: .8s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .ln__curr, #slide-09b .ln__curr rect, #slide-09b .ln__v, #slide-09b .ln__box, #slide-09b .ln__out, #slide-09b .ln__ok, #slide-09b .ln__bad, #slide-09b .ln__npe { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

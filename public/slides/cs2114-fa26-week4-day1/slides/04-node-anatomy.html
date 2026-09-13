@@ -1,0 +1,193 @@
+<section class="slide" id="slide-04" data-sid="04-node-anatomy:1">
+  <header class="slide__head" data-sid="04-node-anatomy:2">
+    <h2 data-sid="04-node-anatomy:3">One Link is two fields: data and next</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-node-anatomy:4">A walkthrough of the Link class. Below the drawing, on the left, an editor lists the members the questions use: public Object data; public Link next; the constructor Link of dataIn and nextIn as a three-line block that sets both fields; void setNext of newNext; Link getNext; Object getData; void setData of newData. A bar highlights the current member. Above, the chain is drawn: each Link is a box with a data compartment and a next compartment. Step one: a box holding 20 with next null, and a pill labelled head pointing at it. Step two: the data field is highlighted in the code and the data compartment is washed blue. Step three: the next field and the next compartment. Step four: the constructor &mdash; a second box holding 3 with next null appears to the right, ringed, with a pill n2 above it, not connected. Step five: setNext &mdash; the first box&rsquo;s next compartment is washed orange, its null disappears and an arrow draws to the second box. Step six: getNext &mdash; the first box&rsquo;s next compartment is ringed, then the second box. Step seven: getData &mdash; the second box&rsquo;s data compartment is washed blue. Step eight: setData &mdash; the compartment is washed orange and 3 becomes 30. Step nine: two more boxes holding 10 and 5 appear with arrows, and the caption reads: this is the chain in Vote 1. A caption beside the editor changes with each step.</p>
+
+  <!-- The Link class from the questions, member by member, with the drawing
+       showing what each member is or does. The first Link is on screen
+       before the walk starts; then the program-counter bar moves down the
+       members in the order they are used: the two fields (washed blue in
+       the box — this is what the field is), the constructor (a new box,
+       ringed, not yet in the chain), setNext (an orange wash on the
+       compartment being written, the null goes, the arrow draws), getNext
+       (rings: the compartment, then the Link it refers to), getData (blue
+       wash: a read), setData (orange wash and the value crossfades). The
+       last step has no member: two more Links the same way, so the chain
+       ends as Vote 1's. Reads are blue, writes orange; references are blue
+       arrows whose heads land after the shaft. The full 38-line class is in
+       Runestone; the editor keeps each one-line member's signature and body
+       together, and the constructor as a braced block that the bar covers
+       whole (this deck's code-walk.js spans every line of a step). -->
+  <div class="slide__body na code-dense" data-sid="04-node-anatomy:5">
+    <svg class="na__scene" viewBox="0 0 1664 210" role="img"
+         aria-label="A chain of Link boxes holding 20 and then 3, 10 and 5, each showing its data and next fields, with head and n2 pills" data-sid="04-node-anatomy:6">
+      <!-- step 1: head and the first Link -->
+      <g class="na__pill na__pill--head frag" data-step="1" data-anim="fade" data-sid="04-node-anatomy:7"><rect x="40" y="87" width="130" height="60" rx="8" data-sid="04-node-anatomy:8"/><text class="na__headtxt" x="105" y="129" data-sid="04-node-anatomy:9">head</text></g>
+      <path class="na__arr frag" data-step="1" pathLength="100" d="M170 117 C 190 117, 208 117, 224 117" data-sid="04-node-anatomy:10"/>
+      <path class="na__head frag" data-step="1" data-anim="fade" d="M224 117 L212 111 L212 123 Z" data-sid="04-node-anatomy:11"/>
+      <g class="na__node n1 frag" data-step="1" data-sid="04-node-anatomy:12">
+        <rect class="na__ring" x="222" y="64" width="236" height="106" rx="14" data-sid="04-node-anatomy:13"/>
+        <text class="na__type" x="238" y="62" data-sid="04-node-anatomy:14">Link</text>
+        <rect class="na__box" x="230" y="72" width="220" height="90" rx="10" data-sid="04-node-anatomy:15"/>
+        <rect class="na__wash na__wd" x="233" y="75" width="114" height="84" rx="7" data-sid="04-node-anatomy:16"/>
+        <rect class="na__wash na__wn" x="353" y="75" width="94" height="84" rx="7" data-sid="04-node-anatomy:17"/>
+        <rect class="na__ring na__ring--n" x="350" y="72" width="100" height="90" rx="6" data-sid="04-node-anatomy:18"/>
+        <path class="na__div" d="M350 72v90" data-sid="04-node-anatomy:19"/>
+        <text class="na__f" x="240" y="94" data-sid="04-node-anatomy:20">data</text><text class="na__f" x="360" y="94" data-sid="04-node-anatomy:21">next</text>
+        <text class="na__v v--0" x="290" y="132" data-sid="04-node-anatomy:22">20</text>
+        <text class="na__null" x="400" y="132" data-sid="04-node-anatomy:23">null</text>
+      </g>
+      <!-- step 4: the constructor makes n2; step 5: head.setNext(n2) links it; step 8: n2.setData(30) -->
+      <g class="na__node n2 frag" data-step="4" data-sid="04-node-anatomy:24">
+        <rect class="na__ring" x="512" y="64" width="236" height="106" rx="14" data-sid="04-node-anatomy:25"/>
+        <text class="na__type" x="528" y="62" data-sid="04-node-anatomy:26">Link</text>
+        <rect class="na__box" x="520" y="72" width="220" height="90" rx="10" data-sid="04-node-anatomy:27"/>
+        <rect class="na__wash na__wd" x="523" y="75" width="114" height="84" rx="7" data-sid="04-node-anatomy:28"/>
+        <rect class="na__wash na__wn" x="643" y="75" width="94" height="84" rx="7" data-sid="04-node-anatomy:29"/>
+        <rect class="na__ring na__ring--n" x="640" y="72" width="100" height="90" rx="6" data-sid="04-node-anatomy:30"/>
+        <path class="na__div" d="M640 72v90" data-sid="04-node-anatomy:31"/>
+        <text class="na__f" x="530" y="94" data-sid="04-node-anatomy:32">data</text><text class="na__f" x="650" y="94" data-sid="04-node-anatomy:33">next</text>
+        <text class="na__v v--0" x="580" y="132" data-sid="04-node-anatomy:34">3</text><text class="na__v v--1" x="580" y="132" data-sid="04-node-anatomy:35">30</text>
+        <text class="na__null" x="690" y="132" data-sid="04-node-anatomy:36">null</text>
+      </g>
+      <g class="na__pill frag" data-step="4" data-anim="fade" data-sid="04-node-anatomy:37"><rect x="595" y="4" width="70" height="32" rx="6" data-sid="04-node-anatomy:38"/><text x="630" y="27" data-sid="04-node-anatomy:39">n2</text></g>
+      <path class="na__arr frag" data-step="4" pathLength="100" d="M630 36 C 630 44, 630 54, 630 66" data-sid="04-node-anatomy:40"/>
+      <path class="na__head frag" data-step="4" data-anim="fade" d="M630 66 L624 54 L636 54 Z" data-sid="04-node-anatomy:41"/>
+      <path class="na__arr frag" data-step="5" pathLength="100" d="M450 117 C 470 117, 494 117, 514 117" data-sid="04-node-anatomy:42"/>
+      <path class="na__head frag" data-step="5" data-anim="fade" d="M514 117 L502 111 L502 123 Z" data-sid="04-node-anatomy:43"/>
+      <!-- step 9: two more Links the same way -->
+      <path class="na__arr frag" data-step="9" style="--i: 0" pathLength="100" d="M740 117 C 760 117, 784 117, 804 117" data-sid="04-node-anatomy:44"/>
+      <path class="na__head frag" data-step="9" style="--i: 0" data-anim="fade" d="M804 117 L792 111 L792 123 Z" data-sid="04-node-anatomy:45"/>
+      <g class="na__node n3 frag" data-step="9" style="--i: 1" data-sid="04-node-anatomy:46">
+        <rect class="na__ring" x="802" y="64" width="236" height="106" rx="14" data-sid="04-node-anatomy:47"/>
+        <text class="na__type" x="818" y="62" data-sid="04-node-anatomy:48">Link</text>
+        <rect class="na__box" x="810" y="72" width="220" height="90" rx="10" data-sid="04-node-anatomy:49"/>
+        <rect class="na__wash na__wd" x="813" y="75" width="114" height="84" rx="7" data-sid="04-node-anatomy:50"/>
+        <rect class="na__wash na__wn" x="933" y="75" width="94" height="84" rx="7" data-sid="04-node-anatomy:51"/>
+        <rect class="na__ring na__ring--n" x="930" y="72" width="100" height="90" rx="6" data-sid="04-node-anatomy:52"/>
+        <path class="na__div" d="M930 72v90" data-sid="04-node-anatomy:53"/>
+        <text class="na__f" x="820" y="94" data-sid="04-node-anatomy:54">data</text><text class="na__f" x="940" y="94" data-sid="04-node-anatomy:55">next</text>
+        <text class="na__v v--0" x="870" y="132" data-sid="04-node-anatomy:56">10</text>
+        <text class="na__null" x="980" y="132" data-sid="04-node-anatomy:57">null</text>
+      </g>
+      <path class="na__arr frag" data-step="9" style="--i: 2" pathLength="100" d="M1030 117 C 1050 117, 1074 117, 1094 117" data-sid="04-node-anatomy:58"/>
+      <path class="na__head frag" data-step="9" style="--i: 2" data-anim="fade" d="M1094 117 L1082 111 L1082 123 Z" data-sid="04-node-anatomy:59"/>
+      <g class="na__node n4 frag" data-step="9" style="--i: 3" data-sid="04-node-anatomy:60">
+        <rect class="na__ring" x="1092" y="64" width="236" height="106" rx="14" data-sid="04-node-anatomy:61"/>
+        <text class="na__type" x="1108" y="62" data-sid="04-node-anatomy:62">Link</text>
+        <rect class="na__box" x="1100" y="72" width="220" height="90" rx="10" data-sid="04-node-anatomy:63"/>
+        <rect class="na__wash na__wd" x="1103" y="75" width="114" height="84" rx="7" data-sid="04-node-anatomy:64"/>
+        <rect class="na__wash na__wn" x="1223" y="75" width="94" height="84" rx="7" data-sid="04-node-anatomy:65"/>
+        <rect class="na__ring na__ring--n" x="1220" y="72" width="100" height="90" rx="6" data-sid="04-node-anatomy:66"/>
+        <path class="na__div" d="M1220 72v90" data-sid="04-node-anatomy:67"/>
+        <text class="na__f" x="1110" y="94" data-sid="04-node-anatomy:68">data</text><text class="na__f" x="1230" y="94" data-sid="04-node-anatomy:69">next</text>
+        <text class="na__v v--0" x="1160" y="132" data-sid="04-node-anatomy:70">5</text>
+        <text class="na__null" x="1270" y="132" data-sid="04-node-anatomy:71">null</text>
+      </g>
+    </svg>
+
+    <div class="editor" data-sid="04-node-anatomy:72">
+      <p class="editor__bar" data-sid="04-node-anatomy:73">class Link &mdash; the members the questions use</p>
+      <div class="editor__pc" data-sid="04-node-anatomy:74"></div>
+      <ol class="editor__code" data-sid="04-node-anatomy:75">
+        <li class="walkline frag" data-step="2" data-sid="04-node-anatomy:76"><span class="tok-key" data-sid="04-node-anatomy:77">public</span> Object data;</li>
+        <li class="walkline frag" data-step="3" data-sid="04-node-anatomy:78"><span class="tok-key" data-sid="04-node-anatomy:79">public</span> Link next;</li>
+        <li class="walkline frag" data-step="4" data-sid="04-node-anatomy:80">Link(Object dataIn, Link nextIn) {</li>
+        <li class="walkline frag" data-step="4" data-sid="04-node-anatomy:81">    <span class="tok-key" data-sid="04-node-anatomy:82">this</span>.data = dataIn;  <span class="tok-key" data-sid="04-node-anatomy:83">this</span>.next = nextIn;</li>
+        <li class="walkline frag" data-step="4" data-sid="04-node-anatomy:84">}</li>
+        <li class="walkline frag" data-step="5" data-sid="04-node-anatomy:85"><span class="tok-key" data-sid="04-node-anatomy:86">void</span> setNext(Link newNext) { next = newNext; }</li>
+        <li class="walkline frag" data-step="6" data-sid="04-node-anatomy:87">Link getNext() { <span class="tok-key" data-sid="04-node-anatomy:88">return</span> next; }</li>
+        <li class="walkline frag" data-step="7" data-sid="04-node-anatomy:89">Object getData() { <span class="tok-key" data-sid="04-node-anatomy:90">return</span> data; }</li>
+        <li class="walkline frag" data-step="8" data-sid="04-node-anatomy:91"><span class="tok-key" data-sid="04-node-anatomy:92">void</span> setData(Object newData) { data = newData; }</li>
+      </ol>
+    </div>
+    <div class="codewalk" data-sid="04-node-anatomy:93">
+      <div class="codewalk__caps" data-sid="04-node-anatomy:94">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-node-anatomy:95">head refers to a Link holding 20. Its next is null.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-node-anatomy:96">data holds the value. It is an Object, so any type fits; here an Integer.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-node-anatomy:97">next holds a reference to another Link. null means there is no next Link.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-node-anatomy:98">Link n2 = new Link(3, null): a new Link with data 3 and next null. It is not in the chain yet.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-node-anatomy:99">head.setNext(n2): the first Link&rsquo;s next now refers to n2&rsquo;s Link. The chain is 20, 3.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04-node-anatomy:100">head.getNext() returns the reference stored in next: the Link holding 3. Every loop moves this way.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04-node-anatomy:101">n2.getData() returns 3, the value in data.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04-node-anatomy:102">n2.setData(30) replaces the value in data. next is not affected.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="04-node-anatomy:103">Two more Links the same way: 20, 30, 10, 5. This is the chain in Vote 1. Link&rsquo;s fields are public, so p.next.data compiles.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04-node-anatomy:104"></div>
+  <aside class="notes" data-sid="04-node-anatomy:105">Step 1: head refers to a Link holding 20; its next is null. Step 2: the data field &mdash; the value the Link holds; declared Object, so any type; Integer in the questions. Step 3: the next field &mdash; a reference to another Link; null means there is no next Link. Step 4: the constructor sets both fields. Link n2 = new Link(3, null) makes a second Link; it exists but nothing in the chain refers to it. Step 5: head.setNext(n2) writes the first Link&rsquo;s next; the null is gone and the chain is 20, 3. Step 6: head.getNext() returns what is in next &mdash; the reference to the Link holding 3. Every loop in Vote 2 moves with getNext. Step 7: n2.getData() returns 3. Step 8: n2.setData(30) replaces the value; next is unchanged. Step 9: two more Links the same way give 20, 30, 10, 5 &mdash; the chain in Vote 1. The full class is in Runestone; note that its fields are public, so p.next.next.data compiles &mdash; the last line of Vote 1 uses that. Next: the routine.</aside>
+
+  <style data-sid="04-node-anatomy:106">
+    /* Slide-local: the drawing across the top (1664 × 210: boxes 220 × 90 on
+       a 290 px pitch, pills above), the editor at the chrome size on the left
+       (920 px: the widest member is 48 mono chars) with its caption column on
+       the right. Boxes are the deck's panel pair with a 5 px stroke and a
+       divider between data and next; null is the word in stone inside the
+       compartment until the compartment is written. Arrows are a shaft that
+       Creates by dashoffset and a separate head that FadeIns after it. Marks
+       are chosen with :has() off the caption frags — .is-current for washes
+       and rings (that step only), :not(.is-pending) for the null that goes
+       and the value that changes (and stay changed). Reads and the field
+       tour wash blue; writes wash orange. Boxes GrowFromCenter, pills FadeIn.
+       All values from tokens; used by this slide only. */
+    #slide-04 .na { display: grid; grid-template-columns: 920px minmax(0, 1fr); grid-template-rows: 210px auto; column-gap: var(--s-4); row-gap: var(--s-3); align-items: start; }
+    #slide-04 .na__scene { grid-column: 1 / -1; display: block; width: 100%; height: 210px; overflow: visible; }
+    #slide-04 .codewalk__caps { min-height: 150px; }
+
+    /* variables: ink pills; head keeps its blue */
+    #slide-04 .na__pill rect { fill: var(--fg-0); }
+    #slide-04 .na__pill--head rect { fill: var(--accent-2); }
+    #slide-04 .na__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04 .na__pill .na__headtxt { font-size: var(--t-small); }
+    #slide-04 .na__pill { transition: opacity .3s ease; }
+
+    /* the boxes */
+    #slide-04 .na__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-04 .na__div { fill: none; stroke: var(--fg-1); stroke-width: 5; }
+    #slide-04 .na__type { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-04 .na__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-04 .na__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04 .v--1 { opacity: 0; }
+    #slide-04 .na__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04 .na__node { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04 .frag.na__node.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-04 .frag.na__node.is-current, #slide-04 .frag.na__node.is-past { transition-delay: calc(var(--i, 0) * .25s); }
+
+    /* references: the shaft draws on, the head lands after it */
+    #slide-04 .na__arr { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-04 .frag.na__arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-04 .frag.na__arr.is-current, #slide-04 .frag.na__arr.is-past { stroke-dashoffset: 0; transition-delay: calc(var(--i, 0) * .25s); }
+    #slide-04 .na__head { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-04 .frag.na__head.is-current, #slide-04 .frag.na__head.is-past { transition-delay: calc(.4s + var(--i, 0) * .25s); }
+
+    /* marks for the current step only: washes on a compartment, rings on a Link or a compartment */
+    #slide-04 .na__wash { opacity: 0; transition: opacity .3s ease; fill: color-mix(in srgb, var(--accent-2) 18%, var(--bg-1)); }
+    #slide-04 .na__ring { fill: none; stroke: var(--accent-2); stroke-width: 6; opacity: 0; transition: opacity .3s ease; }
+    #slide-04 .na__ring--n { stroke-width: 5; }
+    /* steps 2 and 3: the fields */
+    #slide-04 .slide__body:has(.cap--2.is-current) .n1 .na__wd { opacity: 1; }
+    #slide-04 .slide__body:has(.cap--3.is-current) .n1 .na__wn { opacity: 1; }
+    /* step 4: the constructor made n2 */
+    #slide-04 .slide__body:has(.cap--4.is-current) .n2 .na__ring { opacity: 1; transition-delay: .3s; }
+    /* step 5: setNext writes the first Link's next — the null goes and stays gone */
+    #slide-04 .slide__body:has(.cap--5.is-current) .n1 .na__wn { opacity: 1; fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); }
+    #slide-04 .slide__body:has(.cap--5:not(.is-pending)) .n1 .na__null { opacity: 0; }
+    /* step 6: getNext reads next, then the Link it refers to */
+    #slide-04 .slide__body:has(.cap--6.is-current) .n1 .na__ring--n { opacity: 1; }
+    #slide-04 .slide__body:has(.cap--6.is-current) .n2 .na__ring { opacity: 1; transition-delay: .5s; }
+    /* step 7: getData reads data; step 8: setData writes it */
+    #slide-04 .slide__body:has(.cap--7.is-current) .n2 .na__wd { opacity: 1; }
+    #slide-04 .slide__body:has(.cap--8.is-current) .n2 .na__wd { opacity: 1; fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); }
+    #slide-04 .slide__body:has(.cap--8:not(.is-pending)) .n2 .v--0 { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--8:not(.is-pending)) .n2 .v--1 { opacity: 1; }
+    /* step 9: the rest of the chain — the nulls of 3 and 10 go as their arrows arrive */
+    #slide-04 .slide__body:has(.cap--9:not(.is-pending)) .n2 .na__null { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--9:not(.is-pending)) .n3 .na__null { opacity: 0; transition-delay: .5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .na__pill, #slide-04 .na__node, #slide-04 .na__arr, #slide-04 .na__head, #slide-04 .na__null, #slide-04 .na__ring, #slide-04 .na__wash, #slide-04 .na__v { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
