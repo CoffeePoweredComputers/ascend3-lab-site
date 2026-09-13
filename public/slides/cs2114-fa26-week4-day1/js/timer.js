@@ -52,6 +52,12 @@
     void t.el.offsetWidth;                            // commit the snapped frame before the glide returns
     t.el.classList.remove('timer--snap');
   }
+  // A timer whose step has been passed is over: the ring empties to 0:00 and
+  // stays maroon, so a vote clock ends the moment the discussion clock starts.
+  function finish(t) {
+    clearInterval(t.iv); t.iv = 0; t.running = false; t.left = 0;
+    t.el.setAttribute('data-state', 'done'); paint(t);
+  }
   function start(t) {
     t.running = true; t.startAt = Date.now();
     t.el.setAttribute('data-state', 'running'); paint(t);
@@ -66,9 +72,10 @@
   function sync() {
     timers.forEach(function (t) {
       var sec = t.el.closest('section');
-      var live = sec && sec.classList.contains('is-active') &&
-                 (t.el.classList.contains('is-current') || t.el.classList.contains('is-past'));
-      if (live) { if (!t.running && t.el.getAttribute('data-state') !== 'done') start(t); }
+      var onscreen = sec && sec.classList.contains('is-active');
+      var cur = t.el.classList.contains('is-current'), past = t.el.classList.contains('is-past');
+      if (onscreen && cur) { if (!t.running && t.el.getAttribute('data-state') !== 'done') start(t); }
+      else if (onscreen && past) { if (t.el.getAttribute('data-state') !== 'done') finish(t); }   // its step is over: 0:00
       else reset(t);
     });
   }
