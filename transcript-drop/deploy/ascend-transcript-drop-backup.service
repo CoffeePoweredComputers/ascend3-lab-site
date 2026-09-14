@@ -1,0 +1,21 @@
+# Nightly database backup, as a systemd --user job. Paired with the .timer.
+#
+#   cp ~/ascend3-lab-site/transcript-drop/deploy/ascend-transcript-drop-backup.* ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now ascend-transcript-drop-backup.timer
+#   systemctl --user start ascend-transcript-drop-backup     # run one now
+#
+# BACKUP_DEST comes from transcript-drop/.env. Point it off this machine as soon
+# as research storage exists: a backup on the same disk does not survive the
+# thing it exists for.
+
+[Unit]
+Description=Back up the GenAI transcript submission databases
+After=ascend-transcript-drop.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/ascend3-lab-site/transcript-drop
+EnvironmentFile=%h/ascend3-lab-site/transcript-drop/.env
+Environment=GENAI_DATA_DIR=%h/transcript-drop-data
+ExecStart=%h/ascend3-lab-site/transcript-drop/.venv/bin/python scripts/backup_databases.py

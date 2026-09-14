@@ -1,0 +1,35 @@
+# Databases hold identifiable student data and raw conversations. Never commit.
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+data/export/
+data/repos/
+
+# Researcher-maintained rosters contain student IDs.
+config/roster.csv
+config/authors.csv
+config/repos.csv
+
+# The collector lands here when a student -- or a maintainer testing the
+# instructions -- runs the documented "curl -sSO <server>/collect_ai_logs.py"
+# in the repository root. It is a download, not a source file: the one that
+# ships is scripts/collect_ai_logs.py, which is what the service serves.
+# A tracked second copy is the stale-copy failure this project already hit.
+/collect_ai_logs.py
+
+# Names the Firebase project this checkout talks to. Not secret -- the values
+# ship to every browser -- but which project a deployment uses is its own
+# business, and a committed one would follow every clone. .env.example is the
+# tracked copy.
+.env
+.env.*
+!.env.example
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.DS_Store
+config/consent.csv

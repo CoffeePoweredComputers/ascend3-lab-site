@@ -1,0 +1,18 @@
+# Runs the backup nightly.
+
+[Unit]
+Description=Nightly GenAI submission database backup
+
+[Timer]
+# 03:15 local time. Well clear of a midnight deadline, when the write queue is
+# at its longest and a backup would be competing with students submitting.
+OnCalendar=*-*-* 03:15:00
+
+# If the VM was down at 03:15, back up as soon as it is back rather than
+# skipping a day. RandomizedDelaySec keeps it off the exact minute in case
+# anything else on the cluster wakes at the same time.
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

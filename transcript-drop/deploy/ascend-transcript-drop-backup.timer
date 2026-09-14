@@ -1,0 +1,12 @@
+[Unit]
+Description=Nightly backup of the GenAI transcript submission databases
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+# The machine is not always up at 03:15. Without this a missed window is simply
+# skipped, and a week of outages is a week with no backups and no warning.
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

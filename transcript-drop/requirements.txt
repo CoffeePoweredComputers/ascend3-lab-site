@@ -1,0 +1,10 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+PyYAML>=6.0
+# RS256 verification of Firebase ID tokens (app/auth.py). The [crypto] extra
+# pulls in `cryptography`, without which PyJWT cannot check an RSA signature and
+# silently supports only HMAC.
+PyJWT[crypto]>=2.8
+pytest>=8.0
+httpx>=0.27

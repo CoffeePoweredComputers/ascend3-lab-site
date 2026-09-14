@@ -1,0 +1,90 @@
+# CS 2114 GenAI interaction log submission service.
+#
+#   sudo cp deploy/genai-submission.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now genai-submission
+#
+# Assumes the checkout is at /opt/genai-submission, owned by a service account
+# called "genai", with its virtualenv at .venv inside it. Change User, Group,
+# WorkingDirectory and ExecStart together if any of that differs.
+
+[Unit]
+Description=CS 2114 GenAI interaction log submission service
+Documentation=https://transcript-drop.cs.vt.edu/
+After=network-online.target
+Wants=network-online.target
+
+# These live in [Unit], not [Service] -- systemd moved them and silently ignores
+# them in the wrong section, which means the rate limit would look configured
+# and not be. Deliberately generous: a submission lost to a restart is a
+# student's work lost at a deadline, so crash-looping beats being off all
+# evening.
+StartLimitIntervalSec=300
+StartLimitBurst=20
+
+[Service]
+Type=exec
+User=genai
+Group=genai
+WorkingDirectory=/opt/genai-submission
+
+# The admin token lives here, not in this file: a unit file is world-readable
+# and belongs in version control, and a shared secret is neither.
+#   sudo install -m 600 -o root -g genai /dev/null /etc/genai-submission.env
+#   printf 'GENAI_ADMIN_TOKEN=%s\n' "$(openssl rand -base64 32)" \
+#     | sudo tee /etc/genai-submission.env > /dev/null
+EnvironmentFile=/etc/genai-submission.env
+
+# Bound to loopback on purpose. Caddy terminates TLS and is the only thing that
+# should be able to reach this port, so the service is not listening on the
+# campus network even for a moment during a proxy misconfiguration.
+Environment=HOST=127.0.0.1
+Environment=PORT=8000
+Environment=GENAI_DATA_DIR=/var/lib/genai-submission
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/opt/genai-submission/.venv/bin/python /opt/genai-submission/scripts/run_server.py
+
+# A submission that fails because the service restarted is a student's work
+# lost at a deadline, so come back rather than stay down. The start-rate limit
+# that goes with this is in [Unit] above.
+Restart=always
+RestartSec=3
+
+# Hardening. The service reads its own checkout and writes exactly one
+# directory; everything else on the filesystem is none of its business, and the
+# data it holds is what makes that worth enforcing rather than assuming.
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RemoveIPC=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+# ProtectSystem=strict makes everything read-only, so name the exceptions.
+# The checkout stays read-only: the databases live outside it, which also means
+# a git pull cannot touch them.
+ReadWritePaths=/var/lib/genai-submission
+
+# Uploads are capped at 40 MB and parsing one costs a few hundred megabytes
+# transiently. This is a ceiling that stops a runaway, not a target.
+MemoryMax=3G
+
+# Log to the journal.
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=genai-submission
+
+[Install]
+WantedBy=multi-user.target
