@@ -18,4 +18,9 @@ Type=oneshot
 WorkingDirectory=%h/ascend3-lab-site/transcript-drop
 EnvironmentFile=%h/ascend3-lab-site/transcript-drop/.env
 Environment=GENAI_DATA_DIR=%h/transcript-drop-data
-ExecStart=%h/ascend3-lab-site/transcript-drop/.venv/bin/python scripts/backup_databases.py
+# BACKUP_DEST is a positional argument, not an environment variable the
+# script reads for itself. systemd expands it from the EnvironmentFile above;
+# unset, it expands to nothing and the run fails loudly rather than writing
+# a semester of student data somewhere nobody chose.
+ExecStart=%h/ascend3-lab-site/transcript-drop/.venv/bin/python \
+  scripts/backup_databases.py ${BACKUP_DEST} --keep 30

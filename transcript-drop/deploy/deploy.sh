@@ -26,7 +26,23 @@ if [ ! -f config/roster.csv ]; then
 fi
 
 echo "── transcript-drop: virtualenv"
-[ -d .venv ] || python3 -m venv .venv
+# Debian and Ubuntu ship python3 without the venv module; `python3 -m venv`
+# then fails deep inside ensurepip with a message that does not name the
+# package to install. This project has already lost an afternoon to it once.
+if [ ! -d .venv ]; then
+  if ! python3 -m venv .venv 2>/dev/null; then
+    echo "python3 -m venv failed. On Debian/Ubuntu: sudo apt install python3-venv" >&2
+    exit 1
+  fi
+fi
+
+# 3.9 is the floor: the request models are evaluated at runtime by pydantic and
+# use typing.Optional rather than PEP 604 unions for exactly that reason.
+./.venv/bin/python - <<'PYVER' || exit 1
+import sys
+if sys.version_info < (3, 9):
+    sys.exit(f"python {sys.version.split()[0]} is too old; this needs 3.9 or newer")
+PYVER
 echo "── transcript-drop: install"
 ./.venv/bin/pip install --quiet --upgrade pip
 ./.venv/bin/pip install --quiet -r requirements.txt
@@ -44,3 +60,15 @@ PORT=$(grep -E '^PORT=' .env | tail -1 | cut -d= -f2 | tr -d '[:space:]"'"'"); P
 curl -fsS "http://127.0.0.1:${PORT}/healthz"
 echo
 echo "── transcript-drop: healthy"
+
+# The service can be perfectly healthy on loopback while nobody can reach it:
+# nginx-configs/ascend3.conf is version-controlled but nothing copies it to
+# /etc/nginx, so a first deploy leaves /transcript-drop/ still answering with the
+# Astro site's catch-all — a 200, with the lab homepage in it, which looks like
+# the deploy worked.
+if ! grep -qs 'transcript-drop' /etc/nginx/sites-enabled/*.conf; then
+  echo
+  echo "   NOTE: nginx is not routing /transcript-drop/ yet. As root, once:"
+  echo "     sudo cp ~/ascend3-lab-site/nginx-configs/ascend3.conf /etc/nginx/sites-available/"
+  echo "     sudo nginx -t && sudo systemctl reload nginx"
+fi
