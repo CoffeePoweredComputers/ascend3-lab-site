@@ -1,0 +1,7 @@
+# Mirrors the IRB consent process. Anyone absent from this file counts as NOT
+# consenting, so a teammate who never submitted still gates their team's repo.
+email,consent,recorded_at
+hokie@vt.edu,yes,2026-09-01
+bmartin@vt.edu,yes,2026-09-01
+cnguyen@vt.edu,no,2026-09-02
+dpatel@vt.edu,yes,2026-09-05

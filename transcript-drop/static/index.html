@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GenAI Interaction Log Submission</title>
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1 id="course-title">GenAI Interaction Log Submission</h1>
+      <p class="subtitle" id="course-subtitle"></p>
+    </header>
+
+    <main>
+      <!-- Step 1: identify the student and the project -->
+      <section id="step-identity" class="card">
+        <h2>Start</h2>
+        <p class="help">
+          Your VT email is used only to link your submission to a research
+          participant code. It is stored separately from your conversations.
+        </p>
+
+        <!-- Signed out. Google is asked for a vt.edu account and the server
+             checks the signature, so nothing here has to be trusted. -->
+        <div id="signin-block">
+          <button id="signin" class="primary">Sign in with your VT Google account</button>
+          <p class="help" id="signin-help">
+            Use the same Google account as your VT email. We never see your
+            password.
+          </p>
+          <p class="notice" id="signin-unavailable" hidden>
+            Sign-in is not set up on this server yet. Please tell your
+            instructor — nothing can be submitted until it is.
+          </p>
+        </div>
+
+        <!-- Signed in. -->
+        <div id="signed-in-block" hidden>
+          <p class="status" id="signed-in-as"></p>
+          <div class="field">
+            <label for="project">Project</label>
+            <select id="project"></select>
+          </div>
+          <!-- Only shown when the roster puts this student on more than one
+               team for this project, which happens when they changed teams
+               partway through. Otherwise there is nothing to ask. -->
+          <div class="field" id="team-field" hidden>
+            <label for="team-id">Which team is this work from?</label>
+            <select id="team-id"></select>
+            <p class="help">
+              You changed teams during this project, so both are yours. Pick the
+              one the conversations you are about to submit belong to.
+            </p>
+          </div>
+          <p class="error" id="identity-error" hidden></p>
+          <button id="identity-continue" class="primary">Continue</button>
+          <button id="signout" class="link">Sign out</button>
+        </div>
+
+        <details class="guide" id="prep-guide">
+          <summary>What to bring, depending on the tool you used</summary>
+
+          <h3>VT Arc</h3>
+          <p class="help">
+            Download the chat as JSON from Arc itself and upload it here. It
+            downloads on the spot — no export request, no waiting — so this is
+            the most dependable route of any tool on this page.
+          </p>
+
+          <h3>AI tools inside your editor or terminal</h3>
+          <p class="help">
+            Claude Code, Codex, Copilot and Cursor have no export button; they
+            write logs to hidden folders. Run this in your project folder and
+            upload the file it creates:
+          </p>
+          <pre><code id="collector-command">curl -sSO &lt;server&gt;/collect_ai_logs.py
+python3 collect_ai_logs.py --repo .</code></pre>
+          <p class="help">
+            It only picks up sessions from that one project folder, and it uploads
+            nothing — the bundle is written to <code>interaction-logging/</code>
+            inside your project and excluded from git, so your conversations are
+            never pushed where your teammates can read them. Upload that file
+            here. Re-running is safe: submitting again updates a session rather
+            than filing it twice.
+          </p>
+
+          <h3>ChatGPT</h3>
+          <p class="help">
+            Open the conversation, choose <strong>Share</strong>, and paste the
+            link into the share-link box below. We read the conversation from it,
+            including when each message was sent and which model answered.
+          </p>
+          <p class="notice">
+            A share link makes that one conversation readable by anyone who has
+            the URL. If you would rather not share it, paste the conversation
+            text instead.
+          </p>
+
+          <h3>Claude</h3>
+          <p class="help">
+            Share links cannot be read automatically, so either paste the
+            conversation text, or go to Settings → Privacy → Export data (web app
+            and Claude Desktop only, not iOS or Android). If you export, open
+            <code>conversations.json</code> first — if it is empty, the export did
+            not capture your chats and there is nothing to submit. The
+            <code>projects/</code> folder holds documents you uploaded, not
+            conversations.
+          </p>
+
+          <h3>Anything else</h3>
+          <p class="help">
+            Copy the conversation text and paste it. Select the messages
+            themselves — not "view page source".
+          </p>
+        </details>
+      </section>
+
+      <!-- Step 1b: consent, once, before anything is collected -->
+      <section id="step-consent" class="card" hidden>
+        <h2>Before you start</h2>
+        <p class="help">
+          Please read this and choose whether to take part. You are asked once;
+          after that you go straight to the submission page.
+        </p>
+
+        <div class="field">
+          <span class="label">Are you 18 years of age or older?</span>
+          <div id="age-options" class="options-column">
+            <label class="option">
+              <input type="radio" name="is-adult" value="yes" />
+              <span>Yes, I am 18 or older</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="is-adult" value="no" />
+              <span>No, I am under 18</span>
+            </label>
+          </div>
+        </div>
+
+        <p class="notice" id="age-ineligible-notice" hidden>
+          This study is open only to students aged 18 or older, so you cannot take
+          part and nothing of yours will be collected. This does not affect your
+          grade or your standing in CS 2114 in any way.
+        </p>
+
+        <div id="consent-body" hidden>
+          <div id="consent-document" class="consent-document"></div>
+
+        <div class="field">
+          <span class="label">Your decision</span>
+          <div id="consent-options" class="options-column">
+            <label class="option">
+              <input type="radio" name="consent" value="agree" />
+              <span>I have read this and I agree to take part</span>
+            </label>
+            <label class="option">
+              <input type="radio" name="consent" value="decline" />
+              <span>I do not agree to take part</span>
+            </label>
+          </div>
+        </div>
+
+        <p class="notice" id="consent-decline-notice" hidden>
+          If you do not agree, you will not be able to use this submission site,
+          and nothing of yours will be collected. This does not affect your grade
+          or your standing in CS 2114 in any way. You can come back and change
+          your answer at any point in the semester.
+        </p>
+
+          <p class="error" id="consent-error" hidden></p>
+          <button id="consent-continue" class="primary" disabled>Continue</button>
+        </div>
+      </section>
+
+      <!-- Step 2: add conversations -->
+      <section id="step-conversations" class="card" hidden>
+        <div class="scope-bar">
+          <span id="scope-summary"></span>
+          <button id="change-scope" class="link">Change</button>
+        </div>
+
+        <h2>Your GenAI conversations</h2>
+        <p class="help">
+          Add every conversation you used for this project, from any tool. Used
+          more than one tool? Add one entry per conversation.
+        </p>
+
+        <p class="status" id="draft-note" hidden>
+          <span id="draft-note-text"></span>
+          <button id="discard-draft" class="link">Discard draft</button>
+        </p>
+        <ul id="conversation-list" class="conversation-list"></ul>
+        <p class="empty-note" id="empty-note">No conversations added yet.</p>
+
+        <button id="open-adder" class="secondary">+ Add conversation</button>
+
+        <!-- Adder -->
+        <div id="adder" class="adder" hidden>
+          <h3>Add GenAI conversation</h3>
+
+          <div class="field">
+            <span class="label">How do you want to add it?</span>
+            <div class="input-modes">
+              <label class="file-drop">
+                <input type="file" id="file-input" multiple
+                       accept=".json,.jsonl,.ndjson,.txt,.md,.html,.htm" />
+                <span>Upload file(s) — JSON, JSONL, TXT, Markdown, HTML</span>
+                <span class="help">
+                  You can select several at once, so a folder of saved logs can go
+                  in one go.
+                </span>
+              </label>
+              <div class="or">OR</div>
+              <div class="paste-box">
+                <input id="share-link" placeholder="Paste a ChatGPT share link (https://chatgpt.com/share/…)" title="ChatGPT share links only. Claude and Gemini links cannot be read automatically." />
+                <button id="share-read" class="secondary">Read shared link</button>
+              </div>
+              <div class="or">OR</div>
+              <div class="paste-box">
+                <textarea id="paste-input" rows="6" placeholder="Paste the conversation here"></textarea>
+                <button id="paste-read" class="secondary">Read pasted text</button>
+              </div>
+            </div>
+            <p class="help">
+              Files are read in your browser. Only the conversations you select
+              below are sent to us. One file can hold several tools — we work out
+              which is which, and ask only about the ones we cannot place.
+            </p>
+          </div>
+
+          <p class="error" id="adder-error" hidden></p>
+          <p class="status" id="adder-status" hidden></p>
+
+          <!-- Selection appears when a file holds several conversations -->
+          <div id="selection-step" hidden>
+            <h4 id="selection-title">Select conversations used for this project</h4>
+            <div class="select-actions">
+              <button id="select-none" class="link">Clear all</button>
+              <input id="selection-filter" class="filter" placeholder="Filter by title" />
+              <label class="inline-check">
+                <input type="checkbox" id="show-all-dates" />
+                <span>Show conversations from outside this project's dates</span>
+              </label>
+            </div>
+            <p class="status" id="date-filter-note" hidden></p>
+            <ul id="selection-list" class="selection-list"></ul>
+            <button id="selection-continue" class="primary">Continue</button>
+          </div>
+
+          <!-- Per-conversation metadata -->
+          <div id="annotate-step" hidden>
+            <h4>Describe each conversation</h4>
+            <div id="annotate-list" class="annotate-list"></div>
+            <div class="row-actions">
+              <button id="annotate-add" class="primary">Add to my submission</button>
+              <button id="annotate-cancel" class="link">Cancel</button>
+            </div>
+          </div>
+
+          <button id="adder-cancel" class="link">Cancel</button>
+        </div>
+
+        <hr />
+
+        <div class="field">
+          <span class="label">
+            How much of your project-related GenAI interaction have you
+            submitted so far?
+          </span>
+          <p class="help">
+            Counting everything you have sent for this project, including
+            earlier submissions.
+          </p>
+          <div id="completeness-options" class="options-column"></div>
+        </div>
+
+        <p class="error" id="submit-error" hidden></p>
+        <button id="submit-all" class="primary">Submit</button>
+        <p class="status" id="submit-status" hidden></p>
+      </section>
+
+      <!-- Step 2b: the team's repository for this project -->
+      <section id="step-repository" class="card" hidden>
+        <h2>Your team's repository</h2>
+        <p class="help">
+          When your team has finished <span id="repo-project-name">this
+          project</span>, hand in the GitHub repository you built it in. One
+          link per team per project — any teammate can do it, and a later link
+          replaces an earlier one.
+        </p>
+
+        <p class="notice" id="repo-access-note"></p>
+
+        <div class="field">
+          <label for="repo-url">Repository link</label>
+          <input id="repo-url" type="url" autocomplete="off" spellcheck="false"
+                 placeholder="https://github.com/your-org/your-repo" />
+          <p class="help">
+            The address of the repository itself. A link to a branch or a file
+            works too — we trim it.
+          </p>
+        </div>
+
+        <p class="status" id="repo-current" hidden></p>
+        <p class="error" id="repo-error" hidden></p>
+        <button id="repo-submit" class="secondary">Save repository link</button>
+      </section>
+
+      <!-- Step 3: receipt -->
+      <section id="step-done" class="card" hidden>
+        <h2>Submitted</h2>
+        <p id="done-summary"></p>
+        <p class="help">
+          Keep this confirmation code for your records:
+          <code id="receipt"></code>
+        </p>
+      </section>
+    </main>
+
+    <script src="static/parsers.js"></script>
+    <script src="static/app.js"></script>
+  </body>
+</html>

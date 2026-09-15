@@ -32,3 +32,14 @@ Thumbs.db
 # Survey service (survey/): keep the committed example, ignore real env + build output
 !survey/.env.example
 survey/dist/
+
+# Transcript submission service (transcript-drop/). It carries its own
+# .gitignore, which is what actually protects the student data inside it — the
+# roster, the consent file and the SQLite databases. These lines are the
+# belt-and-braces copy at the root, where they are visible to anyone auditing
+# what this public repository can and cannot contain.
+!transcript-drop/.env.example
+transcript-drop/.venv/
+transcript-drop/data/
+transcript-drop/config/roster.csv
+transcript-drop/config/consent.csv

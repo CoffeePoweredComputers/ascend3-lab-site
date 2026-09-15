@@ -1,0 +1,49 @@
+# Nightly database backup, run by genai-backup.timer.
+#
+#   sudo cp deploy/genai-backup.{service,timer} /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now genai-backup.timer
+#   systemctl list-timers genai-backup      # confirm the next run
+#
+# Set BACKUP_DEST in /etc/genai-submission.env, and add the same path to
+# ReadWritePaths below -- they are two separate places and both have to agree.
+#
+# Point it off this VM once research storage is available. A copy on the same
+# disk survives a mistaken DELETE and nothing else, and the cluster rules allow
+# this machine to be switched off without notice.
+
+[Unit]
+Description=Back up the GenAI submission databases
+Documentation=file:///opt/genai-submission/docs/deployment.md
+
+[Service]
+Type=oneshot
+User=genai
+Group=genai
+WorkingDirectory=/opt/genai-submission
+
+# BACKUP_DEST is read from here.
+EnvironmentFile=/etc/genai-submission.env
+Environment=GENAI_DATA_DIR=/var/lib/genai-submission
+
+ExecStart=/opt/genai-submission/.venv/bin/python \
+  /opt/genai-submission/scripts/backup_databases.py ${BACKUP_DEST} --keep 30
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+# ProtectSystem=strict makes the whole filesystem read-only except what is
+# named here, and systemd cannot expand ${BACKUP_DEST} in this directive.
+#
+#   *** This list must include wherever BACKUP_DEST points. ***
+#
+# Miss it and the backup fails at 03:15 with a read-only filesystem error,
+# which is a failure nobody notices until the night they need a restore.
+ReadWritePaths=/var/lib/genai-submission
+ReadWritePaths=/var/backups/genai
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=genai-backup

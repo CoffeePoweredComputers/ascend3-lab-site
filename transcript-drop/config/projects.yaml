@@ -1,0 +1,172 @@
+# Course-level configuration. Edit per semester.
+#
+# Stage deadlines define the snapshot boundaries used by scripts/extract_git.py
+# (section 11). For each team/project/stage we record the last commit at or
+# before the deadline, which gives P2_SPEC / P2_PROTOTYPE / P2_FINAL states.
+
+course: "CS 2114"
+term: "Fall 2026"
+timezone: "America/New_York"
+
+# Staff accounts. Not research participants: they exist so the people running
+# the study can walk the real submission flow, and scripts/export_dataset.py
+# leaves their records out of the exported corpus.
+#
+# These must be addresses that can actually SIGN IN with Google. Sign-in is now
+# a VT Google account, so an address that exists only in this file and on the
+# roster cannot get past the front page -- which is exactly what the three below
+# are. Replace them with the real VT accounts of the study team (and update
+# config/roster.csv to match) before anyone tries to test the flow.
+admins:
+  - minsunkim@vt.edu
+
+projects:
+  # A sandbox for the admin accounts above, deliberately first and deliberately
+  # without stages. Without stages it has no date window, so nothing a tester
+  # submits is filtered by date -- and, because project_window() reads the
+  # previous project's stages to find where this one starts, an empty P0 leaves
+  # P1's window exactly as it was.
+  #
+  # hidden keeps it out of the student dropdown. Reach it at /?sandbox=1.
+  - id: P0
+    name: "Sandbox"
+    hidden: true
+
+  - id: P1
+    name: "Learning to Scope"
+    stages:
+      - key: SCOPE
+        name: "Scope"
+        deadline: "2026-09-08T23:59:00"
+      - key: SPEC
+        name: "Specification"
+        deadline: "2026-09-15T23:59:00"
+      - key: PROTOTYPE
+        name: "Prototype"
+        deadline: "2026-09-29T23:59:00"
+      - key: FINAL
+        name: "Final"
+        deadline: "2026-10-06T23:59:00"
+
+  - id: P2
+    name: "Building for Reuse"
+    stages:
+      - key: SCOPE
+        name: "Scope"
+        deadline: "2026-10-13T23:59:00"
+      - key: SPEC
+        name: "Specification"
+        deadline: "2026-10-20T23:59:00"
+      - key: PROTOTYPE
+        name: "Prototype"
+        deadline: "2026-11-03T23:59:00"
+      - key: FINAL
+        name: "Final"
+        deadline: "2026-11-10T23:59:00"
+
+  - id: P3
+    name: "Designing for Change"
+    stages:
+      - key: SCOPE
+        name: "Scope"
+        deadline: "2026-11-17T23:59:00"
+      - key: SPEC
+        name: "Specification"
+        deadline: "2026-11-24T23:59:00"
+      - key: PROTOTYPE
+        name: "Prototype"
+        deadline: "2026-12-01T23:59:00"
+      - key: FINAL
+        name: "Final"
+        deadline: "2026-12-08T23:59:00"
+
+# Shown on the repository page. A private repository URL on its own gets the
+# research team nowhere -- somebody has to be able to read it -- so this says how
+# that happens on this course. Edit it to match the arrangement in the protocol.
+repository:
+  # Rendered with the same small markdown subset the consent form uses:
+  # blank-line paragraphs, "- " bullets, **bold**.
+  access_note: |
+    Your repository stays **private**. Add **minsunkim@vt.edu** as a
+    collaborator with **Read** access so the research team can clone it. We
+    never need write access.
+
+    - Open your repository on GitHub, then **Settings → Collaborators** (called
+      **Collaborators and teams** on an organization repository).
+    - Choose **Add people**, enter `minsunkim@vt.edu`, and give the **Read**
+      role.
+    - Send the invitation. GitHub invitations expire after seven days, so do
+      this around the time you hand in the link below.
+
+    If your repository belongs to the course organization and GitHub will not
+    let you add someone from outside it, tell your instructor. Do not make the
+    repository public.
+
+# Platforms offered on the submission form. "other" always stays available so a
+# tool nobody anticipated still produces usable data (section 4).
+platforms:
+  - id: chatgpt
+    label: "ChatGPT"
+  - id: claude
+    label: "Claude"
+  - id: gemini
+    label: "Gemini"
+  - id: copilot
+    label: "GitHub Copilot"
+  - id: cursor
+    label: "Cursor"
+  - id: claude_code
+    label: "Claude Code"
+  - id: codex
+    label: "Codex"
+  - id: vt_arc
+    label: "VT Arc"
+  - id: perplexity
+    label: "Perplexity"
+  - id: other
+    label: "Other"
+
+# Conversation-level annotations (section 6). Kept deliberately short.
+primary_purposes:
+  - id: brainstorming
+    label: "Brainstorming"
+  - id: design
+    label: "Design / Specification"
+  - id: implementation
+    label: "Implementation"
+  - id: debugging
+    label: "Debugging"
+  - id: testing
+    label: "Testing"
+  - id: learning
+    label: "Learning / Explanation"
+  - id: other
+    label: "Other"
+
+reported_changes:
+  - id: none
+    label: "No"
+  - id: design
+    label: "Design/specification change"
+  - id: implementation
+    label: "Code/implementation change"
+  - id: testing
+    label: "Testing/debugging change"
+  - id: unsure
+    label: "Unsure"
+
+# Asked once per submission, as a share rather than a word. Bands rather than a
+# typed number on purpose: nobody can know that they submitted 73% of their own
+# conversations, and a box that accepts 73 invites a precision the answer does
+# not have. Five bands keep the ordering that analysis actually uses.
+completeness_levels:
+  - id: pct_81_100
+    label: "81-100%"
+  - id: pct_61_80
+    label: "61-80%"
+  - id: pct_41_60
+    label: "41-60%"
+  - id: pct_21_40
+    label: "21-40%"
+  - id: pct_0_20
+    label: "0-20%"
