@@ -22,6 +22,11 @@ on:
       - 'src/content.config.ts'
       - 'src/data/references.json'
       - 'src/lib/wiki.ts'
+      # Lab tools: a bad tool.json is skipped by the build on purpose (so it can
+      # never stall the server's autodeploy), which makes this the only place
+      # it fails loudly — in the PR, where the author sees it.
+      - 'tools/**'
+      - 'src/lib/lab-tools.ts'
 
 permissions:
   contents: read
@@ -36,6 +41,8 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+      - name: Validate lab tool manifests
+        run: node tools/_lib/deploy.mjs --validate
       - name: Build
         run: npm run build
         env:

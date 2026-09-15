@@ -1,0 +1,187 @@
+---
+/**
+ * /wiki/lab-tools — the member-only services under tools/<name>/.
+ *
+ * Two jobs: list the tools (from their manifests, at build time), and turn a
+ * signed-in approved member's Firebase session into the gate cookie that
+ * /tools/<name>/ requires. The cookie is minted by POSTing the ID token to
+ * the gate (/tools/_/session) — see tools/_gate/server.mjs. A tool visited
+ * without a cookie is bounced here with ?next=, and sent back once the
+ * cookie is set.
+ *
+ * Gate states mirror /undergrad: loading → signedout | pending | open | error.
+ * Uses `onUser` (replays the current auth state to late subscribers) rather
+ * than the `wiki-auth-change` event, which only fires on changes.
+ */
+import WikiLayout from '../../layouts/WikiLayout.astro';
+import { getLabTools } from '../../lib/lab-tools';
+import { GITHUB_REPO } from '../../lib/annotate/links';
+
+const tools = getLabTools();
+const configured = Boolean(
+  import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
+);
+const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
+---
+
+<WikiLayout title="Lab tools" noindex>
+  <article class="wiki-article py-12 lg:py-16">
+    <div class="wiki-prose">
+      <p class="font-mono text-sm text-primary mb-2">&gt; Lab tools</p>
+      <h1>Lab tools</h1>
+      <p class="text-text-muted">
+        Services built and hosted by the lab, for approved members. Each one runs on this server
+        from a folder under <code>tools/</code> in the site repository and goes live when it is
+        merged — <a href={howTo}>how to add one</a>.
+      </p>
+
+      <div class="labtools-gate mt-6" data-state={configured ? 'loading' : 'open'}>
+        <p class="labtools-gate__loading text-sm text-text-muted">Checking your membership…</p>
+
+        <div class="labtools-gate__signedout card p-8 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-2xl" aria-hidden="true">🔒</div>
+          <h2 class="font-heading text-xl font-semibold text-text mb-2 mt-0">Lab tools are members-only</h2>
+          <p class="text-text-muted max-w-md mx-auto mb-5">
+            Sign in with your Virginia Tech Google account. An admin approves new accounts before
+            they can open a tool.
+          </p>
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+            data-labtools-signin
+          >
+            Sign in to use lab tools
+          </button>
+          <p class="text-danger text-sm mt-3" data-labtools-error hidden></p>
+        </div>
+
+        <div class="labtools-gate__pending card p-8 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 border border-accent/20 text-2xl" aria-hidden="true">⏳</div>
+          <h2 class="font-heading text-xl font-semibold text-text mb-2 mt-0">Your account is pending approval</h2>
+          <p class="text-text-muted max-w-md mx-auto">
+            An admin needs to approve your account before you can open a tool. Check back soon, or
+            reach out to <a href="mailto:dhsmith4@vt.edu">dhsmith4@vt.edu</a>.
+          </p>
+        </div>
+
+        <div class="labtools-gate__error card p-6">
+          <p class="font-semibold text-text mb-1">Signed in, but the tools cookie could not be set.</p>
+          <p class="text-sm text-text-muted mb-0" data-labtools-detail></p>
+        </div>
+
+        <p class="labtools-gate__open text-sm text-text-muted">
+          Signed in as <span class="font-medium text-text" data-labtools-email></span>.
+          Tools open in this tab; the sign-in lasts a day.
+          <a href="/tools/_/status">Deploy status</a>
+        </p>
+      </div>
+
+      {tools.length === 0 && (
+        <p class="text-text-muted mt-8">No tools yet. The first one is a PR away.</p>
+      )}
+    </div>
+
+    {tools.length > 0 && (
+      <div class="wiki-prose">
+        <div class="grid gap-5 sm:grid-cols-2 mt-8 not-prose">
+          {tools.map((t) => (
+            <a href={t.href} class="card no-underline p-6 flex flex-col gap-3 group">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl" aria-hidden="true">{t.icon}</span>
+                <h2 class="font-heading text-lg font-bold text-text group-hover:text-primary transition-colors m-0">{t.title}</h2>
+              </div>
+              <p class="text-sm text-text-muted flex-grow m-0">{t.blurb}</p>
+              <p class="text-xs font-mono text-text-muted m-0">{t.owner}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </article>
+</WikiLayout>
+
+<style>
+  .labtools-gate > * { display: none; }
+  .labtools-gate[data-state='loading'] .labtools-gate__loading,
+  .labtools-gate[data-state='signedout'] .labtools-gate__signedout,
+  .labtools-gate[data-state='pending'] .labtools-gate__pending,
+  .labtools-gate[data-state='error'] .labtools-gate__error,
+  .labtools-gate[data-state='open'] .labtools-gate__open { display: block; }
+</style>
+
+<script>
+  const gate = document.querySelector<HTMLElement>('.labtools-gate');
+
+  /** Follow ?next= at most once per tool per two minutes. If the cookie was
+   *  set but the tool still answers 401 (cookies blocked, gate mismatch), the
+   *  bounce would otherwise loop forever. */
+  function bounceOnce(tool: string): boolean {
+    const key = `labtools-bounce:${tool}`;
+    try {
+      const last = Number(sessionStorage.getItem(key) ?? 0);
+      if (Date.now() - last < 120_000) return false;
+      sessionStorage.setItem(key, String(Date.now()));
+    } catch {
+      /* storage unavailable: still redirect once */
+    }
+    return true;
+  }
+
+  if (gate && gate.dataset.state === 'loading') {
+    (async () => {
+      const { onUser, getMember, isApprovedMember, signIn } = await import('@lib/annotate/auth');
+
+      const signinBtn = gate.querySelector<HTMLButtonElement>('[data-labtools-signin]');
+      const errorEl = gate.querySelector<HTMLElement>('[data-labtools-error]');
+      const detailEl = gate.querySelector<HTMLElement>('[data-labtools-detail]');
+      const emailEl = gate.querySelector<HTMLElement>('[data-labtools-email]');
+
+      signinBtn?.addEventListener('click', async () => {
+        if (errorEl) errorEl.hidden = true;
+        try {
+          const { user, member } = await signIn();
+          // Repaint the shared AuthWidget in the sidebar (see undergrad.astro).
+          window.dispatchEvent(new CustomEvent('wiki-auth-change', { detail: { user, member } }));
+        } catch (e) {
+          if (errorEl) {
+            errorEl.textContent = e instanceof Error ? e.message : 'Sign-in failed. Please try again.';
+            errorEl.hidden = false;
+          }
+        }
+      });
+
+      const next = new URLSearchParams(location.search).get('next') ?? '';
+      const target = next.match(/^\/tools\/([a-z0-9][a-z0-9-]*)\//)?.[1] ?? null;
+
+      onUser(async (user) => {
+        if (!user) { gate.dataset.state = 'signedout'; return; }
+        const member = await getMember(user.uid);
+        if (!isApprovedMember(member)) { gate.dataset.state = 'pending'; return; }
+        try {
+          const idToken = await user.getIdToken();
+          const r = await fetch('/tools/_/session', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ idToken }),
+          });
+          if (!r.ok) throw new Error(`The gate answered ${r.status}.`);
+        } catch (e) {
+          if (detailEl) detailEl.textContent = e instanceof Error ? e.message : String(e);
+          gate.dataset.state = 'error';
+          return;
+        }
+        if (emailEl) emailEl.textContent = user.email ?? '';
+        gate.dataset.state = 'open';
+        if (target) {
+          if (bounceOnce(target)) {
+            location.replace(`/tools/${target}/`);
+          } else if (detailEl) {
+            detailEl.textContent = `The cookie was set, but /tools/${target}/ still asked for sign-in. Check that cookies are allowed for this site.`;
+            gate.dataset.state = 'error';
+          }
+        }
+      });
+    })();
+  }
+</script>
