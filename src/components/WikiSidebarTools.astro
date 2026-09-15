@@ -1,0 +1,42 @@
+---
+/**
+ * The two utility sections at the foot of the wiki nav, rendered twice per
+ * page (desktop sidebar + mobile menu), so they live here once:
+ *
+ *  - Research tools: standalone static pages, open to everyone (wiki-tools.json).
+ *  - Lab tools: hosted services under /tools/<name>/, members only. Listed for
+ *    everyone; the links themselves are what the gate protects — a signed-out
+ *    click bounces to /wiki/lab-tools to sign in.
+ */
+import tools from '../data/wiki-tools.json';
+import { getLabTools } from '../lib/lab-tools';
+
+interface Props {
+  /** Current pathname with any trailing slash stripped, for aria-current. */
+  current: string;
+}
+const { current } = Astro.props;
+const labTools = getLabTools();
+---
+
+<div class="wiki-tools">
+  <p class="wiki-tools__label">Research tools</p>
+  {tools.map((t) => (
+    <a href={t.href} class="wiki-tool no-underline" aria-current={current === t.href ? 'page' : undefined}>
+      <span class="wiki-mod__icon" aria-hidden="true">{t.icon}</span>
+      <span class="wiki-tool__title">{t.title}</span>
+    </a>
+  ))}
+</div>
+
+<div class="wiki-tools">
+  <a href="/wiki/lab-tools" class="wiki-tools__label" aria-current={current === '/wiki/lab-tools' ? 'page' : undefined}>Lab tools</a>
+  {labTools.length === 0 && <p class="text-xs text-text-muted px-2 py-1">None yet.</p>}
+  {labTools.map((t) => (
+    <a href={t.href} class="wiki-tool no-underline" title="Members only">
+      <span class="wiki-mod__icon" aria-hidden="true">{t.icon}</span>
+      <span class="wiki-tool__title">{t.title}</span>
+      <span class="wiki-tool__lock" aria-hidden="true">🔒</span>
+    </a>
+  ))}
+</div>
