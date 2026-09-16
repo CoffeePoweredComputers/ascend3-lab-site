@@ -29,6 +29,7 @@ body {
   position: absolute;
   inset: 0;
   box-sizing: border-box;
+  font-variant-ligatures: none;   /* JetBrains Mono ligates != into ≠ (and -> etc.); code must show the Java as typed */
   flex-direction: column;
   padding: var(--s-7) var(--s-8);
   overflow: hidden;
