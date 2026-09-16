@@ -1,0 +1,155 @@
+<section class="slide slide--warmup" id="slide-16" data-sid="16-project-d3:1">
+  <header class="slide__head" data-sid="16-project-d3:2">
+    <p class="slide__kicker" data-sid="16-project-d3:3">PROJECT 1 &middot; DELIVERABLE 3 &middot; WEEK 5 LAB</p>
+    <h2 data-sid="16-project-d3:4">The final talk is for the other groups</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="16-project-d3:5">A room, drawn in stick figures. On the left, captioned your group, a figure stands at a screen with one arm raised towards it. On the right, captioned the other groups, seven busts sit in two rows at tables. The screen changes with each step and a one-line caption under the scene changes with it. Step one: the empty screen; ten minutes to your lab section, live demo included, no writeup. Step two: the screen shows a small system diagram of three boxes; what you built and what changed from the spec. Step three: the screen shows a program window with two runs, each ticked; a demo of one feature working and one bad input handled. Step four: the screen shows scope, spec and code joined by arrows, the second arrow jagged; what went well and what did not. Step five: the screen shows a chat, a prompt and an orange reply, and three orange arcs radiate from the screen&rsquo;s edge towards the room; what you learned about using GenAI, one thing the other groups do not know yet, with the actual prompt on the screen. Step six: the caption reads that it is due at the start of your Week 5 lab, graded EMRN, aim for Meets, and that the grading session is an oral exam.</p>
+
+  <!-- Deliverable 3 is a build and a ten-minute talk, and the talk is the
+       point: each group tells the section one thing it learned — above all
+       about using LLMs on a real project — that the others do not know yet.
+       So the slide is the room, in the deal slide's grammar: your group's
+       presenter (ink, the heavier pen) at a screen, the other groups as busts
+       at tables (the muted pen), and the screen playing the four parts of the
+       talk one per press. Part 4 is the one where something leaves the screen:
+       three orange arcs radiate from its edge towards the room. The brief itself lives in the notes and
+       on Canvas. viewBox = the body's rect under kicker + h2. -->
+  <div class="slide__body" data-sid="16-project-d3:6">
+    <svg class="d3" viewBox="128 299 1664 685" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A presenter at a screen on the left, the other groups at tables on the right; the screen shows each part of the talk in turn" data-sid="16-project-d3:7">
+      <defs data-sid="16-project-d3:8">
+        <g id="w4d1-16-person" data-sid="16-project-d3:9"><circle cy="-40" r="30" data-sid="16-project-d3:10"/><path d="M-50 40v-14a50 50 0 0 1 100 0v14" data-sid="16-project-d3:11"/></g>
+      </defs>
+
+      <!-- role captions -->
+      <text class="d3__role" x="330" y="420" data-sid="16-project-d3:12">your group</text>
+      <text class="d3__role" x="1440" y="420" data-sid="16-project-d3:13">the other groups</text>
+
+      <!-- your group: the presenter, arm raised to the screen -->
+      <g class="d3__lead" data-sid="16-project-d3:14">
+        <circle cx="300" cy="560" r="26" data-sid="16-project-d3:15"/>
+        <path d="M300 586V700M300 616L364 574M300 616L262 664M300 700L276 776M300 700L324 776" data-sid="16-project-d3:16"/>
+      </g>
+
+      <!-- the screen on its stand -->
+      <rect class="d3__screen" x="420" y="500" width="540" height="300" rx="8" data-sid="16-project-d3:17"/>
+      <path class="d3__stand" d="M690 800v50M630 850h120" data-sid="16-project-d3:18"/>
+
+      <!-- step 2: what you built — the system diagram -->
+      <g class="d3__shot frag" data-step="2" data-anim="fade" data-sid="16-project-d3:19">
+        <rect class="d3__box" x="470" y="610" width="120" height="72" rx="8" data-sid="16-project-d3:20"/>
+        <rect class="d3__box" x="630" y="610" width="120" height="72" rx="8" data-sid="16-project-d3:21"/>
+        <rect class="d3__box" x="790" y="610" width="120" height="72" rx="8" data-sid="16-project-d3:22"/>
+        <path class="d3__ink" d="M590 646h28M618 646l-10 -6v12zM750 646h28M778 646l-10 -6v12z" data-sid="16-project-d3:23"/>
+        <text class="d3__tag" x="690" y="575" data-sid="16-project-d3:24">system diagram</text>
+      </g>
+
+      <!-- step 3: the demo — two runs, both handled -->
+      <g class="d3__shot frag" data-step="3" data-anim="fade" data-sid="16-project-d3:25">
+        <rect class="d3__bar" x="440" y="520" width="500" height="28" data-sid="16-project-d3:26"/>
+        <text class="d3__mono" x="470" y="612" data-sid="16-project-d3:27">&gt; run 42</text>
+        <path class="d3__tick" d="M820 606l12 12l22 -28" data-sid="16-project-d3:28"/>
+        <text class="d3__mono d3__mono--bad" x="470" y="690" data-sid="16-project-d3:29">&gt; run banana</text>
+        <path class="d3__tick" d="M820 684l12 12l22 -28" data-sid="16-project-d3:30"/>
+        <text class="d3__tag" x="690" y="760" data-sid="16-project-d3:31">one feature &middot; one bad input</text>
+      </g>
+
+      <!-- step 4: what went well and what did not — scope, spec, code -->
+      <g class="d3__shot frag" data-step="4" data-anim="fade" data-sid="16-project-d3:32">
+        <text class="d3__word" x="500" y="660" data-sid="16-project-d3:33">scope</text>
+        <text class="d3__word" x="690" y="660" data-sid="16-project-d3:34">spec</text>
+        <text class="d3__word" x="880" y="660" data-sid="16-project-d3:35">code</text>
+        <path class="d3__ink" d="M560 650h68M628 650l-10 -6v12z" data-sid="16-project-d3:36"/>
+        <path class="d3__rough" d="M745 650l14 -18l14 30l14 -24l14 22l14 -10M815 650l-10 -6v12z" data-sid="16-project-d3:37"/>
+      </g>
+
+      <!-- step 5: what you learned about GenAI — a prompt, a reply, and it leaves the screen -->
+      <g class="d3__shot d3__shot--keep frag" data-step="5" data-anim="fade" data-sid="16-project-d3:38">
+        <rect class="d3__bubble" x="450" y="540" width="300" height="76" rx="12" data-sid="16-project-d3:39"/>
+        <text class="d3__mono" x="470" y="588" data-sid="16-project-d3:40">prompt</text>
+        <rect class="d3__bubble d3__bubble--reply" x="610" y="650" width="320" height="76" rx="12" data-sid="16-project-d3:41"/>
+        <text class="d3__mono d3__mono--reply" x="630" y="698" data-sid="16-project-d3:42">reply</text>
+      </g>
+      <g class="d3__share" data-sid="16-project-d3:43">
+        <path class="d3__wave frag" data-step="5" style="--i: 0" pathLength="100" d="M985 594 A 66 66 0 0 1 985 726" data-sid="16-project-d3:44"/>
+        <path class="d3__wave frag" data-step="5" style="--i: 1" pathLength="100" d="M1000 548 A 112 112 0 0 1 1000 772" data-sid="16-project-d3:45"/>
+        <path class="d3__wave frag" data-step="5" style="--i: 2" pathLength="100" d="M1015 512 A 148 148 0 0 1 1015 808" data-sid="16-project-d3:46"/>
+      </g>
+
+      <!-- the other groups: two rows at tables -->
+      <g class="d3__people" data-sid="16-project-d3:47">
+        <use href="#w4d1-16-person" x="1280" y="520" data-sid="16-project-d3:48"/>
+        <use href="#w4d1-16-person" x="1440" y="520" data-sid="16-project-d3:49"/>
+        <use href="#w4d1-16-person" x="1600" y="520" data-sid="16-project-d3:50"/>
+        <line class="d3__table" x1="1210" y1="570" x2="1670" y2="570" data-sid="16-project-d3:51"/>
+        <use href="#w4d1-16-person" x="1200" y="680" data-sid="16-project-d3:52"/>
+        <use href="#w4d1-16-person" x="1360" y="680" data-sid="16-project-d3:53"/>
+        <use href="#w4d1-16-person" x="1520" y="680" data-sid="16-project-d3:54"/>
+        <use href="#w4d1-16-person" x="1680" y="680" data-sid="16-project-d3:55"/>
+        <line class="d3__table" x1="1130" y1="730" x2="1750" y2="730" data-sid="16-project-d3:56"/>
+      </g>
+
+      <!-- captions: one sentence per beat -->
+      <text class="d3__cap frag" data-step="1" x="960" y="940" data-sid="16-project-d3:57">Ten minutes to your lab section, live demo included. No writeup &mdash; the talk replaces it.</text>
+      <text class="d3__cap frag" data-step="2" x="960" y="940" data-sid="16-project-d3:58">1 &middot; What you built: the MVP and your system diagram; what changed from the spec, and why.</text>
+      <text class="d3__cap frag" data-step="3" x="960" y="940" data-sid="16-project-d3:59">2 &middot; Demo: one feature working, one bad input handled.</text>
+      <text class="d3__cap frag" data-step="4" x="960" y="940" data-sid="16-project-d3:60">3 &middot; What went well and what did not: scope to spec, spec to code.</text>
+      <text class="d3__cap frag" data-step="5" x="960" y="940" data-sid="16-project-d3:61">4 &middot; What you learned about using GenAI: one thing the other groups do not know yet. Show the prompt.</text>
+      <text class="d3__cap frag" data-step="6" x="960" y="940" data-sid="16-project-d3:62">Due at the start of your Week 5 lab &middot; graded EMRN, aim for Meets &middot; the grading session is an oral exam.</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="16-project-d3:63"></div>
+  <aside class="notes" data-sid="16-project-d3:64">Before you go: Project 1 ends next week at your lab with Deliverable 3, and the talk is the point of it. Step 1: ten minutes per group to your lab section, with a live demo; there is no separate writeup, the talk replaces it. What is due with it: working code that does the MVP and survives bad input, JUnit tests that run (one normal and one bad-input case per key method), the source with a line on how to compile and run it, and the slides. Step 2, about two minutes: what you built &mdash; the MVP and your system diagram, what changed from your Deliverable 2 spec and why, any stretch goals. Step 3, about two minutes: the demo &mdash; one MVP feature working and one bad input handled. Step 4, about two minutes: what went well and what did not, from scope to spec and from spec to code; what scoping means to you now compared with Week 3. Step 5, three to four minutes, the most important part: what you learned about using GenAI. This is why the talks happen in front of each other: every group used LLMs differently and hit different problems, and the section learns more from ten short reports of that than from anything I could say. The ask is one specific thing the other groups may not know yet &mdash; a way of prompting that worked well or badly, a wrong answer and how you noticed, a task it helped with that you did not expect (scoping, testing, debugging), or how your use of it changed between Week 3 and now &mdash; with the actual prompt or output on the screen. Step 6: due at the start of your lab session; graded EMRN, aim for at least Meets; bring the work ready to defend, the grading session is an oral exam. The full brief, the learning objectives and the EMRN table are on the Project 1: Learning to Scope overview page on Canvas.</aside>
+
+  <style data-sid="16-project-d3:65">
+    /* Slide-local: the room, in the deal slide's grammar. The presenter is the
+       whole-body figure in the ink pen (this is you); the other groups are the
+       bust-at-a-table glyph in the muted pen; the screen is paper on a stand.
+       Each part of the talk is a small drawing on the screen that FadeIns on
+       its press and hides when the next arrives (part 4's stays). Part 4's
+       arcs are the point: orange, Create by dashoffset on a stagger, from
+       the screen's edge towards the room. The caption row under the scene reads one
+       sentence at a time. Used by this slide only, all values from tokens;
+       viewBox = the body's rect under kicker + h2. */
+    #slide-16 .slide__body { position: relative; }
+    #slide-16 .d3 { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    #slide-16 .d3__role { font-family: var(--font-display); font-size: var(--t-body); fill: var(--fg-0); text-anchor: middle; }
+    #slide-16 .d3__lead circle, #slide-16 .d3__lead path { fill: none; stroke: var(--fg-0); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-16 .d3__people { fill: none; stroke: var(--fg-1); stroke-width: 7; stroke-linecap: round; }
+    #slide-16 .d3__table { stroke: var(--fg-1); stroke-width: 5; }
+    #slide-16 .d3__screen { fill: var(--paper); stroke: var(--fg-1); stroke-width: 5; }
+    #slide-16 .d3__stand { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
+
+    /* what is on the screen */
+    #slide-16 .d3__shot { transition: opacity .3s ease; }
+    #slide-16 .frag.d3__shot.is-past { opacity: 0; }
+    #slide-16 .frag.d3__shot--keep.is-past { opacity: 1; }
+    #slide-16 .d3__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-16 .d3__ink { fill: var(--fg-1); stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-16 .d3__rough { fill: var(--accent-1); stroke: var(--accent-1); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-16 .d3__bar { fill: var(--stone); fill-opacity: .35; }
+    #slide-16 .d3__tag { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle; }
+    #slide-16 .d3__mono { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-16 .d3__mono--bad { fill: var(--fg-1); }
+    #slide-16 .d3__mono--reply { fill: var(--accent-3); }
+    #slide-16 .d3__word { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-16 .d3__tick { fill: none; stroke: var(--accent-3); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-16 .d3__bubble { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-16 .d3__bubble--reply { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+
+    /* part 4 leaves the screen: three arcs radiate towards the room, drawn on in turn */
+    #slide-16 .d3__wave { fill: none; stroke: var(--accent-3); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
+    #slide-16 .frag.d3__wave.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-16 .frag.d3__wave.is-current, #slide-16 .frag.d3__wave.is-past { stroke-dashoffset: 0; transition-delay: calc(.3s + var(--i) * .2s); }
+
+    /* the caption row: the current beat's sentence, and only that one */
+    #slide-16 .d3__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-16 .frag.d3__cap.is-current { transition-delay: .4s; }
+    #slide-16 .frag.d3__cap.is-past { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-16 .d3__shot, #slide-16 .d3__wave, #slide-16 .d3__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
