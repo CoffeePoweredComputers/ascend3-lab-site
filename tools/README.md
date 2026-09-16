@@ -13,10 +13,17 @@ the same approval the wiki uses) can reach them.
 1. Copy [`hello/`](hello/) to `tools/<name>/`. The directory name is the
    tool's name and its URL: lowercase letters, digits and hyphens, 2 to 32
    characters, not starting with `_`.
-2. Edit `tool.json`. Four fields, all required, nothing else allowed:
+2. Edit `tool.json`. Four fields, all required:
 
    ```json
    { "title": "Code Tracer", "blurb": "One sentence for the wiki card.", "icon": "🧪", "owner": "pid@vt.edu" }
+   ```
+
+   A tool that is a **study instrument** adds two more, so the students in
+   the study can use it without being lab members (see *Study tools* below):
+
+   ```json
+   { "...": "...", "access": "participants", "participantsUntil": "2026-12-20" }
    ```
 3. Write the app so that it listens on **`0.0.0.0:$PORT`** (`PORT` is always
    8080 inside the container), writes only under **`/data`**, and starts
@@ -45,6 +52,8 @@ the same approval the wiki uses) can reach them.
 | `PORT=8080` | listen here, on all interfaces inside the container |
 | `TOOL_ROOT_PATH=/tools/<name>` | the public prefix. nginx strips it before proxying, so your app sees `/`; relative URLs need nothing. Frameworks that build absolute URLs take it as a root path: uvicorn `--root-path $TOOL_ROOT_PATH`, Streamlit `--server.baseUrlPath`, Gradio `root_path=`, Express `app.use(process.env.TOOL_ROOT_PATH, router)` |
 | `X-Forwarded-Prefix` header | the same value, per request |
+| `X-Tool-User`, `X-Tool-Uid`, `X-Tool-Role` headers | who is asking, on every request: their VT email, their Firebase uid, and `member` or `participant`. nginx sets these from the gate's answer and overwrites anything a client sent, so they can be trusted. Key your tool's own data by `X-Tool-Uid` |
+| `TOOL_ACCESS` | `members` or `participants`, from your `tool.json` |
 | `/data` | persistent, per tool, kept across deploys, never deleted by the runner. Owned by the deploy user, which your process runs as |
 | `HOME=/tmp` | your process runs as a uid the image has no passwd entry for |
 | secrets | if `~/.config/ascend-tools/tools/<name>.env` exists on the server it is loaded as environment. Ask an admin to place it; never commit one |
@@ -70,6 +79,37 @@ would review site code, because that is what it is.
 **Start idempotently.** The runner starts each new build twice (a pre-flight
 on a scratch port, then for real), and Docker restarts a crashed container.
 Migrations, seed data and caches must tolerate that.
+
+## Study tools: participants
+
+By default only approved lab members can open a tool. A tool that students
+use as part of a study sets `"access": "participants"` and a study end date,
+`"participantsUntil": "YYYY-MM-DD"` (inclusive, end of that day Eastern).
+Then:
+
+- **Any verified @vt.edu Google sign-in is admitted** to that tool, and only
+  that tool. No roster, no admin approval. Lab members can open it too.
+- **The participant role is assigned at sign-in** by the gate, never by an
+  admin, and never touches the `members` collection: participants do not
+  appear as pending members in the admin dashboard. Send students to
+  `https://ascend3.cs.vt.edu/tools/<name>/`; the sign-in page adapts.
+- **Two Firestore records are written per person per study**, with the
+  student's own token, so the security rules bound them:
+  `participants/<tool>_<uid>` (`uid`, `email`, `tool`, `createdAt`,
+  `lastLoginAt`, `expiresAt`) is the active role and **auto-deletes after the
+  study**: a Firestore TTL policy on `expiresAt` removes it within about a
+  day of the end date. `participations/<tool>_<uid>` (`uid`, `email`, `tool`,
+  `firstLoginAt`, `lastLoginAt`, `participantsUntil`) is **kept**: who took
+  part in which study. Only `lastLoginAt` ever changes.
+- **After `participantsUntil`** no participant can sign in and existing
+  participant cookies stop working at the tool, immediately. Change the date
+  in `tool.json` and merge to extend a study.
+- A member using a study tool is a member, not a participant: no records.
+- Firebase Auth accounts themselves are not deleted by any of this.
+
+Your tool learns who the participant is from `X-Tool-Uid` and `X-Tool-User`
+on every request. Store your study data under `/data`, keyed by uid; the
+gate's records are the roster, not the data.
 
 ## Containerfile starters
 
@@ -112,10 +152,12 @@ cron ─▶ autodeploy.sh ─▶ node tools/_lib/deploy.mjs   (build, pre-flight
 - **nginx** has one static block for `/tools/`. It never changes per tool. The
   gate answers both "is this a member?" and "which port is `<name>` on?", so
   there is no per-tool location to add and nothing to reload.
-- **The gate** (`_gate/`) verifies the member's Firebase ID token against
+- **The gate** (`_gate/`) verifies the person's Firebase ID token against
   Google's public keys and reads `members/{uid}` through the Firestore REST
-  API as that user, so the existing rules decide. It sets a signed cookie
-  scoped to `/tools`, valid for 24 hours. No Admin SDK and no service-account
+  API as that user, so the existing rules decide. For a study tool it also
+  writes the two participant records the same way. It sets a signed cookie
+  scoped to `/tools`, valid for 24 hours, carrying the role and, for
+  participants, which tools they are in. No Admin SDK and no service-account
   key exist on the server.
 - **The runner** (`_lib/deploy.mjs`) builds every changed tool, starts the new
   image on a scratch port until it answers HTTP, then swaps it in. A build
@@ -147,7 +189,16 @@ chmod 600 ~/.config/ascend-tools/_gate.env
 docker run --rm --memory 64m hello-world
 ss -ltn | grep -v 127.0.0.1      # nothing else should listen on 0.0.0.0
 
-# 4. first deploy, without waiting for cron
+# 4. Firestore, for study tools (from any machine with the Firebase CLI signed in):
+#    deploy the rules for the participants/participations collections, and turn
+#    on the TTL policy that auto-deletes participant records after a study.
+#      firebase deploy --only firestore:rules --project ascend3-lab
+#      gcloud firestore fields ttls update expiresAt --collection-group=participants \
+#        --enable-ttl --project=ascend3-lab
+#    (or Firebase console → Firestore → Time-to-live → add policy:
+#     collection group "participants", field "expiresAt")
+
+# 5. first deploy, without waiting for cron
 cd ~/ascend3-lab-site && node tools/_lib/deploy.mjs --force all
 curl -i https://ascend3.cs.vt.edu/tools/_/healthz
 curl -i https://ascend3.cs.vt.edu/tools/hello/     # 302 to /wiki/lab-tools: the gate works

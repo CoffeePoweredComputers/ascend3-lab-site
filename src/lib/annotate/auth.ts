@@ -55,6 +55,23 @@ export async function signIn(): Promise<{ user: User; member: Member }> {
   return { user: cred.user, member };
 }
 
+/**
+ * Google sign-in for a STUDY PARTICIPANT reaching a lab tool: the same vt.edu
+ * enforcement as `signIn`, but no member record is created, so participants
+ * never appear as pending members in the admin dashboard. The lab tools gate
+ * assigns them the participant role server-side (tools/_gate).
+ */
+export async function signInParticipant(): Promise<User> {
+  const auth = getAuthClient();
+  const cred = await signInWithPopup(auth, vtProvider());
+  if (!isVtEmail(cred.user.email)) {
+    await fbSignOut(auth);
+    throw new Error('Please sign in with your Virginia Tech (@vt.edu) Google account.');
+  }
+  localStorage.setItem(AUTH_FLAG, '1');
+  return cred.user;
+}
+
 export async function signOut(): Promise<void> {
   localStorage.removeItem(AUTH_FLAG);
   await fbSignOut(getAuthClient());

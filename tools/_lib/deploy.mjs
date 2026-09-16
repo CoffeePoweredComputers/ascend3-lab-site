@@ -301,7 +301,11 @@ function runArgs(t, { container, hostPort, restart }) {
     );
   } else {
     const envFile = path.join(SECRETS_DIR, 'tools', `${t.name}.env`);
-    a.push('-e', `TOOL_ROOT_PATH=/tools/${t.name}`, '-v', `${path.join(DATA_ROOT, t.name)}:/data`);
+    a.push(
+      '-e', `TOOL_ROOT_PATH=/tools/${t.name}`,
+      '-e', `TOOL_ACCESS=${t.manifest?.access ?? 'members'}`,
+      '-v', `${path.join(DATA_ROOT, t.name)}:/data`,
+    );
     if (fs.existsSync(envFile)) a.push('--env-file', envFile);
   }
   a.push(`${containerName(t.name)}:candidate`);
@@ -339,6 +343,8 @@ async function deployTool(t, status) {
   entry.tree = tree;
   entry.sha = gitSha();
   entry.title = t.manifest?.title ?? null;
+  entry.access = t.manifest?.access ?? null;                       // the gate decides admission from these
+  entry.participantsUntil = t.manifest?.participantsUntil ?? null;
   const image = `${container}:candidate`;
 
   log(`${t.name}: building ${tree}`);
@@ -429,7 +435,12 @@ async function main() {
         bad++;
         console.error(`✗ tools/${t.name}: ${t.error}`);
       } else {
-        console.log(`✓ tools/${t.name}${t.manifest ? ` — ${t.manifest.title}` : ''}`);
+        const m = t.manifest;
+        const mode = m?.access === 'participants' ? ` [participants until ${m.participantsUntil}]` : '';
+        console.log(`✓ tools/${t.name}${m ? ` — ${m.title}${mode}` : ''}`);
+        if (m?.participantsUntil && new Date(`${m.participantsUntil}T23:59:59-05:00`) < new Date()) {
+          console.warn(`  note: tools/${t.name} participantsUntil ${m.participantsUntil} has passed; participants can no longer sign in`);
+        }
       }
     }
     process.exit(bad ? 1 : 0);

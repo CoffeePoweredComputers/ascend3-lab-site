@@ -19,7 +19,10 @@ export interface LabTool {
   blurb: string;
   icon: string;
   owner: string;
-  /** Where the running tool is served: /tools/<name>/ (member cookie required). */
+  /** "members" (lab only) or "participants" (a study: any VT sign-in, until participantsUntil). */
+  access: 'members' | 'participants';
+  participantsUntil?: string;
+  /** Where the running tool is served: /tools/<name>/ (gate cookie required). */
   href: string;
 }
 

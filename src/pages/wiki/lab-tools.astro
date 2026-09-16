@@ -1,15 +1,23 @@
 ---
 /**
- * /wiki/lab-tools — the member-only services under tools/<name>/.
+ * /wiki/lab-tools — the member-only services under tools/<name>/, and the
+ * sign-in page for study participants.
  *
  * Two jobs: list the tools (from their manifests, at build time), and turn a
- * signed-in approved member's Firebase session into the gate cookie that
- * /tools/<name>/ requires. The cookie is minted by POSTing the ID token to
- * the gate (/tools/_/session) — see tools/_gate/server.mjs. A tool visited
- * without a cookie is bounced here with ?next=, and sent back once the
- * cookie is set.
+ * signed-in person's Firebase session into the gate cookie that
+ * /tools/<name>/ requires, by POSTing the ID token to /tools/_/session (see
+ * tools/_gate/server.mjs). A tool visited without a cookie is bounced here
+ * with ?next=, and sent back once the cookie is set.
  *
- * Gate states mirror /undergrad: loading → signedout | pending | open | error.
+ * Two modes, chosen by what ?next= points at:
+ *  - member mode (default): approved lab members only; others see the
+ *    pending-approval panel.
+ *  - participant mode: ?next= names a tool with access "participants" (a
+ *    study). Any VT sign-in is accepted; the gate assigns the participant
+ *    role and records the participation. No member record is created, so
+ *    participants never show up as pending members.
+ *
+ * Gate states: loading → signedout | participant | pending | closed | open | error.
  * Uses `onUser` (replays the current auth state to late subscribers) rather
  * than the `wiki-auth-change` event, which only fires on changes.
  */
@@ -22,6 +30,16 @@ const configured = Boolean(
   import.meta.env.PUBLIC_FIREBASE_API_KEY && import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
 );
 const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
+
+/** What the client script needs to tell a study tool from a lab tool. */
+const toolData = Object.fromEntries(
+  tools.map((t) => [
+    t.name,
+    { title: t.title, icon: t.icon, access: t.access, participantsUntil: t.participantsUntil ?? null },
+  ]),
+);
+const fmtDate = (ymd: string) =>
+  new Date(`${ymd}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
 <WikiLayout title="Lab tools" noindex>
@@ -32,11 +50,12 @@ const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
       <p class="text-text-muted">
         Services built and hosted by the lab, for approved members. Each one runs on this server
         from a folder under <code>tools/</code> in the site repository and goes live when it is
-        merged — <a href={howTo}>how to add one</a>.
+        merged — <a href={howTo}>how to add one</a>. A tool marked as a study also admits the
+        students taking part in it.
       </p>
 
       <div class="labtools-gate mt-6" data-state={configured ? 'loading' : 'open'}>
-        <p class="labtools-gate__loading text-sm text-text-muted">Checking your membership…</p>
+        <p class="labtools-gate__loading text-sm text-text-muted">Checking your sign-in…</p>
 
         <div class="labtools-gate__signedout card p-8 text-center">
           <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-2xl" aria-hidden="true">🔒</div>
@@ -55,12 +74,39 @@ const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
           <p class="text-danger text-sm mt-3" data-labtools-error hidden></p>
         </div>
 
+        <div class="labtools-gate__participant card p-8 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 border border-primary/20 text-2xl" aria-hidden="true" data-labtools-p-icon>🧪</div>
+          <h2 class="font-heading text-xl font-semibold text-text mb-2 mt-0">Sign in to start <span data-labtools-p-title>this study</span></h2>
+          <p class="text-text-muted max-w-md mx-auto mb-5">
+            You have been asked to use this tool for a study. Sign in with your Virginia Tech Google
+            account; no lab membership is needed. The study is open until
+            <span class="font-medium text-text" data-labtools-p-until></span>.
+          </p>
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
+            data-labtools-signin-participant
+          >
+            Sign in with your VT account
+          </button>
+          <p class="text-danger text-sm mt-3" data-labtools-p-error hidden></p>
+        </div>
+
         <div class="labtools-gate__pending card p-8 text-center">
           <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 border border-accent/20 text-2xl" aria-hidden="true">⏳</div>
           <h2 class="font-heading text-xl font-semibold text-text mb-2 mt-0">Your account is pending approval</h2>
           <p class="text-text-muted max-w-md mx-auto">
             An admin needs to approve your account before you can open a tool. Check back soon, or
             reach out to <a href="mailto:dhsmith4@vt.edu">dhsmith4@vt.edu</a>.
+          </p>
+        </div>
+
+        <div class="labtools-gate__closed card p-8 text-center">
+          <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-surface border border-border text-2xl" aria-hidden="true">⏹</div>
+          <h2 class="font-heading text-xl font-semibold text-text mb-2 mt-0">This study has closed</h2>
+          <p class="text-text-muted max-w-md mx-auto">
+            It stopped accepting participants after <span class="font-medium text-text" data-labtools-closed-until></span>.
+            If you think that is a mistake, contact the tool's owner listed below.
           </p>
         </div>
 
@@ -72,7 +118,7 @@ const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
         <p class="labtools-gate__open text-sm text-text-muted">
           Signed in as <span class="font-medium text-text" data-labtools-email></span>.
           Tools open in this tab; the sign-in lasts a day.
-          <a href="/tools/_/status">Deploy status</a>
+          <a href="/tools/_/status" data-labtools-status-link>Deploy status</a>
         </p>
       </div>
 
@@ -91,26 +137,42 @@ const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
                 <h2 class="font-heading text-lg font-bold text-text group-hover:text-primary transition-colors m-0">{t.title}</h2>
               </div>
               <p class="text-sm text-text-muted flex-grow m-0">{t.blurb}</p>
-              <p class="text-xs font-mono text-text-muted m-0">{t.owner}</p>
+              <p class="text-xs font-mono text-text-muted m-0">
+                {t.owner}
+                {t.access === 'participants' && t.participantsUntil && (
+                  <span> · study, open to VT students until {fmtDate(t.participantsUntil)}</span>
+                )}
+              </p>
             </a>
           ))}
         </div>
       </div>
     )}
   </article>
+
+  <script type="application/json" id="labtools-data" set:html={JSON.stringify(toolData)} />
 </WikiLayout>
 
 <style>
   .labtools-gate > * { display: none; }
   .labtools-gate[data-state='loading'] .labtools-gate__loading,
   .labtools-gate[data-state='signedout'] .labtools-gate__signedout,
+  .labtools-gate[data-state='participant'] .labtools-gate__participant,
   .labtools-gate[data-state='pending'] .labtools-gate__pending,
+  .labtools-gate[data-state='closed'] .labtools-gate__closed,
   .labtools-gate[data-state='error'] .labtools-gate__error,
   .labtools-gate[data-state='open'] .labtools-gate__open { display: block; }
 </style>
 
 <script>
+  type ToolInfo = { title: string; icon: string; access: string; participantsUntil: string | null };
   const gate = document.querySelector<HTMLElement>('.labtools-gate');
+  const data: Record<string, ToolInfo> = JSON.parse(
+    document.getElementById('labtools-data')?.textContent ?? '{}',
+  );
+
+  const fmtDate = (ymd: string) =>
+    new Date(`${ymd}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
   /** Follow ?next= at most once per tool per two minutes. If the cookie was
    *  set but the tool still answers 401 (cookies blocked, gate mismatch), the
@@ -129,56 +191,98 @@ const howTo = `https://github.com/${GITHUB_REPO}/tree/master/tools#readme`;
 
   if (gate && gate.dataset.state === 'loading') {
     (async () => {
-      const { onUser, getMember, isApprovedMember, signIn } = await import('@lib/annotate/auth');
-
-      const signinBtn = gate.querySelector<HTMLButtonElement>('[data-labtools-signin]');
-      const errorEl = gate.querySelector<HTMLElement>('[data-labtools-error]');
-      const detailEl = gate.querySelector<HTMLElement>('[data-labtools-detail]');
-      const emailEl = gate.querySelector<HTMLElement>('[data-labtools-email]');
-
-      signinBtn?.addEventListener('click', async () => {
-        if (errorEl) errorEl.hidden = true;
-        try {
-          const { user, member } = await signIn();
-          // Repaint the shared AuthWidget in the sidebar (see undergrad.astro).
-          window.dispatchEvent(new CustomEvent('wiki-auth-change', { detail: { user, member } }));
-        } catch (e) {
-          if (errorEl) {
-            errorEl.textContent = e instanceof Error ? e.message : 'Sign-in failed. Please try again.';
-            errorEl.hidden = false;
-          }
-        }
-      });
+      const { onUser, getMember, isApprovedMember, signIn, signInParticipant } = await import('@lib/annotate/auth');
+      const q = (sel: string) => gate.querySelector<HTMLElement>(sel);
 
       const next = new URLSearchParams(location.search).get('next') ?? '';
       const target = next.match(/^\/tools\/([a-z0-9][a-z0-9-]*)\//)?.[1] ?? null;
+      const info = target ? data[target] : undefined;
+      const study = info?.access === 'participants' ? info : null;   // participant mode
+      if (study) {
+        q('[data-labtools-p-icon]')!.textContent = study.icon;
+        q('[data-labtools-p-title]')!.textContent = study.title;
+        q('[data-labtools-p-until]')!.textContent = study.participantsUntil ? fmtDate(study.participantsUntil) : '';
+      }
+
+      const showError = (el: HTMLElement | null, e: unknown) => {
+        if (!el) return;
+        el.textContent = e instanceof Error ? e.message : 'Sign-in failed. Please try again.';
+        el.hidden = false;
+      };
+      const fail = (message: string) => {
+        const detail = q('[data-labtools-detail]');
+        if (detail) detail.textContent = message;
+        gate.dataset.state = 'error';
+      };
+
+      // Member sign-in creates a pending member record (as everywhere on the
+      // site); the participant one deliberately does not. Both repaint the
+      // shared AuthWidget in the sidebar (see undergrad.astro).
+      q('[data-labtools-signin]')?.addEventListener('click', async () => {
+        const errorEl = q('[data-labtools-error]');
+        if (errorEl) errorEl.hidden = true;
+        try {
+          const { user, member } = await signIn();
+          window.dispatchEvent(new CustomEvent('wiki-auth-change', { detail: { user, member } }));
+        } catch (e) {
+          showError(errorEl, e);
+        }
+      });
+      q('[data-labtools-signin-participant]')?.addEventListener('click', async () => {
+        const errorEl = q('[data-labtools-p-error]');
+        if (errorEl) errorEl.hidden = true;
+        try {
+          const user = await signInParticipant();
+          window.dispatchEvent(new CustomEvent('wiki-auth-change', { detail: { user, member: null } }));
+        } catch (e) {
+          showError(errorEl, e);
+        }
+      });
+
+      async function mint(user: { getIdToken(): Promise<string> }) {
+        const idToken = await user.getIdToken();
+        const r = await fetch('/tools/_/session', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ idToken, tool: target ?? undefined }),
+        });
+        let body: { error?: string; reason?: string; until?: string; role?: string } = {};
+        try { body = await r.json(); } catch { /* no body */ }
+        return { ok: r.ok, status: r.status, body };
+      }
 
       onUser(async (user) => {
-        if (!user) { gate.dataset.state = 'signedout'; return; }
-        const member = await getMember(user.uid);
-        if (!isApprovedMember(member)) { gate.dataset.state = 'pending'; return; }
-        try {
-          const idToken = await user.getIdToken();
-          const r = await fetch('/tools/_/session', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ idToken }),
-          });
-          if (!r.ok) throw new Error(`The gate answered ${r.status}.`);
-        } catch (e) {
-          if (detailEl) detailEl.textContent = e instanceof Error ? e.message : String(e);
-          gate.dataset.state = 'error';
-          return;
+        if (!user) { gate.dataset.state = study ? 'participant' : 'signedout'; return; }
+        if (!study) {
+          // Cheap client-side check so a pending member gets the right panel
+          // without a round trip; the gate re-checks server-side regardless.
+          const member = await getMember(user.uid);
+          if (!isApprovedMember(member)) { gate.dataset.state = 'pending'; return; }
         }
-        if (emailEl) emailEl.textContent = user.email ?? '';
+        let r: Awaited<ReturnType<typeof mint>>;
+        try {
+          r = await mint(user);
+        } catch (e) {
+          return fail(e instanceof Error ? e.message : String(e));
+        }
+        if (!r.ok) {
+          if (r.status === 403 && r.body.reason === 'closed') {
+            q('[data-labtools-closed-until]')!.textContent = fmtDate(r.body.until ?? study?.participantsUntil ?? '');
+            gate.dataset.state = 'closed';
+            return;
+          }
+          if (r.status === 403 && !study) { gate.dataset.state = 'pending'; return; }
+          return fail(`The gate answered ${r.status}${r.body.error ? `: ${r.body.error}` : ''}.`);
+        }
+        q('[data-labtools-email]')!.textContent = user.email ?? '';
+        if (r.body.role === 'participant') q('[data-labtools-status-link]')!.hidden = true;
         gate.dataset.state = 'open';
         if (target) {
           if (bounceOnce(target)) {
             location.replace(`/tools/${target}/`);
-          } else if (detailEl) {
-            detailEl.textContent = `The cookie was set, but /tools/${target}/ still asked for sign-in. Check that cookies are allowed for this site.`;
-            gate.dataset.state = 'error';
+          } else {
+            fail(`The cookie was set, but /tools/${target}/ still asked for sign-in. Check that cookies are allowed for this site.`);
           }
         }
       });
