@@ -2785,3 +2785,8 @@
   color: var(--color-primary);
   background: color-mix(in srgb, var(--color-primary) 8%, transparent);
 }
+/* Lab tools reuse the section; its label links to /wiki/lab-tools. */
+a.wiki-tools__label { display: block; text-decoration: none; }
+a.wiki-tools__label:hover,
+a.wiki-tools__label[aria-current="page"] { color: var(--color-primary); }
+.wiki-tool__lock { margin-left: auto; font-size: 0.7rem; opacity: 0.55; }

@@ -107,5 +107,54 @@ service cloud.firestore {
 
       allow update, delete: if isAdmin();
     }
+
+    // ── participants / participations (lab tools, tools/README.md) ───────────
+    // A lab tool with access "participants" admits any verified VT sign-in; the
+    // gate assigns the participant role at sign-in and writes these two records
+    // WITH THE USER'S OWN TOKEN, so these rules are what bound them. The record
+    // id is "<tool>_<uid>", one per person per study.
+    //   participants/*   carries expiresAt (end of the study). A Firestore TTL
+    //                    policy on that field deletes the record afterwards.
+    //   participations/* is kept: who took part in which study, first and last
+    //                    sign-in. Only lastLoginAt ever changes.
+    function isToolName(s) {
+      return s is string && s.matches('^[a-z0-9][a-z0-9-]{1,31}$');
+    }
+    function ownParticipantRecord(id) {
+      return isVtUser()
+        && isToolName(request.resource.data.tool)
+        && id == request.resource.data.tool + '_' + request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email;
+    }
+
+    match /participants/{id} {
+      allow read: if isVtUser() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow create: if ownParticipantRecord(id)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'tool', 'createdAt', 'lastLoginAt', 'expiresAt'])
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.lastLoginAt is timestamp
+        && request.resource.data.expiresAt is timestamp;
+      allow update: if isVtUser()
+        && resource.data.uid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastLoginAt', 'expiresAt'])
+        && request.resource.data.lastLoginAt is timestamp
+        && request.resource.data.expiresAt is timestamp;
+      allow delete: if isAdmin();
+    }
+
+    match /participations/{id} {
+      allow read: if isVtUser() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow create: if ownParticipantRecord(id)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'tool', 'firstLoginAt', 'lastLoginAt', 'participantsUntil'])
+        && request.resource.data.firstLoginAt is timestamp
+        && request.resource.data.lastLoginAt is timestamp
+        && request.resource.data.participantsUntil is string;
+      allow update: if isVtUser()
+        && resource.data.uid == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['lastLoginAt'])
+        && request.resource.data.lastLoginAt is timestamp;
+      allow delete: if isAdmin();
+    }
   }
 }

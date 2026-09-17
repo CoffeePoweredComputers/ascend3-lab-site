@@ -43,3 +43,11 @@ transcript-drop/.venv/
 transcript-drop/data/
 transcript-drop/config/roster.csv
 transcript-drop/config/consent.csv
+
+# Lab tools (tools/<name>/): each is built into a container from its own
+# directory, so nothing installed locally while developing one belongs here.
+# Runtime state (data, secrets, status) lives outside the checkout entirely.
+tools/*/data/
+tools/*/.venv/
+tools/*/node_modules/
+!tools/*/.env.example

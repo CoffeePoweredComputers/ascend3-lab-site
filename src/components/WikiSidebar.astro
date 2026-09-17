@@ -10,7 +10,7 @@
 import { getWikiNav, lessonHref } from '../lib/wiki';
 import AuthWidget from './AuthWidget.astro';
 import PagefindConfig from 'astro-pagefind/components/PagefindConfig.astro';
-import tools from '../data/wiki-tools.json';
+import WikiSidebarTools from './WikiSidebarTools.astro';
 
 const nav = await getWikiNav();
 const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
@@ -93,16 +93,8 @@ const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesso
         )
       ))}
 
-      <!-- Research tools — standalone utility pages, open to everyone -->
-      <div class="wiki-tools">
-        <p class="wiki-tools__label">Research tools</p>
-        {tools.map((t) => (
-          <a href={t.href} class="wiki-tool no-underline" aria-current={current === t.href ? 'page' : undefined}>
-            <span class="wiki-mod__icon" aria-hidden="true">{t.icon}</span>
-            <span class="wiki-tool__title">{t.title}</span>
-          </a>
-        ))}
-      </div>
+      <!-- Research tools (open pages) + Lab tools (members-only services) -->
+      <WikiSidebarTools current={current} />
     </nav>
 
     <!-- Sign in / membership -->
@@ -258,16 +250,8 @@ const isActiveModule = (m: (typeof nav)[number]) => m.lessons.some(isActiveLesso
       )
     ))}
 
-    <!-- Research tools — standalone utility pages, open to everyone -->
-    <div class="wiki-tools">
-      <p class="wiki-tools__label">Research tools</p>
-      {tools.map((t) => (
-        <a href={t.href} class="wiki-tool no-underline" aria-current={current === t.href ? 'page' : undefined}>
-          <span class="wiki-mod__icon" aria-hidden="true">{t.icon}</span>
-          <span class="wiki-tool__title">{t.title}</span>
-        </a>
-      ))}
-    </div>
+    <!-- Research tools (open pages) + Lab tools (members-only services) -->
+    <WikiSidebarTools current={current} />
   </div>
 </header>
 

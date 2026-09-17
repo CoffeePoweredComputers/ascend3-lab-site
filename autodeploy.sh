@@ -47,4 +47,10 @@ fi
 if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^transcript-drop/'; then
   ./transcript-drop/deploy/deploy.sh
 fi
+
+# Lab tools (tools/): every tool is a Docker container built and swapped in by
+# the runner; a tool that fails to build or start never replaces a working one.
+# Runs every deploy (cheap when nothing changed) so a missing container comes
+# back. Its own failure must not block the line below or a future deploy.
+node tools/_lib/deploy.mjs || echo "── tools: runner failed ($?)"
 echo "── $(date '+%F %T') deployed $(git rev-parse --short HEAD)"
