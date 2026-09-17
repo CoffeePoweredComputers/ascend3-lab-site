@@ -460,9 +460,15 @@ def submit_repository(
 
     return stored
 
-@app.post("/api/preview")
+@app.post("/api/preview", dependencies=[Depends(current_email)])
 def preview(payload: PreviewIn) -> dict:
-    """Segment pasted text server-side so the preview matches what gets stored."""
+    """Segment pasted text server-side so the preview matches what gets stored.
+
+    Nothing here is stored or attributed, so the caller's address is not needed
+    -- but the sign-in is. Without it this is an anonymous endpoint that will
+    segment 40 MB of anyone's text, on a service whose page never calls it
+    before the student has signed in anyway.
+    """
     turns, quality = normalize.segment_text(payload.text)
     if not turns:
         raise HTTPException(status_code=400, detail="Nothing to read in that text.")
@@ -477,7 +483,7 @@ def preview(payload: PreviewIn) -> dict:
     }
 
 
-@app.post("/api/import-link")
+@app.post("/api/import-link", dependencies=[Depends(current_email)])
 def import_link(payload: ShareLinkIn) -> dict:
     """Read a ChatGPT share link server-side.
 
@@ -485,6 +491,10 @@ def import_link(payload: ShareLinkIn) -> dict:
     cross-origin read -- so the fetch happens here, restricted to share URLs on
     known hosts. Failures are returned as a message telling the student to paste
     instead, because this depends on the shape of someone else's page.
+
+    Sign-in is required even though the result is not stored: this endpoint
+    makes an outbound request on the server's behalf, and an anonymous caller
+    could use it as a relay with nothing to trace a request back to.
     """
     try:
         return import_share_link(payload.url)

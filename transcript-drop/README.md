@@ -611,7 +611,7 @@ chat-tool conversation scores exactly as it did before deterministic linkage was
 added.
 
 ```bash
-node --test tests/parsers.test.js
+node --test tests/parsers.test.cjs
 ```
 
 Covers the browser-side parsers: the ChatGPT branch walk, Claude content blocks,

@@ -196,6 +196,11 @@ def test_a_token_whose_address_we_refuse_is_not_a_session(bad_email):
         ("/api/repository", {"project_id": "P2", "repo_url": "https://github.com/a/b"}),
         ("/api/submissions", {"project_id": "P2", "completeness": "pct_61_80",
                               "conversations": [{"platform": "claude"}]}),
+        # These two store nothing, which is how they came to be left off the
+        # list: one segments up to 40 MB of text, the other fetches a URL on
+        # the server's behalf. Neither is anything to hand an anonymous caller.
+        ("/api/preview", {"text": "You: hi\nClaude: hello"}),
+        ("/api/import-link", {"url": "https://chatgpt.com/share/0000"}),
     ],
 )
 def test_every_student_endpoint_refuses_an_anonymous_caller(path, body):
@@ -269,7 +274,10 @@ def test_a_vt_subdomain_address_is_accepted(tmp_path, monkeypatch):
 def test_preview_segments_pasted_text():
     payload = client.post(
         "/api/preview",
-        json={"text": "You: why does remove() fail?\nClaude: the index is off by one."},
+        json={
+            "email": "s905123456@vt.edu",
+            "text": "You: why does remove() fail?\nClaude: the index is off by one.",
+        },
     ).json()
     assert payload["turn_count"] == 2
     assert payload["parse_quality"] == "heuristic"
