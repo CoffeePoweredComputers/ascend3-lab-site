@@ -1,0 +1,5 @@
+# Only for git author addresses that are NOT the student's VT email. Since the
+# roster is keyed on that email, a commit authored from it needs no entry here
+# -- this file exists for the addresses git records instead: GitHub's noreply
+# aliases, and personal addresses left in a local git config.
+author_email,email

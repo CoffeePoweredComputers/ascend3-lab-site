@@ -1,0 +1,107 @@
+# Reverse proxy for the CS 2114 submission service.
+#
+#   sudo cp deploy/Caddyfile /etc/caddy/Caddyfile
+#   sudo caddy validate --config /etc/caddy/Caddyfile
+#   sudo systemctl restart caddy      # reload needs the admin API, off below
+#
+# Caddy terminates TLS; the application listens on loopback only and is never
+# exposed to the campus network directly.
+
+{
+	# Stops Caddy adding its own HTTP-to-HTTPS redirect, which would collide
+	# with the explicit http:// site at the bottom of this file. It does *not*
+	# disable certificate automation -- what keeps ACME out of the picture is
+	# that every site below names its certificate explicitly, which matters
+	# here because the HTTP-01 challenge needs port 80 reachable from the
+	# public internet and 172.21.222.136 is a private address.
+	auto_https disable_redirects
+
+	# The admin API can rewrite Caddy's whole configuration and is reachable by
+	# any local user, which on a box with shell accounts is worth more than the
+	# convenience it buys. The cost is that "systemctl reload caddy" no longer
+	# works -- use "systemctl restart caddy", and do it outside a deadline,
+	# since a restart drops connections in flight.
+	admin off
+}
+
+transcript-drop.cs.vt.edu {
+
+	# ---- Certificate -------------------------------------------------------
+	#
+	# Which certificate to serve is the one thing that differs between a test
+	# box and the real one, so it lives outside this file. This file is
+	# deployed from version control and would otherwise overwrite the
+	# certificate configuration every time it is copied -- silently putting the
+	# browser warning back.
+	#
+	# scripts/setup_tls.sh writes exactly one file there: "tls internal" until a
+	# real certificate exists, the cert and key paths afterwards.
+	import /etc/caddy/tls.d/*.conf
+
+	# ---- Limits ------------------------------------------------------------
+	#
+	# The application already refuses bodies over 40 MB, but it does so after
+	# reading the Content-Length header a client is free to lie about. Stopping
+	# an oversized body here means it never reaches Python, which is where the
+	# memory would actually go. The margin covers JSON overhead on a legitimate
+	# 40 MB submission.
+	request_body {
+		max_size 48MB
+	}
+
+	# ---- Headers -----------------------------------------------------------
+	header {
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "same-origin"
+		X-Frame-Options "DENY"
+		-Server
+
+		# HSTS is in the same imported file as the certificate, and is written
+		# only once a trusted one is in place. Turning it on while "tls
+		# internal" is in use tells every student's browser to refuse plain
+		# HTTP to this name for a year, with no way to click past it.
+	}
+
+	# ---- Proxy -------------------------------------------------------------
+	reverse_proxy 127.0.0.1:8000 {
+		transport http {
+			dial_timeout 5s
+
+			# Submissions serialise behind a single SQLite writer. A whole class
+			# submitting at once was measured at about 3 seconds each, and the
+			# largest bodies the API accepts at around 45 seconds under a full
+			# queue. A proxy timeout shorter than that turns a slow submission
+			# into a lost one, at exactly the moment it is most expensive.
+			response_header_timeout 120s
+			read_timeout 300s
+			write_timeout 300s
+		}
+
+		health_uri /healthz
+		health_interval 30s
+		health_timeout 5s
+	}
+
+	# ---- Logging -----------------------------------------------------------
+	#
+	# The access log records client IP addresses, which for this study are
+	# personal data. Keep the retention short and the file readable only by the
+	# people who need it.
+	log {
+		output file /var/log/caddy/transcript-drop.log {
+			roll_size 20MB
+			roll_keep 5
+			roll_keep_for 720h
+		}
+		format json
+	}
+}
+
+# Everything arriving in plaintext goes to HTTPS, whatever host it asked for.
+# A hostname-only matcher here once left http://172.21.222.136 serving the
+# application unencrypted -- an unlikely route in, but one where a student would
+# have sent their email address in the clear. A catch-all closes it for any
+# address the host answers on, now and later.
+:80 {
+	redir https://{host}{uri} permanent
+}

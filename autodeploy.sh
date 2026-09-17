@@ -39,4 +39,12 @@ fi
 if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^survey/'; then
   ./survey/deploy/deploy.sh
 fi
+
+# Transcript submission service (transcript-drop/): same arrangement. Its
+# deploy.sh runs the test suite and stops before restarting on any failure, so a
+# broken commit leaves the running service — and a semester of submissions —
+# untouched.
+if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^transcript-drop/'; then
+  ./transcript-drop/deploy/deploy.sh
+fi
 echo "── $(date '+%F %T') deployed $(git rev-parse --short HEAD)"

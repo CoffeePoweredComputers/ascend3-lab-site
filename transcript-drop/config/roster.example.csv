@@ -1,0 +1,7 @@
+# Team membership is temporal. Teams are rebuilt each project, and a team that
+# changes mid-project becomes a NEW instance -- never edit an existing row.
+# An empty left_at means the membership is still open.
+#
+# The identifier is the student's VT email, which is what they type on the form
+# and also what git records as a commit author. Case does not matter.
+email,project_id,team_instance_id,joined_at,left_at

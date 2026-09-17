@@ -1,0 +1,38 @@
+# systemd --user unit for the GenAI transcript submission service.
+#
+# Install (once, as the deploying user on ascend3.cs.vt.edu):
+#   sudo loginctl enable-linger "$USER"        # user services run without a login session; cron can restart them
+#   mkdir -p ~/.config/systemd/user
+#   cp ~/ascend3-lab-site/transcript-drop/deploy/ascend-transcript-drop.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now ascend-transcript-drop
+#   journalctl --user -u ascend-transcript-drop -f
+#
+# From cron (autodeploy.sh -> transcript-drop/deploy/deploy.sh) `systemctl --user`
+# needs XDG_RUNTIME_DIR=/run/user/<uid>; deploy.sh sets it.
+#
+# GENAI_DATA_DIR points OUTSIDE the checkout on purpose. autodeploy.sh does a
+# `git merge --ff-only` on every deploy; a database inside the working tree
+# would sit in the path of that, and `git clean` would delete a semester of
+# student submissions.
+
+[Unit]
+Description=GenAI transcript submission (nginx proxies /transcript-drop/ to 127.0.0.1:8788)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/ascend3-lab-site/transcript-drop
+EnvironmentFile=%h/ascend3-lab-site/transcript-drop/.env
+Environment=GENAI_DATA_DIR=%h/transcript-drop-data
+Environment=PYTHONUNBUFFERED=1
+ExecStart=%h/ascend3-lab-site/transcript-drop/.venv/bin/python scripts/run_server.py
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target
