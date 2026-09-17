@@ -13,7 +13,7 @@ cd "$(dirname "$0")/.."   # -> transcript-drop/
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 
 if [ ! -f .env ]; then
-  echo "transcript-drop/.env is missing — copy .env.example, fill it in, chmod 600" >&2
+  echo "transcript-drop/.env is missing — run deploy/provision.sh, or copy .env.example, fill it in, chmod 600" >&2
   exit 1
 fi
 

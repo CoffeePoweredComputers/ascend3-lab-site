@@ -212,21 +212,19 @@ keeps the units for the stricter arrangement if the protocol needs it back.
 #### Server provisioning (one time, on ascend3.cs.vt.edu)
 
 ```bash
-sudo loginctl enable-linger "$USER"        # user services survive logout; cron can restart them
-mkdir -p ~/transcript-drop-data && chmod 700 ~/transcript-drop-data
-mkdir -p ~/transcript-drop-backups && chmod 700 ~/transcript-drop-backups
-
-cd ~/ascend3-lab-site/transcript-drop
-cp .env.example .env && chmod 600 .env && $EDITOR .env
-# config/roster.csv is not in version control. Put it here before anyone signs in.
-
-mkdir -p ~/.config/systemd/user
-cp deploy/ascend-transcript-drop.service deploy/ascend-transcript-drop-backup.* ~/.config/systemd/user/
-systemctl --user daemon-reload
-systemctl --user enable --now ascend-transcript-drop ascend-transcript-drop-backup.timer
-
-./deploy/deploy.sh                          # build, test, restart, health check
+~/ascend3-lab-site/transcript-drop/deploy/provision.sh
 ```
+
+It creates the data and backup directories, enables linger, writes `.env` from
+the example with an admin token and backup path filled in, installs the
+`systemd --user` units, runs `deploy/deploy.sh`, and checks the public URL. It
+is idempotent, and stops before the deploy while either of the two things only
+a person can supply is missing — the four `GENAI_FIREBASE_*` values in `.env`
+and `config/roster.csv` — saying which; supply them and run it again.
+`--firebase-from-site` fills the Firebase values from the lab site's own `.env`,
+which reuses the site's project: every student who signs in becomes a user
+there and shares the site's session on this origin. A project of the study's
+own keeps them apart.
 
 Then nginx, once, as root:
 
