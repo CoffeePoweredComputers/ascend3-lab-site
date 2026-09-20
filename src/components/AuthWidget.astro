@@ -122,8 +122,12 @@ const configured = Boolean(
       } catch { /* storage unavailable — pre-paint just won't happen */ }
     }
 
+    // Only reached with a signed-in user. No member record means a study
+    // participant (lab tools sign in without creating one): show them as
+    // signed in with no role, never as signed out — a "Sign in" click here
+    // would create a pending member record they should not have.
     const stateFor = (m: Member | null): string =>
-      !m ? 'signedout'
+      !m ? 'pending'
         : m.role === 'admin' && m.status === 'member' ? 'admin'
         : m.status === 'member' ? 'member'
         : 'pending';

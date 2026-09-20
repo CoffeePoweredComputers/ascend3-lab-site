@@ -2,8 +2,10 @@
 import WikiLayout from '../../layouts/WikiLayout.astro';
 import { getWikiNav, lessonHref } from '../../lib/wiki';
 import tools from '../../data/wiki-tools.json';
+import { getLabTools } from '../../lib/lab-tools';
 
 const nav = await getWikiNav();
+const labTools = getLabTools();
 ---
 
 <WikiLayout title="Lab Wiki" description="The ASCEND Lab's interactive handbook — IRB, qualitative and quantitative analysis, and more.">
@@ -64,6 +66,26 @@ const nav = await getWikiNav();
             <div class="flex items-center gap-3">
               <span class="text-2xl" aria-hidden="true">{t.icon}</span>
               <h3 class="font-heading text-lg font-bold text-text group-hover:text-primary transition-colors">{t.title}</h3>
+            </div>
+            <p class="text-sm text-text-muted flex-grow">{t.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-14" aria-labelledby="wiki-labtools-heading">
+      <h2 id="wiki-labtools-heading" class="font-heading text-xl font-bold mb-1">Lab tools</h2>
+      <p class="text-text-muted text-sm mb-5">
+        Services built and hosted by the lab — for approved members.
+        <a href="/wiki/lab-tools">Sign in and open one →</a>
+      </p>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {labTools.map((t) => (
+          <a href={t.href} class="card no-underline p-6 flex flex-col gap-3 group">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl" aria-hidden="true">{t.icon}</span>
+              <h3 class="font-heading text-lg font-bold text-text group-hover:text-primary transition-colors">{t.title}</h3>
+              <span class="ml-auto text-xs" title="Members only" aria-label="Members only">🔒</span>
             </div>
             <p class="text-sm text-text-muted flex-grow">{t.blurb}</p>
           </a>
