@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="11b-walk-least:3">VOTE 4 &middot; THE ANSWER</p>
     <h2 data-sid="11b-walk-least:4">Only the top-at-index-0 stack has to shift</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="11b-walk-least:5">A walkthrough of pop for the linked-chain stack, under a program-counter bar: top equals peek, topNode equals topNode dot getNext, the count comes down, return top. On the right, a blue topNode pill points at a node holding C, which points at B, then A, then null; a local top; a large counter labelled moves. Step one: the C node takes a blue edge and top becomes C. Step two: the topNode arrow swings from C to B and the C node fades to stone. Step three: the count is struck from 3 to 2. Step four: return top; the caption says three moves at any length. Step five: a board appears under the code with the three pops side by side &mdash; A, the linked chain, 3 moves, O of 1; B, the array with the top at the last occupied index, 4 moves, O of 1; C, the array with the top at index 0, n plus 3 moves, O of n; D, all equal, no. Step six: C&rsquo;s row takes the heading colour and the other rows dim, and the caption gives the why: every other entry has to move up one.</p>
+  <p class="sr-only slide__desc" data-sid="11b-walk-least:5">A walkthrough of pop for the linked-chain stack, under a program-counter bar: top equals peek, topNode equals topNode dot getNext, the count comes down, return top. On the right, a blue topNode pill points at a node holding C, which points at B, then A, then null; a local top; a large counter labelled moves. Step one: the C node takes a blue edge and top becomes C. Step two: the topNode arrow swings from C to B and the C node fades to stone. Step three: the count is struck from 3 to 2. Step four: return top; the caption says three moves at any length. Step five: a board appears under the code with the three pops side by side: A, chain with the top at the first node, 3 moves, O of 1; B, array with the top at the last index, 4 moves, O of 1; C, array with the top at index 0, n plus 3 moves, O of n; D, all equal, no. Step six: C&rsquo;s row takes the heading colour and the other rows dim, and the caption gives the why: every other entry has to move up one.</p>
 
   <!-- Votes 2 and 3 walked two of the three pops; this walks the third — the
        homework's own LinkedStack.pop, four lines — and then lines the three
@@ -28,10 +28,10 @@
         </ol>
       </div>
       <ol class="bd" data-sid="11b-walk-least:20">
-        <li class="bd__row frag" data-step="5" style="--i: 0" data-sid="11b-walk-least:21"><span class="bd__l" data-sid="11b-walk-least:22">A</span><span class="bd__t" data-sid="11b-walk-least:23">linked chain, top at the first node</span><span class="bd__c bd__c--ok" data-sid="11b-walk-least:24">3 moves</span><span class="bd__o bd__o--ok" data-sid="11b-walk-least:25">O(1)</span></li>
-        <li class="bd__row frag" data-step="5" style="--i: 1" data-sid="11b-walk-least:26"><span class="bd__l" data-sid="11b-walk-least:27">B</span><span class="bd__t" data-sid="11b-walk-least:28">array, top at the last occupied index</span><span class="bd__c bd__c--ok" data-sid="11b-walk-least:29">4 moves</span><span class="bd__o bd__o--ok" data-sid="11b-walk-least:30">O(1)</span></li>
-        <li class="bd__row bd__row--c frag" data-step="5" style="--i: 2" data-sid="11b-walk-least:31"><span class="bd__l" data-sid="11b-walk-least:32">C</span><span class="bd__t" data-sid="11b-walk-least:33">array, top at index 0</span><span class="bd__c bd__c--bad" data-sid="11b-walk-least:34">n + 3 moves</span><span class="bd__o bd__o--bad" data-sid="11b-walk-least:35">O(n)</span></li>
-        <li class="bd__row frag" data-step="5" style="--i: 3" data-sid="11b-walk-least:36"><span class="bd__l" data-sid="11b-walk-least:37">D</span><span class="bd__t" data-sid="11b-walk-least:38">all equally efficient</span><span class="bd__c bd__c--no" data-sid="11b-walk-least:39">no</span><span class="bd__o bd__o--no" data-sid="11b-walk-least:40">one of them shifts</span></li>
+        <li class="bd__row frag" data-step="5" style="--i: 0" data-sid="11b-walk-least:21"><span class="bd__l" data-sid="11b-walk-least:112">A</span><span class="bd__t" data-sid="11b-walk-least:113">chain, top at first node</span><span class="bd__c bd__c--ok" data-sid="11b-walk-least:114">3 moves &middot; O(1)</span></li>
+        <li class="bd__row frag" data-step="5" style="--i: 1" data-sid="11b-walk-least:26"><span class="bd__l" data-sid="11b-walk-least:115">B</span><span class="bd__t" data-sid="11b-walk-least:116">array, top at last index</span><span class="bd__c bd__c--ok" data-sid="11b-walk-least:117">4 moves &middot; O(1)</span></li>
+        <li class="bd__row bd__row--c frag" data-step="5" style="--i: 2" data-sid="11b-walk-least:31"><span class="bd__l" data-sid="11b-walk-least:118">C</span><span class="bd__t" data-sid="11b-walk-least:119">array, top at index 0</span><span class="bd__c bd__c--bad" data-sid="11b-walk-least:120">n + 3 &middot; O(n)</span></li>
+        <li class="bd__row frag" data-step="5" style="--i: 3" data-sid="11b-walk-least:36"><span class="bd__l" data-sid="11b-walk-least:121">D</span><span class="bd__t" data-sid="11b-walk-least:122">all equal</span><span class="bd__c bd__c--no" data-sid="11b-walk-least:123">no: C shifts</span></li>
       </ol>
     </div>
 
@@ -120,8 +120,8 @@
     #slide-11b .lk__right:has(.cap--3:not(.is-pending)) .lk__cv--0::after { transform: scaleX(1); }
     #slide-11b .lk__right:has(.cap--3:not(.is-pending)) .lk__cv--1 { opacity: 1; transition-delay: .25s; }
 
-    /* the board: letter · design · moves · shape */
-    #slide-11b .bd { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: max-content 1fr max-content max-content; column-gap: var(--s-3); row-gap: var(--s-1); align-items: baseline; }
+    /* the board: letter · design · one badge (moves and shape); 40 + 355 + 234 + gaps fits the 700 px column at the chrome size */
+    #slide-11b .bd { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content; column-gap: var(--s-3); row-gap: var(--s-1); align-items: baseline; }
     #slide-11b .bd__row { display: contents; }
     #slide-11b .bd__row > span { transition: opacity .3s ease; }
     #slide-11b .frag.bd__row.is-pending > span { opacity: 0; }
@@ -129,9 +129,8 @@
     #slide-11b .bd__l { font-family: var(--font-display); font-size: var(--t-small); color: var(--accent-1); }
     #slide-11b .bd__t { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
     #slide-11b .bd__c { font-family: var(--font-mono); font-size: var(--t-micro); padding: 0 var(--s-1); border: 3px solid var(--accent-2); border-radius: var(--r-1); color: var(--accent-2); white-space: nowrap; }
-    #slide-11b .bd__o { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-2); white-space: nowrap; }
-    #slide-11b .bd__c--bad, #slide-11b .bd__o--bad { border-color: var(--accent-1); color: var(--accent-1); }
-    #slide-11b .bd__c--no, #slide-11b .bd__o--no { border-color: var(--stone); color: var(--fg-1); }
+    #slide-11b .bd__c--bad { border-color: var(--accent-1); color: var(--accent-1); }
+    #slide-11b .bd__c--no { border-color: var(--stone); color: var(--fg-1); }
     /* step 6: the board is the verdict — C's row takes the heading maroon and the others dim */
     #slide-11b .bd__t { transition: color .3s ease, opacity .3s ease; }
     #slide-11b .lk:has(.cap--6:not(.is-pending)) .bd__row--c .bd__t { color: var(--accent-1); font-weight: 700; }

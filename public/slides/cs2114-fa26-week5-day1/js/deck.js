@@ -59,6 +59,7 @@
         if (!isNaN(n) && n > max) max = n;
         const h = parseInt(e.getAttribute('data-hold') || '', 10);   // a held frag may reach past the last data-step
         if (!isNaN(h) && h > max) max = h;
+        (e.getAttribute('data-also') || '').split(/\s+/).forEach((a) => { const k = parseInt(a, 10); if (!isNaN(k) && k > max) max = k; });
       });
       const num = sec.querySelector('.slide__number');
       if (num && !num.textContent.trim()) num.textContent = (i + 1) + ' / ' + total;
@@ -88,11 +89,16 @@
     // step M — a loop body that stays under the program-counter bar while the
     // right-hand side plays one iteration per press. Without it a line can be
     // current on exactly one step.
+    // data-also="7 8" (W5D1) lists further steps at which the frag is current
+    // again — a code line that a second run of the walkthrough revisits. It is
+    // never pending at those steps; between them it is past.
     active.querySelectorAll('.frag').forEach((f) => {
       const v = parseInt(f.getAttribute('data-step') || '0', 10) || 0;
       const h = parseInt(f.getAttribute('data-hold') || '', 10) || v;
+      const also = (f.getAttribute('data-also') || '').split(/\s+/).map(Number).filter(Boolean);
       f.classList.remove('is-pending', 'is-current', 'is-past');
-      f.classList.add(v > state.step ? 'is-pending' : state.step <= h ? 'is-current' : 'is-past');
+      const cur = (state.step >= v && state.step <= h) || also.indexOf(state.step) !== -1;
+      f.classList.add(v > state.step ? 'is-pending' : cur ? 'is-current' : 'is-past');
     });
   }
 

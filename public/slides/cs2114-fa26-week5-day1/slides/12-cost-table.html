@@ -2,58 +2,65 @@
   <header class="slide__head" data-sid="12-cost-table:2">
     <h2 data-sid="12-cost-table:3">The costs in one table</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="12-cost-table:4">Two tables arriving in turn, then a footnote. Left, Stack: push, pop and peek are each O of 1 for the array with the top at the last occupied index and for the linked chain with the top at the first node. Right, Bag, for a fixed-size array and for a linked chain: add O of 1 and O of 1; contains O of n and O of n; getFrequencyOf O of n and O of n; remove with no argument O of 1 and O of 1; remove of an entry O of n and O of n; toArray O of n and O of n. The footnote names two exceptions the votes found: an array that is not a fixed length makes add O of n on the call that grows it, and an array with the top at index 0 makes pop and push O of n.</p>
+  <p class="sr-only slide__desc" data-sid="12-cost-table:4">Two compact tables arriving in turn, then two footnotes. Left, Stack: push, pop and peek are each O of 1 for the array and for the chain. Right, Bag: add and remove with no argument are O of 1; contains, getFrequencyOf, remove of an entry and toArray are O of n; the same for the array and for the chain. Each cost is a coloured badge, blue for O of 1 and maroon for O of n. The footnotes: an array that can grow makes add O of n on the call that grows it; a top at index 0 makes pop and push O of n.</p>
 
-  <!-- The reference card: the F25 tables rebuilt with contains added (Week
-       3's vote) and column heads that say where the top is, because that is
-       what the votes turned on. O(1) in the tool blue, O(n) in the cost's
-       maroon — the same inks the walks used. The footnote holds the two
-       exceptions the room just counted, so the table stays true. Stack table
-       on press 1, bag table on press 2, footnote on press 3. -->
+  <!-- The reference card, with as little text as it can carry: method names
+       down the side, two columns, costs as badges in the walks' inks (blue
+       for constant, maroon for linear), the two exceptions the votes found
+       as two short lines. Stack table on press 1, bag table on press 2,
+       exceptions on press 3. -->
   <div class="slide__body ct" data-sid="12-cost-table:5">
     <div class="ct__t frag" data-step="1" data-sid="12-cost-table:6">
       <table data-sid="12-cost-table:7">
-        <thead data-sid="12-cost-table:8"><tr data-sid="12-cost-table:9"><th data-sid="12-cost-table:10">Stack</th><th data-sid="12-cost-table:11">array, top at the last occupied index</th><th data-sid="12-cost-table:12">linked chain, top at the first node</th></tr></thead>
-        <tbody data-sid="12-cost-table:13">
-          <tr data-sid="12-cost-table:14"><td data-sid="12-cost-table:15">push(newEntry)</td><td class="ok" data-sid="12-cost-table:16">O(1)</td><td class="ok" data-sid="12-cost-table:17">O(1)</td></tr>
-          <tr data-sid="12-cost-table:18"><td data-sid="12-cost-table:19">pop()</td><td class="ok" data-sid="12-cost-table:20">O(1)</td><td class="ok" data-sid="12-cost-table:21">O(1)</td></tr>
-          <tr data-sid="12-cost-table:22"><td data-sid="12-cost-table:23">peek()</td><td class="ok" data-sid="12-cost-table:24">O(1)</td><td class="ok" data-sid="12-cost-table:25">O(1)</td></tr>
+        <thead data-sid="12-cost-table:8"><tr data-sid="12-cost-table:9"><th class="ct__name" data-sid="12-cost-table:10">Stack</th><th data-sid="12-cost-table:11">array<span class="ct__sub" data-sid="12-cost-table:12">top at last index</span></th><th data-sid="12-cost-table:13">chain<span class="ct__sub" data-sid="12-cost-table:14">top at first node</span></th></tr></thead>
+        <tbody data-sid="12-cost-table:15">
+          <tr data-sid="12-cost-table:16"><td data-sid="12-cost-table:17">push</td><td data-sid="12-cost-table:18"><span class="ct__b ct__b--ok" data-sid="12-cost-table:19">O(1)</span></td><td data-sid="12-cost-table:20"><span class="ct__b ct__b--ok" data-sid="12-cost-table:21">O(1)</span></td></tr>
+          <tr data-sid="12-cost-table:22"><td data-sid="12-cost-table:23">pop</td><td data-sid="12-cost-table:24"><span class="ct__b ct__b--ok" data-sid="12-cost-table:25">O(1)</span></td><td data-sid="12-cost-table:26"><span class="ct__b ct__b--ok" data-sid="12-cost-table:27">O(1)</span></td></tr>
+          <tr data-sid="12-cost-table:28"><td data-sid="12-cost-table:29">peek</td><td data-sid="12-cost-table:30"><span class="ct__b ct__b--ok" data-sid="12-cost-table:31">O(1)</span></td><td data-sid="12-cost-table:32"><span class="ct__b ct__b--ok" data-sid="12-cost-table:33">O(1)</span></td></tr>
         </tbody>
       </table>
     </div>
-    <div class="ct__t frag" data-step="2" data-sid="12-cost-table:26">
-      <table data-sid="12-cost-table:27">
-        <thead data-sid="12-cost-table:28"><tr data-sid="12-cost-table:29"><th data-sid="12-cost-table:30">Bag</th><th data-sid="12-cost-table:31">fixed-size array</th><th data-sid="12-cost-table:32">linked chain</th></tr></thead>
-        <tbody data-sid="12-cost-table:33">
-          <tr data-sid="12-cost-table:34"><td data-sid="12-cost-table:35">add(newEntry)</td><td class="ok" data-sid="12-cost-table:36">O(1)</td><td class="ok" data-sid="12-cost-table:37">O(1)</td></tr>
-          <tr data-sid="12-cost-table:38"><td data-sid="12-cost-table:39">contains(anEntry)</td><td class="lin" data-sid="12-cost-table:40">O(n)</td><td class="lin" data-sid="12-cost-table:41">O(n)</td></tr>
-          <tr data-sid="12-cost-table:42"><td data-sid="12-cost-table:43">getFrequencyOf(anEntry)</td><td class="lin" data-sid="12-cost-table:44">O(n)</td><td class="lin" data-sid="12-cost-table:45">O(n)</td></tr>
-          <tr data-sid="12-cost-table:46"><td data-sid="12-cost-table:47">remove()</td><td class="ok" data-sid="12-cost-table:48">O(1)</td><td class="ok" data-sid="12-cost-table:49">O(1)</td></tr>
-          <tr data-sid="12-cost-table:50"><td data-sid="12-cost-table:51">remove(anEntry)</td><td class="lin" data-sid="12-cost-table:52">O(n)</td><td class="lin" data-sid="12-cost-table:53">O(n)</td></tr>
-          <tr data-sid="12-cost-table:54"><td data-sid="12-cost-table:55">toArray()</td><td class="lin" data-sid="12-cost-table:56">O(n)</td><td class="lin" data-sid="12-cost-table:57">O(n)</td></tr>
+    <div class="ct__t frag" data-step="2" data-sid="12-cost-table:34">
+      <table data-sid="12-cost-table:35">
+        <thead data-sid="12-cost-table:36"><tr data-sid="12-cost-table:37"><th class="ct__name" data-sid="12-cost-table:38">Bag</th><th data-sid="12-cost-table:39">array<span class="ct__sub" data-sid="12-cost-table:40">fixed size</span></th><th data-sid="12-cost-table:41">chain<span class="ct__sub" data-sid="12-cost-table:42">&nbsp;</span></th></tr></thead>
+        <tbody data-sid="12-cost-table:43">
+          <tr data-sid="12-cost-table:44"><td data-sid="12-cost-table:45">add</td><td data-sid="12-cost-table:46"><span class="ct__b ct__b--ok" data-sid="12-cost-table:47">O(1)</span></td><td data-sid="12-cost-table:48"><span class="ct__b ct__b--ok" data-sid="12-cost-table:49">O(1)</span></td></tr>
+          <tr data-sid="12-cost-table:50"><td data-sid="12-cost-table:51">remove()</td><td data-sid="12-cost-table:52"><span class="ct__b ct__b--ok" data-sid="12-cost-table:53">O(1)</span></td><td data-sid="12-cost-table:54"><span class="ct__b ct__b--ok" data-sid="12-cost-table:55">O(1)</span></td></tr>
+          <tr data-sid="12-cost-table:56"><td data-sid="12-cost-table:57">contains</td><td data-sid="12-cost-table:58"><span class="ct__b ct__b--lin" data-sid="12-cost-table:59">O(n)</span></td><td data-sid="12-cost-table:60"><span class="ct__b ct__b--lin" data-sid="12-cost-table:61">O(n)</span></td></tr>
+          <tr data-sid="12-cost-table:62"><td data-sid="12-cost-table:63">getFrequencyOf</td><td data-sid="12-cost-table:64"><span class="ct__b ct__b--lin" data-sid="12-cost-table:65">O(n)</span></td><td data-sid="12-cost-table:66"><span class="ct__b ct__b--lin" data-sid="12-cost-table:67">O(n)</span></td></tr>
+          <tr data-sid="12-cost-table:68"><td data-sid="12-cost-table:69">remove(x)</td><td data-sid="12-cost-table:70"><span class="ct__b ct__b--lin" data-sid="12-cost-table:71">O(n)</span></td><td data-sid="12-cost-table:72"><span class="ct__b ct__b--lin" data-sid="12-cost-table:73">O(n)</span></td></tr>
+          <tr data-sid="12-cost-table:74"><td data-sid="12-cost-table:75">toArray</td><td data-sid="12-cost-table:76"><span class="ct__b ct__b--lin" data-sid="12-cost-table:77">O(n)</span></td><td data-sid="12-cost-table:78"><span class="ct__b ct__b--lin" data-sid="12-cost-table:79">O(n)</span></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note ct__foot frag" data-step="3" data-sid="12-cost-table:58">Two exceptions the votes found: an array that is <b data-sid="12-cost-table:59">not a fixed length</b> makes add O(n) on the call that grows it (Vote 1); an array with the <b data-sid="12-cost-table:60">top at index 0</b> makes pop and push O(n) (Vote 2).</p>
+    <ul class="ct__foot frag" data-step="3" data-sid="12-cost-table:80">
+      <li data-sid="12-cost-table:81"><span class="ct__b ct__b--lin" data-sid="12-cost-table:82">O(n)</span> add, when the array has to grow first (Vote 1)</li>
+      <li data-sid="12-cost-table:83"><span class="ct__b ct__b--lin" data-sid="12-cost-table:84">O(n)</span> pop and push, when the top is at index 0 (Vote 2)</li>
+    </ul>
   </div>
-  <div class="slide__number" data-sid="12-cost-table:61"></div>
-  <aside class="notes" data-sid="12-cost-table:62">The reference card; skip the walk-through if the clock is short, it is in the notes. Step 1: the stack &mdash; both of the module&rsquo;s designs give push, pop and peek in constant time, because both keep the top where nothing has to move. Step 2: the bag from Weeks 3 and 4 &mdash; add and the no-argument remove are one move, because a bag has no order and the end is always free; anything that has to find an entry, or visit every entry, is linear, and it is linear on the chain too. Step 3: the two exceptions today found &mdash; an array that grows makes add O(n) on the call that grows it, and a top at index 0 makes the stack shift. Next: the homework.</aside>
+  <div class="slide__number" data-sid="12-cost-table:85"></div>
+  <aside class="notes" data-sid="12-cost-table:86">The reference card; skip the walk-through if the clock is short. Step 1: the stack. Both of the module&rsquo;s designs give push, pop and peek in constant time, because both keep the top where nothing has to move. Step 2: the bag from Weeks 3 and 4. add and the no-argument remove are one move, because a bag has no order and the end is always free; anything that has to find an entry, or visit every entry, is linear, on the array and on the chain alike. Step 3: the two exceptions today found. An array that grows makes add O(n) on the call that grows it; a top at index 0 makes the stack shift. Next: the homework.</aside>
 
-  <style data-sid="12-cost-table:63">
-    /* Slide-local: two tables side by side at the chrome size in mono, the
-       footnote under both. O(1) blue, O(n) maroon, the walks' inks. Tables
+  <style data-sid="12-cost-table:87">
+    /* Slide-local: two tables side by side, method names in mono at the small
+       size, column heads with a tag-size sub-line, costs as badges (blue O(1),
+       maroon O(n)), the two exceptions as badge-led lines under both. Tables
        fade in whole; nothing moves. All values from tokens; used by this
        slide only. */
-    #slide-12 .ct { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-6); row-gap: var(--s-5); align-content: start; }
+    #slide-12 .ct { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-7); row-gap: var(--s-5); align-content: start; }
     #slide-12 .ct__t { transition: opacity .3s ease; }
-    #slide-12 .ct table { width: 100%; font-family: var(--font-mono); font-size: var(--t-micro); border-collapse: collapse; }
-    #slide-12 .ct th { font-family: var(--font-mono); font-size: var(--t-tag); font-weight: 400; line-height: 1.3; color: var(--fg-1); text-align: left; vertical-align: bottom; padding: 0 var(--s-3) var(--s-2) 0; border-bottom: 3px solid var(--fg-1); }
-    #slide-12 .ct th:first-child { font-family: var(--font-display); font-size: var(--t-small); color: var(--accent-1); }
-    #slide-12 .ct td { padding: var(--s-2) var(--s-3) var(--s-2) 0; border-bottom: 2px solid var(--bg-1); color: var(--fg-0); }
-    #slide-12 .ct td.ok { color: var(--accent-2); }
-    #slide-12 .ct td.lin { color: var(--accent-1); }
-    #slide-12 .ct__foot { grid-column: 1 / -1; margin: 0; transition: opacity .3s ease; }
-    #slide-12 .ct__foot b { color: var(--accent-1); }
+    #slide-12 .ct table { width: 100%; font-family: var(--font-mono); font-size: var(--t-small); border-collapse: collapse; }
+    #slide-12 .ct th { font-family: var(--font-mono); font-size: var(--t-small); font-weight: 400; color: var(--fg-0); text-align: center; vertical-align: bottom; padding: 0 0 var(--s-2); border-bottom: 3px solid var(--fg-1); }
+    #slide-12 .ct th.ct__name { font-family: var(--font-display); font-size: var(--t-h3); color: var(--accent-1); text-align: left; }
+    #slide-12 .ct__sub { display: block; font-size: var(--t-tag); color: var(--fg-1); line-height: 1.3; }
+    #slide-12 .ct td { padding: var(--s-2) 0; border-bottom: 2px solid var(--bg-1); color: var(--fg-0); text-align: center; }
+    #slide-12 .ct td:first-child { text-align: left; }
+    #slide-12 .ct__b { display: inline-block; min-width: 4em; padding: 0 var(--s-2); border-radius: var(--r-3); font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.6; text-align: center; }
+    #slide-12 .ct__b--ok { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 14%, var(--bg-0)); }
+    #slide-12 .ct__b--lin { color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); }
+    #slide-12 .ct__foot { grid-column: 1 / -1; list-style: none; margin: 0; padding: 0; display: grid; row-gap: var(--s-2); font-size: var(--t-small); color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-12 .ct__foot li { margin: 0; line-height: 1.4; }
+    #slide-12 .ct__foot .ct__b { margin-right: var(--s-2); vertical-align: baseline; }
     @media (prefers-reduced-motion: reduce) {
       #slide-12 .ct__t, #slide-12 .ct__foot { transition-duration: 0s !important; }
     }

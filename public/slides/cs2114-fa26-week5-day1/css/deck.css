@@ -339,13 +339,21 @@ html.no-motion *::after {
   font-size: var(--t-tag);
   line-height: 1.2;
 }
+/* .code-mid: --t-code (32px) with the compact gutter — the W5D1 counting walks,
+   nine or ten lines that have to read from the back row (36 was too big, 28 too small). */
+.code-mid .editor__code {
+  padding: var(--s-2) var(--s-2) var(--s-2) 0;
+  font-size: var(--t-code);
+}
 .code-dense .editor__code,
+.code-mid .editor__code,
 .code-tag .editor__code {
   background: linear-gradient(90deg,
     color-mix(in srgb, var(--stone) 20%, var(--bg-1)) 0 calc(var(--s-4) + var(--s-1)),
     transparent calc(var(--s-4) + var(--s-1)));
 }
 .code-dense .editor__code li::before,
+.code-mid .editor__code li::before,
 .code-tag .editor__code li::before { width: var(--s-4); margin-right: var(--s-2); }
 .code-tag .editor__code li::before { font-size: inherit; }
 
@@ -674,6 +682,45 @@ html.no-motion *::after {
 .codewalk .heap-obj--dead,
 .codewalk .heap-obj:has(> .heap-obj__gone.is-current),
 .codewalk .heap-obj:has(> .heap-obj__gone.is-past) { --edge: var(--fg-1); }
+/* ---- vote slide (W5D1, consolidated from three design passes): a short
+   paraphrase h2, the verbatim stem as a muted lede, then two panels — the
+   drawing on the left (128 px cells, one stone stroke and one radius, values at
+   the small size, no plate), the options on the right as lettered rows: an
+   80 px maroon disc with the display letter, the option text at the body size,
+   a hairline rule between rows, no boxes. Options over ~25 characters (Vote 4)
+   take .vote__opts--long: text at the small size, wrapping to two lines. Static;
+   only the two clocks build. Budget: head → y 274, lede two lines 104 + 32,
+   panels 518 → 928, under the 984 floor. ------------------------------------ */
+.slide .vote__stem { margin: 0 0 var(--s-4); max-width: 1440px; font-size: var(--t-small); line-height: 1.45; color: var(--fg-1); }
+.slide .vote__stem code { font-size: .9em; }
+.vote__panels { display: grid; grid-template-columns: 870px minmax(0, 1fr); column-gap: var(--s-5); align-items: center; }
+.vote__fig { display: grid; row-gap: var(--s-2); justify-items: start; }
+.slide .vote__count { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-1); }
+.slide .vote__marks { display: flex; margin: 0; }
+.slide .vote__top { width: 128px; white-space: nowrap; text-align: center; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-3); }
+.slide .vote__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+.vote__cell {
+  position: relative; flex: 0 0 auto; width: 128px; height: 128px; margin: 0; box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+}
+.vote__cell--free { border-style: dashed; background: transparent; }
+.vote__cell--free .vote__idx { color: var(--stone); }
+.vote__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); line-height: 1; color: var(--fg-1); }
+.vote__val { font-family: var(--font-mono); font-size: var(--t-small); line-height: 1; color: var(--fg-0); }
+.slide .vote__opts { list-style: none; margin: 0; padding: 0; }
+.slide .vote__opt { display: flex; align-items: center; gap: var(--s-3); margin: 0; padding: var(--s-3) 0; }
+.vote__opt + .vote__opt { border-top: 2px solid color-mix(in srgb, var(--stone) 35%, var(--bg-0)); }
+.vote__key {
+  flex: 0 0 auto; width: calc(var(--s-6) + var(--s-2)); height: calc(var(--s-6) + var(--s-2));
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 999px; background: var(--accent-1);
+  font-family: var(--font-display); font-size: var(--t-body); line-height: 1; color: var(--paper);
+}
+.slide .vote__text { margin: 0; font-size: var(--t-body); line-height: 1.45; color: var(--fg-0); }
+.slide .vote__text code { font-size: .9em; }
+.slide .vote__opts--long .vote__opt { padding: var(--s-2) 0; }
+.slide .vote__opts--long .vote__text { font-size: var(--t-small); text-wrap: pretty; }
 /* ---- moves counter (W5D1): a display numeral that COUNTS. One
    .heap-obj__field old/new pair per increment (code-walk.js rolls the digits —
    manim's ChangeDecimalToValue — because a tally of moves truly counts, which is

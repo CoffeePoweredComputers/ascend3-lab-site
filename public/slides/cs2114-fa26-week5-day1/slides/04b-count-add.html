@@ -3,139 +3,146 @@
     <p class="slide__kicker" data-sid="04b-count-add:3">COUNTING MOVES &middot; NO LOOP</p>
     <h2 data-sid="04b-count-add:4">add: the same three moves at any size</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04b-count-add:5">A walkthrough of the fixed-size ArrayBag add method under a program-counter bar. On the right, the call bag dot add of gnu; a six-cell array holding ant, bee, cat and dog with two free cells; the count numberOfEntries equals 4 and the length 6; and a large counter labelled moves. Step one: result is set to true. Step two: the count and the length take a blue edge and the counter rolls to 1: is the array full? Step three: gnu is written into cell 4, which takes a blue edge; the counter reads 2. Step four: the count is struck through and 5 appears beside it; the counter reads 3. Step five: return true. Step six: a ten-cell array appears underneath with nine entries and kit just written into the last cell, its count 9 struck to 10, and a count of 3 moves beside it; the caption says the moves do not grow with n: constant.</p>
+  <p class="sr-only slide__desc" data-sid="04b-count-add:5">A walkthrough of the fixed-size add under a program-counter bar, with short names: the array is a, its count is n, the new entry is x. On the right, the call bag dot add of gnu; a six-cell array holding ant, bee, cat and dog with two free cells; the count and the length; a large counter labelled moves. Step one: ok is set to true. Step two: the count and length take a blue edge and the counter reads 1. Step three: gnu is written into cell 4. Step four: n is struck from 4 to 5; the counter reads 3. Step five: return. Step six: the array grows in place to ten cells, hen, jay, kit and owl fill cells 5 to 8, the count reads 9 and the counter resets to 0. Steps seven to ten: the same four lines run again, yak is written into cell 9 and n goes from 9 to 10, with the counter rolling to 3 again. Step eleven: the caption says the moves do not grow with n: constant.</p>
 
-  <!-- The second count is the contrast: add never loops, so the number on the
-       right stops at three whatever the bag holds. Same grammar as the slide
-       before — the bar walks the lines, the array lights what each line
-       touches, the counter rolls — and the only difference the room should
-       notice is that the count does not care about n. Blue for the touched
-       cells and for the counter: a measurement, not a cost. -->
-  <div class="slide__body grid grid--code code-dense ca" data-sid="04b-count-add:6">
+  <!-- The second count is the contrast: add never loops, so the number on
+       the right stops at three whatever the bag holds. Same grammar as the
+       slide before: the bar walks the lines, the array lights what each line
+       touches, the counter rolls; then the array grows in place and the same
+       lines run again (data-also) and the counter stops at three again. Blue
+       for the touched cells and for the counter: a measurement, not a cost. -->
+  <div class="slide__body grid grid--code code-mid ca" data-sid="04b-count-add:6">
     <div class="editor" data-sid="04b-count-add:7">
-      <p class="editor__bar" data-sid="04b-count-add:8">ArrayBag.add &mdash; fixed-size array, Week 3</p>
+      <p class="editor__bar" data-sid="04b-count-add:8">add (Week 3, fixed-size array)</p>
       <div class="editor__pc" data-sid="04b-count-add:9"></div>
       <ol class="editor__code" data-sid="04b-count-add:10">
-        <li data-sid="04b-count-add:11"><span class="tok-key" data-sid="04b-count-add:12">public boolean</span> add(T newEntry) {</li>
-        <li class="walkline frag" data-step="1" data-sid="04b-count-add:13">    <span class="tok-key" data-sid="04b-count-add:14">boolean</span> result = <span class="tok-key" data-sid="04b-count-add:15">true</span>;</li>
-        <li class="walkline frag" data-step="2" data-sid="04b-count-add:16">    <span class="tok-key" data-sid="04b-count-add:17">if</span> (isArrayFull()) {</li>
-        <li data-sid="04b-count-add:18">        result = <span class="tok-key" data-sid="04b-count-add:19">false</span>;</li>
-        <li data-sid="04b-count-add:20">    } <span class="tok-key" data-sid="04b-count-add:21">else</span> {</li>
-        <li class="walkline frag" data-step="3" data-sid="04b-count-add:22">        contents[numberOfEntries] = newEntry;</li>
-        <li class="walkline frag" data-step="4" data-sid="04b-count-add:23">        numberOfEntries++;</li>
+        <li data-sid="04b-count-add:11"><span class="tok-key" data-sid="04b-count-add:12">boolean</span> add(T x) {</li>
+        <li class="walkline frag" data-step="1" data-also="7" data-sid="04b-count-add:13">    <span class="tok-key" data-sid="04b-count-add:14">boolean</span> ok = <span class="tok-key" data-sid="04b-count-add:15">true</span>;</li>
+        <li class="walkline frag" data-step="2" data-also="8" data-sid="04b-count-add:16">    <span class="tok-key" data-sid="04b-count-add:17">if</span> (isArrayFull())</li>
+        <li data-sid="04b-count-add:18">        ok = <span class="tok-key" data-sid="04b-count-add:19">false</span>;</li>
+        <li data-sid="04b-count-add:20">    <span class="tok-key" data-sid="04b-count-add:21">else</span> {</li>
+        <li class="walkline frag" data-step="3" data-also="9" data-sid="04b-count-add:22">        a[n] = x;</li>
+        <li class="walkline frag" data-step="4" data-also="10" data-sid="04b-count-add:23">        n++;</li>
         <li data-sid="04b-count-add:24">    }</li>
-        <li class="walkline frag" data-step="5" data-sid="04b-count-add:25">    <span class="tok-key" data-sid="04b-count-add:26">return</span> result;</li>
+        <li class="walkline frag" data-step="5" data-also="11" data-sid="04b-count-add:25">    <span class="tok-key" data-sid="04b-count-add:26">return</span> ok;</li>
         <li data-sid="04b-count-add:27">}</li>
       </ol>
     </div>
 
     <div class="codewalk ca__right" data-sid="04b-count-add:28">
-      <p class="ca__call" data-sid="04b-count-add:29">bag.add("gnu")</p>
-      <div class="ca__fig" data-sid="04b-count-add:30">
-        <p class="ca__meta" data-sid="04b-count-add:31"><span class="ca__box ca__box--cnt" data-sid="04b-count-add:32">numberOfEntries = <span class="ca__cv ca__cv--0" data-sid="04b-count-add:33">4</span><span class="ca__cv ca__cv--1" data-sid="04b-count-add:34"><span class="sr-only" data-sid="04b-count-add:35">now </span>5</span></span> &nbsp;&middot;&nbsp; <span class="ca__box ca__box--len" data-sid="04b-count-add:36">contents.length = 6</span></p>
-        <ol class="arr" data-sid="04b-count-add:37">
-          <li class="arr__cell" data-sid="04b-count-add:38"><span class="arr__idx" data-sid="04b-count-add:39">0</span><span class="arr__v" data-sid="04b-count-add:40">ant</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:41"><span class="arr__idx" data-sid="04b-count-add:42">1</span><span class="arr__v" data-sid="04b-count-add:43">bee</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:44"><span class="arr__idx" data-sid="04b-count-add:45">2</span><span class="arr__v" data-sid="04b-count-add:46">cat</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:47"><span class="arr__idx" data-sid="04b-count-add:48">3</span><span class="arr__v" data-sid="04b-count-add:49">dog</span></li>
-          <li class="arr__cell arr__cell--free arr__cell--4" data-sid="04b-count-add:50"><span class="arr__idx" data-sid="04b-count-add:51">4</span><span class="arr__v arr__v--new" data-sid="04b-count-add:52">gnu</span></li>
-          <li class="arr__cell arr__cell--free" data-sid="04b-count-add:53"><span class="arr__idx" data-sid="04b-count-add:54">5</span></li>
-        </ol>
-      </div>
-      <div class="moves moves--ok" data-sid="04b-count-add:55">
-        <p class="moves__label" data-sid="04b-count-add:56">moves</p>
-        <div class="moves__stack" data-sid="04b-count-add:57">
-          <div class="heap-obj__field" data-sid="04b-count-add:58"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04b-count-add:59">0</p><p class="heap-val frag" data-step="2" data-sid="04b-count-add:60">1</p></div>
-          <div class="heap-obj__field" data-sid="04b-count-add:61"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04b-count-add:62">1</p><p class="heap-val frag" data-step="3" data-sid="04b-count-add:63">2</p></div>
-          <div class="heap-obj__field" data-sid="04b-count-add:64"><p class="heap-val heap-val--old frag" data-step="4" data-sid="04b-count-add:65">2</p><p class="heap-val frag" data-step="4" data-sid="04b-count-add:66">3</p></div>
+      <p class="ca__call" data-sid="04b-count-add:29"><span class="ca__stk" data-sid="04b-count-add:30"><span class="ca__c ca__c--a" data-sid="04b-count-add:31">bag.add("gnu")</span><span class="ca__c ca__c--b" data-sid="04b-count-add:32">bag.add("yak")</span></span></p>
+      <p class="ca__meta" data-sid="04b-count-add:33"><span class="ca__stk" data-sid="04b-count-add:34"><span class="ca__m ca__m--a" data-sid="04b-count-add:35"><span class="ca__box" data-sid="04b-count-add:36">n = <span class="ca__cv ca__cv--0" data-sid="04b-count-add:37">4</span><span class="ca__cv ca__cv--1" data-sid="04b-count-add:38"><span class="sr-only" data-sid="04b-count-add:39">now </span>5</span></span> &nbsp;&middot;&nbsp; <span class="ca__box" data-sid="04b-count-add:40">a.length = 6</span></span><span class="ca__m ca__m--b" data-sid="04b-count-add:41"><span class="ca__box" data-sid="04b-count-add:42">n = <span class="ca__cv ca__cv--9" data-sid="04b-count-add:43">9</span><span class="ca__cv ca__cv--10" data-sid="04b-count-add:44"><span class="sr-only" data-sid="04b-count-add:45">now </span>10</span></span> &nbsp;&middot;&nbsp; <span class="ca__box" data-sid="04b-count-add:46">a.length = 10</span></span></span></p>
+      <ol class="arr" data-sid="04b-count-add:47">
+        <li class="arr__cell" style="--i: 0" data-sid="04b-count-add:48"><span class="arr__idx" data-sid="04b-count-add:49">0</span><span class="arr__v" data-sid="04b-count-add:50">ant</span></li>
+        <li class="arr__cell" style="--i: 1" data-sid="04b-count-add:51"><span class="arr__idx" data-sid="04b-count-add:52">1</span><span class="arr__v" data-sid="04b-count-add:53">bee</span></li>
+        <li class="arr__cell" style="--i: 2" data-sid="04b-count-add:54"><span class="arr__idx" data-sid="04b-count-add:55">2</span><span class="arr__v" data-sid="04b-count-add:56">cat</span></li>
+        <li class="arr__cell" style="--i: 3" data-sid="04b-count-add:57"><span class="arr__idx" data-sid="04b-count-add:58">3</span><span class="arr__v" data-sid="04b-count-add:59">dog</span></li>
+        <li class="arr__cell arr__cell--free arr__cell--4" style="--i: 4" data-sid="04b-count-add:60"><span class="arr__idx" data-sid="04b-count-add:61">4</span><span class="arr__v arr__v--gnu" data-sid="04b-count-add:62">gnu</span></li>
+        <li class="arr__cell arr__cell--free arr__cell--5" style="--i: 5" data-sid="04b-count-add:63"><span class="arr__idx" data-sid="04b-count-add:64">5</span><span class="arr__v arr__v--late" data-sid="04b-count-add:65">hen</span></li>
+        <li class="arr__cell arr__cell--x arr__cell--late" style="--i: 6" data-sid="04b-count-add:66"><span class="arr__idx" data-sid="04b-count-add:67">6</span><span class="arr__v arr__v--late" data-sid="04b-count-add:68">jay</span></li>
+        <li class="arr__cell arr__cell--x arr__cell--late" style="--i: 7" data-sid="04b-count-add:69"><span class="arr__idx" data-sid="04b-count-add:70">7</span><span class="arr__v arr__v--late" data-sid="04b-count-add:71">kit</span></li>
+        <li class="arr__cell arr__cell--x arr__cell--late" style="--i: 8" data-sid="04b-count-add:72"><span class="arr__idx" data-sid="04b-count-add:73">8</span><span class="arr__v arr__v--late" data-sid="04b-count-add:74">owl</span></li>
+        <li class="arr__cell arr__cell--x arr__cell--free arr__cell--9" style="--i: 9" data-sid="04b-count-add:75"><span class="arr__idx" data-sid="04b-count-add:76">9</span><span class="arr__v arr__v--yak" data-sid="04b-count-add:77">yak</span></li>
+      </ol>
+      <div class="moves moves--ok" data-sid="04b-count-add:78">
+        <p class="moves__label" data-sid="04b-count-add:79">moves</p>
+        <div class="moves__stack" data-sid="04b-count-add:80">
+          <div class="heap-obj__field" data-sid="04b-count-add:81"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04b-count-add:82">0</p><p class="heap-val frag" data-step="2" data-sid="04b-count-add:83">1</p></div>
+          <div class="heap-obj__field" data-sid="04b-count-add:84"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04b-count-add:85">1</p><p class="heap-val frag" data-step="3" data-sid="04b-count-add:86">2</p></div>
+          <div class="heap-obj__field" data-sid="04b-count-add:87"><p class="heap-val heap-val--old frag" data-step="4" data-sid="04b-count-add:88">2</p><p class="heap-val frag" data-step="4" data-sid="04b-count-add:89">3</p></div>
+          <div class="heap-obj__field" data-roll="off" data-sid="04b-count-add:90"><p class="heap-val heap-val--old frag" data-step="6" data-sid="04b-count-add:91">3</p><p class="heap-val frag" data-step="6" data-sid="04b-count-add:92">0</p></div>
+          <div class="heap-obj__field" data-sid="04b-count-add:93"><p class="heap-val heap-val--old frag" data-step="8" data-sid="04b-count-add:94">0</p><p class="heap-val frag" data-step="8" data-sid="04b-count-add:95">1</p></div>
+          <div class="heap-obj__field" data-sid="04b-count-add:96"><p class="heap-val heap-val--old frag" data-step="9" data-sid="04b-count-add:97">1</p><p class="heap-val frag" data-step="9" data-sid="04b-count-add:98">2</p></div>
+          <div class="heap-obj__field" data-sid="04b-count-add:99"><p class="heap-val heap-val--old frag" data-step="10" data-sid="04b-count-add:100">2</p><p class="heap-val frag" data-step="10" data-sid="04b-count-add:101">3</p></div>
         </div>
       </div>
-      <div class="ca__fig ca__fig--big frag" data-step="6" data-sid="04b-count-add:67">
-        <p class="ca__meta" data-sid="04b-count-add:68">numberOfEntries = <s data-sid="04b-count-add:69">9</s> 10 &nbsp;&middot;&nbsp; contents.length = 10 &nbsp;&middot;&nbsp; bag.add("kit")</p>
-        <ol class="arr arr--10" data-sid="04b-count-add:70">
-          <li class="arr__cell" data-sid="04b-count-add:71"><span class="arr__idx" data-sid="04b-count-add:72">0</span><span class="arr__v" data-sid="04b-count-add:73">ant</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:74"><span class="arr__idx" data-sid="04b-count-add:75">1</span><span class="arr__v" data-sid="04b-count-add:76">bee</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:77"><span class="arr__idx" data-sid="04b-count-add:78">2</span><span class="arr__v" data-sid="04b-count-add:79">cat</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:80"><span class="arr__idx" data-sid="04b-count-add:81">3</span><span class="arr__v" data-sid="04b-count-add:82">dog</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:83"><span class="arr__idx" data-sid="04b-count-add:84">4</span><span class="arr__v" data-sid="04b-count-add:85">eel</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:86"><span class="arr__idx" data-sid="04b-count-add:87">5</span><span class="arr__v" data-sid="04b-count-add:88">fox</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:89"><span class="arr__idx" data-sid="04b-count-add:90">6</span><span class="arr__v" data-sid="04b-count-add:91">gnu</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:92"><span class="arr__idx" data-sid="04b-count-add:93">7</span><span class="arr__v" data-sid="04b-count-add:94">hen</span></li>
-          <li class="arr__cell" data-sid="04b-count-add:95"><span class="arr__idx" data-sid="04b-count-add:96">8</span><span class="arr__v" data-sid="04b-count-add:97">jay</span></li>
-          <li class="arr__cell arr__cell--lit" data-sid="04b-count-add:98"><span class="arr__idx" data-sid="04b-count-add:99">9</span><span class="arr__v" data-sid="04b-count-add:100">kit</span></li>
-          <li class="arr__tally" data-sid="04b-count-add:101">moves: <b data-sid="04b-count-add:102">3</b></li>
-        </ol>
-      </div>
-      <div class="codewalk__caps" data-sid="04b-count-add:103">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-count-add:104">result starts true.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-count-add:105">Is the array full? One compare: the count, 4, against the length, 6. No.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-count-add:106">One write: gnu into slot 4, the first free one. The count says where.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-count-add:107">The count goes up: 4 &rarr; 5.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-count-add:108">return true. Three moves.</p>
-        <p class="walkcap walkcap--plant cap--6 frag" data-step="6" data-sid="04b-count-add:109">A bag of nine: the same three moves. n never enters it &mdash; constant.</p>
+      <div class="codewalk__caps" data-sid="04b-count-add:102">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-count-add:103">ok starts true.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-count-add:104">Is the array full? One compare: n, 4, against a.length, 6. No.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-count-add:105">One write: gnu into slot 4, the first free one. n says where.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-count-add:106">n goes up: 4 &rarr; 5.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-count-add:107">return true. Three moves.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-count-add:108">The bag grows: nine entries in an array of ten. The same call, yak this time.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-count-add:109">ok starts true.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04b-count-add:110">Full? 9 against 10. No. One compare.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="04b-count-add:111">One write: yak into slot 9.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="04b-count-add:112">n goes up: 9 &rarr; 10. Three moves again.</p>
+        <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="04b-count-add:113">Nine entries or nine thousand: the same three moves. n never enters it. Constant.</p>
       </div>
     </div>
   </div>
-  <div class="slide__number" data-sid="04b-count-add:110"></div>
-  <aside class="notes" data-sid="04b-count-add:111">Same grammar, opposite result. This is the Week 3 add: a fixed-size array, so a full bag refuses the entry. Step 1: result true. Step 2: the one compare &mdash; is the count equal to the length? Four against six, no. Step 3: the write goes straight to slot four; nobody looks at ant, bee, cat or dog. Step 4: the count goes up. Step 5: return &mdash; three moves. Step 6: a bag of nine, the same three moves; a bag of nine thousand, the same three. Ask: where did n go? Nowhere &mdash; it is not in the code. That is what constant means. Next: what happens when a loop sits inside a loop.</aside>
+  <div class="slide__number" data-sid="04b-count-add:114"></div>
+  <aside class="notes" data-sid="04b-count-add:115">Same grammar, opposite result. This is the Week 3 add with the names shortened: a is contents, n is numberOfEntries, x is the new entry. A fixed-size array, so a full bag refuses the entry. Step 1: ok true. Step 2: the one compare: is the count equal to the length? Four against six, no. Step 3: the write goes straight to slot four; nobody looks at ant, bee, cat or dog. Step 4: the count goes up. Step 5: return; three moves. Step 6: the bag grows to nine entries in an array of ten, and the same call runs again. Steps 7 to 10: the same three moves. Step 11: nine entries or nine thousand, three moves. Ask: where did n go? Nowhere; it is not in the code. That is what constant means. Next: what happens when a loop sits inside a loop.</aside>
 
-  <style data-sid="04b-count-add:112">
-    /* Slide-local: the editor at the chrome size (860 px clears the write
-       line), the bag on the right inside a .codewalk for the moves counter
-       (deck.css .moves, in the tool blue because this count stays small).
-       Six cells at 100 px; the ten-cell bag at 60 px with values at the tag
-       size so it fits the column. The count strikes in place (a replaced
-       value — no roll); the length box and the count box take a blue edge
-       on the compare; the written slot takes the blue on the write. All
-       keyed to the caption frags via :has(). All values from tokens; used by
-       this slide only. */
-    #slide-04b .ca { grid-template-columns: 860px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+  <style data-sid="04b-count-add:116">
+    /* Slide-local: the editor at --t-code (600 px; the longest line is 21
+       characters), the bag on the right inside a .codewalk for the moves
+       counter (blue: this count stays small). One flex row of ten cells: six
+       at 100 px, four collapsed (width 0, no border, gap cancelled) that grow
+       in on step 6 while the six shrink to 64 px (10 × 64 + 9 × 8 = 712 in the
+       992 px column); hen, jay, kit and owl fade into slots 5–8 at the same
+       time. The written slot takes the blue on its write; the count line and
+       the call crossfade to their second-run values (replaced, no roll); the
+       counter resets 3 → 0 by crossfade (data-roll off). All keyed to the
+       caption frags via :has(). All values from tokens; used by this slide
+       only. */
+    #slide-04b .ca { grid-template-columns: 600px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
     #slide-04b .ca__right { display: grid; row-gap: var(--s-3); align-content: start; }
-    #slide-04b .ca__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
-    #slide-04b .ca__fig { display: grid; row-gap: var(--s-1); }
-    #slide-04b .ca__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
-    #slide-04b .ca__meta s { color: var(--fg-1); }
+    #slide-04b .ca__call, #slide-04b .ca__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
+    #slide-04b .ca__call { color: var(--fg-0); }
+    #slide-04b .ca__stk { display: inline-grid; vertical-align: baseline; }
+    #slide-04b .ca__stk > span { grid-area: 1 / 1; transition: opacity .3s ease; }
+    #slide-04b .ca__c--b, #slide-04b .ca__m--b { opacity: 0; }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .ca__c--a, #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .ca__m--a { opacity: 0; }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .ca__c--b, #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .ca__m--b { opacity: 1; }
     #slide-04b .ca__box { display: inline-block; padding: 0 var(--s-1); border-radius: var(--r-1); outline: 3px solid transparent; outline-offset: -1px; transition: outline-color .3s ease, color .3s ease; }
-    #slide-04b .ca__right:has(.cap--2:not(.is-pending)) .ca__box { outline-color: var(--accent-2); color: var(--accent-2); }
-    #slide-04b .ca__right:has(.cap--3:not(.is-pending)) .ca__box { outline-color: transparent; color: var(--fg-1); }
-    /* the count: struck in place on line 7 */
+    #slide-04b .ca__right:has(.cap--2.is-current) .ca__m--a .ca__box, #slide-04b .ca__right:has(.cap--8.is-current) .ca__m--b .ca__box { outline-color: var(--accent-2); color: var(--accent-2); }
+    /* the count: struck in place on the n++ line, once per run */
     #slide-04b .ca__cv { position: relative; display: inline-block; line-height: 1; margin-right: var(--s-1); transition: color .3s ease, opacity .3s ease; }
     #slide-04b .ca__cv::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 0; border-top: 3px solid currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .35s var(--ease-smooth); }
-    #slide-04b .ca__cv--1 { opacity: 0; margin-right: 0; }
+    #slide-04b .ca__cv--1, #slide-04b .ca__cv--10 { opacity: 0; margin-right: 0; }
     #slide-04b .ca__right:has(.cap--4:not(.is-pending)) .ca__cv--0::after { transform: scaleX(1); }
     #slide-04b .ca__right:has(.cap--4:not(.is-pending)) .ca__cv--1 { opacity: 1; transition-delay: .25s; }
+    #slide-04b .ca__right:has(.cap--10:not(.is-pending)) .ca__cv--9::after { transform: scaleX(1); }
+    #slide-04b .ca__right:has(.cap--10:not(.is-pending)) .ca__cv--10 { opacity: 1; transition-delay: .25s; }
 
-    #slide-04b .arr { display: flex; align-items: center; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+    #slide-04b .arr { display: flex; align-items: center; gap: var(--s-1); list-style: none; margin: 0; padding: 0; }
     #slide-04b .arr li { margin: 0; }
     #slide-04b .arr__cell {
-      position: relative; flex: 0 0 auto; width: 100px; height: 100px; box-sizing: border-box;
+      position: relative; flex: 0 0 auto; width: 100px; height: 100px; box-sizing: border-box; overflow: hidden; padding-top: 0;
       display: flex; align-items: center; justify-content: center;
       border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
-      transition: border-color .3s ease, background-color .3s ease;
+      transition: width .6s var(--ease-smooth), height .6s var(--ease-smooth), padding .6s var(--ease-smooth), margin .6s var(--ease-smooth), opacity .3s ease, border-color .3s ease, background-color .3s ease, border-style 0s;
     }
-    #slide-04b .arr__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
-    #slide-04b .arr__v { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
+    #slide-04b .arr__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); transition: font-size .6s var(--ease-smooth), top .6s var(--ease-smooth), left .6s var(--ease-smooth); }
+    #slide-04b .arr__v { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); transition: opacity .3s ease; transition: opacity .3s ease, font-size .6s var(--ease-smooth); }
     #slide-04b .arr__cell--free { border-style: dashed; background: transparent; }
     #slide-04b .arr__cell--free .arr__idx { color: var(--stone); }
-    #slide-04b .arr__v--new { opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .arr__v--gnu, #slide-04b .arr__v--late, #slide-04b .arr__v--yak { opacity: 0; }
+    #slide-04b .arr__cell--x { width: 0; opacity: 0; border-width: 0; margin-left: calc(-1 * var(--s-1)); }
     /* step 3: the write lands in slot 4 */
     #slide-04b .ca__right:has(.cap--3:not(.is-pending)) .arr__cell--4 { border-style: solid; border-color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-0)); }
-    #slide-04b .ca__right:has(.cap--3:not(.is-pending)) .arr__v--new { opacity: 1; transition-delay: .15s; }
-    /* the big bag: ten cells at 60, the just-written slot already blue */
-    #slide-04b .arr--10 { gap: var(--s-1); }
-    #slide-04b .arr--10 .arr__cell { width: 60px; height: 60px; border-radius: var(--r-1); }
-    #slide-04b .arr--10 .arr__idx { top: 2px; left: 4px; font-size: 16px; }
-    #slide-04b .arr--10 .arr__v { font-size: var(--t-tag); }
-    #slide-04b .arr__cell--lit { border-color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-0)); }
-    #slide-04b .arr__tally { margin-left: var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-2); }
-    #slide-04b .arr__tally b { font-family: var(--font-display); font-size: var(--t-h3); font-weight: 400; }
-    #slide-04b .ca__fig--big { transition: opacity .3s ease; }
+    #slide-04b .ca__right:has(.cap--3:not(.is-pending)) .arr__v--gnu { opacity: 1; transition-delay: .15s; }
+    /* step 6: the array grows in place, the late entries fill in, slot 4 is ordinary again */
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell { width: 64px; height: 64px; padding-top: 14px; }
+    /* smaller cells, smaller labels: the index stays in its corner strip, the value under it */
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__v { font-size: var(--t-tag); }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__idx { font-size: 14px; top: 3px; left: 5px; }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell--x { opacity: 1; border-width: 3px; margin-left: 0; transition-delay: calc(.2s + (var(--i) - 6) * .1s); }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell--4,
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell--5,
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell--late { border-style: solid; border-color: var(--stone); background: var(--bg-1); }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell--5 .arr__idx, #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__cell--late .arr__idx { color: var(--fg-1); }
+    #slide-04b .ca__right:has(.cap--6:not(.is-pending)) .arr__v--late { opacity: 1; transition-delay: .5s; }
+    /* step 9: the second write lands in slot 9 */
+    #slide-04b .ca__right:has(.cap--9:not(.is-pending)) .arr__cell--9 { border-style: solid; border-color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-0)); }
+    #slide-04b .ca__right:has(.cap--9:not(.is-pending)) .arr__v--yak { opacity: 1; transition-delay: .15s; }
 
     #slide-04b .codewalk__caps { min-height: 110px; }
     #slide-04b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-04b .arr__cell, #slide-04b .arr__v--new, #slide-04b .ca__box, #slide-04b .ca__cv, #slide-04b .ca__cv::after, #slide-04b .ca__fig--big { transition-duration: 0s !important; transition-delay: 0s !important; }
+      #slide-04b .arr__cell, #slide-04b .arr__v, #slide-04b .ca__box, #slide-04b .ca__cv, #slide-04b .ca__cv::after, #slide-04b .ca__stk > span { transition-duration: 0s !important; transition-delay: 0s !important; }
     }
   </style>
 </section>

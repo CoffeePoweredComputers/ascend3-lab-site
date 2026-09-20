@@ -79,6 +79,7 @@
   --t-body: 48px;
   --t-small: 36px;
   --t-micro: 28px;              /* chrome only: editor filename bar, gutter line numbers */
+  --t-code: 32px;        /* code that must be read from the back row but has more than eight lines (W5D1 counting walks): one step under --t-small */
   --t-tag: 21px;                /* smallest legible: map-label subtexts, polaroid captions */
 
   /* corner radii — cut-stone, barely softened */

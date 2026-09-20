@@ -80,10 +80,9 @@
   <style data-sid="09b-walk-top0:105">
     /* Slide-local: the editor at the chrome size (960 px clears the 51-character
        for line: 51 × 16.8 + 70 of chrome = 927), the array on the right inside a .codewalk for the moves
-       counter. Cells 92 px on a 108 pitch (six of them fit the 672 px column); each value is an opaque box
-       inside its cell so that when it slides one pitch left (a real move,
-       translateX(-108px)) it covers the value it overwrites; boxes leave
-       the top strip clear so the index labels stay readable. A touched
+       counter. Cells 92 px on a 108 pitch (six of them fit the 672 px column); each value
+       slides one pitch left (a real move, translateX(-108px)) and the value it
+       overwrites fades out as it arrives, so nothing needs an opaque box. A touched
        cell takes a blue edge; the vacated last cell shows null and goes
        dashed once the count is down. The count strikes in place, top
        crossfades. All keyed to the caption frags through :has(). All
@@ -110,10 +109,9 @@
     #slide-09b .arr__cell--free .arr__idx { color: var(--stone); }
     #slide-09b .arr__null { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--stone); opacity: 0; transition: opacity .3s ease; }
     #slide-09b .mv {
-      position: absolute; inset: 26px 8px 8px 8px; display: flex; align-items: center; justify-content: center;
-      background: var(--bg-1); border-radius: var(--r-1);
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
       font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0);
-      transition: transform .6s var(--ease-smooth);
+      transition: transform .6s var(--ease-smooth), opacity .3s ease;
     }
     /* step 1: the read */
     #slide-09b .tp__right:has(.cap--1:not(.is-pending)) .arr__cell--0 { border-color: var(--accent-2); }
@@ -124,6 +122,7 @@
     #slide-09b .tp__right:has(.cap--1:not(.is-pending)) .tp__tv--e { opacity: 1; }
     /* steps 2–5: one entry per press slides one cell left; the cell it lands in takes the edge */
     #slide-09b .tp__right:has(.cap--2:not(.is-pending)) .mv--1 { transform: translateX(-108px); }
+    #slide-09b .tp__right:has(.cap--2:not(.is-pending)) .mv--0 { opacity: 0; }   /* E goes as D arrives: no box needed to cover it */
     #slide-09b .tp__right:has(.cap--3:not(.is-pending)) .mv--2 { transform: translateX(-108px); }
     #slide-09b .tp__right:has(.cap--4:not(.is-pending)) .mv--3 { transform: translateX(-108px); }
     #slide-09b .tp__right:has(.cap--5:not(.is-pending)) .mv--4 { transform: translateX(-108px); }

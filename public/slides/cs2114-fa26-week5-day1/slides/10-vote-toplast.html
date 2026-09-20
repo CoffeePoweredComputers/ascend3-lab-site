@@ -7,41 +7,40 @@
   <p class="tlabel tlabel--vote" data-sid="10-vote-toplast:18">vote</p>
   <div class="timer timer--discuss frag" data-step="2" data-timer="240" data-state="idle" role="timer" aria-label="Four-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="10-vote-toplast:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="10-vote-toplast:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="10-vote-toplast:21"/><g class="timer__ticks" data-sid="10-vote-toplast:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="10-vote-toplast:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="10-vote-toplast:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="10-vote-toplast:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="10-vote-toplast:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="10-vote-toplast:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="10-vote-toplast:28"/><g class="timer__hand" data-sid="10-vote-toplast:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="10-vote-toplast:30"/></g><text class="timer__time" x="75" y="88" data-sid="10-vote-toplast:31">4:00</text></svg></div>
   <p class="tlabel tlabel--discuss" data-sid="10-vote-toplast:32">discuss</p>
-  <p class="sr-only slide__desc" data-sid="10-vote-toplast:33">A peer-instruction question. On the left, the question stem &mdash; if a stack is implemented using an array where the top of the stack is the last occupied index, what is the time complexity of pop &mdash; over a drawing of the stack&rsquo;s array: six cells holding A, B, C, D, E at indexes 0 to 4 and a dashed free cell at index 5, with an orange marker reading topIndex equals 4 over the cell holding E, and the line after push A through push E above. Two short lines under the drawing say: pop removes and returns the top entry; Big-O: how the moves grow with n. On the right, the four options: A, O of 1; B, O of n; C, O of log n; D, O of n squared. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+  <p class="sr-only slide__desc" data-sid="10-vote-toplast:33">A peer-instruction question. Under the title, the question stem in muted type: if a stack is implemented using an array where the top of the stack is the last occupied index, what is the time complexity of pop. Below it, two panels side by side. Left, a drawing of the stack&rsquo;s array: the line after push A through push E, an orange marker reading topIndex equals 4 over the cell holding E, then six cells holding A, B, C, D, E at indexes 0 to 4 and a dashed free cell at index 5. Right, the four options as rows, each led by a maroon disc with its letter: A, O of 1; B, O of n; C, O of log n; D, O of n squared. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
 
-  <!-- Vote 2's mirror: the same five pushes, the top at the other end. The
-       stem and the four options are quoted from the question — this one
-       sets its options as math, so n² is a superscript here. Static; the
-       answer slide is four lines long. Runestone activity
-       vtcs2_efficiency_stacks_3_202507. -->
-  <div class="slide__body lb" data-sid="10-vote-toplast:34">
-    <div class="stack" data-sid="10-vote-toplast:35">
-      <p class="lb__stem" data-sid="10-vote-toplast:36">If a stack is implemented using an array where the top of the stack is the last occupied index, what is the time complexity of <code data-sid="10-vote-toplast:37">pop()</code>?</p>
-      <div class="lb__fig" data-sid="10-vote-toplast:38">
-        <p class="lb__count" data-sid="10-vote-toplast:39">after push(A), push(B), push(C), push(D), push(E)</p>
-        <p class="lb__marks" data-sid="10-vote-toplast:40"><span class="lb__top" data-sid="10-vote-toplast:41">topIndex = 4 &darr;</span></p>
-        <ol class="lb__row" data-sid="10-vote-toplast:42">
-          <li class="lb__cell" data-sid="10-vote-toplast:43"><span class="lb__idx" data-sid="10-vote-toplast:44">0</span><span class="lb__val" data-sid="10-vote-toplast:45">A</span></li>
-          <li class="lb__cell" data-sid="10-vote-toplast:46"><span class="lb__idx" data-sid="10-vote-toplast:47">1</span><span class="lb__val" data-sid="10-vote-toplast:48">B</span></li>
-          <li class="lb__cell" data-sid="10-vote-toplast:49"><span class="lb__idx" data-sid="10-vote-toplast:50">2</span><span class="lb__val" data-sid="10-vote-toplast:51">C</span></li>
-          <li class="lb__cell" data-sid="10-vote-toplast:52"><span class="lb__idx" data-sid="10-vote-toplast:53">3</span><span class="lb__val" data-sid="10-vote-toplast:54">D</span></li>
-          <li class="lb__cell" data-sid="10-vote-toplast:55"><span class="lb__idx" data-sid="10-vote-toplast:56">4</span><span class="lb__val" data-sid="10-vote-toplast:57">E</span></li>
-          <li class="lb__cell lb__cell--free" data-sid="10-vote-toplast:58"><span class="lb__idx" data-sid="10-vote-toplast:59">5</span></li>
+  <!-- The deck's vote layout (deck.css .vote). Vote 2's mirror: the same
+       five pushes, the top at the other end. The stem and the four options
+       are quoted from the question; this one sets its options as math, so
+       n² is a superscript here. Static; the answer slide is four lines long.
+       Runestone activity vtcs2_efficiency_stacks_3_202507. -->
+  <div class="slide__body" data-sid="10-vote-toplast:34">
+    <p class="vote__stem" data-sid="10-vote-toplast:35">If a stack is implemented using an array where the top of the stack is the last occupied index, what is the time complexity of <code data-sid="10-vote-toplast:36">pop()</code>?</p>
+    <div class="vote__panels" data-sid="10-vote-toplast:37">
+      <div class="vote__fig" data-sid="10-vote-toplast:38">
+        <p class="vote__count" data-sid="10-vote-toplast:39">after push(A), push(B), push(C), push(D), push(E)</p>
+        <p class="vote__marks" data-sid="10-vote-toplast:40"><span class="vote__top vote__top--4" data-sid="10-vote-toplast:41">topIndex = 4 &darr;</span></p>
+        <ol class="vote__row" data-sid="10-vote-toplast:42">
+          <li class="vote__cell" data-sid="10-vote-toplast:43"><span class="vote__idx" data-sid="10-vote-toplast:44">0</span><span class="vote__val" data-sid="10-vote-toplast:45">A</span></li>
+          <li class="vote__cell" data-sid="10-vote-toplast:46"><span class="vote__idx" data-sid="10-vote-toplast:47">1</span><span class="vote__val" data-sid="10-vote-toplast:48">B</span></li>
+          <li class="vote__cell" data-sid="10-vote-toplast:49"><span class="vote__idx" data-sid="10-vote-toplast:50">2</span><span class="vote__val" data-sid="10-vote-toplast:51">C</span></li>
+          <li class="vote__cell" data-sid="10-vote-toplast:52"><span class="vote__idx" data-sid="10-vote-toplast:53">3</span><span class="vote__val" data-sid="10-vote-toplast:54">D</span></li>
+          <li class="vote__cell" data-sid="10-vote-toplast:55"><span class="vote__idx" data-sid="10-vote-toplast:56">4</span><span class="vote__val" data-sid="10-vote-toplast:57">E</span></li>
+          <li class="vote__cell vote__cell--free" data-sid="10-vote-toplast:58"><span class="vote__idx" data-sid="10-vote-toplast:59">5</span></li>
         </ol>
-        <p class="lb__note" data-sid="10-vote-toplast:60">pop() removes and returns the top entry<br data-sid="10-vote-toplast:61">Big-O: how the moves grow with n</p>
       </div>
+      <ol class="vote__opts" data-sid="10-vote-toplast:60">
+        <li class="vote__opt" data-sid="10-vote-toplast:61"><span class="vote__key" data-sid="10-vote-toplast:62">A</span><p class="vote__text" data-sid="10-vote-toplast:63">O(1)</p></li>
+        <li class="vote__opt" data-sid="10-vote-toplast:64"><span class="vote__key" data-sid="10-vote-toplast:65">B</span><p class="vote__text" data-sid="10-vote-toplast:66">O(n)</p></li>
+        <li class="vote__opt" data-sid="10-vote-toplast:67"><span class="vote__key" data-sid="10-vote-toplast:68">C</span><p class="vote__text" data-sid="10-vote-toplast:69">O(log n)</p></li>
+        <li class="vote__opt" data-sid="10-vote-toplast:70"><span class="vote__key" data-sid="10-vote-toplast:71">D</span><p class="vote__text" data-sid="10-vote-toplast:72">O(n<sup data-sid="10-vote-toplast:73">2</sup>)</p></li>
+      </ol>
     </div>
-    <ol class="opts" data-sid="10-vote-toplast:62">
-      <li data-sid="10-vote-toplast:63"><p data-sid="10-vote-toplast:64">O(1)</p></li>
-      <li data-sid="10-vote-toplast:65"><p data-sid="10-vote-toplast:66">O(n)</p></li>
-      <li data-sid="10-vote-toplast:67"><p data-sid="10-vote-toplast:68">O(log n)</p></li>
-      <li data-sid="10-vote-toplast:69"><p data-sid="10-vote-toplast:70">O(n<sup data-sid="10-vote-toplast:71">2</sup>)</p></li>
-    </ol>
   </div>
-  <div class="slide__number" data-sid="10-vote-toplast:72"></div>
-  <aside class="notes" data-sid="10-vote-toplast:73">Answer: A &mdash; O(1). The question as printed: &ldquo;If a stack is implemented using an array where the top of the stack is the last occupied index, what is the time complexity of pop()?&rdquo; Press once: the 2:30 vote clock; press again for &ldquo;discuss&rdquo;; press again to move on. This is Vote 2&rsquo;s mirror, so the discussion can be short &mdash; press through early if the room is already there. The question the groups should ask themselves: after pop, where is the new top? At index 3, which is already where D is. Nothing has to move. Runestone activity: vtcs2_efficiency_stacks_3_202507.</aside>
+  <div class="slide__number" data-sid="10-vote-toplast:74"></div>
+  <aside class="notes" data-sid="10-vote-toplast:75">Answer: A &mdash; O(1). The question as printed: &ldquo;If a stack is implemented using an array where the top of the stack is the last occupied index, what is the time complexity of pop()?&rdquo; Press once: the 2:30 vote clock; press again for &ldquo;discuss&rdquo;; press again to move on. This is Vote 2&rsquo;s mirror, so the discussion can be short; press through early if the room is already there. The question the groups should ask themselves: after pop, where is the new top? At index 3, which is already where D is. Nothing has to move. Runestone activity: vtcs2_efficiency_stacks_3_202507.</aside>
 
-  <style data-sid="10-vote-toplast:74">
+  <style data-sid="10-vote-toplast:76">
     /* two clocks at the top right: the vote ring (2:30) and the discussion
        ring (4:00), side by side with a label under each; the first press
        starts the vote, the second starts the discussion and finishes the vote
@@ -52,26 +51,8 @@
     #slide-10 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
     #slide-10 .tlabel--vote { right: calc(var(--s-8) + 190px); }
     #slide-10 .tlabel--discuss { right: var(--s-8); }
-    /* Slide-local: Vote 2's layout, the marker over the last occupied cell
-       (offset by four pitches). Static. All values from tokens; used by this
-       slide only. */
-    #slide-10 .lb { display: grid; grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
-    #slide-10 .stack { gap: var(--s-4); }
-    #slide-10 .lb__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
-    #slide-10 .lb__stem code { font-size: .9em; }
-    #slide-10 .lb__count { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
-    #slide-10 .lb__marks { display: flex; margin: 0 0 var(--s-1); }
-    #slide-10 .lb__top { width: 100px; margin-left: 464px; white-space: nowrap; text-align: center; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-3); }
-    #slide-10 .lb__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
-    #slide-10 .lb__cell {
-      position: relative; flex: 0 0 auto; width: 100px; height: 100px; margin: 0; box-sizing: border-box;
-      display: flex; align-items: center; justify-content: center;
-      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
-    }
-    #slide-10 .lb__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
-    #slide-10 .lb__val { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
-    #slide-10 .lb__cell--free { border-style: dashed; background: transparent; }
-    #slide-10 .lb__cell--free .lb__idx { color: var(--stone); }
-    #slide-10 .lb__note { margin: var(--s-2) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+    /* Slide-local: the layout is deck.css .vote; the marker sits over cell 4
+       (four pitches of 144 = 576). */
+    #slide-10 .vote__top--4 { margin-left: 576px; }
   </style>
 </section>

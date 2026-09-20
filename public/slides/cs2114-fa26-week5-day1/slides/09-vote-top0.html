@@ -7,43 +7,42 @@
   <p class="tlabel tlabel--vote" data-sid="09-vote-top0:18">vote</p>
   <div class="timer timer--discuss frag" data-step="2" data-timer="240" data-state="idle" role="timer" aria-label="Four-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="09-vote-top0:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="09-vote-top0:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="09-vote-top0:21"/><g class="timer__ticks" data-sid="09-vote-top0:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="09-vote-top0:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="09-vote-top0:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="09-vote-top0:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="09-vote-top0:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="09-vote-top0:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="09-vote-top0:28"/><g class="timer__hand" data-sid="09-vote-top0:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="09-vote-top0:30"/></g><text class="timer__time" x="75" y="88" data-sid="09-vote-top0:31">4:00</text></svg></div>
   <p class="tlabel tlabel--discuss" data-sid="09-vote-top0:32">discuss</p>
-  <p class="sr-only slide__desc" data-sid="09-vote-top0:33">A peer-instruction question. On the left, the question stem &mdash; if the top of the stack is the first entry of the array what is the complexity for pop in Big-O notation &mdash; over a drawing of the stack&rsquo;s array: an orange marker reading top over cell 0, then six cells holding E, D, C, B, A at indexes 0 to 4 and a dashed free cell at index 5, with the line after push A, push B, push C, push D, push E above. Two short lines under the drawing say: pop removes and returns the top entry; Big-O: how the moves grow with n. On the right, the four options: A, O of 1; B, O of n; C, O of log n; D, O of n caret 2. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+  <p class="sr-only slide__desc" data-sid="09-vote-top0:33">A peer-instruction question. Under the title, the question stem in muted type: if the top of the stack is the first entry of the array what is the complexity for pop in Big-O notation. Below it, two panels side by side. Left, a drawing of the stack&rsquo;s array: the line after push A, push B, push C, push D, push E, an orange marker reading top over cell 0, then six cells holding E, D, C, B, A at indexes 0 to 4 and a dashed free cell at index 5. Right, the four options as rows, each led by a maroon disc with its letter: A, O of 1; B, O of n; C, O of log n; D, O of n caret 2. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
 
-  <!-- The question is text-only in Runestone, so the array it describes is
-       drawn: the top at index 0, five entries in push order, one free slot
-       — slide 8's third design with two more pushes. The stem and the four
-       options are quoted from the question (no comma before "what", a caret
-       in n^2). The gloss says what pop does and what Big-O asks, nothing
-       about how many moves. Static — the answer slide runs the loop.
-       Runestone activity vtcs2_efficiency_stacks_2. -->
-  <div class="slide__body lb" data-sid="09-vote-top0:34">
-    <div class="stack" data-sid="09-vote-top0:35">
-      <p class="lb__stem" data-sid="09-vote-top0:36">If the top of the stack is the first entry of the array what is the complexity for pop() in Big-O notation?</p>
-      <div class="lb__fig" data-sid="09-vote-top0:37">
-        <p class="lb__count" data-sid="09-vote-top0:38">after push(A), push(B), push(C), push(D), push(E) &nbsp;&middot;&nbsp; numberOfEntries = 5</p>
-        <p class="lb__marks" data-sid="09-vote-top0:39"><span class="lb__top" data-sid="09-vote-top0:40">top &darr;</span></p>
-        <ol class="lb__row" data-sid="09-vote-top0:41">
-          <li class="lb__cell" data-sid="09-vote-top0:42"><span class="lb__idx" data-sid="09-vote-top0:43">0</span><span class="lb__val" data-sid="09-vote-top0:44">E</span></li>
-          <li class="lb__cell" data-sid="09-vote-top0:45"><span class="lb__idx" data-sid="09-vote-top0:46">1</span><span class="lb__val" data-sid="09-vote-top0:47">D</span></li>
-          <li class="lb__cell" data-sid="09-vote-top0:48"><span class="lb__idx" data-sid="09-vote-top0:49">2</span><span class="lb__val" data-sid="09-vote-top0:50">C</span></li>
-          <li class="lb__cell" data-sid="09-vote-top0:51"><span class="lb__idx" data-sid="09-vote-top0:52">3</span><span class="lb__val" data-sid="09-vote-top0:53">B</span></li>
-          <li class="lb__cell" data-sid="09-vote-top0:54"><span class="lb__idx" data-sid="09-vote-top0:55">4</span><span class="lb__val" data-sid="09-vote-top0:56">A</span></li>
-          <li class="lb__cell lb__cell--free" data-sid="09-vote-top0:57"><span class="lb__idx" data-sid="09-vote-top0:58">5</span></li>
+  <!-- The deck's vote layout (deck.css .vote). The question is text-only in
+       Runestone, so the array it describes is drawn: the top at index 0,
+       five entries in push order, one free slot — slide 8's third design
+       with two more pushes. The stem and the four options are quoted from
+       the question (no comma before "what", a caret in n^2). Static; the
+       answer slide runs the loop. Runestone activity
+       vtcs2_efficiency_stacks_2. -->
+  <div class="slide__body" data-sid="09-vote-top0:34">
+    <p class="vote__stem" data-sid="09-vote-top0:35">If the top of the stack is the first entry of the array what is the complexity for pop() in Big-O notation?</p>
+    <div class="vote__panels" data-sid="09-vote-top0:36">
+      <div class="vote__fig" data-sid="09-vote-top0:37">
+        <p class="vote__count" data-sid="09-vote-top0:38">after push(A), push(B), push(C), push(D), push(E)</p>
+        <p class="vote__marks" data-sid="09-vote-top0:39"><span class="vote__top" data-sid="09-vote-top0:40">top &darr;</span></p>
+        <ol class="vote__row" data-sid="09-vote-top0:41">
+          <li class="vote__cell" data-sid="09-vote-top0:42"><span class="vote__idx" data-sid="09-vote-top0:43">0</span><span class="vote__val" data-sid="09-vote-top0:44">E</span></li>
+          <li class="vote__cell" data-sid="09-vote-top0:45"><span class="vote__idx" data-sid="09-vote-top0:46">1</span><span class="vote__val" data-sid="09-vote-top0:47">D</span></li>
+          <li class="vote__cell" data-sid="09-vote-top0:48"><span class="vote__idx" data-sid="09-vote-top0:49">2</span><span class="vote__val" data-sid="09-vote-top0:50">C</span></li>
+          <li class="vote__cell" data-sid="09-vote-top0:51"><span class="vote__idx" data-sid="09-vote-top0:52">3</span><span class="vote__val" data-sid="09-vote-top0:53">B</span></li>
+          <li class="vote__cell" data-sid="09-vote-top0:54"><span class="vote__idx" data-sid="09-vote-top0:55">4</span><span class="vote__val" data-sid="09-vote-top0:56">A</span></li>
+          <li class="vote__cell vote__cell--free" data-sid="09-vote-top0:57"><span class="vote__idx" data-sid="09-vote-top0:58">5</span></li>
         </ol>
-        <p class="lb__note" data-sid="09-vote-top0:59">pop() removes and returns the top entry<br data-sid="09-vote-top0:60">Big-O: how the moves grow with n</p>
       </div>
+      <ol class="vote__opts" data-sid="09-vote-top0:59">
+        <li class="vote__opt" data-sid="09-vote-top0:60"><span class="vote__key" data-sid="09-vote-top0:61">A</span><p class="vote__text" data-sid="09-vote-top0:62">O(1)</p></li>
+        <li class="vote__opt" data-sid="09-vote-top0:63"><span class="vote__key" data-sid="09-vote-top0:64">B</span><p class="vote__text" data-sid="09-vote-top0:65">O(n)</p></li>
+        <li class="vote__opt" data-sid="09-vote-top0:66"><span class="vote__key" data-sid="09-vote-top0:67">C</span><p class="vote__text" data-sid="09-vote-top0:68">O(log n)</p></li>
+        <li class="vote__opt" data-sid="09-vote-top0:69"><span class="vote__key" data-sid="09-vote-top0:70">D</span><p class="vote__text" data-sid="09-vote-top0:71">O(n^2)</p></li>
+      </ol>
     </div>
-    <ol class="opts" data-sid="09-vote-top0:61">
-      <li data-sid="09-vote-top0:62"><p data-sid="09-vote-top0:63">O(1)</p></li>
-      <li data-sid="09-vote-top0:64"><p data-sid="09-vote-top0:65">O(n)</p></li>
-      <li data-sid="09-vote-top0:66"><p data-sid="09-vote-top0:67">O(log n)</p></li>
-      <li data-sid="09-vote-top0:68"><p data-sid="09-vote-top0:69">O(n^2)</p></li>
-    </ol>
   </div>
-  <div class="slide__number" data-sid="09-vote-top0:70"></div>
-  <aside class="notes" data-sid="09-vote-top0:71">Answer: B &mdash; O(n). The question as printed: &ldquo;If the top of the stack is the first entry of the array what is the complexity for pop() in Big-O notation?&rdquo; Press once: the 2:30 vote clock, silent first answers. Press again for &ldquo;discuss&rdquo;: the 4:00 discussion clock starts and the vote clock stops. Press again to move on. Point at the drawing before the groups start: the top is index 0, and after pop the new top has to be at index 0 too. That sentence is the whole question. Groups that say A are thinking of reading the top, which is one move; ask them what index 0 holds after the pop. C, log n, is a shape nobody has drawn yet &mdash; halving, which nothing here does. Runestone activity: vtcs2_efficiency_stacks_2.</aside>
+  <div class="slide__number" data-sid="09-vote-top0:72"></div>
+  <aside class="notes" data-sid="09-vote-top0:73">Answer: B &mdash; O(n). The question as printed: &ldquo;If the top of the stack is the first entry of the array what is the complexity for pop() in Big-O notation?&rdquo; Press once: the 2:30 vote clock, silent first answers. Press again for &ldquo;discuss&rdquo;: the 4:00 discussion clock starts and the vote clock stops. Press again to move on. Point at the drawing before the groups start: the top is index 0, and after pop the new top has to be at index 0 too. That sentence is the whole question. Groups that say A are thinking of reading the top, which is one move; ask them what index 0 holds after the pop. C, log n, is a shape nobody has drawn yet: halving, which nothing here does. Runestone activity: vtcs2_efficiency_stacks_2.</aside>
 
-  <style data-sid="09-vote-top0:72">
+  <style data-sid="09-vote-top0:74">
     /* two clocks at the top right: the vote ring (2:30) and the discussion
        ring (4:00), side by side with a label under each; the first press
        starts the vote, the second starts the discussion and finishes the vote
@@ -54,26 +53,7 @@
     #slide-09 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
     #slide-09 .tlabel--vote { right: calc(var(--s-8) + 190px); }
     #slide-09 .tlabel--discuss { right: var(--s-8); }
-    /* Slide-local: the stem and the array on the left (six 100px cells and
-       five gutters = 680), the four options on the right; the top marker in
-       the chapter's orange over cell 0. Static: nothing here is a step but
-       the clocks. All values from tokens; used by this slide only. */
-    #slide-09 .lb { display: grid; grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
-    #slide-09 .stack { gap: var(--s-4); }
-    #slide-09 .lb__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
-    #slide-09 .lb__count { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
-    #slide-09 .lb__marks { display: flex; margin: 0 0 var(--s-1); }
-    #slide-09 .lb__top { width: 100px; text-align: center; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-3); }
-    #slide-09 .lb__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
-    #slide-09 .lb__cell {
-      position: relative; flex: 0 0 auto; width: 100px; height: 100px; margin: 0; box-sizing: border-box;
-      display: flex; align-items: center; justify-content: center;
-      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
-    }
-    #slide-09 .lb__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
-    #slide-09 .lb__val { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
-    #slide-09 .lb__cell--free { border-style: dashed; background: transparent; }
-    #slide-09 .lb__cell--free .lb__idx { color: var(--stone); }
-    #slide-09 .lb__note { margin: var(--s-2) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+    /* Slide-local: nothing beyond the clocks — the layout is deck.css .vote;
+       the orange top marker sits over cell 0. */
   </style>
 </section>

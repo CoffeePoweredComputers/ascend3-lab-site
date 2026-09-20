@@ -7,43 +7,43 @@
   <p class="tlabel tlabel--vote" data-sid="06-vote-grow:18">vote</p>
   <div class="timer timer--discuss frag" data-step="2" data-timer="240" data-state="idle" role="timer" aria-label="Four-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="06-vote-grow:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-grow:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-grow:21"/><g class="timer__ticks" data-sid="06-vote-grow:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-grow:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-grow:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-grow:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-grow:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-grow:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-grow:28"/><g class="timer__hand" data-sid="06-vote-grow:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-grow:30"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-grow:31">4:00</text></svg></div>
   <p class="tlabel tlabel--discuss" data-sid="06-vote-grow:32">discuss</p>
-  <p class="sr-only slide__desc" data-sid="06-vote-grow:33">A peer-instruction question. On the left, the question stem &mdash; what is the time complexity for adding an entry to an array-based bag ADT that is not a fixed length &mdash; over a drawing of the bag&rsquo;s array: six cells holding ant, bee, cat, dog, eel and fox at indexes 0 to 5, with no free cell, and the line contents dot length equals 6, numberOfEntries equals 6 above it. Two short lines under the drawing gloss the terms: not a fixed length, the array can grow when it is full; time complexity, how the moves grow with n. On the right, the four options: A, O of 1; B, O of n; C, O of n caret 2; D, Negligible. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+  <p class="sr-only slide__desc" data-sid="06-vote-grow:33">A peer-instruction question. Under the title, the question stem in muted type: what is the time complexity for adding an entry to an array-based bag ADT that is not a fixed length. Below it, two panels side by side. Left, a drawing of the bag&rsquo;s array: the line contents dot length equals 6, numberOfEntries equals 6, then six cells holding ant, bee, cat, dog, eel and fox at indexes 0 to 5, with no free cell. Right, the four options as rows, each led by a maroon disc with its letter: A, O of 1; B, O of n; C, O of n caret 2; D, Negligible. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
 
-  <!-- The question is text-only in Runestone, so the bag it describes is
-       drawn — and drawn FULL, six of six, because "not a fixed length" is
-       the whole question and the F25 deck's callout ("the case where the
-       array needs to be expanded") is what the picture says without saying
-       it. The stem and the four options are quoted from the question, caret
-       and all. The gloss under the drawing defines the two terms and says
-       nothing about what growing costs. Static — the answer slide grows the
-       array. Runestone activity vtcs2_efficiency_dynamicArrays. -->
-  <div class="slide__body lb" data-sid="06-vote-grow:34">
-    <div class="stack" data-sid="06-vote-grow:35">
-      <p class="lb__stem" data-sid="06-vote-grow:36">What is the time complexity for adding an entry to an array-based bag ADT that is not a fixed length?</p>
-      <div class="lb__fig" data-sid="06-vote-grow:37">
-        <p class="lb__count" data-sid="06-vote-grow:38">contents.length = 6 &nbsp;&middot;&nbsp; numberOfEntries = 6</p>
-        <ol class="lb__row" data-sid="06-vote-grow:39">
-          <li class="lb__cell" data-sid="06-vote-grow:40"><span class="lb__idx" data-sid="06-vote-grow:41">0</span><span class="lb__val" data-sid="06-vote-grow:42">ant</span></li>
-          <li class="lb__cell" data-sid="06-vote-grow:43"><span class="lb__idx" data-sid="06-vote-grow:44">1</span><span class="lb__val" data-sid="06-vote-grow:45">bee</span></li>
-          <li class="lb__cell" data-sid="06-vote-grow:46"><span class="lb__idx" data-sid="06-vote-grow:47">2</span><span class="lb__val" data-sid="06-vote-grow:48">cat</span></li>
-          <li class="lb__cell" data-sid="06-vote-grow:49"><span class="lb__idx" data-sid="06-vote-grow:50">3</span><span class="lb__val" data-sid="06-vote-grow:51">dog</span></li>
-          <li class="lb__cell" data-sid="06-vote-grow:52"><span class="lb__idx" data-sid="06-vote-grow:53">4</span><span class="lb__val" data-sid="06-vote-grow:54">eel</span></li>
-          <li class="lb__cell" data-sid="06-vote-grow:55"><span class="lb__idx" data-sid="06-vote-grow:56">5</span><span class="lb__val" data-sid="06-vote-grow:57">fox</span></li>
+  <!-- The deck's vote layout (deck.css .vote): the h2 paraphrases, the
+       verbatim stem runs as a muted lede, the array is drawn on the left and
+       drawn FULL, six of six, because "not a fixed length" is the whole
+       question and the F25 callout ("the case where the array needs to be
+       expanded") is what the picture says without saying it; the options
+       are lettered rows on the right. The stem and the options are quoted
+       from the question, caret and all. Static: nothing here is a step but
+       the two clocks; the answer slide grows the array. Runestone activity
+       vtcs2_efficiency_dynamicArrays. -->
+  <div class="slide__body" data-sid="06-vote-grow:34">
+    <p class="vote__stem" data-sid="06-vote-grow:35">What is the time complexity for adding an entry to an array-based bag ADT that is not a fixed length?</p>
+    <div class="vote__panels" data-sid="06-vote-grow:36">
+      <div class="vote__fig" data-sid="06-vote-grow:37">
+        <p class="vote__count" data-sid="06-vote-grow:38">contents.length = 6 &nbsp;&middot;&nbsp; numberOfEntries = 6</p>
+        <ol class="vote__row" data-sid="06-vote-grow:39">
+          <li class="vote__cell" data-sid="06-vote-grow:40"><span class="vote__idx" data-sid="06-vote-grow:41">0</span><span class="vote__val" data-sid="06-vote-grow:42">ant</span></li>
+          <li class="vote__cell" data-sid="06-vote-grow:43"><span class="vote__idx" data-sid="06-vote-grow:44">1</span><span class="vote__val" data-sid="06-vote-grow:45">bee</span></li>
+          <li class="vote__cell" data-sid="06-vote-grow:46"><span class="vote__idx" data-sid="06-vote-grow:47">2</span><span class="vote__val" data-sid="06-vote-grow:48">cat</span></li>
+          <li class="vote__cell" data-sid="06-vote-grow:49"><span class="vote__idx" data-sid="06-vote-grow:50">3</span><span class="vote__val" data-sid="06-vote-grow:51">dog</span></li>
+          <li class="vote__cell" data-sid="06-vote-grow:52"><span class="vote__idx" data-sid="06-vote-grow:53">4</span><span class="vote__val" data-sid="06-vote-grow:54">eel</span></li>
+          <li class="vote__cell" data-sid="06-vote-grow:55"><span class="vote__idx" data-sid="06-vote-grow:56">5</span><span class="vote__val" data-sid="06-vote-grow:57">fox</span></li>
         </ol>
-        <p class="lb__note" data-sid="06-vote-grow:58">not a fixed length: the array can grow when it is full<br data-sid="06-vote-grow:59">time complexity: how the moves grow with n</p>
       </div>
+      <ol class="vote__opts" data-sid="06-vote-grow:58">
+        <li class="vote__opt" data-sid="06-vote-grow:59"><span class="vote__key" data-sid="06-vote-grow:60">A</span><p class="vote__text" data-sid="06-vote-grow:61">O(1)</p></li>
+        <li class="vote__opt" data-sid="06-vote-grow:62"><span class="vote__key" data-sid="06-vote-grow:63">B</span><p class="vote__text" data-sid="06-vote-grow:64">O(n)</p></li>
+        <li class="vote__opt" data-sid="06-vote-grow:65"><span class="vote__key" data-sid="06-vote-grow:66">C</span><p class="vote__text" data-sid="06-vote-grow:67">O(n^2)</p></li>
+        <li class="vote__opt" data-sid="06-vote-grow:68"><span class="vote__key" data-sid="06-vote-grow:69">D</span><p class="vote__text" data-sid="06-vote-grow:70">Negligible</p></li>
+      </ol>
     </div>
-    <ol class="opts" data-sid="06-vote-grow:60">
-      <li data-sid="06-vote-grow:61"><p data-sid="06-vote-grow:62">O(1)</p></li>
-      <li data-sid="06-vote-grow:63"><p data-sid="06-vote-grow:64">O(n)</p></li>
-      <li data-sid="06-vote-grow:65"><p data-sid="06-vote-grow:66">O(n^2)</p></li>
-      <li data-sid="06-vote-grow:67"><p data-sid="06-vote-grow:68">Negligible</p></li>
-    </ol>
   </div>
-  <div class="slide__number" data-sid="06-vote-grow:69"></div>
-  <aside class="notes" data-sid="06-vote-grow:70">Answer: B &mdash; O(n). The question as printed: &ldquo;What is the time complexity for adding an entry to an array-based bag ADT that is not a fixed length?&rdquo; Press once: the 2:30 vote clock, silent first answers. Press again for &ldquo;discuss&rdquo;: the 4:00 discussion clock starts and the vote clock stops. Press again to move on. Before the groups start, point at the drawing: six of six &mdash; and this bag is not a fixed length. Groups split between A and B, and both have a point: with room to spare, add is the three moves we just counted; when the array is full it has to grow first, and growing means copying. Big-O names the worst case, and the F25 deck said this out loud &mdash; &ldquo;we are referring to the case where the array needs to be expanded.&rdquo; Week 3&rsquo;s vote called add constant for the fixed-size bag with room; today&rsquo;s bag is different in exactly one word. D, negligible, is not a complexity at all. Runestone activity: vtcs2_efficiency_dynamicArrays.</aside>
+  <div class="slide__number" data-sid="06-vote-grow:71"></div>
+  <aside class="notes" data-sid="06-vote-grow:72">Answer: B &mdash; O(n). The question as printed: &ldquo;What is the time complexity for adding an entry to an array-based bag ADT that is not a fixed length?&rdquo; Press once: the 2:30 vote clock, silent first answers. Press again for &ldquo;discuss&rdquo;: the 4:00 discussion clock starts and the vote clock stops. Press again to move on. Before the groups start, point at the drawing: six of six, and this bag is not a fixed length, so the array can grow when it is full; time complexity means how the moves grow with n. Groups split between A and B, and both have a point: with room to spare, add is the three moves we just counted; when the array is full it has to grow first, and growing means copying. Big-O names the worst case, and the F25 deck said this out loud: &ldquo;we are referring to the case where the array needs to be expanded.&rdquo; Week 3&rsquo;s vote called add constant for the fixed-size bag with room; today&rsquo;s bag is different in exactly one word. D, negligible, is not a complexity at all. Runestone activity: vtcs2_efficiency_dynamicArrays.</aside>
 
-  <style data-sid="06-vote-grow:71">
+  <style data-sid="06-vote-grow:73">
     /* two clocks at the top right: the vote ring (2:30) and the discussion
        ring (4:00), side by side with a label under each; the first press
        starts the vote, the second starts the discussion and finishes the vote
@@ -54,23 +54,6 @@
     #slide-06 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
     #slide-06 .tlabel--vote { right: calc(var(--s-8) + 190px); }
     #slide-06 .tlabel--discuss { right: var(--s-8); }
-    /* Slide-local: the stem and the bag on the left (six 100px cells and
-       five gutters = 680), the four options on the right. No free slot, on
-       purpose: the drawing IS the case the question is about. Static:
-       nothing here is a step but the clocks. All values from tokens; used by
-       this slide only. */
-    #slide-06 .lb { display: grid; grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
-    #slide-06 .stack { gap: var(--s-4); }
-    #slide-06 .lb__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
-    #slide-06 .lb__count { margin: 0 0 var(--s-2); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
-    #slide-06 .lb__row { display: flex; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
-    #slide-06 .lb__cell {
-      position: relative; flex: 0 0 auto; width: 100px; height: 100px; margin: 0; box-sizing: border-box;
-      display: flex; align-items: center; justify-content: center;
-      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
-    }
-    #slide-06 .lb__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
-    #slide-06 .lb__val { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
-    #slide-06 .lb__note { margin: var(--s-2) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+    /* Slide-local: nothing beyond the clocks — the layout is deck.css .vote. */
   </style>
 </section>

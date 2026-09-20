@@ -3,111 +3,126 @@
     <p class="slide__kicker" data-sid="04c-count-pairs:3">COUNTING MOVES &middot; A LOOP INSIDE A LOOP</p>
     <h2 data-sid="04c-count-pairs:4">hasDuplicate: every entry against every other</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04c-count-pairs:5">A walkthrough of a hasDuplicate method under a program-counter bar: an outer loop over i, an inner loop over j from i plus 1, and one compare of contents at i with contents at j. On the right, a four-by-four grid of the pairs for ant, bee, cat and dog, with only the cells above the diagonal drawn, and a large counter labelled compares. Step one: the three cells in ant&rsquo;s row light in maroon one after another and the counter rolls to 3. Step two: bee&rsquo;s two cells; the counter reads 5. Step three: cat&rsquo;s one cell; the counter reads 6. Step four: return false; four entries, six compares. Step five: an eight-by-eight grid appears beside the first with all twenty-eight cells above the diagonal lit and the count 28, and the caption says the moves grow like n squared: quadratic.</p>
+  <p class="sr-only slide__desc" data-sid="04c-count-pairs:5">A walkthrough of a hasDuplicate method under a program-counter bar, with short names: the array is a and its count is n; an outer loop over i, an inner loop over j from i plus 1, and one compare of a at i with a at j. On the right, a four-by-four grid of the pairs 0 to 3 with only the cells above the diagonal drawn, and a large counter labelled compares. Step one: the three cells in row 0 light in maroon one after another and the counter rolls to 3. Step two: row 1&rsquo;s two cells; the counter reads 5. Step three: row 2&rsquo;s one cell; 6. Step four: return false; four entries, six compares. Step five: the grid grows in place to eight by eight, the cells shrinking and four more rows and columns appearing, and the counter resets to 0. Step six: row 0&rsquo;s seven cells light; the counter reads 7. Step seven: the remaining twenty-one cells light in a long stagger; 28. Step eight: return false; the caption says the moves grow like n squared: quadratic.</p>
 
   <!-- The third count is the one that surprises: a loop inside a loop, and
        doubling the entries more than quadruples the compares. The grid is
-       the honest picture of a nested loop — one cell per pair, a row per
-       outer iteration, only the upper triangle because j starts after i.
-       One press per outer iteration; the cells of that row light in a
-       stagger while the counter rolls through them. The method is the
-       deck's own (nothing in Week 3 had two loops); the point is the shape,
-       not the method. -->
-  <div class="slide__body grid grid--code code-tag cp" data-sid="04c-count-pairs:6">
+       the picture of a nested loop: one cell per pair, a row per outer
+       iteration, only the upper triangle because j starts after i. One press
+       per outer iteration on the first run; then the grid GROWS IN PLACE
+       (the four hidden rows and columns open, the cells shrink) and the same
+       lines run again (data-also) in two presses, row 0 and then the rest.
+       The method is the deck's own (nothing in Week 3 had two loops); the
+       point is the shape. -->
+  <div class="slide__body grid grid--code code-mid cp" data-sid="04c-count-pairs:6">
     <div class="editor" data-sid="04c-count-pairs:7">
-      <p class="editor__bar" data-sid="04c-count-pairs:8">hasDuplicate &mdash; two loops</p>
+      <p class="editor__bar" data-sid="04c-count-pairs:8">hasDuplicate (two loops)</p>
       <div class="editor__pc" data-sid="04c-count-pairs:9"></div>
       <ol class="editor__code" data-sid="04c-count-pairs:10">
-        <li data-sid="04c-count-pairs:11"><span class="tok-key" data-sid="04c-count-pairs:12">public boolean</span> hasDuplicate() {</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:13">    <span class="tok-key" data-sid="04c-count-pairs:14">for</span> (<span class="tok-key" data-sid="04c-count-pairs:15">int</span> i = <span class="tok-num" data-sid="04c-count-pairs:16">0</span>; i &lt; numberOfEntries; i++) {</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:17">        <span class="tok-key" data-sid="04c-count-pairs:18">for</span> (<span class="tok-key" data-sid="04c-count-pairs:19">int</span> j = i + <span class="tok-num" data-sid="04c-count-pairs:20">1</span>; j &lt; numberOfEntries; j++) {</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:21">            <span class="tok-key" data-sid="04c-count-pairs:22">if</span> (contents[i].equals(contents[j])) {</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:23">                <span class="tok-key" data-sid="04c-count-pairs:24">return true</span>;</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:25">            }</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:26">        }</li>
-        <li class="walkline frag" data-step="1" data-hold="3" data-sid="04c-count-pairs:27">    }</li>
-        <li class="walkline frag" data-step="4" data-sid="04c-count-pairs:28">    <span class="tok-key" data-sid="04c-count-pairs:29">return false</span>;</li>
-        <li data-sid="04c-count-pairs:30">}</li>
+        <li data-sid="04c-count-pairs:11"><span class="tok-key" data-sid="04c-count-pairs:12">boolean</span> hasDuplicate() {</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="6 7" data-sid="04c-count-pairs:13">    <span class="tok-key" data-sid="04c-count-pairs:14">for</span> (<span class="tok-key" data-sid="04c-count-pairs:15">int</span> i = <span class="tok-num" data-sid="04c-count-pairs:16">0</span>; i &lt; n; i++) {</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="6 7" data-sid="04c-count-pairs:17">        <span class="tok-key" data-sid="04c-count-pairs:18">for</span> (<span class="tok-key" data-sid="04c-count-pairs:19">int</span> j = i + <span class="tok-num" data-sid="04c-count-pairs:20">1</span>; j &lt; n; j++) {</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="6 7" data-sid="04c-count-pairs:21">            <span class="tok-key" data-sid="04c-count-pairs:22">if</span> (a[i].equals(a[j]))</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="6 7" data-sid="04c-count-pairs:23">                <span class="tok-key" data-sid="04c-count-pairs:24">return true</span>;</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="6 7" data-sid="04c-count-pairs:25">        }</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="6 7" data-sid="04c-count-pairs:26">    }</li>
+        <li class="walkline frag" data-step="4" data-also="8" data-sid="04c-count-pairs:27">    <span class="tok-key" data-sid="04c-count-pairs:28">return false</span>;</li>
+        <li data-sid="04c-count-pairs:29">}</li>
       </ol>
     </div>
 
-    <div class="codewalk cp__right" data-sid="04c-count-pairs:31">
-      <p class="cp__call" data-sid="04c-count-pairs:32">bag.hasDuplicate() &mdash; ant, bee, cat, dog: no duplicate</p>
-      <div class="cp__grids" data-sid="04c-count-pairs:33">
-        <div class="cp__g cp__g--4" role="img" aria-label="A four by four grid of pairs; the cells above the diagonal light row by row" data-sid="04c-count-pairs:34">
-          <span class="cp__h" data-sid="04c-count-pairs:35"></span><span class="cp__h" data-sid="04c-count-pairs:36">ant</span><span class="cp__h" data-sid="04c-count-pairs:37">bee</span><span class="cp__h" data-sid="04c-count-pairs:38">cat</span><span class="cp__h" data-sid="04c-count-pairs:39">dog</span>
-          <span class="cp__h" data-sid="04c-count-pairs:40">ant</span><span class="cp__x" data-sid="04c-count-pairs:41"></span><span class="cp__c r1" style="--i: 0" data-sid="04c-count-pairs:42"></span><span class="cp__c r1" style="--i: 1" data-sid="04c-count-pairs:43"></span><span class="cp__c r1" style="--i: 2" data-sid="04c-count-pairs:44"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:45">bee</span><span class="cp__x" data-sid="04c-count-pairs:46"></span><span class="cp__x" data-sid="04c-count-pairs:47"></span><span class="cp__c r2" style="--i: 0" data-sid="04c-count-pairs:48"></span><span class="cp__c r2" style="--i: 1" data-sid="04c-count-pairs:49"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:50">cat</span><span class="cp__x" data-sid="04c-count-pairs:51"></span><span class="cp__x" data-sid="04c-count-pairs:52"></span><span class="cp__x" data-sid="04c-count-pairs:53"></span><span class="cp__c r3" style="--i: 0" data-sid="04c-count-pairs:54"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:55">dog</span><span class="cp__x" data-sid="04c-count-pairs:56"></span><span class="cp__x" data-sid="04c-count-pairs:57"></span><span class="cp__x" data-sid="04c-count-pairs:58"></span><span class="cp__x" data-sid="04c-count-pairs:59"></span>
+    <div class="codewalk cp__right" data-sid="04c-count-pairs:30">
+      <p class="cp__call" data-sid="04c-count-pairs:31">bag.hasDuplicate() &mdash; no entry appears twice &nbsp;&middot;&nbsp; n = <span class="cp__nv" data-sid="04c-count-pairs:32"><span class="cp__n cp__n--4" data-sid="04c-count-pairs:33">4</span><span class="cp__n cp__n--8" data-sid="04c-count-pairs:34">8</span></span></p>
+      <div class="cp__mid" data-sid="04c-count-pairs:35">
+        <div class="cp__g" role="img" aria-label="A grid of pairs; the cells above the diagonal light row by row; it grows from four by four to eight by eight" data-sid="04c-count-pairs:36">
+          <span class="cp__h" data-sid="04c-count-pairs:37"></span><span class="cp__h" data-sid="04c-count-pairs:38">0</span><span class="cp__h" data-sid="04c-count-pairs:39">1</span><span class="cp__h" data-sid="04c-count-pairs:40">2</span><span class="cp__h" data-sid="04c-count-pairs:41">3</span><span class="cp__h cp__h--x" data-sid="04c-count-pairs:42">4</span><span class="cp__h cp__h--x" data-sid="04c-count-pairs:43">5</span><span class="cp__h cp__h--x" data-sid="04c-count-pairs:44">6</span><span class="cp__h cp__h--x" data-sid="04c-count-pairs:45">7</span>
+          <span class="cp__h" data-sid="04c-count-pairs:46">0</span><span class="cp__x" data-sid="04c-count-pairs:47"></span><span class="cp__c r0 f" style="--i: 0" data-sid="04c-count-pairs:48"></span><span class="cp__c r0 f" style="--i: 1" data-sid="04c-count-pairs:49"></span><span class="cp__c r0 f" style="--i: 2" data-sid="04c-count-pairs:50"></span><span class="cp__c r0 s cx" style="--i: 3" data-sid="04c-count-pairs:51"></span><span class="cp__c r0 s cx" style="--i: 4" data-sid="04c-count-pairs:52"></span><span class="cp__c r0 s cx" style="--i: 5" data-sid="04c-count-pairs:53"></span><span class="cp__c r0 s cx" style="--i: 6" data-sid="04c-count-pairs:54"></span>
+          <span class="cp__h" data-sid="04c-count-pairs:55">1</span><span class="cp__x" data-sid="04c-count-pairs:56"></span><span class="cp__x" data-sid="04c-count-pairs:57"></span><span class="cp__c r1 f" style="--i: 0" data-sid="04c-count-pairs:58"></span><span class="cp__c r1 f" style="--i: 1" data-sid="04c-count-pairs:59"></span><span class="cp__c r1 s cx" style="--i: 7" data-sid="04c-count-pairs:60"></span><span class="cp__c r1 s cx" style="--i: 8" data-sid="04c-count-pairs:61"></span><span class="cp__c r1 s cx" style="--i: 9" data-sid="04c-count-pairs:62"></span><span class="cp__c r1 s cx" style="--i: 10" data-sid="04c-count-pairs:63"></span>
+          <span class="cp__h" data-sid="04c-count-pairs:64">2</span><span class="cp__x" data-sid="04c-count-pairs:65"></span><span class="cp__x" data-sid="04c-count-pairs:66"></span><span class="cp__x" data-sid="04c-count-pairs:67"></span><span class="cp__c r2 f" style="--i: 0" data-sid="04c-count-pairs:68"></span><span class="cp__c r2 s cx" style="--i: 11" data-sid="04c-count-pairs:69"></span><span class="cp__c r2 s cx" style="--i: 12" data-sid="04c-count-pairs:70"></span><span class="cp__c r2 s cx" style="--i: 13" data-sid="04c-count-pairs:71"></span><span class="cp__c r2 s cx" style="--i: 14" data-sid="04c-count-pairs:72"></span>
+          <span class="cp__h" data-sid="04c-count-pairs:73">3</span><span class="cp__x" data-sid="04c-count-pairs:74"></span><span class="cp__x" data-sid="04c-count-pairs:75"></span><span class="cp__x" data-sid="04c-count-pairs:76"></span><span class="cp__x" data-sid="04c-count-pairs:77"></span><span class="cp__c r3 s cx" style="--i: 15" data-sid="04c-count-pairs:78"></span><span class="cp__c r3 s cx" style="--i: 16" data-sid="04c-count-pairs:79"></span><span class="cp__c r3 s cx" style="--i: 17" data-sid="04c-count-pairs:80"></span><span class="cp__c r3 s cx" style="--i: 18" data-sid="04c-count-pairs:81"></span>
+          <span class="cp__h cp__h--x" data-sid="04c-count-pairs:82">4</span><span class="cp__x rx" data-sid="04c-count-pairs:83"></span><span class="cp__x rx" data-sid="04c-count-pairs:84"></span><span class="cp__x rx" data-sid="04c-count-pairs:85"></span><span class="cp__x rx" data-sid="04c-count-pairs:86"></span><span class="cp__x rx" data-sid="04c-count-pairs:87"></span><span class="cp__c r4 s cx rx" style="--i: 19" data-sid="04c-count-pairs:88"></span><span class="cp__c r4 s cx rx" style="--i: 20" data-sid="04c-count-pairs:89"></span><span class="cp__c r4 s cx rx" style="--i: 21" data-sid="04c-count-pairs:90"></span>
+          <span class="cp__h cp__h--x" data-sid="04c-count-pairs:91">5</span><span class="cp__x rx" data-sid="04c-count-pairs:92"></span><span class="cp__x rx" data-sid="04c-count-pairs:93"></span><span class="cp__x rx" data-sid="04c-count-pairs:94"></span><span class="cp__x rx" data-sid="04c-count-pairs:95"></span><span class="cp__x rx" data-sid="04c-count-pairs:96"></span><span class="cp__x rx" data-sid="04c-count-pairs:97"></span><span class="cp__c r5 s cx rx" style="--i: 22" data-sid="04c-count-pairs:98"></span><span class="cp__c r5 s cx rx" style="--i: 23" data-sid="04c-count-pairs:99"></span>
+          <span class="cp__h cp__h--x" data-sid="04c-count-pairs:100">6</span><span class="cp__x rx" data-sid="04c-count-pairs:101"></span><span class="cp__x rx" data-sid="04c-count-pairs:102"></span><span class="cp__x rx" data-sid="04c-count-pairs:103"></span><span class="cp__x rx" data-sid="04c-count-pairs:104"></span><span class="cp__x rx" data-sid="04c-count-pairs:105"></span><span class="cp__x rx" data-sid="04c-count-pairs:106"></span><span class="cp__x rx" data-sid="04c-count-pairs:107"></span><span class="cp__c r6 s cx rx" style="--i: 24" data-sid="04c-count-pairs:108"></span>
+          <span class="cp__h cp__h--x" data-sid="04c-count-pairs:109">7</span><span class="cp__x rx" data-sid="04c-count-pairs:110"></span><span class="cp__x rx" data-sid="04c-count-pairs:111"></span><span class="cp__x rx" data-sid="04c-count-pairs:112"></span><span class="cp__x rx" data-sid="04c-count-pairs:113"></span><span class="cp__x rx" data-sid="04c-count-pairs:114"></span><span class="cp__x rx" data-sid="04c-count-pairs:115"></span><span class="cp__x rx" data-sid="04c-count-pairs:116"></span><span class="cp__x rx" data-sid="04c-count-pairs:117"></span>
         </div>
-        <div class="cp__g cp__g--8 frag" data-step="5" role="img" aria-label="An eight by eight grid of pairs with all twenty-eight cells above the diagonal lit" data-sid="04c-count-pairs:60">
-          <span class="cp__h" data-sid="04c-count-pairs:61"></span><span class="cp__h" data-sid="04c-count-pairs:62">0</span><span class="cp__h" data-sid="04c-count-pairs:63">1</span><span class="cp__h" data-sid="04c-count-pairs:64">2</span><span class="cp__h" data-sid="04c-count-pairs:65">3</span><span class="cp__h" data-sid="04c-count-pairs:66">4</span><span class="cp__h" data-sid="04c-count-pairs:67">5</span><span class="cp__h" data-sid="04c-count-pairs:68">6</span><span class="cp__h" data-sid="04c-count-pairs:69">7</span>
-          <span class="cp__h" data-sid="04c-count-pairs:70">0</span><span class="cp__x" data-sid="04c-count-pairs:71"></span><span class="cp__c" style="--i: 0" data-sid="04c-count-pairs:72"></span><span class="cp__c" style="--i: 1" data-sid="04c-count-pairs:73"></span><span class="cp__c" style="--i: 2" data-sid="04c-count-pairs:74"></span><span class="cp__c" style="--i: 3" data-sid="04c-count-pairs:75"></span><span class="cp__c" style="--i: 4" data-sid="04c-count-pairs:76"></span><span class="cp__c" style="--i: 5" data-sid="04c-count-pairs:77"></span><span class="cp__c" style="--i: 6" data-sid="04c-count-pairs:78"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:79">1</span><span class="cp__x" data-sid="04c-count-pairs:80"></span><span class="cp__x" data-sid="04c-count-pairs:81"></span><span class="cp__c" style="--i: 7" data-sid="04c-count-pairs:82"></span><span class="cp__c" style="--i: 8" data-sid="04c-count-pairs:83"></span><span class="cp__c" style="--i: 9" data-sid="04c-count-pairs:84"></span><span class="cp__c" style="--i: 10" data-sid="04c-count-pairs:85"></span><span class="cp__c" style="--i: 11" data-sid="04c-count-pairs:86"></span><span class="cp__c" style="--i: 12" data-sid="04c-count-pairs:87"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:88">2</span><span class="cp__x" data-sid="04c-count-pairs:89"></span><span class="cp__x" data-sid="04c-count-pairs:90"></span><span class="cp__x" data-sid="04c-count-pairs:91"></span><span class="cp__c" style="--i: 13" data-sid="04c-count-pairs:92"></span><span class="cp__c" style="--i: 14" data-sid="04c-count-pairs:93"></span><span class="cp__c" style="--i: 15" data-sid="04c-count-pairs:94"></span><span class="cp__c" style="--i: 16" data-sid="04c-count-pairs:95"></span><span class="cp__c" style="--i: 17" data-sid="04c-count-pairs:96"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:97">3</span><span class="cp__x" data-sid="04c-count-pairs:98"></span><span class="cp__x" data-sid="04c-count-pairs:99"></span><span class="cp__x" data-sid="04c-count-pairs:100"></span><span class="cp__x" data-sid="04c-count-pairs:101"></span><span class="cp__c" style="--i: 18" data-sid="04c-count-pairs:102"></span><span class="cp__c" style="--i: 19" data-sid="04c-count-pairs:103"></span><span class="cp__c" style="--i: 20" data-sid="04c-count-pairs:104"></span><span class="cp__c" style="--i: 21" data-sid="04c-count-pairs:105"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:106">4</span><span class="cp__x" data-sid="04c-count-pairs:107"></span><span class="cp__x" data-sid="04c-count-pairs:108"></span><span class="cp__x" data-sid="04c-count-pairs:109"></span><span class="cp__x" data-sid="04c-count-pairs:110"></span><span class="cp__x" data-sid="04c-count-pairs:111"></span><span class="cp__c" style="--i: 22" data-sid="04c-count-pairs:112"></span><span class="cp__c" style="--i: 23" data-sid="04c-count-pairs:113"></span><span class="cp__c" style="--i: 24" data-sid="04c-count-pairs:114"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:115">5</span><span class="cp__x" data-sid="04c-count-pairs:116"></span><span class="cp__x" data-sid="04c-count-pairs:117"></span><span class="cp__x" data-sid="04c-count-pairs:118"></span><span class="cp__x" data-sid="04c-count-pairs:119"></span><span class="cp__x" data-sid="04c-count-pairs:120"></span><span class="cp__x" data-sid="04c-count-pairs:121"></span><span class="cp__c" style="--i: 25" data-sid="04c-count-pairs:122"></span><span class="cp__c" style="--i: 26" data-sid="04c-count-pairs:123"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:124">6</span><span class="cp__x" data-sid="04c-count-pairs:125"></span><span class="cp__x" data-sid="04c-count-pairs:126"></span><span class="cp__x" data-sid="04c-count-pairs:127"></span><span class="cp__x" data-sid="04c-count-pairs:128"></span><span class="cp__x" data-sid="04c-count-pairs:129"></span><span class="cp__x" data-sid="04c-count-pairs:130"></span><span class="cp__x" data-sid="04c-count-pairs:131"></span><span class="cp__c" style="--i: 27" data-sid="04c-count-pairs:132"></span>
-          <span class="cp__h" data-sid="04c-count-pairs:133">7</span><span class="cp__x" data-sid="04c-count-pairs:134"></span><span class="cp__x" data-sid="04c-count-pairs:135"></span><span class="cp__x" data-sid="04c-count-pairs:136"></span><span class="cp__x" data-sid="04c-count-pairs:137"></span><span class="cp__x" data-sid="04c-count-pairs:138"></span><span class="cp__x" data-sid="04c-count-pairs:139"></span><span class="cp__x" data-sid="04c-count-pairs:140"></span><span class="cp__x" data-sid="04c-count-pairs:141"></span>
-          <p class="cp__tally" data-sid="04c-count-pairs:142">compares: <b data-sid="04c-count-pairs:143">28</b></p>
-        </div>
-      </div>
-      <div class="moves" data-sid="04c-count-pairs:144">
-        <p class="moves__label" data-sid="04c-count-pairs:145">compares</p>
-        <div class="moves__stack" data-sid="04c-count-pairs:146">
-          <div class="heap-obj__field" data-sid="04c-count-pairs:147"><p class="heap-val heap-val--old frag" data-step="1" data-sid="04c-count-pairs:148">0</p><p class="heap-val frag" data-step="1" data-sid="04c-count-pairs:149">3</p></div>
-          <div class="heap-obj__field" data-sid="04c-count-pairs:150"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04c-count-pairs:151">3</p><p class="heap-val frag" data-step="2" data-sid="04c-count-pairs:152">5</p></div>
-          <div class="heap-obj__field" data-sid="04c-count-pairs:153"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04c-count-pairs:154">5</p><p class="heap-val frag" data-step="3" data-sid="04c-count-pairs:155">6</p></div>
+        <div class="moves" data-sid="04c-count-pairs:118">
+          <p class="moves__label" data-sid="04c-count-pairs:119">compares</p>
+          <div class="moves__stack" data-sid="04c-count-pairs:120">
+            <div class="heap-obj__field" data-sid="04c-count-pairs:121"><p class="heap-val heap-val--old frag" data-step="1" data-sid="04c-count-pairs:122">0</p><p class="heap-val frag" data-step="1" data-sid="04c-count-pairs:123">3</p></div>
+            <div class="heap-obj__field" data-sid="04c-count-pairs:124"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04c-count-pairs:125">3</p><p class="heap-val frag" data-step="2" data-sid="04c-count-pairs:126">5</p></div>
+            <div class="heap-obj__field" data-sid="04c-count-pairs:127"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04c-count-pairs:128">5</p><p class="heap-val frag" data-step="3" data-sid="04c-count-pairs:129">6</p></div>
+            <div class="heap-obj__field" data-roll="off" data-sid="04c-count-pairs:130"><p class="heap-val heap-val--old frag" data-step="5" data-sid="04c-count-pairs:131">6</p><p class="heap-val frag" data-step="5" data-sid="04c-count-pairs:132">0</p></div>
+            <div class="heap-obj__field" data-sid="04c-count-pairs:133"><p class="heap-val heap-val--old frag" data-step="6" data-sid="04c-count-pairs:134">0</p><p class="heap-val frag" data-step="6" data-sid="04c-count-pairs:135">7</p></div>
+            <div class="heap-obj__field" data-sid="04c-count-pairs:136"><p class="heap-val heap-val--old frag" data-step="7" data-sid="04c-count-pairs:137">7</p><p class="heap-val frag" data-step="7" data-sid="04c-count-pairs:138">28</p></div>
+          </div>
         </div>
       </div>
-      <div class="codewalk__caps" data-sid="04c-count-pairs:156">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-count-pairs:157">i = 0: ant against bee, cat, dog. Three compares.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-count-pairs:158">i = 1: bee against cat, dog. Two more.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-count-pairs:159">i = 2: cat against dog. One more. (i = 3 has nothing left to compare.)</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-count-pairs:160">return false. Four entries: six compares.</p>
-        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="04c-count-pairs:161">Eight entries: 28 compares &mdash; more than four times as many. The moves grow like n&sup2; &mdash; quadratic.</p>
+      <div class="codewalk__caps" data-sid="04c-count-pairs:139">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-count-pairs:140">i = 0: entry 0 against 1, 2, 3. Three compares.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-count-pairs:141">i = 1: entry 1 against 2, 3. Two more.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-count-pairs:142">i = 2: entry 2 against 3. One more; i = 3 has nothing left.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-count-pairs:143">return false. Four entries: six compares.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04c-count-pairs:144">Eight entries: the grid doubles each way. Same method, count from zero.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04c-count-pairs:145">i = 0: entry 0 against seven others. Seven compares.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04c-count-pairs:146">i = 1 to 6: twenty-one more. Twenty-eight in all.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04c-count-pairs:147">Twice the entries, more than four times the compares. The moves grow like n&sup2;: quadratic.</p>
       </div>
     </div>
   </div>
-  <div class="slide__number" data-sid="04c-count-pairs:162"></div>
-  <aside class="notes" data-sid="04c-count-pairs:163">Skip this slide if the clock is against you; the next one names the shape anyway. A loop inside a loop: for every entry, compare it with every entry after it. The grid is the honest picture &mdash; a cell per pair, a row per outer iteration, only the upper triangle because j starts after i. Step 1: ant against the three after it. Step 2: bee against two. Step 3: cat against one; dog has nobody left. Step 4: no duplicate, return false &mdash; six compares for four entries. Step 5: eight entries, twenty-eight compares. Ask: doubling the entries did what to the count? More than quadrupled it. n times n minus one over two &mdash; for large n that behaves like n squared, and the shape is called quadratic. Next: the three shapes on one graph, with their names.</aside>
+  <div class="slide__number" data-sid="04c-count-pairs:148"></div>
+  <aside class="notes" data-sid="04c-count-pairs:149">Skip this slide if the clock is against you; the next one names the shape anyway. A loop inside a loop: for every entry, compare it with every entry after it. The grid is the picture: a cell per pair, a row per outer iteration, only the upper triangle because j starts after i. Step 1: entry 0 against the three after it. Step 2: entry 1 against two. Step 3: entry 2 against one; entry 3 has nobody left. Step 4: no duplicate, return false: six compares for four entries. Step 5: the grid doubles each way and the count starts over. Step 6: row 0, seven compares. Step 7: the rest, twenty-eight in all. Step 8: doubling the entries did what to the count? More than quadrupled it. n times n minus one over two; for large n that behaves like n squared, and the shape is called quadratic. Next: the three shapes on one graph, with their names.</aside>
 
-  <style data-sid="04c-count-pairs:164">
-    /* Slide-local: the editor at the tag size (the inner for-line is 55
-       characters: 55 × 12.6 + 70 of chrome = 763; 800 px clears it), the pair grids on the right inside a
-       .codewalk for the moves counter. Two CSS grids: four by four at 56 px
-       cells with the entry names as headers, eight by eight at 32 px with
-       indexes; cells below and on the diagonal are blank (those pairs are
-       never compared). A row's cells take the cost's maroon in a stagger on
-       that outer iteration's press; the eight-grid fades in whole and its 28
-       cells light in a long stagger. All values from tokens; used by this
-       slide only. */
-    #slide-04c .cp { grid-template-columns: 800px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+  <style data-sid="04c-count-pairs:150">
+    /* Slide-local: the editor at --t-code (880 px clears the
+       41-character inner for-line: 41 × 19.2 + 70), the pair grid and the
+       moves counter side by side on the right (752 px column). The grid is
+       one CSS grid of nine columns and nine rows from the start: the four
+       extra tracks are 0 px until step 5, when grid-template-columns and
+       grid-template-rows animate to nine even tracks (Chromium interpolates
+       track lists of equal length) and the cells shrink from 56 px to 40; the
+       hidden cells have no border and no opacity until then. Cells below and
+       on the diagonal are blank (never compared). A row's cells take the
+       cost's maroon in a stagger on that iteration's press; step 5 resets
+       them; steps 6 and 7 relight row 0 and then the rest. All values from
+       tokens; used by this slide only. */
+    #slide-04c .cp { grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
     #slide-04c .cp__right { display: grid; row-gap: var(--s-3); align-content: start; }
     #slide-04c .cp__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
-    #slide-04c .cp__grids { display: flex; align-items: flex-start; gap: var(--s-5); }
-    #slide-04c .cp__g { display: grid; gap: 6px; }
-    #slide-04c .cp__g--4 { grid-template-columns: 52px repeat(4, 56px); grid-auto-rows: 56px; }
-    #slide-04c .cp__g--8 { grid-template-columns: 30px repeat(8, 32px); grid-auto-rows: 32px; gap: 4px; transition: opacity .3s ease; }
-    #slide-04c .cp__h { display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
-    #slide-04c .cp__g--8 .cp__h { font-size: 16px; }
-    #slide-04c .cp__c { box-sizing: border-box; border: 2px solid var(--stone); border-radius: var(--r-1); background: var(--bg-1); transition: border-color .3s ease, background-color .3s ease; }
-    #slide-04c .cp__x { box-sizing: border-box; border: 2px dashed color-mix(in srgb, var(--stone) 40%, transparent); border-radius: var(--r-1); }
-    #slide-04c .cp__right:has(.cap--1:not(.is-pending)) .cp__c.r1,
-    #slide-04c .cp__right:has(.cap--2:not(.is-pending)) .cp__c.r2,
-    #slide-04c .cp__right:has(.cap--3:not(.is-pending)) .cp__c.r3,
-    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__g--8 .cp__c { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--i) * .18s); }
-    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__g--8 .cp__c { transition-delay: calc(.3s + var(--i) * .05s); }
-    #slide-04c .cp__tally { grid-column: 1 / -1; margin: var(--s-1) 0 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-1); }
-    #slide-04c .cp__tally b { font-family: var(--font-display); font-size: var(--t-h3); font-weight: 400; }
+    #slide-04c .cp__nv { display: inline-grid; vertical-align: baseline; }
+    #slide-04c .cp__n { grid-area: 1 / 1; transition: opacity .25s ease; }
+    #slide-04c .cp__n--8 { opacity: 0; }
+    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__n--4 { opacity: 0; }
+    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__n--8 { opacity: 1; }
+    #slide-04c .cp__mid { display: flex; align-items: flex-start; gap: var(--s-5); }
+    #slide-04c .cp__g {
+      display: grid; gap: 4px;
+      grid-template-columns: 44px 56px 56px 56px 56px 0px 0px 0px 0px;
+      grid-template-rows: 44px 56px 56px 56px 56px 0px 0px 0px 0px;
+      transition: grid-template-columns .7s var(--ease-smooth), grid-template-rows .7s var(--ease-smooth);
+    }
+    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__g { grid-template-columns: 36px repeat(8, 40px); grid-template-rows: 36px repeat(8, 40px); }
+    #slide-04c .cp__h { display: flex; align-items: center; justify-content: center; min-width: 0; overflow: hidden; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-04c .cp__h--x { opacity: 0; }
+    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__h--x { opacity: 1; transition-delay: .4s; }
+    #slide-04c .cp__c, #slide-04c .cp__x { box-sizing: border-box; min-width: 0; min-height: 0; overflow: hidden; border-radius: var(--r-1); transition: border-color .3s ease, background-color .3s ease, opacity .3s ease; }
+    #slide-04c .cp__c { border: 2px solid var(--stone); background: var(--bg-1); }
+    #slide-04c .cp__x { border: 2px dashed color-mix(in srgb, var(--stone) 40%, transparent); }
+    #slide-04c .cx, #slide-04c .rx { opacity: 0; border-width: 0; }
+    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cx, #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .rx { opacity: 1; border-width: 2px; transition-delay: .4s; }
+    /* the first run: rows 0, 1, 2 of the four-grid, one press each */
+    #slide-04c .cp__right:has(.cap--1:not(.is-pending)) .cp__c.r0.f,
+    #slide-04c .cp__right:has(.cap--2:not(.is-pending)) .cp__c.r1.f,
+    #slide-04c .cp__right:has(.cap--3:not(.is-pending)) .cp__c.r2.f { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--i) * .18s); }
+    /* step 5 resets; steps 6 and 7 relight row 0, then rows 1–6 */
+    #slide-04c .cp__right:has(.cap--5:not(.is-pending)) .cp__c { border-color: var(--stone); background: var(--bg-1); transition-delay: 0s; }
+    #slide-04c .cp__right:has(.cap--6:not(.is-pending)) .cp__c.r0 { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--i) * .1s); }
+    #slide-04c .cp__right:has(.cap--7:not(.is-pending)) .cp__c { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--i) * .06s); }
 
     #slide-04c .codewalk__caps { min-height: 110px; }
     #slide-04c .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-04c .cp__c, #slide-04c .cp__g--8 { transition-duration: 0s !important; transition-delay: 0s !important; }
+      #slide-04c .cp__g, #slide-04c .cp__c, #slide-04c .cp__x, #slide-04c .cp__h, #slide-04c .cp__n { transition-duration: 0s !important; transition-delay: 0s !important; }
     }
   </style>
 </section>
