@@ -340,3 +340,156 @@ test('results viewer: session list, transcript detail with model metadata, role 
   assert.equal(r.json.state, 'ok');
   assert.equal(r.json.lastCall.ok, true);
 });
+
+test('created survey: create → participant takes it → results grid + csv → close → survives a reload', { skip }, async () => {
+  const res = await login('researcher1');
+  let r = await call(res, 'GET', '/api/admin/surveys');
+  assert.equal(r.json.canCreate, true, 'a researcher on a file survey may create (no SURVEY_ADMINS set)');
+  r = await call(res, 'GET', '/api/admin/surveys/defaults');
+  assert.equal(r.status, 200);
+  assert.equal(r.json.maxProbes, 1);
+  assert.ok(r.json.systemPrompt.includes('MOVE_ON'));
+  assert.ok(r.json.consentMarkdown.length > 100);
+
+  const stranger = await login(`p${run}x`);
+  r = await call(stranger, 'POST', '/api/admin/surveys', { title: 'nope', questions: ['q'] });
+  assert.equal(r.status, 403);
+  r = await call(stranger, 'GET', '/api/admin/surveys/defaults');
+  assert.equal(r.status, 403);
+
+  r = await call(res, 'POST', '/api/admin/surveys', { title: `Quick check ${run}!`, questions: ['What went well?', '   ', 'What was hard?'], maxProbes: 1 });
+  assert.equal(r.status, 201, r.text);
+  const id: string = r.json.id;
+  assert.match(id, /^quick-check-[a-z0-9]+$/);
+  assert.equal(r.json.url, `${ORIGIN}${B}/s/${id}`);
+  r = await call(res, 'POST', '/api/admin/surveys', { title: `Quick check ${run}!`, questions: ['q'] });
+  assert.equal(r.status, 201);
+  const id2: string = r.json.id;
+  assert.notEqual(id2, id, 'same title → distinct id');
+  r = await call(res, 'POST', '/api/admin/surveys', { title: 'Bad', questions: ['   '] });
+  assert.equal(r.status, 400, 'blank questions are refused');
+  r = await call(res, 'POST', '/api/admin/surveys', { title: 'Bad', questions: ['q'], closesAt: '2000-01-01' });
+  assert.equal(r.status, 400, 'a closing date in the past is refused');
+
+  r = await call(res, 'GET', '/api/admin/surveys');
+  const mine = r.json.surveys.find((s: any) => s.id === id);
+  assert.ok(mine, 'created survey is listed');
+  assert.equal(mine.source, 'db');
+  assert.equal(mine.status, 'open');
+  assert.equal(mine.roles.researcher, true);
+  assert.equal(mine.roles.keyholder, true);
+  assert.equal(mine.participantUrl, `${ORIGIN}${B}/s/${id}`);
+  assert.equal(mine.responses, 0);
+  assert.equal(mine.waves.length, 1);
+  assert.equal(mine.waves[0].starters, 2);
+  const page = await app.request(`${ORIGIN}${B}/s/${id}`);
+  assert.equal(page.status, 200, 'participant page serves the created survey');
+
+  // A participant takes it: consent → Q1 → follow-up (mock probes long answers) → Q2 → done.
+  const pid = `p${run}y`;
+  const cookie = await login(pid);
+  r = await call(cookie, 'GET', `/api/s/${id}/state`);
+  assert.equal(r.json.phase, 'consent');
+  assert.match(r.json.consent.sheetHtml, /Before you start/);
+  r = await call(cookie, 'POST', `/api/s/${id}/consent`, { adult: true, agree: true });
+  assert.equal(r.status, 201);
+  r = await call(cookie, 'POST', `/api/s/${id}/sessions`, {});
+  assert.equal(r.status, 201);
+  let view = r.json.view;
+  const sid = view.session.id;
+  assert.equal(view.starterCount, 2);
+  assert.equal(view.maxProbes, 1);
+  r = await call(cookie, 'POST', `/api/sessions/${sid}/answer`, { text: 'It went well because we planned the whole thing early on', expectedSeq: view.session.seq });
+  view = r.json.view;
+  assert.equal(view.current.kind, 'probe');
+  r = await call(cookie, 'POST', `/api/sessions/${sid}/answer`, { text: 'I recall thinking we were finally organised for once', expectedSeq: view.session.seq });
+  view = r.json.view;
+  assert.equal(view.current.kind, 'starter', 'after the single allowed follow-up the engine advances without asking the model');
+  assert.equal(view.session.starterIndex, 1);
+  r = await call(cookie, 'POST', `/api/sessions/${sid}/answer`, { text: 'ok', expectedSeq: view.session.seq });
+  view = r.json.view;
+  assert.equal(view.session.status, 'completed');
+
+  // Results grid: Q1, Q1 follow-up, Q2, Q2 follow-up; one row; coded only.
+  r = await call(res, 'GET', `/api/admin/s/${id}/results`);
+  assert.equal(r.status, 200);
+  assert.equal(r.json.wave.id, 'main');
+  assert.deepEqual(r.json.columns.map((c: any) => c.key), ['q1', 'q1~f1', 'q2', 'q2~f1']);
+  assert.deepEqual(r.json.columns.map((c: any) => c.label), ['Q1', 'Q1 follow-up', 'Q2', 'Q2 follow-up']);
+  assert.equal(r.json.columns[0].text, 'What went well?');
+  assert.equal(r.json.columns[1].text, null);
+  assert.equal(r.json.rows.length, 1);
+  const row = r.json.rows[0];
+  assert.equal(row.session_id, sid);
+  assert.match(row.participant_code, /^P-/);
+  assert.ok(!r.text.includes(pid), 'no PID in the grid');
+  assert.equal(row.cells.q1.answer, 'It went well because we planned the whole thing early on');
+  assert.equal(row.cells['q1~f1'].probe_type, 'DESCRIPTIVE_EXTERNAL');
+  assert.ok(row.cells['q1~f1'].question.length > 10);
+  assert.equal(row.cells['q1~f1'].answer, 'I recall thinking we were finally organised for once');
+  assert.equal(row.cells.q2.answer, 'ok');
+  assert.equal(row.cells['q2~f1'], undefined, 'no follow-up happened on Q2');
+  r = await call(res, 'GET', `/api/admin/s/${id}/results?wave=nope`);
+  assert.equal(r.status, 404);
+  r = await call(res, 'GET', `/api/admin/s/${id}/export/results.csv`);
+  assert.equal(r.status, 200);
+  assert.match(r.text, /^participant_code,status,started_at,ended_at,Q1,Q1 follow-up \(question\),Q1 follow-up \(answer\),Q2,Q2 follow-up \(question\),Q2 follow-up \(answer\)\r\n/);
+  assert.ok(r.text.includes('planned the whole thing'));
+  assert.ok(!r.text.includes(pid));
+  r = await call(res, 'GET', '/api/admin/surveys');
+  assert.equal(r.json.surveys.find((s: any) => s.id === id).responses, 1);
+
+  // Close it; participants see it closed; a file survey cannot be patched.
+  r = await call(res, 'PATCH', `/api/admin/s/${id}`, { status: 'closed' });
+  assert.equal(r.status, 200, r.text);
+  assert.equal(r.json.status, 'closed');
+  r = await call(cookie, 'GET', `/api/s/${id}/state`);
+  assert.equal(r.json.phase, 'closed');
+  const kh = await login('keyholder1');
+  r = await call(kh, 'PATCH', '/api/admin/s/e2e-demo', { status: 'closed' });
+  assert.equal(r.status, 409, 'file surveys are closed by editing the file');
+  r = await call(res, 'PATCH', '/api/admin/s/e2e-demo', { status: 'closed' });
+  assert.equal(r.status, 403, 'closing is a keyholder action');
+  r = await call(res, 'PATCH', `/api/admin/s/${id}`, { status: 'draft' });
+  assert.equal(r.status, 400, 'only open or closed');
+  r = await call(stranger, 'PATCH', `/api/admin/s/${id}`, { status: 'open' });
+  assert.equal(r.status, 404, 'no role → not there');
+  r = await call(stranger, 'GET', `/api/admin/s/${id}/results`);
+  assert.equal(r.status, 404);
+
+  // The creator is also the keyholder: the key can be downloaded (logged) and, now that it is closed, destroyed.
+  r = await call(res, 'GET', `/api/admin/s/${id}/keyring.csv`);
+  assert.equal(r.status, 200);
+  assert.ok(r.text.includes(pid), 'the keyholder export is the one place the PID appears');
+  r = await call(res, 'POST', `/api/admin/s/${id}/destroy-key`, { confirm: id });
+  assert.equal(r.status, 200, r.text);
+  assert.equal(r.json.enrollments, 1);
+
+  // Simulated restart: a fresh registry mounts created surveys from the database with their latest status.
+  const fresh = new ConfigRegistry(loadSurveyDir('test/fixtures/surveys'));
+  const snap = await snapshotConfigs(pools.survey, fresh);
+  assert.ok(snap.created >= 2);
+  assert.equal(fresh.get(id)?.config.status, 'closed');
+  assert.equal(fresh.get(id)?.source, 'db');
+  assert.equal(fresh.get(id2)?.config.status, 'open');
+  assert.equal(fresh.get('e2e-demo')?.source, 'file');
+});
+
+test('body limits: a long consent sheet fits through the admin route; participant answers stay capped', { skip }, async () => {
+  const res = await login('researcher1');
+  const bigConsent = '# Long sheet\n\n' + 'Lorem ipsum dolor sit amet. '.repeat(1500); // ≈ 42 KB, over the 32 KB participant cap
+  let r = await call(res, 'POST', '/api/admin/surveys', { title: `Long consent ${run}`, questions: ['q'], maxProbes: 0, consentMarkdown: bigConsent });
+  assert.equal(r.status, 201, r.text);
+  const id: string = r.json.id;
+  const cookie = await login(`p${run}z`);
+  r = await call(cookie, 'GET', `/api/s/${id}/state`);
+  assert.match(r.json.consent.sheetHtml, /<h1>Long sheet<\/h1>/);
+  r = await call(cookie, 'POST', `/api/s/${id}/consent`, { adult: true, agree: true });
+  r = await call(cookie, 'POST', `/api/s/${id}/sessions`, {});
+  const sid: string = r.json.view.session.id;
+  r = await call(cookie, 'POST', `/api/sessions/${sid}/answer`, { text: 'x'.repeat(33_000), expectedSeq: 1 });
+  assert.equal(r.status, 413, 'participant bodies are still capped at 32 KB');
+  r = await call(cookie, 'POST', `/api/sessions/${sid}/answer`, { text: 'a normal answer', expectedSeq: 1 });
+  assert.equal(r.status, 200);
+  assert.equal(r.json.view.session.status, 'completed', 'maxProbes 0 → one question, no follow-up');
+});

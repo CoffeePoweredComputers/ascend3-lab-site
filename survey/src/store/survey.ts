@@ -2,12 +2,28 @@
  * The coded side. Everything here runs on the `survey` pool (role survey_app),
  * which cannot see the `keyring` schema. Participants exist here only as codes.
  */
-import type { ConfigRegistry } from '../config/load.js';
-import { isUniqueViolation, type Pool } from '../db/pools.js';
+import type { ConfigRegistry, LoadedSurvey } from '../config/load.js';
+import { maxProbesFor, type SurveyConfig, type Wave } from '../config/schema.js';
+import { toCsv } from '../csv.js';
+import { isUniqueViolation, withTx, type Pool } from '../db/pools.js';
 import { generateCode } from '../engine/session.js';
 
-/** Record every current config version (idempotent) and load historical ones into the registry. */
-export async function snapshotConfigs(pool: Pool, registry: ConfigRegistry): Promise<{ inserted: number; historical: number }> {
+export interface SnapshotResult {
+  /** Current file versions recorded for the first time. */
+  inserted: number;
+  /** Older versions loaded from the database so in-flight sessions can resolve. */
+  historical: number;
+  /** Surveys created on the admin page, mounted as current. */
+  created: number;
+  /** Created surveys NOT mounted because a file with the same id exists (the file wins). */
+  skipped: string[];
+}
+
+/**
+ * Record every current file version (idempotent), load historical versions
+ * into the registry, and mount the surveys created on the admin page.
+ */
+export async function snapshotConfigs(pool: Pool, registry: ConfigRegistry): Promise<SnapshotResult> {
   let inserted = 0;
   for (const s of registry.list()) {
     const r = await pool.query(
@@ -25,7 +41,45 @@ export async function snapshotConfigs(pool: Pool, registry: ConfigRegistry): Pro
     registry.addHistorical(r.config, r.config_version, r.survey_id);
     historical++;
   }
-  return { inserted, historical };
+  const created = await pool.query<{ survey_id: string; current_version: string }>(
+    'SELECT survey_id, current_version FROM survey.surveys ORDER BY created_at',
+  );
+  const skipped: string[] = [];
+  let mounted = 0;
+  for (const c of created.rows) {
+    if (registry.get(c.survey_id)?.source === 'file') {
+      skipped.push(c.survey_id);
+      continue;
+    }
+    const loaded = registry.getVersion(c.current_version);
+    if (!loaded) {
+      throw new Error(`created survey "${c.survey_id}" points at config version ${c.current_version.slice(0, 12)}, which is not in survey.survey_configs`);
+    }
+    registry.add({ ...loaded, source: 'db' });
+    mounted++;
+  }
+  return { inserted, historical, created: mounted, skipped };
+}
+
+/* ── surveys created on the admin page ─────────────────────────────────────── */
+
+const INSERT_CONFIG = 'INSERT INTO survey.survey_configs (survey_id, config_version, config) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING';
+
+/** Store a new created survey: its config version plus the pointer marking it current. */
+export async function insertCreatedSurvey(pool: Pool, loaded: LoadedSurvey): Promise<void> {
+  await withTx(pool, async (c) => {
+    await c.query(INSERT_CONFIG, [loaded.config.id, loaded.version, JSON.stringify(loaded.raw)]);
+    await c.query('INSERT INTO survey.surveys (survey_id, current_version) VALUES ($1, $2)', [loaded.config.id, loaded.version]);
+  });
+}
+
+/** Point a created survey at a new version (a status change). Throws if the id is not a created survey. */
+export async function updateCreatedSurvey(pool: Pool, loaded: LoadedSurvey): Promise<void> {
+  await withTx(pool, async (c) => {
+    await c.query(INSERT_CONFIG, [loaded.config.id, loaded.version, JSON.stringify(loaded.raw)]);
+    const r = await c.query('UPDATE survey.surveys SET current_version = $2, updated_at = now() WHERE survey_id = $1', [loaded.config.id, loaded.version]);
+    if (!r.rowCount) throw new Error(`"${loaded.config.id}" is not a created survey`);
+  });
 }
 
 export interface NewParticipant {
@@ -359,4 +413,156 @@ export async function waveStats(pool: Pool, surveyId: string): Promise<Map<strin
     out.set(r.wave_id, w);
   }
   return out;
+}
+
+/* ── results grid: one row per session, one cell per question / follow-up ──── */
+
+export interface ResultsColumn {
+  key: string;
+  kind: 'starter' | 'probe';
+  starterId: string;
+  /** -1 for a starter seen in the data but absent from the current config. */
+  starterIndex: number;
+  probeIndex: number;
+  label: string;
+  /** Starter columns: the question text. Probe columns: null (each participant's follow-up differs and sits in the cell). */
+  text: string | null;
+}
+
+export interface ResultsCell {
+  /** Probe columns: the follow-up question this participant was asked. */
+  question?: string;
+  answer: string | null;
+  probe_type?: string;
+}
+
+export interface ResultsRow {
+  session_id: string;
+  participant_code: string | null;
+  is_preview: boolean;
+  status: string;
+  started_at: Date;
+  ended_at: Date | null;
+  cells: Record<string, ResultsCell>;
+}
+
+export interface ResultsGrid {
+  wave: { id: string; label: string };
+  columns: ResultsColumn[];
+  rows: ResultsRow[];
+}
+
+/** Cell key: the starter id for the main answer, `<starter>~f<n>` for follow-up n. */
+export function cellKey(starterId: string, probeIndex: number | null): string {
+  return probeIndex ? `${starterId}~f${probeIndex}` : starterId;
+}
+
+function columnLabel(starterIndex: number, probeIndex: number, probesConfigured: number): string {
+  if (!probeIndex) return `Q${starterIndex + 1}`;
+  return probesConfigured === 1 && probeIndex === 1 ? `Q${starterIndex + 1} follow-up` : `Q${starterIndex + 1} follow-up ${probeIndex}`;
+}
+
+/** Columns for a wave from the current config: Q1, Q1 follow-up(s), Q2, … */
+export function gridColumns(cfg: SurveyConfig, wave: Wave): ResultsColumn[] {
+  const out: ResultsColumn[] = [];
+  wave.starters.forEach((s, i) => {
+    const k = maxProbesFor(cfg, s);
+    out.push({ key: cellKey(s.id, 0), kind: 'starter', starterId: s.id, starterIndex: i, probeIndex: 0, label: columnLabel(i, 0, k), text: s.text });
+    for (let p = 1; p <= k; p++) {
+      out.push({ key: cellKey(s.id, p), kind: 'probe', starterId: s.id, starterIndex: i, probeIndex: p, label: columnLabel(i, p, k), text: null });
+    }
+  });
+  return out;
+}
+
+/**
+ * The Qualtrics-style view of a wave. Cells are filled from the append-only
+ * turns by starter id (not index), so sessions that ran under an earlier
+ * version of the instrument still land in the right column; anything the
+ * current config no longer has (an extra follow-up slot, a removed question)
+ * becomes an additional column rather than being dropped.
+ */
+export async function resultsGrid(pool: Pool, cfg: SurveyConfig, wave: Wave, includePreview: boolean): Promise<ResultsGrid> {
+  const columns = gridColumns(cfg, wave);
+  const known = new Map(columns.map((c) => [c.key, c]));
+  const sessions = await pool.query<Omit<ResultsRow, 'cells'>>(
+    `SELECT id AS session_id, participant_code, is_preview, status::text, started_at, ended_at
+       FROM survey.sessions
+      WHERE survey_id = $1 AND wave_id = $2 AND ($3 OR NOT is_preview)
+      ORDER BY started_at`,
+    [cfg.id, wave.id, includePreview],
+  );
+  const turns = await pool.query<{ session_id: string; kind: string; starter_id: string; probe_index: number | null; probe_type: string | null; text: string | null }>(
+    `SELECT t.session_id, t.kind::text, t.starter_id, t.probe_index, t.probe_type, t.text
+       FROM survey.turns t JOIN survey.sessions s ON s.id = t.session_id
+      WHERE s.survey_id = $1 AND s.wave_id = $2 AND ($3 OR NOT s.is_preview) AND t.kind IN ('probe', 'answer')
+      ORDER BY t.session_id, t.seq`,
+    [cfg.id, wave.id, includePreview],
+  );
+  const cellsBySession = new Map<string, Record<string, ResultsCell>>();
+  for (const t of turns.rows) {
+    const key = cellKey(t.starter_id, t.probe_index);
+    if (!known.has(key)) {
+      const idx = wave.starters.findIndex((s) => s.id === t.starter_id);
+      const probeIndex = t.probe_index ?? 0;
+      const col: ResultsColumn = {
+        key,
+        kind: probeIndex ? 'probe' : 'starter',
+        starterId: t.starter_id,
+        starterIndex: idx,
+        probeIndex,
+        label: idx >= 0 ? columnLabel(idx, probeIndex, 0) : key,
+        text: idx >= 0 && !probeIndex ? wave.starters[idx]!.text : null,
+      };
+      known.set(key, col);
+      columns.push(col);
+    }
+    let cells = cellsBySession.get(t.session_id);
+    if (!cells) {
+      cells = {};
+      cellsBySession.set(t.session_id, cells);
+    }
+    const cell = cells[key] ?? { answer: null };
+    if (t.kind === 'probe') {
+      cell.question = t.text ?? '';
+      if (t.probe_type) cell.probe_type = t.probe_type;
+    } else {
+      cell.answer = t.text;
+    }
+    cells[key] = cell;
+  }
+  // Config order first, extra follow-up slots beside their question, unknown starters last.
+  columns.sort((a, b) => Number(a.starterIndex < 0) - Number(b.starterIndex < 0) || a.starterIndex - b.starterIndex || a.probeIndex - b.probeIndex);
+  return {
+    wave: { id: wave.id, label: wave.label },
+    columns,
+    rows: sessions.rows.map((s) => ({ ...s, cells: cellsBySession.get(s.session_id) ?? {} })),
+  };
+}
+
+/** Wide CSV of the grid: the main answer per question, then a (question, answer) pair per follow-up. */
+export function gridCsv(grid: ResultsGrid): string {
+  const columns = ['participant_code', 'status', 'started_at', 'ended_at'];
+  for (const c of grid.columns) {
+    if (c.kind === 'starter') columns.push(c.label);
+    else columns.push(`${c.label} (question)`, `${c.label} (answer)`);
+  }
+  const rows = grid.rows.map((r) => {
+    const out: Record<string, unknown> = {
+      participant_code: r.participant_code ?? (r.is_preview ? 'preview' : ''),
+      status: r.status,
+      started_at: r.started_at,
+      ended_at: r.ended_at,
+    };
+    for (const c of grid.columns) {
+      const cell = r.cells[c.key];
+      if (c.kind === 'starter') out[c.label] = cell?.answer ?? null;
+      else {
+        out[`${c.label} (question)`] = cell?.question ?? null;
+        out[`${c.label} (answer)`] = cell?.answer ?? null;
+      }
+    }
+    return out;
+  });
+  return toCsv(rows, columns);
 }

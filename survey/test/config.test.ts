@@ -11,7 +11,7 @@ test('the real survey file loads and hashes deterministically', () => {
   assert.equal(s.config.id, 'irb-26-817');
   assert.equal(s.config.waves.length, 3);
   for (const w of s.config.waves) assert.equal(w.starters.length, 4);
-  assert.equal(s.config.probing.maxTurnsPerSession, 16);
+  assert.equal(s.config.probing.maxTurnsPerSession, 8);
   assert.match(s.version, /^[0-9a-f]{64}$/);
   assert.equal(s.version, versionOf(s.raw));
   assert.match(s.sheetHtml, /<h2[^>]*>Title of research study/);

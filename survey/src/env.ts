@@ -37,6 +37,11 @@ const schema = z.object({
     .default('0')
     .transform((s) => s === '1' || s.toLowerCase() === 'true'),
   SURVEYS_DIR: z.string().default('surveys'),
+  /** PIDs allowed to create surveys on the admin page. Empty = anyone who is a researcher on a file-defined survey. */
+  SURVEY_ADMINS: z
+    .string()
+    .default('')
+    .transform((s) => s.split(',').map((p) => p.trim().toLowerCase()).filter(Boolean)),
   WEB_DIR: z.string().default('web'),
 });
 

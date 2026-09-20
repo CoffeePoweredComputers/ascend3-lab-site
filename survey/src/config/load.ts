@@ -15,8 +15,12 @@ import { join, resolve } from 'node:path';
 import { marked } from 'marked';
 import { formatIssues, surveySchema, type SurveyConfig } from './schema.js';
 
+/** `file` = surveys/<id>.json (changed by redeploy); `db` = created on the admin page (survey.surveys). */
+export type SurveySource = 'file' | 'db';
+
 export interface LoadedSurvey {
   config: SurveyConfig;
+  source: SurveySource;
   /** sha256 hex of the canonical raw JSON. */
   version: string;
   /** The raw parsed file, as snapshotted to the database. */
@@ -49,15 +53,16 @@ export function stripEditorKeys(raw: unknown): unknown {
   return raw;
 }
 
-export function fromRaw(raw: unknown, source: string): LoadedSurvey {
+export function fromRaw(raw: unknown, origin: string, source: SurveySource = 'file'): LoadedSurvey {
   const parsed = surveySchema.safeParse(raw);
   if (!parsed.success) {
-    throw new Error(`Invalid survey definition (${source}):\n${formatIssues(parsed.error)}`);
+    throw new Error(`Invalid survey definition (${origin}):\n${formatIssues(parsed.error)}`);
   }
   const config = parsed.data;
   const forHash = stripEditorKeys(raw);
   return {
     config,
+    source,
     version: versionOf(forHash),
     raw: forHash,
     sheetHtml: marked.parse(config.consent.sheetMarkdown, { async: false }) as string,
@@ -118,6 +123,12 @@ export class ConfigRegistry {
       throw new Error(`Snapshot for ${surveyId} hashes to ${loaded.version.slice(0, 12)} but was stored as ${expectedVersion.slice(0, 12)}`);
     }
     this.byVersion.set(expectedVersion, loaded);
+  }
+
+  /** Mount or replace a current survey at runtime (created on the admin page, or its status changed). */
+  add(loaded: LoadedSurvey): void {
+    this.current.set(loaded.config.id, loaded);
+    this.byVersion.set(loaded.version, loaded);
   }
 
   get(surveyId: string): LoadedSurvey | undefined {

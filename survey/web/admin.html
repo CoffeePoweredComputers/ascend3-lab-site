@@ -7,6 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Survey admin</title>
 <link rel="stylesheet" href="__BASE__/style.css">
+<link rel="stylesheet" href="__BASE__/admin.css">
 </head>
 <body data-base="__BASE__">
 <header class="top">
@@ -30,111 +31,116 @@
   <section data-screen="signedout" hidden>
     <div class="card card--hero center">
       <h1>Sign in</h1>
-      <p class="muted">Researcher and keyholder access is granted per survey, in the survey definition file.</p>
+      <p class="muted">Access is granted per survey to the research team.</p>
       <p><a class="btn btn--primary btn--lg" data-login-link href="#">Continue with VT Login</a></p>
     </div>
   </section>
   <section data-screen="list" hidden>
-    <h1>Surveys</h1>
-    <p class="muted small">Researcher views show participant <em>codes</em> only. The identity key is available only to keyholders, and every export of it is logged.</p>
+    <div class="list__head">
+      <h1>Surveys</h1>
+      <button type="button" class="btn btn--primary" data-new hidden>New survey</button>
+    </div>
+    <p class="muted small">Responses are shown by participant code. The identity key is available only to keyholders, and every download of it is logged.</p>
     <div data-surveys></div>
   </section>
 </main>
 
-<dialog class="modal modal--wide" data-transcript-dialog>
-  <div class="modal__head">
-    <div>
-      <p class="eyebrow" data-t-eyebrow>Session</p>
-      <h2 data-t-title>Transcript</h2>
-      <p class="muted small" data-t-meta></p>
+<dialog class="modal modal--wide modal--form" data-new-dialog>
+  <form data-new-form novalidate>
+    <h2>New survey</h2>
+    <p class="error" role="alert" data-new-error hidden></p>
+    <label class="field"><span>Title</span><input type="text" name="title" required maxlength="200" autocomplete="off"></label>
+    <label class="field"><span>Questions — one per line, in the order asked</span><textarea name="questions" rows="6" required spellcheck="true"></textarea></label>
+    <div class="form-row">
+      <label class="field"><span>Follow-ups per question</span>
+        <select name="maxProbes">
+          <option value="0">0 — no follow-ups</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </label>
+      <label class="field"><span>Closes on</span><input type="date" name="closesAt"></label>
     </div>
-    <div class="modal__tools">
-      <label class="check small"><input type="checkbox" data-t-details checked> details</label>
-      <a class="btn btn--ghost" data-t-download download>Download JSON</a>
-      <button type="button" class="btn btn--ghost" data-t-close>Close</button>
+    <label class="field"><span>Consent text (Markdown) — shown before the first question</span><textarea name="consentMarkdown" rows="8"></textarea></label>
+    <label class="field"><span>Consent checkbox label</span><input type="text" name="agreeLabel" maxlength="300"></label>
+    <details class="advanced">
+      <summary>Advanced</summary>
+      <label class="field"><span>Opening — first message of the conversation</span><textarea name="opening" rows="3"></textarea></label>
+      <label class="field"><span>Closing — shown when the session ends</span><textarea name="closing" rows="3"></textarea></label>
+      <label class="field"><span>Follow-up instructions (system prompt for the model)</span><textarea name="systemPrompt" rows="10"></textarea></label>
+    </details>
+    <div class="actions">
+      <button type="button" class="btn btn--ghost" data-new-cancel>Cancel</button>
+      <button type="submit" class="btn btn--primary" data-new-submit>Create survey</button>
     </div>
-  </div>
-  <div class="transcript" data-t-body></div>
+  </form>
 </dialog>
 
 <template data-survey-card>
   <article class="card admin-survey">
     <header class="admin-survey__head">
-      <h2><span data-f="title"></span> <code data-f="id"></code></h2>
-      <p class="muted small"><span data-f="irb"></span> · status <strong data-f="status"></strong> · config <code data-f="version"></code> · model <code data-f="model"></code> via <code data-f="provider"></code> · <span data-f="probing"></span></p>
-      <p class="muted small">Your roles: <span data-f="roles"></span></p>
+      <h2><span data-f="title"></span> <code data-f="id"></code> <span class="tag" data-f="status"></span></h2>
+      <p class="muted small" data-f="source"></p>
     </header>
-    <div class="table-wrap">
-      <table class="table">
-        <thead><tr><th>Wave</th><th>Window</th><th>Starters</th><th>Active</th><th>Completed</th><th>Stopped</th><th>Expired</th><th>Previews</th><th>Median time</th><th>Follow-ups / session</th><th>Questions ended by</th></tr></thead>
-        <tbody data-f="waves"></tbody>
-      </table>
+    <div class="field">
+      <span>Participant link — hand this out</span>
+      <div class="linkrow">
+        <input type="text" class="linkrow__url" data-link readonly aria-label="Participant link">
+        <button type="button" class="btn" data-link-copy>Copy</button>
+      </div>
     </div>
-    <p class="small">Consented participants (coded): <strong data-f="participants"></strong></p>
-    <div class="actions" data-f="researcher">
-      <a class="btn" data-export="sessions.csv" download>sessions.csv</a>
-      <a class="btn" data-export="turns.csv" download>turns.csv</a>
-      <a class="btn" data-export="transcripts.jsonl" download>transcripts.jsonl</a>
-      <label class="check small"><input type="checkbox" data-include-preview> include previews</label>
-      <span class="composer__spacer"></span>
-      <select data-preview-wave aria-label="Wave for preview"></select>
-      <button type="button" class="btn btn--primary" data-preview>Start a preview session</button>
-    </div>
-    <div class="actions" data-f="invite" hidden>
-      <label class="check small">Guest invite link, valid
-        <select data-invite-days aria-label="How long the invite link stays valid">
-          <option value="7">7 days</option>
-          <option value="30" selected>30 days</option>
-          <option value="90">90 days</option>
-        </select>
-      </label>
-      <button type="button" class="btn" data-invite>Create link</button>
-      <input class="invite__url" data-invite-url readonly hidden aria-label="Guest invite link">
-      <button type="button" class="btn" data-invite-copy hidden>Copy</button>
-      <span class="muted small" data-invite-expires></span>
-    </div>
-    <section class="sessions" data-f="sessions">
-      <div class="sessions__head">
-        <h3>Sessions</h3>
+    <section data-f="results">
+      <div class="results__head">
+        <p class="small muted" data-grid-count>Loading responses…</p>
         <div class="filters">
-          <select data-filter="wave" aria-label="Wave"><option value="">All waves</option></select>
-          <select data-filter="status" aria-label="Status">
-            <option value="">Any status</option>
-            <option value="active">active</option>
-            <option value="completed">completed</option>
-            <option value="stopped">stopped</option>
-            <option value="expired">expired</option>
-          </select>
-          <label class="check small"><input type="checkbox" data-filter="preview"> include previews</label>
-          <span class="muted small" data-sessions-count></span>
+          <label class="check small" data-wave-wrap hidden>Wave <select data-wave aria-label="Wave"></select></label>
+          <label class="check small"><input type="checkbox" data-include-preview> include previews</label>
         </div>
       </div>
-      <div class="table-wrap">
-        <table class="table table--click">
-          <thead><tr><th>Code</th><th>Wave</th><th>Status</th><th>Started</th><th>Time</th><th>Answered</th><th>Follow-ups</th><th>Ended by</th></tr></thead>
-          <tbody data-sessions-body></tbody>
+      <div class="table-wrap grid-wrap">
+        <table class="table grid">
+          <thead data-grid-head></thead>
+          <tbody data-grid-body></tbody>
         </table>
       </div>
-      <div class="pager">
-        <button type="button" class="btn btn--ghost" data-page="prev">‹ Newer</button>
-        <span class="small muted" data-page-label></span>
-        <button type="button" class="btn btn--ghost" data-page="next">Older ›</button>
+      <div class="actions">
+        <a class="btn" data-export="results.csv" download>results.csv</a>
+        <a class="btn" data-export="transcripts.jsonl" download>transcripts.jsonl</a>
+        <span class="composer__spacer"></span>
+        <button type="button" class="btn btn--primary" data-preview>Preview</button>
+      </div>
+      <div class="actions" data-f="invite" hidden>
+        <label class="check small">Guest invite link, valid
+          <select data-invite-days aria-label="How long the invite link stays valid">
+            <option value="7">7 days</option>
+            <option value="30" selected>30 days</option>
+            <option value="90">90 days</option>
+          </select>
+        </label>
+        <button type="button" class="btn" data-invite>Create link</button>
+        <input class="invite__url" data-invite-url readonly hidden aria-label="Guest invite link">
+        <button type="button" class="btn" data-invite-copy hidden>Copy</button>
+        <span class="muted small" data-invite-expires></span>
       </div>
     </section>
     <details class="keyholder" data-f="keyholder">
-      <summary>Keyholder tools — identity key and roster</summary>
-      <p class="small">Enrolled (key rows): <strong data-f="enrollments"></strong> · roster mode <code data-f="rosterMode"></code> · roster size <strong data-f="rosterSize"></strong></p>
-      <div class="actions">
-        <a class="btn" data-keyring download>keyring.csv (logged)</a>
+      <summary>Keyholder — identity key</summary>
+      <p class="small">Enrolled (key rows): <strong data-f="enrollments"></strong></p>
+      <div data-roster-wrap hidden>
+        <label class="field"><span>Roster — one PID per line (replaces the whole list on save)</span>
+          <textarea rows="5" data-roster spellcheck="false"></textarea></label>
+        <div class="actions"><button type="button" class="btn" data-roster-save>Save roster</button><span class="muted small" data-roster-count></span></div>
       </div>
-      <label class="field"><span>Roster — one PID per line (replaces the whole list on save)</span>
-        <textarea rows="6" data-roster spellcheck="false"></textarea></label>
-      <div class="actions"><button type="button" class="btn" data-roster-save>Save roster</button></div>
-      <h3 class="small">Key events</h3>
-      <ul class="small" data-f="events"></ul>
-      <div class="danger-zone">
+      <div class="actions">
+        <a class="btn" data-keyring download>Download identity key (logged)</a>
+        <button type="button" class="btn" data-close>Close survey</button>
+        <span class="muted small" data-close-note hidden>To close this survey, set its status to closed in its file and redeploy.</span>
+      </div>
+      <p class="muted small" data-destroy-note>Destroying the identity key becomes available once the survey is closed.</p>
+      <div class="danger-zone" data-destroy-zone hidden>
         <h3>Destroy the identity key</h3>
-        <p class="small">Deletes every PID↔code row and the roster for this survey. Allowed only when the survey status is <code>closed</code>. Participants can no longer sign back in; coded data is unaffected. Type the survey id to confirm.</p>
+        <p class="small">Deletes every PID↔code row for this survey. Participants can no longer sign back in; coded data is unaffected. Type the survey id to confirm.</p>
         <div class="actions">
           <input type="text" data-destroy-confirm placeholder="survey id" autocomplete="off">
           <button type="button" class="btn btn--danger" data-destroy>Destroy key</button>

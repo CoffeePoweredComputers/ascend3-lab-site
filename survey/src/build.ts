@@ -1,8 +1,8 @@
 /** Assemble the Hono app from a ready AppContext (shared by server.ts and the e2e test). */
 import { serveStatic } from '@hono/node-server/serve-static';
-import { Hono } from 'hono';
+import { Hono, type Context } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
-import { csrfGuard, HttpError, rateLimit, requireApiIdentity, securityHeaders, type AppContext, type AppEnv } from './app.js';
+import { csrfGuard, HttpError, requireApiIdentity, securityHeaders, type AppContext, type AppEnv } from './app.js';
 import { pingPools } from './db/pools.js';
 import { SessionError } from './engine/session.js';
 import { adminRoutes } from './routes/admin.js';
@@ -15,9 +15,14 @@ export function buildApp(ctx: AppContext): Hono<AppEnv> {
   const app = new Hono<AppEnv>().basePath(env.basePath || '/');
 
   app.use('*', securityHeaders());
-  app.use('/api/*', bodyLimit({ maxSize: 32 * 1024, onError: (c) => c.json({ error: 'too_large', message: 'Request too large' }, 413) }));
+  // Participant bodies are one answer (≤ 20 000 chars). Admin bodies carry a whole
+  // survey definition (consent sheet + prompt); 64 KB matches nginx's client_max_body_size
+  // for /survey/, so the app's own 413 is the one the browser sees.
+  const tooLarge = (c: Context) => c.json({ error: 'too_large', message: 'Request too large' }, 413);
+  const participantBody = bodyLimit({ maxSize: 32 * 1024, onError: tooLarge });
+  const adminBody = bodyLimit({ maxSize: 64 * 1024, onError: tooLarge });
+  app.use('/api/*', (c, next) => (c.req.path.includes('/api/admin/') ? adminBody : participantBody)(c, next));
   app.use('/api/*', csrfGuard(env));
-  app.use('/api/*', rateLimit(90));
 
   app.get('/healthz', async (c) => {
     const db = await pingPools(pools);

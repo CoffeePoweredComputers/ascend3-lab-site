@@ -204,10 +204,25 @@ textarea { resize: vertical; }
 .chat__title { margin: 0; font: 600 0.9rem var(--font-ui); color: var(--muted); }
 .chat__progress { margin: 0; font: 700 0.85rem var(--font-ui); color: var(--text); }
 .chat__progress small { font-weight: 500; color: var(--muted); }
-.segments { display: flex; gap: 0.35rem; list-style: none; padding: 0; margin: 0; }
-.segments li { flex: 1; height: 0.3rem; border-radius: 999px; background: var(--border); transition: background-color 0.3s; }
-.segments li.is-done { background: color-mix(in srgb, var(--primary) 55%, var(--border)); }
-.segments li.is-current { background: var(--primary); }
+/* Progress: one pill per main question, cut by a 2 px hairline into beats —
+ * the main question first and wider (3:2), then one slice per possible
+ * follow-up. Two kinds of boundary, two looks: questions are separated by the
+ * 0.4 rem gap and rounded ends; beats within a question by the hairline only.
+ * Tones are the same three as before (upcoming / done / current), so the solid
+ * "current" mark moves inside a pill for a follow-up and jumps across a gap for
+ * a new question. Chosen over a second-row track and a ticked continuous bar;
+ * see public/_mockup-survey-progress.html. */
+/* The `hidden` attribute must beat class display rules (.btn, .actions, .check…),
+   which the UA stylesheet's non-important rule does not. */
+[hidden] { display: none !important; }
+
+.segments { display: flex; gap: 0.4rem; list-style: none; padding: 0; margin: 0; }
+.segments li { flex: 1; display: flex; gap: 2px; min-width: 0; }
+.segments li > span { flex: 2; height: 0.3rem; background: var(--border); transition: background-color 0.3s; }
+.segments li > span:first-child { flex: 3; border-start-start-radius: 999px; border-end-start-radius: 999px; }
+.segments li > span:last-child { border-start-end-radius: 999px; border-end-end-radius: 999px; }
+.segments .is-done { background: color-mix(in srgb, var(--primary) 55%, var(--border)); }
+.segments .is-current { background: var(--primary); }
 
 .chat__scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 0.5rem 0.25rem 1rem; scroll-behavior: smooth; display: flex; flex-direction: column; }
 .msg { display: flex; flex-direction: column; max-width: 86%; margin: 0 0 0.9rem; }

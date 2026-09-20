@@ -91,6 +91,7 @@ const appEnv = {
   MIGRATE_DATABASE_URL: '',
   DEV_LOGIN_ENABLED: false,
   SURVEYS_DIR: 'surveys',
+  SURVEY_ADMINS: [],
   WEB_DIR: 'web',
   basePath: '/survey',
   isProduction: false,

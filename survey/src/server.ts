@@ -23,6 +23,7 @@ async function main(): Promise<void> {
   const registry = new ConfigRegistry(surveys);
   const pools = createPools(env);
   const snap = await snapshotConfigs(pools.survey, registry);
+  if (snap.skipped.length) log.warn('config.created_shadowed_by_file', { ids: snap.skipped });
   const llm = new LlmMonitor(createLlmClient(env), {
     probe: env.LLM_PROVIDER === 'mock' ? mockProbe() : arcProbe(env.ARC_LLM_BASE_URL, env.ARC_LLM_API_KEY),
   });
