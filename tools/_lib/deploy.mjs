@@ -42,6 +42,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import net from 'node:net';
+import http from 'node:http';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -261,13 +262,29 @@ async function freePort(status, name) {
   throw new Error(`no free port in ${PORT_MIN}-${PORT_MAX}`);
 }
 
+/** One GET on /: resolves with any status, rejects on connect failure, close
+ *  or timeout. node:http rather than fetch: on Node 20, a fetch whose peer
+ *  accepts and then closes with no bytes (docker-proxy, before the app inside
+ *  listens) never settles, and AbortSignal.timeout()'s timer is unref'd, so
+ *  nothing kept the event loop alive and the runner exited 0 mid-pre-flight
+ *  with nothing logged. `agent: false`: no keep-alive socket between polls. */
+const probe = (port) =>
+  new Promise((resolve, reject) => {
+    const req = http.get({ host: '127.0.0.1', port, path: '/', agent: false, timeout: 2000 }, (res) => {
+      res.resume();
+      resolve(res.statusCode);
+    });
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
+  });
+
 /** Any HTTP status counts (a 404 on / still proves the server is listening);
  *  only a connection failure keeps waiting. Gives up early if the container exited. */
 async function waitForHttp(port, container) {
   const deadline = Date.now() + READY_TIMEOUT_MS;
   while (Date.now() < deadline) {
     try {
-      await fetch(`http://127.0.0.1:${port}/`, { signal: AbortSignal.timeout(2000), redirect: 'manual' });
+      await probe(port);
       return true;
     } catch {
       /* not up yet */
@@ -457,8 +474,9 @@ async function main() {
   // One runner at a time. autodeploy.sh holds its own flock, but the README's
   // first deploy is run by hand, and a cron tick landing mid-run would collide
   // on the single scratch port and interleave writes to status.json. Re-exec
-  // under flock(1), the same lock autodeploy.sh uses; the kernel releases it
-  // however this process ends, so there is no stale lock to clean up.
+  // under flock(1) on the runner's own lock file (autodeploy.sh's lock only
+  // serializes autodeploy.sh); the kernel releases it however this process
+  // ends, so there is no stale lock to clean up.
   if (!DRY && process.env.ASCEND_TOOLS_LOCKED !== '1') {
     fs.mkdirSync(STATE_DIR, { recursive: true });
     const lock = path.join(STATE_DIR, 'runner.lock');
