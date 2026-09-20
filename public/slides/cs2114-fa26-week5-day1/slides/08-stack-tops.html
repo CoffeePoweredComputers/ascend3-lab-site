@@ -1,0 +1,109 @@
+<section class="slide" id="slide-08" data-sid="08-stack-tops:1">
+  <header class="slide__head" data-sid="08-stack-tops:2">
+    <h2 data-sid="08-stack-tops:3">Three ways to build a stack</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08-stack-tops:4">A line across the top names the stack interface &mdash; push, pop, peek, isEmpty, clear; last in, first out &mdash; and says every drawing shows the stack after push A, push B, push C. Three columns arrive one per step. One, a linked chain: a blue pill labelled topNode points at a node holding C, which points at B, which points at A, whose next is null; the caption says the top is the first node. Two, an array with the top at the last occupied index: six cells holding A, B, C and three free cells, with an orange marker topIndex equals 2 over the cell holding C; the caption says the top is stack at topIndex. Three, an array with the top at index 0: six cells holding C, B, A and three free cells, with an orange marker top over cell 0; the caption says the top is stack at 0 and the bottom is the last occupied cell. A closing line reads: push, pop and peek all work at the top; Votes 2, 3 and 4 ask how many moves each pop takes.</p>
+
+  <!-- The module's three designs side by side, all holding the same three
+       pushes so the pictures compare. No costs anywhere on the slide — the
+       votes are the costs. The top is what the chapter is about, so it is
+       the one thing in orange on each drawing. Columns GrowFromCenter one
+       per press; the closing line arrives with the third. Field names are
+       the course's: topNode from the homework's LinkedStack, topIndex as the
+       array design names it. -->
+  <div class="slide__body st" data-sid="08-stack-tops:5">
+    <p class="st__lede" data-sid="08-stack-tops:6">StackInterface&lt;T&gt;: push(newEntry) &middot; pop() &middot; peek() &middot; isEmpty() &middot; clear() &mdash; last in, first out. Each picture: after push(A), push(B), push(C).</p>
+    <ol class="st__cols" data-sid="08-stack-tops:7">
+      <li class="st__col frag" data-step="1" data-sid="08-stack-tops:8">
+        <svg viewBox="0 0 520 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A topNode pill above a chain of three nodes holding C, B and A; the last next is null" data-sid="08-stack-tops:9">
+          <defs data-sid="08-stack-tops:10">
+            <marker id="w5d1-08-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08-stack-tops:11"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08-stack-tops:12"/></marker>
+          </defs>
+          <g class="st__pill st__pill--top" data-sid="08-stack-tops:13"><rect x="20" y="40" width="170" height="44" rx="8" data-sid="08-stack-tops:14"/><text x="105" y="70" data-sid="08-stack-tops:15">topNode</text></g>
+          <path class="st__arr" d="M105 84 C 105 100, 105 116, 105 132" data-sid="08-stack-tops:16"/>
+          <g class="st__node" data-sid="08-stack-tops:17"><rect x="45" y="140" width="120" height="76" rx="8" data-sid="08-stack-tops:18"/><path d="M115 140v76" data-sid="08-stack-tops:19"/><text class="st__f" x="52" y="160" data-sid="08-stack-tops:20">data</text><text class="st__f" x="122" y="160" data-sid="08-stack-tops:21">next</text><text class="st__v" x="80" y="196" data-sid="08-stack-tops:22">C</text></g>
+          <path class="st__arr" d="M165 178 C 175 178, 185 178, 193 178" data-sid="08-stack-tops:23"/>
+          <g class="st__node" data-sid="08-stack-tops:24"><rect x="195" y="140" width="120" height="76" rx="8" data-sid="08-stack-tops:25"/><path d="M265 140v76" data-sid="08-stack-tops:26"/><text class="st__f" x="202" y="160" data-sid="08-stack-tops:27">data</text><text class="st__f" x="272" y="160" data-sid="08-stack-tops:28">next</text><text class="st__v" x="230" y="196" data-sid="08-stack-tops:29">B</text></g>
+          <path class="st__arr" d="M315 178 C 325 178, 335 178, 343 178" data-sid="08-stack-tops:30"/>
+          <g class="st__node" data-sid="08-stack-tops:31"><rect x="345" y="140" width="120" height="76" rx="8" data-sid="08-stack-tops:32"/><path d="M415 140v76" data-sid="08-stack-tops:33"/><text class="st__f" x="352" y="160" data-sid="08-stack-tops:34">data</text><text class="st__f" x="422" y="160" data-sid="08-stack-tops:35">next</text><text class="st__v" x="380" y="196" data-sid="08-stack-tops:36">A</text></g>
+          <path class="st__arr" d="M465 178 C 473 178, 481 178, 488 178" data-sid="08-stack-tops:37"/>
+          <text class="st__null" x="494" y="188" data-sid="08-stack-tops:38">null</text>
+        </svg>
+        <h3 data-sid="08-stack-tops:39">Linked chain, top at the first node</h3>
+        <p class="st__cap" data-sid="08-stack-tops:40">the top is topNode&rsquo;s data; the chain grows and shrinks at the front</p>
+      </li>
+      <li class="st__col frag" data-step="2" data-sid="08-stack-tops:41">
+        <svg viewBox="0 0 520 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Six array cells holding A, B, C and three free cells, with an orange marker topIndex equals 2 over the cell holding C" data-sid="08-stack-tops:42">
+          <g class="st__mark" data-sid="08-stack-tops:43"><text x="221" y="108" data-sid="08-stack-tops:44">topIndex = 2</text><path d="M221 118 V140" data-sid="08-stack-tops:45"/><path d="M221 146 L213 134 H229 Z" data-sid="08-stack-tops:46"/></g>
+          <g class="st__cells" data-sid="08-stack-tops:47">
+            <rect x="30" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:48"/><rect x="108" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:49"/><rect x="186" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:50"/>
+            <rect class="st__free" x="264" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:51"/><rect class="st__free" x="342" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:52"/><rect class="st__free" x="420" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:53"/>
+          </g>
+          <g class="st__idx" data-sid="08-stack-tops:54"><text x="36" y="166" data-sid="08-stack-tops:55">0</text><text x="114" y="166" data-sid="08-stack-tops:56">1</text><text x="192" y="166" data-sid="08-stack-tops:57">2</text><text x="270" y="166" data-sid="08-stack-tops:58">3</text><text x="348" y="166" data-sid="08-stack-tops:59">4</text><text x="426" y="166" data-sid="08-stack-tops:60">5</text></g>
+          <g class="st__av" data-sid="08-stack-tops:61"><text x="65" y="200" data-sid="08-stack-tops:62">A</text><text x="143" y="200" data-sid="08-stack-tops:63">B</text><text x="221" y="200" data-sid="08-stack-tops:64">C</text></g>
+          <text class="st__tag" x="30" y="256" data-sid="08-stack-tops:65">stack.length = 6</text>
+        </svg>
+        <h3 data-sid="08-stack-tops:66">Array, top at the last occupied index</h3>
+        <p class="st__cap" data-sid="08-stack-tops:67">the top is stack[topIndex]; the free slots are past it</p>
+      </li>
+      <li class="st__col frag" data-step="3" data-sid="08-stack-tops:68">
+        <svg viewBox="0 0 520 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Six array cells holding C, B, A and three free cells, with an orange marker top over cell 0" data-sid="08-stack-tops:69">
+          <g class="st__mark" data-sid="08-stack-tops:70"><text x="65" y="108" data-sid="08-stack-tops:71">top</text><path d="M65 118 V140" data-sid="08-stack-tops:72"/><path d="M65 146 L57 134 H73 Z" data-sid="08-stack-tops:73"/></g>
+          <g class="st__cells" data-sid="08-stack-tops:74">
+            <rect x="30" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:75"/><rect x="108" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:76"/><rect x="186" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:77"/>
+            <rect class="st__free" x="264" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:78"/><rect class="st__free" x="342" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:79"/><rect class="st__free" x="420" y="150" width="70" height="70" rx="6" data-sid="08-stack-tops:80"/>
+          </g>
+          <g class="st__idx" data-sid="08-stack-tops:81"><text x="36" y="166" data-sid="08-stack-tops:82">0</text><text x="114" y="166" data-sid="08-stack-tops:83">1</text><text x="192" y="166" data-sid="08-stack-tops:84">2</text><text x="270" y="166" data-sid="08-stack-tops:85">3</text><text x="348" y="166" data-sid="08-stack-tops:86">4</text><text x="426" y="166" data-sid="08-stack-tops:87">5</text></g>
+          <g class="st__av" data-sid="08-stack-tops:88"><text x="65" y="200" data-sid="08-stack-tops:89">C</text><text x="143" y="200" data-sid="08-stack-tops:90">B</text><text x="221" y="200" data-sid="08-stack-tops:91">A</text></g>
+          <text class="st__tag" x="30" y="256" data-sid="08-stack-tops:92">stack.length = 6 &middot; numberOfEntries = 3</text>
+        </svg>
+        <h3 data-sid="08-stack-tops:93">Array, top at index 0</h3>
+        <p class="st__cap" data-sid="08-stack-tops:94">the top is stack[0]; the bottom is the last occupied slot</p>
+      </li>
+    </ol>
+    <p class="note st__plant frag" data-step="3" data-anim="fade" data-sid="08-stack-tops:95">push, pop and peek all work at the top. Votes 2, 3 and 4: how many moves each pop takes.</p>
+  </div>
+  <div class="slide__number" data-sid="08-stack-tops:96"></div>
+  <aside class="notes" data-sid="08-stack-tops:97">Skip this slide if the votes are running long; the vote slides carry the same pictures. Module 5.2&rsquo;s three designs, each holding the same three pushes. Step 1: a linked chain with the top at the first node &mdash; the homework&rsquo;s LinkedStack, topNode; push puts a node in front, pop takes it off. Step 2: an array with the top at the last occupied index, the module&rsquo;s array design &mdash; topIndex says where; the free slots are past it. Step 3: an array with the top at index 0 &mdash; the bottom is the last occupied slot. All three do push, pop and peek at the top; the question the next three votes ask is how many moves each one takes. Next: Vote 2.</aside>
+
+  <style data-sid="08-stack-tops:98">
+    /* Slide-local: a mono lede across the top, three columns of drawing +
+       title + caption (W2D2's tab grammar, no numerals), the closing line
+       under them. Each drawing is a 520 × 300 box, bottom-anchored, so the
+       three render at one scale: Link boxes 120 × 76 (W4D1's grammar) with
+       blue arrows and marker heads (fill inline for the studio's renderer),
+       array cells 70 px, the top marker in orange. Columns GrowFromCenter
+       one per press. All values from tokens; used by this slide only. */
+    #slide-08 .st { display: grid; row-gap: var(--s-4); align-content: start; }
+    #slide-08 .st__lede { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-1); }
+    #slide-08 .st__cols { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--s-4); list-style: none; margin: 0; padding: 0; }
+    #slide-08 .st__col { display: flex; flex-direction: column; margin: 0; }
+    #slide-08 .st__col svg { display: block; width: 100%; height: 300px; margin-bottom: var(--s-3); overflow: visible; }
+    #slide-08 .st__col h3 { margin: 0 0 var(--s-2); padding-top: var(--s-3); border-top: 4px solid var(--accent-1); font-size: var(--t-small); line-height: 1.15; color: var(--accent-1); }
+    #slide-08 .st__cap { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.4; color: var(--fg-0); }
+    #slide-08 .st__plant { margin: 0; transition: opacity .3s ease; }
+    #slide-08 .frag.st__plant.is-current, #slide-08 .frag.st__plant.is-past { transition-delay: .5s; }
+
+    #slide-08 .st__pill rect { fill: var(--accent-2); }
+    #slide-08 .st__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08 .st__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w5d1-08-head); }
+    #slide-08 .st__node rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08 .st__node path { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08 .st__f { font-family: var(--font-mono); font-size: 16px; fill: var(--fg-1); }
+    #slide-08 .st__v { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08 .st__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); }
+    #slide-08 .st__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-08 .st__cells .st__free { fill: none; stroke-dasharray: 8 6; }
+    #slide-08 .st__idx text { font-family: var(--font-mono); font-size: 16px; fill: var(--fg-1); }
+    #slide-08 .st__av text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08 .st__tag { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-08 .st__mark text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; }
+    #slide-08 .st__mark path { fill: var(--accent-3); stroke: var(--accent-3); stroke-width: 4; stroke-linecap: round; }
+
+    #slide-08 .st__col { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08 .frag.st__col.is-pending { opacity: 0; transform: scale(0.4); }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08 .st__col, #slide-08 .st__plant { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

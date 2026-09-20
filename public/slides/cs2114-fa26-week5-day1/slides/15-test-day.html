@@ -1,0 +1,78 @@
+<section class="slide slide--warmup" id="slide-15" data-sid="15-test-day:1">
+  <header class="slide__head" data-sid="15-test-day:2">
+    <h2 data-sid="15-test-day:3">Test 1: Wednesday (MW) &middot; Thursday (TR)</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="15-test-day:4">On the left, a checklist of the rules: next class, in lecture, Wednesday for MW and Thursday for TR; on Canvas, inside LockDown Browser, the way last week&rsquo;s trial quiz ran; 45 minutes, marked as to be confirmed, one attempt, about 15 questions; closed book, no notes, IDE, web or talking; laptop only, phone away, pen and paper allowed; student ID on the desk. On the right, two cards arriving in turn: DO, in orange &mdash; charge your laptop, bring your student ID, LockDown Browser installed and tested, run Test 1 Practice once more tonight; and DON&rsquo;T, in maroon &mdash; open Eclipse or any other program, use your phone, discuss the test until both sections have taken it, leave before the end. A line under the checklist reads: Test 1 Redo, Thursday October 1, in class.</p>
+
+  <!-- Last week's rules slide, said once more two days out: a checklist of
+       what the room will be, then DO and DON'T cards with named actions,
+       not principles (the deck's standing rule). Wording follows the
+       instructor's own edits to the Week 4 deck (Canvas, LockDown Browser,
+       ~15 questions). The SSD booking line is gone — both RegisterBlast
+       deadlines have passed by the time each section sees this; the notes
+       carry the after-class line. The duration is still the 4.1 page's
+       figure and stays marked until confirmed. Cards arrive on two presses. -->
+  <div class="slide__body td" data-sid="15-test-day:5">
+    <ul class="checklist td__rules" data-sid="15-test-day:6">
+      <li data-sid="15-test-day:7"><b data-sid="15-test-day:8">Next class</b>, in lecture: <b data-sid="15-test-day:9">Wednesday</b> (MW) &middot; <b data-sid="15-test-day:10">Thursday</b> (TR)</li>
+      <li data-sid="15-test-day:11">On Canvas, inside <b data-sid="15-test-day:12">LockDown Browser</b> &mdash; the way last week&rsquo;s trial quiz ran</li>
+      <li data-sid="15-test-day:13"><span class="td__ph" data-sid="15-test-day:14">[45 minutes]</span> &middot; one attempt &middot; ~15 questions</li>
+      <li data-sid="15-test-day:15">Closed book: no notes, IDE, web, or talking</li>
+      <li data-sid="15-test-day:16">Laptop only; phone away. Pen and paper allowed.</li>
+      <li data-sid="15-test-day:17">Student ID on the desk</li>
+    </ul>
+    <div class="stack td__cards" data-sid="15-test-day:18">
+      <div class="tile tile--a3 frag" data-step="1" data-sid="15-test-day:19">
+        <h3 data-sid="15-test-day:20">DO</h3>
+        <ul class="td__list" data-sid="15-test-day:21">
+          <li data-sid="15-test-day:22">charge your laptop</li>
+          <li data-sid="15-test-day:23">bring your student ID</li>
+          <li data-sid="15-test-day:24">LockDown Browser installed <b data-sid="15-test-day:25">and tested</b></li>
+          <li data-sid="15-test-day:26">run Test #1 Practice once more <b data-sid="15-test-day:27">tonight</b></li>
+        </ul>
+      </div>
+      <div class="tile frag" data-step="2" data-sid="15-test-day:28">
+        <h3 data-sid="15-test-day:29">DON&rsquo;T</h3>
+        <ul class="td__list" data-sid="15-test-day:30">
+          <li data-sid="15-test-day:31">open Eclipse or any other program</li>
+          <li data-sid="15-test-day:32">use your phone</li>
+          <li data-sid="15-test-day:33">discuss the test until both sections have taken it</li>
+          <li data-sid="15-test-day:34">leave before the end</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note td__redo frag" data-step="2" data-anim="fade" data-sid="15-test-day:35">Test 1 Redo: Thursday October 1, in class.</p>
+  </div>
+  <div class="slide__number" data-sid="15-test-day:36"></div>
+  <aside class="notes" data-sid="15-test-day:37">Laptops closed. The rules, once more. Next class, in lecture &mdash; Wednesday for MW, Thursday for TR &mdash; on Canvas inside LockDown Browser, exactly the way the trial quiz ran last week. [Confirm the length: the 4.1 page says 45 minutes; update the slide.] One attempt, about fifteen questions. Closed book: no notes, IDE, web, or talking. Laptop only; phone away before you sit down; pen and paper allowed; student ID on the desk. Step 1, DO: charge the laptop, bring the ID, LockDown Browser installed and tested &mdash; if it failed last week and you have not filed the 4help ticket, do it today &mdash; and run the practice once more tonight; new questions every attempt. Step 2, DON&rsquo;T: no other programs, no phone, no discussing the test until both sections have taken it, no leaving early. Test 1 Redo: Thursday October 1, in class. Anyone with an accommodation letter who has not booked a seat: see me after class. Next: the same clock.</aside>
+
+  <style data-sid="15-test-day:38">
+    /* Slide-local: the checklist at 900 px on the left, the two cards stacked
+       on the right, the redo line under the checklist. Checklist items at the
+       small size with the words to find in bold; the placeholder in the tabs'
+       orange so it is impossible to miss in Studio. Cards GrowFromCenter on
+       their presses; the redo line fades in with the second. All values from
+       tokens; used by this slide only. */
+    #slide-15 .td { display: grid; grid-template-columns: 900px minmax(0, 1fr); column-gap: var(--s-6); row-gap: var(--s-4); align-items: start; }
+    #slide-15 .td__rules { grid-column: 1; grid-row: 1; }
+    #slide-15 .td__cards { grid-column: 2; grid-row: 1 / 3; }
+    #slide-15 .td__redo { grid-column: 1; grid-row: 2; }
+    #slide-15 .td__rules { margin: 0; }
+    #slide-15 .td__rules li { margin: 0 0 var(--s-2); line-height: 1.3; }
+    #slide-15 .td__rules b { color: var(--accent-1); }
+    #slide-15 .td__ph { color: var(--accent-3); }
+    #slide-15 .td__cards .tile { padding: var(--s-3) var(--s-4); }
+    #slide-15 .td__cards h3 { font-size: var(--t-small); margin: 0 0 var(--s-2); color: var(--edge); letter-spacing: .1em; }
+    #slide-15 .td__list { list-style: none; margin: 0; padding: 0; font-size: var(--t-micro); line-height: 1.35; color: var(--fg-0); }
+    #slide-15 .td__list li { margin: 0 0 var(--s-1); padding-left: var(--s-3); position: relative; line-height: 1.35; }
+    #slide-15 .td__list li::before { content: ""; position: absolute; left: 0; top: .5em; width: 10px; height: 10px; border-radius: 50%; background: var(--edge); }
+    #slide-15 .td__list b { color: var(--edge); }
+    #slide-15 .td__cards .tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-15 .td__cards .frag.tile.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-15 .td__redo { margin: 0; color: var(--accent-1); transition: opacity .3s ease; }
+    #slide-15 .frag.td__redo.is-current, #slide-15 .frag.td__redo.is-past { transition-delay: .5s; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-15 .td__cards .tile, #slide-15 .td__redo { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

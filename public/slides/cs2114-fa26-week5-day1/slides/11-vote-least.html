@@ -1,0 +1,95 @@
+<section class="slide slide--warmup" id="slide-11" data-sid="11-vote-least:1">
+  <header class="slide__head" data-sid="11-vote-least:2">
+    <p class="slide__kicker" data-sid="11-vote-least:3">PEER INSTRUCTION &middot; VOTE 4</p>
+    <h2 data-sid="11-vote-least:4">Which pop is the least efficient, and why?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute vote timer; it starts on the first press" data-sid="11-vote-least:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="11-vote-least:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="11-vote-least:7"/><g class="timer__ticks" data-sid="11-vote-least:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="11-vote-least:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="11-vote-least:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="11-vote-least:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="11-vote-least:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="11-vote-least:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="11-vote-least:14"/><g class="timer__hand" data-sid="11-vote-least:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="11-vote-least:16"/></g><text class="timer__time" x="75" y="88" data-sid="11-vote-least:17">2:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="11-vote-least:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="240" data-state="idle" role="timer" aria-label="Four-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="11-vote-least:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="11-vote-least:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="11-vote-least:21"/><g class="timer__ticks" data-sid="11-vote-least:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="11-vote-least:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="11-vote-least:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="11-vote-least:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="11-vote-least:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="11-vote-least:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="11-vote-least:28"/><g class="timer__hand" data-sid="11-vote-least:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="11-vote-least:30"/></g><text class="timer__time" x="75" y="88" data-sid="11-vote-least:31">4:00</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="11-vote-least:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="11-vote-least:33">A peer-instruction question. On the left, the question stem &mdash; which stack implementation results in the least efficient pop operation, and why &mdash; over three small drawings, one per row: a linked chain with a topNode pill pointing at a node holding C, then B, then A, then null; an array holding A, B, C and three free cells with an orange marker topIndex equals 2 over the cell holding C; an array holding C, B, A and three free cells with an orange marker top over cell 0. On the right, the four options: A, linked chain stack with top at the first node; B, array stack with top at the last occupied index; C, array stack with top at index 0; D, all have equally efficient pop methods. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The three designs from slide 8, small, in the order the options name
+       them, so the room can point. The stem and the four options are quoted
+       from the question (pop() set in code there, as here). Static; the
+       answer slide walks the one pop not yet walked and puts the three side
+       by side. Runestone activity vtcs2_efficiency_stacks_4_202507. -->
+  <div class="slide__body lb" data-sid="11-vote-least:34">
+    <div class="stack" data-sid="11-vote-least:35">
+      <p class="lb__stem" data-sid="11-vote-least:36">Which stack implementation results in the least efficient <code data-sid="11-vote-least:37">pop()</code> operation, and why?</p>
+      <svg class="lb__fig" viewBox="0 0 880 420" role="img" aria-label="Three stack designs after push A, B, C: a linked chain with the top at the first node; an array with the top at the last occupied index; an array with the top at index 0" data-sid="11-vote-least:38">
+        <defs data-sid="11-vote-least:39">
+          <marker id="w5d1-11-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="11-vote-least:40"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="11-vote-least:41"/></marker>
+        </defs>
+        <!-- row 1: the chain -->
+        <text class="lb__lab" x="0" y="18" data-sid="11-vote-least:42">linked chain, top at the first node</text>
+        <g class="lb__pill" data-sid="11-vote-least:43"><rect x="0" y="44" width="150" height="44" rx="8" data-sid="11-vote-least:44"/><text x="75" y="74" data-sid="11-vote-least:45">topNode</text></g>
+        <path class="lb__arr" d="M150 66 C 164 66, 176 66, 188 66" data-sid="11-vote-least:46"/>
+        <g class="lb__node" data-sid="11-vote-least:47"><rect x="190" y="34" width="100" height="64" rx="6" data-sid="11-vote-least:48"/><path d="M250 34v64" data-sid="11-vote-least:49"/><text class="lb__f" x="196" y="52" data-sid="11-vote-least:50">data</text><text class="lb__f" x="256" y="52" data-sid="11-vote-least:51">next</text><text class="lb__v" x="220" y="84" data-sid="11-vote-least:52">C</text></g>
+        <path class="lb__arr" d="M290 66 C 300 66, 310 66, 318 66" data-sid="11-vote-least:53"/>
+        <g class="lb__node" data-sid="11-vote-least:54"><rect x="320" y="34" width="100" height="64" rx="6" data-sid="11-vote-least:55"/><path d="M380 34v64" data-sid="11-vote-least:56"/><text class="lb__f" x="326" y="52" data-sid="11-vote-least:57">data</text><text class="lb__f" x="386" y="52" data-sid="11-vote-least:58">next</text><text class="lb__v" x="350" y="84" data-sid="11-vote-least:59">B</text></g>
+        <path class="lb__arr" d="M420 66 C 430 66, 440 66, 448 66" data-sid="11-vote-least:60"/>
+        <g class="lb__node" data-sid="11-vote-least:61"><rect x="450" y="34" width="100" height="64" rx="6" data-sid="11-vote-least:62"/><path d="M510 34v64" data-sid="11-vote-least:63"/><text class="lb__f" x="456" y="52" data-sid="11-vote-least:64">data</text><text class="lb__f" x="516" y="52" data-sid="11-vote-least:65">next</text><text class="lb__v" x="480" y="84" data-sid="11-vote-least:66">A</text></g>
+        <path class="lb__arr" d="M550 66 C 560 66, 570 66, 578 66" data-sid="11-vote-least:67"/>
+        <text class="lb__null" x="584" y="74" data-sid="11-vote-least:68">null</text>
+        <!-- row 2: array, top at the last occupied index -->
+        <text class="lb__lab" x="0" y="168" data-sid="11-vote-least:69">array, top at the last occupied index</text>
+        <g class="lb__mark" data-sid="11-vote-least:70"><text x="360" y="200" data-sid="11-vote-least:71">topIndex = 2</text><path d="M360 206 V218" data-sid="11-vote-least:72"/><path d="M360 224 L353 214 H367 Z" data-sid="11-vote-least:73"/></g>
+        <g class="lb__cells" data-sid="11-vote-least:74"><rect x="190" y="228" width="60" height="60" rx="5" data-sid="11-vote-least:75"/><rect x="260" y="228" width="60" height="60" rx="5" data-sid="11-vote-least:76"/><rect x="330" y="228" width="60" height="60" rx="5" data-sid="11-vote-least:77"/><rect class="lb__free" x="400" y="228" width="60" height="60" rx="5" data-sid="11-vote-least:78"/><rect class="lb__free" x="470" y="228" width="60" height="60" rx="5" data-sid="11-vote-least:79"/><rect class="lb__free" x="540" y="228" width="60" height="60" rx="5" data-sid="11-vote-least:80"/></g>
+        <g class="lb__av" data-sid="11-vote-least:81"><text x="220" y="268" data-sid="11-vote-least:82">A</text><text x="290" y="268" data-sid="11-vote-least:83">B</text><text x="360" y="268" data-sid="11-vote-least:84">C</text></g>
+        <g class="lb__ix" data-sid="11-vote-least:85"><text x="195" y="242" data-sid="11-vote-least:86">0</text><text x="265" y="242" data-sid="11-vote-least:87">1</text><text x="335" y="242" data-sid="11-vote-least:88">2</text><text x="405" y="242" data-sid="11-vote-least:89">3</text><text x="475" y="242" data-sid="11-vote-least:90">4</text><text x="545" y="242" data-sid="11-vote-least:91">5</text></g>
+        <!-- row 3: array, top at index 0 -->
+        <text class="lb__lab" x="0" y="318" data-sid="11-vote-least:92">array, top at index 0</text>
+        <g class="lb__mark" data-sid="11-vote-least:93"><text x="220" y="350" data-sid="11-vote-least:94">top</text><path d="M220 356 V368" data-sid="11-vote-least:95"/><path d="M220 374 L213 364 H227 Z" data-sid="11-vote-least:96"/></g>
+        <g class="lb__cells" data-sid="11-vote-least:97"><rect x="190" y="378" width="60" height="60" rx="5" data-sid="11-vote-least:98"/><rect x="260" y="378" width="60" height="60" rx="5" data-sid="11-vote-least:99"/><rect x="330" y="378" width="60" height="60" rx="5" data-sid="11-vote-least:100"/><rect class="lb__free" x="400" y="378" width="60" height="60" rx="5" data-sid="11-vote-least:101"/><rect class="lb__free" x="470" y="378" width="60" height="60" rx="5" data-sid="11-vote-least:102"/><rect class="lb__free" x="540" y="378" width="60" height="60" rx="5" data-sid="11-vote-least:103"/></g>
+        <g class="lb__av" data-sid="11-vote-least:104"><text x="220" y="418" data-sid="11-vote-least:105">C</text><text x="290" y="418" data-sid="11-vote-least:106">B</text><text x="360" y="418" data-sid="11-vote-least:107">A</text></g>
+        <g class="lb__ix" data-sid="11-vote-least:108"><text x="195" y="392" data-sid="11-vote-least:109">0</text><text x="265" y="392" data-sid="11-vote-least:110">1</text><text x="335" y="392" data-sid="11-vote-least:111">2</text><text x="405" y="392" data-sid="11-vote-least:112">3</text><text x="475" y="392" data-sid="11-vote-least:113">4</text><text x="545" y="392" data-sid="11-vote-least:114">5</text></g>
+      </svg>
+    </div>
+    <ol class="opts" data-sid="11-vote-least:115">
+      <li data-sid="11-vote-least:116"><p data-sid="11-vote-least:117">Linked chain stack with top at the first node</p></li>
+      <li data-sid="11-vote-least:118"><p data-sid="11-vote-least:119">Array stack with top at the last occupied index</p></li>
+      <li data-sid="11-vote-least:120"><p data-sid="11-vote-least:121">Array stack with top at index 0</p></li>
+      <li data-sid="11-vote-least:122"><p data-sid="11-vote-least:123">All have equally efficient <code data-sid="11-vote-least:124">pop()</code> methods</p></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="11-vote-least:125"></div>
+  <aside class="notes" data-sid="11-vote-least:126">Answer: C &mdash; the array stack with the top at index 0, because every other entry has to move up one. The question as printed: &ldquo;Which stack implementation results in the least efficient pop() operation, and why?&rdquo; Press once: the 2:30 vote clock; press again for &ldquo;discuss&rdquo;; press again to move on. Votes 2 and 3 have done two of the three; the one the room has not walked is the chain, and that is the one to send the groups to: what does pop change in a chain? One arrow. The &ldquo;why&rdquo; is the part to insist on in the discussion &mdash; the answer slide asks for it. Runestone activity: vtcs2_efficiency_stacks_4_202507.</aside>
+
+  <style data-sid="11-vote-least:127">
+    /* two clocks at the top right: the vote ring (2:30) and the discussion
+       ring (4:00), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js) */
+    #slide-11 .timer { top: var(--s-6); }
+    #slide-11 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-11 .frag.timer.is-past { opacity: .55; }
+    #slide-11 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-11 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-11 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the stem over one SVG of the three designs (880 × 420,
+       one row each, slide 8's grammar at a smaller pitch: nodes 100 × 64,
+       cells 60), the four options on the right. Static. All values from
+       tokens; used by this slide only. */
+    #slide-11 .lb { display: grid; grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-11 .stack { gap: var(--s-4); }
+    #slide-11 .lb__stem { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+    #slide-11 .lb__stem code, #slide-11 .opts code { font-size: .9em; }
+    #slide-11 .lb__fig { display: block; width: 100%; height: 420px; overflow: visible; }
+    #slide-11 .lb__lab { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-11 .lb__pill rect { fill: var(--accent-2); }
+    #slide-11 .lb__pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-11 .lb__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w5d1-11-head); }
+    #slide-11 .lb__node rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-11 .lb__node path { fill: none; stroke: var(--fg-1); stroke-width: 3; }
+    #slide-11 .lb__f { font-family: var(--font-mono); font-size: 14px; fill: var(--fg-1); }
+    #slide-11 .lb__v { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11 .lb__null { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); }
+    #slide-11 .lb__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-11 .lb__cells .lb__free { fill: none; stroke-dasharray: 8 6; }
+    #slide-11 .lb__av text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11 .lb__ix text { font-family: var(--font-mono); font-size: 14px; fill: var(--fg-1); }
+    #slide-11 .lb__mark text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--accent-3); text-anchor: middle; }
+    #slide-11 .lb__mark path { fill: var(--accent-3); stroke: var(--accent-3); stroke-width: 3; stroke-linecap: round; }
+  </style>
+</section>

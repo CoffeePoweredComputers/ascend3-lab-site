@@ -1,0 +1,147 @@
+<section class="slide slide--warmup" id="slide-11b" data-sid="11b-walk-least:1">
+  <header class="slide__head" data-sid="11b-walk-least:2">
+    <p class="slide__kicker" data-sid="11b-walk-least:3">VOTE 4 &middot; THE ANSWER</p>
+    <h2 data-sid="11b-walk-least:4">Only the top-at-index-0 stack has to shift</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11b-walk-least:5">A walkthrough of pop for the linked-chain stack, under a program-counter bar: top equals peek, topNode equals topNode dot getNext, the count comes down, return top. On the right, a blue topNode pill points at a node holding C, which points at B, then A, then null; a local top; a large counter labelled moves. Step one: the C node takes a blue edge and top becomes C. Step two: the topNode arrow swings from C to B and the C node fades to stone. Step three: the count is struck from 3 to 2. Step four: return top; the caption says three moves at any length. Step five: a board appears under the code with the three pops side by side &mdash; A, the linked chain, 3 moves, O of 1; B, the array with the top at the last occupied index, 4 moves, O of 1; C, the array with the top at index 0, n plus 3 moves, O of n; D, all equal, no. Step six: C&rsquo;s row takes the heading colour and the other rows dim, and the caption gives the why: every other entry has to move up one.</p>
+
+  <!-- Votes 2 and 3 walked two of the three pops; this walks the third — the
+       homework's own LinkedStack.pop, four lines — and then lines the three
+       up. The chain's one move is an arrow swinging (d: path(), a real
+       Transform); the popped node fades to stone because nothing refers to
+       it any more. The board under the code recalls the two counts already
+       made and IS the verdict — its C row takes the heading maroon on the
+       last press (a separate strip ran the column 40 px past the body) —
+       and the caption answers the "why" the question asks for. -->
+  <div class="slide__body grid grid--code code-dense lk" data-sid="11b-walk-least:6">
+    <div class="stack" data-sid="11b-walk-least:7">
+      <div class="editor" data-sid="11b-walk-least:8">
+        <p class="editor__bar" data-sid="11b-walk-least:9">LinkedStack.pop &mdash; homework class</p>
+        <div class="editor__pc" data-sid="11b-walk-least:10"></div>
+        <ol class="editor__code" data-sid="11b-walk-least:11">
+          <li data-sid="11b-walk-least:12"><span class="tok-key" data-sid="11b-walk-least:13">public</span> T pop() {</li>
+          <li class="walkline frag" data-step="1" data-sid="11b-walk-least:14">    T top = peek();</li>
+          <li class="walkline frag" data-step="2" data-sid="11b-walk-least:15">    topNode = topNode.getNext();</li>
+          <li class="walkline frag" data-step="3" data-sid="11b-walk-least:16">    numberOfEntries--;</li>
+          <li class="walkline frag" data-step="4" data-sid="11b-walk-least:17">    <span class="tok-key" data-sid="11b-walk-least:18">return</span> top;</li>
+          <li data-sid="11b-walk-least:19">}</li>
+        </ol>
+      </div>
+      <ol class="bd" data-sid="11b-walk-least:20">
+        <li class="bd__row frag" data-step="5" style="--i: 0" data-sid="11b-walk-least:21"><span class="bd__l" data-sid="11b-walk-least:22">A</span><span class="bd__t" data-sid="11b-walk-least:23">linked chain, top at the first node</span><span class="bd__c bd__c--ok" data-sid="11b-walk-least:24">3 moves</span><span class="bd__o bd__o--ok" data-sid="11b-walk-least:25">O(1)</span></li>
+        <li class="bd__row frag" data-step="5" style="--i: 1" data-sid="11b-walk-least:26"><span class="bd__l" data-sid="11b-walk-least:27">B</span><span class="bd__t" data-sid="11b-walk-least:28">array, top at the last occupied index</span><span class="bd__c bd__c--ok" data-sid="11b-walk-least:29">4 moves</span><span class="bd__o bd__o--ok" data-sid="11b-walk-least:30">O(1)</span></li>
+        <li class="bd__row bd__row--c frag" data-step="5" style="--i: 2" data-sid="11b-walk-least:31"><span class="bd__l" data-sid="11b-walk-least:32">C</span><span class="bd__t" data-sid="11b-walk-least:33">array, top at index 0</span><span class="bd__c bd__c--bad" data-sid="11b-walk-least:34">n + 3 moves</span><span class="bd__o bd__o--bad" data-sid="11b-walk-least:35">O(n)</span></li>
+        <li class="bd__row frag" data-step="5" style="--i: 3" data-sid="11b-walk-least:36"><span class="bd__l" data-sid="11b-walk-least:37">D</span><span class="bd__t" data-sid="11b-walk-least:38">all equally efficient</span><span class="bd__c bd__c--no" data-sid="11b-walk-least:39">no</span><span class="bd__o bd__o--no" data-sid="11b-walk-least:40">one of them shifts</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk lk__right" data-sid="11b-walk-least:50">
+      <p class="lk__call" data-sid="11b-walk-least:51">stack.pop() &mdash; a chain of three, C on top</p>
+      <svg class="lk__fig" viewBox="0 0 900 260" role="img" aria-label="A topNode pill above a chain C, B, A ending in null; on pop the pill's arrow swings from C to B and the C node fades" data-sid="11b-walk-least:52">
+        <defs data-sid="11b-walk-least:53">
+          <marker id="w5d1-11b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="11b-walk-least:54"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="11b-walk-least:55"/></marker>
+        </defs>
+        <g class="lk__pill" data-sid="11b-walk-least:56"><rect x="10" y="20" width="170" height="44" rx="8" data-sid="11b-walk-least:57"/><text x="95" y="50" data-sid="11b-walk-least:58">topNode</text></g>
+        <path class="lk__arr lk__arr--top" d="M95 64 C 95 80, 95 96, 95 108" data-sid="11b-walk-least:59"/>
+        <g class="lk__node lk__node--c" data-sid="11b-walk-least:60"><rect x="20" y="110" width="150" height="90" rx="8" data-sid="11b-walk-least:61"/><path d="M110 110v90" data-sid="11b-walk-least:62"/><text class="lk__f" x="28" y="132" data-sid="11b-walk-least:63">data</text><text class="lk__f" x="118" y="132" data-sid="11b-walk-least:64">next</text><text class="lk__v" x="65" y="172" data-sid="11b-walk-least:65">C</text></g>
+        <path class="lk__arr lk__arr--cb" d="M170 155 C 182 155, 194 155, 203 155" data-sid="11b-walk-least:66"/>
+        <g class="lk__node" data-sid="11b-walk-least:67"><rect x="205" y="110" width="150" height="90" rx="8" data-sid="11b-walk-least:68"/><path d="M295 110v90" data-sid="11b-walk-least:69"/><text class="lk__f" x="213" y="132" data-sid="11b-walk-least:70">data</text><text class="lk__f" x="303" y="132" data-sid="11b-walk-least:71">next</text><text class="lk__v" x="250" y="172" data-sid="11b-walk-least:72">B</text></g>
+        <path class="lk__arr" d="M355 155 C 367 155, 379 155, 388 155" data-sid="11b-walk-least:73"/>
+        <g class="lk__node" data-sid="11b-walk-least:74"><rect x="390" y="110" width="150" height="90" rx="8" data-sid="11b-walk-least:75"/><path d="M480 110v90" data-sid="11b-walk-least:76"/><text class="lk__f" x="398" y="132" data-sid="11b-walk-least:77">data</text><text class="lk__f" x="488" y="132" data-sid="11b-walk-least:78">next</text><text class="lk__v" x="435" y="172" data-sid="11b-walk-least:79">A</text></g>
+        <path class="lk__arr" d="M540 155 C 552 155, 564 155, 573 155" data-sid="11b-walk-least:80"/>
+        <text class="lk__null" x="580" y="166" data-sid="11b-walk-least:81">null</text>
+        <text class="lk__gone" x="95" y="236" data-sid="11b-walk-least:82">no longer referenced</text>
+      </svg>
+      <p class="lk__meta" data-sid="11b-walk-least:83">numberOfEntries = <span class="lk__cv lk__cv--0" data-sid="11b-walk-least:84">3</span><span class="lk__cv lk__cv--1" data-sid="11b-walk-least:85"><span class="sr-only" data-sid="11b-walk-least:86">now </span>2</span> &nbsp;&middot;&nbsp; top = <span class="lk__tvs" data-sid="11b-walk-least:87"><span class="lk__tv lk__tv--none" data-sid="11b-walk-least:88">&mdash;</span><span class="lk__tv lk__tv--c" data-sid="11b-walk-least:89">C</span></span></p>
+      <div class="moves moves--ok" data-sid="11b-walk-least:90">
+        <p class="moves__label" data-sid="11b-walk-least:91">moves</p>
+        <div class="moves__stack" data-sid="11b-walk-least:92">
+          <div class="heap-obj__field" data-sid="11b-walk-least:93"><p class="heap-val heap-val--old frag" data-step="1" data-sid="11b-walk-least:94">0</p><p class="heap-val frag" data-step="1" data-sid="11b-walk-least:95">1</p></div>
+          <div class="heap-obj__field" data-sid="11b-walk-least:96"><p class="heap-val heap-val--old frag" data-step="2" data-sid="11b-walk-least:97">1</p><p class="heap-val frag" data-step="2" data-sid="11b-walk-least:98">2</p></div>
+          <div class="heap-obj__field" data-sid="11b-walk-least:99"><p class="heap-val heap-val--old frag" data-step="3" data-sid="11b-walk-least:100">2</p><p class="heap-val frag" data-step="3" data-sid="11b-walk-least:101">3</p></div>
+        </div>
+      </div>
+      <div class="codewalk__caps" data-sid="11b-walk-least:102">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="11b-walk-least:103">peek: the top is topNode&rsquo;s data, C. One read.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="11b-walk-least:104">topNode = topNode.getNext(): the arrow moves to B. C is off the stack, and nothing else moved.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="11b-walk-least:105">The count comes down: 3 &rarr; 2.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="11b-walk-least:106">Three moves at any length: O(1), like the array with the top at the last occupied index.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="11b-walk-least:107">The three pops side by side. Only C touches the entries under the top.</p>
+        <p class="walkcap walkcap--plant cap--6 frag" data-step="6" data-sid="11b-walk-least:108">And why: with the top at index 0, every other entry has to move up one. The shift is what grows.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="11b-walk-least:109"></div>
+  <aside class="notes" data-sid="11b-walk-least:110">Answer: C, and the why is the shift. This walk is the third pop, the homework&rsquo;s own LinkedStack.pop. Step 1: peek reads topNode&rsquo;s data, C. Step 2: topNode moves to the next node &mdash; one arrow; C is off the stack and nobody else moved. Step 3: the count. Step 4: three moves at any length &mdash; O(1), like Vote 3&rsquo;s array. Step 5: the board &mdash; A three moves, B four, C n plus three. D is out the moment one of them shifts. Step 6: the why, in one sentence: with the top at index 0, every entry under it has to move up one, and that shift is what grows with n. Plant for the table: the module&rsquo;s two designs, array-top-at-last and linked chain, are both O(1) for push, pop and peek &mdash; and the homework is three walks down that chain. Runestone activity: vtcs2_efficiency_stacks_4_202507.</aside>
+
+  <style data-sid="11b-walk-least:111">
+    /* Slide-local: a five-line editor (700 px) with the board under it; the chain on the right in W4D1's Link-box
+       grammar (150 × 90, blue arrows with marker heads, fill inline). The
+       topNode arrow swings between two same-shaped cubics on step 2; the
+       popped node goes stone and dashed with a note under it. Board rows
+       fade in staggered; cost badges blue for the two constant pops, maroon
+       for the one that shifts. The count strikes in place, top crossfades.
+       All keyed to the caption frags through :has(). All values from
+       tokens; used by this slide only. */
+    #slide-11b .lk { grid-template-columns: 700px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-11b .stack { gap: var(--s-3); }
+    #slide-11b .lk__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-11b .lk__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
+    #slide-11b .lk__fig { display: block; width: 100%; height: 260px; overflow: visible; }
+    #slide-11b .lk__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
+
+    #slide-11b .lk__pill rect { fill: var(--accent-2); }
+    #slide-11b .lk__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-11b .lk__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w5d1-11b-head); transition: d .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-11b .lk__node rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: stroke .3s ease; }
+    #slide-11b .lk__node path { fill: none; stroke: var(--fg-1); stroke-width: 4; transition: stroke .3s ease; }
+    #slide-11b .lk__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-11b .lk__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: fill .3s ease; }
+    #slide-11b .lk__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); }
+    #slide-11b .lk__gone { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    /* step 1: peek reads the first node */
+    #slide-11b .lk__right:has(.cap--1:not(.is-pending)) .lk__node--c rect { stroke: var(--accent-2); }
+    #slide-11b .lk__tvs { display: inline-grid; vertical-align: baseline; }
+    #slide-11b .lk__tv { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-11b .lk__tv--c { opacity: 0; }
+    #slide-11b .lk__right:has(.cap--1:not(.is-pending)) .lk__tv--none { opacity: 0; }
+    #slide-11b .lk__right:has(.cap--1:not(.is-pending)) .lk__tv--c { opacity: 1; }
+    /* step 2: topNode swings to B; C is unreachable */
+    #slide-11b .lk__right:has(.cap--2:not(.is-pending)) .lk__arr--top { d: path("M95 64 C 95 80, 280 60, 280 108"); }
+    #slide-11b .lk__right:has(.cap--2:not(.is-pending)) .lk__node--c rect { stroke: var(--stone); stroke-dasharray: 8 6; transition-delay: .5s; }
+    #slide-11b .lk__right:has(.cap--2:not(.is-pending)) .lk__node--c path { stroke: var(--stone); transition-delay: .5s; }
+    #slide-11b .lk__right:has(.cap--2:not(.is-pending)) .lk__node--c .lk__v { fill: var(--stone); transition-delay: .5s; }
+    #slide-11b .lk__right:has(.cap--2:not(.is-pending)) .lk__arr--cb { opacity: .35; transition-delay: .5s; }
+    #slide-11b .lk__right:has(.cap--2:not(.is-pending)) .lk__gone { opacity: 1; transition-delay: .7s; }
+    /* step 3: the count strikes 3 → 2 */
+    #slide-11b .lk__cv { position: relative; display: inline-block; line-height: 1; margin-right: var(--s-1); transition: color .3s ease, opacity .3s ease; }
+    #slide-11b .lk__cv::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 0; border-top: 3px solid currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .35s var(--ease-smooth); }
+    #slide-11b .lk__cv--1 { opacity: 0; }
+    #slide-11b .lk__right:has(.cap--3:not(.is-pending)) .lk__cv--0::after { transform: scaleX(1); }
+    #slide-11b .lk__right:has(.cap--3:not(.is-pending)) .lk__cv--1 { opacity: 1; transition-delay: .25s; }
+
+    /* the board: letter · design · moves · shape */
+    #slide-11b .bd { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: max-content 1fr max-content max-content; column-gap: var(--s-3); row-gap: var(--s-1); align-items: baseline; }
+    #slide-11b .bd__row { display: contents; }
+    #slide-11b .bd__row > span { transition: opacity .3s ease; }
+    #slide-11b .frag.bd__row.is-pending > span { opacity: 0; }
+    #slide-11b .frag.bd__row.is-current > span, #slide-11b .frag.bd__row.is-past > span { opacity: 1; transition-delay: calc(var(--i) * .2s); }
+    #slide-11b .bd__l { font-family: var(--font-display); font-size: var(--t-small); color: var(--accent-1); }
+    #slide-11b .bd__t { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
+    #slide-11b .bd__c { font-family: var(--font-mono); font-size: var(--t-micro); padding: 0 var(--s-1); border: 3px solid var(--accent-2); border-radius: var(--r-1); color: var(--accent-2); white-space: nowrap; }
+    #slide-11b .bd__o { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-2); white-space: nowrap; }
+    #slide-11b .bd__c--bad, #slide-11b .bd__o--bad { border-color: var(--accent-1); color: var(--accent-1); }
+    #slide-11b .bd__c--no, #slide-11b .bd__o--no { border-color: var(--stone); color: var(--fg-1); }
+    /* step 6: the board is the verdict — C's row takes the heading maroon and the others dim */
+    #slide-11b .bd__t { transition: color .3s ease, opacity .3s ease; }
+    #slide-11b .lk:has(.cap--6:not(.is-pending)) .bd__row--c .bd__t { color: var(--accent-1); font-weight: 700; }
+    #slide-11b .lk:has(.cap--6:not(.is-pending)) .bd__row:not(.bd__row--c) .bd__t { opacity: .55; }
+
+    #slide-11b .codewalk__caps { min-height: 150px; }
+    #slide-11b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11b .lk__arr, #slide-11b .lk__node rect, #slide-11b .lk__node path, #slide-11b .lk__v, #slide-11b .lk__gone, #slide-11b .lk__tv, #slide-11b .lk__cv, #slide-11b .lk__cv::after, #slide-11b .bd__row > span { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

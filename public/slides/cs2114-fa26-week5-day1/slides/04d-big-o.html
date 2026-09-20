@@ -1,0 +1,95 @@
+<section class="slide" id="slide-04d" data-sid="04d-big-o:1">
+  <header class="slide__head" data-sid="04d-big-o:2">
+    <p class="slide__kicker" data-sid="04d-big-o:3">COUNTING MOVES &middot; THE NAMES</p>
+    <h2 data-sid="04d-big-o:4">Three shapes, three names</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04d-big-o:5">A graph of moves against n, the number of entries, with dashed guide lines at n equals 4 and n equals 8. Step one: a flat blue line at three moves draws on, labelled add, 3 moves, O of 1, with dots reading 3 at both guides; the caption says constant: double n and the moves stay the same. Step two: a rising maroon line draws on, labelled contains, n compares, O of n, with dots reading 4 and 8; the caption says linear: double n and the moves double. Step three: a maroon curve bends upward and leaves the top of the graph, labelled hasDuplicate, about n squared over 2, O of n squared, with dots reading 6 and 28; the caption says quadratic: double n and the moves go up about four times. Step four: the caption says Big-O keeps the shape and drops the constants, and names the worst case for that n.</p>
+
+  <!-- The three counts just made, on one picture. The x axis is n, the y
+       axis is moves, and the two dashed guides at n = 4 and n = 8 are the
+       doubling test the room just ran three times: read the dots. The lines
+       draw on (Create), the dots and labels fade in behind them. Blue for
+       the line that stays flat (a measurement), maroon for the two that grow
+       (the cost). The names are said on the lines, so this slide is the
+       reference picture for the votes. viewBox = the body's rect under
+       kicker + h2. -->
+  <div class="slide__body" data-sid="04d-big-o:6">
+    <svg class="bo" viewBox="128 299 1664 685" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A graph of moves against n with a flat line for add, a rising line for contains and a curve for hasDuplicate, each with its Big-O name and its values at n equals 4 and n equals 8" data-sid="04d-big-o:7">
+      <!-- axes and the doubling guides -->
+      <path class="bo__axis" d="M300 760 H1120 M300 760 V330" data-sid="04d-big-o:8"/>
+      <path class="bo__ahead" d="M1132 760 L1116 752 V768 Z M300 318 L292 334 H308 Z" data-sid="04d-big-o:9"/>
+      <text class="bo__axlabel" x="710" y="808" data-sid="04d-big-o:10">n &mdash; how many entries</text>
+      <text class="bo__axlabel" x="300" y="308" data-sid="04d-big-o:11">moves</text>
+      <path class="bo__guide" d="M505 760 V340 M710 760 V340" data-sid="04d-big-o:12"/>
+      <text class="bo__glabel" x="505" y="808" data-sid="04d-big-o:13">n = 4</text>
+      <text class="bo__glabel" x="710" y="808" data-sid="04d-big-o:14">n = 8</text>
+
+      <!-- step 1: add — flat -->
+      <path class="bo__line bo__line--ok frag" data-step="1" pathLength="100" d="M300 719 H1120" data-sid="04d-big-o:15"/>
+      <g class="bo__dots bo__dots--ok frag" data-step="1" data-anim="fade" data-sid="04d-big-o:16">
+        <circle cx="505" cy="719" r="9" data-sid="04d-big-o:17"/><text x="505" y="700" data-sid="04d-big-o:18">3</text>
+        <circle cx="710" cy="719" r="9" data-sid="04d-big-o:19"/><text x="710" y="700" data-sid="04d-big-o:20">3</text>
+      </g>
+      <text class="bo__label bo__label--ok frag" data-step="1" data-anim="fade" x="1136" y="726" data-sid="04d-big-o:21">add: 3 moves &middot; O(1)</text>
+
+      <!-- step 2: contains — a straight rise -->
+      <path class="bo__line frag" data-step="2" pathLength="100" d="M300 760 L1120 540" data-sid="04d-big-o:22"/>
+      <g class="bo__dots frag" data-step="2" data-anim="fade" data-sid="04d-big-o:23">
+        <circle cx="505" cy="705" r="9" data-sid="04d-big-o:24"/><text x="505" y="686" data-sid="04d-big-o:25">4</text>
+        <circle cx="710" cy="650" r="9" data-sid="04d-big-o:26"/><text x="710" y="631" data-sid="04d-big-o:27">8</text>
+      </g>
+      <text class="bo__label frag" data-step="2" data-anim="fade" x="1136" y="547" data-sid="04d-big-o:28">contains: n compares &middot; O(n)</text>
+
+      <!-- step 3: hasDuplicate — bends up and leaves the picture -->
+      <path class="bo__line frag" data-step="3" pathLength="100" d="M300 760 L351 760 L402 746 L454 719 L505 677 L556 622 L608 554 L659 471 L710 375 L736 321" data-sid="04d-big-o:29"/>
+      <g class="bo__dots frag" data-step="3" data-anim="fade" data-sid="04d-big-o:30">
+        <circle cx="505" cy="677" r="9" data-sid="04d-big-o:31"/><text x="480" y="668" data-sid="04d-big-o:32">6</text>
+        <circle cx="710" cy="375" r="9" data-sid="04d-big-o:33"/><text x="680" y="366" data-sid="04d-big-o:34">28</text>
+      </g>
+      <text class="bo__label frag" data-step="3" data-anim="fade" x="756" y="336" data-sid="04d-big-o:35">hasDuplicate: about n&sup2;/2 &middot; O(n&sup2;)</text>
+
+      <!-- captions: one per beat -->
+      <text class="bo__cap frag" data-step="1" x="960" y="940" data-sid="04d-big-o:36">O(1), constant: double n and the moves stay the same. 3 at 4 entries, 3 at 8.</text>
+      <text class="bo__cap frag" data-step="2" x="960" y="940" data-sid="04d-big-o:37">O(n), linear: double n and the moves double. 4 at 4 entries, 8 at 8.</text>
+      <text class="bo__cap frag" data-step="3" x="960" y="940" data-sid="04d-big-o:38">O(n&sup2;), quadratic: double n and the moves go up about four times. 6 at 4, 28 at 8.</text>
+      <text class="bo__cap frag" data-step="4" x="960" y="940" data-sid="04d-big-o:39">Big-O keeps the shape and drops the constants. It names the worst case for that n.</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="04d-big-o:40"></div>
+  <aside class="notes" data-sid="04d-big-o:41">The three counts on one picture. Across: n, how many entries. Up: moves. The two dashed lines are the test we ran three times &mdash; double n and read the dots. Step 1: add, flat at three; three at four entries, three at eight. Constant, O(1). Step 2: contains, a straight rise; four at four, eight at eight. Linear, O(n). Step 3: hasDuplicate bends up and leaves the graph; six at four, twenty-eight at eight &mdash; more than four times. Quadratic, O(n squared). Step 4: two rules. Big-O keeps the shape and drops the constants: three moves and four moves are both O(1); n compares and n over two compares are both O(n). And it names the worst case &mdash; the most moves that n can cost, because that is the count that grows. Module 5.1 has the formal definitions; this is what they mean. Next: the routine, then Vote 1 &mdash; add, when the array is not a fixed length.</aside>
+
+  <style data-sid="04d-big-o:42">
+    /* Slide-local: one SVG in canvas px. Axes and guides in stone; the flat
+       line blue with blue dots, the growing lines maroon; each line draws on
+       by dashoffset and its dots and label fade in half a second behind it;
+       the caption row shows one sentence at a time. All values from tokens;
+       used by this slide only. */
+    #slide-04d .slide__body { position: relative; }
+    #slide-04d .bo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    #slide-04d .bo__axis { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-04d .bo__ahead { fill: var(--stone); }
+    #slide-04d .bo__axlabel { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04d .bo__guide { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 12; }
+    #slide-04d .bo__glabel { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04d .bo__line { fill: none; stroke: var(--accent-1); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; transition: stroke-dashoffset .8s var(--ease-smooth); }
+    #slide-04d .bo__line--ok { stroke: var(--accent-2); }
+    #slide-04d .frag.bo__line.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-04d .frag.bo__line.is-current, #slide-04d .frag.bo__line.is-past { stroke-dashoffset: 0; }
+    #slide-04d .bo__dots circle { fill: var(--accent-1); }
+    #slide-04d .bo__dots text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); text-anchor: middle; }
+    #slide-04d .bo__dots--ok circle { fill: var(--accent-2); }
+    #slide-04d .bo__dots--ok text { fill: var(--accent-2); }
+    #slide-04d .bo__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); }
+    #slide-04d .bo__label--ok { fill: var(--accent-2); }
+    #slide-04d .bo__dots, #slide-04d .bo__label { transition: opacity .3s ease; }
+    #slide-04d .frag.bo__dots.is-current, #slide-04d .frag.bo__dots.is-past,
+    #slide-04d .frag.bo__label.is-current, #slide-04d .frag.bo__label.is-past { transition-delay: .6s; }
+    #slide-04d .bo__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04d .frag.bo__cap.is-current { transition-delay: .5s; }
+    #slide-04d .frag.bo__cap.is-past { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04d .bo__line, #slide-04d .bo__dots, #slide-04d .bo__label, #slide-04d .bo__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,186 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-grow:1">
+  <header class="slide__head" data-sid="06b-walk-grow:2">
+    <p class="slide__kicker" data-sid="06b-walk-grow:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-grow:4">When the array is full, add copies every entry first</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-grow:5">A walkthrough of add for an ArrayBag whose array can grow, under a program-counter bar: add checks whether the array is full and calls doubleCapacity, then writes the new entry and counts up; doubleCapacity makes an array twice as long, copies every entry across in a loop, and points contents at the new array. On the right, a blue pill labelled contents points at a six-cell array holding ant, bee, cat, dog, eel and fox; a large counter labelled moves. Step one: the count and length both read 6, one compare. Step two: into doubleCapacity. Step three: a twelve-cell array appears below, every cell reading null. Step four: ant travels down into the new array&rsquo;s cell 0. Step five: bee, cat, dog, eel and fox travel down one after another; the counter reads 8. Step six: the contents arrow swings from the old array to the new one and the old array fades to stone, marked garbage. Step seven: gnu is written into cell 6 of the new array. Step eight: the count is struck through and 7 appears beside it. Step nine: the four options return under the code, A, C and D struck through and B, O of n, left standing, and the caption says with room add is three moves, full it is n copies first, and Big-O names the worst case.</p>
+
+  <!-- The answer is the code that does the growing, walked line by line so
+       the room can count with the bar. Two methods in one editor: add, and
+       the helper it calls when the array is full — the copy loop stays under
+       the bar for two presses (one copy alone, then the other five) while
+       the copies TRAVEL from the old array into the new one (TransformFromCopy:
+       a value went somewhere). contents is one arrow, and the arrow swings —
+       that is the assignment on the last line of the helper. The counter
+       reaches eleven, six of them copies; the coda puts the two cases side by
+       side and names the worst one. One SVG for the two arrays so every
+       travel distance is known. -->
+  <div class="slide__body grid grid--code code-tag gw" data-sid="06b-walk-grow:6">
+    <div class="stack" data-sid="06b-walk-grow:7">
+      <div class="editor" data-sid="06b-walk-grow:8">
+        <p class="editor__bar" data-sid="06b-walk-grow:9">ArrayBag.add &mdash; when the array can grow</p>
+        <div class="editor__pc" data-sid="06b-walk-grow:10"></div>
+        <ol class="editor__code" data-sid="06b-walk-grow:11">
+          <li data-sid="06b-walk-grow:12"><span class="tok-key" data-sid="06b-walk-grow:13">public boolean</span> add(T newEntry) {</li>
+          <li class="walkline frag" data-step="1" data-sid="06b-walk-grow:14">    <span class="tok-key" data-sid="06b-walk-grow:15">if</span> (isArrayFull()) {</li>
+          <li class="walkline frag" data-step="2" data-sid="06b-walk-grow:16">        doubleCapacity();</li>
+          <li data-sid="06b-walk-grow:17">    }</li>
+          <li class="walkline frag" data-step="7" data-sid="06b-walk-grow:18">    contents[numberOfEntries] = newEntry;</li>
+          <li class="walkline frag" data-step="8" data-sid="06b-walk-grow:19">    numberOfEntries++;</li>
+          <li class="walkline frag" data-step="9" data-sid="06b-walk-grow:20">    <span class="tok-key" data-sid="06b-walk-grow:21">return true</span>;</li>
+          <li data-sid="06b-walk-grow:22">}</li>
+          <li data-sid="06b-walk-grow:23"><span class="tok-key" data-sid="06b-walk-grow:24">private void</span> doubleCapacity() {</li>
+          <li class="walkline frag" data-step="3" data-sid="06b-walk-grow:25">    T[] bigger = (T[]) <span class="tok-key" data-sid="06b-walk-grow:26">new</span> Object[<span class="tok-num" data-sid="06b-walk-grow:27">2</span> * contents.length];</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="06b-walk-grow:28">    <span class="tok-key" data-sid="06b-walk-grow:29">for</span> (<span class="tok-key" data-sid="06b-walk-grow:30">int</span> i = <span class="tok-num" data-sid="06b-walk-grow:31">0</span>; i &lt; numberOfEntries; i++) {</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="06b-walk-grow:32">        bigger[i] = contents[i];</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="06b-walk-grow:33">    }</li>
+          <li class="walkline frag" data-step="6" data-sid="06b-walk-grow:34">    contents = bigger;</li>
+          <li data-sid="06b-walk-grow:35">}</li>
+        </ol>
+      </div>
+      <ol class="verdict frag" data-step="9" data-sid="06b-walk-grow:36">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06b-walk-grow:37"><span class="verdict__txt" data-sid="06b-walk-grow:38">O(1)</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="06b-walk-grow:39"><span class="verdict__txt" data-sid="06b-walk-grow:40">O(n)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06b-walk-grow:41"><span class="verdict__txt" data-sid="06b-walk-grow:42">O(n^2)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06b-walk-grow:43"><span class="verdict__txt" data-sid="06b-walk-grow:44">Negligible</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk gw__right" data-sid="06b-walk-grow:45">
+      <p class="gw__call" data-sid="06b-walk-grow:46">bag.add("gnu") &mdash; six of six slots in use</p>
+      <svg class="gw__fig" viewBox="0 0 900 300" role="img" aria-label="A contents pill pointing at a full six-cell array; a twelve-cell array appears below it, the entries are copied down, the pill swings to the new array and gnu is written into cell 6" data-sid="06b-walk-grow:47">
+        <defs data-sid="06b-walk-grow:48">
+          <marker id="w5d1-06b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="06b-walk-grow:49">
+            <path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="06b-walk-grow:50"/>
+          </marker>
+        </defs>
+        <!-- the name and its one arrow -->
+        <g class="gw__pill" data-sid="06b-walk-grow:51"><rect x="0" y="62" width="150" height="44" rx="8" data-sid="06b-walk-grow:52"/><text x="75" y="92" data-sid="06b-walk-grow:53">contents</text></g>
+        <path class="gw__arr" d="M150 84 C 164 84, 176 84, 190 84" data-sid="06b-walk-grow:54"/>
+
+        <!-- the old array: full -->
+        <g class="gw__old" data-sid="06b-walk-grow:55">
+          <text class="gw__tag" x="196" y="40" data-sid="06b-walk-grow:56">T[6] &mdash; length 6</text>
+          <g class="gw__cells" data-sid="06b-walk-grow:57">
+            <rect x="196" y="56" width="56" height="56" rx="6" data-sid="06b-walk-grow:58"/><rect x="258" y="56" width="56" height="56" rx="6" data-sid="06b-walk-grow:59"/><rect x="320" y="56" width="56" height="56" rx="6" data-sid="06b-walk-grow:60"/><rect x="382" y="56" width="56" height="56" rx="6" data-sid="06b-walk-grow:61"/><rect x="444" y="56" width="56" height="56" rx="6" data-sid="06b-walk-grow:62"/><rect x="506" y="56" width="56" height="56" rx="6" data-sid="06b-walk-grow:63"/>
+          </g>
+          <g class="gw__idx" data-sid="06b-walk-grow:64"><text x="200" y="70" data-sid="06b-walk-grow:65">0</text><text x="262" y="70" data-sid="06b-walk-grow:66">1</text><text x="324" y="70" data-sid="06b-walk-grow:67">2</text><text x="386" y="70" data-sid="06b-walk-grow:68">3</text><text x="448" y="70" data-sid="06b-walk-grow:69">4</text><text x="510" y="70" data-sid="06b-walk-grow:70">5</text></g>
+          <g class="gw__vals" data-sid="06b-walk-grow:71"><text x="224" y="98" data-sid="06b-walk-grow:72">ant</text><text x="286" y="98" data-sid="06b-walk-grow:73">bee</text><text x="348" y="98" data-sid="06b-walk-grow:74">cat</text><text x="410" y="98" data-sid="06b-walk-grow:75">dog</text><text x="472" y="98" data-sid="06b-walk-grow:76">eel</text><text x="534" y="98" data-sid="06b-walk-grow:77">fox</text></g>
+          <text class="gw__garbage" x="600" y="92" data-sid="06b-walk-grow:78">garbage</text>
+        </g>
+
+        <!-- step 3: the new array, empty -->
+        <g class="gw__new frag" data-step="3" data-anim="fade" data-sid="06b-walk-grow:79">
+          <text class="gw__tag" x="196" y="200" data-sid="06b-walk-grow:80">bigger: T[12] &mdash; length 12</text>
+          <g class="gw__cells" data-sid="06b-walk-grow:81">
+            <rect x="196" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:82"/><rect x="258" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:83"/><rect x="320" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:84"/><rect x="382" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:85"/><rect x="444" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:86"/><rect x="506" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:87"/>
+            <rect class="gw__c6" x="568" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:88"/><rect x="630" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:89"/><rect x="692" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:90"/><rect x="754" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:91"/><rect x="816" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:92"/><rect x="878" y="216" width="56" height="56" rx="6" data-sid="06b-walk-grow:93"/>
+          </g>
+          <g class="gw__idx" data-sid="06b-walk-grow:94"><text x="200" y="230" data-sid="06b-walk-grow:95">0</text><text x="262" y="230" data-sid="06b-walk-grow:96">1</text><text x="324" y="230" data-sid="06b-walk-grow:97">2</text><text x="386" y="230" data-sid="06b-walk-grow:98">3</text><text x="448" y="230" data-sid="06b-walk-grow:99">4</text><text x="510" y="230" data-sid="06b-walk-grow:100">5</text><text x="572" y="230" data-sid="06b-walk-grow:101">6</text><text x="634" y="230" data-sid="06b-walk-grow:102">7</text><text x="696" y="230" data-sid="06b-walk-grow:103">8</text><text x="758" y="230" data-sid="06b-walk-grow:104">9</text><text x="820" y="230" data-sid="06b-walk-grow:105">10</text><text x="882" y="230" data-sid="06b-walk-grow:106">11</text></g>
+          <g class="gw__nulls" data-sid="06b-walk-grow:107"><text class="nl nl--0" x="224" y="258" data-sid="06b-walk-grow:108">null</text><text class="nl nl--1" x="286" y="258" data-sid="06b-walk-grow:109">null</text><text class="nl nl--2" x="348" y="258" data-sid="06b-walk-grow:110">null</text><text class="nl nl--3" x="410" y="258" data-sid="06b-walk-grow:111">null</text><text class="nl nl--4" x="472" y="258" data-sid="06b-walk-grow:112">null</text><text class="nl nl--5" x="534" y="258" data-sid="06b-walk-grow:113">null</text><text class="nl nl--6" x="596" y="258" data-sid="06b-walk-grow:114">null</text><text x="658" y="258" data-sid="06b-walk-grow:115">null</text><text x="720" y="258" data-sid="06b-walk-grow:116">null</text><text x="782" y="258" data-sid="06b-walk-grow:117">null</text><text x="844" y="258" data-sid="06b-walk-grow:118">null</text><text x="906" y="258" data-sid="06b-walk-grow:119">null</text></g>
+        </g>
+        <!-- the copies: each starts over its original and travels 160 down -->
+        <g class="gw__copies" data-sid="06b-walk-grow:120">
+          <text class="cp cp--0" x="224" y="258" data-sid="06b-walk-grow:121">ant</text>
+          <text class="cp cp--1" style="--i: 0" x="286" y="258" data-sid="06b-walk-grow:122">bee</text>
+          <text class="cp cp--2" style="--i: 1" x="348" y="258" data-sid="06b-walk-grow:123">cat</text>
+          <text class="cp cp--3" style="--i: 2" x="410" y="258" data-sid="06b-walk-grow:124">dog</text>
+          <text class="cp cp--4" style="--i: 3" x="472" y="258" data-sid="06b-walk-grow:125">eel</text>
+          <text class="cp cp--5" style="--i: 4" x="534" y="258" data-sid="06b-walk-grow:126">fox</text>
+          <text class="gw__gnu" x="596" y="258" data-sid="06b-walk-grow:127">gnu</text>
+        </g>
+      </svg>
+      <p class="gw__meta" data-sid="06b-walk-grow:128">numberOfEntries = <span class="gw__cv gw__cv--0" data-sid="06b-walk-grow:129">6</span><span class="gw__cv gw__cv--1" data-sid="06b-walk-grow:130"><span class="sr-only" data-sid="06b-walk-grow:131">now </span>7</span></p>
+      <div class="moves" data-sid="06b-walk-grow:132">
+        <p class="moves__label" data-sid="06b-walk-grow:133">moves</p>
+        <div class="moves__stack" data-sid="06b-walk-grow:134">
+          <div class="heap-obj__field" data-sid="06b-walk-grow:135"><p class="heap-val heap-val--old frag" data-step="1" data-sid="06b-walk-grow:136">0</p><p class="heap-val frag" data-step="1" data-sid="06b-walk-grow:137">1</p></div>
+          <div class="heap-obj__field" data-sid="06b-walk-grow:138"><p class="heap-val heap-val--old frag" data-step="3" data-sid="06b-walk-grow:139">1</p><p class="heap-val frag" data-step="3" data-sid="06b-walk-grow:140">2</p></div>
+          <div class="heap-obj__field" data-sid="06b-walk-grow:141"><p class="heap-val heap-val--old frag" data-step="4" data-sid="06b-walk-grow:142">2</p><p class="heap-val frag" data-step="4" data-sid="06b-walk-grow:143">3</p></div>
+          <div class="heap-obj__field" data-sid="06b-walk-grow:144"><p class="heap-val heap-val--old frag" data-step="5" data-sid="06b-walk-grow:145">3</p><p class="heap-val frag" data-step="5" data-sid="06b-walk-grow:146">8</p></div>
+          <div class="heap-obj__field" data-sid="06b-walk-grow:147"><p class="heap-val heap-val--old frag" data-step="6" data-sid="06b-walk-grow:148">8</p><p class="heap-val frag" data-step="6" data-sid="06b-walk-grow:149">9</p></div>
+          <div class="heap-obj__field" data-sid="06b-walk-grow:150"><p class="heap-val heap-val--old frag" data-step="7" data-sid="06b-walk-grow:151">9</p><p class="heap-val frag" data-step="7" data-sid="06b-walk-grow:152">10</p></div>
+          <div class="heap-obj__field" data-sid="06b-walk-grow:153"><p class="heap-val heap-val--old frag" data-step="8" data-sid="06b-walk-grow:154">10</p><p class="heap-val frag" data-step="8" data-sid="06b-walk-grow:155">11</p></div>
+        </div>
+      </div>
+      <div class="codewalk__caps" data-sid="06b-walk-grow:156">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-grow:157">Is the array full? The count is 6 and the length is 6: yes. One compare.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-grow:158">Into doubleCapacity.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-grow:159">A new array, twice the length: twelve empty slots.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-grow:160">i = 0: bigger[0] = contents[0]. One copy.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-grow:161">i = 1 to 5: the other five. Six copies for six entries &mdash; n moves.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="06b-walk-grow:162">contents = bigger: the name moves to the new array. The old one is garbage.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-grow:163">Back in add: one write, gnu into slot 6.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="06b-walk-grow:164">The count goes up: 6 &rarr; 7.</p>
+        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="06b-walk-grow:165">Eleven moves, six of them copies. With room, add is 3 moves; full, n copies first. Worst case: O(n).</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-grow:166"></div>
+  <aside class="notes" data-sid="06b-walk-grow:167">Answer: B &mdash; and the code that grows the array is the argument. Step 1: is it full? Six of six, yes; one compare. Step 2: into the helper. Step 3: a new array twice as long &mdash; twelve slots, all null. Steps 4 and 5: the copy loop; watch the entries travel. One copy per entry, so six copies here and n in general &mdash; this is the loop that makes the answer. Step 6: contents now refers to the new array; the old one has no name and is garbage. Step 7: back in add, the write we counted in Part 1, slot 6. Step 8: the count. Step 9: eleven moves, six of them copies. Say the two cases plainly: with room, add is three moves, the Week 3 answer; when the array is full, it is n copies and then those three. Big-O names the worst case, so add on a bag that can grow is O(n). (If anyone has met amortized analysis: doubling makes the average O(1), and that is a later course; the question asks for the worst case.) Runestone activity: vtcs2_efficiency_dynamicArrays.</aside>
+
+  <style data-sid="06b-walk-grow:168">
+    /* Slide-local: two methods in one editor at the tag size (the new-array
+       line is 55 characters, 763 px with the chrome; 800 px clears it), the arrays on the right in
+       one SVG so the copy travel is exact: the old strip's values sit at
+       y 98, the new strip's at 258, so a copy is a 160 px translate. Cells
+       56 px on a 62 pitch, values at the micro size. contents is one arrow
+       and swings between two same-shaped cubics (d: path()) on line 14; the
+       old strip washes to stone and the word garbage appears beside it. Slot
+       6 lights blue on the write. The count strikes in place. Everything is
+       keyed to the caption frags through :has(), so scrubbing back reverses
+       it. All values from tokens; used by this slide only. */
+    #slide-06b .gw { grid-template-columns: 800px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-06b .stack { gap: var(--s-4); }
+    #slide-06b .gw__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-06b .gw__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
+    #slide-06b .gw__fig { display: block; width: 100%; height: 300px; overflow: visible; }
+    #slide-06b .gw__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
+
+    #slide-06b .gw__pill rect { fill: var(--accent-2); }
+    #slide-06b .gw__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-06b .gw__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w5d1-06b-head); transition: d .7s var(--ease-smooth); }
+    #slide-06b .gw__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
+    #slide-06b .gw__tag { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-06b .gw__idx text { font-family: var(--font-mono); font-size: 16px; fill: var(--fg-1); }
+    #slide-06b .gw__vals text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; transition: fill .3s ease; }
+    #slide-06b .gw__nulls text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; transition: opacity .2s ease; }
+    #slide-06b .gw__garbage { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-06b .gw__old { transition: opacity .4s ease; }
+    #slide-06b .gw__new { transition: opacity .3s ease; }
+
+    /* step 1: the compare — the count line rings blue */
+    #slide-06b .gw__right:has(.cap--1.is-current) .gw__meta { color: var(--accent-2); }
+    /* steps 4–5: the copies travel down into the new array; the nulls under them go */
+    #slide-06b .cp { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; opacity: 0; transform: translateY(-160px); transition: opacity .2s ease, transform .7s var(--ease-smooth); }
+    #slide-06b .gw__right:has(.cap--4:not(.is-pending)) .cp--0 { opacity: 1; transform: translateY(0); }
+    #slide-06b .gw__right:has(.cap--4:not(.is-pending)) .nl--0 { opacity: 0; transition-delay: .4s; }
+    #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .cp--1, #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .cp--2, #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .cp--3,
+    #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .cp--4, #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .cp--5 { opacity: 1; transform: translateY(0); transition-delay: calc(var(--i) * .16s); }
+    #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .nl--1, #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .nl--2, #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .nl--3,
+    #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .nl--4, #slide-06b .gw__right:has(.cap--5:not(.is-pending)) .nl--5 { opacity: 0; transition-delay: .5s; }
+    /* step 6: contents swings to the new array; the old one is garbage */
+    #slide-06b .gw__right:has(.cap--6:not(.is-pending)) .gw__arr { d: path("M150 84 C 170 84, 150 244, 190 244"); }
+    #slide-06b .gw__right:has(.cap--6:not(.is-pending)) .gw__old .gw__cells rect { stroke-dasharray: 8 6; }
+    #slide-06b .gw__right:has(.cap--6:not(.is-pending)) .gw__old .gw__vals text { fill: var(--stone); }
+    #slide-06b .gw__right:has(.cap--6:not(.is-pending)) .gw__garbage { opacity: 1; transition-delay: .5s; }
+    /* step 7: the write into slot 6 */
+    #slide-06b .gw__gnu { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-06b .gw__right:has(.cap--7:not(.is-pending)) .gw__c6 { stroke: var(--accent-2); fill: color-mix(in srgb, var(--accent-2) 14%, var(--bg-1)); }
+    #slide-06b .gw__right:has(.cap--7:not(.is-pending)) .gw__gnu { opacity: 1; transition-delay: .15s; }
+    #slide-06b .gw__right:has(.cap--7:not(.is-pending)) .nl--6 { opacity: 0; }
+    /* step 8: the count strikes 6 → 7 */
+    #slide-06b .gw__cv { position: relative; display: inline-block; line-height: 1; margin-right: var(--s-1); transition: color .3s ease, opacity .3s ease; }
+    #slide-06b .gw__cv::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 0; border-top: 3px solid currentColor; transform: scaleX(0); transform-origin: left center; transition: transform .35s var(--ease-smooth); }
+    #slide-06b .gw__cv--1 { opacity: 0; }
+    #slide-06b .gw__right:has(.cap--8:not(.is-pending)) .gw__cv--0::after { transform: scaleX(1); }
+    #slide-06b .gw__right:has(.cap--8:not(.is-pending)) .gw__cv--1 { opacity: 1; transition-delay: .25s; }
+
+    #slide-06b .codewalk__caps { min-height: 150px; }
+    #slide-06b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .cp, #slide-06b .gw__arr, #slide-06b .gw__cells rect, #slide-06b .gw__vals text, #slide-06b .gw__nulls text, #slide-06b .gw__garbage, #slide-06b .gw__gnu, #slide-06b .gw__cv, #slide-06b .gw__cv::after, #slide-06b .gw__new, #slide-06b .gw__old { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

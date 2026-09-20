@@ -1,0 +1,133 @@
+<section class="slide slide--warmup" id="slide-10b" data-sid="10b-walk-toplast:1">
+  <header class="slide__head" data-sid="10b-walk-toplast:2">
+    <p class="slide__kicker" data-sid="10b-walk-toplast:3">VOTE 3 &middot; THE ANSWER</p>
+    <h2 data-sid="10b-walk-toplast:4">Popping the last occupied index is one move</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10b-walk-toplast:5">A walkthrough of pop for an array stack with the top at the last occupied index, under a program-counter bar: check for an empty stack, read stack at topIndex, clear that slot, decrement topIndex, return. On the right, a six-cell array holding A, B, C, D, E and a free cell, an orange marker topIndex equals 4 over the cell holding E, a local top, and a large counter labelled moves. Step one: one compare, the counter reads 1. Step two: cell 4 takes a blue edge and top becomes E. Step three: E fades to null. Step four: the marker slides one cell to the left and its text changes to topIndex equals 3; cell 4 goes dashed. Step five: the four options return under the code, B, C and D struck through and A, O of 1, left standing, and the caption says four moves at any size.</p>
+
+  <!-- Vote 2's answer had a loop; this one has none, and the slide is built
+       to look the same so the difference is the only thing to see. The
+       marker MOVES (translate, one pitch) when topIndex comes down — the
+       assignment went somewhere — and its digit crossfades, no roll, a
+       replaced value. The method is Carrano's ArrayStack.pop, the module's
+       design. -->
+  <div class="slide__body grid grid--code code-dense tl" data-sid="10b-walk-toplast:6">
+    <div class="stack" data-sid="10b-walk-toplast:7">
+      <div class="editor" data-sid="10b-walk-toplast:8">
+        <p class="editor__bar" data-sid="10b-walk-toplast:9">ArrayStack.pop &mdash; top at last occupied</p>
+        <div class="editor__pc" data-sid="10b-walk-toplast:10"></div>
+        <ol class="editor__code" data-sid="10b-walk-toplast:11">
+          <li data-sid="10b-walk-toplast:12"><span class="tok-key" data-sid="10b-walk-toplast:13">public</span> T pop() {</li>
+          <li class="walkline frag" data-step="1" data-sid="10b-walk-toplast:14">    <span class="tok-key" data-sid="10b-walk-toplast:15">if</span> (isEmpty()) {</li>
+          <li data-sid="10b-walk-toplast:16">        <span class="tok-key" data-sid="10b-walk-toplast:17">throw new</span> EmptyStackException();</li>
+          <li data-sid="10b-walk-toplast:18">    }</li>
+          <li class="walkline frag" data-step="2" data-sid="10b-walk-toplast:19">    T top = stack[topIndex];</li>
+          <li class="walkline frag" data-step="3" data-sid="10b-walk-toplast:20">    stack[topIndex] = <span class="tok-key" data-sid="10b-walk-toplast:21">null</span>;</li>
+          <li class="walkline frag" data-step="4" data-sid="10b-walk-toplast:22">    topIndex--;</li>
+          <li class="walkline frag" data-step="5" data-sid="10b-walk-toplast:23">    <span class="tok-key" data-sid="10b-walk-toplast:24">return</span> top;</li>
+          <li data-sid="10b-walk-toplast:25">}</li>
+        </ol>
+      </div>
+      <ol class="verdict frag" data-step="5" data-sid="10b-walk-toplast:26">
+        <li class="verdict__opt verdict__opt--right" data-sid="10b-walk-toplast:27"><span class="verdict__txt" data-sid="10b-walk-toplast:28">O(1)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="10b-walk-toplast:29"><span class="verdict__txt" data-sid="10b-walk-toplast:30">O(n)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="10b-walk-toplast:31"><span class="verdict__txt" data-sid="10b-walk-toplast:32">O(log n)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="10b-walk-toplast:33"><span class="verdict__txt" data-sid="10b-walk-toplast:34">O(n&sup2;)</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk tl__right" data-sid="10b-walk-toplast:35">
+      <p class="tl__call" data-sid="10b-walk-toplast:36">stack.pop() &mdash; top at the last occupied index, five entries</p>
+      <div class="tl__fig" data-sid="10b-walk-toplast:37">
+        <p class="tl__marks" data-sid="10b-walk-toplast:38"><span class="tl__top" data-sid="10b-walk-toplast:39"><span class="tl__tx tl__tx--4" data-sid="10b-walk-toplast:40">topIndex = 4 &darr;</span><span class="tl__tx tl__tx--3" data-sid="10b-walk-toplast:41">topIndex = 3 &darr;</span></span></p>
+        <ol class="arr" data-sid="10b-walk-toplast:42">
+          <li class="arr__cell" data-sid="10b-walk-toplast:43"><span class="arr__idx" data-sid="10b-walk-toplast:44">0</span><span class="arr__v" data-sid="10b-walk-toplast:45">A</span></li>
+          <li class="arr__cell" data-sid="10b-walk-toplast:46"><span class="arr__idx" data-sid="10b-walk-toplast:47">1</span><span class="arr__v" data-sid="10b-walk-toplast:48">B</span></li>
+          <li class="arr__cell" data-sid="10b-walk-toplast:49"><span class="arr__idx" data-sid="10b-walk-toplast:50">2</span><span class="arr__v" data-sid="10b-walk-toplast:51">C</span></li>
+          <li class="arr__cell arr__cell--3" data-sid="10b-walk-toplast:52"><span class="arr__idx" data-sid="10b-walk-toplast:53">3</span><span class="arr__v" data-sid="10b-walk-toplast:54">D</span></li>
+          <li class="arr__cell arr__cell--4" data-sid="10b-walk-toplast:55"><span class="arr__idx" data-sid="10b-walk-toplast:56">4</span><span class="arr__v arr__v--e" data-sid="10b-walk-toplast:57">E</span><span class="arr__null" data-sid="10b-walk-toplast:58">null</span></li>
+          <li class="arr__cell arr__cell--free" data-sid="10b-walk-toplast:59"><span class="arr__idx" data-sid="10b-walk-toplast:60">5</span></li>
+        </ol>
+        <p class="tl__meta" data-sid="10b-walk-toplast:61">top = <span class="tl__tvs" data-sid="10b-walk-toplast:62"><span class="tl__tv tl__tv--none" data-sid="10b-walk-toplast:63">&mdash;</span><span class="tl__tv tl__tv--e" data-sid="10b-walk-toplast:64">E</span></span></p>
+      </div>
+      <div class="moves moves--ok" data-sid="10b-walk-toplast:65">
+        <p class="moves__label" data-sid="10b-walk-toplast:66">moves</p>
+        <div class="moves__stack" data-sid="10b-walk-toplast:67">
+          <div class="heap-obj__field" data-sid="10b-walk-toplast:68"><p class="heap-val heap-val--old frag" data-step="1" data-sid="10b-walk-toplast:69">0</p><p class="heap-val frag" data-step="1" data-sid="10b-walk-toplast:70">1</p></div>
+          <div class="heap-obj__field" data-sid="10b-walk-toplast:71"><p class="heap-val heap-val--old frag" data-step="2" data-sid="10b-walk-toplast:72">1</p><p class="heap-val frag" data-step="2" data-sid="10b-walk-toplast:73">2</p></div>
+          <div class="heap-obj__field" data-sid="10b-walk-toplast:74"><p class="heap-val heap-val--old frag" data-step="3" data-sid="10b-walk-toplast:75">2</p><p class="heap-val frag" data-step="3" data-sid="10b-walk-toplast:76">3</p></div>
+          <div class="heap-obj__field" data-sid="10b-walk-toplast:77"><p class="heap-val heap-val--old frag" data-step="4" data-sid="10b-walk-toplast:78">3</p><p class="heap-val frag" data-step="4" data-sid="10b-walk-toplast:79">4</p></div>
+        </div>
+      </div>
+      <div class="codewalk__caps" data-sid="10b-walk-toplast:80">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="10b-walk-toplast:81">Is the stack empty? topIndex is 4, not &minus;1: no. One compare.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="10b-walk-toplast:82">Read the top: stack[topIndex] is E.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="10b-walk-toplast:83">Clear that slot.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="10b-walk-toplast:84">topIndex comes down one: 4 &rarr; 3. D is the top now, and it did not move.</p>
+        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="10b-walk-toplast:85">Four moves &mdash; at five entries or five thousand. O(1). Nothing below the top is touched; push is the mirror, a write at topIndex + 1.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10b-walk-toplast:86"></div>
+  <aside class="notes" data-sid="10b-walk-toplast:87">Answer: A &mdash; and there is no loop to walk. Step 1: the empty check, one compare. Step 2: read the top, E. Step 3: clear the slot. Step 4: topIndex comes down &mdash; watch the marker move, not the entries. D is the top now and it never moved. Step 5: four moves, whatever the count. O(1). Say the mirror: push writes at topIndex plus one and counts up &mdash; O(1) too. This is why the module&rsquo;s array stack keeps its top at the last occupied index. Vote 4 asks the room to put the three designs in order. Runestone activity: vtcs2_efficiency_stacks_3_202507.</aside>
+
+  <style data-sid="10b-walk-toplast:88">
+    /* Slide-local: Vote 2's answer layout with a 780 px editor (the 40-character throw line needs 742) and
+       the same 100 px cells. The topIndex marker is a 100 px span offset by
+       four pitches (translateX 464) that slides to three pitches on step 4 —
+       a real move — while its text crossfades 4 → 3 (a replaced value, no
+       roll). The read cell takes a blue edge, E fades to null, and the cell
+       goes dashed once it is past the top. All keyed to the caption frags
+       through :has(). All values from tokens; used by this slide only. */
+    #slide-10b .tl { grid-template-columns: 780px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-10b .stack { gap: var(--s-4); }
+    #slide-10b .tl__right { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-10b .tl__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
+    #slide-10b .tl__fig { display: grid; row-gap: var(--s-1); }
+    #slide-10b .tl__marks { display: flex; margin: 0; }
+    #slide-10b .tl__top { display: inline-grid; width: 100px; transform: translateX(464px); transition: transform .6s var(--ease-smooth); }
+    #slide-10b .tl__tx { grid-area: 1 / 1; white-space: nowrap; text-align: center; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--accent-3); transition: opacity .3s ease; }
+    #slide-10b .tl__tx--3 { opacity: 0; }
+    #slide-10b .tl__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
+
+    #slide-10b .arr { display: flex; align-items: center; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+    #slide-10b .arr li { margin: 0; }
+    #slide-10b .arr__cell {
+      position: relative; flex: 0 0 auto; width: 100px; height: 100px; box-sizing: border-box;
+      display: grid; place-items: center;
+      border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1);
+      transition: border-color .3s ease, background-color .3s ease;
+    }
+    #slide-10b .arr__cell > span { grid-area: 1 / 1; }
+    #slide-10b .arr__idx { position: absolute; top: var(--s-1); left: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); }
+    #slide-10b .arr__v { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-10b .arr__null { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-10b .arr__cell--free { border-style: dashed; background: transparent; }
+    #slide-10b .arr__cell--free .arr__idx { color: var(--stone); }
+    /* step 1: the empty check rings the marker */
+    #slide-10b .tl__right:has(.cap--1.is-current) .tl__tx--4 { color: var(--accent-2); }
+    /* step 2: the read */
+    #slide-10b .tl__right:has(.cap--2:not(.is-pending)) .arr__cell--4 { border-color: var(--accent-2); }
+    #slide-10b .tl__tvs { display: inline-grid; vertical-align: baseline; }
+    #slide-10b .tl__tv { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-10b .tl__tv--e { opacity: 0; }
+    #slide-10b .tl__right:has(.cap--2:not(.is-pending)) .tl__tv--none { opacity: 0; }
+    #slide-10b .tl__right:has(.cap--2:not(.is-pending)) .tl__tv--e { opacity: 1; }
+    /* step 3: the slot is cleared */
+    #slide-10b .tl__right:has(.cap--3:not(.is-pending)) .arr__v--e { opacity: 0; }
+    #slide-10b .tl__right:has(.cap--3:not(.is-pending)) .arr__null { opacity: 1; transition-delay: .2s; }
+    /* step 4: topIndex comes down — the marker moves one pitch, the digit crossfades */
+    #slide-10b .tl__right:has(.cap--4:not(.is-pending)) .tl__top { transform: translateX(348px); }
+    #slide-10b .tl__right:has(.cap--4:not(.is-pending)) .tl__tx--4 { opacity: 0; }
+    #slide-10b .tl__right:has(.cap--4:not(.is-pending)) .tl__tx--3 { opacity: 1; }
+    #slide-10b .tl__right:has(.cap--4:not(.is-pending)) .arr__cell--4 { border-style: dashed; border-color: var(--stone); background: transparent; }
+    #slide-10b .tl__right:has(.cap--4:not(.is-pending)) .arr__cell--3 { border-color: var(--accent-3); }
+
+    #slide-10b .codewalk__caps { min-height: 150px; }
+    #slide-10b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10b .tl__top, #slide-10b .tl__tx, #slide-10b .arr__cell, #slide-10b .arr__v, #slide-10b .arr__null, #slide-10b .tl__tv { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

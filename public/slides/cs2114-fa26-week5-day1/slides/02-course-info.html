@@ -1,0 +1,228 @@
+<section class="slide" id="slide-02" data-sid="02-course-info:1">
+  <header class="slide__head" data-sid="02-course-info:2">
+    <h2 data-sid="02-course-info:3">Week 5 and 6 overview</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted band labelled now over Monday and Tuesday, the two lecture days. First a maroon-outlined band appears over Wednesday and Thursday of this week, labelled Test 1, in lecture, Wednesday for MW and Thursday for TR: next class. Then a bracket draws across both weeks &mdash; the calendar on Canvas: Week 5 this week, Week 6 next week, and Week 7 posted beyond the right-hand edge. Then two solid bars run from Monday to a pole on Friday: the Week 5 homework in blue and Challenge Exercise 05 in maroon. Then an orange Project 1 bar, solid on Monday and fading across Tuesday to Friday, with a range line under the axis marked your lab day: Deliverable 3, the final build, writeup and talk, is due at the start of your lab session, whichever day it meets. Then a blue bar for the 6.x modules runs from Monday to a pole at Sunday, labelled due Sunday evening, at the boundary between the weeks. Then Week 6 fills in on the same rows: the Week 6 homework and Challenge Exercise 06 end at a Friday pole, a fading Project 2 bar for Deliverable 1 sits over a range line marked your Week 6 lab, a blue 7.x modules bar runs from Monday to a Sunday pole at the right-hand edge, and a second dashed band over Wednesday and Thursday of Week 6 is labelled Test 1 Redo, Thursday October 1 for TR, with the MW day marked to be confirmed. Last, two tiles are drawn above the axis, a home-page icon labelled Home page and a calendar icon labelled Canvas calendar. A one-sentence caption under the axis changes with each step.</p>
+
+  <!-- The Week 4 clock shifted one week. Geometry is day 2's keep-up grammar:
+       14 day tracks, track k ending at x = 128 + (k+1)*118.86. The now column
+       is a BAND over two tracks (Mon–Tue 128..366) because this deck serves
+       both sections: Monday's lecture and Tuesday's. Test 1 is the band right
+       next to it, over Wed–Thu of THIS week (366..603), and it is step 1: the
+       room hears "next class" before it hears a single deadline. Rows, top to
+       bottom: modules (Sunday), homework (Friday), challenge exercise
+       (Friday), project deliverable (your lab) — the same rows on both halves.
+       Bars wipe from where they start, poles draw up by dashoffset.
+       step 1: Test 1 — the band over Wed–Thu of this week: next class.
+       step 2: Canvas is the calendar — the two-week bracket draws on.
+       step 3: homework and Challenge Exercise 05 — both solid, both end at the
+               Friday pole.
+       step 4: Project 1, Deliverable 3 — solid Monday, fading Tue..Fri, with the
+               "your lab day" range under the axis: due at your section.
+       step 5: 6.x modules — Monday to the Sunday pole at the boundary.
+       step 6: Week 6 on the same rows: homework + CE 06 to Friday, Project 2's
+               first deliverable fading over "your Week 6 lab" in the P2 accent,
+               7.x modules to the Sunday at the edge, and the Test 1 Redo band.
+       step 7: the two tiles — home page and Canvas calendar. One SVG in canvas
+       px (viewBox = the body's rect). -->
+  <div class="slide__body" data-sid="02-course-info:5">
+    <svg class="wk" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="A two-week deadline axis with a now band over Monday and Tuesday and a Test 1 band over Wednesday and Thursday of this week: homework and challenge-exercise bars ending Friday, project bars fading over your lab days, module poles at Sunday, a Test 1 Redo band over Wednesday and Thursday of next week, and the home page and Canvas calendar tiles above" data-sid="02-course-info:6">
+      <!-- step 0: the two lecture days you are in, the axis, this Friday -->
+      <rect class="wk__now" x="128" y="250" width="238" height="540" data-sid="02-course-info:7"/>
+      <text class="wk__cta" x="247" y="286" data-sid="02-course-info:8">now</text>
+      <line class="wk__axis" x1="128" y1="790" x2="1792" y2="790" data-sid="02-course-info:9"/>
+      <path class="wk__tick" d="M247 790v16M366 790v16M485 790v16M603 790v16M841 790v16M960 790v16M1079 790v16M1198 790v16M1317 790v16M1435 790v16M1554 790v16M1673 790v16" data-sid="02-course-info:10"/>
+      <path class="wk__tick wk__tick--due" d="M722 790v28" data-sid="02-course-info:11"/>
+      <text class="wk__axislabel" x="722" y="854" data-sid="02-course-info:12">Fri</text>
+
+      <!-- step 1: Test 1 — the band over both lecture days of THIS week, next
+           to now (drawn before the bars so the rows sit on top of it) -->
+      <rect class="wk__test frag" data-step="1" data-anim="fade" x="366" y="250" width="237" height="540" data-sid="02-course-info:13"/>
+      <text class="wk__testname frag" data-step="1" data-anim="fade" x="485" y="318" data-sid="02-course-info:14">Test 1</text>
+      <text class="wk__testsub frag" data-step="1" data-anim="fade" x="485" y="360" data-sid="02-course-info:15">in lecture</text>
+      <text class="wk__testsub frag" data-step="1" data-anim="fade" x="485" y="396" data-sid="02-course-info:16">Wed MW &middot; Thu TR</text>
+
+      <!-- step 6 (with the Week 6 rows): Test 1 Redo — the same band, one week on -->
+      <rect class="wk__test frag" data-step="6" data-anim="fade" x="1317" y="250" width="237" height="540" data-sid="02-course-info:17"/>
+      <text class="wk__testname frag" data-step="6" data-anim="fade" x="1435" y="306" data-sid="02-course-info:18">Test 1</text>
+      <text class="wk__redo frag" data-step="6" data-anim="fade" x="1435" y="350" data-sid="02-course-info:19">Redo</text>
+      <text class="wk__testsub frag" data-step="6" data-anim="fade" x="1435" y="386" data-sid="02-course-info:20">Thu Oct 1 &middot; TR</text>
+      <text class="wk__testsub wk__ph frag" data-step="6" data-anim="fade" x="1435" y="418" data-sid="02-course-info:21">[MW: Wed Sep 30?]</text>
+
+      <!-- step 7: where the work lives day to day — two tiles, not a room -->
+      <rect class="wk__tile frag" data-step="7" data-anim="fade" x="640" y="232" width="300" height="170" rx="14" data-sid="02-course-info:22"/>
+      <g class="wk__icon frag" data-step="7" data-anim="fade" data-sid="02-course-info:23">
+        <rect x="758" y="262" width="64" height="48" rx="6" data-sid="02-course-info:24"/>
+        <line x1="758" y1="276" x2="822" y2="276" data-sid="02-course-info:25"/>
+      </g>
+      <text class="wk__tilecap frag" data-step="7" data-anim="fade" x="790" y="372" data-sid="02-course-info:26">Home page</text>
+
+      <rect class="wk__tile frag" data-step="7" data-anim="fade" x="980" y="232" width="300" height="170" rx="14" data-sid="02-course-info:27"/>
+      <g class="wk__icon frag" data-step="7" data-anim="fade" data-sid="02-course-info:28">
+        <path d="M1114 254v8M1146 254v8" data-sid="02-course-info:29"/>
+        <rect x="1098" y="262" width="64" height="48" rx="6" data-sid="02-course-info:30"/>
+        <line x1="1098" y1="276" x2="1162" y2="276" data-sid="02-course-info:31"/>
+      </g>
+      <text class="wk__tilecap frag" data-step="7" data-anim="fade" x="1130" y="372" data-sid="02-course-info:32">Canvas calendar</text>
+
+      <!-- step 2: Canvas is the calendar, so the calendar draws on -->
+      <path class="wk__bracket frag" data-step="2" pathLength="100" d="M128 486v-16H960v16M960 486v-16H1792v16" data-sid="02-course-info:33"/>
+      <text class="wk__axislabel wk__axislabel--week frag" data-step="2" data-anim="fade" x="544" y="462" data-sid="02-course-info:34">Week 5 &middot; this week</text>
+      <text class="wk__axislabel wk__axislabel--week frag" data-step="2" data-anim="fade" x="1376" y="462" data-sid="02-course-info:35">Week 6 &middot; next week</text>
+      <text class="wk__axislabel wk__axislabel--end frag" data-step="2" data-anim="fade" x="1780" y="462" data-sid="02-course-info:36">Week 7 &rarr;</text>
+
+      <!-- step 3: homework and the challenge exercise, both from Monday;
+           both solid — one date, Friday night, the same for everyone -->
+      <rect class="wk__bar wk__ink--pl frag" data-step="3" x="128" y="568" width="594" height="48" rx="24" data-sid="02-course-info:37"/>
+      <text class="wk__label frag" data-step="3" data-anim="fade" x="154" y="601" data-sid="02-course-info:38">Week 5 homework</text>
+      <rect class="wk__bar wk__ink--ce frag" data-step="3" x="128" y="640" width="594" height="48" rx="24" data-sid="02-course-info:39"/>
+      <text class="wk__label frag" data-step="3" data-anim="fade" x="154" y="673" data-sid="02-course-info:40">Challenge Exercise 05</text>
+      <line class="wk__pole wk__ink--a4 frag" data-step="3" pathLength="100" x1="722" y1="790" x2="722" y2="568" data-sid="02-course-info:41"/>
+
+      <!-- step 4: Project 1, Deliverable 3 — due at your lab, so the bar
+           fades across the lab week and the range under the axis names it -->
+      <path class="wk__bar wk__ink--p1 frag" data-step="4" d="M152 712 H247 V760 H152 a24 24 0 0 1 0 -48 Z" data-sid="02-course-info:42"/>
+      <path class="wk__bar wk__bar--tail wk__ink--p1 frag" data-step="4" d="M247 712 H698 a24 24 0 0 1 0 48 H247 Z" data-sid="02-course-info:43"/>
+      <text class="wk__label wk__label--tail frag" data-step="4" data-anim="fade" x="270" y="745" data-sid="02-course-info:44">Project 1 &middot; Deliverable 3</text>
+      <line class="wk__pole wk__ink--p1 wk__range frag" data-step="4" pathLength="100" x1="247" y1="818" x2="722" y2="818" data-sid="02-course-info:45"/>
+      <text class="wk__axislabel wk__axislabel--lab frag" data-step="4" data-anim="fade" x="583" y="854" data-sid="02-course-info:46">your lab day</text>
+
+      <!-- step 5: the 6.x modules — Monday to Sunday evening, the boundary -->
+      <rect class="wk__bar wk__ink--pl frag" data-step="5" x="128" y="496" width="832" height="48" rx="24" data-sid="02-course-info:47"/>
+      <text class="wk__label frag" data-step="5" data-anim="fade" x="154" y="529" data-sid="02-course-info:48">6.x modules &middot; due Sunday evening</text>
+      <line class="wk__pole wk__ink--a4 frag" data-step="5" pathLength="100" x1="960" y1="790" x2="960" y2="544" data-sid="02-course-info:49"/>
+      <path class="wk__tick wk__tick--due frag" data-step="5" data-anim="fade" d="M960 790v28" data-sid="02-course-info:50"/>
+      <text class="wk__axislabel frag" data-step="5" data-anim="fade" x="960" y="854" data-sid="02-course-info:51">Sun</text>
+
+      <!-- step 6: Week 6 on the same rows -->
+      <rect class="wk__bar wk__ink--pl frag" data-step="6" x="960" y="568" width="594" height="48" rx="24" data-sid="02-course-info:52"/>
+      <text class="wk__label frag" data-step="6" data-anim="fade" x="986" y="601" data-sid="02-course-info:53">Week 6 homework</text>
+      <rect class="wk__bar wk__ink--ce frag" data-step="6" x="960" y="640" width="594" height="48" rx="24" data-sid="02-course-info:54"/>
+      <text class="wk__label frag" data-step="6" data-anim="fade" x="986" y="673" data-sid="02-course-info:55">Challenge Exercise 06</text>
+      <path class="wk__bar wk__bar--tail wk__ink--p2 frag" data-step="6" d="M984 712 H1530 a24 24 0 0 1 0 48 H984 a24 24 0 0 1 0 -48 Z" data-sid="02-course-info:56"/>
+      <text class="wk__label wk__label--tail frag" data-step="6" data-anim="fade" x="1010" y="745" data-sid="02-course-info:57">Project 2 &middot; Deliverable 1 &middot; teams re-form</text>
+      <line class="wk__pole wk__ink--a4 frag" data-step="6" pathLength="100" x1="1554" y1="790" x2="1554" y2="568" data-sid="02-course-info:58"/>
+      <path class="wk__tick wk__tick--due frag" data-step="6" data-anim="fade" d="M1554 790v28" data-sid="02-course-info:59"/>
+      <text class="wk__axislabel frag" data-step="6" data-anim="fade" x="1554" y="854" data-sid="02-course-info:60">Fri</text>
+      <line class="wk__pole wk__ink--p2 wk__range frag" data-step="6" pathLength="100" x1="960" y1="818" x2="1554" y2="818" data-sid="02-course-info:61"/>
+      <text class="wk__axislabel wk__axislabel--lab2 frag" data-step="6" data-anim="fade" x="1257" y="854" data-sid="02-course-info:62">your Week 6 lab</text>
+      <!-- and the 7.x modules: Monday of Week 6 to the Sunday at the right edge -->
+      <rect class="wk__bar wk__ink--pl frag" data-step="6" x="960" y="496" width="832" height="48" rx="24" data-sid="02-course-info:63"/>
+      <text class="wk__label frag" data-step="6" data-anim="fade" x="986" y="529" data-sid="02-course-info:64">7.x modules &middot; due Sunday evening</text>
+      <line class="wk__pole wk__ink--a4 frag" data-step="6" pathLength="100" x1="1792" y1="790" x2="1792" y2="544" data-sid="02-course-info:65"/>
+      <path class="wk__tick wk__tick--due frag" data-step="6" data-anim="fade" d="M1792 790v28" data-sid="02-course-info:66"/>
+      <text class="wk__axislabel wk__axislabel--edge frag" data-step="6" data-anim="fade" x="1792" y="854" data-sid="02-course-info:67">Sun</text>
+
+      <!-- captions: one sentence per beat in the row under the axis -->
+      <text class="wk__cap frag" data-step="1" x="960" y="940" data-sid="02-course-info:68">Test 1 is next class, in lecture: Wednesday (MW), Thursday (TR).</text>
+      <text class="wk__cap frag" data-step="2" x="960" y="940" data-sid="02-course-info:69">Canvas: Weeks 5 and 6 are both posted.</text>
+      <text class="wk__cap frag" data-step="3" x="960" y="940" data-sid="02-course-info:70">Homework and Challenge Exercise 05: both due Friday 11:59 PM.</text>
+      <text class="wk__cap frag" data-step="4" x="960" y="940" data-sid="02-course-info:71">Project 1: Deliverable 3 (build, writeup, talk) at the start of your lab this week.</text>
+      <text class="wk__cap frag" data-step="5" x="960" y="940" data-sid="02-course-info:72">PrairieLearn: 6.x modules due Sunday 11:59 PM.</text>
+      <text class="wk__cap frag" data-step="6" x="960" y="940" data-sid="02-course-info:73">Week 6: homework and CE 06 Friday, Project 2 D1 in lab, 7.x modules Sunday, Test 1 Redo.</text>
+      <text class="wk__cap frag" data-step="7" x="960" y="940" data-sid="02-course-info:74">Due dates: course home page and Canvas calendar.</text>
+      <!-- /captions -->
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="02-course-info:75"></div>
+  <aside class="notes" data-sid="02-course-info:76">Same clock as Week 4, one week on. The 5.x modules, efficiency and stacks, were due last night. Step 1, before anything else: Test 1 is next class, in lecture &mdash; Wednesday for MW, Thursday for TR &mdash; on Canvas, inside LockDown Browser, the way the trial quiz ran last week. Part 3 today is the rules once more. Step 2: Canvas has Weeks 5 and 6 posted. Step 3: due Friday 11:59 PM &mdash; the Week 5 homework on PrairieLearn (three LinkedStack methods, Part 2 ends on them) and Challenge Exercise 05, Ice Cream Stack. Step 4: Project 1 Deliverable 3 &mdash; the final build, the writeup and the talk &mdash; at the start of your lab this week. Step 5: the 6.x modules, ethics and software design, Sunday 11:59 PM. Step 6: Week 6 &mdash; homework and Challenge Exercise 06 Friday; Project 2 starts, Deliverable 1 is the scope and teams re-form, at your Week 6 lab; 7.x modules Sunday; Test 1 Redo is Thursday October 1 in lecture [confirm the MW day &mdash; the schedule names only the Thursday]. Step 7: due dates are on the course home page and the Canvas calendar. Next: Part 1.</aside>
+
+  <style data-sid="02-course-info:77">
+    /* Slide-local: the week clock, Week 5's version. The axis, bars, poles
+       and range lines are day 2's keep-up grammar; the viewBox is the body's
+       rect. The now column is a band over two tracks because this deck is
+       shown on Monday and on Tuesday, and Test 1 is a maroon-outlined band
+       over the two lecture days right after it — an hour in the room, not a
+       midnight, so it is drawn like "now" and not like a due pole; the dashed
+       outline and the display-size name keep it from reading as a second now.
+       The Redo band is the same drawing one week on. Project 2 takes W1D1's
+       P2 accent (the maroon-orange mix) so the two projects never share a
+       colour on one axis. Motion is manim's only: the bracket, the poles and
+       the range lines draw on by dashoffset; bars wipe from where they start;
+       tiles, labels, the test bands and captions FadeIn; a caption fades out
+       once its step is past so the row reads one sentence at a time. Used by
+       this slide only, all values from tokens. */
+    #slide-02 .slide__body { position: relative; }
+    #slide-02 .wk { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* the two lecture days you are in, and the axis */
+    #slide-02 .wk__now { fill: color-mix(in srgb, var(--accent-1) 12%, var(--bg-0)); }
+    #slide-02 .wk__cta { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-02 .wk__bracket,
+    #slide-02 .wk__axis,
+    #slide-02 .wk__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-02 .wk__tick--due { stroke: var(--fg-0); stroke-width: 4; }
+    #slide-02 .wk__axislabel { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .wk__axislabel--week { font-size: var(--t-small); }             /* the two weeks the room is in, read from the back row */
+    #slide-02 .wk__axislabel--end { text-anchor: end; fill: var(--stone); }   /* the week past the edge: posted, not yours yet */
+    #slide-02 .wk__axislabel--edge { text-anchor: end; }                      /* the Sunday on the right-hand edge: label ends on the axis end */
+    #slide-02 .frag.wk__axislabel.is-current, #slide-02 .frag.wk__axislabel.is-past { transition-delay: .5s; }
+
+    /* Canvas is the calendar: the two-week bracket draws on */
+    #slide-02 .wk__bracket { stroke-dasharray: 100; transition: stroke-dashoffset .7s var(--ease-smooth); }
+    #slide-02 .frag.wk__bracket.is-pending { opacity: 1; stroke-dashoffset: 100; }
+
+    /* bars are coloured by the kind of work — PrairieLearn (modules, homework)
+       in the tool blue, challenge exercises in maroon, Project 1 in the orange
+       of work that is yours to write, Project 2 in W1D1's P2 mix — and the
+       projects' deliverables fade across the week because their day is each
+       section's own. Poles and due ticks keep day 2's deadline ink; the "your
+       lab" ranges under the axis take their project's colour, since only
+       projects land in lab. */
+    #slide-02 .wk__ink--a4 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-02 .wk__ink--pl { --edge: var(--accent-2); }
+    #slide-02 .wk__ink--ce { --edge: var(--accent-1); }
+    #slide-02 .wk__ink--p1 { --edge: var(--accent-3); }
+    #slide-02 .wk__ink--p2 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-02 .wk__axislabel--lab { fill: var(--accent-3); }
+    #slide-02 .wk__axislabel--lab2 { fill: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
+    #slide-02 .wk__bar { fill: var(--edge); clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }
+    #slide-02 .wk__bar--tail { fill-opacity: .6; transition-duration: .4s; }
+    #slide-02 .frag.wk__bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-02 .frag.wk__bar--tail.is-current, #slide-02 .frag.wk__bar--tail.is-past { transition-delay: .35s; }
+    #slide-02 .wk__label { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); transition: opacity .3s ease; }
+    #slide-02 .wk__label--tail { fill: var(--fg-0); }   /* ink on the tail: at .6 the edge colour no longer separates from it */
+    #slide-02 .frag.wk__label.is-current, #slide-02 .frag.wk__label.is-past { transition-delay: .45s; }
+    #slide-02 .wk__pole {
+      fill: none; stroke: var(--edge); stroke-width: 4; stroke-linecap: round;
+      stroke-dasharray: 100;
+      transition: stroke-dashoffset .35s var(--ease-smooth);
+    }
+    #slide-02 .frag.wk__pole.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-02 .frag.wk__pole.is-current, #slide-02 .frag.wk__pole.is-past { stroke-dashoffset: 0; transition-delay: .5s; }
+    #slide-02 .frag.wk__range.is-current, #slide-02 .frag.wk__range.is-past { transition-delay: .8s; }
+    /* the lab-day labels fade in as their range line arrives, not before it starts */
+    #slide-02 .frag.wk__axislabel.wk__axislabel--lab.is-current, #slide-02 .frag.wk__axislabel.wk__axislabel--lab.is-past,
+    #slide-02 .frag.wk__axislabel.wk__axislabel--lab2.is-current, #slide-02 .frag.wk__axislabel.wk__axislabel--lab2.is-past { transition-delay: 1s; }
+
+    /* the test bands: the rule's maroon, outlined so they never read as a second now */
+    #slide-02 .wk__test { fill: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0)); stroke: var(--accent-1); stroke-width: 3; stroke-dasharray: 14 10; transition: opacity .3s ease; }
+    #slide-02 .wk__testname { font-family: var(--font-display); font-size: var(--t-h3); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .wk__redo { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .wk__testsub { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .wk__ph { fill: var(--accent-3); }   /* a fact the instructor still has to confirm: the tabs' orange, impossible to miss in Studio */
+    #slide-02 .frag.wk__testname.is-current, #slide-02 .frag.wk__testname.is-past,
+    #slide-02 .frag.wk__redo.is-current, #slide-02 .frag.wk__redo.is-past,
+    #slide-02 .frag.wk__testsub.is-current, #slide-02 .frag.wk__testsub.is-past { transition-delay: .3s; }
+
+    /* step 7: two tiles — where the work lives day to day, not a room */
+    #slide-02 .wk__tile { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-02 .wk__icon { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-02 .wk__tilecap { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .frag.wk__tilecap.is-current, #slide-02 .frag.wk__tilecap.is-past { transition-delay: .3s; }
+
+    /* the caption row: the current beat's sentence, and only that one */
+    #slide-02 .wk__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-02 .frag.wk__cap.is-current { transition-delay: .6s; }
+    #slide-02 .frag.wk__cap.is-past { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02 .wk__bar, #slide-02 .wk__pole, #slide-02 .wk__label, #slide-02 .wk__bracket, #slide-02 .wk__axislabel,
+      #slide-02 .wk__cap, #slide-02 .wk__tile, #slide-02 .wk__icon, #slide-02 .wk__tilecap,
+      #slide-02 .wk__test, #slide-02 .wk__testname, #slide-02 .wk__redo, #slide-02 .wk__testsub {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>
