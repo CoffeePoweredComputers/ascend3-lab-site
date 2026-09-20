@@ -44,9 +44,12 @@ import os from 'node:os';
 import net from 'node:net';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { TOOL_NAME_RE, parseManifest } from './manifest.mjs';
 
-const REPO = path.resolve(import.meta.dirname, '..', '..');
+// Not import.meta.dirname: that arrived in Node 20.11, and the server's node is
+// whatever /usr/bin has. This form works on every version Astro itself runs on.
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const TOOLS_DIR = path.join(REPO, 'tools');
 const HOME = os.homedir();
 const STATE_DIR = path.join(HOME, '.local', 'state', 'ascend-tools');
@@ -62,6 +65,10 @@ const PORT_MAX = 8899;
 const CONTAINER_PORT = 8080;              // every tool listens here inside
 const BUILD_TIMEOUT_MS = 15 * 60_000;
 const READY_TIMEOUT_MS = 60_000;
+// Stamped on every image this runner builds, and the only thing its image prune
+// matches. The Docker daemon is shared with another site on this host.
+const IMAGE_LABEL = 'ascend.tool=1';
+let builds = 0;                           // builds attempted this run; nothing is pruned otherwise
 
 /** Applied to every container the runner starts, tools and gate alike. */
 const LIMITS = [
@@ -348,8 +355,9 @@ async function deployTool(t, status) {
   const image = `${container}:candidate`;
 
   log(`${t.name}: building ${tree}`);
+  builds += 1;
   try {
-    run(['build', ...(DEV_HOSTNET ? ['--network=host'] : []), '-t', image, '-f', t.containerfile, t.dir], {
+    run(['build', ...(DEV_HOSTNET ? ['--network=host'] : []), '--label', IMAGE_LABEL, '-t', image, '-f', t.containerfile, t.dir], {
       timeout: BUILD_TIMEOUT_MS,
       killSignal: 'SIGKILL',
       stdio: ['ignore', 'inherit', 'inherit'],
@@ -446,6 +454,32 @@ async function main() {
     process.exit(bad ? 1 : 0);
   }
 
+  // One runner at a time. autodeploy.sh holds its own flock, but the README's
+  // first deploy is run by hand, and a cron tick landing mid-run would collide
+  // on the single scratch port and interleave writes to status.json. Re-exec
+  // under flock(1), the same lock autodeploy.sh uses; the kernel releases it
+  // however this process ends, so there is no stale lock to clean up.
+  if (!DRY && process.env.ASCEND_TOOLS_LOCKED !== '1') {
+    fs.mkdirSync(STATE_DIR, { recursive: true });
+    const lock = path.join(STATE_DIR, 'runner.lock');
+    try {
+      execFileSync('flock', ['-n', '-E', '75', lock, process.execPath, ...process.argv.slice(1)], {
+        stdio: 'inherit',
+        env: { ...process.env, ASCEND_TOOLS_LOCKED: '1' },
+      });
+      process.exit(0);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        warn('flock(1) not found; running without a lock');
+      } else if (err.status === 75) {
+        log('another runner holds the lock; leaving it to finish');
+        process.exit(0);
+      } else {
+        process.exit(err.status ?? 1);   // the locked child's own exit status
+      }
+    }
+  }
+
   if (DEV_HOSTNET) warn('DEV MODE: host networking, ports open on every interface. Never on the server.');
   if (!DRY) {
     try {
@@ -465,8 +499,15 @@ async function main() {
   for (const n of Object.keys(status.tools)) if (!known.has(n)) delete status.tools[n];
   writeStatus(status);
 
-  tryRun(['image', 'prune', '-f']);
-  tryRun(['builder', 'prune', '-f', '--keep-storage', '5g']);
+  // Trim only when something was built: a build leaves the previous image
+  // dangling and adds to the BuildKit cache, and an idle five-minute tick does
+  // neither. Both prunes are daemon-wide commands on a daemon another site
+  // shares, so the image prune is scoped by the label every build sets. The
+  // builder cache has no per-owner filter; keeping 5 GB in total is the bound.
+  if (builds > 0) {
+    tryRun(['image', 'prune', '-f', '--filter', `label=${IMAGE_LABEL}`]);
+    tryRun(['builder', 'prune', '-f', '--keep-storage', '5g']);
+  }
 
   const failed = tools.filter((t) => status.tools[t.name]?.ok === false).map((t) => t.name);
   log(failed.length ? `done, failed: ${failed.join(', ')}` : 'done');
