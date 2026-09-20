@@ -4,7 +4,7 @@
   "title": "CS 2114 project reflections",
   "irbProtocol": "VT IRB #26-817",
   "status": "open",
-  "notes": "PLACEHOLDERS TO SET BEFORE RECRUITMENT: (1) roles — during the semester only the non-course-staff researcher may hold researchers/keyholders; the PI is listed here for building and testing only. (2) wave windows are estimates for ~Weeks 5/9/15 of Fall 2026 (w1 was opened early for local testing). (3) the information sheet still contains the '[contact information]' placeholders from the approved HRP-502. Starters, opening and systemPrompt are copied verbatim from Instrument S1 and the System Description (bold markers removed). 2026-09-08: reduced to the FOUR shared starters (two ambiguity, two design authority); the wave-specific and 'completed independently' items from S1 were dropped by the PI — maxTurnsPerSession is 16 (4 × 4).",
+  "notes": "PLACEHOLDERS TO SET BEFORE RECRUITMENT: (1) roles — during the semester only the non-course-staff researcher may hold researchers/keyholders; the PI is listed here for building and testing only. (2) wave windows are estimates for ~Weeks 5/9/15 of Fall 2026 (w1 was opened early for local testing). (3) the information sheet still contains the '[contact information]' placeholders from the approved HRP-502. Starters, opening and systemPrompt are copied verbatim from Instrument S1 and the System Description (bold markers removed). 2026-09-08: reduced to the FOUR shared starters (two ambiguity, two design authority); the wave-specific and 'completed independently' items from S1 were dropped by the PI — maxTurnsPerSession was 16 (4 × 4). 2026-09-20: PI cut follow-ups to ONE per question for the first run — maxProbesPerStarter 1, maxTurnsPerSession 8 (4 × 2); the system prompt's '(maximum three)' is left verbatim from the approved System Description and is now only an upper bound.",
   "roles": {
     "researchers": [
       "dhsmith4"
@@ -117,8 +117,8 @@
   ],
   "probing": {
     "protocol": "DICE",
-    "maxProbesPerStarter": 3,
-    "maxTurnsPerSession": 16,
+    "maxProbesPerStarter": 1,
+    "maxTurnsPerSession": 8,
     "probeTypes": [
       "DESCRIPTIVE_EXTERNAL",
       "DESCRIPTIVE_INTERNAL",

@@ -1,6 +1,6 @@
 /**
  * Shared request plumbing: the app context handed to every route module,
- * identity middleware, CSRF/rate-limit guards, and the JSON error shape.
+ * identity middleware, the CSRF guard, and the JSON error shape.
  */
 import type { Context, Hono, MiddlewareHandler } from 'hono';
 import type { ZodType } from 'zod';
@@ -75,26 +75,6 @@ export function csrfGuard(env: Env): MiddlewareHandler<AppEnv> {
       const origin = c.req.header('origin');
       if (origin && origin !== ownOrigin) return c.json({ error: 'csrf', message: 'Bad origin' }, 403);
     }
-    await next();
-  };
-}
-
-/** Small in-memory token bucket per PID (falls back to IP before sign-in). */
-export function rateLimit(perMinute: number): MiddlewareHandler<AppEnv> {
-  const buckets = new Map<string, { tokens: number; at: number }>();
-  return async (c, next) => {
-    const key = c.get('pid') ?? c.req.header('x-real-ip') ?? 'anon';
-    const now = Date.now();
-    const b = buckets.get(key) ?? { tokens: perMinute, at: now };
-    b.tokens = Math.min(perMinute, b.tokens + ((now - b.at) / 60_000) * perMinute);
-    b.at = now;
-    if (b.tokens < 1) {
-      buckets.set(key, b);
-      return c.json({ error: 'rate_limited', message: 'Too many requests; slow down a little.' }, 429);
-    }
-    b.tokens -= 1;
-    buckets.set(key, b);
-    if (buckets.size > 10_000) buckets.clear();
     await next();
   };
 }

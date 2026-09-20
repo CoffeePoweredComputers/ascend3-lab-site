@@ -1,0 +1,42 @@
+/* Admin page only. Loaded after style.css; every token comes from there. */
+
+/* page head: title + "New survey" */
+.list__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.25rem; }
+.list__head h1 { margin: 0; }
+
+/* survey card head */
+.admin-survey__head h2 { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.admin-survey__head h2 code { font-size: 0.7em; }
+.tag--open { color: var(--success); }
+.tag--draft { color: var(--muted); }
+.tag--closed { color: var(--accent); }
+
+/* participant link */
+.linkrow { display: flex; gap: 0.5rem; align-items: center; }
+.linkrow__url { flex: 1 1 20rem; min-width: 0; font-family: var(--font-mono); font-size: 0.85rem; background: var(--card-muted); }
+
+/* results grid: one row per participant, one column per question / follow-up */
+.results__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+.results__head p { margin: 0; }
+.results__head .filters { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.results__head .check { margin: 0; align-items: center; }
+.grid-wrap { max-height: 65vh; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius); margin-top: 0.5rem; }
+.grid { margin: 0; }
+.grid th { position: sticky; top: 0; z-index: 1; background: var(--card); vertical-align: bottom; min-width: 7rem; box-shadow: inset 0 -1px 0 var(--border); }
+.grid th.cellhead { min-width: 16rem; max-width: 28rem; }
+.grid__label { display: block; }
+.grid__q { display: block; margin-top: 0.15rem; font: 400 0.78rem/1.35 var(--font-body); letter-spacing: 0; text-transform: none; color: var(--muted); white-space: normal; }
+.grid td { vertical-align: top; }
+.grid td.mono { font-family: var(--font-mono); font-size: 0.8rem; white-space: nowrap; }
+.grid td.when { white-space: nowrap; }
+.grid td.cell { min-width: 16rem; max-width: 28rem; }
+.cell__box { max-height: 9em; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.45; }
+.cell__probe { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.3rem; padding-bottom: 0.3rem; border-bottom: 1px dashed var(--border); }
+
+/* new-survey dialog */
+.modal--form { max-height: 90vh; overflow: auto; }
+.modal--form select { width: 100%; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+@media (max-width: 40rem) { .form-row { grid-template-columns: 1fr; } }
+.advanced { margin: 0.75rem 0; }
+.advanced summary { cursor: pointer; font: 600 0.9rem var(--font-ui); }

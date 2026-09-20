@@ -56,8 +56,8 @@
   ],
   "probing": {
     "protocol": "DICE",
-    "maxProbesPerStarter": 3,
-    "maxTurnsPerSession": 16,
+    "maxProbesPerStarter": 1,
+    "maxTurnsPerSession": 8,
     "probeTypes": [
       "DESCRIPTIVE_EXTERNAL",
       "DESCRIPTIVE_INTERNAL",

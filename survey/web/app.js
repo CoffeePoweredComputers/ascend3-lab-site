@@ -232,12 +232,23 @@
     return wrap;
   }
 
-  function renderSegments(count, current) {
+  /* One pill per main question, split into beats: the main question first
+   * (wider), then one slice per possible follow-up. `beat` is 0 while the main
+   * question is pending and p while follow-up p is. A finished question is
+   * painted fully done even when a follow-up never happened (the model moved
+   * on, errored, or the participant skipped) — the question is over, and a
+   * hollow slice would read as something they missed. */
+  function renderSegments(count, current, maxProbes, beat) {
     segmentsEl.replaceChildren();
+    const beats = 1 + Math.max(0, maxProbes | 0);
     for (let i = 0; i < count; i++) {
       const li = document.createElement('li');
-      if (i < current) li.className = 'is-done';
-      else if (i === current) li.className = 'is-current';
+      for (let b = 0; b < beats; b++) {
+        const s = document.createElement('span');
+        if (i < current || (i === current && b < beat)) s.className = 'is-done';
+        else if (i === current && b === beat) s.className = 'is-current';
+        li.appendChild(s);
+      }
       segmentsEl.appendChild(li);
     }
   }
@@ -260,7 +271,7 @@
     const active = view.session.status === 'active' && view.current;
     if (!active) { renderDone(view.session.status); return; }
 
-    renderSegments(N, view.session.starterIndex);
+    renderSegments(N, view.session.starterIndex, view.maxProbes, view.current.kind === 'probe' ? view.session.probeCount : 0);
     const prog = $('[data-progress]');
     prog.textContent = 'Question ' + n + ' of ' + N;
     if (view.current.kind === 'probe') {
