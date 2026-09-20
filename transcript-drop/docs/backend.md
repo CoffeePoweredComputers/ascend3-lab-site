@@ -258,6 +258,6 @@ conversation *caused* a commit; a human fills in `linkage_confidence`.
 
 `pytest` covers the identity split, segmentation guards, timestamp handling,
 migrations, and scoring — including a test pinning that chat-tool scores did not
-move when deterministic linkage was added. `node --test tests/parsers.test.js`
+move when deterministic linkage was added. `node --test tests/parsers.test.cjs`
 covers the browser parsers. Fixtures are synthetic; the real logs on a developer
 machine contain private conversations.

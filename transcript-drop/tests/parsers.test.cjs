@@ -1,10 +1,14 @@
 /*
  * Tests for the browser-side export parsers.
  *
- *   node --test tests/parsers.test.js
+ *   node --test tests/parsers.test.cjs
  *
  * parsers.js is a plain script rather than a module (it is loaded with a <script>
  * tag), so it is evaluated here and its one export pulled out.
+ *
+ * The .cjs extension is not optional: the lab site's root package.json declares
+ * "type": "module", and under it Node treats a .js file as an ES module, where
+ * require() does not exist and this file fails before its first test.
  */
 
 const test = require("node:test");
