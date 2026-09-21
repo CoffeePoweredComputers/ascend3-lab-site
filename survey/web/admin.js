@@ -220,7 +220,8 @@
     tbody.replaceChildren();
 
     const hr = el('tr');
-    for (const h of ['Code', 'Status', 'Started']) hr.appendChild(el('th', null, h));
+    const hasEmail = rows.some((r) => 'email' in r); // only keyholders are sent it
+    for (const h of hasEmail ? ['Code', 'Email', 'Status', 'Started'] : ['Code', 'Status', 'Started']) hr.appendChild(el('th', null, h));
     for (const c of columns) {
       const th = el('th', 'cellhead');
       th.appendChild(el('span', 'grid__label', c.label));
@@ -235,6 +236,7 @@
     for (const row of rows) {
       const tr = el('tr');
       tr.appendChild(el('td', 'mono', row.participant_code || (row.is_preview ? 'preview' : DASH)));
+      if (hasEmail) tr.appendChild(el('td', 'mono', row.email || DASH));
       const st = el('td');
       st.appendChild(el('span', 'tag tag--' + row.status, row.status));
       tr.appendChild(st);
@@ -255,7 +257,7 @@
     if (!rows.length) {
       const tr = el('tr');
       const td = el('td', 'muted', 'No responses yet.');
-      td.colSpan = 3 + columns.length;
+      td.colSpan = (hasEmail ? 4 : 3) + columns.length;
       tr.appendChild(td);
       tbody.appendChild(tr);
     }

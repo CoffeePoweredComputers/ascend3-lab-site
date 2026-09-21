@@ -22,7 +22,7 @@ stored in Postgres (`survey.surveys`) instead of a file.
 | VT single sign-on | `src/auth/cas.ts` — `login.vt.edu` CAS; signed, path-scoped cookie |
 | Study data in Postgres on VT infrastructure; every turn records probe type, trigger, config version | `migrations/001_init.sql`, `src/engine/session.ts` (`survey.turns` is append-only for the app role) |
 | Model calls only to `llm-api.arc.vt.edu`; model sees only the current starter's exchanges | `src/llm/arc.ts`; `src/engine/prompt.ts` is the only place model input is built |
-| Identity never joined to responses; key held apart, exportable only by the keyholder, destroyable | two schemas + two DB roles with no cross-`USAGE` (`migrations/`), `src/store/keyring.ts` vs `src/store/survey.ts`, keyholder routes in `src/routes/admin.ts` |
+| Identity kept apart from responses in the database; joined only in the app, for keyholders (results grid, `results.csv`); key exportable only by the keyholder, every export logged, destroyable | two schemas + two DB roles with no cross-`USAGE` (`migrations/`), `src/store/keyring.ts` vs `src/store/survey.ts`; the keyholder-only join (`attachEmails`) and routes in `src/routes/admin.ts` |
 | Consent before any research content; info sheet always available | `src/routes/participant.ts` (no session without an enrollment), `/s/:id/info-sheet` |
 | No third-party analytics/error tracking; no response text in logs | the page loads only its own files (CSP in `src/app.ts`); `src/log.ts` policy |
 
@@ -191,9 +191,9 @@ On `/survey/admin` each survey card is a grid: one row per participant session, 
 question and one per follow-up slot (`Q1`, `Q1 follow-up`, `Q2`, …). A follow-up cell shows the
 question the model asked that participant above their answer; an empty cell means that
 follow-up never happened (the model moved on, errored, or the participant skipped). Pick the
-wave when a survey has several; tick *include previews* to see your own test runs. Everything
-here is coded: no PID can reach these routes because they run on the `survey` pool, which has
-no access to the `keyring` schema.
+wave when a survey has several; tick *include previews* to see your own test runs. Researchers see codes. Keyholders also see each participant's email: the grid and `results.csv`
+join the key to the responses in the application (the database roles still cannot), and a
+`results.csv` that carries emails is logged as a key export, like `keyring.csv`.
 
 For analysis, download `results.csv` (the same grid, one `(question, answer)` pair per
 follow-up) or `transcripts.jsonl` (canonical, with probe types, triggers and why each question

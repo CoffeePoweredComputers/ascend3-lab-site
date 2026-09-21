@@ -29,7 +29,7 @@ import type { LoadedSurvey } from '../config/load.js';
 import type { SurveyConfig, Wave } from '../config/schema.js';
 import { toCsv } from '../csv.js';
 import { isUniqueViolation } from '../db/pools.js';
-import { destroyKey, enrollmentCount, exportEnrollments, keyEvents, listRoster, replaceRoster, rosterSize } from '../store/keyring.js';
+import { destroyKey, enrollmentCount, enrollmentPids, exportEnrollments, keyEvents, listRoster, replaceRoster, rosterSize } from '../store/keyring.js';
 import {
   exportSessions,
   exportTranscripts,
@@ -62,6 +62,20 @@ const createBody = z.object({
 export function defaultWave(cfg: SurveyConfig, now = Date.now()): Wave {
   const opened = cfg.waves.filter((w) => Date.parse(w.opensAt) <= now).sort((a, b) => Date.parse(b.opensAt) - Date.parse(a.opensAt));
   return opened[0] ?? cfg.waves[0]!;
+}
+
+/** Guests have no VT mailbox; everyone else is <pid>@vt.edu. */
+function emailFor(pid: string | undefined): string | null {
+  return pid && !isGuest(pid) ? `${pid}@vt.edu` : null;
+}
+
+/**
+ * Fill `email` on every row from a code → pid map. Keyholders only: this is
+ * the one place identity meets responses, and it happens in the app — the
+ * database roles still cannot join them.
+ */
+function attachEmails(rows: Array<{ participant_code: string | null; email?: string | null }>, pidByCode: Map<string, string>): void {
+  for (const r of rows) r.email = r.participant_code ? emailFor(pidByCode.get(r.participant_code)) : null;
 }
 
 export function adminRoutes(ctx: AppContext): Hono<AppEnv> {
@@ -186,9 +200,12 @@ export function adminRoutes(ctx: AppContext): Hono<AppEnv> {
   });
 
   r.get('/s/:surveyId/results', async (c) => {
-    const loaded = need(c.req.param('surveyId'), c.get('pid'), 'researcher');
+    const pid = c.get('pid');
+    const loaded = need(c.req.param('surveyId'), pid, 'researcher');
     const wave = pickWave(loaded.config, c.req.query('wave') || undefined);
-    return c.json(await resultsGrid(ctx.pools.survey, loaded.config, wave, c.req.query('includePreview') === '1'));
+    const grid = await resultsGrid(ctx.pools.survey, loaded.config, wave, c.req.query('includePreview') === '1');
+    if (rolesFor(loaded.config, pid).keyholder) attachEmails(grid.rows, await enrollmentPids(ctx.pools.keyring, loaded.config.id));
+    return c.json(grid);
   });
 
   /**
@@ -220,8 +237,11 @@ export function adminRoutes(ctx: AppContext): Hono<AppEnv> {
     if (file === 'results.csv') {
       const wave = pickWave(loaded.config, c.req.query('wave') || undefined);
       const grid = await resultsGrid(ctx.pools.survey, loaded.config, wave, includePreview);
+      // A file with emails is an export of the key, so it is built from the logged export.
+      const keyholder = rolesFor(loaded.config, pid).keyholder;
+      if (keyholder) attachEmails(grid.rows, new Map((await exportEnrollments(ctx.pools.keyring, id, pid)).map((e) => [e.code, e.pid])));
       c.header('Content-Disposition', `attachment; filename="${id}-${wave.id}-results-${stamp}.csv"`);
-      return c.body(gridCsv(grid), 200, { 'Content-Type': 'text/csv; charset=utf-8' });
+      return c.body(gridCsv(grid, keyholder), 200, { 'Content-Type': 'text/csv; charset=utf-8' });
     }
     if (file === 'sessions.csv') {
       c.header('Content-Disposition', `attachment; filename="${id}-sessions-${stamp}.csv"`);

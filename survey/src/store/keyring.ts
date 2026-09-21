@@ -168,3 +168,13 @@ export async function keyEvents(pool: Pool, surveyId: string): Promise<KeyEvent[
   );
   return rows.map((r) => ({ event: r.event, actorPid: r.actor_pid, rowCount: r.row_count, at: r.created_at.toISOString() }));
 }
+
+/**
+ * code → pid for every enrollment. Feeds the keyholder's on-screen results
+ * grid; it does not write a key event (a file that leaves the system does —
+ * see exportEnrollments).
+ */
+export async function enrollmentPids(pool: Pool, surveyId: string): Promise<Map<string, string>> {
+  const { rows } = await pool.query<{ code: string; pid: string }>('SELECT code, pid FROM keyring.enrollments WHERE survey_id = $1', [surveyId]);
+  return new Map(rows.map((r) => [r.code, r.pid]));
+}

@@ -422,7 +422,12 @@ test('created survey: create → participant takes it → results grid + csv →
   const row = r.json.rows[0];
   assert.equal(row.session_id, sid);
   assert.match(row.participant_code, /^P-/);
-  assert.ok(!r.text.includes(pid), 'no PID in the grid');
+  assert.equal(row.email, `${pid}@vt.edu`, 'the creator is keyholder, so the grid shows the email');
+  // A researcher without the keyholder role is not sent emails at all.
+  const demoGrid = await call(res, 'GET', '/api/admin/s/e2e-demo/results');
+  assert.equal(demoGrid.status, 200);
+  assert.ok(demoGrid.json.rows.length >= 1);
+  assert.ok(demoGrid.json.rows.every((x: any) => !('email' in x)), 'no email without the keyholder role');
   assert.equal(row.cells.q1.answer, 'It went well because we planned the whole thing early on');
   assert.equal(row.cells['q1~f1'].probe_type, 'DESCRIPTIVE_EXTERNAL');
   assert.ok(row.cells['q1~f1'].question.length > 10);
@@ -433,9 +438,13 @@ test('created survey: create → participant takes it → results grid + csv →
   assert.equal(r.status, 404);
   r = await call(res, 'GET', `/api/admin/s/${id}/export/results.csv`);
   assert.equal(r.status, 200);
-  assert.match(r.text, /^participant_code,status,started_at,ended_at,Q1,Q1 follow-up \(question\),Q1 follow-up \(answer\),Q2,Q2 follow-up \(question\),Q2 follow-up \(answer\)\r\n/);
+  assert.match(r.text, /^participant_code,email,status,started_at,ended_at,Q1,Q1 follow-up \(question\),Q1 follow-up \(answer\),Q2,Q2 follow-up \(question\),Q2 follow-up \(answer\)\r\n/);
   assert.ok(r.text.includes('planned the whole thing'));
-  assert.ok(!r.text.includes(pid));
+  assert.ok(r.text.includes(`${pid}@vt.edu`), 'keyholder csv carries the email');
+  r = await call(res, 'GET', `/api/admin/s/${id}/key-events`);
+  assert.equal(r.json.events[0].event, 'export', 'a csv with emails is logged as a key export');
+  r = await call(res, 'GET', '/api/admin/s/e2e-demo/export/results.csv');
+  assert.match(r.text, /^participant_code,status,/, 'researcher-only csv has no email column');
   r = await call(res, 'GET', '/api/admin/surveys');
   assert.equal(r.json.surveys.find((s: any) => s.id === id).responses, 1);
 

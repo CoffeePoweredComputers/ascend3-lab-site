@@ -439,6 +439,8 @@ export interface ResultsCell {
 export interface ResultsRow {
   session_id: string;
   participant_code: string | null;
+  /** Present only for keyholders: <pid>@vt.edu, null for previews and guests. */
+  email?: string | null;
   is_preview: boolean;
   status: string;
   started_at: Date;
@@ -541,8 +543,8 @@ export async function resultsGrid(pool: Pool, cfg: SurveyConfig, wave: Wave, inc
 }
 
 /** Wide CSV of the grid: the main answer per question, then a (question, answer) pair per follow-up. */
-export function gridCsv(grid: ResultsGrid): string {
-  const columns = ['participant_code', 'status', 'started_at', 'ended_at'];
+export function gridCsv(grid: ResultsGrid, withEmail = false): string {
+  const columns = withEmail ? ['participant_code', 'email', 'status', 'started_at', 'ended_at'] : ['participant_code', 'status', 'started_at', 'ended_at'];
   for (const c of grid.columns) {
     if (c.kind === 'starter') columns.push(c.label);
     else columns.push(`${c.label} (question)`, `${c.label} (answer)`);
@@ -550,6 +552,7 @@ export function gridCsv(grid: ResultsGrid): string {
   const rows = grid.rows.map((r) => {
     const out: Record<string, unknown> = {
       participant_code: r.participant_code ?? (r.is_preview ? 'preview' : ''),
+      ...(withEmail ? { email: r.email ?? null } : {}),
       status: r.status,
       started_at: r.started_at,
       ended_at: r.ended_at,
