@@ -7,10 +7,12 @@
   "notes": "PLACEHOLDERS TO SET BEFORE RECRUITMENT: (1) roles — during the semester only the non-course-staff researcher may hold researchers/keyholders; the PI is listed here for building and testing only. (2) wave windows are estimates for ~Weeks 5/9/15 of Fall 2026 (w1 was opened early for local testing). (3) 2026-09-20: the information sheet's contact placeholders were filled with the non-course-staff researcher Minsun Kim (minsunkim@vt.edu). Starters, opening and systemPrompt are copied verbatim from Instrument S1 and the System Description (bold markers removed). 2026-09-08: reduced to the FOUR shared starters (two ambiguity, two design authority); the wave-specific and 'completed independently' items from S1 were dropped by the PI — maxTurnsPerSession was 16 (4 × 4). 2026-09-20: PI cut follow-ups to ONE per question for the first run — maxProbesPerStarter 1, maxTurnsPerSession 8 (4 × 2); the system prompt's '(maximum three)' is left verbatim from the approved System Description and is now only an upper bound. 2026-09-20 (PI): the finished-product starter was narrowed from three joined questions to one; the redundant \"how did you arrive at that decision\" and semester-long \"how did it change\" clauses were dropped. systemPrompt revised to target the study constructs more directly — decision/disagreement questions now chase how the choice was settled among the team (process/authority) rather than the rationale, and it is framed for a single follow-up. Both are protocol modifications; confirm an IRB amendment before they reach participants. 2026-09-20 (PI, 2nd pass): re-added the collaboration item (would you rather have worked alone) as a fifth starter, tagged collaboration; reworded Q2 to the experience of when the project was finished in an open-ended space, Q3 to how the team made the call, and Q4 to how the disagreement was settled, to sit more squarely on the ambiguity and shared-authority constructs and the phenomenographic aim; Q1 left verbatim. maxTurnsPerSession 8 to 10 (5 starters x 2).",
   "roles": {
     "researchers": [
-      "dhsmith4"
+      "dhsmith4",
+      "minsunkim"
     ],
     "keyholders": [
-      "dhsmith4"
+      "dhsmith4",
+      "minsunkim"
     ]
   },
   "eligibility": {
