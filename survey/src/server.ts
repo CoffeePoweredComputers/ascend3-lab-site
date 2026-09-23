@@ -26,9 +26,6 @@ async function main(): Promise<void> {
   if (snap.skipped.length) log.warn('config.created_shadowed_by_file', { ids: snap.skipped });
   const llm = new LlmMonitor(createLlmClient(env), {
     probe: env.LLM_PROVIDER === 'mock' ? mockProbe() : arcProbe(env.ARC_LLM_BASE_URL, env.ARC_LLM_API_KEY),
-    // 25 min, not the 1 min default: the probe only tells `down` from `degraded`,
-    // which real calls already reveal, so it is not worth a request a minute to ARC.
-    intervalMs: 25 * 60_000,
   });
   llm.start();
   const engine = new SessionEngine(pools.survey, registry, llm, log);
