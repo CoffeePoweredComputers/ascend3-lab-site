@@ -51,3 +51,6 @@ tools/*/data/
 tools/*/.venv/
 tools/*/node_modules/
 !tools/*/.env.example
+
+# Server-side deploy state (autodeploy.sh)
+.last-deployed

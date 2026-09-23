@@ -18,16 +18,31 @@ cd "$(dirname "$0")"
 exec 9>"/tmp/ascend3-autodeploy.lock"
 flock -n 9 || exit 0
 
-git fetch origin master --quiet
-LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git rev-parse origin/master)
-[ "$LOCAL" = "$REMOTE" ] && exit 0
+# A failed fetch is usually a GitHub blip (~1% of ticks); it must not stop a
+# deploy that is already pending locally. origin/master simply stays where it
+# was, so the ff-merge below is a no-op and we deploy what the checkout holds.
+git fetch origin master --quiet || echo "── $(date '+%F %T') fetch failed; continuing with the local checkout"
+git merge --ff-only --quiet origin/master
 
-echo "── $(date '+%F %T') deploying ${LOCAL:0:7} → ${REMOTE:0:7}"
-git merge --ff-only origin/master
+# What is DEPLOYED, not what the remote holds. Comparing HEAD to origin/master
+# misses a commit made on the server itself — that commit is already equal to
+# origin/master the moment it is pushed, so the deploy would be skipped while
+# dist/ and /var/www keep serving the old build.
+STAMP=.last-deployed
+DEPLOYED=$(cat "$STAMP" 2>/dev/null || true)
+# A stamp naming a commit this checkout no longer has (force-push, rebase)
+# cannot be diffed against; treat it as a first run.
+git cat-file -e "${DEPLOYED:-missing}^{commit}" 2>/dev/null || DEPLOYED=
+HEAD_SHA=$(git rev-parse HEAD)
+[ "$HEAD_SHA" = "$DEPLOYED" ] && exit 0
 
-# Refresh deps only when the lockfile actually changed in the pull.
-if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^package-lock\.json$'; then
+# With no usable stamp nothing can be ruled out, so every step runs once.
+touched() { [ -z "$DEPLOYED" ] || git diff --name-only "$DEPLOYED" "$HEAD_SHA" | grep -q "$1"; }
+
+echo "── $(date '+%F %T') deploying ${DEPLOYED:0:7}${DEPLOYED:+ → }${HEAD_SHA:0:7}"
+
+# Refresh deps only when the lockfile actually changed.
+if touched '^package-lock\.json$'; then
   npm install --no-audit --no-fund
 fi
 
@@ -36,7 +51,7 @@ fi
 # Survey service (survey/): rebuild + migrate + restart only when the pull
 # touched it. Its deploy.sh stops before restarting on any failure, so a bad
 # migration leaves the running service untouched.
-if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^survey/'; then
+if touched '^survey/'; then
   ./survey/deploy/deploy.sh
 fi
 
@@ -44,7 +59,7 @@ fi
 # deploy.sh runs the test suite and stops before restarting on any failure, so a
 # broken commit leaves the running service — and a semester of submissions —
 # untouched.
-if git diff --name-only "$LOCAL" "$REMOTE" | grep -q '^transcript-drop/'; then
+if touched '^transcript-drop/'; then
   ./transcript-drop/deploy/deploy.sh
 fi
 
@@ -53,4 +68,8 @@ fi
 # Runs every deploy (cheap when nothing changed) so a missing container comes
 # back. Its own failure must not block the line below or a future deploy.
 node tools/_lib/deploy.mjs || echo "── tools: runner failed ($?)"
+
+# Last: set -e means any step above aborts before this line, so a failed deploy
+# leaves the stamp behind and the next tick retries it.
+echo "$HEAD_SHA" > "$STAMP"
 echo "── $(date '+%F %T') deployed $(git rev-parse --short HEAD)"
