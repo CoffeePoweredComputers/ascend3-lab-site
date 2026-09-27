@@ -1,0 +1,69 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-vote-store:1">
+  <header class="slide__head" data-sid="06-vote-store:2">
+    <p class="slide__kicker" data-sid="06-vote-store:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06-vote-store:4">Which class design fits the store?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute vote timer; it starts on the first press" data-sid="06-vote-store:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-store:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-store:7"/><g class="timer__ticks" data-sid="06-vote-store:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-store:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-store:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-store:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-store:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-store:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-store:14"/><g class="timer__hand" data-sid="06-vote-store:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-store:16"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-store:17">2:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="06-vote-store:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="240" data-state="idle" role="timer" aria-label="Four-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="06-vote-store:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-store:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-store:21"/><g class="timer__ticks" data-sid="06-vote-store:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-store:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-store:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-store:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-store:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-store:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-store:28"/><g class="timer__hand" data-sid="06-vote-store:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-store:30"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-store:31">4:00</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="06-vote-store:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="06-vote-store:33">A peer-instruction question. Under the title, the question line of the stem in muted type: which of the following relationships best supports code reuse and good object-oriented design. Below it, two panels. Left, the first line of the stem, you are designing a system to manage items for an athletic store, the system must represent, and the four requirements as cards: Shoe objects, which have size, brand, and traction type; Shirt objects, which have size, sleeve length, and material; WaterBottle objects, which have volume and insulation type; and, outlined in orange, all items must track a product ID and a price. Right, the five options as rows, each led by a maroon disc with its letter: A, make Shoe, Shirt, and WaterBottle all subclasses of a Product superclass with shared fields productID and price; B, make Shoe and Shirt subclasses of Clothing, and have only WaterBottle as a subclass of a Product class; C, make Shoe a subclass of Shirt since they both have a size, and have WaterBottle unrelated; D, do not use inheritance, define each class separately with all needed fields; E, use a common interface Item implemented by all three classes, with no shared fields in a superclass. Two clocks sit in the top right corner: a two-and-a-half-minute vote timer and a four-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout (deck.css .vote) with the long-option variant,
+       the left panel narrowed to 640 so five long options fit on the right
+       at the micro size. The stem is quoted in full: its question line as
+       the lede, its first sentence over the four bullets as cards on the
+       left (the shared requirement outlined in orange, the thing the
+       question turns on). Static: only the two clocks build; the
+       answer slide hoists the shared fields. Runestone activity
+       vtcs2_inhertance_override_2_202507-2 (Peer Instruction W06D1, question 4 of 5). -->
+  <div class="slide__body" data-sid="06-vote-store:34">
+    <p class="vote__stem" data-sid="06-vote-store:35">Which of the following relationships best supports code reuse and good object-oriented design?</p>
+    <div class="vote__panels vs__panels" data-sid="06-vote-store:36">
+      <div class="vote__fig vs__fig" data-sid="06-vote-store:37">
+        <p class="vs__intro" data-sid="06-vote-store:38">You are designing a system to manage items for an athletic store. The system must represent:</p>
+        <ul class="vs__reqs" data-sid="06-vote-store:39">
+          <li data-sid="06-vote-store:40"><b data-sid="06-vote-store:41">Shoe</b> objects, which have size, brand, and traction type</li>
+          <li data-sid="06-vote-store:42"><b data-sid="06-vote-store:43">Shirt</b> objects, which have size, sleeve length, and material</li>
+          <li data-sid="06-vote-store:44"><b data-sid="06-vote-store:45">WaterBottle</b> objects, which have volume and insulation type</li>
+          <li class="vs__all" data-sid="06-vote-store:46">All items must track a product ID and a price.</li>
+        </ul>
+      </div>
+      <ol class="vote__opts vote__opts--long vs__opts" data-sid="06-vote-store:47">
+        <li class="vote__opt" data-sid="06-vote-store:48"><span class="vote__key" data-sid="06-vote-store:49">A</span><p class="vote__text" data-sid="06-vote-store:50">Make Shoe, Shirt, and WaterBottle all subclasses of a Product superclass with shared fields productID and price</p></li>
+        <li class="vote__opt" data-sid="06-vote-store:51"><span class="vote__key" data-sid="06-vote-store:52">B</span><p class="vote__text" data-sid="06-vote-store:53">Make Shoe and Shirt subclasses of Clothing, and have only WaterBottle as a subclass of a Product class</p></li>
+        <li class="vote__opt" data-sid="06-vote-store:54"><span class="vote__key" data-sid="06-vote-store:55">C</span><p class="vote__text" data-sid="06-vote-store:56">Make Shoe a subclass of Shirt since they both have a size, and have WaterBottle unrelated.</p></li>
+        <li class="vote__opt" data-sid="06-vote-store:57"><span class="vote__key" data-sid="06-vote-store:58">D</span><p class="vote__text" data-sid="06-vote-store:59">Do not use inheritance; define each class separately with all needed fields</p></li>
+        <li class="vote__opt" data-sid="06-vote-store:60"><span class="vote__key" data-sid="06-vote-store:61">E</span><p class="vote__text" data-sid="06-vote-store:62">Use a common interface Item implemented by all three classes, with no shared fields in a superclass</p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-vote-store:63"></div>
+  <aside class="notes" data-sid="06-vote-store:64">Answer: A &mdash; one Product superclass holding productID and price, and each kind of item a subclass adding its own fields [key not visible in the paste; confirm in Runestone's results view]. The question as printed: an athletic store with Shoe, Shirt and WaterBottle objects, all tracking a product ID and a price; which relationship best supports code reuse and good object-oriented design. Press once: the 2:30 vote clock; press again for discuss; press again to move on. The discussion question for the groups: which fields do all three share, and where should a shared field live so it is written once? E is the tempting one for anyone who has heard "prefer interfaces": an interface promises methods and cannot hold the two fields. Runestone: Peer Instruction W06D1, question 4 of 5, activity vtcs2_inhertance_override_2_202507-2.</aside>
+
+  <style data-sid="06-vote-store:65">
+    /* two clocks at the top right: the vote ring (2:30) and the discussion
+       ring (4:00), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js) */
+    #slide-06 .timer { top: var(--s-6); }
+    #slide-06 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06 .frag.timer.is-past { opacity: .55; }
+    #slide-06 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-06 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the requirements as four cards on the left (640 px), the
+       class name in the heading maroon and the shared requirement outlined in
+       orange; the options at the micro size so five long rows fit the right
+       column. All values from tokens; used by this slide only. */
+    #slide-06 .vs__panels { grid-template-columns: 640px minmax(0, 1fr); align-items: start; }
+    #slide-06 .vs__fig { row-gap: 0; justify-items: stretch; }
+    #slide-06 .vs__reqs { display: grid; gap: var(--s-2); list-style: none; margin: 0; padding: 0; }
+    #slide-06 .vs__intro { margin: 0 0 var(--s-2); font-size: var(--t-micro); line-height: 1.35; color: var(--fg-1); }
+    #slide-06 .vs__reqs li { margin: 0; padding: var(--s-1) var(--s-3); border: 3px solid var(--fg-1); border-radius: var(--r-2); background: var(--bg-1); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
+    #slide-06 .vs__reqs b { color: var(--accent-1); }
+    #slide-06 .vs__reqs .vs__all { border-color: var(--accent-3); }
+    #slide-06 .vs__opts .vote__opt { padding: var(--s-1) 0; }
+    #slide-06 .vs__opts .vote__text { font-size: var(--t-micro); line-height: 1.4; }
+  </style>
+</section>

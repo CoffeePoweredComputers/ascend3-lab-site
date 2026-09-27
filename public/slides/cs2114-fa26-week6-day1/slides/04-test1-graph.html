@@ -1,0 +1,135 @@
+<section class="slide slide--warmup" id="slide-04" data-sid="04-test1-graph:1">
+  <header class="slide__head" data-sid="04-test1-graph:2">
+    <h2 data-sid="04-test1-graph:3">Test 1 results: average score, and where to practice</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-test1-graph:4">A chart of the sixteen Test 1 questions grouped into the five topics of the Week 4 test map. Each row carries the question number, a short name, a dot at the question's average score on an axis from 0 to 100 percent with a whisker from its lowest-scoring to its highest-scoring variant, a rule under the row, and at the right a pill naming the question of the Test 1 Practice exam on PrairieLearn that drills the same type. Testing and exceptions: question 4 test equals 45 percent, practice 3; question 1 count test cases 51, practice 4; question 16 JUnit setUp 60, practice 15; question 3 test that remove throws 67, practice 2; question 6 exceptions 76, practice 6; question 15 which cases are covered 87, practice 16. Objects and references: question 2 write equals 49, practice 1; question 8 a reference re-pointed 65, practice 8; question 7 two names one object 85, practice 7. Bags on arrays: question 5 bag intersection 49, practice 5; question 14 array search 92, practice 14. Linked chains: question 12 chain operations 72, practice 12; question 11 trace a rewiring 72, practice 11. Types: question 13 generics 49, practice 13; question 10 an upcast 89, practice 10; question 9 UML super and override 92, practice 9. Topics arrive one per step.</p>
+
+  <!-- Test 1's item analysis (Canvas, 348 students, 16 positions) as a dot
+       plot of average score, grouped by the five regions of W4D2's test map,
+       regions ordered by their mean score, rows within a region lowest
+       first. Each position was served as one of 1–4 variants; the dot is the
+       student-weighted average score of the position, the whisker runs from
+       its lowest-scoring to its highest-scoring variant (the only spread the
+       data carries). Every row is a table line: the test question number in
+       mono, the short name, a hairline under the row (a heavier one closes
+       each topic), and at the right a
+       blue pill with the Test #1 Practice question that drills the same
+       type (the practice exam mirrors the test one slot per position, with
+       15 and 16 swapped). No good/bad colouring: each student missed their
+       own questions, so the chart only says how each question scored and
+       where its practice pool is. Ink dots, blue pills (PrairieLearn).
+       step 0: axis, ticks, the column heads.
+       step 1: Testing & exceptions — whiskers draw on, dots grow, names and
+               pills fade in, staggered down the group.
+       step 2: Objects & references.  step 3: Bags on arrays.
+       step 4: Linked chains.         step 5: Types.
+       One SVG in canvas px; viewBox = the body's rect under the warmup h2 (no kicker: the
+       kicker line was traded for a 40 px row pitch on the instructor's request for more
+       space between rows, 2026-09-25).
+       x = 860 + 6 × percent correct. -->
+  <div class="slide__body" data-sid="04-test1-graph:5">
+    <svg class="dg" viewBox="128 208 1664 776" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Sixteen Test 1 questions grouped by topic, each a dot at its average score with a whisker across its variants and a pill naming its practice question" data-sid="04-test1-graph:6">
+      <!-- step 0: the axis and the column heads -->
+      <text class="dg__head" x="860" y="224" data-sid="04-test1-graph:7">average score</text>
+      <text class="dg__head dg__head--end" x="1460" y="224" data-sid="04-test1-graph:8">whisker: lowest to highest variant</text>
+      <text class="dg__head dg__head--pl" x="1680" y="224" data-sid="04-test1-graph:9">Test #1 Practice</text>
+      <line class="dg__axis" x1="860" y1="920" x2="1460" y2="920" data-sid="04-test1-graph:10"/>
+      <path class="dg__tick" d="M860 920v8M1010 920v8M1160 920v8M1310 920v8M1460 920v8" data-sid="04-test1-graph:11"/>
+      <text class="dg__tk" x="860" y="944" data-sid="04-test1-graph:12">0</text>
+      <text class="dg__tk" x="1010" y="944" data-sid="04-test1-graph:13">25</text>
+      <text class="dg__tk" x="1160" y="944" data-sid="04-test1-graph:14">50</text>
+      <text class="dg__tk" x="1310" y="944" data-sid="04-test1-graph:15">75</text>
+      <text class="dg__tk" x="1460" y="944" data-sid="04-test1-graph:16">100%</text>
+
+      <!-- step 1: Testing & exceptions -->
+      <g class="dg__grp frag" data-step="1" data-sid="04-test1-graph:17">
+        <text class="dg__topic" x="128" y="250" data-sid="04-test1-graph:18"><tspan x="128" y="250" data-sid="04-test1-graph:19">Testing &amp;</tspan><tspan x="128" y="290" data-sid="04-test1-graph:20">exceptions</tspan></text>
+        <g class="dg__row" style="--i: 0" data-sid="04-test1-graph:21"><text class="dg__q" x="420" y="250" data-sid="04-test1-graph:22">Q4</text><text class="dg__lbl" x="820" y="250" data-sid="04-test1-graph:23">test equals</text><line class="dg__wh" pathLength="100" x1="1002" y1="240" x2="1210" y2="240" data-sid="04-test1-graph:24"/><path class="dg__cap" d="M1002 233v14M1210 233v14" data-sid="04-test1-graph:25"/><circle class="dg__dot" cx="1129" cy="240" r="9" data-sid="04-test1-graph:26"/><rect class="dg__pill" x="1580" y="228" width="200" height="30" rx="15" data-sid="04-test1-graph:27"/><text class="dg__pt" x="1680" y="249" data-sid="04-test1-graph:28">practice Q3</text><line class="dg__rule" x1="420" y1="262" x2="1792" y2="262" data-sid="04-test1-graph:29"/></g>
+        <g class="dg__row" style="--i: 1" data-sid="04-test1-graph:30"><text class="dg__q" x="420" y="290" data-sid="04-test1-graph:31">Q1</text><text class="dg__lbl" x="820" y="290" data-sid="04-test1-graph:32">count test cases</text><circle class="dg__dot" cx="1167" cy="280" r="9" data-sid="04-test1-graph:33"/><rect class="dg__pill" x="1580" y="268" width="200" height="30" rx="15" data-sid="04-test1-graph:34"/><text class="dg__pt" x="1680" y="289" data-sid="04-test1-graph:35">practice Q4</text><line class="dg__rule" x1="420" y1="302" x2="1792" y2="302" data-sid="04-test1-graph:36"/></g>
+        <g class="dg__row" style="--i: 2" data-sid="04-test1-graph:37"><text class="dg__q" x="420" y="330" data-sid="04-test1-graph:38">Q16</text><text class="dg__lbl" x="820" y="330" data-sid="04-test1-graph:39">JUnit setUp()</text><line class="dg__wh" pathLength="100" x1="1046" y1="320" x2="1377" y2="320" data-sid="04-test1-graph:40"/><path class="dg__cap" d="M1046 313v14M1377 313v14" data-sid="04-test1-graph:41"/><circle class="dg__dot" cx="1217" cy="320" r="9" data-sid="04-test1-graph:42"/><rect class="dg__pill" x="1580" y="308" width="200" height="30" rx="15" data-sid="04-test1-graph:43"/><text class="dg__pt" x="1680" y="329" data-sid="04-test1-graph:44">practice Q15</text><line class="dg__rule" x1="420" y1="342" x2="1792" y2="342" data-sid="04-test1-graph:45"/></g>
+        <g class="dg__row" style="--i: 3" data-sid="04-test1-graph:46"><text class="dg__q" x="420" y="370" data-sid="04-test1-graph:47">Q3</text><text class="dg__lbl" x="820" y="370" data-sid="04-test1-graph:48">test that remove throws</text><line class="dg__wh" pathLength="100" x1="1175" y1="360" x2="1355" y2="360" data-sid="04-test1-graph:49"/><path class="dg__cap" d="M1175 353v14M1355 353v14" data-sid="04-test1-graph:50"/><circle class="dg__dot" cx="1263" cy="360" r="9" data-sid="04-test1-graph:51"/><rect class="dg__pill" x="1580" y="348" width="200" height="30" rx="15" data-sid="04-test1-graph:52"/><text class="dg__pt" x="1680" y="369" data-sid="04-test1-graph:53">practice Q2</text><line class="dg__rule" x1="420" y1="382" x2="1792" y2="382" data-sid="04-test1-graph:54"/></g>
+        <g class="dg__row" style="--i: 4" data-sid="04-test1-graph:55"><text class="dg__q" x="420" y="410" data-sid="04-test1-graph:56">Q6</text><text class="dg__lbl" x="820" y="410" data-sid="04-test1-graph:57">exceptions</text><line class="dg__wh" pathLength="100" x1="1291" y1="400" x2="1347" y2="400" data-sid="04-test1-graph:58"/><path class="dg__cap" d="M1291 393v14M1347 393v14" data-sid="04-test1-graph:59"/><circle class="dg__dot" cx="1318" cy="400" r="9" data-sid="04-test1-graph:60"/><rect class="dg__pill" x="1580" y="388" width="200" height="30" rx="15" data-sid="04-test1-graph:61"/><text class="dg__pt" x="1680" y="409" data-sid="04-test1-graph:62">practice Q6</text><line class="dg__rule" x1="420" y1="422" x2="1792" y2="422" data-sid="04-test1-graph:63"/></g>
+        <g class="dg__row" style="--i: 5" data-sid="04-test1-graph:64"><text class="dg__q" x="420" y="450" data-sid="04-test1-graph:65">Q15</text><text class="dg__lbl" x="820" y="450" data-sid="04-test1-graph:66">which cases are covered</text><line class="dg__wh" pathLength="100" x1="1317" y1="440" x2="1460" y2="440" data-sid="04-test1-graph:67"/><path class="dg__cap" d="M1317 433v14M1460 433v14" data-sid="04-test1-graph:68"/><circle class="dg__dot" cx="1379" cy="440" r="9" data-sid="04-test1-graph:69"/><rect class="dg__pill" x="1580" y="428" width="200" height="30" rx="15" data-sid="04-test1-graph:70"/><text class="dg__pt" x="1680" y="449" data-sid="04-test1-graph:71">practice Q16</text><line class="dg__rule dg__rule--end" x1="420" y1="462" x2="1792" y2="462" data-sid="04-test1-graph:72"/></g>
+      </g>
+      <!-- step 2: Objects & references -->
+      <g class="dg__grp frag" data-step="2" data-sid="04-test1-graph:73">
+        <text class="dg__topic" x="128" y="502" data-sid="04-test1-graph:74"><tspan x="128" y="502" data-sid="04-test1-graph:75">Objects &amp;</tspan><tspan x="128" y="542" data-sid="04-test1-graph:76">references</tspan></text>
+        <g class="dg__row" style="--i: 0" data-sid="04-test1-graph:77"><text class="dg__q" x="420" y="502" data-sid="04-test1-graph:78">Q2</text><text class="dg__lbl" x="820" y="502" data-sid="04-test1-graph:79">write equals</text><line class="dg__wh" pathLength="100" x1="1087" y1="492" x2="1236" y2="492" data-sid="04-test1-graph:80"/><path class="dg__cap" d="M1087 485v14M1236 485v14" data-sid="04-test1-graph:81"/><circle class="dg__dot" cx="1155" cy="492" r="9" data-sid="04-test1-graph:82"/><rect class="dg__pill" x="1580" y="480" width="200" height="30" rx="15" data-sid="04-test1-graph:83"/><text class="dg__pt" x="1680" y="501" data-sid="04-test1-graph:84">practice Q1</text><line class="dg__rule" x1="420" y1="514" x2="1792" y2="514" data-sid="04-test1-graph:85"/></g>
+        <g class="dg__row" style="--i: 1" data-sid="04-test1-graph:86"><text class="dg__q" x="420" y="542" data-sid="04-test1-graph:87">Q8</text><text class="dg__lbl" x="820" y="542" data-sid="04-test1-graph:88">a reference re-pointed</text><line class="dg__wh" pathLength="100" x1="1152" y1="532" x2="1347" y2="532" data-sid="04-test1-graph:89"/><path class="dg__cap" d="M1152 525v14M1347 525v14" data-sid="04-test1-graph:90"/><circle class="dg__dot" cx="1249" cy="532" r="9" data-sid="04-test1-graph:91"/><rect class="dg__pill" x="1580" y="520" width="200" height="30" rx="15" data-sid="04-test1-graph:92"/><text class="dg__pt" x="1680" y="541" data-sid="04-test1-graph:93">practice Q8</text><line class="dg__rule" x1="420" y1="554" x2="1792" y2="554" data-sid="04-test1-graph:94"/></g>
+        <g class="dg__row" style="--i: 2" data-sid="04-test1-graph:95"><text class="dg__q" x="420" y="582" data-sid="04-test1-graph:96">Q7</text><text class="dg__lbl" x="820" y="582" data-sid="04-test1-graph:97">two names, one object</text><line class="dg__wh" pathLength="100" x1="1368" y1="572" x2="1375" y2="572" data-sid="04-test1-graph:98"/><path class="dg__cap" d="M1368 565v14M1375 565v14" data-sid="04-test1-graph:99"/><circle class="dg__dot" cx="1371" cy="572" r="9" data-sid="04-test1-graph:100"/><rect class="dg__pill" x="1580" y="560" width="200" height="30" rx="15" data-sid="04-test1-graph:101"/><text class="dg__pt" x="1680" y="581" data-sid="04-test1-graph:102">practice Q7</text><line class="dg__rule dg__rule--end" x1="420" y1="594" x2="1792" y2="594" data-sid="04-test1-graph:103"/></g>
+      </g>
+      <!-- step 3: Bags on arrays -->
+      <g class="dg__grp frag" data-step="3" data-sid="04-test1-graph:104">
+        <text class="dg__topic" x="128" y="634" data-sid="04-test1-graph:105">Bags on arrays</text>
+        <g class="dg__row" style="--i: 0" data-sid="04-test1-graph:106"><text class="dg__q" x="420" y="634" data-sid="04-test1-graph:107">Q5</text><text class="dg__lbl" x="820" y="634" data-sid="04-test1-graph:108">bag intersection</text><line class="dg__wh" pathLength="100" x1="1115" y1="624" x2="1201" y2="624" data-sid="04-test1-graph:109"/><path class="dg__cap" d="M1115 617v14M1201 617v14" data-sid="04-test1-graph:110"/><circle class="dg__dot" cx="1156" cy="624" r="9" data-sid="04-test1-graph:111"/><rect class="dg__pill" x="1580" y="612" width="200" height="30" rx="15" data-sid="04-test1-graph:112"/><text class="dg__pt" x="1680" y="633" data-sid="04-test1-graph:113">practice Q5</text><line class="dg__rule" x1="420" y1="646" x2="1792" y2="646" data-sid="04-test1-graph:114"/></g>
+        <g class="dg__row" style="--i: 1" data-sid="04-test1-graph:115"><text class="dg__q" x="420" y="674" data-sid="04-test1-graph:116">Q14</text><text class="dg__lbl" x="820" y="674" data-sid="04-test1-graph:117">array search</text><line class="dg__wh" pathLength="100" x1="1384" y1="664" x2="1447" y2="664" data-sid="04-test1-graph:118"/><path class="dg__cap" d="M1384 657v14M1447 657v14" data-sid="04-test1-graph:119"/><circle class="dg__dot" cx="1413" cy="664" r="9" data-sid="04-test1-graph:120"/><rect class="dg__pill" x="1580" y="652" width="200" height="30" rx="15" data-sid="04-test1-graph:121"/><text class="dg__pt" x="1680" y="673" data-sid="04-test1-graph:122">practice Q14</text><line class="dg__rule dg__rule--end" x1="420" y1="686" x2="1792" y2="686" data-sid="04-test1-graph:123"/></g>
+      </g>
+      <!-- step 4: Linked chains -->
+      <g class="dg__grp frag" data-step="4" data-sid="04-test1-graph:124">
+        <text class="dg__topic" x="128" y="726" data-sid="04-test1-graph:125">Linked chains</text>
+        <g class="dg__row" style="--i: 0" data-sid="04-test1-graph:126"><text class="dg__q" x="420" y="726" data-sid="04-test1-graph:127">Q12</text><text class="dg__lbl" x="820" y="726" data-sid="04-test1-graph:128">chain operations</text><line class="dg__wh" pathLength="100" x1="1168" y1="716" x2="1387" y2="716" data-sid="04-test1-graph:129"/><path class="dg__cap" d="M1168 709v14M1387 709v14" data-sid="04-test1-graph:130"/><circle class="dg__dot" cx="1293" cy="716" r="9" data-sid="04-test1-graph:131"/><rect class="dg__pill" x="1580" y="704" width="200" height="30" rx="15" data-sid="04-test1-graph:132"/><text class="dg__pt" x="1680" y="725" data-sid="04-test1-graph:133">practice Q12</text><line class="dg__rule" x1="420" y1="738" x2="1792" y2="738" data-sid="04-test1-graph:134"/></g>
+        <g class="dg__row" style="--i: 1" data-sid="04-test1-graph:135"><text class="dg__q" x="420" y="766" data-sid="04-test1-graph:136">Q11</text><text class="dg__lbl" x="820" y="766" data-sid="04-test1-graph:137">trace a rewiring</text><line class="dg__wh" pathLength="100" x1="1098" y1="756" x2="1398" y2="756" data-sid="04-test1-graph:138"/><path class="dg__cap" d="M1098 749v14M1398 749v14" data-sid="04-test1-graph:139"/><circle class="dg__dot" cx="1294" cy="756" r="9" data-sid="04-test1-graph:140"/><rect class="dg__pill" x="1580" y="744" width="200" height="30" rx="15" data-sid="04-test1-graph:141"/><text class="dg__pt" x="1680" y="765" data-sid="04-test1-graph:142">practice Q11</text><line class="dg__rule dg__rule--end" x1="420" y1="778" x2="1792" y2="778" data-sid="04-test1-graph:143"/></g>
+      </g>
+      <!-- step 5: Types -->
+      <g class="dg__grp frag" data-step="5" data-sid="04-test1-graph:144">
+        <text class="dg__topic" x="128" y="818" data-sid="04-test1-graph:145">Types</text>
+        <g class="dg__row" style="--i: 0" data-sid="04-test1-graph:146"><text class="dg__q" x="420" y="818" data-sid="04-test1-graph:147">Q13</text><text class="dg__lbl" x="820" y="818" data-sid="04-test1-graph:148">generics</text><line class="dg__wh" pathLength="100" x1="1014" y1="808" x2="1290" y2="808" data-sid="04-test1-graph:149"/><path class="dg__cap" d="M1014 801v14M1290 801v14" data-sid="04-test1-graph:150"/><circle class="dg__dot" cx="1155" cy="808" r="9" data-sid="04-test1-graph:151"/><rect class="dg__pill" x="1580" y="796" width="200" height="30" rx="15" data-sid="04-test1-graph:152"/><text class="dg__pt" x="1680" y="817" data-sid="04-test1-graph:153">practice Q13</text><line class="dg__rule" x1="420" y1="830" x2="1792" y2="830" data-sid="04-test1-graph:154"/></g>
+        <g class="dg__row" style="--i: 1" data-sid="04-test1-graph:155"><text class="dg__q" x="420" y="858" data-sid="04-test1-graph:156">Q10</text><text class="dg__lbl" x="820" y="858" data-sid="04-test1-graph:157">an upcast</text><line class="dg__wh" pathLength="100" x1="1366" y1="848" x2="1423" y2="848" data-sid="04-test1-graph:158"/><path class="dg__cap" d="M1366 841v14M1423 841v14" data-sid="04-test1-graph:159"/><circle class="dg__dot" cx="1396" cy="848" r="9" data-sid="04-test1-graph:160"/><rect class="dg__pill" x="1580" y="836" width="200" height="30" rx="15" data-sid="04-test1-graph:161"/><text class="dg__pt" x="1680" y="857" data-sid="04-test1-graph:162">practice Q10</text><line class="dg__rule" x1="420" y1="870" x2="1792" y2="870" data-sid="04-test1-graph:163"/></g>
+        <g class="dg__row" style="--i: 2" data-sid="04-test1-graph:164"><text class="dg__q" x="420" y="898" data-sid="04-test1-graph:165">Q9</text><text class="dg__lbl" x="820" y="898" data-sid="04-test1-graph:166">UML: super &amp; override</text><line class="dg__wh" pathLength="100" x1="1394" y1="888" x2="1419" y2="888" data-sid="04-test1-graph:167"/><path class="dg__cap" d="M1394 881v14M1419 881v14" data-sid="04-test1-graph:168"/><circle class="dg__dot" cx="1410" cy="888" r="9" data-sid="04-test1-graph:169"/><rect class="dg__pill" x="1580" y="876" width="200" height="30" rx="15" data-sid="04-test1-graph:170"/><text class="dg__pt" x="1680" y="897" data-sid="04-test1-graph:171">practice Q9</text><line class="dg__rule dg__rule--end" x1="420" y1="910" x2="1792" y2="910" data-sid="04-test1-graph:172"/></g>
+      </g>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="04-test1-graph:173"></div>
+  <aside class="notes" data-sid="04-test1-graph:174">Test 1 by topic: each row is one question, the dot is its average score across the class, and the whisker runs from the lowest-scoring to the highest-scoring variant of that question, so a long whisker means the draw mattered. The pill on the right is the question in the Test #1 Practice exam on PrairieLearn (Assessments, Practice Exams) that drills the same type; the numbers differ from the test's because the practice exam is in its own order. Everyone missed different questions: open your own Test 1 on Canvas, find the rows you lost points on, and practice those pools. The practice exam is open all semester and every attempt is a fresh draw of each pool. Step 1, testing and exceptions: testing an equals method averaged 45%, counting test cases 51%, JUnit setUp 60% with variants from 31 to 86, testing a remove that throws 67%, exceptions 76%, picking the covering test 87%. Step 2, objects and references: writing equals 49%, a reference re-pointed through an array slot 65%, two names for one object 85%. Step 3, bags on arrays: the intersection loop 49%, array search 92%. Step 4, linked chains: both about 72%, with variants from 40 to 90. Step 5, types: generics 49% with variants from 26 to 72, an upcast 89%, UML 92%. Next: peer instruction.</aside>
+
+  <style data-sid="04-test1-graph:175">
+    /* Slide-local: a dot-and-whisker chart laid out as a table. Mono at the
+       tag size for the axis and the column heads, mono at the micro size
+       for the question numbers, the body face at the micro size for the row
+       names (right-aligned against the plot), display maroon for the topic
+       names. Ink dots with muted whiskers; a hairline under every row; the
+       practice pills in the tool blue. No good/bad colouring. Motion:
+       whiskers Create (dashoffset), dots and pills GrowFromCenter, text
+       FadeIn, staggered by --i within a topic. Used by this slide only, all
+       values from tokens. */
+    #slide-04 .slide__body { position: relative; }
+    #slide-04 .dg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    #slide-04 .dg__head { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: start; }
+    #slide-04 .dg__head--end { text-anchor: end; fill: var(--stone); }
+    #slide-04 .dg__head--pl { text-anchor: middle; fill: var(--accent-2); }
+    #slide-04 .dg__axis, #slide-04 .dg__tick { fill: none; stroke: var(--stone); stroke-width: 3; stroke-linecap: round; }
+    #slide-04 .dg__tk { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle; }
+
+    #slide-04 .dg__topic { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: start; transition: opacity .3s ease; }
+    #slide-04 .dg__q { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: start; transition: opacity .3s ease; }
+    #slide-04 .dg__lbl { font-family: var(--font-body); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; transition: opacity .3s ease; }
+    #slide-04 .dg__rule { stroke: var(--stone); stroke-width: 1.5; opacity: .4; transition: opacity .3s ease; }
+    #slide-04 .dg__rule--end { stroke-width: 2.5; opacity: .9; }   /* the last row of a topic: the rule that closes the group */
+    #slide-04 .dg__dot { fill: var(--fg-0); }
+    #slide-04 .dg__wh { stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; opacity: .8; }
+    #slide-04 .dg__cap { fill: none; stroke: var(--fg-1); stroke-width: 3; stroke-linecap: round; opacity: .8; }
+    #slide-04 .dg__pill { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 2.5; }
+    #slide-04 .dg__pt { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--accent-2); text-anchor: middle; }
+
+    /* a topic group: the group itself never hides (its parts carry the motion) */
+    #slide-04 .dg__grp { transition: none; }
+    #slide-04 .frag.dg__grp.is-pending { opacity: 1; }
+    #slide-04 .dg__wh { stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); transition-delay: calc(var(--i) * .1s); }
+    #slide-04 .frag.dg__grp.is-pending .dg__wh { stroke-dashoffset: 100; transition-delay: 0s; }
+    #slide-04 .dg__cap { transition: opacity .2s ease; transition-delay: calc(.4s + var(--i) * .1s); }
+    #slide-04 .frag.dg__grp.is-pending .dg__cap { opacity: 0; transition-delay: 0s; }
+    #slide-04 .dg__dot, #slide-04 .dg__pill, #slide-04 .dg__pt { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .2s ease, transform .45s var(--ease-smooth); transition-delay: calc(.3s + var(--i) * .1s); }
+    #slide-04 .frag.dg__grp.is-pending .dg__dot, #slide-04 .frag.dg__grp.is-pending .dg__pill, #slide-04 .frag.dg__grp.is-pending .dg__pt { opacity: 0; transform: scale(0.3); transition-delay: 0s; }
+    #slide-04 .dg__lbl, #slide-04 .dg__q, #slide-04 .dg__rule { transition-delay: calc(.15s + var(--i) * .1s); }
+    #slide-04 .frag.dg__grp.is-pending .dg__lbl, #slide-04 .frag.dg__grp.is-pending .dg__q, #slide-04 .frag.dg__grp.is-pending .dg__topic { opacity: 0; transition-delay: 0s; }
+    #slide-04 .frag.dg__grp.is-pending .dg__rule { opacity: 0; transition-delay: 0s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .dg__wh, #slide-04 .dg__cap, #slide-04 .dg__dot, #slide-04 .dg__pill, #slide-04 .dg__pt, #slide-04 .dg__lbl, #slide-04 .dg__q, #slide-04 .dg__rule, #slide-04 .dg__topic {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>

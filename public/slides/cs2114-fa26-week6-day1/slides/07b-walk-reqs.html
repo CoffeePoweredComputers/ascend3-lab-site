@@ -1,0 +1,95 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-reqs:1">
+  <header class="slide__head" data-sid="07b-walk-reqs:2">
+    <p class="slide__kicker" data-sid="07b-walk-reqs:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-reqs:4">What it does, and how well it does it</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-reqs:5">Two dashed bins, labelled what the system does on the left and how well it does it on the right, with the five shall statements as cards in a column between them. One card per press slides into a bin and picks up a tag: A, available 24 hours, to the right, availability; B, AES-256 passwords, right, security; C, 95 percent of searches within 2 seconds, right, performance; D, apply a discount code at checkout, to the left, behaviour; E, 10,000 concurrent users, right, capacity. Then a caption: non-functional requirements are where values get written down, who the system protects, who it serves; and a verdict strip with D right and A, B, C, E struck through.</p>
+
+  <!-- The answer as a sort: the five statements start as a list between two
+       bins and each slides into its bin on its press (a real move, the card
+       travels), and a stone tag naming the kind of requirement it is lands
+       beside the bin as it arrives. Only D goes left: it says what the system does; the other four
+       say how well (available, secure, fast, big). The caption after the
+       sort is the bridge to Part 3: the right-hand bin is where a system's
+       values get written down as "shall".
+       steps 1–5: A, B, C, D, E move, in option order.
+       step 6: the caption and the verdict. viewBox = the body's rect under
+       the warmup head, 576 tall; the verdict strip sits under the scene. -->
+  <div class="slide__body rq" data-sid="07b-walk-reqs:6">
+    <svg class="rq__fig" viewBox="128 274 1664 570" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Five requirement cards sorted into two bins, what the system does and how well it does it" data-sid="07b-walk-reqs:7">
+      <text class="rq__head" x="344" y="292" data-sid="07b-walk-reqs:8">what the system does</text>
+      <text class="rq__head" x="1576" y="292" data-sid="07b-walk-reqs:9">how well it does it</text>
+      <rect class="rq__bin" x="128" y="304" width="432" height="492" rx="14" data-sid="07b-walk-reqs:10"/>
+      <rect class="rq__bin" x="1360" y="304" width="432" height="492" rx="14" data-sid="07b-walk-reqs:11"/>
+      <g class="rq__card frag" data-step="1" style="--dx: 744px; --dy: 0px" data-sid="07b-walk-reqs:12">
+        <rect x="616" y="316" width="432" height="90" rx="10" data-sid="07b-walk-reqs:13"/>
+        <text class="rq__key" x="628" y="346" data-sid="07b-walk-reqs:14">A</text>
+        <text class="rq__txt" x="656" y="346" data-sid="07b-walk-reqs:15"><tspan x="656" y="346" data-sid="07b-walk-reqs:16">The system shall be available</tspan><tspan x="656" y="372" data-sid="07b-walk-reqs:17">to users 24 hours a day,</tspan><tspan x="656" y="398" data-sid="07b-walk-reqs:18">7 days a week.</tspan></text>
+        <text class="rq__tag" x="596" y="372" data-sid="07b-walk-reqs:19">availability</text>
+      </g>
+      <g class="rq__card frag" data-step="2" style="--dx: 744px; --dy: 0px" data-sid="07b-walk-reqs:20">
+        <rect x="616" y="412" width="432" height="90" rx="10" data-sid="07b-walk-reqs:21"/>
+        <text class="rq__key" x="628" y="442" data-sid="07b-walk-reqs:22">B</text>
+        <text class="rq__txt" x="656" y="442" data-sid="07b-walk-reqs:23"><tspan x="656" y="442" data-sid="07b-walk-reqs:24">The system shall use AES-256</tspan><tspan x="656" y="468" data-sid="07b-walk-reqs:25">encryption for all stored</tspan><tspan x="656" y="494" data-sid="07b-walk-reqs:26">customer passwords.</tspan></text>
+        <text class="rq__tag" x="596" y="468" data-sid="07b-walk-reqs:27">security</text>
+      </g>
+      <g class="rq__card frag" data-step="3" style="--dx: 744px; --dy: 0px" data-sid="07b-walk-reqs:28">
+        <rect x="616" y="508" width="432" height="90" rx="10" data-sid="07b-walk-reqs:29"/>
+        <text class="rq__key" x="628" y="538" data-sid="07b-walk-reqs:30">C</text>
+        <text class="rq__txt" x="656" y="538" data-sid="07b-walk-reqs:31"><tspan x="656" y="538" data-sid="07b-walk-reqs:32">The system shall process 95%</tspan><tspan x="656" y="564" data-sid="07b-walk-reqs:33">of product search queries</tspan><tspan x="656" y="590" data-sid="07b-walk-reqs:34">within 2 seconds.</tspan></text>
+        <text class="rq__tag" x="596" y="564" data-sid="07b-walk-reqs:35">performance</text>
+      </g>
+      <g class="rq__card frag" data-step="4" style="--dx: -488px; --dy: -192px" data-sid="07b-walk-reqs:36">
+        <rect x="616" y="604" width="432" height="90" rx="10" data-sid="07b-walk-reqs:37"/>
+        <text class="rq__key" x="628" y="634" data-sid="07b-walk-reqs:38">D</text>
+        <text class="rq__txt" x="656" y="634" data-sid="07b-walk-reqs:39"><tspan x="656" y="634" data-sid="07b-walk-reqs:40">The system shall allow users</tspan><tspan x="656" y="660" data-sid="07b-walk-reqs:41">to apply a discount code</tspan><tspan x="656" y="686" data-sid="07b-walk-reqs:42">during checkout.</tspan></text>
+        <text class="rq__tag rq__tag--left" x="1068" y="660" data-sid="07b-walk-reqs:43">behaviour</text>
+      </g>
+      <g class="rq__card frag" data-step="5" style="--dx: 744px; --dy: -96px" data-sid="07b-walk-reqs:44">
+        <rect x="616" y="700" width="432" height="90" rx="10" data-sid="07b-walk-reqs:45"/>
+        <text class="rq__key" x="628" y="730" data-sid="07b-walk-reqs:46">E</text>
+        <text class="rq__txt" x="656" y="730" data-sid="07b-walk-reqs:47"><tspan x="656" y="730" data-sid="07b-walk-reqs:48">The system shall support a</tspan><tspan x="656" y="756" data-sid="07b-walk-reqs:49">peak load of 10,000 concurrent</tspan><tspan x="656" y="782" data-sid="07b-walk-reqs:50">users during flash sales.</tspan></text>
+        <text class="rq__tag" x="596" y="756" data-sid="07b-walk-reqs:51">capacity</text>
+      </g>
+      <text class="rq__cap frag" data-step="6" data-anim="fade" x="960" y="832" data-sid="07b-walk-reqs:52">Non-functional requirements are where values get written down: who the system protects, who it serves.</text>
+    </svg>
+    <ol class="verdict frag" data-step="6" data-sid="07b-walk-reqs:53">
+      <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-reqs:54"><span class="verdict__txt" data-sid="07b-walk-reqs:55">D &middot; apply a discount code</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-reqs:56"><span class="verdict__txt" data-sid="07b-walk-reqs:57">A &middot; available 24/7</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07b-walk-reqs:58"><span class="verdict__txt" data-sid="07b-walk-reqs:59">B &middot; AES-256 passwords</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07b-walk-reqs:60"><span class="verdict__txt" data-sid="07b-walk-reqs:61">C &middot; 95% within 2 s</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="07b-walk-reqs:62"><span class="verdict__txt" data-sid="07b-walk-reqs:63">E &middot; 10,000 users</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-reqs:64"></div>
+  <aside class="notes" data-sid="07b-walk-reqs:65">Answer: D. Two bins: what the system does, and how well it does it. Step 1: A, available 24/7 &mdash; that is not a thing it does, it is a promise about how well: availability, right bin. Step 2: B, AES-256 for passwords &mdash; a promise about how safely: security, right. Step 3: C, 95% of searches within 2 seconds &mdash; how fast: performance, right. Step 4: D, apply a discount code at checkout &mdash; something a user can do and the system does; a functional requirement, the only one, left bin. Step 5: E, 10,000 concurrent users &mdash; how big: capacity, right. Step 6: look at the right-hand bin. Availability, security, performance, capacity: none of them is a feature, and every one of them is a value written down as "shall" &mdash; who the system protects, who it serves, how it is allowed to fail. The functional bin says what you build; the non-functional bin says what kind of system you are building. Part 3 gives you words for arguing about those. Next: ethics, part two.</aside>
+
+  <style data-sid="07b-walk-reqs:66">
+    /* Slide-local: two dashed stone bins and five cards in canvas px. A card
+       is a frag that never hides: pending it sits in the middle column, and
+       on its step it translates into its bin (the move is the sort) and its
+       stone tag fades in as it lands. The letter takes the heading maroon;
+       the card text is mono at the tag size, three lines. The caption and the verdict land together on the last press. Text at 21 px runs 30
+       characters a line inside a 432 px card. Used by this slide only, all
+       values from tokens. */
+    #slide-07b .rq { display: grid; grid-template-rows: 570px auto; row-gap: var(--s-3); align-content: start; }
+    #slide-07b .rq__fig { display: block; width: 100%; height: 570px; overflow: visible; }
+    #slide-07b .rq__head { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-07b .rq__bin { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 14 10; }
+    #slide-07b .rq__card rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-07b .rq__key { font-family: var(--font-display); font-size: var(--t-micro); font-weight: 700; fill: var(--accent-1); text-anchor: start; }
+    #slide-07b .rq__txt { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-0); text-anchor: start; }
+    #slide-07b .rq__tag { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: end; opacity: 0; transition: opacity .3s ease; }   /* lands just outside the bin, beside its card */
+    #slide-07b .rq__tag--left { text-anchor: start; }
+    #slide-07b .rq__card { transition: transform .6s var(--ease-smooth); }
+    #slide-07b .frag.rq__card.is-pending { opacity: 1; }
+    #slide-07b .frag.rq__card.is-current, #slide-07b .frag.rq__card.is-past { transform: translate(var(--dx), var(--dy)); }
+    #slide-07b .frag.rq__card.is-current .rq__tag, #slide-07b .frag.rq__card.is-past .rq__tag { opacity: 1; transition-delay: .55s; }
+    #slide-07b .rq__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .rq__card, #slide-07b .rq__tag, #slide-07b .rq__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,125 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-store:1">
+  <header class="slide__head" data-sid="06b-walk-store:2">
+    <p class="slide__kicker" data-sid="06b-walk-store:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-store:4">Shared fields move up; each subclass keeps its own</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-store:5">A class diagram that builds. First, three class boxes in a row, Shoe, Shirt and WaterBottle, each listing its fields, and each starting with productID and price. Then a Product box grows in above them, the productID and price lines travel up out of all three boxes into it, the three boxes shrink to their own fields, and generalisation arrows draw from the three up to Product. Then a two-line caption tests the other options: C fails the is-a test, a Shoe is not a Shirt; B writes the shared fields twice; D three times; E, an interface promises methods and holds no fields. Last, a verdict strip: A is right, B to E struck through.</p>
+
+  <!-- The answer walked as a picture, in the chain-scene grammar: UML boxes
+       (name, a rule, the field list) in canvas px. The move is the argument:
+       the two fields every class repeats travel up into one Product box (a
+       real move, TransformFromCopy: the three copies converge on one line),
+       the subclass boxes shrink to what is theirs, and the generalisation
+       arrows draw on. The wrong options are dismissed in one caption each:
+       C by the is-a test, B and D by counting how many times the shared
+       fields get written, E because an interface holds no fields.
+       step 1: the three classes, each repeating productID and price.
+       step 2: Product grows in; the shared lines move up; the boxes shrink;
+               the arrows draw on.
+       step 3: the two-line caption on B, C, D and E.
+       step 4: the verdict. viewBox = the body's rect under the warmup head,
+       560 tall; the verdict strip sits under the scene. -->
+  <div class="slide__body ws" data-sid="06b-walk-store:6">
+    <svg class="ws__fig" viewBox="128 274 1664 560" preserveAspectRatio="xMidYMax meet" role="img"
+         aria-label="Three class boxes whose shared fields move up into a new Product superclass" data-sid="06b-walk-store:7">
+      <!-- step 2: the superclass, drawn before the arrows so they end on it -->
+      <g class="ws__box ws__prod frag" data-step="2" data-sid="06b-walk-store:8">
+        <rect x="770" y="282" width="380" height="144" rx="8" data-sid="06b-walk-store:9"/>
+        <path class="ws__line" d="M770 338H1150" data-sid="06b-walk-store:10"/>
+        <text class="ws__name" x="960" y="320" data-sid="06b-walk-store:11">Product</text>
+      </g>
+      <path class="ws__arr frag" data-step="2" pathLength="100" d="M470 500V462H1450V500M960 462V444" data-sid="06b-walk-store:12"/>
+      <path class="ws__tri frag" data-step="2" data-anim="fade" d="M960 426L946 444H974Z" data-sid="06b-walk-store:13"/>
+      <!-- step 1: the three classes -->
+      <g class="ws__box ws__sub frag" data-step="1" style="--dx: 490px; --h2: 180px" data-sid="06b-walk-store:14">
+        <rect class="ws__rect" x="280" y="500" width="380" height="252" rx="8" data-sid="06b-walk-store:15"/>
+        <path class="ws__line" d="M280 556H660" data-sid="06b-walk-store:16"/>
+        <text class="ws__name" x="470" y="538" data-sid="06b-walk-store:17">Shoe</text>
+        <text class="ws__fld ws__fs" x="300" y="592" data-sid="06b-walk-store:18">productID</text>
+        <text class="ws__fld ws__fs" x="300" y="628" data-sid="06b-walk-store:19">price</text>
+        <text class="ws__fld ws__fk" x="300" y="664" data-sid="06b-walk-store:20">size</text>
+        <text class="ws__fld ws__fk" x="300" y="700" data-sid="06b-walk-store:21">brand</text>
+        <text class="ws__fld ws__fk" x="300" y="736" data-sid="06b-walk-store:22">tractionType</text>
+      </g>
+      <g class="ws__box ws__sub frag" data-step="1" style="--dx: 0px; --h2: 180px" data-sid="06b-walk-store:23">
+        <rect class="ws__rect" x="770" y="500" width="380" height="252" rx="8" data-sid="06b-walk-store:24"/>
+        <path class="ws__line" d="M770 556H1150" data-sid="06b-walk-store:25"/>
+        <text class="ws__name" x="960" y="538" data-sid="06b-walk-store:26">Shirt</text>
+        <text class="ws__fld ws__fs" x="790" y="592" data-sid="06b-walk-store:27">productID</text>
+        <text class="ws__fld ws__fs" x="790" y="628" data-sid="06b-walk-store:28">price</text>
+        <text class="ws__fld ws__fk" x="790" y="664" data-sid="06b-walk-store:29">size</text>
+        <text class="ws__fld ws__fk" x="790" y="700" data-sid="06b-walk-store:30">sleeveLength</text>
+        <text class="ws__fld ws__fk" x="790" y="736" data-sid="06b-walk-store:31">material</text>
+      </g>
+      <g class="ws__box ws__sub frag" data-step="1" style="--dx: -490px; --h2: 144px" data-sid="06b-walk-store:32">
+        <rect class="ws__rect" x="1260" y="500" width="380" height="216" rx="8" data-sid="06b-walk-store:33"/>
+        <path class="ws__line" d="M1260 556H1640" data-sid="06b-walk-store:34"/>
+        <text class="ws__name" x="1450" y="538" data-sid="06b-walk-store:35">WaterBottle</text>
+        <text class="ws__fld ws__fs" x="1280" y="592" data-sid="06b-walk-store:36">productID</text>
+        <text class="ws__fld ws__fs" x="1280" y="628" data-sid="06b-walk-store:37">price</text>
+        <text class="ws__fld ws__fk" x="1280" y="664" data-sid="06b-walk-store:38">volume</text>
+        <text class="ws__fld ws__fk" x="1280" y="700" data-sid="06b-walk-store:39">insulationType</text>
+      </g>
+      <!-- captions: one beat each -->
+      <text class="ws__cap frag" data-step="1" x="960" y="806" data-sid="06b-walk-store:40">All three classes declare productID and price.</text>
+      <text class="ws__cap frag" data-step="2" x="960" y="806" data-sid="06b-walk-store:41">The two shared fields move up into Product; each subclass keeps only its own.</text>
+      <text class="ws__cap frag" data-step="3" x="960" y="806" data-sid="06b-walk-store:42"><tspan x="960" y="786" data-sid="06b-walk-store:43">C fails the is-a test: a Shoe is not a Shirt. B writes the shared fields twice.</tspan><tspan x="960" y="826" data-sid="06b-walk-store:44">D writes them three times. E: an interface promises methods; it holds no fields.</tspan></text>
+    </svg>
+    <ol class="verdict frag" data-step="4" data-sid="06b-walk-store:45">
+      <li class="verdict__opt verdict__opt--right" data-sid="06b-walk-store:46"><span class="verdict__txt" data-sid="06b-walk-store:47">A &middot; one Product superclass</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06b-walk-store:48"><span class="verdict__txt" data-sid="06b-walk-store:49">B &middot; Clothing beside Product</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06b-walk-store:50"><span class="verdict__txt" data-sid="06b-walk-store:51">C &middot; Shoe extends Shirt</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06b-walk-store:52"><span class="verdict__txt" data-sid="06b-walk-store:53">D &middot; no inheritance</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="06b-walk-store:54"><span class="verdict__txt" data-sid="06b-walk-store:55">E &middot; interface only</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-store:56"></div>
+  <aside class="notes" data-sid="06b-walk-store:57">Answer: A. Step 1: write the three classes as they are described and look at the top of each field list &mdash; productID and price, three times. Step 2: that repetition is the signal. A field every class repeats belongs one level up: Product holds productID and price, the three become subclasses, and each keeps only what is its own. Shoe still has size, brand and tractionType; it has not lost anything; it has stopped repeating two fields. Step 3: the others. C: inheritance means is-a, and a Shoe is not a Shirt, even if both have a size. B: Clothing is a fine idea, but the option puts it beside Product, not under it, so productID and price get written in Clothing and again in Product. D writes them three times. E: an interface can promise getPrice(), but it cannot hold the price; every class would still declare the field. Step 4: A. The takeaway: a hierarchy is a design decision you can defend with two tests &mdash; is-a, and where each field is written. Next: what counts as a requirement.</aside>
+
+  <style data-sid="06b-walk-store:58">
+    /* Slide-local: UML boxes in canvas px — names in display, fields in mono
+       at the micro size, the box edge in neutral ink, the superclass and the
+       generalisation arrow in the tool blue (a wire). The move: the shared
+       field lines translate up into Product (the three copies converge on one
+       line) while the kept lines close the gap and the rect's height shrinks
+       to match; the arrows Create; the triangle fades in after them. Captions
+       one sentence at a time under the scene; the verdict strip below the
+       SVG. Used by this slide only, all values from tokens. */
+    #slide-06b .ws { display: grid; grid-template-rows: 560px auto; row-gap: var(--s-3); align-content: start; }
+    #slide-06b .ws__fig { display: block; width: 100%; height: 560px; overflow: visible; }
+    #slide-06b .ws__box rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-06b .ws__line { fill: none; stroke: var(--fg-1); stroke-width: 3; }
+    #slide-06b .ws__name { font-family: var(--font-display); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-06b .ws__fld { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: start; }
+    #slide-06b .ws__prod rect { stroke: var(--accent-2); }
+    #slide-06b .ws__prod .ws__line { stroke: var(--accent-2); }
+    #slide-06b .ws__prod .ws__name { fill: var(--accent-2); }
+    #slide-06b .ws__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-06b .ws__tri { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; stroke-linejoin: round; }
+    #slide-06b .ws__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-06b .frag.ws__cap.is-current { transition-delay: .9s; }
+    #slide-06b .frag.ws__cap.is-past { opacity: 0; }
+
+    /* the three classes fade in as a group; the superclass grows from centre */
+    #slide-06b .ws__sub { transition: opacity .3s ease; }
+    #slide-06b .ws__prod { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06b .frag.ws__prod.is-pending { opacity: 0; transform: scale(0.4); }
+    /* the move: once Product is on screen, the shared lines travel up into it, the kept lines close up, the box shrinks */
+    #slide-06b .ws__fs, #slide-06b .ws__fk { transition: transform .7s var(--ease-smooth); transition-delay: .3s; }
+    #slide-06b .ws__rect { transition: height .7s var(--ease-smooth); transition-delay: .3s; }
+    #slide-06b .ws__fig:has(.ws__prod:not(.is-pending)) .ws__fs { transform: translate(var(--dx), -218px); }
+    #slide-06b .ws__fig:has(.ws__prod:not(.is-pending)) .ws__fk { transform: translateY(-72px); }
+    #slide-06b .ws__fig:has(.ws__prod:not(.is-pending)) .ws__rect { height: var(--h2); }
+    /* the arrows draw on after the fields have arrived; the triangle after the arrows */
+    #slide-06b .ws__arr { stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth); transition-delay: 1s; }
+    #slide-06b .frag.ws__arr.is-pending { opacity: 1; stroke-dashoffset: 100; transition-delay: 0s; }
+    #slide-06b .ws__tri { transition: opacity .2s ease; }
+    #slide-06b .frag.ws__tri.is-current, #slide-06b .frag.ws__tri.is-past { transition-delay: 1.5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .ws__sub, #slide-06b .ws__prod, #slide-06b .ws__fs, #slide-06b .ws__fk, #slide-06b .ws__rect, #slide-06b .ws__arr, #slide-06b .ws__tri, #slide-06b .ws__cap {
+        transition-duration: 0s !important; transition-delay: 0s !important;
+      }
+    }
+  </style>
+</section>
