@@ -12,7 +12,8 @@ import { participantRoutes } from './routes/participant.js';
 
 export function buildApp(ctx: AppContext): Hono<AppEnv> {
   const { env, registry, pools, log } = ctx;
-  const app = new Hono<AppEnv>().basePath(env.basePath || '/');
+  // strict: false so /survey/ (nginx's redirect target and the brand link) hits the page route, not serveStatic's raw index.html.
+  const app = new Hono<AppEnv>({ strict: false }).basePath(env.basePath || '/');
 
   app.use('*', securityHeaders());
   // Participant bodies are one answer (≤ 20 000 chars). Admin bodies carry a whole
