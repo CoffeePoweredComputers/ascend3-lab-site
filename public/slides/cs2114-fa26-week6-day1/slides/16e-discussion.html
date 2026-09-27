@@ -3,85 +3,144 @@
     <p class="slide__kicker" data-sid="16e-discussion:3">SMALL GROUPS &middot; TEN MINUTES</p>
     <h2 data-sid="16e-discussion:4">Your concern, as a question</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="16e-discussion:5">On the left, three numbered steps. One, name something going on in technology and AI that concerns you, with starter chips: AI writing your code, feeds and attention, training data and who labels it, face recognition, a self-driving car&rsquo;s choices. Two, put it as a question using one of the four words, each with its question in plain speech: outcomes, who ends up better off, who ends up worse off, and is the total worth it; character, what kind of person, or company, does building this make you; duty, would it still be okay if everyone did this, is anyone being used without being asked; moral distance, who never meets the people this lands on, and so never feels it was their decision. Three, or ask about the words themselves, and how they relate to you, a future technologist. On the right, a clock ring reading ten minutes that starts on the slide&rsquo;s one press, and under it a white plate with a QR code and a link to the form where everyone posts their questions, as many as they like.</p>
+  <p class="sr-only slide__desc" data-sid="16e-discussion:5">Three numbered steps on the left. One, name something in technology or AI that concerns you, with starter chips: AI writing your code, feeds and attention, face recognition, who labels the training data, a self-driving car&rsquo;s choices. Two, put it as a question using one of the four words below. Three, or ask what a word means for you, a future technologist, with example chips: utilitarianism, virtue, persons as ends, consent, many hands. On the right, a white plate with a QR code and a link to the form where everyone posts their questions, as many as they like. Across the bottom, the four words, each led by its framework and followed by its question in plain speech: utilitarianism, outcomes, who ends up better off, who worse off, is it worth it; virtue ethics, character, what kind of person, or company, does this make you; Kantian ethics, duty, what if everyone did it, is anyone used without their say; moral distance, who never meets the people this lands on. A clock ring reading ten minutes sits in the top right corner and starts on the slide&rsquo;s one press.</p>
 
   <!-- The discussion, restructured on the instructor's brief (2026-09-26):
        name a concern about technology and AI, put it as a question in the
        keywords just learned, or ask about the terms themselves and how they
-       relate to you as a future technologist. Three moves on the left with
-       starter chips (concrete, so a stuck group has somewhere to begin) and
-       the four words each with its question written the way a novice would
-       ask it (review 2026-09-27: the chips were too short, and "who is in the
-       sum" summarised nothing), the same questions as on the lens slides;
-       on the right the deck's
-       timer ring at ten minutes over the form plate (the deck's .scan card:
-       QR + short link). The form URL is not known yet: the QR is an image
-       placeholder and the link an orange placeholder; when the URL arrives,
-       run qrencode -o assets/w6d1-form-qr.png -s 8 -m 2 "<url>", swap the
+       relate to you as a future technologist.
+       Review 2026-09-27 (second pass): every size went up one token step
+       (steps at --t-small, chips at --t-micro, the four words and their
+       questions at --t-small), and step 3 got example words to ask about,
+       all of them terms from the lens slides (16b-16d, 15). To make room:
+       the clock is pinned in the top-right corner like the vote slides, the
+       form plate keeps the right column, and the four words became a
+       full-width row under the steps; each question is its lead sentence,
+       and each word is led by its framework as a muted mono label (the
+       instructor, 2026-09-27), moral distance having none.
+       One element per line so the file can be edited by hand.
+       The form URL is not known yet: the QR is an image placeholder and the
+       link an orange placeholder; when the URL arrives, run
+       qrencode -o assets/w6d1-form-qr.png -s 8 -m 2 "<url>", swap the
        placeholder div for an img of that file, and put the short link in
        .scan__link. One press starts the clock; timer.js resets it when the
        slide is left, which the notes say out loud. -->
+
+  <!-- the ten-minute clock: the deck's timer ring, pinned top right -->
+  <div class="timer frag" data-step="1" data-timer="600" data-state="idle" role="timer" aria-label="Ten-minute discussion timer; it starts on the slide's step" data-sid="16e-discussion:25">
+    <svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="16e-discussion:26">
+      <circle class="timer__track" cx="75" cy="75" r="62" data-sid="16e-discussion:27"/>
+      <g class="timer__ticks" data-sid="16e-discussion:28">
+        <line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="16e-discussion:29"/>
+        <line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="16e-discussion:30"/>
+        <line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="16e-discussion:31"/>
+        <line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="16e-discussion:32"/>
+        <line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="16e-discussion:33"/>
+      </g>
+      <circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="16e-discussion:34"/>
+      <g class="timer__hand" data-sid="16e-discussion:35">
+        <circle class="timer__dot" cx="75" cy="13" r="7" data-sid="16e-discussion:36"/>
+      </g>
+      <text class="timer__time" x="75" y="88" data-sid="16e-discussion:37">10:00</text>
+    </svg>
+  </div>
+
   <div class="slide__body dc" data-sid="16e-discussion:6">
+
+    <!-- left: the three moves -->
     <div class="dc__left" data-sid="16e-discussion:7">
       <ol class="steps dc__steps" data-sid="16e-discussion:8">
-        <li data-sid="16e-discussion:9">Name something going on in technology and AI that concerns you.
-          <ul class="chips dc__chips dc__chips--start" data-sid="16e-discussion:10"><li data-sid="16e-discussion:11">AI writing your code</li><li data-sid="16e-discussion:12">feeds and attention</li><li data-sid="16e-discussion:13">training data, and who labels it</li><li data-sid="16e-discussion:14">face recognition</li><li data-sid="16e-discussion:15">a self-driving car&rsquo;s choices</li></ul>
+
+        <li data-sid="16e-discussion:9">Name something in technology or AI that concerns you.
+          <ul class="chips dc__chips" data-sid="16e-discussion:10">
+            <li data-sid="16e-discussion:11">AI writing your code</li>
+            <li data-sid="16e-discussion:12">feeds and attention</li>
+            <li data-sid="16e-discussion:14">face recognition</li>
+            <li data-sid="16e-discussion:13">who labels the training data</li>
+            <li data-sid="16e-discussion:15">a self-driving car&rsquo;s choices</li>
+          </ul>
         </li>
-        <li data-sid="16e-discussion:16">Put it as a question, using one of the four words.
-          <dl class="dc__keys" data-sid="16e-discussion:17">
-            <dt class="dc__k1" data-sid="16e-discussion:18">outcomes</dt><dd class="dc__k1" data-sid="16e-discussion:45">Who ends up better off, who ends up worse off, and is the total worth it?</dd>
-            <dt class="dc__k2" data-sid="16e-discussion:19">character</dt><dd class="dc__k2" data-sid="16e-discussion:46">What kind of person, or company, does building this make you?</dd>
-            <dt class="dc__k3" data-sid="16e-discussion:20">duty</dt><dd class="dc__k3" data-sid="16e-discussion:47">Would it still be okay if everyone did this? Is anyone being used without being asked?</dd>
-            <dt class="dc__k4" data-sid="16e-discussion:21">moral distance</dt><dd class="dc__k4" data-sid="16e-discussion:48">Who never meets the people this lands on, and so never feels it was their decision?</dd>
-          </dl>
+
+        <li data-sid="16e-discussion:16">Put it as a question, using one of the four words below.</li>
+
+        <li data-sid="16e-discussion:22">Or ask what a word means for <em data-sid="16e-discussion:23">you</em>, a future technologist.
+          <ul class="chips dc__chips" data-sid="16e-discussion:49">
+            <li data-sid="16e-discussion:50">utilitarianism</li>
+            <li data-sid="16e-discussion:51">virtue</li>
+            <li data-sid="16e-discussion:52">persons as ends</li>
+            <li data-sid="16e-discussion:53">consent</li>
+            <li data-sid="16e-discussion:54">many hands</li>
+          </ul>
         </li>
-        <li data-sid="16e-discussion:22">Or ask about the words themselves, and how they relate to <em data-sid="16e-discussion:23">you</em>, a future technologist.</li>
+
       </ol>
     </div>
+
+    <!-- right: the form plate (QR + link) -->
     <div class="dc__right" data-sid="16e-discussion:24">
-      <div class="timer frag" data-step="1" data-timer="600" data-state="idle" role="timer" aria-label="Ten-minute discussion timer; it starts on the slide's step" data-sid="16e-discussion:25"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="16e-discussion:26"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="16e-discussion:27"/><g class="timer__ticks" data-sid="16e-discussion:28"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="16e-discussion:29"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="16e-discussion:30"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="16e-discussion:31"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="16e-discussion:32"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="16e-discussion:33"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="16e-discussion:34"/><g class="timer__hand" data-sid="16e-discussion:35"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="16e-discussion:36"/></g><text class="timer__time" x="75" y="88" data-sid="16e-discussion:37">10:00</text></svg></div>
       <div class="scan dc__scan" data-sid="16e-discussion:38">
         <div class="img-placeholder dc__qr" data-src="assets/w6d1-form-qr.png" data-sid="16e-discussion:39">QR: the form</div>
         <p class="scan__link dc__ph" data-sid="16e-discussion:40">[form link]</p>
         <p class="scan__hint" data-sid="16e-discussion:41">post your questions, as many as you like</p>
       </div>
     </div>
+
+    <!-- bottom, full width: the four words, each with its question -->
+    <dl class="dc__keys" data-sid="16e-discussion:17">
+      <dt class="dc__k1" data-sid="16e-discussion:18"><span class="dc__fw">Utilitarianism</span> outcomes</dt>
+      <dd class="dc__k1" data-sid="16e-discussion:45">Who ends up better off, who worse off, is it worth it?</dd>
+      <dt class="dc__k2" data-sid="16e-discussion:19"><span class="dc__fw">Virtue ethics</span> character</dt>
+      <dd class="dc__k2" data-sid="16e-discussion:46">What kind of person, or company, does this make you?</dd>
+      <dt class="dc__k3" data-sid="16e-discussion:20"><span class="dc__fw">Kantian ethics</span> duty</dt>
+      <dd class="dc__k3" data-sid="16e-discussion:47">What if everyone did it? Is anyone used without their say?</dd>
+      <dt class="dc__k4" data-sid="16e-discussion:21">moral distance</dt>
+      <dd class="dc__k4" data-sid="16e-discussion:48">How do I internalize this when the consequences of my actions are far away?</dd>
+    </dl>
+
   </div>
   <div class="slide__number" data-sid="16e-discussion:42"></div>
-  <aside class="notes" data-sid="16e-discussion:43">Read the three steps, then press once to start the clock; the next press leaves the slide and resets it, so do not press anything for ten minutes. Same groups as the votes. Step 1: something in technology and AI that concerns you &mdash; the chips are examples, not the whole list: AI writing your code, feeds, training data and the people who label it, face recognition, the self-driving choices from the Moral Machine in 6.1. Step 2: put it as a question using one of the four words from the last four slides, and the questions are written out: who ends up better off and worse off, and is the total worth it; what kind of person or company does building this make you; would it still be okay if everyone did it, and is anyone being used without being asked; who never meets the people it lands on. Step 3 is just as good: a question about the words themselves &mdash; what does duty mean for a developer who did not choose the feature, what does character mean for a team, how do these relate to you as a future technologist. Everyone posts their own questions to the form, as many as they like [PLACEHOLDER: the form link and QR]; it stays open after class. In the last two minutes, two groups read one question aloud. Then the deadlines.</aside>
+  <aside class="notes" data-sid="16e-discussion:43">Read the three steps, then press once to start the clock; the next press leaves the slide and resets it, so do not press anything for ten minutes. Same groups as the votes. Step 1: something in technology and AI that concerns you &mdash; the chips are examples, not the whole list: AI writing your code, feeds, face recognition, the people who label the training data, the self-driving choices from the Moral Machine in 6.1. Step 2: put it as a question using one of the four words along the bottom, each with its framework in front and its question written out: utilitarianism, outcomes, who ends up better off and worse off, and is it worth it; virtue ethics, character, what kind of person or company does this make you; Kantian ethics, duty, what if everyone did it, and is anyone used without their say; moral distance, who never meets the people it lands on. Step 3 is just as good: a question about a word itself &mdash; what does utilitarianism actually mean, what is virtue for a team, what does persons as ends mean for a developer who did not choose the feature, what counts as consent, whose decision is it when there are many hands &mdash; and how these relate to you as a future technologist. Everyone posts their own questions to the form, as many as they like [PLACEHOLDER: the form link and QR]; it stays open after class. In the last two minutes, two groups read one question aloud. Then the deadlines.</aside>
 
   <style data-sid="16e-discussion:44">
-    /* Slide-local: the moves on the left (1200 px) with their chips, the
-       starters outlined in neutral ink, the four words and their questions
-       as a dl, the words in the lens colours (orange, the mix, blue, and
-       maroon for moral distance); the
-       deck's timer ring on the right at 240 px over the form plate (the
-       deck's .scan card, 320 wide), position static instead of the vote-slide
-       corner pin. Ten minutes: data-timer 600, seed text 10:00 (timer.js
+    /* Slide-local. The body is a two-column grid with a full-width third row:
+       the moves on the left (the remaining width), the form plate on the
+       right (the deck's .scan card, 320 wide), and the four words as a dl
+       across the bottom, the word in its lens colour (orange, the mix, blue,
+       maroon for moral distance) and the question in body ink. Chips are
+       starters, outlined in neutral ink. The deck's timer ring is pinned in
+       the top-right corner like the vote slides, at 200 px; the box must
+       match the arc. Ten minutes: data-timer 600, seed text 10:00 (timer.js
        rewrites it). The QR is an image placeholder and the link an orange
        placeholder until the form URL arrives. All values from tokens; used
        by this slide only. */
-    #slide-16e .dc { display: grid; grid-template-columns: 1200px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    #slide-16e .dc { display: grid; grid-template-columns: minmax(0, 1fr) 320px; column-gap: var(--s-5); row-gap: var(--s-3); align-items: start; }
+
+    /* the moves */
     #slide-16e .dc__steps { margin: 0; font-size: var(--t-small); line-height: 1.35; }
     #slide-16e .dc__steps > li { margin: 0 0 var(--s-3); }
     #slide-16e .dc__steps > li:last-child { margin-bottom: 0; }
     #slide-16e .dc__steps em { font-family: var(--font-display); font-style: italic; color: var(--accent-1); }
+
+    /* the starter chips under steps 1 and 3 */
     #slide-16e .dc__chips { margin-top: var(--s-2); gap: var(--s-2); }
-    #slide-16e .dc__chips li { margin: 0; padding: 2px var(--s-2); font-size: var(--t-tag); line-height: 1.3; position: static; counter-increment: none; }
+    #slide-16e .dc__chips li { margin: 0; padding: 2px var(--s-2); font-size: var(--t-micro); line-height: 1.3; position: static; counter-increment: none; border-color: var(--fg-1); color: var(--fg-1); }
     #slide-16e .dc__chips li::before { content: none; }   /* the .steps numeral must not reach the chips */
-    #slide-16e .dc__chips--start li { border-color: var(--fg-1); color: var(--fg-1); }
-    /* the four words, each with its question in plain speech: the word in the
-       lens colour, the question in body ink at the micro size */
-    #slide-16e .dc__keys { display: grid; grid-template-columns: 280px minmax(0, 1fr); column-gap: var(--s-3); row-gap: var(--s-1); margin: var(--s-2) 0 0; font-size: var(--t-micro); line-height: 1.3; }
+
+    /* the four words, full width under both columns */
+    #slide-16e .dc__keys { grid-column: 1 / -1; display: grid; grid-template-columns: 440px minmax(0, 1fr); column-gap: var(--s-3); row-gap: var(--s-1); margin: 0; font-size: var(--t-small); line-height: 1.3; }
     #slide-16e .dc__keys dt { margin: 0; font-family: var(--font-display); color: var(--edge); }
+    #slide-16e .dc__fw { font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); margin-right: var(--s-1); }   /* the framework, a muted label before its word (the lens slides' .ln__lbl idiom) */
     #slide-16e .dc__keys dd { margin: 0; color: var(--fg-0); }
     #slide-16e .dc__k1 { --edge: var(--accent-3); }
     #slide-16e .dc__k2 { --edge: color-mix(in srgb, var(--accent-1) 50%, var(--accent-3)); }
     #slide-16e .dc__k3 { --edge: var(--accent-2); }
     #slide-16e .dc__k4 { --edge: var(--accent-1); }
-    #slide-16e .dc__right { display: flex; flex-direction: column; align-items: center; gap: var(--s-3); }
-    #slide-16e .timer { position: static; top: auto; right: auto; width: 240px; height: 240px; }   /* the deck's .timer box is 150 px; the box must match the arc or the arc hangs over the plate */
-    #slide-16e .timer__arc { width: 240px; height: 240px; }
+
+    /* the clock, top right, above the kicker line */
+    #slide-16e .timer { top: var(--s-6); width: 200px; height: 200px; }
+    #slide-16e .timer__arc { width: 200px; height: 200px; }
+
+    /* the form plate */
     #slide-16e .dc__scan { width: 320px; }
     #slide-16e .dc__qr { min-height: 180px; width: 180px; box-sizing: border-box; padding: var(--s-3); font-size: var(--t-micro); }
     #slide-16e .dc__scan img { width: 180px; }   /* the real QR, when it lands, at the placeholder's size so the plate keeps its height */

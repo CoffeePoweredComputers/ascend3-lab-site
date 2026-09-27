@@ -1,0 +1,95 @@
+<section class="slide slide--warmup" id="slide-05c" data-sid="05c-walk-stack:1">
+  <header class="slide__head" data-sid="05c-walk-stack:2">
+    <p class="slide__kicker" data-sid="05c-walk-stack:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="05c-walk-stack:4">Pop takes the top; push(str) puts R back</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="05c-walk-stack:5">A walkthrough of the eight operations under a program-counter bar, with the stack drawn beside the code as a column of cells, top up. Push K, push P, push G, push R: four cells grow in, bottom to top. Pop: the R cell fades out and a pill reading str equals R appears beside the column. Pop again: G fades out and nothing keeps it. Push V: a cell holding V grows in on top of P. Push str: a cell holding R grows in on top of V. Then the four options return under the code, A, B and D struck through and C, R V P K, left standing; the caption reads top first, R V P K.</p>
+
+  <!-- The answer as a walk in the W5D1 grammar: the eight lines under the
+       PC bar, one per press, and on the right the stack drawn as a column,
+       top up, so "leftmost is the top" in the options becomes "highest is
+       the top" here. Push = the cell grows in; pop = the cell fades out (the
+       :has() idiom on the caption of the popping step); the first pop's
+       value lands in a str pill and the last push grows the same value back
+       onto the stack. One caption per press under the column.
+       steps 1–8: the eight lines. step 9: the verdict. -->
+  <div class="slide__body grid grid--code code-mid sw" data-sid="05c-walk-stack:6">
+    <div class="stack" data-sid="05c-walk-stack:7">
+      <div class="editor sw__editor" data-sid="05c-walk-stack:8">
+        <p class="editor__bar" data-sid="05c-walk-stack:9">eight operations on an empty stack</p>
+        <div class="editor__pc" data-sid="05c-walk-stack:10"></div>
+        <ol class="editor__code" data-sid="05c-walk-stack:11">
+          <li class="walkline frag" data-step="1" data-sid="05c-walk-stack:12">stack.push("K");</li>
+          <li class="walkline frag" data-step="2" data-sid="05c-walk-stack:13">stack.push("P");</li>
+          <li class="walkline frag" data-step="3" data-sid="05c-walk-stack:14">stack.push("G");</li>
+          <li class="walkline frag" data-step="4" data-sid="05c-walk-stack:15">stack.push("R");</li>
+          <li class="walkline frag" data-step="5" data-sid="05c-walk-stack:16"><span class="tok-key" data-sid="05c-walk-stack:17">String</span> str = stack.pop();</li>
+          <li class="walkline frag" data-step="6" data-sid="05c-walk-stack:18">stack.pop();</li>
+          <li class="walkline frag" data-step="7" data-sid="05c-walk-stack:19">stack.push("V");</li>
+          <li class="walkline frag" data-step="8" data-sid="05c-walk-stack:20">stack.push(str);</li>
+        </ol>
+      </div>
+      <ol class="verdict frag" data-step="9" data-sid="05c-walk-stack:21">
+        <li class="verdict__opt verdict__opt--right" data-sid="05c-walk-stack:22"><span class="verdict__txt" data-sid="05c-walk-stack:23">C &middot; R V P K</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="05c-walk-stack:24"><span class="verdict__txt" data-sid="05c-walk-stack:25">A &middot; P V G P</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="05c-walk-stack:26"><span class="verdict__txt" data-sid="05c-walk-stack:27">B &middot; K P V R</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="05c-walk-stack:28"><span class="verdict__txt" data-sid="05c-walk-stack:29">D &middot; G V P K</span></li>
+      </ol>
+    </div>
+    <svg class="sw__fig" viewBox="0 0 760 640" role="img" aria-label="A stack drawn as a column of cells, top up, growing and shrinking as the eight operations run" data-sid="05c-walk-stack:30">
+      <text class="sw__lab" x="360" y="40" data-sid="05c-walk-stack:31">top</text>
+      <path class="sw__base" d="M240 548H480" data-sid="05c-walk-stack:32"/>
+      <text class="sw__lab" x="360" y="580" data-sid="05c-walk-stack:33">bottom</text>
+        <g class="sw__cell sw__c frag" data-step="1" data-sid="05c-walk-stack:34"><rect x="250" y="452" width="220" height="88" rx="8" data-sid="05c-walk-stack:35"/><text x="360" y="510" data-sid="05c-walk-stack:36">K</text></g>
+        <g class="sw__cell sw__c frag" data-step="2" data-sid="05c-walk-stack:37"><rect x="250" y="358" width="220" height="88" rx="8" data-sid="05c-walk-stack:38"/><text x="360" y="416" data-sid="05c-walk-stack:39">P</text></g>
+        <g class="sw__cell sw__c sw__c--g frag" data-step="3" data-sid="05c-walk-stack:40"><rect x="250" y="264" width="220" height="88" rx="8" data-sid="05c-walk-stack:41"/><text x="360" y="322" data-sid="05c-walk-stack:42">G</text></g>
+        <g class="sw__cell sw__c sw__c--r1 frag" data-step="4" data-sid="05c-walk-stack:43"><rect x="250" y="170" width="220" height="88" rx="8" data-sid="05c-walk-stack:44"/><text x="360" y="228" data-sid="05c-walk-stack:45">R</text></g>
+        <g class="sw__cell sw__c frag" data-step="7" data-sid="05c-walk-stack:46"><rect x="250" y="264" width="220" height="88" rx="8" data-sid="05c-walk-stack:47"/><text x="360" y="322" data-sid="05c-walk-stack:48">V</text></g>
+        <g class="sw__cell sw__c frag" data-step="8" data-sid="05c-walk-stack:49"><rect x="250" y="170" width="220" height="88" rx="8" data-sid="05c-walk-stack:50"/><text x="360" y="228" data-sid="05c-walk-stack:51">R</text></g>
+      <g class="sw__pill frag" data-step="5" data-sid="05c-walk-stack:52"><rect x="530" y="190" width="190" height="48" rx="24" data-sid="05c-walk-stack:53"/><text x="625" y="222" data-sid="05c-walk-stack:54">str = "R"</text></g>
+      <text class="sw__cap cap--1 frag" data-step="1" x="380" y="608" data-sid="05c-walk-stack:55">push K: the first entry goes on the bottom.</text>
+      <text class="sw__cap cap--2 frag" data-step="2" x="380" y="608" data-sid="05c-walk-stack:56">push P: on top of K.</text>
+      <text class="sw__cap cap--3 frag" data-step="3" x="380" y="608" data-sid="05c-walk-stack:57">push G: on top of P.</text>
+      <text class="sw__cap cap--4 frag" data-step="4" x="380" y="608" data-sid="05c-walk-stack:58">push R: four deep, R on top.</text>
+      <text class="sw__cap cap--5 frag" data-step="5" x="380" y="608" data-sid="05c-walk-stack:59">pop returns R, the top, and str keeps it.</text>
+      <text class="sw__cap cap--6 frag" data-step="6" x="380" y="608" data-sid="05c-walk-stack:60">pop again: G comes off and is discarded.</text>
+      <text class="sw__cap cap--7 frag" data-step="7" x="380" y="608" data-sid="05c-walk-stack:61">push V: on top of P.</text>
+      <text class="sw__cap cap--8 frag" data-step="8" x="380" y="608" data-sid="05c-walk-stack:62">push str: R goes back on top. Top first: R V P K.</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="05c-walk-stack:63"></div>
+  <aside class="notes" data-sid="05c-walk-stack:64">Answer: C, R V P K. Steps 1 to 4: four pushes, K P G R, each on top of the last; the drawing is top-up, so the top of the stack is the highest cell and the leftmost letter in the options. Step 5: pop returns the top, R, and the assignment keeps it in str; R leaves the stack. Step 6: pop again, G comes off, and nothing keeps it. Step 7: push V goes on top of P. Step 8: push(str) is the trap: str is R, so R goes back on top. Read down from the top: R V P K. Step 9: C. A reads the stack bottom-up and keeps G; B reads it bottom-up; D forgets that G was popped. Next: Vote 2, a class hierarchy.</aside>
+
+  <style data-sid="05c-walk-stack:65">
+    /* Slide-local: the editor at the code size in the left column with the
+       verdict under it; the stack in one SVG on the right (viewBox 760 × 640,
+       cells 220 × 88 at a 94 px pitch, top up). Cells GrowFromCenter on
+       their push; a popped cell fades out when its pop's caption is current
+       (the :has() idiom); the str pill grows in at the first pop. Captions
+       one sentence at a time under the column. Used by this slide only, all
+       values from tokens. */
+    #slide-05c .sw { grid-template-columns: 760px minmax(0, 1fr); align-items: start; }
+    #slide-05c .sw__editor { width: 760px; }
+    #slide-05c .sw__fig { display: block; width: 100%; height: 640px; overflow: visible; }
+    #slide-05c .sw__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-05c .sw__base { fill: none; stroke: var(--fg-1); stroke-width: 5; stroke-linecap: round; }
+    #slide-05c .sw__cell rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-05c .sw__cell text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-05c .sw__c { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .45s var(--ease-smooth); }
+    #slide-05c .frag.sw__c.is-pending { opacity: 0; transform: scale(0.4); }
+    /* the pops: R leaves at step 5, G at step 6 — plain fades */
+    #slide-05c .sw__fig:has(.cap--5:not(.is-pending)) .sw__c--r1 { opacity: 0; }
+    #slide-05c .sw__fig:has(.cap--6:not(.is-pending)) .sw__c--g { opacity: 0; }
+    #slide-05c .sw__pill rect { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 3; }
+    #slide-05c .sw__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+    #slide-05c .sw__pill { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .45s var(--ease-smooth); transition-delay: .3s; }
+    #slide-05c .frag.sw__pill.is-pending { opacity: 0; transform: scale(0.4); transition-delay: 0s; }
+    #slide-05c .sw__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-05c .frag.sw__cap.is-current { transition-delay: .4s; }
+    #slide-05c .frag.sw__cap.is-past { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-05c .sw__c, #slide-05c .sw__pill, #slide-05c .sw__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

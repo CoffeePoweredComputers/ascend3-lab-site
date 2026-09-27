@@ -21,9 +21,13 @@
                them are in the room."
        step 3: the definition, two lines, in the captions' place.
        step 4: the three chips.
-       One SVG in canvas px; viewBox = the body's rect under a bare h2 at the
-       full size (232–984); under the warmup h2 the body is 26 px taller and
-       the drawing sits at 1:1 on its bottom edge (xMidYMax). -->
+       The SVG holds only the drawing, in canvas px; viewBox = the body's rect
+       under a bare h2 at the full size (232–984); under the warmup h2 the
+       body is 26 px taller and the drawing sits at 1:1 on its bottom edge
+       (xMidYMax). Every line of text is an HTML block over the drawing so it
+       can be clicked and edited in the studio; each block is anchored with
+       `bottom` (distance up from canvas y 984) and `left` (from canvas x 128)
+       so it stays locked to the drawing whatever the head's height. -->
   <div class="slide__body" data-sid="15-moral-distance:5">
     <svg class="md" viewBox="128 232 1664 752" preserveAspectRatio="xMidYMax meet" role="img"
          aria-label="One engineer at a laptop on the left, a long dashed line, and a crowd of people on the right" data-sid="15-moral-distance:6">
@@ -36,12 +40,10 @@
           <path d="M430 546h96v60h-96zM418 606h120" data-sid="15-moral-distance:12"/>
         </g>
         <path class="md__edge-fill" d="M470 560h16v6h-16zM470 572h30v6h-30zM470 584h22v6h-22z" data-sid="15-moral-distance:13"/>
-        <text class="md__lbl" x="420" y="680" data-sid="15-moral-distance:14"><tspan x="420" y="680" data-sid="15-moral-distance:15">one engineer,</tspan><tspan x="420" y="714" data-sid="15-moral-distance:16">one commit</tspan></text>
       </g>
 
       <!-- step 2: the distance, and the people it lands on -->
       <line class="md__gap frag" data-step="2" pathLength="100" x1="600" y1="560" x2="1180" y2="560" data-sid="15-moral-distance:17"/>
-      <text class="md__lbl frag" data-step="2" data-anim="fade" x="890" y="530" data-sid="15-moral-distance:18">the distance</text>
       <g class="md__crowd frag" data-step="2" data-sid="15-moral-distance:19">
         <g class="md__ink md__p" style="--i: 0" data-sid="15-moral-distance:20"><circle cx="1270" cy="460" r="16" data-sid="15-moral-distance:21"/><path d="M1244 512v-12a26 26 0 0 1 52 0v12" data-sid="15-moral-distance:22"/></g>
         <g class="md__ink md__p" style="--i: 1" data-sid="15-moral-distance:23"><circle cx="1350" cy="460" r="16" data-sid="15-moral-distance:24"/><path d="M1324 512v-12a26 26 0 0 1 52 0v12" data-sid="15-moral-distance:25"/></g>
@@ -64,19 +66,25 @@
         <g class="md__ink md__p" style="--i: 18" data-sid="15-moral-distance:74"><circle cx="1550" cy="670" r="16" data-sid="15-moral-distance:75"/><path d="M1524 722v-12a26 26 0 0 1 52 0v12" data-sid="15-moral-distance:76"/></g>
         <g class="md__ink md__p" style="--i: 19" data-sid="15-moral-distance:77"><circle cx="1630" cy="670" r="16" data-sid="15-moral-distance:78"/><path d="M1604 722v-12a26 26 0 0 1 52 0v12" data-sid="15-moral-distance:79"/></g>
       </g>
-      <text class="md__lbl frag" data-step="2" data-anim="fade" x="1450" y="760" data-sid="15-moral-distance:81"><tspan x="1450" y="760" data-sid="15-moral-distance:82">the people it affects,</tspan><tspan x="1450" y="794" data-sid="15-moral-distance:83">whom you never meet</tspan></text>
-
-      <!-- steps 1 and 2: one sentence each; step 3 replaces them with the definition -->
-      <text class="md__cap frag" data-step="1" x="960" y="854" data-sid="15-moral-distance:84">Every lens asks about the people your code affects.</text>
-      <text class="md__cap frag" data-step="2" x="960" y="854" data-sid="15-moral-distance:85">You will never meet most of them.</text>
-      <!-- step 3: the definition -->
-      <text class="md__def frag" data-step="3" data-anim="fade" x="960" y="832" data-sid="15-moral-distance:86"><tspan x="960" y="832" data-sid="15-moral-distance:87">The farther you are from the people your code affects,</tspan><tspan x="960" y="876" data-sid="15-moral-distance:88">the less it feels like your decision.</tspan></text>
-
-      <!-- step 4: three ways distance sounds in a team -->
-      <g class="md__chip frag" data-step="4" style="--i: 0" data-sid="15-moral-distance:89"><rect x="464" y="905" width="326" height="44" rx="22" data-sid="15-moral-distance:90"/><text x="627" y="935" data-sid="15-moral-distance:91">not my department</text></g>
-      <g class="md__chip frag" data-step="4" style="--i: 1" data-sid="15-moral-distance:92"><rect x="814" y="905" width="208" height="44" rx="22" data-sid="15-moral-distance:93"/><text x="918" y="935" data-sid="15-moral-distance:94">many hands</text></g>
-      <g class="md__chip frag" data-step="4" style="--i: 2" data-sid="15-moral-distance:95"><rect x="1046" y="905" width="410" height="44" rx="22" data-sid="15-moral-distance:96"/><text x="1251" y="935" data-sid="15-moral-distance:97">a number, not a person</text></g>
     </svg>
+
+    <!-- labels: mono, under the engineer (step 1), over the gap and under the crowd (step 2, after the line draws) -->
+    <p class="md__lbl frag" data-step="1" data-anim="fade" style="left: 142px; bottom: 263px; width: 300px;" data-sid="15-moral-distance:14">one engineer,<br>one commit</p>
+    <p class="md__lbl frag" data-step="2" data-anim="fade" style="--anim-delay: .5s; left: 612px; bottom: 447px; width: 300px;" data-sid="15-moral-distance:18">the distance</p>
+    <p class="md__lbl frag" data-step="2" data-anim="fade" style="--anim-delay: .5s; left: 1122px; bottom: 183px; width: 400px;" data-sid="15-moral-distance:81">the people it affects,<br>whom you never meet</p>
+
+    <!-- steps 1 and 2: one sentence each; step 3 replaces them with the definition -->
+    <p class="md__cap frag" data-step="1" style="left: 0px; bottom: 121px; width: 1664px;" data-sid="15-moral-distance:84">Every lens asks about the people your code affects.</p>
+    <p class="md__cap frag" data-step="2" style="left: 0px; bottom: 121px; width: 1664px;" data-sid="15-moral-distance:85">You will never meet most of them.</p>
+    <!-- step 3: the definition -->
+    <p class="md__def frag" data-step="3" data-anim="fade" style="left: 0px; bottom: 79px; width: 1664px;" data-sid="15-moral-distance:86">The farther you are from the people your code affects,<br>the less it feels like your decision.</p>
+
+    <!-- step 4: three ways distance sounds in a team -->
+    <ul class="chips md__chips" style="left: 0px; bottom: 15px; width: 1664px;" data-sid="15-moral-distance:101">
+      <li class="frag" data-step="4" data-anim="scale-up" data-anim-ease="out" data-sid="15-moral-distance:89">not my department</li>
+      <li class="frag" data-step="4" data-anim="scale-up" data-anim-ease="out" style="--anim-delay: .15s;" data-sid="15-moral-distance:92">many hands</li>
+      <li class="frag" data-step="4" data-anim="scale-up" data-anim-ease="out" style="--anim-delay: .3s;" data-sid="15-moral-distance:95">a number, not a person</li>
+    </ul>
   </div>
   <div class="slide__number" data-sid="15-moral-distance:98"></div>
   <aside class="notes" data-sid="15-moral-distance:99">One more term, after the three lenses: why they are hard to apply. Step 1: every lens asks about the people your code affects &mdash; who ends up worse off, what building it makes you, whether anyone is being used. Step 2: you never meet those people. One engineer writes one commit, and it affects people far away who were not there when it was written. Step 3: that is moral distance &mdash; the farther you are from the people your code affects, the less it feels like your decision. It is not a character flaw; it is how being far away works, and software puts you far away by default. Step 4: three ways it shows up on a team. "Not my department" is the Lehrer line from Week 1, von Braun's rockets. "Many hands": nobody made the whole decision, so nobody feels they made any of it. "A number, not a person": the people are a metric on a dashboard until you picture one of them. So when a lens tells you something is wrong and it still does not feel like anything, the distance is why. Next: ten minutes on a concern of your own.</aside>
@@ -84,22 +92,27 @@
   <style data-sid="15-moral-distance:100">
     /* Slide-local: the Week 1 pen — neutral ink for the world, orange for
        the one detail being pointed at (the lines on the screen), stone for
-       the gap. The definition is display maroon at the small size; the chips
-       are the deck's pill (maroon outline, mono). Motion: the engineer
+       the gap. The text is HTML over the drawing: mono labels, display
+       captions, the definition in display maroon at the small size, and the
+       deck's .chips pill in mono at the micro size. Motion: the engineer
        FadeIn; the gap draws on (Create); the crowd FadeIn one figure after
-       another; the chips grow in, staggered. Used by this slide only, all
-       values from tokens. */
+       another; the labels fade after the line; the chips grow in, staggered
+       (data-anim / --anim-delay). Used by this slide only, all values from
+       tokens. */
     #slide-15 .slide__body { position: relative; }
     #slide-15 .md { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
     #slide-15 .md__ink { fill: none; stroke: var(--fg-1); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
     #slide-15 .md__edge-fill { fill: var(--accent-3); }
-    #slide-15 .md__lbl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
-    #slide-15 .md__def { font-family: var(--font-display); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+
+    /* text blocks over the drawing; geometry (left / bottom / width) is inline on each */
+    #slide-15 .md__lbl, #slide-15 .md__cap, #slide-15 .md__def, #slide-15 .md__chips { position: absolute; margin: 0; text-align: center; }
+    #slide-15 .md__lbl { font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-1); }
+    #slide-15 .md__def { font-family: var(--font-display); font-size: var(--t-small); line-height: 1.2; color: var(--accent-1); }
     /* the two captions: the current beat's sentence only; the definition takes their place on step 3 and stays */
-    #slide-15 .md__cap { font-family: var(--font-display); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-15 .md__cap { font-family: var(--font-display); font-size: var(--t-small); line-height: 1.2; color: var(--fg-0); transition: opacity .3s ease; }
     #slide-15 .frag.md__cap.is-current { transition-delay: .5s; }
-    #slide-15 .frag.md__cap.is-past { opacity: 0; }
+    #slide-15 .frag.md__cap.is-past { opacity: 0; transition-delay: 0s; }
 
     /* the gap: a dashed stone line that draws on from the engineer's side */
     #slide-15 .md__gap { stroke: var(--stone); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .9s var(--ease-smooth); }
@@ -109,16 +122,13 @@
     #slide-15 .frag.md__crowd.is-pending { opacity: 1; }
     #slide-15 .md__p { transition: opacity .3s ease; transition-delay: calc(.6s + var(--i) * .04s); }
     #slide-15 .frag.md__crowd.is-pending .md__p { opacity: 0; transition-delay: 0s; }
-    #slide-15 .frag.md__lbl.is-current, #slide-15 .frag.md__lbl.is-past { transition-delay: .5s; }
 
-    /* the chips */
-    #slide-15 .md__chip rect { fill: var(--bg-0); stroke: var(--accent-1); stroke-width: 3; }
-    #slide-15 .md__chip text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); text-anchor: middle; }
-    #slide-15 .md__chip { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); transition-delay: calc(var(--i) * .15s); }
-    #slide-15 .frag.md__chip.is-pending { opacity: 0; transform: scale(0.4); transition-delay: 0s; }
+    /* the chips: the deck pill, in mono at the micro size, centred as a row */
+    #slide-15 .md__chips { justify-content: center; }
+    #slide-15 .md__chips li { font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; background: var(--bg-0); }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-15 .md__gap, #slide-15 .md__p, #slide-15 .md__lbl, #slide-15 .md__chip, #slide-15 .md__eng, #slide-15 .md__def, #slide-15 .md__cap {
+      #slide-15 .md__gap, #slide-15 .md__p, #slide-15 .md__eng, #slide-15 .md__cap {
         transition-duration: 0s !important; transition-delay: 0s !important;
       }
     }

@@ -1068,3 +1068,18 @@ html.no-motion *::after {
   .slide .timer { animation: none !important; }
   .slide .timer__ring, .slide .timer__hand, .slide .timer__tick, .slide .timer__dot, .slide .timer__time { transition: none; }
 }
+
+/* ---- lens slides (16b–16d): the closing question that ties the lens to
+   technology, one full-width row under the two columns, pinned to the bottom
+   of the body by the slide's grid (grid-template-rows: 1fr auto), centred, in
+   display type at the h3 size. .slide prefix: out-specifies `.slide p`. ---- */
+.slide .ln__tech {
+  grid-column: 1 / -1;
+  align-self: end;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  line-height: 1.2;
+  color: var(--accent-1);
+}

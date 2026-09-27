@@ -101,7 +101,7 @@
 
     /* the veil: the slide goes soft and the admission drops onto it */
     #slide-14b .acm__veil {
-      position: absolute; inset: 0; box-sizing: border-box;
+      position: absolute; inset: 0; z-index: 2; box-sizing: border-box;   /* above the list, which sits at z-index 1 to clear the wires */
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-5);
       padding: var(--s-7) var(--s-8);
       background: color-mix(in srgb, var(--bg-0) 76%, transparent);

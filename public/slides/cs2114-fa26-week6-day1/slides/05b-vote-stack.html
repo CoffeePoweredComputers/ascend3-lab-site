@@ -1,0 +1,66 @@
+<section class="slide slide--warmup" id="slide-05b" data-sid="05b-vote-stack:1">
+  <header class="slide__head" data-sid="05b-vote-stack:2">
+    <p class="slide__kicker" data-sid="05b-vote-stack:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="05b-vote-stack:4">What is on the stack at the end?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="05b-vote-stack:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="05b-vote-stack:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="05b-vote-stack:7"/><g class="timer__ticks" data-sid="05b-vote-stack:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="05b-vote-stack:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="05b-vote-stack:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="05b-vote-stack:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="05b-vote-stack:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="05b-vote-stack:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="05b-vote-stack:14"/><g class="timer__hand" data-sid="05b-vote-stack:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="05b-vote-stack:16"/></g><text class="timer__time" x="75" y="88" data-sid="05b-vote-stack:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="05b-vote-stack:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="05b-vote-stack:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="05b-vote-stack:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="05b-vote-stack:21"/><g class="timer__ticks" data-sid="05b-vote-stack:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="05b-vote-stack:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="05b-vote-stack:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="05b-vote-stack:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="05b-vote-stack:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="05b-vote-stack:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="05b-vote-stack:28"/><g class="timer__hand" data-sid="05b-vote-stack:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="05b-vote-stack:30"/></g><text class="timer__time" x="75" y="88" data-sid="05b-vote-stack:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="05b-vote-stack:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="05b-vote-stack:33">A peer-instruction question. Under the title, the stem in muted type: imagine you have an empty stack of strings named stack; what are the contents of the stack after the following operations are executed, assuming the leftmost element in each answer choice represents the top of the stack; assume that the pop method returns the element that was popped. Below it, two panels. Left, an editor with eight lines: push K, push P, push G, push R, String str equals stack dot pop, stack dot pop, push V, push str. Right, the four options as rows, each led by a maroon disc with its letter: A, P V G P; B, K P V R; C, R V P K; D, G V P K. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout (deck.css .vote): the stem verbatim as the lede
+       (its stray "?." kept), the eight statements in an editor at the dense
+       size on the left (the stem is three lines, so the code size ran 49 px over), the four options as rows on the right, in code
+       because they are stack contents. Static: only the clocks build; the
+       answer slide walks the eight lines with the stack drawn beside them.
+       Runestone activity vtcs2_stacks_tracing (Peer Instruction W06D1,
+       question 1 of 3). -->
+  <div class="slide__body code-dense" data-sid="05b-vote-stack:34">
+    <p class="vote__stem" data-sid="05b-vote-stack:35">Imagine you have an empty stack of strings named <code data-sid="05b-vote-stack:36">stack</code>. What are the contents of the stack after the following operations are executed, assuming the leftmost element in each answer choice represents the top of the stack?. (Assume that the pop method returns the element that was popped.)</p>
+    <div class="vote__panels vk__panels" data-sid="05b-vote-stack:37">
+      <div class="editor vk__editor" data-sid="05b-vote-stack:38">
+        <p class="editor__bar" data-sid="05b-vote-stack:39">eight operations on an empty stack</p>
+        <ol class="editor__code" data-sid="05b-vote-stack:40">
+          <li data-sid="05b-vote-stack:41">stack.push("K");</li>
+          <li data-sid="05b-vote-stack:42">stack.push("P");</li>
+          <li data-sid="05b-vote-stack:43">stack.push("G");</li>
+          <li data-sid="05b-vote-stack:44">stack.push("R");</li>
+          <li data-sid="05b-vote-stack:45"><span class="tok-key" data-sid="05b-vote-stack:46">String</span> str = stack.pop();</li>
+          <li data-sid="05b-vote-stack:47">stack.pop();</li>
+          <li data-sid="05b-vote-stack:48">stack.push("V");</li>
+          <li data-sid="05b-vote-stack:49">stack.push(str);</li>
+        </ol>
+      </div>
+      <ol class="vote__opts" data-sid="05b-vote-stack:50">
+        <li class="vote__opt" data-sid="05b-vote-stack:51"><span class="vote__key" data-sid="05b-vote-stack:52">A</span><p class="vote__text" data-sid="05b-vote-stack:53"><code data-sid="05b-vote-stack:54">P V G P</code></p></li>
+        <li class="vote__opt" data-sid="05b-vote-stack:55"><span class="vote__key" data-sid="05b-vote-stack:56">B</span><p class="vote__text" data-sid="05b-vote-stack:57"><code data-sid="05b-vote-stack:58">K P V R</code></p></li>
+        <li class="vote__opt" data-sid="05b-vote-stack:59"><span class="vote__key" data-sid="05b-vote-stack:60">C</span><p class="vote__text" data-sid="05b-vote-stack:61"><code data-sid="05b-vote-stack:62">R V P K</code></p></li>
+        <li class="vote__opt" data-sid="05b-vote-stack:63"><span class="vote__key" data-sid="05b-vote-stack:64">D</span><p class="vote__text" data-sid="05b-vote-stack:65"><code data-sid="05b-vote-stack:66">G V P K</code></p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="05b-vote-stack:67"></div>
+  <aside class="notes" data-sid="05b-vote-stack:68">Answer: C &mdash; R V P K, top first [key not visible in the paste; confirm in Runestone's results view]. The question as printed: an empty stack of strings, eight operations, the leftmost element of each answer is the top, and pop returns what it popped. Press once: the 1:30 vote clock; press again for the 2:30 discuss clock; press again to move on. The discussion question for the groups: what does the first pop return, and where does that value go? The trap is the last line: push(str) pushes R again, not V. Runestone: Peer Instruction W06D1, question 1 of 3, activity vtcs2_stacks_tracing.</aside>
+
+  <style data-sid="05b-vote-stack:69">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js) */
+    #slide-05b .timer { top: var(--s-6); }
+    #slide-05b .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-05b .frag.timer.is-past { opacity: .55; }
+    #slide-05b .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-05b .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-05b .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the editor at the dense size (code-dense on the body) in a
+       700 px left panel; the options are stack contents, so they are set in
+       mono. All values from tokens; used by this slide only. */
+    #slide-05b .vk__panels { grid-template-columns: 700px minmax(0, 1fr); align-items: start; }
+    #slide-05b .vk__editor { width: 700px; }
+    #slide-05b .vote__stem { max-width: none; }                 /* the verbatim stem is 262 characters: three lines at the full width, four at the cap */
+    #slide-05b .vote__opt { padding: var(--s-2) 0; }               /* four rows at the body size: 112 px each, not 130 */
+    #slide-05b .vote__text code { font-family: var(--font-mono); font-size: 1em; letter-spacing: .08em; }
+  </style>
+</section>
