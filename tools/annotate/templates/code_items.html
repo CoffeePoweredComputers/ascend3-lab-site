@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ code.label }} · Annotation bench{% endblock %}
+{% block main %}
+  <p class="crumb"><a href="{{ root }}/t/{{ track.id }}/themes">Themes</a> / code</p>
+  <h1>{{ code.label }} <span class="badge">{{ code.n }} card{{ '' if code.n == 1 else 's' }}</span></h1>
+  <p class="task">{{ code.definition }}</p>
+
+  {% for card in cards %}
+    <section class="card pad">
+      <h2>Item {{ card.token[:6] }}</h2>
+      {{ parts.show(card) }}
+    </section>
+  {% else %}
+    <p class="muted">It is on no cards.</p>
+  {% endfor %}
+{% endblock %}

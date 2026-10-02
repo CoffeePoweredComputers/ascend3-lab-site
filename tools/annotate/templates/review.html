@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Review · {{ batch.title }}{% endblock %}
+{% block main %}
+  <p class="crumb"><a href="{{ root }}/b/{{ batch.id }}">{{ batch.title }}</a> / review</p>
+  <h1>Review</h1>
+
+  <p class="task">
+    {{ rows | length }} of {{ n_items }} items {{ 'shown' if show_all else 'differ' }} ·
+    <a href="?all={{ '0' if show_all else '1' }}">{{ 'Only disagreements' if show_all else 'Show all' }}</a>
+  </p>
+
+  {% for row in rows %}
+    <section class="card pad" id="item-{{ row.item.token }}">
+      <h2>Item {{ row.item.token[:6] }}</h2>
+      <div class="work">
+        <div>{{ parts.show(row.item) }}</div>
+        <div>
+            <div class="scroll">
+              <table>
+                <thead><tr><th>Dimension</th>{% for c in coders %}<th>{{ c }}</th>{% endfor %}<th>Consensus</th></tr></thead>
+                <tbody>
+                  {% for d in tree %}
+                    <tr>
+                      <td>{{ d.name }}</td>
+                      {% for c in coders %}
+                        <td>
+                          {% if c not in row.by_coder %}<span class="muted">not coded</span>
+                          {% else %}
+                            {% for code in d.codes if d.key ~ '/' ~ code.key in row.by_coder[c] %}{{ code.label }}{{ ', ' if not loop.last }}{% else %}<span class="muted">none</span>{% endfor %}
+                          {% endif %}
+                        </td>
+                      {% endfor %}
+                      <td>
+                        {% if row.consensus is none %}<span class="muted">not set</span>
+                        {% else %}
+                          {% for code in d.codes if d.key ~ '/' ~ code.key in row.consensus %}{{ code.label }}{{ ', ' if not loop.last }}{% else %}<span class="muted">none</span>{% endfor %}
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+              <details class="fold" {% if row.consensus is none and row.split %}open{% endif %}>
+                <summary>Set consensus</summary>
+                <form method="post" action="{{ root }}/b/{{ batch.id }}/consensus/{{ row.item.token }}">
+                  {% if show_all %}<input type="hidden" name="all" value="1">{% endif %}
+                  {{ parts.code_fields(tree, row.consensus or []) }}
+                  <button>Save consensus</button>
+                </form>
+              </details>
+        </div>
+      </div>
+    </section>
+  {% else %}
+    <p class="muted">No disagreements.</p>
+  {% endfor %}
+{% endblock %}

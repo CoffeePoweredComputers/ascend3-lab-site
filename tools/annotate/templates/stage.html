@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ stage.title }} · Annotation bench{% endblock %}
+{% block main %}
+  {# A stage's guide on a page of its own. Also the whole page of a stage that is not built yet. #}
+  <p class="eyebrow">Stage {{ stage.n }}{{ ' · guide' if guide_page }}</p>
+  <h1>{{ stage.title }}</h1>
+  <div class="prose">{{ guide }}</div>
+  {% if guide_page %}<p><a class="button" href="{{ root }}/t/{{ track.id }}/{{ stage.path }}" data-key="Escape">← {{ stage.title }} <kbd>Esc</kbd></a></p>{% endif %}
+{% endblock %}

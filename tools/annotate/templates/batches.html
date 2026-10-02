@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ stage.title }} · Annotation bench{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+
+  {% if batches %}
+    <div class="decks">
+      {% for b in batches %}
+        <a class="card deckcard" href="{{ root }}/b/{{ b.id }}">
+          <span class="eyebrow">Round {{ b.round_no }} · v{{ b.version_n }}</span>
+          <span class="deckcard__title">{{ b.title }}</span>
+          <span class="deckcard__meta">{{ b.n_items }} cards <span class="badge {{ 'badge--ok' if b.status == 'closed' }}">{{ b.status }}</span></span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">{{ 'No decks yet.' if me.role == 'lead' else 'No deck dealt to you yet.' }}</p>
+  {% endif %}
+
+  {# What the last round says is still shaky. Nothing is blocked by it: the team decides. #}
+  {% if weak %}
+    <section class="card pad">
+      <h2>After {{ weak.batch.title }} <span class="badge">v{{ weak.batch.version_n }}</span></h2>
+      {% if weak.rows %}
+        <p class="task">Weak or unmeasured agreement. Fix the definition, fold the code into another, drop it, or accept it and say so.</p>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Code</th><th>α</th><th>AC1</th><th>Cards</th></tr></thead>
+            <tbody>
+              {% for r in weak.rows %}
+                <tr><td>{{ r.label }}</td><td>{{ parts.stat(r.alpha) }}</td><td>{{ parts.stat(r.ac1) }}</td><td>{{ r.n_items }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="task">Every code reached α of 0.67 or better.</p>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {% if me.role == 'lead' %}
+    <section class="card pad">
+      <h2>Deal a calibration round</h2>
+      {% if not published %}
+        <p class="muted">Publish a codebook first.</p>
+      {% else %}
+        <form method="post" action="{{ root }}/t/{{ track.id }}/batches" class="stack">
+          <input type="hidden" name="kind" value="calibration">
+          <label>Title <small>optional</small> <input name="title"></label>
+          <label>Cards <small>{{ unused }} unused cleared items · codebook v{{ published.n }}</small>
+            <input name="n_items" type="number" min="1" max="200" value="15" required>
+          </label>
+          <fieldset>
+            <legend>Coders</legend>
+            <div class="choices">
+              {% for p in people %}
+                <label class="choice"><input type="checkbox" name="coder" value="{{ p.id }}" checked><span>{{ p.email | who }} <small>{{ p.coder_code }}</small></span></label>
+              {% endfor %}
+            </div>
+          </fieldset>
+          <button>Deal</button>
+        </form>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endblock %}

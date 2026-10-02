@@ -49,7 +49,14 @@
       "dhsmith",
       "monisha"
     ],
-    "materials": [],
+    "materials": [
+      {
+        "label": "Annotation bench (coding workbench)",
+        "href": "/tools/annotate/",
+        "kind": "doc",
+        "access": "members"
+      }
+    ],
     "wikiLinks": [
       "quantitative/overview"
     ]

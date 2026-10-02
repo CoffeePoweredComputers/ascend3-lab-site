@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Code {{ item.token[:6] }} · Annotation bench{% endblock %}
+{% block main %}
+  <div class="deck {{ 'deck--photo' if study.has_image }}">
+    <section class="deck__card">
+      <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · card {{ position }} of {{ total }}</p>
+      {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+    </section>
+
+    <form method="post" class="deck__play">
+      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {{ parts.deck_nav('/b/' ~ batch.id ~ '/code/' ~ previous if previous, '/b/' ~ batch.id ~ ('/code/' ~ following if following else ''), 'Skip' if following else 'Finish') }}
+      {% if batch.kind == 'starter' %}
+        {# Your own codebook, built as you go. Number keys are your codes, in
+           the order you made them, so a code keeps its key. #}
+        <fieldset class="dimension">
+          <legend>Your codes <small>any that apply</small></legend>
+          <div class="choices">
+            {% for c in codes %}
+              {% set key = '1234567890'[loop.index0] if loop.index0 < 10 else '' %}
+              <label class="choice" title="{{ c.definition }}">
+                <input type="checkbox" name="code" value="{{ c.id }}" {% if c.id in on_card %}checked{% endif %} {% if locked %}disabled{% endif %} {% if key %}data-key="{{ key }}"{% endif %}>
+                <span>{% if key %}<kbd>{{ key }}</kbd>{% endif %}{{ c.name }}{% if study.parts | length > 1 %} <small>{{ c.part }}</small>{% endif %}</span>
+              </label>
+            {% else %}
+              <p class="muted">None yet.</p>
+            {% endfor %}
+          </div>
+        </fieldset>
+        {% if candidates and not locked %}
+          <fieldset class="dimension">
+            <legend>Candidates <small>from your jots · tick one to make it yours</small></legend>
+            <div class="choices">
+              {% for c in candidates %}
+                {% set key = 'qwertyui'[loop.index0] if loop.index0 < 8 else '' %}
+                <label class="choice choice--candidate" title="{{ c.definition }}">
+                  <input type="checkbox" name="code" value="{{ c.id }}" {% if key %}data-key="{{ key }}"{% endif %}>
+                  <span>{% if key %}<kbd>{{ key | upper }}</kbd>{% endif %}{{ c.name }}</span>
+                </label>
+              {% endfor %}
+            </div>
+          </fieldset>
+        {% endif %}
+        {% if not locked %}
+          <fieldset class="dimension">
+            <legend>New code <small>this card becomes its example</small></legend>
+            <label data-key="n"><kbd>N</kbd> Name <input name="new_name" maxlength="80" data-needs="new_definition" autocomplete="off"></label>
+            <label>Definition <small>when does it apply?</small> <textarea name="new_definition" rows="2"></textarea></label>
+            {% if study.parts | length > 1 %}
+              <label>About <select name="new_part">{% for part in study.parts %}<option value="{{ part }}">The {{ part }}</option>{% endfor %}</select></label>
+            {% endif %}
+          </fieldset>
+        {% endif %}
+        {% if codes or candidates %}
+          <details class="defs">
+            <summary>Definitions</summary>
+            {% for c in codes + candidates %}<p class="defs__name">{{ c.name }}</p><p>{{ c.definition }}</p>{% endfor %}
+            {% if codes and not locked %}<p><a href="{{ root }}/t/{{ track.id }}/codes">Rename or redefine a code</a></p>{% endif %}
+          </details>
+        {% endif %}
+      {% else %}
+        {{ parts.code_fields(tree, own, locked, keys=true) }}
+      {% endif %}
+      {% if locked %}
+        <p class="muted">Locked.</p>
+      {% else %}
+        {% if batch.kind != 'starter' %}
+          <details class="fold">
+            <summary>Add a note</summary>
+            <textarea name="note" rows="2" aria-label="Note to self, saved as a jotting"></textarea>
+          </details>
+        {% endif %}
+        {# First in the form, so Enter in the name box means this and not "add". #}
+        <button class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Next card</b></button>
+        {% if batch.kind == 'starter' %}<button name="action" value="add" class="quiet">Add the new code and stay on this card</button>{% endif %}
+      {% endif %}
+    </form>
+  </div>
+{% endblock %}

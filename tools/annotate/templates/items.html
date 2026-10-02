@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Read · Annotation bench{% endblock %}
+{% block main %}
+  <p class="eyebrow">Team</p>
+  <h1>Items</h1>
+
+  {% if not items %}
+    <p class="muted">Nothing kept yet. Items appear here once they are through <a href="{{ root }}/t/{{ track.id }}/triage">Clean and read</a>.</p>
+  {% else %}
+    {% set unread = items | rejectattr('id', 'in', jotted) | first %}
+    <section class="card pad hero">
+      <progress class="hero__bar" value="{{ jotted | length }}" max="{{ items | length }}">{{ jotted | length }} of {{ items | length }}</progress>
+      <p class="hero__big">{{ jotted | length }} of {{ items | length }} jotted</p>
+      <a class="button" href="{{ root }}/t/{{ track.id }}/items/{{ (unread or items[0]).token }}" data-key="Enter">Browse <kbd>Enter</kbd></a>
+    </section>
+    <ul class="chips">
+      {% for i in items %}
+        <li><a class="chip {{ 'chip--done' if i.id in jotted }}" href="{{ root }}/t/{{ track.id }}/items/{{ i.token }}">{{ i.token[:6] }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

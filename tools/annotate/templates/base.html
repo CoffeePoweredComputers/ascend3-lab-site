@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Annotation bench{% endblock %}</title>
+  <script src="{{ root }}/static/theme.js"></script>
+  <link rel="stylesheet" href="{{ root }}/static/app.css">
+  {% block head %}{% endblock %}
+</head>
+<body class="{{ 'is-deck' if deck else ('with-side' if track) }}">
+  <a class="skip" href="#main">Skip to content</a>
+
+  {% if deck %}
+    {# A card deck: one submission at a time, nothing else on screen. #}
+    <header class="deckbar">
+      <a class="deckbar__back" href="{{ root }}{{ deck.back }}" data-key="Escape" aria-label="Back to {{ deck.title }}">←</a>
+      <span class="deckbar__title">{{ deck.title }}</span>
+      {% if stage %}<a class="deckbar__guide" href="{{ root }}/t/{{ track.id }}/guide/{{ stage.n }}" target="_blank" rel="noopener" data-key="?">Guide <kbd>?</kbd></a>{% endif %}
+      <progress class="deckbar__bar" value="{{ deck.value }}" max="{{ deck.max }}">{{ deck.value }} of {{ deck.max }}</progress>
+      <span class="deckbar__count">{{ deck.value }} / {{ deck.max }}</span>
+      {% if climb %}<span class="deckbar__feet">▲ {{ '{:,}'.format(climb.feet) }} ft</span>{% endif %}
+      <button type="button" class="theme" data-theme-toggle aria-label="Switch between light and dark">◐</button>
+    </header>
+  {% elif track %}
+    <aside class="side topo">
+      <div class="side__top">
+        <a class="side__brand" href="{{ root }}/"><span aria-hidden="true">~/</span>annotation-bench</a>
+        <button type="button" class="theme" data-theme-toggle aria-label="Switch between light and dark">◐</button>
+      </div>
+      <p class="side__study">{{ track.dataset_title }}</p>
+
+      {# The trail: trailhead at the bottom, summit at the top. #}
+      <nav aria-label="Stages" class="trail">
+        <svg viewBox="0 0 240 {{ trail.height }}" role="list">
+          <defs>
+            <linearGradient id="trail-gradient" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#166534"></stop>
+              <stop offset="50%" stop-color="#2563EB"></stop>
+              <stop offset="100%" stop-color="#93C5FD"></stop>
+            </linearGradient>
+          </defs>
+          <path class="trail__path" d="{{ trail.path }}"></path>
+          <path class="trail__gain" d="{{ trail.path }}" stroke="url(#trail-gradient)" data-gain="{{ trail.gain }}"
+                pathLength="{{ trail.length }}" stroke-dasharray="{{ trail.climbed }} {{ trail.length * 2 }}"></path>
+          {# You, on the trail. deck.js puts this where the climbed path ends. Drawn
+             before the waypoints, so standing on one does not cover its number. #}
+          <circle class="trail__you is-unplaced" r="5" data-at="{{ trail.climbed / trail.length }}"></circle>
+          {% for s in nav %}
+            {% set open = s.key != 'export' or me.role == 'lead' %}
+            <a role="listitem" {% if open %}href="{{ root }}/t/{{ track.id }}/{{ s.path }}"{% endif %}
+               class="wp {{ 'wp--done' if s.done }} {{ 'wp--here' if s.n == trail.here }} {{ 'wp--soon' if s.locked }}"
+               {% if s.key == at %}aria-current="page"{% endif %}>
+              <circle class="wp__dot" cx="{{ s.x }}" cy="{{ s.y }}" r="11"></circle>
+              <text class="wp__n" x="{{ s.x }}" y="{{ s.y + 4 }}" text-anchor="middle">{{ '✓' if s.done else s.n }}</text>
+              {# The waypoint's card, on the inner side of its dot, like the main site's trail badges. #}
+              {% set left = s.n % 2 == 0 %}
+              <foreignObject x="{{ s.x + 17 if left else s.x - 17 - 136 }}" y="{{ s.y - 21 }}" width="136" height="42">
+                <span class="wp__slot wp__slot--{{ 'left' if left else 'right' }}">
+                  <span class="wp__card">
+                    <span class="wp__title">{{ s.title }}</span>
+                    <span class="wp__meta">{{ s.progress or ('summit' if s.key == 'export' else 'trailhead' if s.n == 0 else '') }}</span>
+                  </span>
+                </span>
+              </foreignObject>
+            </a>
+          {% endfor %}
+        </svg>
+      </nav>
+
+      <ul class="side__list">
+        {# The guide for the stage on screen, or for where the team is. #}
+        {% set guide_n = stage.n if stage and stage.n else [trail.here, 1] | max %}
+        <li><a class="side__link" href="{{ root }}/t/{{ track.id }}/guide/{{ guide_n }}" data-key="?" {% if guide_page %}aria-current="page"{% endif %}>Guide <kbd>?</kbd></a></li>
+        <li><a class="side__link" href="{{ root }}/t/{{ track.id }}/items" {% if at == 'items' %}aria-current="page"{% endif %}>Items</a></li>
+        <li><a class="side__link" href="{{ root }}/t/{{ track.id }}/memos" {% if at == 'memos' %}aria-current="page"{% endif %}>Memos</a></li>
+        <li><a class="side__link" href="{{ root }}/t/{{ track.id }}/history" {% if at == 'history' %}aria-current="page"{% endif %}>Agreement</a></li>
+        {% if me.role == 'lead' %}
+          <li><a class="side__link" href="{{ root }}/t/{{ track.id }}/roster" {% if at == 'roster' %}aria-current="page"{% endif %}>Roster</a></li>
+        {% endif %}
+      </ul>
+
+      <div class="side__who">
+        {% if climb %}
+          <p class="climb"><b>▲ {{ '{:,}'.format(climb.feet) }} ft</b> climbed{% if climb.streak > 1 %} · {{ climb.streak }} days running{% endif %}</p>
+          <p>team ▲ {{ '{:,}'.format(climb.team_feet) }} ft</p>
+        {% endif %}
+        <p>{{ me.coder_code }} · {{ me.role }} · {{ user.email }}</p>
+      </div>
+    </aside>
+  {% endif %}
+
+  {% if not deck and not track %}<button type="button" class="theme theme--corner" data-theme-toggle aria-label="Switch between light and dark">◐</button>{% endif %}
+
+  <main id="main" tabindex="-1">
+    {% if request.query_params.get('error') %}
+      <p class="flash flash--error" role="alert">{{ request.query_params.get('error') }}</p>
+    {% endif %}
+    {% if request.query_params.get('ok') %}
+      <p class="flash flash--ok {{ 'toast' if deck }}" role="status">{{ request.query_params.get('ok') }}</p>
+    {% endif %}
+    {% if stage and stage.locked and not deck and not guide_page %}
+      {# Not open yet. The guide can still be read ahead. #}
+      <header class="head"><div><p class="eyebrow">Stage {{ stage.n }}</p><h1>{{ stage.title }}</h1></div></header>
+      <p class="locked">Locked. The lead opens this once the team has finished {{ stage_prev.title }}.</p>
+    {% else %}
+      {% block main %}{% endblock %}
+    {% endif %}
+
+    {% if stage and not deck and stage.key != 'onboarding' %}
+      {# Between stages: both always drawn, in the same place. #}
+      <nav class="stagenav" aria-label="Stages, previous and next">
+        {% if stage_prev %}
+          <a class="button quiet" href="{{ root }}/t/{{ track.id }}/{{ stage_prev.path }}">← {{ stage_prev.title }}</a>
+        {% else %}
+          <span class="button quiet is-off" aria-disabled="true">← Back</span>
+        {% endif %}
+        {% if stage_next %}
+          <a class="button {{ '' if stage.done else 'quiet' }}" href="{{ root }}/t/{{ track.id }}/{{ stage_next.path }}">{{ stage_next.title }} →</a>
+        {% else %}
+          <span class="button quiet is-off" aria-disabled="true">Next →</span>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </main>
+
+  {% if dev %}
+    <footer class="dev">
+      dev:
+      <a href="{{ root }}/dev/as/{{ dev }}">me</a>
+      <a href="{{ root }}/dev/as/lead@example.edu">lead</a>
+      <a href="{{ root }}/dev/as/coder1@example.edu">coder1</a>
+      <a href="{{ root }}/dev/as/coder2@example.edu">coder2</a>
+      <a href="{{ root }}/dev/as/outsider@example.edu">outsider</a>
+    </footer>
+  {% endif %}
+  <script src="{{ root }}/static/deck.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Merge · Annotation bench{% endblock %}
+{% set base = root ~ '/t/' ~ track.id ~ '/merge' %}
+
+{# One personal code, with the single action the meeting has on it: where it goes. #}
+{% macro source(s, here=none) %}
+  <div class="source">
+    <p class="code__name">{{ s.name }} <span class="badge">{{ s.who }}</span> <span class="badge">{{ s.uses }} card{{ '' if s.uses == 1 else 's' }}</span>{% if s.origin == 'model' %} <span class="badge badge--warn">from a candidate</span>{% endif %}</p>
+    <p>{{ s.definition }}</p>
+    {% if s.photo %}<a href="{{ base }}/cards/{{ s.id }}"><img class="thumb" alt="Its example diagram" src="{{ root }}/img/{{ s.photo }}"></a>{% endif %}
+    {% if s.example %}<p class="meta">e.g. {{ s.example | truncate(220) }} · <a href="{{ base }}/cards/{{ s.id }}">all its cards</a></p>{% endif %}
+    {% if s.jots %}
+      <details class="fold">
+        <summary>{{ s.who }}'s jots on its cards</summary>
+        {% for j in s.jots %}<p class="pre note">{{ j }}</p>{% endfor %}
+      </details>
+    {% endif %}
+    <form method="post" action="{{ base }}/move" class="row">
+      <input type="hidden" name="pcode" value="{{ s.id }}">
+      <select name="to" aria-label="Where {{ s.name }} goes">
+        {% for m in view.proposed + view.empty if m.part == s.part and m.id != here %}<option value="{{ m.id }}">Into: {{ m.name }}</option>{% endfor %}
+        <option value="own">A code of its own</option>
+        <option value="drop">Drop it</option>
+        {% if here or s.dropped %}<option value="undecided">Set aside</option>{% endif %}
+      </select>
+      <button class="quiet">Move</button>
+    </form>
+  </div>
+{% endmacro %}
+
+{% block main %}
+  <p class="crumb"><a href="{{ root }}/t/{{ track.id }}/codebook">Codebook</a> / merge</p>
+  <h1>Merge</h1>
+  <p class="task">{{ view.proposed | length }} proposed · {{ view.undecided | length }} undecided · {{ view.dropped | length }} dropped</p>
+
+  <section class="card pad">
+    <form method="post" action="{{ base }}/write" class="row">
+      <button {% if view.undecided or has_draft %}class="quiet"{% endif %}>Write these to the codebook draft</button>
+      <span class="hint">{{ 'Decide the undecided codes first.' if view.undecided else 'A draft is open already.' if has_draft else 'Then edit and publish it there.' }}</span>
+    </form>
+  </section>
+
+  {% if view.undecided %}
+    <h2>Undecided</h2>
+    <section class="card pad">
+      {% for s in view.undecided %}{{ source(s) }}{% endfor %}
+    </section>
+  {% endif %}
+
+  <h2>Proposed codes</h2>
+  {% for m in view.proposed %}
+    <section class="card pad" id="m{{ m.id }}">
+      <form method="post" action="{{ base }}/code" class="stack">
+        <input type="hidden" name="mcode" value="{{ m.id }}">
+        <label>Name {% if study.parts | length > 1 %}<span class="badge badge--warn">{{ m.part }}</span>{% endif %} <input name="name" required maxlength="80" value="{{ m.name }}"></label>
+        <label>Definition <textarea name="definition" rows="2" required>{{ m.definition }}</textarea></label>
+        <button class="quiet">Save</button>
+      </form>
+      {% if m.reason %}<p class="meta">Why together: {{ m.reason }}</p>{% endif %}
+      {% for s in m.sources %}{{ source(s, m.id) }}{% endfor %}
+    </section>
+  {% else %}
+    <p class="muted">None. Keep undecided codes as codes of their own, or put them together.</p>
+  {% endfor %}
+
+  {% if view.dropped %}
+    <details class="fold">
+      <summary>Dropped ({{ view.dropped | length }})</summary>
+      <section class="card pad">{% for s in view.dropped %}{{ source(s) }}{% endfor %}</section>
+    </details>
+  {% endif %}
+{% endblock %}

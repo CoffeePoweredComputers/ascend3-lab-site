@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Memos · Annotation bench{% endblock %}
+{% block main %}
+  <p class="eyebrow">Team</p>
+  <h1>Memos</h1>
+
+  <section>
+    <h2>Analytic memos</h2>
+    <form method="post" class="card pad">
+      <input type="hidden" name="kind" value="memo">
+      <label>Memo <small>shared with the team</small>
+        <textarea name="body" rows="4" required placeholder="What you see. Where. What would count against it."></textarea>
+      </label>
+      <label>Code key <small>optional</small> <input name="code_key" maxlength="40"></label>
+      <button>Share</button>
+    </form>
+    {% for m in shared %}
+      <div class="note">
+        <p class="pre">{{ m.body }}</p>
+        <p class="meta">{{ m.coder_code }} · {{ m.created_at[:10] }}{% if m.code_key %} · {{ m.code_key }}{% endif %}</p>
+      </div>
+    {% else %}
+      <p class="muted">No memos yet.</p>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Your jottings</h2>
+    {% for j in jottings %}
+      <div class="note">
+        <p class="pre">{{ j.body }}</p>
+        <p class="meta"><a class="id" href="{{ root }}/t/{{ track.id }}/items/{{ j.token }}">{{ j.token[:6] }}</a> · {{ j.created_at[:10] }}</p>
+      </div>
+    {% else %}
+      <p class="muted">None yet. Add them from an item.</p>
+    {% endfor %}
+  </section>
+{% endblock %}

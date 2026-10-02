@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ stage.title }} · Annotation bench{% endblock %}
+{% block head %}{% if run and run.status == 'working' %}<meta http-equiv="refresh" content="5">{% endif %}{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+  {% set done = mine | selectattr('done_at') | list | length %}
+  {% set todo = mine | rejectattr('done_at') | first %}
+  {% set own = codes | selectattr('status', 'equalto', 'own') | list %}
+  {% set proposed = codes | selectattr('status', 'equalto', 'candidate') | list %}
+
+  <section class="card pad hero">
+    {% if not run %}
+      <p class="hero__big">Generate your candidate codes</p>
+      <p class="muted">From your {{ jots }} jots and the team's questions. Once only: it closes your jotting.</p>
+      <form method="post" action="{{ root }}/t/{{ track.id }}/open/generate">
+        <button data-key="Enter">Generate <kbd>Enter</kbd></button>
+      </form>
+      {% if model == 'off' %}<p class="muted">No model is set up, so there will be no candidates. You build your own codes either way.</p>{% endif %}
+    {% elif run.status == 'working' %}
+      <p class="hero__big">Working…</p>
+      <p class="muted">About a minute. This page checks again by itself.</p>
+    {% elif run.status == 'failed' %}
+      <p class="hero__big">That did not work</p>
+      <p class="muted">{{ run.detail }}</p>
+      <form method="post" action="{{ root }}/t/{{ track.id }}/open/generate" class="row">
+        <button data-key="Enter">Try again <kbd>Enter</kbd></button>
+        <button name="skip" value="1" class="quiet">Carry on without candidates</button>
+      </form>
+    {% elif not cards %}
+      <p class="hero__big">Waiting for the cards</p>
+      <p class="muted">{{ run.detail }} The lead deals the same cards to everyone.</p>
+    {% elif cards.status == 'closed' %}
+      <p class="hero__big">Open coding closed</p>
+      <a class="button" href="{{ root }}/t/{{ track.id }}/codebook" data-key="Enter">Next: Codebook <kbd>Enter</kbd></a>
+    {% elif not mine %}
+      <p class="hero__big">Cards dealt</p>
+      <p class="muted">You were not on the team when they were dealt.</p>
+    {% else %}
+      <progress class="hero__bar" value="{{ done }}" max="{{ mine | length }}">{{ done }} of {{ mine | length }}</progress>
+      {% if todo %}
+        <p class="hero__big">{{ done }} of {{ mine | length }} cards</p>
+        <a class="button" href="{{ root }}/b/{{ cards.id }}/code/{{ todo.token }}" data-key="Enter">{{ 'Continue' if done else 'Start' }} <kbd>Enter</kbd></a>
+      {% else %}
+        <p class="hero__big">All cards coded</p>
+        <p class="muted">You can change them until the lead closes open coding.</p>
+      {% endif %}
+      <ul class="chips">
+        {% for m in mine %}
+          <li><a class="chip {{ 'chip--done' if m.done_at }}" href="{{ root }}/b/{{ cards.id }}/code/{{ m.token }}">{{ m.token[:6] }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+
+  {% if run and run.status == 'ready' %}
+    <section class="card pad">
+      <h2>Your codes <span class="badge">{{ own | length }}</span></h2>
+      {% if own %}<p><a class="button quiet" href="{{ root }}/t/{{ track.id }}/codes">Rename or redefine</a></p>
+      {% else %}<p class="muted">None yet. You make them on the cards.</p>{% endif %}
+      {% if proposed %}
+        <h3>Candidates not used yet</h3>
+        {% for c in proposed %}<p class="code__name">{{ c.name }}</p><p class="muted">{{ c.definition }}</p>{% endfor %}
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {% if me.role == 'lead' %}
+    <section class="card pad">
+      {% if cards %}
+        <h2>The team</h2>
+        <p><a class="button quiet" href="{{ root }}/b/{{ cards.id }}">Progress{{ ' and close' if cards.status == 'open' }}</a></p>
+      {% else %}
+        <h2>Deal the cards</h2>
+        <form method="post" action="{{ root }}/t/{{ track.id }}/batches" class="stack">
+          <input type="hidden" name="kind" value="starter">
+          <input type="hidden" name="title" value="Open coding">
+          <label>Cards <small>the same ones for all {{ members }} of you · {{ unused }} kept · calibration rounds need cards this deck has not used</small>
+            <input name="n_items" type="number" min="1" max="200" value="{{ [40, unused] | min }}" required>
+          </label>
+          <button>Deal</button>
+        </form>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endblock %}

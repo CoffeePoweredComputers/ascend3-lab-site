@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ item.token[:6] }} · Annotation bench{% endblock %}
+{% block main %}
+  {# mode is clean (a photo nobody has turned and cropped yet), read (a card
+     in the data) or resolve (a lead settling one that was flagged). #}
+  <form method="post" class="deck {{ 'deck--photo' if study.has_image }}">
+    {% if mode == 'clean' %}<input type="hidden" name="mode" value="clean">{% endif %}
+    <section class="deck__card submission">
+      <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {{ item.project | replace('_', ' ') }} · {{ item.homework }}
+        {% if mode == 'clean' %}<span class="badge badge--warn">needs cleaning</span>{% endif %}
+        {% if mode == 'resolve' %}<span class="badge badge--warn">{{ 'with the lead' if item.status == 'pii_hold' else item.status }}</span>{% endif %}</p>
+      {% if mode == 'resolve' and item.note %}<p class="note">{{ item.note }}</p>{% endif %}
+      {% if item.raw_path and mode != 'read' %}
+        {# The whole photo, to be turned and cropped. Everyone after sees only the crop. #}
+        <div class="crop" data-crop
+             data-x="{{ item.crop_x if item.crop_w else '' }}" data-y="{{ item.crop_y if item.crop_w else '' }}"
+             data-w="{{ item.crop_w or '' }}" data-h="{{ item.crop_h or '' }}">
+          <img alt="The photo with your rotation applied" draggable="false"
+               src="{{ root }}/img/{{ item.token }}?full=1&amp;rev={{ item.rev }}">
+          <div class="crop__box" hidden></div>
+        </div>
+        <input type="hidden" name="crop_x"><input type="hidden" name="crop_y">
+        <input type="hidden" name="crop_w"><input type="hidden" name="crop_h">
+        <p class="tools">
+          <button name="turn" value="left" class="quiet" data-key="["><kbd>[</kbd> Turn left</button>
+          <button name="turn" value="right" class="quiet" data-key="]"><kbd>]</kbd> Turn right</button>
+          <span class="hint">Turn first, then drag a box round the diagram.</span>
+          <button type="button" class="link" data-crop-clear>Remove crop</button>
+        </p>
+      {% elif item.raw_path %}
+        <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
+      {% elif study.has_image %}
+        <p class="item-missing">No diagram submitted.</p>
+      {% endif %}
+      {% if not study.has_image %}{{ parts.texts(item) }}{% endif %}
+    </section>
+
+    <section class="deck__play">
+      {# With a photo on the left, what the student wrote goes here on the right. #}
+      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {% if mode == 'clean' %}
+        <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Keep and next</b><small>upright, cropped, nothing identifying left</small></button>
+      {% elif mode == 'read' %}
+        {% if frozen %}
+          <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+        {% else %}
+          <label class="jot" data-key="j"><kbd>J</kbd> What do you notice? <small>optional, private until the merge</small>
+            <textarea name="jot" rows="3"></textarea>
+          </label>
+        {% endif %}
+        {% for j in jottings %}
+          <div class="note"><p class="pre">{{ j.body }}</p><p class="meta">your jot · {{ j.created_at[:10] }}</p></div>
+        {% endfor %}
+        <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Next card</b><small>Ctrl+Enter from the box</small></button>
+      {% else %}
+        <button name="action" value="clear" class="big big--go" data-key="k"><kbd>K</kbd><b>Keep</b><small>{{ 'readable, on task, nothing identifying left' if study.has_image else 'it belongs in the data' }}</small></button>
+      {% endif %}
+      {# Opens the reasons; picking one is what sends it. #}
+      <details class="why">
+        <summary class="big big--stop" data-key="x"><kbd>X</kbd><b>{{ 'Exclude' if mode == 'resolve' else 'Flag for the lead' }}</b><small>then say why</small></summary>
+        <div class="why__reasons">
+          {% for value, label in study.exclude_reasons %}
+            <button name="exclude" value="{{ value }}" class="quiet" data-key="{{ loop.index }}"><kbd>{{ loop.index }}</kbd> {{ label }}</button>
+          {% endfor %}
+        </div>
+      </details>
+      <details class="fold">
+        <summary>Add a note</summary>
+        <textarea name="note" rows="2" aria-label="Note for the lead">{{ item.note if mode == 'resolve' }}</textarea>
+      </details>
+      {% if me.role == 'lead' and mode == 'read' and item.raw_path %}
+        <button name="action" value="reopen" class="quiet">Take back to turn or crop again</button>
+      {% endif %}
+    </section>
+  </form>
+  <script src="{{ root }}/static/crop.js"></script>
+{% endblock %}

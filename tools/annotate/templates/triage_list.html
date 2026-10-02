@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ stage.title }} · Annotation bench{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+  {% set cards = counts.cleared + counts.untriaged %}
+
+  <section class="card pad hero">
+    {% if counts.untriaged %}
+      {# First the photos are cleaned. They are divided among the team: these are yours. #}
+      <progress class="hero__bar" value="{{ counts.cleared }}" max="{{ cards }}">{{ counts.cleared }} of {{ cards }}</progress>
+      {% if to_clean %}
+        <p class="hero__big">{{ mine }} photo{{ '' if mine == 1 else 's' }} for you to clean</p>
+        <a class="button" href="{{ root }}/t/{{ track.id }}/triage/{{ to_clean.token }}" data-key="Enter">Start <kbd>Enter</kbd></a>
+        <p class="muted">Turn, crop, keep. {{ counts.untriaged }} left across the team. Reading and jotting start when every photo is clean.</p>
+      {% else %}
+        <p class="hero__big">Your photos are clean</p>
+        <p class="muted">Reading starts when the rest are: {% for email, n in waiting %}{{ email | who }} has {{ n }}{{ ', ' if not loop.last }}{% endfor %}.</p>
+      {% endif %}
+    {% elif first %}
+      {# Then everyone reads every card; this is your own pass. #}
+      <progress class="hero__bar" value="{{ seen | length }}" max="{{ cards }}">{{ seen | length }} of {{ cards }}</progress>
+      <p class="hero__big">{{ cards - seen | length }} to read</p>
+      <a class="button" href="{{ root }}/t/{{ track.id }}/triage/{{ first.token }}" data-key="Enter">{{ 'Continue' if seen else 'Start' }} <kbd>Enter</kbd></a>
+    {% else %}
+      <progress class="hero__bar" value="{{ cards }}" max="{{ cards }}">all</progress>
+      <p class="hero__big">All read</p>
+      {% if stage.done and stage_next %}<a class="button" href="{{ root }}/t/{{ track.id }}/{{ stage_next.path }}" data-key="Enter">Next: {{ stage_next.title }} <kbd>Enter</kbd></a>
+      {% else %}<p class="muted">The lead opens {{ stage_next.title }} when everyone is through.</p>{% endif %}
+    {% endif %}
+    {% if counts.pii_hold %}
+      {% if me.role == 'lead' %}<p><a href="?status=pii_hold">{{ counts.pii_hold }} waiting for you</a></p>
+      {% else %}<p class="muted">{{ counts.pii_hold }} with the lead.</p>{% endif %}
+    {% endif %}
+  </section>
+
+  {% if me.role == 'lead' %}
+    <nav class="pills" aria-label="Status">
+      <a href="?" {% if not status %}aria-current="page"{% endif %}>cards <span>{{ cards }}</span></a>
+      <a href="?status=pii_hold" {% if status == 'pii_hold' %}aria-current="page"{% endif %}>with the lead <span>{{ counts.pii_hold }}</span></a>
+      <a href="?status=excluded" {% if status == 'excluded' %}aria-current="page"{% endif %}>excluded <span>{{ counts.excluded }}</span></a>
+    </nav>
+  {% endif %}
+  <ul class="chips">
+    {% for i in items %}
+      <li>
+        <a class="chip {{ 'chip--done' if i.id in seen }}" href="{{ root }}/t/{{ track.id }}/triage/{{ i.token }}">{{ i.token[:6] }}
+          {% if study.has_image and not i.raw_path %}<small>no diagram</small>{% endif %}
+          {% if i.status == 'untriaged' and i.raw_path %}<small>to clean</small>{% endif %}
+          {% if status and i.note %}<small>{{ i.note | truncate(60) }}</small>{% endif %}
+        </a>
+      </li>
+    {% else %}
+      <li class="muted">None.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

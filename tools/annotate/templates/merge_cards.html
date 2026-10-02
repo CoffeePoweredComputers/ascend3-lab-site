@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ code.name }} · Annotation bench{% endblock %}
+{% block main %}
+  <p class="crumb"><a href="{{ root }}/t/{{ track.id }}/merge">Merge</a> / cards</p>
+  <h1>{{ code.name }} <span class="badge">{{ code.email | who }}</span></h1>
+  <p class="task">{{ code.definition }}</p>
+
+  {% for card in cards %}
+    <section class="card pad">
+      <h2>Item {{ card.token[:6] }}</h2>
+      {{ parts.show(card) }}
+      {% for j in card.jots %}<p class="pre note">{{ j }}</p>{% endfor %}
+    </section>
+  {% else %}
+    <p class="muted">It is on no cards.</p>
+  {% endfor %}
+{% endblock %}

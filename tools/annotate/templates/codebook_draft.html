@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Codebook draft · Annotation bench{% endblock %}
+{% set base = root ~ '/t/' ~ track.id ~ '/codebook/draft' %}
+{% macro code_form(d, c=none) %}
+  <form method="post" action="{{ base }}/code" class="stack">
+    <input type="hidden" name="dimension" value="{{ d.key }}">
+    {% if c %}
+      <input type="hidden" name="key" value="{{ c.key }}">
+    {% else %}
+      <input type="hidden" name="new" value="1">
+      <label>Key <small>permanent, e.g. vague-language</small> <input name="key" required maxlength="40" pattern="[a-z0-9][a-z0-9_-]*"></label>
+    {% endif %}
+    <label>Label <input name="label" required value="{{ c.label if c }}"></label>
+    <label>Definition <textarea name="definition" rows="2">{{ c.definition if c }}</textarea></label>
+    <label>Include <textarea name="include" rows="2">{{ c.include if c }}</textarea></label>
+    <label>Exclude <textarea name="exclude" rows="2">{{ c.exclude if c }}</textarea></label>
+    <label>Example <textarea name="example" rows="2">{{ c.example if c }}</textarea></label>
+    {% if c and tree | length > 1 %}
+      <label>Under
+        <select name="move_to">{% for other in tree %}<option value="{{ other.key }}" {% if other.key == d.key %}selected{% endif %}>{{ other.name }}</option>{% endfor %}</select>
+      </label>
+    {% endif %}
+    <button>{{ 'Save' if c else 'Add code' }}</button>
+  </form>
+{% endmacro %}
+{% block main %}
+  <p class="crumb"><a href="{{ root }}/t/{{ track.id }}/codebook">Codebook</a> / draft</p>
+  {% if not version %}
+    <h1>No draft</h1>
+    <form method="post" action="{{ base }}/new"><button>Start a draft</button></form>
+  {% else %}
+    <h1>Draft v{{ version.n }}</h1>
+
+    {% for d in tree %}
+      <section class="card pad">
+        <h2>{{ d.name }} {% if study.parts | length > 1 %}<span class="badge badge--warn">{{ d.part }}</span>{% endif %} <span class="badge">{{ 'single choice' if d.mode == 'single' else 'multi-label' }}</span> <span class="id">{{ d.key }}</span></h2>
+        {% for c in d.codes %}
+          <details class="fold">
+            <summary>{{ c.label }} <span class="id">{{ c.key }}</span></summary>
+            {{ code_form(d, c) }}
+            <form method="post" action="{{ base }}/code-delete">
+              <input type="hidden" name="dimension" value="{{ d.key }}"><input type="hidden" name="key" value="{{ c.key }}">
+              <button class="quiet danger">Remove code</button>
+            </form>
+          </details>
+        {% endfor %}
+        <details class="fold">
+          <summary>Add a code</summary>
+          {{ code_form(d) }}
+        </details>
+        <details class="fold">
+          <summary>Edit this dimension</summary>
+          <form method="post" action="{{ base }}/dimension" class="stack">
+            <input type="hidden" name="key" value="{{ d.key }}">
+            <label>Name <input name="name" required value="{{ d.name }}"></label>
+            {% if study.parts | length > 1 %}
+              <label>About
+                <select name="part">{% for part in study.parts %}<option value="{{ part }}" {% if part == d.part %}selected{% endif %}>The {{ part }}</option>{% endfor %}</select>
+              </label>
+            {% else %}
+              <input type="hidden" name="part" value="{{ d.part }}">
+            {% endif %}
+            <label>Kind
+              <select name="mode">
+                <option value="multi" {% if d.mode == 'multi' %}selected{% endif %}>Multi-label</option>
+                <option value="single" {% if d.mode == 'single' %}selected{% endif %}>Single choice</option>
+              </select>
+            </label>
+            <button class="quiet">Save</button>
+          </form>
+          {% if not d.codes %}
+            <form method="post" action="{{ base }}/dimension-delete">
+              <input type="hidden" name="key" value="{{ d.key }}">
+              <button class="quiet danger">Remove dimension</button>
+            </form>
+          {% endif %}
+        </details>
+      </section>
+    {% endfor %}
+
+    <section class="card pad">
+      <h2>Add a dimension</h2>
+      <form method="post" action="{{ base }}/dimension" class="stack">
+        <input type="hidden" name="new" value="1">
+        <label>Key <input name="key" required maxlength="40" pattern="[a-z0-9][a-z0-9_-]*"></label>
+        <label>Name <input name="name" required></label>
+        {% if study.parts | length > 1 %}
+          <label>About
+            <select name="part">{% for part in study.parts %}<option value="{{ part }}">The {{ part }}</option>{% endfor %}</select>
+          </label>
+        {% endif %}
+        <label>Kind
+          <select name="mode"><option value="multi">Multi-label</option><option value="single">Single choice</option></select>
+        </label>
+        <button>Add dimension</button>
+      </form>
+    </section>
+
+    <section class="card pad">
+      <h2>Publish v{{ version.n }}</h2>
+      <form method="post" action="{{ base }}/publish" class="stack">
+        <label>What changed and why
+          <textarea name="note" rows="3" required></textarea>
+        </label>
+        <button>Publish</button>
+      </form>
+    </section>
+
+    <form method="post" action="{{ base }}/discard">
+      <button class="quiet danger">Discard this draft</button>
+    </form>
+  {% endif %}
+{% endblock %}
