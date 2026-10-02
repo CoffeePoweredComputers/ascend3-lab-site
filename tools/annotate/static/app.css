@@ -367,7 +367,6 @@ kbd {
 .big kbd { grid-row: span 2; margin: 0; font-size: 0.8rem; }
 .big small { grid-column: 2; }
 .big--go { border-color: var(--secondary); } .big--go b { color: var(--secondary); }
-.big--warn { border-color: var(--accent); } .big--warn b { color: var(--accent); }
 .big--stop { border-color: var(--danger); } .big--stop b { color: var(--danger); }
 
 /* Choices as buttons. The real input is still there for the keyboard and screen readers. */

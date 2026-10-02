@@ -319,7 +319,9 @@ def save_triage(
     flags: dict[str, bool],
     note: str,
 ) -> str:
-    """Apply one triage form. Returns the item's new status."""
+    """Change an item's cleaning: its turn, crop, flags and whether it is in
+    the data. `action` is save (turn or crop only), clear (keep it), exclude,
+    or reopen (a lead taking it back). Returns the item's new status."""
     if role != "lead" and item["status"] != "untriaged":
         raise Refused("This item has already been triaged. Ask a lead to reopen it.")
     if rotation not in (0, 90, 180, 270):
@@ -329,28 +331,18 @@ def save_triage(
         if not (0 <= x < 1 and 0 <= y < 1 and 0.02 < w <= 1 and 0.02 < h <= 1 and x + w <= 1.001 and y + h <= 1.001):
             raise Refused("The crop rectangle is outside the image.")
     if rotation != item["rotation"]:
-        # The rectangle was drawn on the old orientation. Releasing the item
-        # now would send it out with no crop at all, so make them redo it.
-        if crop is not None and action == "clear":
-            raise Refused("You changed the rotation, so the crop no longer fits. Press Apply rotation first, then draw the crop again.")
-        crop = None
-    if action == "clear" and role != "lead" and (flags["off_task"] or not flags["legible"]):
-        raise Refused("You marked this as off task or not legible. Exclude it, or untick the flag if it can be coded.")
+        crop = None  # a rectangle drawn on the old orientation no longer fits
 
     if action == "save":
         status = item["status"]
     elif action == "exclude":
         status = "excluded"
-    elif action == "hold":
-        status = "pii_hold"
     elif action == "reopen" and role == "lead":
-        # Untriaged items show their uncropped photo to every coder. One still
-        # flagged as identifying goes back to the leads' queue instead.
-        status = "pii_hold" if flags["pii_visible"] else "untriaged"
+        # Back to the lead, not to everyone: an uncleaned photo is shown
+        # uncropped to whoever opens it.
+        status = "pii_hold"
     elif action == "clear":
-        # A coder who sees something identifying hands the item to a lead. Only
-        # a lead, having cropped it out, can release it to the coding pool.
-        status = "pii_hold" if flags["pii_visible"] and role != "lead" else "cleared"
+        status = "cleared"
     else:
         raise Refused("Unknown action.")
 
