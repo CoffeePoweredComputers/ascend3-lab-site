@@ -103,3 +103,13 @@ def test_the_role_cannot_be_claimed_without_the_gate(client, monkeypatch):
     assert client.get("/").status_code == 200
     client.get("/dev/as/outsider@example.edu")
     assert client.get("/").status_code == 403
+
+
+def test_with_no_study_loaded_an_admin_is_told_so(data_dir):
+    from fastapi.testclient import TestClient
+
+    from annotate.main import app
+
+    empty = TestClient(app)  # a migrated database with nothing imported
+    assert "No study has been loaded yet" in empty.get("/", headers=ADMIN).text
+    assert "not on the roster for any study" in empty.get("/", headers=NOT_ADMIN).text

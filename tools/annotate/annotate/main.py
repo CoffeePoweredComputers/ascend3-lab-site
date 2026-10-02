@@ -275,8 +275,11 @@ def dashboard(request: Request):
     with db.db() as conn:
         tracks = repo.tracks_for(conn, user.email, user.admin)
         if not tracks:
+            # An admin sees every study, so for them an empty list means none has been loaded.
             raise HTTPException(
-                403, "You are not on the roster for any study here. Ask the project lead to add you."
+                403,
+                "No study has been loaded yet. Import a dataset on the server; the commands are in the tool's README."
+                if user.admin else "You are not on the roster for any study here. Ask the project lead to add you.",
             )
         cards = [
             {

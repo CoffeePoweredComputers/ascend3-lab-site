@@ -400,8 +400,10 @@ label.choice { margin: 0; font-weight: 500; }
 .deckcard:hover, .track:hover { border-color: var(--primary); text-decoration: none; transform: translateY(-2px); }
 .deckcard__title { font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; }
 .deckcard__meta { font-size: 0.8rem; color: var(--text-muted); }
-.team { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: 0.5rem; }
-.team li { display: grid; grid-template-columns: 3rem 1fr auto auto; align-items: center; gap: 0.75rem; }
+/* One grid for the whole list, so the name column is as wide as the longest
+   name and every row lines up under it. */
+.team { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; grid-template-columns: max-content 1fr auto auto; gap: 0.5rem 0.75rem; }
+.team li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: center; }
 .track__feet { font-family: var(--font-mono); font-size: 0.8rem; color: var(--secondary); font-weight: 600; }
 .track .button { align-self: flex-start; margin: 0.4rem 0 0; }
 
