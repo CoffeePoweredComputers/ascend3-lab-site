@@ -390,6 +390,7 @@ def triage_item(request: Request, tid: int, token: str):
         jottings = repo.my_jottings(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
         read = len(repo.seen_ids(conn, tid, me["id"]))
+        back, forward = repo.neighbours(conn, tid, me["id"], item)
     # clean: a photo nobody has turned and cropped yet. read: a card in the
     # data. resolve: a lead deciding on one that was flagged or excluded.
     mode = {"untriaged": "clean", "cleared": "read"}.get(item["status"], "resolve")
@@ -400,6 +401,7 @@ def triage_item(request: Request, tid: int, token: str):
     return page(
         request, "triage_item.html", user=user, track=track, me=me, item=item, at="triage", deck=deck,
         mode=mode, jottings=jottings, frozen=frozen,
+        back=f"/t/{tid}/triage/{back}" if back else None, forward=f"/t/{tid}/triage/{forward}" if forward else None,
     )
 
 
@@ -476,6 +478,8 @@ async def triage_save(request: Request, tid: int, token: str):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
         if jot:
             repo.add_memo(conn, tid, me["id"], "jotting", jot, item_id=item["id"])
+        elif study.jot_required and not reason and not repo.jots_frozen(conn, tid, me["id"]):
+            raise repo.Refused("Jot what you notice before moving on.")
         said = ""
         if reason:
             repo.flag_item(conn, item, user.email, reason, f"{label}. {note}".strip())

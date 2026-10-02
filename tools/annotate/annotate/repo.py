@@ -468,6 +468,24 @@ def next_uncleaned(conn: sqlite3.Connection, track_id: int, roster_id: int, afte
     return _next(conn, track_id, where, (roster_id, roster_id), _start(roster_id) if after is None else after)
 
 
+def neighbours(conn: sqlite3.Connection, track_id: int, roster_id: int, item: dict) -> tuple[Optional[str], Optional[str]]:
+    """The cards either side of this one in the person's order, read or not,
+    so a card passed by mistake is one key away. While cleaning, that is the
+    photos that are theirs to clean; while reading, every card in the data."""
+    if item["status"] == "untriaged":
+        where = "st.status = 'untriaged' AND COALESCE((SELECT roster_id FROM cleaning WHERE item_id = i.id), :r) = :r"
+    else:
+        where = "st.status = 'cleared'"
+    def one(op: str, order: str) -> str:
+        return f"SELECT i.token FROM item i JOIN item_state st ON st.item_id = i.id WHERE i.track_id = :t AND {where} AND i.shuffle_key {op} :k ORDER BY i.shuffle_key {order} LIMIT 1"
+
+    row = conn.execute(
+        f"SELECT ({one('<', 'DESC')}) AS back, ({one('>', 'ASC')}) AS forward",
+        {"t": track_id, "k": item["shuffle_key"], "r": roster_id},
+    ).fetchone()
+    return row["back"], row["forward"]
+
+
 def cleaner(conn: sqlite3.Connection, item_id: int) -> Optional[int]:
     row = conn.execute("SELECT roster_id FROM cleaning WHERE item_id = ?", (item_id,)).fetchone()
     return row["roster_id"] if row else None

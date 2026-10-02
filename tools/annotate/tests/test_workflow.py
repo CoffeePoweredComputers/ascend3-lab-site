@@ -93,7 +93,10 @@ def test_everyone_reads_every_card_and_jots_stay_private(client, study):
         assert "14 to read" in client.get(f"/t/{study}/triage", headers=headers).text
     following = jot(client, study, CODER1, cards[0], "asks who is responsible")
     assert f"/triage/{cards[1]}" in following and "%2B15%20ft" in following
-    assert "%2B10%20ft" in jot(client, study, CODER1, cards[1])  # read, no jot
+    # In this study every card gets a jot: a card cannot be passed without one.
+    assert "Jot%20what%20you%20notice" in jot(client, study, CODER1, cards[1])
+    assert "%2B15%20ft" in jot(client, study, CODER1, cards[1], "a question about work")
+    assert '<textarea name="jot" rows="3" required>' in client.get(f"/t/{study}/triage/{cards[2]}", headers=CODER1).text
 
     # One person's reading does not take a card from anyone else.
     assert "12 to read" in client.get(f"/t/{study}/triage", headers=CODER1).text
@@ -101,11 +104,15 @@ def test_everyone_reads_every_card_and_jots_stay_private(client, study):
     assert "14 to read" in other and f"/triage/{cards[0]}" in other
     assert ">2/14<" in client.get(f"/t/{study}/triage", headers=CODER1).text
 
+    # Back and Skip walk the cards in order, read or not, so a card passed by mistake is one key away.
+    second = client.get(f"/t/{study}/triage/{cards[1]}", headers=CODER1).text
+    assert f'/triage/{cards[0]}" data-key="ArrowLeft"' in second and f'/triage/{cards[2]}" data-key="ArrowRight">Skip' in second
+    assert 'is-off" aria-disabled="true"><kbd>←</kbd> Back' in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER1).text
     # The jot is on the card for its author when they come back, and for nobody else.
     assert "asks who is responsible" in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER1).text
     assert "asks who is responsible" not in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER2).text
     # Reading a card again earns nothing more.
-    assert "ft" not in jot(client, study, CODER1, cards[1])
+    assert "ft" not in jot(client, study, CODER1, cards[1], "a second look")
 
     # The lead sees counts, never the words.
     roster = client.get(f"/t/{study}/roster", headers=LEAD).text

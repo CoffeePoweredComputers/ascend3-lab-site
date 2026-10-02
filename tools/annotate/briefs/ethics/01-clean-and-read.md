@@ -1,7 +1,7 @@
 Read every response and jot what you notice. Everyone does this for all of them.
 
 - **J** puts the cursor in the jot box. **Ctrl+Enter** saves and goes on.
-- **Enter** goes to the next card without a jot.
+- Every card gets a jot. The next card does not come until you have written one.
 - **X** flags a response that should not be in the data, then the reason: **1** not about the assignment, **2** blank or a test entry.
 
 A flagged card goes to the lead, who keeps or excludes it. Do not flag these; jot instead:

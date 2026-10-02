@@ -37,6 +37,8 @@
     </section>
 
     <section class="deck__play">
+      {# Either side of this card, saved or not: a card passed by mistake is one key away. #}
+      {% if mode != 'resolve' %}{{ parts.deck_nav(back, forward, 'Skip') }}{% endif %}
       {# With a photo on the left, what the student wrote goes here on the right. #}
       {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
       {% if mode == 'clean' %}
@@ -45,8 +47,8 @@
         {% if frozen %}
           <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
         {% else %}
-          <label class="jot" data-key="j"><kbd>J</kbd> What do you notice? <small>optional, private until the merge</small>
-            <textarea name="jot" rows="3"></textarea>
+          <label class="jot" data-key="j"><kbd>J</kbd> What do you notice? <small>private until the merge</small>
+            <textarea name="jot" rows="3" {% if study.jot_required and mode == 'read' %}required{% endif %}></textarea>
           </label>
         {% endif %}
         {% for j in jottings %}

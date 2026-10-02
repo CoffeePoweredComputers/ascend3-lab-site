@@ -40,6 +40,8 @@ class Study:
     columns: tuple[Column, ...] = ()
     # One sentence telling the model what an item is.
     about: str = ""
+    # Every card read must carry a jot; a card cannot be passed without one.
+    jot_required: bool = False
 
 
 STUDIES = {
@@ -67,6 +69,7 @@ STUDIES = {
             ("empty", "Blank or a test entry"),
         ),
         task="ethics_questions",
+        jot_required=True,
         columns=(
             Column("topic", "topic"),
             Column("question", "your question"),
