@@ -13,17 +13,15 @@
       {{ parts.deck_nav('/t/' ~ track.id ~ '/items/' ~ previous if previous, '/t/' ~ track.id ~ '/items/' ~ following if following) }}
       {% if frozen %}
         <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+        {% if jot %}<div class="note"><p class="pre">{{ jot }}</p><p class="meta">your jot</p></div>{% endif %}
       {% else %}
         <form method="post" action="{{ root }}/t/{{ track.id }}/items/{{ item.token }}/jot">
           <label data-key="j"><kbd>J</kbd> What do you notice? <small>private until the merge</small>
-            <textarea name="body" rows="4" required></textarea>
+            <textarea name="body" rows="4" required>{{ jot }}</textarea>
           </label>
-          <button data-key="Enter">Jot it down <kbd>Ctrl+Enter</kbd></button>
+          <button data-key="Enter">{{ 'Save' if jot else 'Jot it down' }} <kbd>Ctrl+Enter</kbd></button>
         </form>
       {% endif %}
-      {% for j in jottings %}
-        <div class="note"><p class="pre">{{ j.body }}</p><p class="meta">{{ j.created_at[:10] }}</p></div>
-      {% endfor %}
     </section>
   </div>
 {% endblock %}

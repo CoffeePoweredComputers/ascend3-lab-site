@@ -38,22 +38,21 @@
 
     <section class="deck__play">
       {# Either side of this card, saved or not: a card passed by mistake is one key away. #}
-      {% if mode != 'resolve' %}{{ parts.deck_nav(back, forward, 'Skip') }}{% endif %}
+      {% if mode != 'resolve' %}{{ parts.deck_nav(back, forward) }}{% endif %}
       {# With a photo on the left, what the student wrote goes here on the right. #}
       {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
       {% if mode == 'clean' %}
         <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Keep and next</b><small>upright, cropped, nothing identifying left</small></button>
       {% elif mode == 'read' %}
+        {# Your jot on this card, in the box, to change as you like. #}
         {% if frozen %}
           <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+          {% if jot %}<div class="note"><p class="pre">{{ jot }}</p><p class="meta">your jot</p></div>{% endif %}
         {% else %}
           <label class="jot" data-key="j"><kbd>J</kbd> What do you notice? <small>private until the merge</small>
-            <textarea name="jot" rows="3" {% if study.jot_required and mode == 'read' %}required{% endif %}></textarea>
+            <textarea name="jot" rows="3" {% if study.jot_required and mode == 'read' %}required{% endif %}>{{ jot }}</textarea>
           </label>
         {% endif %}
-        {% for j in jottings %}
-          <div class="note"><p class="pre">{{ j.body }}</p><p class="meta">your jot · {{ j.created_at[:10] }}</p></div>
-        {% endfor %}
         <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Next card</b><small>Ctrl+Enter from the box</small></button>
       {% else %}
         <button name="action" value="clear" class="big big--go" data-key="k"><kbd>K</kbd><b>Keep</b><small>{{ 'readable, on task, nothing identifying left' if study.has_image else 'it belongs in the data' }}</small></button>

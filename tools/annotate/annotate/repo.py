@@ -575,6 +575,29 @@ def add_memo(
     )
 
 
+def set_jotting(conn: sqlite3.Connection, track_id: int, roster_id: int, item_id: int, body: str) -> bool:
+    """One jot per person per card, written in place. Returns True when this
+    is the card's first jot by them. Earlier separate jots on the card fold
+    into the one being written."""
+    body = body.strip()
+    if not body:
+        raise Refused("Nothing to save: the text is empty.")
+    rows = conn.execute(
+        "SELECT id FROM memo WHERE roster_id = ? AND item_id = ? AND kind = 'jotting' ORDER BY id", (roster_id, item_id)
+    ).fetchall()
+    if not rows:
+        add_memo(conn, track_id, roster_id, "jotting", body, item_id=item_id)
+        return True
+    conn.execute("UPDATE memo SET body = ? WHERE id = ?", (body[:10000], rows[0]["id"]))
+    conn.executemany("DELETE FROM memo WHERE id = ?", [(r["id"],) for r in rows[1:]])
+    return False
+
+
+def my_jot(conn: sqlite3.Connection, roster_id: int, item_id: int) -> str:
+    """What this person has jotted on a card, as the text of one box."""
+    return "\n\n".join(r["body"] for r in reversed(my_jottings(conn, roster_id, item_id)))
+
+
 def shared_memos(conn: sqlite3.Connection, track_id: int, kind: str) -> list[sqlite3.Row]:
     return conn.execute(
         "SELECT m.*, r.coder_code FROM memo m JOIN roster r ON r.id = m.roster_id"

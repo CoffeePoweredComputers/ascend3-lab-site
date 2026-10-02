@@ -387,7 +387,7 @@ def triage_item(request: Request, tid: int, token: str):
         user, track, me = auth.require(conn, request, tid)
         item = own_item(conn, tid, token, me["role"])
         counts = repo.triage_counts(conn, tid)
-        jottings = repo.my_jottings(conn, me["id"], item["id"])
+        jot = repo.my_jot(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
         read = len(repo.seen_ids(conn, tid, me["id"]))
         back, forward = repo.neighbours(conn, tid, me["id"], item)
@@ -400,7 +400,7 @@ def triage_item(request: Request, tid: int, token: str):
         deck.update(title="Clean", value=counts["cleared"])
     return page(
         request, "triage_item.html", user=user, track=track, me=me, item=item, at="triage", deck=deck,
-        mode=mode, jottings=jottings, frozen=frozen,
+        mode=mode, jot=jot, frozen=frozen,
         back=f"/t/{tid}/triage/{back}" if back else None, forward=f"/t/{tid}/triage/{forward}" if forward else None,
     )
 
@@ -476,16 +476,17 @@ async def triage_save(request: Request, tid: int, token: str):
         jot = str(form.get("jot") or "").strip()
         if jot and repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
-        if jot:
-            repo.add_memo(conn, tid, me["id"], "jotting", jot, item_id=item["id"])
-        elif study.jot_required and not reason and not repo.jots_frozen(conn, tid, me["id"]):
+        fresh = bool(jot) and repo.set_jotting(conn, tid, me["id"], item["id"], jot)
+        if not jot and study.jot_required and not reason and not repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("Jot what you notice before moving on.")
         said = ""
         if reason:
             repo.flag_item(conn, item, user.email, reason, f"{label}. {note}".strip())
             said = "Sent to the lead"
         if repo.mark_seen(conn, item["id"], me["id"]):
-            said = (said + " · " if said else "") + f"+{repo.FEET['triaged'] + (repo.FEET['jotting'] if jot else 0)} ft"
+            said = (said + " · " if said else "") + f"+{repo.FEET['triaged'] + (repo.FEET['jotting'] if fresh else 0)} ft"
+        elif fresh:
+            said = (said + " · " if said else "") + f"+{repo.FEET['jotting']} ft"
         following = repo.next_unseen(conn, tid, me["id"], after=item["shuffle_key"])
     if following:
         return go(f"/t/{tid}/triage/{following['token']}", ok=said or "Saved")
@@ -529,13 +530,13 @@ def item_view(request: Request, tid: int, token: str):
         if item["status"] != "cleared" and me["role"] != "lead":
             raise HTTPException(403, "This item has not been cleared for reading yet.")
         cleared = repo.items_with_status(conn, tid, ["cleared"])
-        jottings = repo.my_jottings(conn, me["id"], item["id"])
+        jot = repo.my_jot(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
     tokens = [i["token"] for i in cleared]
     at = tokens.index(token) if token in tokens else -1
     deck = {"back": f"/t/{tid}/items", "title": "Items", "value": at + 1, "max": len(tokens)}
     return page(
-        request, "item.html", user=user, track=track, me=me, item=item, jottings=jottings, frozen=frozen, at="items", deck=deck,
+        request, "item.html", user=user, track=track, me=me, item=item, jot=jot, frozen=frozen, at="items", deck=deck,
         previous=tokens[at - 1] if at > 0 else None,
         following=tokens[at + 1] if 0 <= at < len(tokens) - 1 else None,
     )
@@ -550,8 +551,8 @@ async def jot(request: Request, tid: int, token: str):
         auth.on_team(me)
         if repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
-        repo.add_memo(conn, tid, me["id"], "jotting", str(form.get("body") or ""), item_id=item["id"])
-    return go(f"/t/{tid}/items/{token}", ok=f"Jotted · +{repo.FEET['jotting']} ft")
+        fresh = repo.set_jotting(conn, tid, me["id"], item["id"], str(form.get("body") or ""))
+    return go(f"/t/{tid}/items/{token}", ok=f"Jotted · +{repo.FEET['jotting']} ft" if fresh else "Jot saved")
 
 
 @app.get("/t/{tid}/memos")

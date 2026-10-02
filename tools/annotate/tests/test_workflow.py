@@ -106,13 +106,17 @@ def test_everyone_reads_every_card_and_jots_stay_private(client, study):
 
     # Back and Skip walk the cards in order, read or not, so a card passed by mistake is one key away.
     second = client.get(f"/t/{study}/triage/{cards[1]}", headers=CODER1).text
-    assert f'/triage/{cards[0]}" data-key="ArrowLeft"' in second and f'/triage/{cards[2]}" data-key="ArrowRight">Skip' in second
+    assert f'/triage/{cards[0]}" data-key="ArrowLeft"' in second and f'/triage/{cards[2]}" data-key="ArrowRight">Next' in second
     assert 'is-off" aria-disabled="true"><kbd>←</kbd> Back' in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER1).text
-    # The jot is on the card for its author when they come back, and for nobody else.
-    assert "asks who is responsible" in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER1).text
+    # The jot is back in the box for its author when they return, to change as they like; nobody else sees it.
+    assert 'required>asks who is responsible</textarea>' in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER1).text
     assert "asks who is responsible" not in client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER2).text
-    # Reading a card again earns nothing more.
-    assert "ft" not in jot(client, study, CODER1, cards[1], "a second look")
+    # Saving again replaces the jot and earns nothing more.
+    assert "ft" not in jot(client, study, CODER1, cards[0], "asks who answers for harm")
+    again = client.get(f"/t/{study}/triage/{cards[0]}", headers=CODER1).text
+    assert ">asks who answers for harm</textarea>" in again and "asks who is responsible" not in again
+    with db.db() as conn:
+        assert conn.execute("SELECT COUNT(*) FROM memo WHERE kind = 'jotting'").fetchone()[0] == 2
 
     # The lead sees counts, never the words.
     roster = client.get(f"/t/{study}/roster", headers=LEAD).text
