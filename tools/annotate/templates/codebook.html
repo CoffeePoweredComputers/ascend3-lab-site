@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Codebook · Annotation bench{% endblock %}
+{% block head %}{% if merged and merged.status == 'working' %}<meta http-equiv="refresh" content="5">{% endif %}{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+
+  {# From everyone's own codes to one proposal. The lead runs it once. #}
+  {% if can_merge and not settled %}
+    <section class="card pad hero">
+      {% if not merged %}
+        <p class="hero__big">Everyone's codes, merged</p>
+        {% if me.role == 'lead' %}
+          <p class="muted">Groups codes that mean the same thing, by the cards they share{{ ', their definitions and the jots behind them' if model == 'live' else ' and their names' }}. Once only.</p>
+          <form method="post" action="{{ root }}/t/{{ track.id }}/merge/run"><button data-key="Enter">Propose the merged codebook <kbd>Enter</kbd></button></form>
+        {% else %}
+          <p class="muted">Waiting for the lead to run the merge.</p>
+        {% endif %}
+      {% elif merged.status == 'working' %}
+        <p class="hero__big">Merging…</p>
+        <p class="muted">A minute or two. This page checks again by itself.</p>
+      {% elif merged.status == 'failed' %}
+        <p class="hero__big">The merge did not work</p>
+        <p class="muted">{{ merged.detail }}</p>
+        {% if me.role == 'lead' %}
+          <form method="post" action="{{ root }}/t/{{ track.id }}/merge/run" class="row">
+            <button>Try again</button>
+            <button name="plain" value="1" class="quiet">Merge without the model</button>
+          </form>
+        {% endif %}
+      {% else %}
+        <p class="hero__big">Proposal ready</p>
+        <p class="muted">{{ merged.detail }}</p>
+        <a class="button" href="{{ root }}/t/{{ track.id }}/merge" data-key="Enter">Open the merge <kbd>Enter</kbd></a>
+      {% endif %}
+    </section>
+  {% elif settled %}
+    <p><a href="{{ root }}/t/{{ track.id }}/merge">The merge</a> <span class="meta">{{ merged.detail }}</span></p>
+  {% endif %}
+
+  {% if has_draft %}
+    <p><a class="button" href="{{ root }}/t/{{ track.id }}/codebook/draft">Edit draft</a></p>
+  {% else %}
+    <form method="post" action="{{ root }}/t/{{ track.id }}/codebook/draft/new">
+      <button class="quiet">{{ 'New version' if shown else 'Start an empty draft' }}</button>
+    </form>
+  {% endif %}
+
+  {% if not shown %}
+    <p class="muted">Nothing published yet.</p>
+  {% else %}
+    <h2>Codebook v{{ shown.n }} <span class="badge">published {{ shown.published_at[:10] }}</span></h2>
+    {% for d in tree %}
+      <section class="card pad">
+        <h3>{{ d.name }} {% if study.parts | length > 1 %}<span class="badge badge--warn">{{ d.part }}</span>{% endif %} <span class="badge">{{ 'single choice' if d.mode == 'single' else 'multi-label' }}</span> <span class="id">{{ d.key }}</span></h3>
+        {% for c in d.codes %}
+          <div class="code">
+            <p class="code__name">{{ c.label }} <span class="id">{{ c.key }}</span></p>
+            {{ parts.definition(c) }}
+          </div>
+        {% endfor %}
+      </section>
+    {% endfor %}
+
+    <h2>Versions</h2>
+    {% for v in versions %}
+      <div class="note">
+        <p><a href="?v={{ v.n }}">v{{ v.n }}</a> <span class="meta">{{ v.published_at[:10] }}</span></p>
+        <p class="pre">{{ v.note }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

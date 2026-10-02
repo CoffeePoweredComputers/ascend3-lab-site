@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ track.dataset_title }} · Annotation bench{% endblock %}
+{% block main %}
+  <header class="intro">
+    <p class="eyebrow">Trailhead</p>
+    <h1>{{ track.dataset_title }}</h1>
+    <div class="intro__lede">{{ intro }}</div>
+    {% if stage.done %}
+      {% set here = nav | selectattr('n', 'equalto', trail.here) | first %}
+      <a class="button" href="{{ root }}/t/{{ track.id }}/{{ here.path }}" data-key="Enter">Continue: {{ here.title }} <kbd>Enter</kbd></a>
+    {% elif started %}
+      <p class="muted">You are in. The lead locks the team when everyone is, and the work is divided then.</p>
+    {% else %}
+      <form method="post" action="{{ root }}/t/{{ track.id }}/start">
+        <button data-key="Enter">Start <kbd>Enter</kbd></button>
+      </form>
+    {% endif %}
+  </header>
+
+  {# The lead gets everyone in, then locks the team. That divides the cleaning and opens the first stage. #}
+  {% if me.role == 'lead' %}
+    <section class="card pad">
+      <h2>The team {% if team_locked %}<span class="badge badge--ok">locked</span>{% endif %}</h2>
+      <ul class="team">
+        {% for p in people if p.active %}
+          <li><span class="id">{{ p.email | who }}</span> <span class="meta">{{ p.role }}</span> <span class="badge {{ 'badge--ok' if p.started }}">{{ 'in' if p.started else 'not started' }}</span></li>
+        {% endfor %}
+      </ul>
+      <form method="post" action="{{ root }}/t/{{ track.id }}/stage/0/done" class="row">
+        <input type="hidden" name="done" value="{{ '0' if team_locked else '1' }}">
+        <button class="{{ 'quiet' if team_locked }}">{{ 'Unlock the team' if team_locked else 'Lock the team' }}</button>
+        <span class="hint">{{ 'Unlock to add someone, then lock again.' if team_locked else 'Nobody joins after this. ' ~ ('The photos to clean are divided among these people.' if study.has_image else 'It opens the first stage.') }}</span>
+      </form>
+      <p><a href="{{ root }}/t/{{ track.id }}/roster">Add or remove people</a></p>
+    </section>
+  {% endif %}
+
+  <div class="intro__cards">
+    {% for title, body in cards %}
+      <section class="card pad">
+        <h2>{{ title }}</h2>
+        <div class="prose">{{ body }}</div>
+      </section>
+    {% endfor %}
+  </div>
+{% endblock %}

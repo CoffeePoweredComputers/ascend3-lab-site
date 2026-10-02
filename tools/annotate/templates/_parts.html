@@ -1,0 +1,111 @@
+{# Imported "with context", so these see root, track, me, stage and guide. #}
+
+{# The top of a stage's page: its number, title, and the lead's switch. #}
+{% macro head() %}
+  <header class="head">
+    <div>
+      <p class="eyebrow">Stage {{ stage.n }}</p>
+      <h1>{{ stage.title }}</h1>
+    </div>
+    {# The lead moves the team on. Open coding is finished by closing its deck. #}
+    {% if me.role == 'lead' and not stage.auto and stage_next and (stage.done or stage.key != 'starter') %}
+      <form method="post" action="{{ root }}/t/{{ track.id }}/stage/{{ stage.n }}/done">
+        <input type="hidden" name="done" value="{{ '0' if stage.done else '1' }}">
+        <button class="{{ 'quiet' if stage.done }}">{{ 'Lock ' ~ stage_next.title ~ ' again' if stage.done else 'Unlock ' ~ stage_next.title }}</button>
+      </form>
+    {% endif %}
+  </header>
+{% endmacro %}
+
+{# Back and Next for a card deck. Both are always drawn, in the same place;
+   one that leads nowhere is greyed out. Past the last card, Next goes on to
+   the next stage. #}
+{% macro deck_nav(back, forward, forward_label='Next') %}
+  <nav class="deck__nav" aria-label="Cards">
+    {% if back %}
+      <a class="button quiet" href="{{ root }}{{ back }}" data-key="ArrowLeft"><kbd>←</kbd> Back</a>
+    {% else %}
+      <span class="button quiet is-off" aria-disabled="true"><kbd>←</kbd> Back</span>
+    {% endif %}
+    {% if forward %}
+      <a class="button" href="{{ root }}{{ forward }}" data-key="ArrowRight">{{ forward_label }} <kbd>→</kbd></a>
+    {% elif stage_next %}
+      <a class="button" href="{{ root }}/t/{{ track.id }}/{{ stage_next.path }}" data-key="ArrowRight">Next: {{ stage_next.title }} <kbd>→</kbd></a>
+    {% else %}
+      <span class="button is-off" aria-disabled="true">{{ forward_label }} <kbd>→</kbd></span>
+    {% endif %}
+  </nav>
+{% endmacro %}
+
+{# What a coder is shown of an item. The hash and submission id are not in the
+   row at all (see ITEM_COLUMNS in repo.py), so they cannot be rendered here. #}
+{% macro show(item) %}
+  <p class="task">{{ item.project | replace('_', ' ') }} · {{ item.homework }}</p>
+  {# With a photo: the photo on the left, what the student wrote on the right. #}
+  <div class="submission {{ 'submission--photo' if study.has_image }}">
+    {{ picture(item) }}
+    <div class="submission__texts">{{ texts(item) }}</div>
+  </div>
+{% endmacro %}
+
+{% macro picture(item) %}
+  {% if item.raw_path %}
+    <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
+  {% elif study.has_image %}
+    <p class="item-missing">No diagram submitted.</p>
+  {% endif %}
+{% endmacro %}
+
+{# The written parts of a submission. #}
+{% macro texts(item) %}
+  {% for t in item.texts %}
+    <figure class="item-text">
+      <figcaption class="eyebrow">{{ t.part }}</figcaption>
+      <blockquote>{{ t.text }}</blockquote>
+    </figure>
+  {% endfor %}
+{% endmacro %}
+
+{# One group per codebook dimension, as big choices. `selected` is a set of
+   "dimension/code". With keys on, each choice has a keyboard key: the number
+   row for the first dimension, then the letter rows. #}
+{% macro code_fields(tree, selected, locked=false, keys=false) %}
+  {% set rows = ['1234567890', 'qwertyuiop', 'asdfghjkl', 'zxcvbnm'] %}
+  {% for d in tree %}
+    {% set di = loop.index0 %}
+    {% if study.parts | length > 1 and loop.changed(d.part) %}<p class="eyebrow part">{{ d.part }}</p>{% endif %}
+    <fieldset class="dimension">
+      <legend>{{ d.name }} <small>{{ 'pick one' if d.mode == 'single' else 'any that apply' }}</small></legend>
+      <div class="choices">
+        {% for c in d.codes %}
+          {% set key = rows[di][loop.index0] if keys and di < 4 and loop.index0 < rows[di] | length else '' %}
+          <label class="choice">
+            <input type="{{ 'radio' if d.mode == 'single' else 'checkbox' }}" name="dim-{{ d.key }}" value="{{ c.key }}"
+                   {% if d.key ~ '/' ~ c.key in selected %}checked{% endif %}
+                   {% if d.mode == 'single' %}required{% endif %} {% if locked %}disabled{% endif %}
+                   {% if key %}data-key="{{ key }}"{% endif %}>
+            <span>{% if key %}<kbd>{{ key | upper }}</kbd>{% endif %}{{ c.label }}</span>
+          </label>
+        {% endfor %}
+      </div>
+      <details class="defs">
+        <summary>Definitions</summary>
+        {% for c in d.codes %}
+          <p class="defs__name">{{ c.label }}</p>
+          {{ definition(c) }}
+        {% endfor %}
+      </details>
+    </fieldset>
+  {% endfor %}
+{% endmacro %}
+
+{% macro definition(c) %}
+  <dl class="definition">
+    {% if c.definition %}<dt>Definition</dt><dd>{{ c.definition }}</dd>{% endif %}
+    {% if c.include %}<dt>Include</dt><dd>{{ c.include }}</dd>{% endif %}
+    {% if c.exclude %}<dt>Exclude</dt><dd>{{ c.exclude }}</dd>{% endif %}
+    {% if c.example %}<dt>Example</dt><dd>{{ c.example }}</dd>{% endif %}
+  </dl>
+{% endmacro %}
+
+{% macro stat(value) %}{% if value is none %}<span class="muted">undefined</span>{% else %}{{ '%.2f' | format(value) }}{% endif %}{% endmacro %}

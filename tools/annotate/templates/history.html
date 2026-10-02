@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Agreement · Annotation bench{% endblock %}
+{% block main %}
+  <p class="eyebrow">Team</p>
+  <h1>Agreement</h1>
+
+  {% if not rows %}
+    <p class="muted">Figures appear when a calibration round is closed.</p>
+  {% else %}
+    <div class="card pad">
+      <svg class="chart" viewBox="0 0 480 200" role="img" aria-label="Mean alpha by calibration round, one line per dimension">
+        <line class="chart__axis" x1="40" y1="170" x2="460" y2="170"></line>
+        <line class="chart__axis" x1="40" y1="20" x2="40" y2="170"></line>
+        <line class="chart__guide" x1="40" y1="50" x2="460" y2="50"></line>
+        <text class="chart__label" x="34" y="174" text-anchor="end">0</text>
+        <text class="chart__label" x="34" y="54" text-anchor="end">0.8</text>
+        <text class="chart__label" x="34" y="24" text-anchor="end">1</text>
+        {% for line in lines %}
+          <polyline class="chart__line chart__line--{{ line.n }}" points="{{ line.path }}"></polyline>
+          {% for x, y in line.points %}<circle class="chart__dot chart__dot--{{ line.n }}" cx="{{ '%.0f' | format(x) }}" cy="{{ '%.0f' | format(y) }}" r="3.5"></circle>{% endfor %}
+        {% endfor %}
+        {% for r in rounds %}
+          <text class="chart__label" x="{{ '%.0f' | format(40 + 420 * (loop.index0 / ([rounds | length - 1, 1] | max))) }}" y="188" text-anchor="middle">round {{ r }}</text>
+        {% endfor %}
+      </svg>
+      <p class="legend">{% for line in lines %}<span class="legend__key legend__key--{{ line.n }}"></span>{{ line.dim }} {% endfor %}</p>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Round</th><th>Batch</th><th>Codebook</th><th>Dimension</th><th>Items</th><th>Coders</th><th>Raw</th><th>α</th><th>AC1</th></tr></thead>
+        <tbody>
+          {% for r in rows %}
+            <tr>
+              <td>{{ 'final pass' if r.kind == 'production' else r.round_no }}</td>
+              <td>{% if r.batch_id in mine %}<a href="{{ root }}/b/{{ r.batch_id }}/agreement">{{ r.title }}</a>{% else %}{{ r.title }}{% endif %}</td>
+              <td>v{{ r.version_n }}</td>
+              <td class="id">{{ r.dimension_key }}</td>
+              <td>{{ r.n_items }}</td>
+              <td>{{ r.n_coders }}</td>
+              <td>{% if r.pct is none %}<span class="muted">none</span>{% else %}{{ '%.0f' | format(r.pct * 100) }}%{% endif %}</td>
+              <td>{{ parts.stat(r.alpha) }}</td>
+              <td>{{ parts.stat(r.ac1) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">α is averaged over a dimension's codes, leaving out codes nobody applied. Raw agreement includes them.</p>
+  {% endif %}
+{% endblock %}

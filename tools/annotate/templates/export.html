@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Export · Annotation bench{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+
+  <p><a class="button" href="{{ root }}/t/{{ track.id }}/export.zip">Download zip</a></p>
+  <p class="hint">Contains the item ids and no email addresses.</p>
+  <ul class="files">{% for f in files %}<li class="id">{{ f }}</li>{% endfor %}</ul>
+{% endblock %}

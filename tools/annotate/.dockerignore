@@ -1,0 +1,7 @@
+# A local data/ holds a developer's database and, possibly, real photos.
+# It must never be baked into an image.
+data/
+.venv/
+tests/
+**/__pycache__/
+.pytest_cache/

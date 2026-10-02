@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Roster · Annotation bench{% endblock %}
+{% block main %}
+  <p class="eyebrow">Team</p>
+  <h1>Roster</h1>
+  <p class="task">Who can open this study, and where each person is.{% if team_locked %} The team is locked: untick <b>active</b> to take someone off, and their photos to clean go to the others.{% endif %}</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Coder</th><th>Email</th>{% if kept is not none %}<th>Read</th>{% endif %}{% if study.has_image %}<th>To clean</th>{% endif %}<th>Jots</th><th>Question</th><th>Candidates</th><th>Open coding</th><th>Role</th></tr></thead>
+      <tbody>
+        {% for p in people %}
+          <tr>
+            <td class="id">{{ p.coder_code }}</td>
+            <td>{{ p.email }}</td>
+            {# Counts only: what anyone wrote stays theirs until the merge. #}
+            {% if kept is not none %}<td>{{ p.read }}/{{ kept }}</td>{% endif %}
+            {% if study.has_image %}<td>{{ p.to_clean }}</td>{% endif %}
+            <td>{{ p.jots }}</td>
+            <td>{{ 'yes' if p.asked else 'no' }}</td>
+            <td>{{ p.candidates or 'not yet' }}</td>
+            <td>{{ p.coded ~ '/' ~ p.to_code if p.to_code else 'not dealt' }}</td>
+            <td>
+              <form method="post" class="row">
+                <input type="hidden" name="roster_id" value="{{ p.id }}">
+                <select name="role" aria-label="Role for {{ p.email }}">
+                  <option value="coder" {% if p.role == 'coder' %}selected{% endif %}>coder</option>
+                  <option value="lead" {% if p.role == 'lead' %}selected{% endif %}>lead</option>
+                </select>
+                <label class="check"><input type="checkbox" name="active" value="1" {% if p.active %}checked{% endif %}> active</label>
+                <button class="quiet">Save</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if not team_locked %}
+  <section class="card pad">
+    <h2>Add someone</h2>
+    <form method="post" class="stack">
+      <label>VT email <input name="email" type="email" required></label>
+      <label>Role <select name="role"><option value="coder">coder</option><option value="lead">lead</option></select></label>
+      <button>Add</button>
+    </form>
+  </section>
+  {% endif %}
+{% endblock %}

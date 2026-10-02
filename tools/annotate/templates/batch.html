@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}{{ batch.title }} · Annotation bench{% endblock %}
+{% block main %}
+  {% set done = mine | selectattr('done_at') | list | length %}
+  {% set todo = mine | rejectattr('done_at') | first %}
+  <p class="crumb"><a href="{{ root }}/t/{{ track.id }}/{{ stage.path }}">{{ stage.title }}</a> / <span class="badge {{ 'badge--ok' if batch.status == 'closed' }}">{{ batch.status }}</span></p>
+  <h1>{{ batch.title }}</h1>
+  {% if batch.kind == 'calibration' %}<p class="task">Round {{ batch.round_no }} · codebook v{{ batch.version_n }}</p>{% endif %}
+
+  {% if submitted is not none %}
+    <section class="card pad hero">
+      <progress class="hero__bar" value="{{ done }}" max="{{ mine | length }}">{{ done }} of {{ mine | length }}</progress>
+      {% if batch.status == 'closed' %}
+        <p class="hero__big">Deck closed</p>
+        {% if batch.kind == 'starter' %}<a class="button" href="{{ root }}/t/{{ track.id }}/codebook" data-key="Enter">Next: Codebook <kbd>Enter</kbd></a>
+        {% else %}<a class="button" href="{{ root }}/b/{{ batch.id }}/review" data-key="Enter">See everyone's coding</a>{% endif %}
+        {% if batch.kind == 'calibration' %}<a class="button quiet" href="{{ root }}/b/{{ batch.id }}/agreement">Agreement</a>{% endif %}
+      {% elif submitted %}
+        <p class="hero__big">Submitted</p>
+        <p class="muted">Waiting for the lead to close the deck.</p>
+        {% if stage_next %}<a class="button" href="{{ root }}/t/{{ track.id }}/{{ stage_next.path }}" data-key="Enter">Next: {{ stage_next.title }} <kbd>Enter</kbd></a>{% endif %}
+      {% elif todo %}
+        <p class="hero__big">{{ done }} of {{ mine | length }} cards</p>
+        <a class="button" href="{{ root }}/b/{{ batch.id }}/code/{{ todo.token }}" data-key="Enter">{{ 'Continue' if done else 'Start' }} <kbd>Enter</kbd></a>
+      {% elif batch.kind == 'starter' %}
+        <p class="hero__big">All cards coded</p>
+        <p class="muted">You can change them until the lead closes open coding.</p>
+      {% else %}
+        <p class="hero__big">Deck finished</p>
+        <form method="post" action="{{ root }}/b/{{ batch.id }}/submit">
+          <button data-key="Enter">Submit <kbd>Enter</kbd></button>
+          <span class="hint">Submitting locks your codes.</span>
+        </form>
+      {% endif %}
+      <ul class="chips">
+        {% for m in mine %}
+          <li><a class="chip {{ 'chip--done' if m.done_at }}" href="{{ root }}/b/{{ batch.id }}/code/{{ m.token }}">{{ m.token[:6] }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% elif batch.status == 'closed' %}
+    <p>
+      <a class="button" href="{{ root }}/{{ 't/' ~ track.id ~ '/codebook' if batch.kind == 'starter' else 'b/' ~ batch.id ~ '/review' }}">{{ 'Codebook' if batch.kind == 'starter' else 'Review' }}</a>
+      {% if batch.kind == 'calibration' %}<a class="button quiet" href="{{ root }}/b/{{ batch.id }}/agreement">Agreement</a>{% endif %}
+    </p>
+  {% endif %}
+
+  <section class="card pad">
+    <h2>Team</h2>
+    <ul class="team">
+      {% for c in coders %}
+        <li>
+          <span class="id">{{ c.email | who }}</span>
+          <progress value="{{ c.done }}" max="{{ c.total }}">{{ c.done }}/{{ c.total }}</progress>
+          <span class="meta">{{ c.done }}/{{ c.total }}</span>
+          {% if c.submitted_at %}<span class="badge badge--ok">submitted</span>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% if me.role == 'lead' and batch.status == 'open' %}
+      <form method="post" action="{{ root }}/b/{{ batch.id }}/close">
+        <label class="check"><input type="checkbox" name="force" value="1"> Close with unfinished cards counted as missing</label>
+        <button class="quiet">Close deck</button>
+        <span class="hint">{{ "Closing fixes everyone's codes and opens the codebook stage." if batch.kind == 'starter' else "Closing shows everyone's coding to the team on this deck." }}</span>
+      </form>
+    {% endif %}
+  </section>
+{% endblock %}

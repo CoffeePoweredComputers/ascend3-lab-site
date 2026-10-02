@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ stage.title }} · Annotation bench{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+  {% set done = mine | selectattr('done_at') | list | length %}
+  {% set todo = mine | rejectattr('done_at') | first %}
+
+  <section class="card pad hero">
+    {% if not cards %}
+      <p class="hero__big">The final pass</p>
+      <p class="muted">Every kept card, coded with codebook v{{ published.n }}. {{ 'Deal it below.' if me.role == 'lead' else 'Waiting for the lead to deal it.' }}</p>
+    {% elif cards.status == 'closed' %}
+      <p class="hero__big">{{ final['items'] | length }} coded</p>
+      {% if final.unresolved %}
+        <p><a class="button" href="{{ root }}/b/{{ cards.id }}/review" data-key="Enter">Settle {{ final.unresolved | length }} that two people coded differently <kbd>Enter</kbd></a></p>
+      {% elif stage.done %}
+        <a class="button" href="{{ root }}/t/{{ track.id }}/themes" data-key="Enter">Next: Themes <kbd>Enter</kbd></a>
+      {% else %}
+        <p class="muted">Every card is settled. The lead opens Themes.</p>
+      {% endif %}
+      {% if final.uncoded %}<p class="muted">{{ final.uncoded | length }} were never coded and are left out.</p>{% endif %}
+      <p><a href="{{ root }}/b/{{ cards.id }}/agreement">Agreement on the cards coded twice</a></p>
+    {% elif not mine %}
+      <p class="hero__big">Cards dealt</p>
+      <p class="muted">You were not on the team when they were dealt.</p>
+    {% else %}
+      <progress class="hero__bar" value="{{ done }}" max="{{ mine | length }}">{{ done }} of {{ mine | length }}</progress>
+      {% if submitted %}
+        <p class="hero__big">Submitted</p>
+        <p class="muted">Waiting for the lead to close the final pass.</p>
+      {% elif todo %}
+        <p class="hero__big">{{ done }} of {{ mine | length }} cards</p>
+        <a class="button" href="{{ root }}/b/{{ cards.id }}/code/{{ todo.token }}" data-key="Enter">{{ 'Continue' if done else 'Start' }} <kbd>Enter</kbd></a>
+      {% else %}
+        <p class="hero__big">All your cards coded</p>
+        <form method="post" action="{{ root }}/b/{{ cards.id }}/submit">
+          <button data-key="Enter">Submit <kbd>Enter</kbd></button>
+          <span class="hint">Submitting locks your codes.</span>
+        </form>
+      {% endif %}
+    {% endif %}
+  </section>
+
+  {% if me.role == 'lead' %}
+    <section class="card pad">
+      {% if cards %}
+        <h2>The team</h2>
+        <p><a class="button quiet" href="{{ root }}/b/{{ cards.id }}">Progress{{ ' and close' if cards.status == 'open' }}</a></p>
+      {% else %}
+        <h2>Deal the final pass</h2>
+        <form method="post" action="{{ root }}/t/{{ track.id }}/batches" class="stack">
+          <input type="hidden" name="kind" value="production">
+          <label>Coded by two people <small>percent of the {{ kept }} kept cards; the rest go to one of the {{ members }} of you</small>
+            <input name="overlap" type="number" min="0" max="100" value="20" required>
+          </label>
+          <button>Deal</button>
+        </form>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endblock %}

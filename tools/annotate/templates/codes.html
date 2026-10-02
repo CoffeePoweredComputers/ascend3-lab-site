@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Your codes · Annotation bench{% endblock %}
+{% block main %}
+  <p class="crumb"><a href="{{ root }}/t/{{ track.id }}/open">Open coding</a> / your codes</p>
+  <h1>Your codes</h1>
+  <p class="task">{{ 'Fixed as they were merged.' if closed else 'A change shows on every card the code is on. Nobody else sees these until open coding closes.' }}</p>
+
+  {% for c in codes %}
+    <section class="card pad">
+      <h2>{{ c.name }} {% if study.parts | length > 1 %}<span class="badge badge--warn">{{ c.part }}</span>{% endif %} <span class="badge">{{ c.uses }} card{{ '' if c.uses == 1 else 's' }}</span></h2>
+      {% if closed %}
+        <p>{{ c.definition }}</p>
+        <p class="meta">{{ 'Became: ' ~ c.became if c.became else 'Dropped at the merge' if c.dropped else 'Not decided yet' }}</p>
+      {% else %}
+        <form method="post" action="{{ root }}/t/{{ track.id }}/codes/{{ c.id }}" class="stack">
+          <label>Name <input name="name" required maxlength="80" value="{{ c.name }}"></label>
+          <label>Definition <textarea name="definition" rows="2" required>{{ c.definition }}</textarea></label>
+          {% if study.parts | length > 1 %}
+            <label>About <select name="part">{% for part in study.parts %}<option value="{{ part }}" {% if part == c.part %}selected{% endif %}>The {{ part }}</option>{% endfor %}</select></label>
+          {% endif %}
+          <button class="quiet">Save</button>
+        </form>
+      {% endif %}
+      {% if c.example_token %}<p class="meta">Example: <a class="id" href="{{ root }}/t/{{ track.id }}/items/{{ c.example_token }}">{{ c.example_token[:6] }}</a></p>{% endif %}
+    </section>
+  {% else %}
+    <p class="muted">None yet. You make them on the cards.</p>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Item {{ item.token[:6] }} · Annotation bench{% endblock %}
+{% block main %}
+  <div class="deck {{ 'deck--photo' if study.has_image }}">
+    <section class="deck__card">
+      <p class="deck__id"><span class="id">{{ item.token[:6] }}</span></p>
+      {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+    </section>
+
+    <section class="deck__play">
+      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {{ parts.deck_nav('/t/' ~ track.id ~ '/items/' ~ previous if previous, '/t/' ~ track.id ~ '/items/' ~ following if following) }}
+      {% if frozen %}
+        <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+      {% else %}
+        <form method="post" action="{{ root }}/t/{{ track.id }}/items/{{ item.token }}/jot">
+          <label data-key="j"><kbd>J</kbd> What do you notice? <small>private until the merge</small>
+            <textarea name="body" rows="4" required></textarea>
+          </label>
+          <button data-key="Enter">Jot it down <kbd>Ctrl+Enter</kbd></button>
+        </form>
+      {% endif %}
+      {% for j in jottings %}
+        <div class="note"><p class="pre">{{ j.body }}</p><p class="meta">{{ j.created_at[:10] }}</p></div>
+      {% endfor %}
+    </section>
+  </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}{{ stage.title }} · Annotation bench{% endblock %}
+{% block head %}{% if run and run.status == 'working' %}<meta http-equiv="refresh" content="5">{% endif %}{% endblock %}
+{% set base = root ~ '/t/' ~ track.id ~ '/themes' %}
+{% block main %}
+  {{ parts.head() }}
+
+  <h2>Topic map</h2>
+  <p class="task">{{ topics.total }} coded{% if topics.unresolved %} · {{ topics.unresolved }} not settled{% endif %}{% if topics.uncoded %} · {{ topics.uncoded }} never coded{% endif %}</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Code</th><th>Cards</th><th>Share</th><th>Theme</th></tr></thead>
+      <tbody>
+        {% for c in topics.codes %}
+          <tr>
+            <td>
+              <a href="{{ base }}/code/{{ c.dimension }}/{{ c.key }}">{{ c.label }}</a>{% if study.parts | length > 1 %} <span class="badge badge--warn">{{ c.part }}</span>{% endif %}
+              {% if c.examples %}<br><small class="muted">{{ c.examples[0] | truncate(140) }}</small>{% endif %}
+            </td>
+            <td>{{ c.n }}</td>
+            <td><progress value="{{ c.n }}" max="{{ topics.total or 1 }}">{{ c.n }}</progress> {{ '%.0f' | format(100 * c.n / topics.total) if topics.total else 0 }}%</td>
+            <td>
+              <form method="post" action="{{ base }}/move" class="row">
+                <input type="hidden" name="dimension" value="{{ c.dimension }}"><input type="hidden" name="code" value="{{ c.key }}">
+                <select name="theme" aria-label="Theme for {{ c.label }}">
+                  <option value="">none</option>
+                  {% for t in themes %}<option value="{{ t.id }}" {% if t.id == c.theme_id %}selected{% endif %}>{{ t.name }}</option>{% endfor %}
+                </select>
+                <button class="quiet">Set</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Themes</h2>
+  {% if run and run.status == 'working' %}
+    <p class="muted">Proposing themes… This page checks again by itself.</p>
+  {% elif run %}
+    <p class="meta">{{ run.detail }}</p>
+  {% endif %}
+  {% if me.role == 'lead' and model == 'live' and not themes and (not run or run.status == 'failed') %}
+    <form method="post" action="{{ base }}/propose">
+      <button class="quiet">Propose themes from the codes</button> <span class="hint">Once only. The team changes them freely.</span>
+    </form>
+  {% endif %}
+
+  {% for t in themes %}
+    <section class="card pad">
+      <form method="post" action="{{ base }}/save" class="stack">
+        <input type="hidden" name="theme" value="{{ t.id }}">
+        <label>Name <input name="name" required maxlength="80" value="{{ t.name }}"></label>
+        <label>Statement <small>what these codes say together</small> <textarea name="statement" rows="3">{{ t.statement }}</textarea></label>
+        <button class="quiet">Save</button>
+      </form>
+      <p class="meta">
+        {% for c in topics.codes if c.theme_id == t.id %}{{ c.label }} ({{ c.n }}){{ ' · ' if not loop.last }}{% else %}No codes yet. Set them in the table above.{% endfor %}
+      </p>
+      <form method="post" action="{{ base }}/delete">
+        <input type="hidden" name="theme" value="{{ t.id }}">
+        <button class="quiet danger">Remove theme</button>
+      </form>
+    </section>
+  {% endfor %}
+
+  <section class="card pad">
+    <h3>Add a theme</h3>
+    <form method="post" action="{{ base }}/save" class="stack">
+      <label>Name <input name="name" required maxlength="80"></label>
+      <label>Statement <small>what these codes say together</small> <textarea name="statement" rows="3"></textarea></label>
+      <button>Add</button>
+    </form>
+  </section>
+{% endblock %}

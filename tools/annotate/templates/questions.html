@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "_parts.html" as parts with context %}
+{% block title %}Questions · Annotation bench{% endblock %}
+{% block main %}
+  {{ parts.head() }}
+
+  <form method="post" action="{{ root }}/t/{{ track.id }}/memos" class="card pad">
+    <input type="hidden" name="kind" value="rq">
+    <label>Research question <small>shared with the team</small>
+      <textarea name="body" rows="3" required placeholder="How do ... ? What you would code. What made you ask."></textarea>
+    </label>
+    <button>Share</button>
+  </form>
+
+  {% for m in questions %}
+    <div class="note"><p class="pre">{{ m.body }}</p><p class="meta">{{ m.coder_code }} · {{ m.created_at[:10] }}</p></div>
+  {% else %}
+    <p class="muted">No questions yet.</p>
+  {% endfor %}
+{% endblock %}
