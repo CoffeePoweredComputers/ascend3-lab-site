@@ -10,7 +10,9 @@
  * Two kinds of people get a cookie, both by their OWN Firebase ID token:
  *
  *  - members: members/{uid}.status == "member" in Firestore, i.e. approved by
- *    an admin. They may open any tool.
+ *    an admin. They may open any tool. One whose record also says
+ *    role == "admin" (a site admin, as on /admin) gets the role "admin", so a
+ *    tool with its own roster can let the people who run the site run it too.
  *  - participants: any verified @vt.edu sign-in, but only for a tool whose
  *    tool.json says access: "participants", and only until that tool's
  *    participantsUntil date (end of that day, Eastern). The participant role
@@ -111,15 +113,17 @@ async function fsFetch(url, idToken, init = {}) {
   }
 }
 
-/** Firestore, as the user: 200 with status "member" is the only yes. */
-async function isApprovedMember(uid, idToken) {
+/** Firestore, as the user: "member" or "admin" for an approved member, else
+ *  null. 200 with status "member" is the only yes. */
+async function membership(uid, idToken) {
   const r = await fsFetch(`${FIRESTORE}/members/${encodeURIComponent(uid)}`, idToken);
-  if (!r || r.status !== 200) return false;
+  if (!r || r.status !== 200) return null;
   try {
     const doc = await r.json();
-    return doc?.fields?.status?.stringValue === 'member';
+    if (doc?.fields?.status?.stringValue !== 'member') return null;
+    return doc.fields.role?.stringValue === 'admin' ? 'admin' : 'member';
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -240,10 +244,11 @@ app.post('/session', async (c) => {
   const who = await verifyIdToken(idToken);
   if (!who) return c.json({ error: 'invalid token or not a verified vt.edu account' }, 401);
 
-  if (await isApprovedMember(who.uid, idToken)) {
-    await mint(c, { ...who, role: 'member' });
-    console.log(`gate: member session for ${who.email}`);
-    return c.json({ ok: true, role: 'member', email: who.email });
+  const role = await membership(who.uid, idToken);
+  if (role) {
+    await mint(c, { ...who, role });
+    console.log(`gate: ${role} session for ${who.email}`);
+    return c.json({ ok: true, role, email: who.email });
   }
 
   const name = typeof tool === 'string' && TOOL_RE.test(tool) ? tool : null;
@@ -289,7 +294,7 @@ app.get('/check', async (c) => {
 /** What the last deploy did to each tool: the no-SSH answer to "did my merge work?". */
 app.get('/status', async (c) => {
   const p = await person(c);
-  if (!p || p.role !== 'member') return c.json({ error: 'sign in on /wiki/lab-tools first' }, 401);
+  if (!p || p.role === 'participant') return c.json({ error: 'sign in on /wiki/lab-tools first' }, 401);
   return c.json(status());
 });
 

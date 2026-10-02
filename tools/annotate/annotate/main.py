@@ -273,7 +273,7 @@ def dashboard(request: Request):
     user = auth.current_user(request)
     db.maybe_backup()
     with db.db() as conn:
-        tracks = repo.tracks_for(conn, user.email)
+        tracks = repo.tracks_for(conn, user.email, user.admin)
         if not tracks:
             raise HTTPException(
                 403, "You are not on the roster for any study here. Ask the project lead to add you."
@@ -467,6 +467,7 @@ async def triage_save(request: Request, tid: int, token: str):
             return go(f"/t/{tid}/triage/{token}", ok="Reopened")
 
         # One card of a person's own pass: jot, and move on or flag it.
+        auth.on_team(me)
         jot = str(form.get("jot") or "").strip()
         if jot and repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
@@ -539,6 +540,7 @@ async def jot(request: Request, tid: int, token: str):
     with db.db() as conn:
         _, _, me = auth.require(conn, request, tid)
         item = own_item(conn, tid, token, me["role"])
+        auth.on_team(me)
         if repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
         repo.add_memo(conn, tid, me["id"], "jotting", str(form.get("body") or ""), item_id=item["id"])
@@ -572,6 +574,7 @@ async def memo_add(request: Request, tid: int):
         raise HTTPException(400, "Unknown kind of memo.")
     with db.db() as conn:
         _, _, me = auth.require(conn, request, tid)
+        auth.on_team(me)
         if kind == "rq":
             repo.require_open(conn, tid, 2)
         repo.add_memo(conn, tid, me["id"], kind, str(form.get("body") or ""), code_key=str(form.get("code_key") or "").strip())
@@ -671,6 +674,7 @@ async def generate(request: Request, tid: int):
     form = await form_of(request)
     with db.db() as conn:
         user, track, me = auth.require(conn, request, tid)
+        auth.on_team(me)
         repo.require_open(conn, tid, 3)
         study = studies.get(track["dataset_kind"])
         existing = repo.job(conn, tid, "candidates", me["id"])
@@ -1071,20 +1075,20 @@ def roster_view(request: Request, tid: int):
         people = repo.team_progress(conn, tid)
         counts = repo.triage_counts(conn, tid)
         team_locked = repo.team_locked(conn, tid)
-    return page(request, "roster.html", team_locked=team_locked, kept=counts["cleared"] + counts["untriaged"], user=user, track=track, me=me, people=people, at="roster")
+    return page(request, "roster.html", team_locked=team_locked, outside=not me["id"], kept=counts["cleared"] + counts["untriaged"], user=user, track=track, me=me, people=people, at="roster")
 
 
 @app.post("/t/{tid}/roster")
 async def roster_edit(request: Request, tid: int):
     form = await form_of(request)
     with db.db() as conn:
-        auth.require(conn, request, tid, lead=True)
+        user, _, _ = auth.require(conn, request, tid, lead=True)
         if form.get("roster_id"):
             if not str(form.get("roster_id")).isdigit():
                 raise repo.Refused("Unknown roster entry.")
-            repo.set_roster(conn, tid, int(str(form.get("roster_id"))), str(form.get("role")), form.get("active") == "1")
+            repo.set_roster(conn, tid, int(str(form.get("roster_id"))), str(form.get("role")), form.get("active") == "1", user.admin)
         else:
-            repo.add_roster(conn, tid, str(form.get("email") or ""), str(form.get("role")))
+            repo.add_roster(conn, tid, str(form.get("email") or ""), str(form.get("role")), user.admin)
     return go(f"/t/{tid}/roster", ok="Roster updated.")
 
 
@@ -1100,7 +1104,7 @@ def export_zip(request: Request, tid: int):
     with db.db() as conn:
         user, track, _ = auth.require(conn, request, tid, lead=True)
         # The bundle covers the whole study, so it takes a lead on every track of it.
-        if not repo.leads_whole_dataset(conn, track["dataset_id"], user.email):
+        if not user.admin and not repo.leads_whole_dataset(conn, track["dataset_id"], user.email):
             raise HTTPException(403, "The export covers every track in the study, so it needs a lead on all of them.")
         data = export.bundle(conn, track["dataset_id"])
     name = f"{track['dataset_slug']}-export.zip"

@@ -32,6 +32,11 @@ def backup_dir() -> Path:
     return data_dir() / "backups"
 
 
+def dev_admin() -> bool:
+    """Developer machines only: treat the developer as a site admin."""
+    return os.environ.get("ANNOTATE_DEV_ADMIN", "") == "1"
+
+
 def dev_user() -> str:
     """Set only on a developer's machine. The deploy runner never sets it, so in
     production identity can come from nothing but the gate's headers."""

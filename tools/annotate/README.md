@@ -34,6 +34,11 @@ every route checks it. A lab member who is not on a roster gets a refusal page.
   the codebook, take part in the merge, record consensus.
 - **lead**: a coder who also runs things: the roster, opening each stage,
   dealing and closing decks, running the merge, the export.
+- **site admin** (an admin on the site's `/admin` page): a lead on every
+  study, on its roster or not. This is how a study gets its first people: the
+  admin opens it and adds them on the Roster page, and can make anyone else
+  the lead. An admin who is not on a roster is not part of that team: they
+  are dealt no cards and cannot jot or code until they add themselves.
 
 ## How the work goes
 
@@ -110,8 +115,9 @@ ANNOTATE_DATA_DIR=./data ANNOTATE_DEV_USER=lead@example.edu PORT=8080 .venv/bin/
 
 Open <http://127.0.0.1:8080/>. `ANNOTATE_DEV_USER` stands in for the gate's
 headers; the bar at the bottom of the page switches between the seeded lead,
-two coders and an outsider. The deploy runner never sets that variable, so the
-switcher does not exist in production.
+two coders and an outsider. Add `ANNOTATE_DEV_ADMIN=1` to be a site admin as
+yourself. The deploy runner never sets these variables, so neither exists in
+production.
 
 Tests:
 
@@ -154,7 +160,8 @@ candidates, and the merge groups by shared cards and names alone. Locally,
 
 Once, on the server, after the tool's first deploy. Copy the data into the
 tool's data directory, import, then delete the copy. Both importers take
-`--dry-run`, put `--lead` on the roster (that is how the first lead gets in),
+`--dry-run`, can put a `--lead` on the roster (optional: a site admin can open
+the study and add people without it),
 start photos uncleaned and text in the data, and can be run again: what is already there is left
 alone with its triage and codes, and only new items are added.
 

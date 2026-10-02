@@ -10,8 +10,9 @@ the same approval the wiki uses) can reach them.
 
 ## Add a tool
 
-1. Copy [`hello/`](hello/) to `tools/<name>/`. The directory name is the
-   tool's name and its URL: lowercase letters, digits and hyphens, 2 to 32
+1. Make a folder `tools/<name>/` with a `Containerfile` (starters below) and
+   a `tool.json`. [`annotate/`](annotate/) is a full example. The directory
+   name is the tool's name and its URL: lowercase letters, digits and hyphens, 2 to 32
    characters, not starting with `_`.
 2. Edit `tool.json`. Four fields, all required:
 
@@ -52,7 +53,7 @@ the same approval the wiki uses) can reach them.
 | `PORT=8080` | listen here, on all interfaces inside the container |
 | `TOOL_ROOT_PATH=/tools/<name>` | the public prefix. nginx strips it before proxying, so your app sees `/`; relative URLs need nothing. Frameworks that build absolute URLs take it as a root path: uvicorn `--root-path $TOOL_ROOT_PATH`, Streamlit `--server.baseUrlPath`, Gradio `root_path=`, Express `app.use(process.env.TOOL_ROOT_PATH, router)` |
 | `X-Forwarded-Prefix` header | the same value, per request |
-| `X-Tool-User`, `X-Tool-Uid`, `X-Tool-Role` headers | who is asking, on every request: their VT email, their Firebase uid, and `member` or `participant`. nginx sets these from the gate's answer and overwrites anything a client sent, so they can be trusted. Key your tool's own data by `X-Tool-Uid` |
+| `X-Tool-User`, `X-Tool-Uid`, `X-Tool-Role` headers | who is asking, on every request: their VT email, their Firebase uid, and `member`, `admin` (a member who is also a site admin) or `participant`. nginx sets these from the gate's answer and overwrites anything a client sent, so they can be trusted. Key your tool's own data by `X-Tool-Uid` |
 | `TOOL_ACCESS` | `members` or `participants`, from your `tool.json` |
 | `/data` | persistent, per tool, kept across deploys, never deleted by the runner. Owned by the deploy user, which your process runs as |
 | `HOME=/tmp` | your process runs as a uid the image has no passwd entry for |
@@ -201,7 +202,7 @@ ss -ltn | grep -v 127.0.0.1      # nothing else should listen on 0.0.0.0
 # 5. first deploy, without waiting for cron
 cd ~/ascend3-lab-site && node tools/_lib/deploy.mjs --force all
 curl -i https://ascend3.cs.vt.edu/tools/_/healthz
-curl -i https://ascend3.cs.vt.edu/tools/hello/     # 302 to /wiki/lab-tools: the gate works
+curl -i https://ascend3.cs.vt.edu/tools/annotate/  # 302 to /wiki/lab-tools: the gate works
 ```
 
 After that, the only SSH a tool ever needs is a secrets file, and only if it
