@@ -5,6 +5,10 @@
   <h1>Roster</h1>
   <p class="task">Who can open this study, and where each person is.{% if team_locked %} The team is locked: untick <b>active</b> to take someone off, and their photos to clean go to the others.{% endif %}</p>
 
+  {% if outside %}
+    <p class="locked">You are running this study as a site admin and are not on its team. Add yourself below to read and code with it.</p>
+  {% endif %}
+
   <div class="scroll">
     <table>
       <thead><tr><th>Coder</th><th>Email</th>{% if kept is not none %}<th>Read</th>{% endif %}{% if study.has_image %}<th>To clean</th>{% endif %}<th>Jots</th><th>Question</th><th>Candidates</th><th>Open coding</th><th>Role</th></tr></thead>

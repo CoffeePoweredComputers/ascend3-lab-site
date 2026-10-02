@@ -73,13 +73,19 @@ def new_token() -> str:
 # ---------------------------------------------------------------- tracks, roster
 
 
-def tracks_for(conn: sqlite3.Connection, email: str) -> list[sqlite3.Row]:
-    return conn.execute(
+def tracks_for(conn: sqlite3.Connection, email: str, admin: bool = False) -> list[dict]:
+    """The studies a person can open. A site admin can open every one, as a
+    lead, with roster_id 0 where they are not on the team."""
+    rows = conn.execute(
         "SELECT t.*, d.title AS dataset_title, d.kind AS dataset_kind, r.role, r.coder_code, r.id AS roster_id"
-        " FROM roster r JOIN track t ON t.id = r.track_id JOIN dataset d ON d.id = t.dataset_id"
-        " WHERE r.email = ? AND r.active = 1 ORDER BY d.title, t.id",
+        " FROM track t JOIN dataset d ON d.id = t.dataset_id"
+        " LEFT JOIN roster r ON r.track_id = t.id AND r.email = ? AND r.active = 1"
+        " ORDER BY d.title, t.id",
         (email,),
     ).fetchall()
+    if not admin:
+        return [dict(r) for r in rows if r["roster_id"]]
+    return [dict(r, role="lead", coder_code=r["coder_code"] or "admin", roster_id=r["roster_id"] or 0) for r in rows]
 
 
 def roster(conn: sqlite3.Connection, track_id: int, active_only: bool = False) -> list[sqlite3.Row]:
@@ -89,7 +95,20 @@ def roster(conn: sqlite3.Connection, track_id: int, active_only: bool = False) -
     ).fetchall()
 
 
-def add_roster(conn: sqlite3.Connection, track_id: int, email: str, role: str) -> None:
+def _keep_a_lead(conn: sqlite3.Connection, track_id: int, roster_id: int, admin: bool) -> None:
+    """A lead cannot take the last lead off a study: nobody on it could run
+    it any more. A site admin can, because they run every study themselves."""
+    if admin:
+        return
+    row = conn.execute("SELECT role, active FROM roster WHERE id = ?", (roster_id,)).fetchone()
+    others = conn.execute(
+        "SELECT COUNT(*) FROM roster WHERE track_id = ? AND role = 'lead' AND active = 1 AND id != ?", (track_id, roster_id)
+    ).fetchone()[0]
+    if row and row["role"] == "lead" and row["active"] and not others:
+        raise Refused("A study needs at least one active lead.")
+
+
+def add_roster(conn: sqlite3.Connection, track_id: int, email: str, role: str, admin: bool = False) -> None:
     email = email.strip().lower()
     if role not in ("coder", "lead"):
         raise Refused("Role must be coder or lead.")
@@ -101,8 +120,9 @@ def add_roster(conn: sqlite3.Connection, track_id: int, email: str, role: str) -
         "SELECT id FROM roster WHERE track_id = ? AND email = ?", (track_id, email)
     ).fetchone()
     if existing:
+        if role != "lead":
+            _keep_a_lead(conn, track_id, existing["id"], admin)
         conn.execute("UPDATE roster SET role = ?, active = 1 WHERE id = ?", (role, existing["id"]))
-        _require_lead(conn, track_id)
         return
     n = conn.execute("SELECT COUNT(*) FROM roster WHERE track_id = ?", (track_id,)).fetchone()[0]
     conn.execute(
@@ -111,9 +131,11 @@ def add_roster(conn: sqlite3.Connection, track_id: int, email: str, role: str) -
     )
 
 
-def set_roster(conn: sqlite3.Connection, track_id: int, roster_id: int, role: str, active: bool) -> None:
+def set_roster(conn: sqlite3.Connection, track_id: int, roster_id: int, role: str, active: bool, admin: bool = False) -> None:
     if role not in ("coder", "lead"):
         raise Refused("Role must be coder or lead.")
+    if role != "lead" or not active:
+        _keep_a_lead(conn, track_id, roster_id, admin)
     before = conn.execute("SELECT active FROM roster WHERE id = ? AND track_id = ?", (roster_id, track_id)).fetchone()
     locked = team_locked(conn, track_id)
     if before and locked and active and not before["active"]:
@@ -122,18 +144,8 @@ def set_roster(conn: sqlite3.Connection, track_id: int, roster_id: int, role: st
         "UPDATE roster SET role = ?, active = ? WHERE id = ? AND track_id = ?",
         (role, int(active), roster_id, track_id),
     )
-    _require_lead(conn, track_id)
     if locked and before and before["active"] and not active:
         divide_cleaning(conn, track_id)  # their photos go to the people still on the team
-
-
-def _require_lead(conn: sqlite3.Connection, track_id: int) -> None:
-    """With no lead left, nobody could manage the track from inside the tool."""
-    leads = conn.execute(
-        "SELECT COUNT(*) FROM roster WHERE track_id = ? AND role = 'lead' AND active = 1", (track_id,)
-    ).fetchone()[0]
-    if not leads:
-        raise Refused("A track needs at least one active lead.")
 
 
 def leads_whole_dataset(conn: sqlite3.Connection, dataset_id: int, email: str) -> bool:

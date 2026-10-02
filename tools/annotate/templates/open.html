@@ -10,7 +10,11 @@
   {% set proposed = codes | selectattr('status', 'equalto', 'candidate') | list %}
 
   <section class="card pad hero">
-    {% if not run %}
+    {% if not me.id %}
+      {# A site admin running the study from outside its team. #}
+      <p class="hero__big">You are not on this team</p>
+      <p class="muted">You can deal and close the cards below. To code them yourself, add yourself on the Roster page before the team is locked.</p>
+    {% elif not run %}
       <p class="hero__big">Generate your candidate codes</p>
       <p class="muted">From your {{ jots }} jots and the team's questions. Once only: it closes your jotting.</p>
       <form method="post" action="{{ root }}/t/{{ track.id }}/open/generate">
