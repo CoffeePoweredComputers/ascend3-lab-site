@@ -407,6 +407,12 @@ label.choice { margin: 0; font-weight: 500; }
 .team { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; grid-template-columns: max-content 1fr auto auto; gap: 0.5rem 0.75rem; }
 .team li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: center; }
 .track__feet { font-family: var(--font-mono); font-size: 0.8rem; color: var(--secondary); font-weight: 600; }
+.track { position: relative; }
+.track__title { color: inherit; }
+.track__title:hover { text-decoration: none; }
+.track__title::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.track__feet a { position: relative; z-index: 1; color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
+.track__feet a:hover { color: var(--primary); }
 .track .button { align-self: flex-start; margin: 0.4rem 0 0; }
 
 .toast { position: fixed; top: 3.6rem; left: 50%; z-index: 20; transform: translateX(-50%); margin: 0; box-shadow: var(--shadow); animation: toast 2.4s ease-in forwards; }

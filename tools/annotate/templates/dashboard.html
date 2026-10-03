@@ -8,16 +8,17 @@
       {% for card in cards %}
         {% set t = card.track %}
         {% set next = card.stages | rejectattr('done') | first %}
-        <a class="card track" href="{{ root }}/t/{{ t.id }}/{{ next.path if next else 'items' }}" {% if loop.first %}data-key="Enter"{% endif %}>
-          <span class="track__title">{{ t.dataset_title }}</span>
+        {# The title's link covers the whole card, so the peak can be a link of its own. #}
+        <div class="card track">
+          <a class="track__title" href="{{ root }}/t/{{ t.id }}/{{ next.path if next else 'items' }}" {% if loop.first %}data-key="Enter"{% endif %}>{{ t.dataset_title }}</a>
           <span class="steps" role="img" aria-label="{{ card.stages | selectattr('done') | list | length }} of {{ card.stages | length }} waypoints reached">
             {% for s in card.stages %}<span class="{{ 'is-done' if s.done }}"></span>{% endfor %}
           </span>
           <span class="track__meta">{% if next and next.n %}Stage {{ next.n }} of {{ card.stages | length - 1 }} · {{ next.title }}{% elif next and next.part %}Waiting for the lead to lock the team{% else %}Not started{% endif %} · {{ t.role }}</span>
           {% set peak = passed(card.climb.feet) %}
-          <span class="track__feet">▲ {{ '{:,}'.format(card.climb.feet) }} ft{% if peak %} · {{ peak.name }}{% endif %}</span>
+          <span class="track__feet">▲ {{ '{:,}'.format(card.climb.feet) }} ft{% if peak %} · <a href="{{ peak.url }}" target="_blank" rel="noopener" {% if peak.note %}title="{{ peak.note }}"{% endif %}>{{ peak.name }}</a>{{ ' (' ~ peak.where ~ ')' if peak.where }}{% endif %}</span>
           {% if next %}<span class="button">{{ 'Start' if next.n == 0 else 'Continue' }}{% if loop.first %} <kbd>Enter</kbd>{% endif %}</span>{% endif %}
-        </a>
+        div>
       {% endfor %}
     </div>
   </div>
