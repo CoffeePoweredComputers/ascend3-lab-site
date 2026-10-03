@@ -16,6 +16,7 @@ def test_the_dashboard_shows_both_studies(client):
     home = client.get("/", headers=CODER1).text
     assert "Demo study (synthetic)" in home and "Ethics questions (synthetic)" in home
     assert home.count('class="card track"') == 2
+    assert home.count("<div") == home.count("</div>")  # each card closes
 
 
 def test_an_ethics_card_is_text_only(client):

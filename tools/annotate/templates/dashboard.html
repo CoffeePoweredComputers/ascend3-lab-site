@@ -18,7 +18,7 @@
           {% set peak = passed(card.climb.feet) %}
           <span class="track__feet">▲ {{ '{:,}'.format(card.climb.feet) }} ft{% if peak %} · <a href="{{ peak.url }}" target="_blank" rel="noopener" {% if peak.note %}title="{{ peak.note }}"{% endif %}>{{ peak.name }}</a>{{ ' (' ~ peak.where ~ ')' if peak.where }}{% endif %}</span>
           {% if next %}<span class="button">{{ 'Start' if next.n == 0 else 'Continue' }}{% if loop.first %} <kbd>Enter</kbd>{% endif %}</span>{% endif %}
-        div>
+        </div>
       {% endfor %}
     </div>
   </div>
