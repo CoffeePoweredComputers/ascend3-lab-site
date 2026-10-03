@@ -23,8 +23,8 @@
         <input type="hidden" name="crop_x"><input type="hidden" name="crop_y">
         <input type="hidden" name="crop_w"><input type="hidden" name="crop_h">
         <p class="tools">
-          <button name="turn" value="left" class="quiet" data-key="["><kbd>[</kbd> Turn left</button>
-          <button name="turn" value="right" class="quiet" data-key="]"><kbd>]</kbd> Turn right</button>
+          <button name="turn" value="left" class="quiet" formnovalidate data-key="["><kbd>[</kbd> Turn left</button>
+          <button name="turn" value="right" class="quiet" formnovalidate data-key="]"><kbd>]</kbd> Turn right</button>
           <span class="hint">Turn first, then drag a box round the diagram.</span>
           <button type="button" class="link" data-crop-clear>Remove crop</button>
         </p>
@@ -59,10 +59,10 @@
       {% endif %}
       {# Opens the reasons; picking one is what sends it. #}
       <details class="why">
-        <summary class="big big--stop" data-key="x"><kbd>X</kbd><b>{{ 'Exclude' if mode == 'resolve' else 'Flag for the lead' }}</b><small>then say why</small></summary>
+        <summary class="big big--stop" data-key="x"><kbd>X</kbd><b>{{ 'Exclude' if mode == 'resolve' else 'Flag for the lead' }}</b><small>then say why{{ '; no jot needed' if study.jot_required and mode == 'read' }}</small></summary>
         <div class="why__reasons">
           {% for value, label in study.exclude_reasons %}
-            <button name="exclude" value="{{ value }}" class="quiet" data-key="{{ loop.index }}"><kbd>{{ loop.index }}</kbd> {{ label }}</button>
+            <button name="exclude" value="{{ value }}" class="quiet" formnovalidate data-key="{{ loop.index }}"><kbd>{{ loop.index }}</kbd> {{ label }}</button>
           {% endfor %}
         </div>
       </details>
@@ -71,7 +71,7 @@
         <textarea name="note" rows="2" aria-label="Note for the lead">{{ item.note if mode == 'resolve' }}</textarea>
       </details>
       {% if me.role == 'lead' and mode == 'read' and item.raw_path %}
-        <button name="action" value="reopen" class="quiet">Take back to turn or crop again</button>
+        <button name="action" value="reopen" class="quiet" formnovalidate>Take back to turn or crop again</button>
       {% endif %}
     </section>
   </form>

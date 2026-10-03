@@ -96,7 +96,10 @@ def test_everyone_reads_every_card_and_jots_stay_private(client, study):
     # In this study every card gets a jot: a card cannot be passed without one.
     assert "Jot%20what%20you%20notice" in jot(client, study, CODER1, cards[1])
     assert "%2B15%20ft" in jot(client, study, CODER1, cards[1], "a question about work")
-    assert '<textarea name="jot" rows="3" required>' in client.get(f"/t/{study}/triage/{cards[2]}", headers=CODER1).text
+    card = client.get(f"/t/{study}/triage/{cards[2]}", headers=CODER1).text
+    assert '<textarea name="jot" rows="3" required>' in card
+    # Flagging needs no jot: the reason buttons submit past the required box, and the server agrees.
+    assert card.count("formnovalidate") == 2 and "no jot needed" in card
 
     # One person's reading does not take a card from anyone else.
     assert "12 to read" in client.get(f"/t/{study}/triage", headers=CODER1).text
@@ -121,6 +124,8 @@ def test_everyone_reads_every_card_and_jots_stay_private(client, study):
     # The lead sees counts, never the words.
     roster = client.get(f"/t/{study}/roster", headers=LEAD).text
     assert "2/14" in roster and "0/14" in roster and "asks who is responsible" not in roster
+    # Flagging a card needs no jot.
+    assert "Sent%20to%20the%20lead" in post(client, f"/t/{study}/triage/{cards[-1]}", CODER1, exclude="off_task")
 
 
 def test_a_flagged_card_goes_to_the_lead_who_keeps_or_excludes_it(client, study):
