@@ -187,6 +187,9 @@ def test_the_trail_and_elevation(client):
     client.post(f"/t/{track}/memos", headers=CODER1, data={"kind": "rq", "body": "How do arrows change?"})
     page = client.get(f"/t/{track}/triage", headers=CODER1).text
     assert "▲ 95 ft" in page  # 30 for three photos cleaned, 10 for the card read, 5 for the jotting, 50 for the question
+    # The rest of the team stand on the trail too, by name, each a share of the way along.
+    mates = re.findall(r'<g class="mate mate--\d is-unplaced" data-at="([\d.]+)"[^>]*>\s*<circle[^>]*><title>([^<]+)</title>', page)
+    assert sorted(who for _, who in mates) == ["coder2", "lead"] and all(0 <= float(at) <= 1 for at, _ in mates)
     # Another coder sees the team's total, never this coder's figure.
     other = client.get(f"/t/{track}/triage", headers=CODER2).text
     assert "<b>▲ 10 ft</b>" in other and "team ▲ 105 ft" in other

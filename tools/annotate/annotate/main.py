@@ -51,9 +51,10 @@ def page(request: Request, name: str, status_code: int = 200, **context) -> Resp
         context["study"] = studies.get(track["dataset_kind"])
         with db.db() as conn:
             context["nav"] = stage_rows(conn, track, user)
+            mates = team_positions(conn, track, user.email)
             if context.get("me"):
                 context["climb"] = repo.trail_stats(conn, track["id"], context["me"])
-        context["trail"] = trail(context["nav"], f"trail-{track['id']}")
+        context["trail"] = trail(context["nav"], f"trail-{track['id']}", mates)
         stage = next((s for s in context["nav"] if s["key"] == context.get("at")), None)
         context["stage"] = stage
         if stage:
@@ -118,7 +119,25 @@ def _cubic(p0, c0, c1, p1, t):
     return tuple(u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d for a, b, c, d in zip(p0, c0, c1, p1))
 
 
-def trail(rows: list[dict], seed: str) -> dict:
+def gain(rows: list[dict]) -> float:
+    """How far along the trail a person is: every finished stage, plus how
+    far into the one the team is on."""
+    here = next((s for s in rows if not s["done"]), rows[-1])
+    return min(here["n"] + here["part"], len(rows) - 1)
+
+
+def team_positions(conn, track, me_email: str) -> list[dict]:
+    """Where everyone else on the team is, for the trail. A number each, no
+    more: what they have done, never what they wrote."""
+    out = []
+    for n, r in enumerate(repo.roster(conn, track["id"], active_only=True)):
+        if r["email"] == me_email:
+            continue
+        out.append({"who": r["email"].split("@")[0], "n": n % 6, "gain": gain(stage_rows(conn, track, auth.User(r["email"], "")))})
+    return out
+
+
+def trail(rows: list[dict], seed: str, mates: list[dict] = ()) -> dict:
     """The sidebar's trail, drawn the way the main site draws its own
     (Navigation.astro): waypoints alternate sides at a random distance from the
     edge, and the path between them wanders through two drift points instead
@@ -151,14 +170,17 @@ def trail(rows: list[dict], seed: str) -> dict:
             length += sum(((x1 - x0) ** 2 + (y1 - y0) ** 2) ** 0.5 for (x0, y0), (x1, y1) in zip(samples, samples[1:]))
         reach.append(reach[-1] + length)
 
+    def along(how_far: float) -> float:
+        whole, part = int(how_far), how_far - int(how_far)
+        return reach[whole] + part * (reach[min(whole + 1, len(reach) - 1)] - reach[whole])
+
     here = next((s for s in rows if not s["done"]), rows[-1])
-    # How far along: every finished stage, plus how far into this one.
-    gain = min(here["n"] + here["part"], len(rows) - 1)
-    whole, part = int(gain), gain - int(gain)
-    climbed = reach[whole] + part * (reach[min(whole + 1, len(reach) - 1)] - reach[whole])
+    mine = gain(rows)
     return {
-        "height": height, "path": path, "here": here["n"], "gain": round(gain, 3),
-        "length": round(reach[-1], 1), "climbed": round(climbed, 1),
+        "height": height, "path": path, "here": here["n"], "gain": round(mine, 3),
+        "length": round(reach[-1], 1), "climbed": round(along(mine), 1),
+        # Teammates, as a share of the path each, so the script can place them.
+        "mates": [{**m, "at": round(along(m["gain"]) / reach[-1], 4)} for m in mates],
     }
 
 

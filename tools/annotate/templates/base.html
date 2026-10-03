@@ -46,6 +46,13 @@
           {# You, on the trail. deck.js puts this where the climbed path ends. Drawn
              before the waypoints, so standing on one does not cover its number. #}
           <circle class="trail__you is-unplaced" r="5" data-at="{{ trail.climbed / trail.length }}"></circle>
+          {# The rest of the team, each a small dot where they are; the name shows on hover. #}
+          {% for m in trail.mates %}
+            <g class="mate mate--{{ m.n }} is-unplaced" data-at="{{ m.at }}" data-shift="{{ loop.index0 - (loop.length - 1) / 2 }}">
+              <circle class="mate__dot" r="3.5"><title>{{ m.who }}</title></circle>
+              <text class="mate__name">{{ m.who }}</text>
+            </g>
+          {% endfor %}
           {% for s in nav %}
             {% set open = s.key != 'export' or me.role == 'lead' %}
             <a role="listitem" {% if open %}href="{{ root }}/t/{{ track.id }}/{{ s.path }}"{% endif %}

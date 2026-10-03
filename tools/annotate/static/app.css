@@ -446,3 +446,14 @@ label.choice { margin: 0; font-weight: 500; }
 .source p { margin: 0.2rem 0; }
 .source .row { margin-top: 0.4rem; }
 .thumb { display: block; max-height: 9rem; max-width: 100%; margin: 0.4rem 0; border: 1px solid var(--border); border-radius: 0.4rem; }
+
+/* Teammates on the trail: a dot each, the name on hover. */
+.mate.is-unplaced { visibility: hidden; }
+.mate__dot { stroke: var(--surface-base); stroke-width: 1.5; cursor: default; }
+.mate--0 .mate__dot { fill: #2563eb; } .mate--1 .mate__dot { fill: #d97706; } .mate--2 .mate__dot { fill: #059669; }
+.mate--3 .mate__dot { fill: #7c3aed; } .mate--4 .mate__dot { fill: #db2777; } .mate--5 .mate__dot { fill: #0891b2; }
+.mate__name { font-family: var(--font-mono); font-size: 10px; fill: var(--text); text-anchor: middle; opacity: 0; pointer-events: none; transition: opacity 0.15s; paint-order: stroke; stroke: var(--surface-base); stroke-width: 3px; }
+.mate:hover .mate__name { opacity: 1; }
+/* Waypoint cards stay out of the way until the waypoint is pointed at; the page you are on keeps its card. */
+.wp foreignObject { opacity: 0; transition: opacity 0.15s; }
+.wp:hover foreignObject, .wp:focus-visible foreignObject, .wp[aria-current] foreignObject { opacity: 1; }

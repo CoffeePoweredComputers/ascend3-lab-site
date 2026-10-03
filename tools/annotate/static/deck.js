@@ -6,14 +6,28 @@
     el && (el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' ||
       (el.tagName === 'INPUT' && !['checkbox', 'radio'].includes(el.type)));
 
-  // Put the "you are here" marker where the climbed part of the trail ends.
+  // Put the "you are here" marker, and each teammate's dot, where their
+  // share of the trail ends. Teammates standing together are spread sideways.
   const climbed = document.querySelector('.trail__gain');
-  const you = document.querySelector('.trail__you');
-  if (climbed && you) {
-    const at = climbed.getPointAtLength(climbed.getTotalLength() * Number(you.dataset.at));
-    you.setAttribute('cx', at.x);
-    you.setAttribute('cy', at.y);
-    you.classList.remove('is-unplaced');
+  if (climbed) {
+    const total = climbed.getTotalLength();
+    const you = document.querySelector('.trail__you');
+    if (you) {
+      const at = climbed.getPointAtLength(total * Number(you.dataset.at));
+      you.setAttribute('cx', at.x);
+      you.setAttribute('cy', at.y);
+      you.classList.remove('is-unplaced');
+    }
+    document.querySelectorAll('.mate').forEach((mate) => {
+      const at = climbed.getPointAtLength(total * Number(mate.dataset.at));
+      const x = at.x + Number(mate.dataset.shift) * 8;
+      mate.querySelector('.mate__dot').setAttribute('cx', x);
+      mate.querySelector('.mate__dot').setAttribute('cy', at.y);
+      const name = mate.querySelector('.mate__name');
+      name.setAttribute('x', x);
+      name.setAttribute('y', at.y - 8);
+      mate.classList.remove('is-unplaced');
+    });
   }
 
   // A field that makes another one required once it has something in it:
