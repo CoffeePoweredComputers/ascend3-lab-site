@@ -1,6 +1,7 @@
 """Every page renders, and every link carries the prefix nginx serves the tool under."""
 
 import re
+from urllib.parse import unquote_plus
 
 from conftest import CODER1, CODER2, LEAD
 from helpers import tokens, track_id
@@ -187,12 +188,18 @@ def test_the_trail_and_elevation(client):
     client.post(f"/t/{track}/memos", headers=CODER1, data={"kind": "rq", "body": "How do arrows change?"})
     page = client.get(f"/t/{track}/triage", headers=CODER1).text
     assert "▲ 95 ft" in page  # 30 for three photos cleaned, 10 for the card read, 5 for the jotting, 50 for the question
+    # Measured against a real mountain, and the next one up.
+    assert 'past <a href="https://en.wikipedia.org/wiki/Clipperton_Island"' in page and "20 ft to Monte Testaccio" in page
     # The rest of the team stand on the trail too, by name, each a share of the way along.
     mates = re.findall(r'<g class="mate mate--\d is-unplaced" data-at="([\d.]+)"[^>]*>\s*<circle[^>]*><title>([^<]+)</title>', page)
     assert sorted(who for _, who in mates) == ["coder2", "lead"] and all(0 <= float(at) <= 1 for at, _ in mates)
     # Another coder sees the team's total, never this coder's figure.
     other = client.get(f"/t/{track}/triage", headers=CODER2).text
     assert "<b>▲ 10 ft</b>" in other and "team ▲ 105 ft" in other
+    assert "in the foothills" in other and "85 ft to Rocher Clipperton" in other
+    # Climbing past a landmark says so: a memo takes this coder from 95 ft to 145, past Monte Testaccio at 115.
+    said = client.post(f"/t/{track}/memos", headers=CODER1, data={"kind": "memo", "body": "arrows again"}).headers["location"]
+    assert "past Monte Testaccio" in unquote_plus(said)
 
 
 def test_back_and_next_stay_put_and_lead_on_to_the_next_stage(client):

@@ -18,7 +18,7 @@ from fastapi.templating import Jinja2Templates
 from markdown_it import MarkdownIt
 from markupsafe import Markup
 
-from annotate import agreement, assist, auth, config, db, export, images, llm, repo, stages, stats, studies
+from annotate import agreement, assist, auth, config, db, export, images, llm, peaks, repo, stages, stats, studies
 
 
 @asynccontextmanager
@@ -40,6 +40,7 @@ templates = Jinja2Templates(directory=config.APP_DIR / "templates")
 markdown = MarkdownIt("commonmark", {"html": False}).enable("table")
 # People are shown to their team by the name part of their email.
 templates.env.filters["who"] = lambda email: str(email).split("@")[0]
+templates.env.globals.update(passed=peaks.passed, ahead=peaks.ahead)
 
 
 def page(request: Request, name: str, status_code: int = 200, **context) -> Response:
@@ -117,6 +118,14 @@ TRAIL_WIDTH, TRAIL_ROW = 240, 62
 def _cubic(p0, c0, c1, p1, t):
     u = 1 - t
     return tuple(u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d for a, b, c, d in zip(p0, c0, c1, p1))
+
+
+def passing(conn, track_id: int, me, before: int) -> str:
+    """" · past Mount Fuji" when the work just saved climbed past a landmark."""
+    peak = peaks.crossed(before, repo.feet(conn, track_id, me["id"], me["email"]))
+    if not peak:
+        return ""
+    return f" · past {peak.name}" + (f" on {peak.where}" if peak.where else "")
 
 
 def gain(rows: list[dict]) -> float:
@@ -441,6 +450,7 @@ async def triage_save(request: Request, tid: int, token: str):
         repo.require_open(conn, tid, 1)
         study = studies.get(track["dataset_kind"])
         item = own_item(conn, tid, token, me["role"])
+        before = repo.feet(conn, tid, me["id"], me["email"])
         label = dict(study.exclude_reasons).get(reason)
         if reason and not label:
             raise repo.Refused("Pick one of the reasons.")
@@ -481,6 +491,7 @@ async def triage_save(request: Request, tid: int, token: str):
             else:
                 repo.save_triage(conn, item, me["role"], user.email, "clear", item["rotation"], crop, clean, item["note"])
                 said = f"+{repo.FEET['triaged']} ft"
+            said += passing(conn, tid, me, before)
             following = repo.next_uncleaned(conn, tid, me["id"], after=item["shuffle_key"])
             if following:
                 return go(f"/t/{tid}/triage/{following['token']}", ok=said)
@@ -509,6 +520,7 @@ async def triage_save(request: Request, tid: int, token: str):
             said = (said + " · " if said else "") + f"+{repo.FEET['triaged'] + (repo.FEET['jotting'] if fresh else 0)} ft"
         elif fresh:
             said = (said + " · " if said else "") + f"+{repo.FEET['jotting']} ft"
+        said += passing(conn, tid, me, before)
         following = repo.next_unseen(conn, tid, me["id"], after=item["shuffle_key"])
     if following:
         return go(f"/t/{tid}/triage/{following['token']}", ok=said or "Saved")
@@ -573,8 +585,10 @@ async def jot(request: Request, tid: int, token: str):
         auth.on_team(me)
         if repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
+        before = repo.feet(conn, tid, me["id"], me["email"])
         fresh = repo.set_jotting(conn, tid, me["id"], item["id"], str(form.get("body") or ""))
-    return go(f"/t/{tid}/items/{token}", ok=f"Jotted · +{repo.FEET['jotting']} ft" if fresh else "Jot saved")
+        said = f"Jotted · +{repo.FEET['jotting']} ft" + passing(conn, tid, me, before) if fresh else "Jot saved"
+    return go(f"/t/{tid}/items/{token}", ok=said)
 
 
 @app.get("/t/{tid}/memos")
@@ -607,8 +621,10 @@ async def memo_add(request: Request, tid: int):
         auth.on_team(me)
         if kind == "rq":
             repo.require_open(conn, tid, 2)
+        before = repo.feet(conn, tid, me["id"], me["email"])
         repo.add_memo(conn, tid, me["id"], kind, str(form.get("body") or ""), code_key=str(form.get("code_key") or "").strip())
-    return go(f"/t/{tid}/{'questions' if kind == 'rq' else 'memos'}", ok=f"Shared with the team · +{repo.FEET['memo']} ft")
+        said = f"Shared with the team · +{repo.FEET['memo']} ft" + passing(conn, tid, me, before)
+    return go(f"/t/{tid}/{'questions' if kind == 'rq' else 'memos'}", ok=said)
 
 
 # -------------------------------------------------------------------- codebook
@@ -892,6 +908,7 @@ async def code_save(request: Request, bid: int, token: str):
     with db.db() as conn:
         _, track, me, batch, submitted = batch_context(conn, request, bid)
         item = my_assignment(conn, batch, me, token)
+        before = repo.feet(conn, track["id"], me["id"], me["email"])
         if batch["status"] == "closed":
             raise repo.Refused("The lead closed this deck. This card was not saved.")
         if submitted:
@@ -912,8 +929,9 @@ async def code_save(request: Request, bid: int, token: str):
         if note:
             repo.add_memo(conn, track["id"], me["id"], "jotting", note, item_id=item["id"])
         following = next((m["token"] for m in repo.my_assignments(conn, bid, me["id"]) if not m["done_at"]), None)
+        said = f"+{repo.FEET['coded']} ft" + passing(conn, track["id"], me, before)
     if following:
-        return go(f"/b/{bid}/code/{following}", ok=f"+{repo.FEET['coded']} ft")
+        return go(f"/b/{bid}/code/{following}", ok=said)
     return go(f"/b/{bid}", ok="Deck finished." if batch["kind"] == "starter" else "Deck finished. Submit when ready.")
 
 

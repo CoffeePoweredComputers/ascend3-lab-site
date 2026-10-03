@@ -11,7 +11,7 @@ Each card is one question a CS2114 student wrote after a class on ethics in comp
 - Press Start to join. When everyone has, the lead locks the team; nobody joins after that.
 - Each waypoint on the left is a stage. The team moves together: the lead opens the next one.
 - Every stage has a short guide at the top of its page.
-- You gain elevation for each card and memo, never for speed.
+- You gain elevation for each card and memo, never for speed. Your height is matched to a real mountain, on Earth or another world; its name links to Wikipedia.
 
 ## Cards and keys
 

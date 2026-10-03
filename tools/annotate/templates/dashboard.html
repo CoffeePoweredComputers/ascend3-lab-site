@@ -14,7 +14,8 @@
             {% for s in card.stages %}<span class="{{ 'is-done' if s.done }}"></span>{% endfor %}
           </span>
           <span class="track__meta">{% if next and next.n %}Stage {{ next.n }} of {{ card.stages | length - 1 }} · {{ next.title }}{% elif next and next.part %}Waiting for the lead to lock the team{% else %}Not started{% endif %} · {{ t.role }}</span>
-          <span class="track__feet">▲ {{ '{:,}'.format(card.climb.feet) }} ft</span>
+          {% set peak = passed(card.climb.feet) %}
+          <span class="track__feet">▲ {{ '{:,}'.format(card.climb.feet) }} ft{% if peak %} · {{ peak.name }}{% endif %}</span>
           {% if next %}<span class="button">{{ 'Start' if next.n == 0 else 'Continue' }}{% if loop.first %} <kbd>Enter</kbd>{% endif %}</span>{% endif %}
         </a>
       {% endfor %}

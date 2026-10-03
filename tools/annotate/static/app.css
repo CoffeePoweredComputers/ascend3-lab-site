@@ -306,6 +306,8 @@ details > summary { cursor: pointer; }
 }
 .side__who p { margin: 0.15rem 0; }
 .climb b { color: var(--secondary); font-size: 0.8rem; }
+.side__who a, a.deckbar__feet { color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
+.side__who a:hover, a.deckbar__feet:hover { color: var(--secondary); }
 
 /* ── Card deck: one submission at a time ── */
 .is-deck main { max-width: 84rem; padding-top: 1rem; }

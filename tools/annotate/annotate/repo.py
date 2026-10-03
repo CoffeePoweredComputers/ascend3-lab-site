@@ -501,38 +501,40 @@ def next_held(conn: sqlite3.Connection, track_id: int) -> Optional[dict]:
 FEET = {"triaged": 10, "coded": 25, "memo": 50, "rq": 50, "jotting": 5}
 
 
+def feet(conn: sqlite3.Connection, track_id: int, roster_id: Optional[int] = None, email: Optional[str] = None) -> int:
+    """Elevation gained on a track: one person's, or with neither id nor email
+    given, the whole team's."""
+    mine = " AND a.roster_id = ?" if roster_id else ""
+    coded = conn.execute(
+        "SELECT COUNT(*) FROM assignment a JOIN batch b ON b.id = a.batch_id"
+        f" WHERE b.track_id = ? AND a.done_at IS NOT NULL AND a.is_consensus = 0{mine}",
+        (track_id, roster_id) if roster_id else (track_id,),
+    ).fetchone()[0]
+    read = conn.execute(
+        "SELECT COUNT(*) FROM seen sn JOIN item i ON i.id = sn.item_id"
+        f" WHERE i.track_id = ?{' AND sn.roster_id = ?' if roster_id else ''}",
+        (track_id, roster_id) if roster_id else (track_id,),
+    ).fetchone()[0]
+    # A photo cleaned: turned, cropped and kept, flagged or settled.
+    cleaned = conn.execute(
+        "SELECT COUNT(*) FROM item i JOIN item_state st ON st.item_id = i.id"
+        " WHERE i.track_id = ? AND i.raw_path IS NOT NULL AND st.status != 'untriaged'"
+        + (" AND st.updated_by = ?" if email else " AND st.updated_by IS NOT NULL AND st.updated_by != 'seed'"),
+        (track_id, email) if email else (track_id,),
+    ).fetchone()[0]
+    total = FEET["triaged"] * (read + cleaned) + FEET["coded"] * coded
+    mine = " AND roster_id = ?" if roster_id else ""
+    for row in conn.execute(
+        f"SELECT kind, COUNT(*) AS n FROM memo WHERE track_id = ?{mine} GROUP BY kind",
+        (track_id, roster_id) if roster_id else (track_id,),
+    ):
+        total += FEET.get(row["kind"], 0) * row["n"]
+    return total
+
+
 def trail_stats(conn: sqlite3.Connection, track_id: int, me: sqlite3.Row) -> dict:
     """Elevation gained: feet for work done, never for speed or for agreeing
     with anyone. A coder sees their own figure and the team's total only."""
-
-    def feet(roster_id=None, email=None) -> int:
-        mine = " AND a.roster_id = ?" if roster_id else ""
-        coded = conn.execute(
-            "SELECT COUNT(*) FROM assignment a JOIN batch b ON b.id = a.batch_id"
-            f" WHERE b.track_id = ? AND a.done_at IS NOT NULL AND a.is_consensus = 0{mine}",
-            (track_id, roster_id) if roster_id else (track_id,),
-        ).fetchone()[0]
-        read = conn.execute(
-            "SELECT COUNT(*) FROM seen sn JOIN item i ON i.id = sn.item_id"
-            f" WHERE i.track_id = ?{' AND sn.roster_id = ?' if roster_id else ''}",
-            (track_id, roster_id) if roster_id else (track_id,),
-        ).fetchone()[0]
-        # A photo cleaned: turned, cropped and kept, flagged or settled.
-        cleaned = conn.execute(
-            "SELECT COUNT(*) FROM item i JOIN item_state st ON st.item_id = i.id"
-            " WHERE i.track_id = ? AND i.raw_path IS NOT NULL AND st.status != 'untriaged'"
-            + (" AND st.updated_by = ?" if email else " AND st.updated_by IS NOT NULL AND st.updated_by != 'seed'"),
-            (track_id, email) if email else (track_id,),
-        ).fetchone()[0]
-        total = FEET["triaged"] * (read + cleaned) + FEET["coded"] * coded
-        mine = " AND roster_id = ?" if roster_id else ""
-        for row in conn.execute(
-            f"SELECT kind, COUNT(*) AS n FROM memo WHERE track_id = ?{mine} GROUP BY kind",
-            (track_id, roster_id) if roster_id else (track_id,),
-        ):
-            total += FEET.get(row["kind"], 0) * row["n"]
-        return total
-
     days = {
         r[0] for r in conn.execute(
             "SELECT substr(a.done_at, 1, 10) FROM assignment a WHERE a.roster_id = ? AND a.done_at IS NOT NULL"
@@ -549,7 +551,7 @@ def trail_stats(conn: sqlite3.Connection, track_id: int, me: sqlite3.Row) -> dic
     streak = 0
     while day.isoformat() in days:
         streak, day = streak + 1, day - timedelta(days=1)
-    return {"feet": feet(me["id"], me["email"]), "team_feet": feet(), "streak": streak}
+    return {"feet": feet(conn, track_id, me["id"], me["email"]), "team_feet": feet(conn, track_id), "streak": streak}
 
 
 # ------------------------------------------------------------------------- memos

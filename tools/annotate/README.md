@@ -7,7 +7,7 @@ into one codebook, code blind, measure agreement, resolve, repeat. Served at `/t
 
 It is laid out as a hike. The sidebar is a trail of stages from trailhead to
 summit, the work is done one card at a time with a key for every action, and
-people gain elevation for work done.
+people gain elevation for work done, measured against real mountains (`annotate/peaks.py`).
 
 ## Studies
 

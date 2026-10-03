@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="{{ root }}/static/app.css">
   {% block head %}{% endblock %}
 </head>
+{% macro peak_link(p) -%}
+  <a href="{{ p.url }}" target="_blank" rel="noopener" {% if p.note %}title="{{ p.note }}"{% endif %}>{{ p.name }}</a>{{ ' (' ~ p.where ~ ')' if p.where }}
+{%- endmacro %}
 <body class="{{ 'is-deck' if deck else ('with-side' if track) }}">
   <a class="skip" href="#main">Skip to content</a>
 
@@ -19,7 +22,11 @@
       {% if stage %}<a class="deckbar__guide" href="{{ root }}/t/{{ track.id }}/guide/{{ stage.n }}" target="_blank" rel="noopener" data-key="?">Guide <kbd>?</kbd></a>{% endif %}
       <progress class="deckbar__bar" value="{{ deck.value }}" max="{{ deck.max }}">{{ deck.value }} of {{ deck.max }}</progress>
       <span class="deckbar__count">{{ deck.value }} / {{ deck.max }}</span>
-      {% if climb %}<span class="deckbar__feet">▲ {{ '{:,}'.format(climb.feet) }} ft</span>{% endif %}
+      {% if climb %}
+        {% set peak = passed(climb.feet) %}
+        {% if peak %}<a class="deckbar__feet" href="{{ peak.url }}" target="_blank" rel="noopener" title="Past {{ peak.name }}{{ ' on ' ~ peak.where if peak.where }}">▲ {{ '{:,}'.format(climb.feet) }} ft</a>
+        {% else %}<span class="deckbar__feet">▲ {{ '{:,}'.format(climb.feet) }} ft</span>{% endif %}
+      {% endif %}
       <button type="button" class="theme" data-theme-toggle aria-label="Switch between light and dark">◐</button>
     </header>
   {% elif track %}
@@ -90,7 +97,14 @@
       <div class="side__who">
         {% if climb %}
           <p class="climb"><b>▲ {{ '{:,}'.format(climb.feet) }} ft</b> climbed{% if climb.streak > 1 %} · {{ climb.streak }} days running{% endif %}</p>
-          <p>team ▲ {{ '{:,}'.format(climb.team_feet) }} ft</p>
+          {# The real mountain that high, and the next one up. #}
+          {% set peak, next_peak = passed(climb.feet), ahead(climb.feet) %}
+          <p class="climb__peak">
+            {% if peak %}past {{ peak_link(peak) }}{% else %}in the foothills{% endif %}
+            {% if next_peak %} · {{ '{:,}'.format(next_peak.feet - climb.feet) }} ft to {{ next_peak.name }}{% endif %}
+          </p>
+          {% set team_peak = passed(climb.team_feet) %}
+          <p>team ▲ {{ '{:,}'.format(climb.team_feet) }} ft{% if team_peak %} · past {{ peak_link(team_peak) }}{% endif %}</p>
         {% endif %}
         <p>{{ me.coder_code }} · {{ me.role }} · {{ user.email }}</p>
       </div>
