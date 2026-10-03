@@ -66,10 +66,13 @@
           {% endfor %}
         </div>
       </details>
-      <details class="fold">
-        <summary>Add a note</summary>
-        <textarea name="note" rows="2" aria-label="Note for the lead">{{ item.note if mode == 'resolve' }}</textarea>
-      </details>
+      {# Only where it is kept: the lead's word on a flagged card, which goes into the export. #}
+      {% if mode == 'resolve' %}
+        <details class="fold">
+          <summary>Add a note</summary>
+          <textarea name="note" rows="2" aria-label="Note for the lead">{{ item.note }}</textarea>
+        </details>
+      {% endif %}
       {% if me.role == 'lead' and mode == 'read' and item.raw_path %}
         <button name="action" value="reopen" class="quiet" formnovalidate>Take back to turn or crop again</button>
       {% endif %}
