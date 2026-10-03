@@ -883,6 +883,7 @@ def code_form(request: Request, bid: int, token: str):
         mine = repo.my_assignments(conn, bid, me["id"])
         tree = repo.version_tree(conn, batch["version_id"]) if batch["version_id"] else []
         own = repo.visible_annotations(conn, batch, me).get((item["id"], me["coder_code"]), set())
+        jot = repo.my_jot(conn, me["id"], item["id"])
         codes, on_card, run = [], set(), None
         if batch["kind"] == "starter":
             codes = repo.my_codes(conn, track["id"], me["id"])
@@ -896,7 +897,7 @@ def code_form(request: Request, bid: int, token: str):
         request, "code.html", user=user, track=track, me=me, batch=batch, item=item, tree=tree, at=batch["kind"], deck=deck,
         previous=mine[position - 1]["token"] if position else None,
         following=mine[position + 1]["token"] if position + 1 < len(mine) else None,
-        own=own, position=position + 1, total=len(mine),
+        own=own, jot=jot, position=position + 1, total=len(mine),
         codes=[c for c in codes if c["status"] == "own"], candidates=[c for c in codes if c["status"] == "candidate"], on_card=on_card,
         locked=bool(submitted) or batch["status"] == "closed",
     )
@@ -927,7 +928,7 @@ async def code_save(request: Request, bid: int, token: str):
             repo.save_codes(conn, batch, item["assignment_id"], chosen_codes(form, tree))
         note = str(form.get("note") or "").strip()
         if note:
-            repo.add_memo(conn, track["id"], me["id"], "jotting", note, item_id=item["id"])
+            repo.set_jotting(conn, track["id"], me["id"], item["id"], note)
         following = next((m["token"] for m in repo.my_assignments(conn, bid, me["id"]) if not m["done_at"]), None)
         said = f"+{repo.FEET['coded']} ft" + passing(conn, track["id"], me, before)
     if following:

@@ -66,9 +66,9 @@
         <p class="muted">Locked.</p>
       {% else %}
         {% if batch.kind != 'starter' %}
-          <details class="fold">
+          <details class="fold"{{ ' open' if jot }}>
             <summary>Add a note</summary>
-            <textarea name="note" rows="2" aria-label="Note to self, saved as a jotting"></textarea>
+            <textarea name="note" rows="2" aria-label="Note to self, saved as a jotting">{{ jot }}</textarea>
           </details>
         {% endif %}
         {# First in the form, so Enter in the name box means this and not "add". #}
