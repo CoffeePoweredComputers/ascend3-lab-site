@@ -151,6 +151,30 @@ ANNOTATE_LLM_API_KEY=...
 ANNOTATE_LLM_MODEL=...
 ```
 
+or Claude Code, which is in the image and is run once per call with every
+tool switched off:
+
+```
+ANNOTATE_LLM_BASE_URL=claude-code
+ANNOTATE_LLM_MODEL=opus
+ANTHROPIC_API_KEY=...          # or CLAUDE_CODE_OAUTH_TOKEN=..., from `claude setup-token`
+```
+
+Through Claude Code a person's candidate codes are built in steps
+([`annotate/steps.py`](annotate/steps.py)), each a separate call that sees no
+other call's reply: draft the codes from the jots and the team's questions,
+two coders apply the draft to half the items, revise from where they
+disagreed, two more coders apply the result to every item. It takes several
+minutes; the page says which step it is on. The whole run (drafts, what each
+coder did, agreement, what changed) is written to
+`runs/candidates-<track>-<person>.json` in the tool's data directory. Over an
+endpoint the candidates still come from one call.
+
+To swap the model, change those settings. To swap how Claude Code is
+called, it is one function, `_claude` in [`annotate/llm.py`](annotate/llm.py).
+To swap the procedure, it is `steps.candidates`, which is handed a function
+from a prompt to a reply and knows nothing else about the model.
+
 It is sent one person's jots with the items they are about (candidates),
 everyone's codes with example items and jots (merge), or the final codes with
 their counts and example items (themes). Hidden parts of an item
@@ -209,6 +233,7 @@ later download of the same form adds only the new responses.
 | `annotate/agreement.py` | builds the item x coder tables for a deck |
 | `annotate/llm.py` | one call to a chat model |
 | `annotate/assist.py` | the model jobs: candidate codes, merge proposal, theme proposal |
+| `annotate/steps.py` | candidate codes built in steps: draft, two coders, revise, two coders |
 | `annotate/merge.py` | grouping personal codes, pure functions |
 | `annotate/images.py` | rotate, crop, strip, cache |
 | `annotate/importer.py`, `import_table.py`, `tabular.py` | real data in |

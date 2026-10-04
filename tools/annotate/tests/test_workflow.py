@@ -10,9 +10,9 @@ import zipfile
 
 import pytest
 from conftest import CODER1, CODER2, LEAD
-from helpers import batch_tokens, new_batch, relock, tokens, track_id
+from helpers import batch_tokens, new_batch, relock, stand_in_model, tokens, track_id
 
-from annotate import assist, db, export, llm, merge, repo, studies
+from annotate import assist, config, db, export, llm, merge, repo, studies
 
 EVERYONE = (LEAD, CODER1, CODER2)
 
@@ -313,6 +313,47 @@ def test_a_failed_run_can_be_retried_or_skipped(client, study, monkeypatch):
     post(client, f"/t/{study}/open/generate", CODER2)
     assert "error=" not in post(client, f"/t/{study}/open/generate", CODER2, skip="1")
     assert "Waiting for the cards" in client.get(f"/t/{study}/open", headers=CODER2).text
+
+
+def test_through_claude_code_the_candidates_are_built_in_steps(client, study, monkeypatch):
+    cards = tokens(study, "cleared")
+    for n, token in enumerate(cards[:6]):
+        jot(client, study, CODER1, token, "about privacy" if n % 2 else "about jobs")
+    relock(study, done=(1,))
+    post(client, f"/t/{study}/memos", CODER2, kind="rq", body="Which topics come up?")
+    relock(study, done=(1, 2))
+    monkeypatch.setenv("ANNOTATE_LLM_BASE_URL", "claude-code")
+    told = []
+    monkeypatch.setattr(repo, "note_job", lambda conn, track, kind, roster, line: told.append(line))
+    monkeypatch.setattr(llm, "chat", lambda system, user, **_: json.dumps(stand_in_model(user)))
+
+    assert "error=" not in post(client, f"/t/{study}/open/generate", CODER1)
+    page = client.get(f"/t/{study}/open", headers=CODER1).text
+    assert "Waiting for the cards" in page and "3 candidate code(s). Two model coders tried them on all 6 items" in page
+    assert set(my_code_ids(study, "coder1@example.edu")) == {"Privacy", "Jobs", "Blame"}
+    assert len(told) == 4 and told[0].startswith("Step 1 of 4")
+    # The whole run is written down beside the database.
+    with db.db() as conn:
+        me = conn.execute("SELECT id FROM roster WHERE track_id = ? AND email = 'coder1@example.edu'", (study,)).fetchone()["id"]
+    record = json.loads((config.data_dir() / "runs" / f"candidates-{study}-{me}.json").read_text())
+    assert record["jots"] == 6 and record["questions"] == ["Which topics come up?"] and "full_pass" in record
+
+
+def test_a_running_job_says_what_it_is_doing(client, study):
+    with db.db() as conn:
+        me = conn.execute("SELECT id FROM roster WHERE track_id = ? AND email = 'coder1@example.edu'", (study,)).fetchone()["id"]
+        repo.start_job(conn, study, "candidates", me, "coder1@example.edu")
+    relock(study, done=(1, 2))
+    assert "About a minute." in client.get(f"/t/{study}/open", headers=CODER1).text
+    assist.teller(study, "candidates", me)("Step 2 of 4: two coders are trying the draft.")
+    page = client.get(f"/t/{study}/open", headers=CODER1).text
+    assert "Working" in page and "Step 2 of 4: two coders are trying the draft." in page
+    # Once it has ended, a late line changes nothing.
+    with db.db() as conn:
+        repo.finish_job(conn, study, "candidates", me, "ready", "3 candidate code(s).")
+    assist.teller(study, "candidates", me)("Step 4 of 4")
+    with db.db() as conn:
+        assert repo.job(conn, study, "candidates", me)["detail"] == "3 candidate code(s)."
 
 
 def test_a_job_left_working_reads_as_failed(client, study):

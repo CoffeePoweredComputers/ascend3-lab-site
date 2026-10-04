@@ -71,3 +71,28 @@ def relock(track: int, done: tuple[int, ...] = ()) -> None:
             "INSERT INTO stage_done (track_id, stage, done_by, done_at) VALUES (?, ?, 'test', '2026-01-01')",
             [(track, n) for n in {0, *done}],
         )
+
+
+def stand_in_model(prompt: str) -> dict:
+    """Answers the three prompts of the step pipeline (annotate/steps.py) the
+    way a model would, well enough to run it end to end: two codes drafted,
+    a third added in revision, and each item coded by a word in its jot."""
+    import re
+
+    if "Draft the codes" in prompt:
+        return {"codes": [
+            {"name": "Privacy", "definition": "About privacy.", "part": "question", "example": 1},
+            {"name": "Jobs", "definition": "About jobs.", "part": "nonsense", "example": 999},
+            "junk", {"name": "privacy", "definition": "The same code again."}, {"name": "", "definition": "x"},
+        ]}
+    if "Revise the codebook" in prompt:
+        return {"codes": [
+            {"name": "Privacy", "definition": "About personal privacy, not Jobs.", "part": "question", "example": 1},
+            {"name": "Jobs", "definition": "About jobs.", "part": "question", "example": 2},
+            {"name": "Blame", "definition": "About who is to blame.", "part": "question", "example": 3},
+        ], "changes": [{"what": "Added Blame", "why": "The coders saw it in the jots."}]}
+    ids = {name.lower(): cid for cid, name in re.findall(r"^(C\d\d) \| ([^|]+) \|", prompt, re.M)}
+    codes = {}
+    for number, jot in re.findall(r"^(\d+)\. \[.*?\] -> (.*)$", prompt, re.M):
+        codes[number] = [cid for name, cid in ids.items() if name in jot.lower()]
+    return {"codes": codes, "hard_to_tell_apart": [], "not_captured": ["who is to blame"]}

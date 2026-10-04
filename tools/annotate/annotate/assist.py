@@ -10,13 +10,14 @@ written in one short transaction. Pages show the job's state.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import threading
 from collections import Counter
-from typing import Callable
+from typing import Callable, Optional
 
-from annotate import db, llm, merge, repo, studies
+from annotate import config, db, llm, merge, repo, steps, studies
 
 MAX_CANDIDATES = 8
 
@@ -47,18 +48,49 @@ def run(track_id: int, kind: str, roster_id: int, think: Callable[[], object], s
         threading.Thread(target=work, daemon=True).start()
 
 
+def teller(track_id: int, kind: str, roster_id: int) -> Callable[[str], None]:
+    """Puts what a running job is doing where the page waiting for it shows it."""
+
+    def tell(line: str) -> None:
+        with db.db() as conn:
+            repo.note_job(conn, track_id, kind, roster_id, line)
+
+    return tell
+
+
+def keeper(track_id: int, roster_id: int) -> Callable[[dict], None]:
+    """Writes the record of one person's candidate run beside the database,
+    as runs/candidates-<track>-<person>.json."""
+
+    def keep(record: dict) -> None:
+        folder = config.data_dir() / "runs"
+        folder.mkdir(exist_ok=True)
+        (folder / f"candidates-{track_id}-{roster_id}.json").write_text(json.dumps(record, indent=1, ensure_ascii=False))
+
+    return keep
+
+
 # ------------------------------------------------------------------ candidates
 
 
-def candidates(study: studies.Study, given: dict) -> tuple[list[dict], str]:
+def candidates(
+    study: studies.Study, given: dict, tell: Optional[Callable[[str], None]] = None, keep: Optional[Callable[[dict], None]] = None
+) -> tuple[list[dict], str]:
     """(candidate codes, a note when there are none). `given` is
-    repo.candidate_inputs: one person's jots and the team's questions."""
+    repo.candidate_inputs: one person's jots and the team's questions.
+    Through Claude Code the codes are built in steps (steps.py): `tell` is
+    given a line as each step starts, and `keep` the record of the run."""
     if not given["jots"]:
         return [], "You have no jots, so there is nothing to propose from."
     if llm.mode() == "off":
         return [], "No model is set up, so there are no candidates."
     if llm.mode() == "mock":
         return _stand_in(study, given), ""
+    if llm.agentic():
+        found, note, record = steps.candidates(study, given, lambda prompt: llm.json_of(llm.chat(SYSTEM, prompt)), tell)
+        if keep:
+            keep(record)
+        return found, note
     jots = "\n".join(f"- [{j['item']}] -> {j['jot']}" for j in given["jots"])
     questions = "\n".join(f"- {q}" for q in given["questions"]) or "- (none yet)"
     parts = ", ".join(study.parts)
@@ -149,7 +181,7 @@ def proposal(study: studies.Study, given: dict, plain: bool = False) -> list[dic
             "others. Leave a code out if nothing matches it. For each group write a name and a one-sentence "
             "definition the whole team could apply, and one short reason.\n\n"
             'Reply as {"groups": [{"name": "...", "definition": "...", "reason": "...", "ids": [1, 2]}]}'
-        ), max_tokens=6000))
+        )))
         groups += merge.clean(reply.get("groups"), codes, part, shared)
     return groups
 
@@ -185,7 +217,7 @@ def themes(study: studies.Study, given: dict) -> tuple[list[dict], str]:
         "statement says that thing in one or two sentences, as a claim the counts and examples support. Use each "
         "code in at most one theme. Leave a code out if it fits none.\n\n"
         'Reply as {"themes": [{"name": "...", "statement": "...", "codes": ["dimension/code", ...]}]}'
-    ), max_tokens=4000))
+    )))
     found = merge.clean_themes(reply.get("themes"), {f"{c['dimension']}/{c['key']}" for c in given["codes"]})
     return found, "" if found else "The model proposed nothing."
 

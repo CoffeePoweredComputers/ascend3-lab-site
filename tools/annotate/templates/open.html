@@ -23,7 +23,7 @@
       {% if model == 'off' %}<p class="muted">No model is set up, so there will be no candidates. You build your own codes either way.</p>{% endif %}
     {% elif run.status == 'working' %}
       <p class="hero__big">Working…</p>
-      <p class="muted">About a minute. This page checks again by itself.</p>
+      <p class="muted">{{ run.detail or 'About a minute.' }} This page checks again by itself.</p>
     {% elif run.status == 'failed' %}
       <p class="hero__big">That did not work</p>
       <p class="muted">{{ run.detail }}</p>

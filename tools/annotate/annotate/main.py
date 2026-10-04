@@ -750,7 +750,8 @@ async def generate(request: Request, tid: int):
             return go(f"/t/{tid}/open")
         repo.start_job(conn, tid, "candidates", me["id"], user.email)
         given = repo.candidate_inputs(conn, tid, me["id"])
-    assist.run(tid, "candidates", me["id"], lambda: assist.candidates(study, given), assist.store_candidates(tid, me["id"]))
+    tell, keep = assist.teller(tid, "candidates", me["id"]), assist.keeper(tid, me["id"])
+    assist.run(tid, "candidates", me["id"], lambda: assist.candidates(study, given, tell, keep), assist.store_candidates(tid, me["id"]))
     return go(f"/t/{tid}/open")
 
 

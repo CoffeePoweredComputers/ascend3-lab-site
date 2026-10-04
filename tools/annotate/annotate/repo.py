@@ -836,7 +836,7 @@ def edit_pcode(
 # ------------------------------------------------------------------------- jobs
 
 
-JOB_DEADLINE = timedelta(minutes=10)
+JOB_DEADLINE = timedelta(minutes=45)  # candidates built in steps take minutes, longer when several people run at once
 
 
 def job(conn: sqlite3.Connection, track_id: int, kind: str, roster_id: int = 0) -> Optional[dict]:
@@ -861,6 +861,14 @@ def start_job(conn: sqlite3.Connection, track_id: int, kind: str, roster_id: int
     conn.execute(
         "INSERT OR REPLACE INTO job (track_id, kind, roster_id, status, started_by, started_at) VALUES (?, ?, ?, 'working', ?, ?)",
         (track_id, kind, roster_id, by, now()),
+    )
+
+
+def note_job(conn: sqlite3.Connection, track_id: int, kind: str, roster_id: int, detail: str) -> None:
+    """What a running job is doing now, for the page that is waiting on it."""
+    conn.execute(
+        "UPDATE job SET detail = ? WHERE track_id = ? AND kind = ? AND roster_id = ? AND status = 'working'",
+        (detail[:500], track_id, kind, roster_id),
     )
 
 
