@@ -3,43 +3,62 @@
 {% block title %}Code {{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
   <div class="deck {{ 'deck--photo' if study.has_image }}">
-    <section class="deck__card">
-      <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · card {{ position }} of {{ total }}</p>
-      {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
-    </section>
+    <div class="deck__side">
+      <section class="deck__card">
+        <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · card {{ position }} of {{ total }}</p>
+        {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+      </section>
+      {% if batch.kind == 'starter' %}
+        {# Every code has a line here; only the ones ticked on this card show. #}
+        <section class="applied" data-applied>
+          <p class="eyebrow">Codes on this card</p>
+          <ul>
+            {% for c in codes + candidates %}
+              <li data-code="{{ c.id }}" {% if c.id not in on_card %}hidden{% endif %}>
+                <b>{{ c.name }}</b>
+                <span>{{ c.definition }}</span>
+                {% if not locked %}<button type="button" class="link">Take off</button>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+          <p class="muted">None yet.{% if not locked %} Tick a code, or make a new one.{% endif %}</p>
+        </section>
+      {% endif %}
+    </div>
 
     <form method="post" class="deck__play">
       {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
       {{ parts.deck_nav('/b/' ~ batch.id ~ '/code/' ~ previous if previous, '/b/' ~ batch.id ~ ('/code/' ~ following if following else ''), 'Skip' if following else 'Finish') }}
       {% if batch.kind == 'starter' %}
-        {# Your own codebook, built as you go. Number keys are your codes, in
-           the order you made them, so a code keeps its key. #}
-        <fieldset class="dimension">
-          <legend>Your codes <small>any that apply</small></legend>
-          <div class="choices">
-            {% for c in codes %}
-              {% set key = '1234567890'[loop.index0] if loop.index0 < 10 else '' %}
-              <label class="choice" title="{{ c.definition }}">
-                <input type="checkbox" name="code" value="{{ c.id }}" {% if c.id in on_card %}checked{% endif %} {% if locked %}disabled{% endif %} {% if key %}data-key="{{ key }}"{% endif %}>
-                <span>{% if key %}<kbd>{{ key }}</kbd>{% endif %}{{ c.name }}{% if study.parts | length > 1 %} <small>{{ c.part }}</small>{% endif %}</span>
-              </label>
-            {% else %}
-              <p class="muted">None yet.</p>
-            {% endfor %}
-          </div>
-        </fieldset>
-        {% if candidates and not locked %}
+        {# Your own codebook, built as you go, then the candidates. Number keys
+           are your codes, in the order you made them, so a code keeps its key.
+           What is ticked shows under the card. #}
+        {% if codes or candidates %}
           <fieldset class="dimension">
-            <legend>Candidates <small>from your jots · tick one to make it yours</small></legend>
-            <div class="choices">
-              {% for c in candidates %}
-                {% set key = 'qwertyui'[loop.index0] if loop.index0 < 8 else '' %}
-                <label class="choice choice--candidate" title="{{ c.definition }}">
-                  <input type="checkbox" name="code" value="{{ c.id }}" {% if key %}data-key="{{ key }}"{% endif %}>
-                  <span>{% if key %}<kbd>{{ key | upper }}</kbd>{% endif %}{{ c.name }}</span>
+            <legend>Codes <small>tick any that apply{% if candidates and not locked %} · a candidate you tick becomes yours{% endif %}</small></legend>
+            {# The box has no name, so it is not sent with the card. #}
+            <label class="picker__find" data-key="/"><kbd>/</kbd><input type="search" data-filters="codes" placeholder="Search names and definitions" aria-label="Search codes" autocomplete="off"></label>
+            <div class="picker" id="codes">
+              {% for c in codes %}
+                {% set key = '1234567890'[loop.index0] if loop.index0 < 10 else '' %}
+                <label class="picker__row">
+                  <input type="checkbox" name="code" value="{{ c.id }}" {% if c.id in on_card %}checked{% endif %} {% if locked %}disabled{% endif %} {% if key %}data-key="{{ key }}"{% endif %}>
+                  <span class="picker__name">{% if key %}<kbd>{{ key }}</kbd>{% endif %}{{ c.name }}{% if study.parts | length > 1 %} <small>{{ c.part }}</small>{% endif %} <small class="badge">yours</small></span>
+                  <span class="picker__def">{{ c.definition }}</span>
                 </label>
               {% endfor %}
+              {% if not locked %}
+                {% for c in candidates %}
+                  <label class="picker__row">
+                    <input type="checkbox" name="code" value="{{ c.id }}">
+                    <span class="picker__name">{{ c.name }}</span>
+                    <span class="picker__def">{{ c.definition }}</span>
+                  </label>
+                {% endfor %}
+              {% endif %}
+              <p class="muted" hidden>No code matches.</p>
             </div>
+            {% if codes and not locked %}<p class="defs"><a href="{{ root }}/t/{{ track.id }}/codes">Rename or redefine a code</a></p>{% endif %}
           </fieldset>
         {% endif %}
         {% if not locked %}
@@ -51,13 +70,6 @@
               <label>About <select name="new_part">{% for part in study.parts %}<option value="{{ part }}">The {{ part }}</option>{% endfor %}</select></label>
             {% endif %}
           </fieldset>
-        {% endif %}
-        {% if codes or candidates %}
-          <details class="defs">
-            <summary>Definitions</summary>
-            {% for c in codes + candidates %}<p class="defs__name">{{ c.name }}</p><p>{{ c.definition }}</p>{% endfor %}
-            {% if codes and not locked %}<p><a href="{{ root }}/t/{{ track.id }}/codes">Rename or redefine a code</a></p>{% endif %}
-          </details>
         {% endif %}
       {% else %}
         {{ parts.code_fields(tree, own, locked, keys=true) }}

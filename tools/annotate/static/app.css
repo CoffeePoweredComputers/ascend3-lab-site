@@ -449,8 +449,36 @@ label.choice { margin: 0; font-weight: 500; }
 
 /* A stage the lead has not opened yet. */
 .locked { padding: 0.9rem 1.1rem; color: var(--text-muted); border: 1px dashed var(--border); border-radius: 0.75rem; }
-/* Open coding: a candidate is not yours until you tick it. */
-.choice--candidate span { border-style: dashed; }
+/* Open coding: your codes and the candidates as a table, one row each, with a search box over it. It scrolls in its own box so the buttons stay in reach. */
+.picker__find { display: flex; align-items: center; margin: 0 0 0.5rem; }
+.picker__find input[type="search"] { flex: 1; max-width: none; margin: 0; }
+.picker { max-height: 22rem; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius-md); }
+label.picker__row {
+  display: grid; grid-template-columns: auto minmax(7rem, 2fr) 3fr; align-items: baseline; column-gap: 0.5rem;
+  margin: 0; padding: 0.45rem 0.6rem; font-weight: 400; font-size: 0.85rem; cursor: pointer;
+}
+.picker__row + .picker__row { border-top: 1px solid var(--border); }
+.picker__row[hidden] { display: none; }
+.picker__row:hover { background: var(--surface); }
+.picker__row:has(:checked) { background: var(--primary-light); }
+.picker__row:has(:checked) .picker__name { color: var(--primary); }
+.picker__row:has(:focus-visible) { outline: 2px solid var(--primary); outline-offset: -2px; }
+.picker__row input { margin: 0; }
+.picker__name { font-weight: 600; }
+.picker__def { color: var(--text-muted); }
+.picker > p { margin: 0; padding: 0.6rem; font-size: 0.85rem; }
+/* Under the card: the codes ticked on it. */
+.deck__side { display: grid; gap: 0.75rem; min-width: 0; }
+.applied { padding: 0.75rem 1rem; background: var(--surface-base); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.applied p { margin: 0; }
+.applied ul { list-style: none; margin: 0; padding: 0; }
+.applied li { display: grid; grid-template-columns: minmax(7rem, 1fr) 3fr auto; align-items: baseline; column-gap: 0.75rem; padding: 0.4rem 0; font-size: 0.85rem; border-top: 1px solid var(--border); }
+.applied li[hidden] { display: none; }
+.applied li span { color: var(--text-muted); }
+.applied li button { font-size: 0.8rem; }
+.applied .eyebrow { margin-bottom: 0.4rem; }
+.applied .muted { font-size: 0.85rem; }
+.applied ul:has(li:not([hidden])) + .muted { display: none; }
 /* The merge: one personal code inside a proposed one. */
 .source { padding: 0.75rem 0 0.75rem 0.85rem; margin-top: 0.75rem; border-left: 2px solid var(--border); }
 .source p { margin: 0.2rem 0; }

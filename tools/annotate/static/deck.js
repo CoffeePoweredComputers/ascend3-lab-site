@@ -37,9 +37,46 @@
     if (other) el.addEventListener('input', () => { other.required = el.value.trim() !== ''; });
   });
 
-  // Has anything on this card been changed and not saved?
+  // A search box over a list: a row that does not mention every word typed is
+  // hidden. Enter ticks the first row left, rather than sending the card.
+  document.querySelectorAll('[data-filters]').forEach((box) => {
+    const list = document.getElementById(box.dataset.filters);
+    const rows = [...list.querySelectorAll('label')];
+    const none = list.querySelector('p[hidden]');
+    const shown = () => rows.filter((row) => !row.hidden);
+    box.addEventListener('input', () => {
+      const words = box.value.toLowerCase().split(/\s+/).filter(Boolean);
+      rows.forEach((row) => {
+        const text = row.textContent.toLowerCase();
+        row.hidden = !words.every((word) => text.includes(word));
+      });
+      if (none) none.hidden = shown().length > 0;
+    });
+    box.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' || event.ctrlKey || event.metaKey) return;
+      event.preventDefault();
+      const first = box.value.trim() && shown()[0];
+      if (first) { first.control.click(); box.select(); }
+    });
+  });
+
+  // The codes ticked on this card are listed under it. Every code has a line
+  // there, shown only while its box is ticked; "Take off" unticks the box.
+  const applied = document.querySelector('[data-applied]');
+  if (applied) {
+    const lines = [...applied.querySelectorAll('[data-code]')];
+    const box = (line) => document.querySelector(`input[name="code"][value="${line.dataset.code}"]`);
+    document.addEventListener('change', () => lines.forEach((line) => { line.hidden = !box(line).checked; }));
+    applied.addEventListener('click', (event) => {
+      const line = event.target.closest('button') && event.target.closest('[data-code]');
+      if (line) box(line).click();
+    });
+  }
+
+  // Has anything on this card been changed and not saved? A box with no name
+  // is not sent, so typing in it changes nothing.
   let dirty = false;
-  document.addEventListener('input', (event) => { if (event.target.form) dirty = true; });
+  document.addEventListener('input', (event) => { if (event.target.form && event.target.name) dirty = true; });
   document.addEventListener('submit', () => { dirty = false; });
 
   document.addEventListener('keydown', (event) => {

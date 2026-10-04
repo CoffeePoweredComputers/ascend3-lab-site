@@ -397,7 +397,12 @@ def test_open_coding_builds_a_personal_codebook(client, coded):
     assert "Generate%20your%20candidate%20codes%20first" in client.get(f"/b/{batch}/code/{cards[0]}", headers=CODER2).headers["location"]
     post(client, f"/t/{track}/open/generate", CODER2)
     card = client.get(f"/b/{batch}/code/{cards[0]}", headers=CODER2).text
-    assert "Candidates" in card and "Blame" in card and 'data-key="q"' in card and 'data-key="n"' in card
+    assert "a candidate you tick becomes yours" in card and "Blame" in card and 'data-key="/"' in card and 'data-key="n"' in card
+    # Each code's definition is on the card beside its name, under a search box.
+    assert 'data-filters="codes"' in card and 'class="picker__def"' in card and "title=" not in card.split('id="codes"')[1].split("</fieldset>")[0]
+    # Nothing is on this card yet, so every line of the panel under it is hidden.
+    panel = card.split("data-applied")[1].split("</section>")[0]
+    assert panel.count("<li data-code=") == panel.count("hidden>") > 0
 
     # A new code needs a definition; the card it was made on is its example.
     assert "Write%20a%20definition" in code(client, batch, CODER1, cards[0], new_name="Responsibility")
@@ -406,6 +411,7 @@ def test_open_coding_builds_a_personal_codebook(client, coded):
     code(client, batch, CODER1, cards[1], code=str(mine["Responsibility"]))
     second = client.get(f"/b/{batch}/code/{cards[1]}", headers=CODER1).text
     assert f'value="{mine["Responsibility"]}" checked' in second and 'data-key="1"' in second
+    assert f'<li data-code="{mine["Responsibility"]}" >' in second  # and it shows under the card
     with db.db() as conn:
         example = conn.execute("SELECT i.token FROM pcode p JOIN item i ON i.id = p.example_item_id WHERE p.id = ?", (mine["Responsibility"],)).fetchone()
     assert example["token"] == cards[0]
