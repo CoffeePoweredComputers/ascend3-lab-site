@@ -86,10 +86,11 @@
 {% macro transcript(item, lines) %}
   <ol class="transcript">
     {% for l in lines %}
+      {% if loop.changed(l.speaker) %}<li class="turn">{{ roles[l.speaker] }}</li>{% endif %}
       <li class="line {{ '' if item.seg_first <= l.seq <= item.seg_last else 'line--context' }}">
         {% if item.has_media %}<button type="button" class="line__at" data-seek="{{ l.t_start_ms }}">{{ l.t_start_ms | clock }}</button>
         {% else %}<span class="line__at">{{ l.t_start_ms | clock }}</span>{% endif %}
-        <p>{% if loop.changed(l.speaker) %}<b>{{ roles[l.speaker] }}</b> {% endif %}{{ l.text }}</p>
+        <p>{{ l.text }}</p>
       </li>
     {% endfor %}
   </ol>

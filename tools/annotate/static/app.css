@@ -352,6 +352,11 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, var(--secondary
 .line { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.6rem; align-items: baseline; }
 .line p { margin: 0; overflow-wrap: anywhere; }
 .line--context { color: var(--text-muted); }
+/* A change of speaker: a dashed rule with who is speaking set into it. */
+.turn { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+.turn::before, .turn::after { content: ""; border-top: 1px dashed var(--border); }
+.turn::before { flex: 0 0 4.5rem; }
+.turn::after { flex: 1; }
 .line__at, button.line__at, .dark button.line__at {
   margin: 0; padding: 0 0.35rem; justify-self: start; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400;
   color: var(--text-muted); background: none; border: 1px solid transparent; border-radius: var(--radius-sm);
@@ -384,11 +389,55 @@ button.line__at:hover { color: var(--primary); border-color: var(--border); filt
 .linejot textarea { width: 100%; max-width: none; margin: 0; }
 .session [hidden], .linejot[hidden] { display: none; }
 [data-follow][aria-pressed="false"] { opacity: 0.6; }
+/* The study app's record of a session. In the transcript its rows are
+   quieter than lines and take no jot; a step heads the lines said in it,
+   and a line said in a reflection step is marked. Beside the video, a
+   timeline with one thin row per kind, and the specification as it stood. */
+.tel, .tstep { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.6rem; align-items: baseline; font-size: 0.85rem; color: var(--text-muted); }
+.tel p { margin: 0; overflow-wrap: anywhere; }
+.tel b { margin-right: 0.3rem; font-size: 0.75rem; font-weight: 600; }
+.tel--chat p, .tel--prompt p { padding-left: 0.5rem; color: var(--text); border-left: 2px solid var(--primary); }
+.tel--prompt p { border-left-color: var(--accent); }
+.tel--chat b, .tel--prompt b { color: var(--text-muted); }
+.tstep { margin-top: 0.6rem; padding: 0.3rem 0; color: var(--text); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.tstep b { font-family: var(--font-heading); font-size: 0.85rem; }
+.tstep--retro b { color: var(--accent); }
+.tstep summary { font-size: 0.8rem; color: var(--text-muted); }
+.tstep details .pre { margin-top: 0.3rem; }
+.line--retro > p:not(.line__note) { padding-left: 0.5rem; border-left: 2px dotted var(--accent); }
+.tl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.5rem; font-size: 0.65rem; line-height: 0.6rem; color: var(--text-muted); }
+.tl__names, .tl__tracks { display: grid; grid-auto-rows: 0.6rem; gap: 0.2rem; }
+.tl__tracks { position: relative; cursor: pointer; }
+.tl__track { position: relative; overflow: hidden; background: var(--surface); border-radius: 2px; }
+.tl__step { position: absolute; top: 0; bottom: 0; background: var(--surface-alt); border-left: 1px solid var(--border); }
+.tl__step--retro { background: color-mix(in srgb, var(--accent) 40%, transparent); }
+.tl__tick { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--text-muted); }
+.tl__track--edits .tl__tick { background: var(--secondary); }
+.tl__track--chat .tl__tick { background: var(--primary); }
+.tl__track--prompts .tl__tick { background: var(--accent); }
+.tl__head { position: absolute; top: -2px; bottom: -2px; left: 0; width: 2px; margin-left: -1px; background: var(--danger); pointer-events: none; }
+.spec { min-height: 0; max-height: 30vh; overflow: auto; padding: 0.4rem 0.75rem; background: var(--surface-base); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.spec > summary { font-size: 0.9rem; font-weight: 600; }
+.spec .tools { margin: 0.4rem 0 0; }
+.spec h3 { margin: 0.5rem 0 0.2rem; font-size: 0.8rem; color: var(--text-muted); }
+.spec__lines { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: 0.78rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.spec__lines li { padding: 0 0.4rem; }
+.spec__lines .is-add { background: color-mix(in srgb, var(--secondary) 15%, transparent); box-shadow: inset 3px 0 0 var(--secondary); }
+.spec__lines .is-del { color: var(--text-muted); text-decoration: line-through; box-shadow: inset 3px 0 0 var(--danger); }
+[data-spec-since][aria-pressed="true"] { color: var(--primary); border-color: var(--primary); }
 @media (min-width: 1200px) {
   .session { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
   .session__video { top: 4rem; }
   .session__video .player { max-height: calc(100vh - 12rem); }
   .transcript--session { position: sticky; top: 4rem; height: calc(100vh - 5.5rem); }
+  /* With telemetry the left column is the screen's height: the video, the
+     timeline, then the panel scrolling in what is left; closed, the video
+     takes the room. */
+  .session--tel .session__video { display: flex; flex-direction: column; height: calc(100vh - 5.5rem); }
+  .session--tel .session__video .player { flex: none; max-height: 45vh; }
+  .session--tel .session__video:has(.spec:not([open])) .player { max-height: calc(100vh - 16rem); }
+  .session--tel .spec { max-height: none; }
+  .session--tel .spec[open] { flex: 1 1 auto; }
 }
 .deck__play fieldset { margin: 0; background: var(--surface-base); }
 .deck__play .fold { border: 0; padding: 0; font-size: 0.85rem; color: var(--text-muted); }

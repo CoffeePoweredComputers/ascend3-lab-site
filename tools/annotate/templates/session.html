@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block title %}{{ session.alias }} · Annotation bench{% endblock %}
 {% block main %}
+  {% macro stamp(t) %}{% if video %}<button type="button" class="line__at" data-seek="{{ t }}">{{ t | clock }}</button>{% else %}<span class="line__at">{{ t | clock }}</span>{% endif %}{% endmacro %}
   {# A whole session: the video on one side, every line of the transcript on
      the other. static/session.js follows the line being spoken and writes the
      jots; without it the page still reads, and the video's own controls seek. #}
-  <div class="session" data-session data-resume="{{ track.id }}/{{ session.alias }}"
+  <div class="session{{ ' session--tel' if strip }}" data-session data-resume="{{ track.id }}/{{ session.alias }}"
        data-jot-url="{{ root }}/t/{{ track.id }}/session/{{ session.alias | urlencode }}/line/">
     <section class="session__video">
       {% if video %}
@@ -22,6 +23,35 @@
       {% else %}
         <p class="item-missing">No video.</p>
       {% endif %}
+      {% if strip %}
+        {# The study app's record, by time. static/telemetry.js places the
+           marks, moves the playhead and fills the specification panel. #}
+        <div class="tl" data-timeline data-duration="{{ session.duration_ms }}">
+          <div class="tl__names">
+            <span>Steps</span>
+            {% for name, marks in strip.ticks %}<span>{{ name }}</span>{% endfor %}
+          </div>
+          <div class="tl__tracks" data-tracks>
+            <div class="tl__track">
+              {% for s in strip.steps %}<i class="tl__step{{ ' tl__step--retro' if s.retro }}" data-at="{{ s.at }}" data-to="{{ s.to }}" title="{{ s.label }}"></i>{% endfor %}
+            </div>
+            {% for name, marks in strip.ticks %}
+              <div class="tl__track tl__track--{{ name | lower }}">
+                {% for t, label in marks %}<i class="tl__tick" data-at="{{ t }}" title="{{ t | clock }} {{ label }}"></i>{% endfor %}
+              </div>
+            {% endfor %}
+            <span class="tl__head" data-playhead></span>
+          </div>
+        </div>
+        <details class="spec" open data-spec data-state-url="{{ root }}/t/{{ track.id }}/session/{{ session.alias | urlencode }}/state">
+          <summary data-key="s"><kbd>S</kbd> Specification</summary>
+          <p class="tools">
+            <button type="button" class="quiet" data-spec-since aria-pressed="false">Since scenario start</button>
+            <span class="hint" data-spec-saved></span>
+          </p>
+          <div class="spec__body" data-spec-body></div>
+        </details>
+      {% endif %}
       {% if me.id and not stage.locked %}
         <form method="post" action="{{ root }}/t/{{ track.id }}/session/{{ session.alias | urlencode }}/read" class="session__done">
           {% if done %}
@@ -36,13 +66,21 @@
 
     <ol class="transcript transcript--session" data-lines tabindex="0" aria-label="Transcript">
       {% for l in rows %}
-        {% if l.gap %}
+        {% if l.tel == 'step' %}
+          <li class="tstep{{ ' tstep--retro' if l.retro }}">
+            {{ stamp(l.t) }}
+            <div><b>{{ l.label }}</b>{% if l.text %}<details><summary>Scenario</summary><p class="pre">{{ l.text }}</p></details>{% endif %}</div>
+          </li>
+        {% elif l.tel %}
+          <li class="tel tel--{{ l.tel }}">{{ stamp(l.t) }}<p>{% if l.who %}<b>{{ l.who }}</b> {% endif %}<span class="pre">{{ l.text }}</span></p></li>
+        {% elif l.gap %}
           <li class="line line--context" data-t="{{ l.t_start_ms }}"><span class="line__at">{{ l.t_start_ms | clock }}</span><p>Not in the data.</p></li>
         {% else %}
-          <li class="line {{ '' if l.open else 'line--context' }}" data-t="{{ l.t_start_ms }}" {% if l.open %}data-seq="{{ l.seq }}"{% endif %}>
+          {% if l.turn %}<li class="turn">{{ roles[l.speaker] }}</li>{% endif %}
+          <li class="line {{ '' if l.open else 'line--context' }}{{ ' line--retro' if l.retro }}" data-t="{{ l.t_start_ms }}" {% if l.open %}data-seq="{{ l.seq }}"{% endif %}>
             {% if video %}<button type="button" class="line__at" data-seek="{{ l.t_start_ms }}">{{ l.t_start_ms | clock }}</button>
             {% else %}<span class="line__at">{{ l.t_start_ms | clock }}</span>{% endif %}
-            <p>{% if loop.changed(l.speaker) %}<b>{{ roles[l.speaker] }}</b> {% endif %}{{ l.text }}</p>
+            <p>{{ l.text }}</p>
             {% if can_jot and l.open %}<button type="button" class="line__jot" data-jot hidden aria-label="Jot on this line">jot</button>{% endif %}
             {% if l.jot %}<p class="line__note pre" data-jot-saved>{{ l.jot }}</p>{% endif %}
           </li>
@@ -63,4 +101,5 @@
   {% endif %}
   {% if video %}<script src="{{ root }}/static/player.js"></script>{% endif %}
   <script src="{{ root }}/static/session.js"></script>
+  {% if strip %}<script src="{{ root }}/static/telemetry.js"></script>{% endif %}
 {% endblock %}

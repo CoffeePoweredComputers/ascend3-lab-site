@@ -35,7 +35,7 @@ import sqlite3
 from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
+from typing import Callable, Optional
 
 from annotate import config, db, importer, repo, studies
 
@@ -177,21 +177,31 @@ def name_parts(label: str) -> set[str]:
     return {w for w in re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z]+", label) + [label] if len(w) >= 3}
 
 
-def scrub(sessions: list[Session], extra: set[str]) -> Counter:
-    """Blank every name part where it is spoken. Returns hits per name."""
-    names = {part for s in sessions for g in s.segs if g.label for part in name_parts(g.label)} | extra
-    hits: Counter = Counter()
+def names_of(sessions: list[Session], extra: set[str]) -> set[str]:
+    """Every word to blank: the parts of every speaker label, and the --names file's words."""
+    return {part for s in sessions for g in s.segs if g.label for part in name_parts(g.label)} | extra
+
+
+def blanker(names: set[str], hits: Counter) -> Callable[[str], str]:
+    """A function that blanks every name part in a text, counting each in `hits`."""
     if not names:
-        return hits
+        return lambda text: text
     pattern = re.compile(r"\b(" + "|".join(re.escape(n) for n in sorted(names, key=len, reverse=True)) + r")\b", re.IGNORECASE)
 
     def blank(match: re.Match) -> str:
         hits[match[0].casefold()] += 1
         return BLANK
 
+    return lambda text: pattern.sub(blank, text)
+
+
+def scrub(sessions: list[Session], extra: set[str]) -> Counter:
+    """Blank every name part where it is spoken. Returns hits per name."""
+    hits: Counter = Counter()
+    blank = blanker(names_of(sessions, extra), hits)
     for s in sessions:
         for g in s.segs:
-            g.text = pattern.sub(blank, g.text)
+            g.text = blank(g.text)
     return hits
 
 
@@ -354,7 +364,8 @@ def _clear(conn: sqlite3.Connection, dataset_id: int, track_id: int) -> None:
         conn.execute(f"DELETE FROM {table} WHERE item_id IN {items}", (track_id,))
     conn.execute("DELETE FROM item WHERE track_id = ?", (track_id,))
     conn.execute("DELETE FROM source WHERE dataset_id = ?", (dataset_id,))
-    conn.execute("DELETE FROM segment WHERE session_id IN (SELECT id FROM session WHERE dataset_id = ?)", (dataset_id,))
+    for table in ("segment", "telemetry"):
+        conn.execute(f"DELETE FROM {table} WHERE session_id IN (SELECT id FROM session WHERE dataset_id = ?)", (dataset_id,))
     conn.execute("DELETE FROM session WHERE dataset_id = ?", (dataset_id,))
 
 

@@ -218,6 +218,27 @@ transcript, and jot on lines; a jot is filed under the episode its line falls
 in, which is what agreement is later compared by. "Mark session read" marks
 the session's episodes read. The reading list is by session.
 
+**The study app's telemetry** for those sessions, once they are in: its
+`raw/` JSON, the sessions export again (for the names to blank), and a CSV of
+`pid,started_at`, the UTC time of each video's second 0.
+
+```bash
+docker exec ascend-tool-annotate python -m annotate.import_telemetry /data/incoming/telemetry \
+    --sessions /data/incoming/export --dataset sessions --starts /data/incoming/telemetry/video-starts.csv
+```
+
+It keeps the steps through the main task (the instrument's module of type
+`task`) and the modules after it, the task's saved specification and
+entities, the chat with the assistant, the researcher's prompts and the map,
+each placed on the video by its server time. Text is blanked with the same
+names as the transcript; no id from the app is kept. Running it again
+replaces a session's telemetry. On the session's page each step heads the
+lines said in it, chat and prompts sit among the lines at their times, edits
+and map activity are folded into one row between two lines, and lines said in
+a reflection step are marked. Under the video, a timeline of all of it, and
+the specification as it stood at the playhead, marked against the last save
+or the start of the scenario (<kbd>S</kbd> folds it away). None of it takes a jot.
+
 ## Add a kind of study
 
 1. Add a `Study` to `annotate/studies.py`.
@@ -240,12 +261,12 @@ the session's episodes read. The reading list is by session.
 | `annotate/assist.py` | the model jobs: candidate codes, merge proposal, theme proposal |
 | `annotate/merge.py` | grouping personal codes, pure functions |
 | `annotate/images.py` | rotate, crop, strip, cache |
-| `annotate/importer.py`, `import_table.py`, `tabular.py`, `import_sessions.py` | real data in |
+| `annotate/importer.py`, `import_table.py`, `tabular.py`, `import_sessions.py`, `import_telemetry.py` | real data in |
 | `annotate/seed.py` | synthetic data in |
 | `annotate/export.py` | CSVs out |
 | `annotate/db.py` | schema, additive migrations, daily backup to `/data/backups` |
 | `briefs/` | the stage guides, markdown |
-| `static/deck.js`, `crop.js`, `player.js`, `session.js`, `theme.js` | keys and the trail marker, the crop box, the video keys, a session's page (following, jots), light and dark |
+| `static/deck.js`, `crop.js`, `player.js`, `session.js`, `telemetry.js`, `theme.js` | keys and the trail marker, the crop box, the video keys, a session's page (following, jots), its timeline and specification panel, light and dark |
 
 The statistics use the same formulas as the wiki's `KappaCalculator`, and the
 tests assert its presets, so the tool and the lesson agree.

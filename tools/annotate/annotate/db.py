@@ -385,6 +385,22 @@ MIGRATIONS = [
     ALTER TABLE memo ADD COLUMN segment_id INTEGER REFERENCES segment(id);
     CREATE UNIQUE INDEX one_jot_per_line ON memo(roster_id, segment_id) WHERE segment_id IS NOT NULL;
     """,
+    """
+    -- The study app's own record of a session, read-only on its page.
+    -- started_at is the UTC time of the video's second 0. t_ms is a row's
+    -- place on the video, and can be before 0 or past the end. kind: step,
+    -- edit, map, chat or prompt; data is JSON holding only what the page
+    -- shows, never an id from the app. Replaced wholesale by the importer.
+    ALTER TABLE session ADD COLUMN started_at TEXT;
+    CREATE TABLE telemetry (
+        id         INTEGER PRIMARY KEY,
+        session_id INTEGER NOT NULL REFERENCES session(id),
+        t_ms       INTEGER NOT NULL,
+        kind       TEXT NOT NULL,
+        data       TEXT NOT NULL
+    );
+    CREATE INDEX telemetry_session ON telemetry(session_id, t_ms);
+    """,
 ]
 
 

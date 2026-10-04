@@ -49,6 +49,9 @@
     if (follow) setFollow(false);
   });
 
+  // With no video, telemetry.js says where its timeline was clicked.
+  root.addEventListener('session-at', (event) => mark(event.detail));
+
   if (video) {
     followButton.hidden = false;
     followButton.addEventListener('click', () => setFollow(!follow));

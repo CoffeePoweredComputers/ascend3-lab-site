@@ -8,8 +8,8 @@ sideways, one with a stand-in for something identifying, one missing) with an
 approach and a challenges reflection. "ethics-demo": fourteen invented ethics
 questions with a topic and a hidden lens. "sessions-demo": three invented
 think-aloud sessions, with no video, cut into episodes by the sessions
-importer. Each has a lead, two coders and a published codebook, and stands at
-calibration. Running it again adds only a study that is missing; --reset
+importer, two of them with a little of the study app's telemetry. Each has
+a lead, two coders and a published codebook, and stands at calibration. Running it again adds only a study that is missing; --reset
 empties the data directory first, all but incoming/ and briefs/.
 """
 
@@ -20,11 +20,13 @@ import random
 import shutil
 import sys
 import tempfile
+from collections import Counter
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from annotate import config, db, import_sessions, importer, repo, studies
+from annotate import config, db, import_sessions, import_telemetry, importer, repo, studies
 
 PEOPLE = (("lead@example.edu", "lead"), ("coder1@example.edu", "coder"), ("coder2@example.edu", "coder"))
 HOMEWORKS = (("Homework05", "text_stats"), ("Homework06", "grade_report"))
@@ -126,6 +128,37 @@ TALK = (
     "I will write that down as a question rather than a rule.",
     "So the order matters more than I thought it would.",
     "I think I am happy with this, though the floor bins might fill up.",
+)
+# The study app's record of the same invented sessions, in the shape of a
+# real telemetry export: the steps through the task, saved states of the
+# specification and entities, the chat with an assistant, a researcher's
+# prompt and the map. Each is (fraction of the session, event type, payload);
+# the first step falls before the recording starts.
+DEMO_TASK = {"id": "demo-task", "type": "task", "scenarios": [
+    {"title": "A book from another branch", "clauses": [{"text": "Given a book whose home branch is not this one, when it is returned here, then it goes to the transit bin."}]},
+    {"title": "An unreadable barcode", "clauses": [{"text": "Given a barcode the scanner cannot read, then the book goes to the desk bin."}]},
+]}
+DEMO_INSTRUMENT = [{"authored_data": {"modules": [{"id": "demo-warmup", "type": "warmup"}, DEMO_TASK, {"id": "demo-retro", "type": "wrap-up"}]}}]
+SPEC = ("If a book has a hold, it goes to the holds bin.", "Otherwise it goes to the bin for its floor.", "If its home branch is another one, it goes to the transit bin.")
+DEMO_EVENTS = (
+    (-0.1, "step_advance", {"to": "initial_spec"}),
+    (0.10, "spec_edit", {"value": SPEC[0]}),
+    (0.104, "spec_edit", {"value": "\n".join(SPEC[:2])}),
+    (0.108, "entities_edit", {"value": '[{"name": "Book", "elements": [{"name": "barcode"}, {"name": "home branch"}]}, {"name": "Bin", "elements": []}]'}),
+    (0.25, "step_advance", {"to": "scenario_0_read"}),
+    (0.40, "step_advance", {"to": "scenario_0_revise"}),
+    (0.45, "spec_edit", {"value": "\n".join(SPEC)}),
+    (0.47, "spec_edit", {"value": "\n".join((SPEC[0], SPEC[2], SPEC[1]))}),
+    (0.55, "step_advance", {"to": "scenario_0_retro_0"}),
+    (0.56, "researcher_push", {"kind": "retro_question", "text": "What made you put holds first?"}),
+    (0.65, "step_advance", {"to": "scenario_1_read"}),
+    (0.70, "map_marker_add", {"label": "desk bin"}),
+    (0.72, "map_marker_move", {}),
+    (0.85, "spec_edit", {"value": "\n".join((SPEC[0], SPEC[2], SPEC[1], "If the barcode cannot be read, it goes to the desk bin."))}),
+)
+DEMO_CHAT = (
+    (0.30, "user", "Heron said I could ask you: does a hold beat the home branch?"),
+    (0.31, "assistant", "That is for you to decide. Which would a librarian expect?"),
 )
 SESSIONS_CODEBOOK = [
     ("activity", "Activity", "multi", "episode", [
@@ -244,7 +277,21 @@ def _sessions(conn) -> None:
     for n, s in enumerate(sessions, start=1):
         s.episodes = import_sessions.cut_episodes(s.segs, s.duration_ms)
         import_sessions._store(conn, dataset_id, track_id, "sessions-demo", s, None, f"S{n:02d}", import_sessions._order_key(taken, rng))
+        if n < 3:  # S03 has none, as a session can
+            session_id = conn.execute("SELECT id FROM session WHERE dataset_id = ? AND alias = ?", (dataset_id, f"S{n:02d}")).fetchone()["id"]
+            _telemetry(conn, session_id, s.duration_ms, import_sessions.blanker(import_sessions.names_of(sessions, set()), Counter()))
     _team_and_codebook(conn, track_id, studies.get(import_sessions.KIND), SESSIONS_CODEBOOK)
+
+
+def _telemetry(conn, session_id: int, duration_ms: int, blank) -> None:
+    """Through the importer's own functions, as a real export would go."""
+    started = datetime.fromisoformat("2026-01-12T15:00:00+00:00")
+    stamp = lambda f: (started + timedelta(milliseconds=round(f * duration_ms))).isoformat()  # noqa: E731
+    events = [{"event_type": kind, "payload": p, "module_id": DEMO_TASK["id"], "created_at": stamp(f)} for f, kind, p in DEMO_EVENTS]
+    events.append({"event_type": "step_advance", "payload": {"to": "retro_0"}, "module_id": "demo-retro", "created_at": stamp(0.92)})
+    chat = [{"role": role, "content": text, "created_at": stamp(f)} for f, role, text in DEMO_CHAT]
+    rows, _ = import_telemetry.timeline(events, chat, import_telemetry.instrument(DEMO_INSTRUMENT), blank, started)
+    import_telemetry.store(conn, session_id, started.isoformat(), rows)
 
 
 def _team_and_codebook(conn, track_id: int, study: studies.Study, codebook) -> None:

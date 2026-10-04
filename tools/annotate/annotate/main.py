@@ -7,6 +7,7 @@ links are rendered with the prefix (the `root` template variable).
 
 from __future__ import annotations
 
+import difflib
 import random
 from contextlib import asynccontextmanager
 from urllib.parse import quote, urlsplit
@@ -18,7 +19,7 @@ from fastapi.templating import Jinja2Templates
 from markdown_it import MarkdownIt
 from markupsafe import Markup
 
-from annotate import agreement, assist, auth, config, db, export, images, import_sessions, llm, peaks, repo, stages, stats, studies
+from annotate import agreement, assist, auth, config, db, export, images, import_sessions, import_telemetry, llm, peaks, repo, stages, stats, studies
 
 
 @asynccontextmanager
@@ -567,18 +568,145 @@ def session_of(conn, request: Request, tid: int, alias: str):
     return user, track, me, session
 
 
+def hidden_spans(conn, tid: int, session_id: int, role: str) -> list[tuple[int, int]]:
+    """The stretches of a session this person is shown nothing of."""
+    return [(s["t_start_ms"], s["t_end_ms"]) for s in repo.session_spans(conn, tid, session_id) if not repo.can_view_item(s, role)]
+
+
+def _counted(counts: dict[str, int], suffix: str = "") -> str:
+    return ", ".join(name + suffix + (f" ×{n}" if n > 1 else "") for name, n in counts.items())
+
+
+def with_telemetry(rows: list[dict], tel: list[dict], duration: int, hidden: list[tuple[int, int]]) -> tuple[list[dict], dict]:
+    """The transcript with the study app's record set in at its times, and
+    the marks for the timeline. Nothing outside the video is shown, but the
+    step under way when it starts heads the transcript. Edits, and map
+    activity, with nothing else between them are one row each. A line said
+    in a reflection step is marked; it answers a question."""
+    shown = lambda t: 0 <= t <= duration and not any(a <= t < b for a, b in hidden)  # noqa: E731
+    steps = [r for r in tel if r["kind"] == "step"]
+    before = [r for r in steps if r["t"] < 0][-1:]
+    steps = [dict(r, t=0) for r in before] + [r for r in steps if 0 <= r["t"] <= duration]
+    events = [r for r in tel if r["kind"] != "step" and shown(r["t"])]
+
+    # A step heads the lines said at its time; anything else follows them.
+    merged = sorted(
+        [(r["t"], 0, r) for r in steps] + [(row["t_start_ms"], 1, row) for row in rows] + [(r["t"], 2, r) for r in events],
+        key=lambda x: (x[0], x[1]),
+    )
+    out, step, runs = [], None, {}
+    for t, order, r in merged:
+        if order == 1:
+            out.append(r)
+            if not r.get("gap") and step:
+                r["retro"] = step["data"]["retro"]
+            runs = {}
+            continue
+        kind, data = r["kind"], r["data"]
+        if kind in ("edit", "map"):
+            row = runs.get(kind)
+            if not row:
+                row = runs[kind] = {"tel": kind, "t": t, "counts": {}, "labels": []}
+                out.append(row)
+            name = import_telemetry.STATES.get(data.get("of"), data.get("of", "")).lower() if kind == "edit" else data["act"]
+            row["counts"][name] = row["counts"].get(name, 0) + 1
+            if data.get("label"):
+                row["labels"].append(data["label"])
+            continue
+        runs = {}
+        if kind == "step":
+            step = r
+            out.append({"tel": "step", "t": t, **data})
+        elif kind == "chat":
+            out.append({"tel": "chat", "t": t, "who": f"Chat · {data['who']}", "text": data["text"]})
+        elif kind == "prompt":
+            out.append({"tel": "prompt", "t": t, "who": f"Prompt · {data['kind']}" if data["kind"] else "Prompt", "text": data["text"]})
+    for row in out:
+        if row.get("tel") == "edit":
+            row["text"] = _counted(row["counts"], " edited")
+        elif row.get("tel") == "map":
+            row["text"] = "map: " + _counted(row["counts"]) + (" · " + ", ".join(f"“{x}”" for x in row["labels"]) if row["labels"] else "")
+
+    ends = [s["t"] for s in steps[1:]] + [duration]
+    strip = {
+        "steps": [{"at": s["t"], "to": end, "label": s["data"]["label"], "retro": s["data"]["retro"]} for s, end in zip(steps, ends)],
+        "ticks": [
+            (name, [(r["t"], label(r["data"])) for r in events if r["kind"] == kind])
+            for name, kind, label in (
+                ("Edits", "edit", lambda d: import_telemetry.STATES.get(d["of"], d["of"])),
+                ("Map", "map", lambda d: d["act"]),
+                ("Chat", "chat", lambda d: d["who"]),
+                ("Prompts", "prompt", lambda d: d["kind"]),
+            )
+        ],
+    }
+    strip["ticks"] = [(name, marks) for name, marks in strip["ticks"] if marks]
+    return out, strip
+
+
+def diff_lines(old: str, new: str) -> list[list[str]]:
+    """The new text line by line, each ['', line], ['add', line] or
+    ['del', line] (a removed line, shown where it was)."""
+    a, b = old.splitlines(), new.splitlines()
+    out = []
+    for op, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
+        if op == "equal":
+            out += [["", line] for line in b[j1:j2]]
+        else:
+            out += [["del", line] for line in a[i1:i2]] + [["add", line] for line in b[j1:j2]]
+    return out
+
+
+def state_at(tel: list[dict], at: int, since: str) -> dict:
+    """The saved fields as they stood at `at` ms, marked against the state
+    before the latest save, or (since="scenario") at the start of the
+    scenario under way. "from" and "until" bound the stretch it holds for."""
+    edits = [r for r in tel if r["kind"] == "edit"]
+    done = [r for r in edits if r["t"] <= at]
+
+    def fields(upto: list[dict]) -> dict[str, str]:
+        return {r["data"]["of"]: r["data"]["text"] for r in upto}
+
+    now = fields(done)
+    starts = [done[-1]["t"]] if done else []
+    ends = [r["t"] for r in edits if r["t"] > at][:1]
+    if since == "scenario":
+        steps = [r for r in tel if r["kind"] == "step"]
+        current = [r for r in steps if r["t"] <= at]
+        base = now
+        if current:
+            i = len(current) - 1
+            k = current[i]["data"].get("scenario")
+            while k is not None and i and current[i - 1]["data"].get("scenario") == k:
+                i -= 1
+            base = fields([r for r in edits if r["t"] <= current[i]["t"]])
+            starts.append(current[i]["t"])
+        ends += [r["t"] for r in steps if r["t"] > at][:1]
+    else:
+        base = fields(done[:-1])
+    return {
+        "saved": done[-1]["t"] if done else None,
+        "from": max(starts) if starts else None,
+        "until": min(ends) if ends else None,
+        "fields": [{"name": name, "lines": diff_lines(base.get(of, ""), now.get(of, ""))} for of, name in import_telemetry.STATES.items()],
+    }
+
+
 @app.get("/t/{tid}/session/{alias}")
 def session_page(request: Request, tid: int, alias: str):
     """A whole recorded session, read and jotted on line by line. Its episodes
     are still what is marked read and compared, so each line carries its
-    own; one held or excluded takes no jot and, for a coder, shows nothing."""
+    own; one held or excluded takes no jot and, for a coder, shows nothing.
+    With the study app's record, that is set in among the lines too."""
     with db.db() as conn:
         user, track, me, session = session_of(conn, request, tid, alias)
         lines = repo.session_lines(conn, tid, session["id"])
         jots = repo.line_jots(conn, me["id"], session["id"])
         can_jot = bool(me["id"]) and repo.is_open(conn, tid, 1) and not repo.jots_frozen(conn, tid, me["id"])
         mine = next((s for s in repo.reading_sessions(conn, tid, me["id"]) if s["id"] == session["id"]), None)
-    rows, hidden = [], None
+        tel = repo.session_telemetry(conn, session["id"])
+        spans = hidden_spans(conn, tid, session["id"], me["role"]) if tel else []
+    rows, hidden, said = [], None, object()
     for g in lines:
         if not repo.can_view_item(g, me["role"]):
             if g["item_id"] != hidden:
@@ -587,15 +715,31 @@ def session_page(request: Request, tid: int, alias: str):
             continue
         rows.append({
             "seq": g["seq"], "t_start_ms": g["t_start_ms"], "speaker": g["speaker"], "text": g["text"],
-            "open": g["status"] == "cleared", "jot": jots.get(g["seq"], ""),
+            "open": g["status"] == "cleared", "jot": jots.get(g["seq"], ""), "turn": g["speaker"] != said,
         })
+        said = g["speaker"]
+    strip = None
+    if tel:
+        rows, strip = with_telemetry(rows, tel, session["duration_ms"], spans)
     # The whole recording, reached through an episode this person may see.
     video = next((g["token"] for g in lines if repo.can_view_item(g, me["role"])), None) if session["has_media"] else None
     deck = {"back": f"/t/{tid}/triage", "title": f"Read · {session['alias']}", "value": mine["read"] if mine else 0, "max": mine["n"] if mine else 0}
     return page(
         request, "session.html", user=user, track=track, me=me, at="triage", deck=deck, session=session,
-        rows=rows, video=video, can_jot=can_jot, done=bool(mine and mine["done"]),
+        rows=rows, video=video, can_jot=can_jot, done=bool(mine and mine["done"]), strip=strip,
     )
+
+
+@app.get("/t/{tid}/session/{alias}/state")
+def session_state(request: Request, tid: int, alias: str, at: int = 0, since: str = "save"):
+    """The specification panel's contents at one time, for the page's script."""
+    with db.db() as conn:
+        _, _, me, session = session_of(conn, request, tid, alias)
+        tel = repo.session_telemetry(conn, session["id"])
+        span = next(((a, b) for a, b in hidden_spans(conn, tid, session["id"], me["role"]) if a <= at < b), None)
+    if span:
+        return JSONResponse({"hidden": True, "from": span[0], "until": span[1]})
+    return JSONResponse(state_at(tel, at, "scenario" if since == "scenario" else "save"))
 
 
 @app.post("/t/{tid}/session/{alias}/line/{seq}")

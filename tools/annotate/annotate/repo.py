@@ -16,6 +16,7 @@ to read and to test them:
 
 from __future__ import annotations
 
+import json
 import random
 import re
 import secrets
@@ -353,6 +354,23 @@ def session_lines(conn: sqlite3.Connection, track_id: int, session_id: int) -> l
         " JOIN item i ON i.id = sp.item_id JOIN item_state st ON st.item_id = i.id"
         " WHERE g.session_id = ? AND i.track_id = ? ORDER BY g.seq",
         (session_id, track_id),
+    )]
+
+
+def session_spans(conn: sqlite3.Connection, track_id: int, session_id: int) -> list[dict]:
+    """Each episode's stretch of a session, in order, with its status."""
+    return [dict(r) for r in conn.execute(
+        "SELECT sp.t_start_ms, sp.t_end_ms, st.status FROM item_span sp JOIN item i ON i.id = sp.item_id"
+        " JOIN item_state st ON st.item_id = i.id WHERE sp.session_id = ? AND i.track_id = ? ORDER BY sp.seq",
+        (session_id, track_id),
+    )]
+
+
+def session_telemetry(conn: sqlite3.Connection, session_id: int) -> list[dict]:
+    """The study app's record of a session in time order: {t, kind, data}.
+    It holds no id from the app, so all of it may go on the session's page."""
+    return [{"t": r["t_ms"], "kind": r["kind"], "data": json.loads(r["data"])} for r in conn.execute(
+        "SELECT t_ms, kind, data FROM telemetry WHERE session_id = ? ORDER BY t_ms, id", (session_id,)
     )]
 
 
