@@ -4,7 +4,7 @@ from annotate import db
 
 
 def track_id(study: str = "demo") -> int:
-    """A seeded study's track: "demo" (diagrams) or "ethics-demo"."""
+    """A seeded study's track: "demo" (diagrams), "ethics-demo" or "sessions-demo"."""
     with db.db() as conn:
         return conn.execute(
             "SELECT t.id FROM track t JOIN dataset d ON d.id = t.dataset_id WHERE d.slug = ?", (study,)

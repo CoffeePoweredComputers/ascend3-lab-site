@@ -3,12 +3,14 @@ real student data anywhere near it.
 
     ANNOTATE_DATA_DIR=./data python -m annotate.seed [--reset]
 
-Two studies. "demo": twelve submissions, each a drawn "diagram" (a few
+Three studies. "demo": twelve submissions, each a drawn "diagram" (a few
 sideways, one with a stand-in for something identifying, one missing) with an
 approach and a challenges reflection. "ethics-demo": fourteen invented ethics
-questions with a topic and a hidden lens. Each has a lead, two coders and a
-published codebook, and stands at calibration. Running it again changes nothing; --reset empties the data
-directory first, all but incoming/.
+questions with a topic and a hidden lens. "sessions-demo": three invented
+think-aloud sessions, with no video, cut into episodes by the sessions
+importer. Each has a lead, two coders and a published codebook, and stands at
+calibration. Running it again adds only a study that is missing; --reset
+empties the data directory first, all but incoming/ and briefs/.
 """
 
 from __future__ import annotations
@@ -22,7 +24,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from annotate import config, db, importer, repo, studies
+from annotate import config, db, import_sessions, importer, repo, studies
 
 PEOPLE = (("lead@example.edu", "lead"), ("coder1@example.edu", "coder"), ("coder2@example.edu", "coder"))
 HOMEWORKS = (("Homework05", "text_stats"), ("Homework06", "grade_report"))
@@ -88,6 +90,58 @@ ETHICS_CODEBOOK = [
 ]
 
 
+# Invented sessions: a student plans a library book-return sorter aloud. The
+# speaker labels stand in for the names a real export carries; the importer
+# turns them into roles and blanks them where they are spoken.
+RESEARCHER = "QuartzHeron"
+PARTICIPANTS = ("PebbleFinch", "MarbleOtter", "CobaltMoth")
+INTRO = "Hi, I am Heron. Start whenever you are ready, and say what you are thinking as you go."
+PROMPTS = ("What are you thinking?", "Keep talking.", "What made you change that?", "What are you looking at now?", "Can you say more about that?")
+TALK = (
+    "Okay, so a book comes down the return chute and the scanner reads the barcode.",
+    "The things it has to keep track of are books, bins and holds, I think.",
+    "A book has a barcode, a home branch and a shelf number.",
+    "A hold has the book and whoever is waiting for it, but the sorter only needs to know there is one.",
+    "So my first rule: if a book has a hold, it goes to the holds bin.",
+    "Otherwise it goes to the bin for its floor.",
+    "Let me read the first case again. Given a book from another branch, when it is returned here...",
+    "Oh, I did not have anything for other branches. It would just go to a floor bin.",
+    "So I need a transit bin, and the rule has to check the home branch.",
+    "Wait, which comes first, the hold or the branch? If someone here is waiting for it, it should stay.",
+    "I will put holds first, then branch, then floor.",
+    "Second case: the barcode cannot be read.",
+    "Right now nothing happens, it just sits in the scanner. That cannot be right.",
+    "Unreadable goes to a bin for a person to check. I will call it the desk bin.",
+    "Third case is a damaged book. How would the machine even know it is damaged?",
+    "Maybe it cannot, maybe that is not the sorter's job. I will leave that one.",
+    "Hmm, but the case says it should go to repairs, so somebody marks it somewhere.",
+    "Okay, if the record says damaged, it goes to the desk bin too. Same bin, different reason.",
+    "Last case: two books for the same hold arrive one after the other.",
+    "The second one does not need to go to holds, the hold is already filled.",
+    "So the hold has to be marked filled when the first book lands. I did not have that.",
+    "Let me go back through all four with the new order and see if anything breaks.",
+    "First one still works, the transit bin catches it.",
+    "The unreadable one never gets to the other rules, so that is fine.",
+    "What happens when a bin is full? None of the cases say.",
+    "I will write that down as a question rather than a rule.",
+    "So the order matters more than I thought it would.",
+    "I think I am happy with this, though the floor bins might fill up.",
+)
+SESSIONS_CODEBOOK = [
+    ("activity", "Activity", "multi", "episode", [
+        ("reads", "Reads the task", "Reads or rereads a requirement or a case."),
+        ("traces", "Traces a case", "Steps through a case against the rules."),
+        ("revises", "Revises a rule", "Adds, removes or reorders a rule."),
+        ("asks", "Asks for help", "Asks the researcher or a tool something about the task."),
+    ]),
+    ("impasse", "Impasse", "single", "episode", [
+        ("none", "No impasse", "Work goes on without a stop."),
+        ("stuck", "Stuck", "Stops and does not find a way on within the episode."),
+        ("unstuck", "Gets unstuck", "Stops, then finds a way on."),
+    ]),
+]
+
+
 def draw_diagram(rng: random.Random, sideways: bool, identifying: bool) -> bytes:
     image = Image.new("RGB", (900, 1200), (247, 246, 240))
     pen = ImageDraw.Draw(image)
@@ -113,45 +167,84 @@ def draw_diagram(rng: random.Random, sideways: bool, identifying: bool) -> bytes
 
 
 def run() -> bool:
-    """Returns False if the demo dataset was already there."""
+    """Adds each study that is not there yet. Returns False if none was missing."""
     db.init()
-    rng = random.Random(7)
     with db.db() as conn:
-        if conn.execute("SELECT 1 FROM dataset WHERE slug = 'demo'").fetchone():
-            return False
-        dataset_id, track_id = importer.ensure_dataset(conn, "demo", "Demo study (synthetic)", "decomp")
-        decomp = studies.get("decomp")
-        with tempfile.TemporaryDirectory() as scratch:
-            n = 0
-            for student in range(6):
-                for homework, project in HOMEWORKS:
-                    key = (f"demo{student:08x}", homework, project)
-                    source_id = importer.ensure_source(conn, dataset_id, key, str(900000 + n))
-                    photo = None
-                    if n != 10:  # one student handed in no diagram
-                        photo = Path(scratch) / f"{n}.jpg"
-                        photo.write_bytes(draw_diagram(rng, sideways=n in (3, 8), identifying=n == 5))
-                    parts = [("approach", rng.choice(APPROACH), False), ("challenges", rng.choice(CHALLENGES), False)]
-                    importer.add_item(conn, track_id, source_id, "demo", decomp, photo, parts)
-                    n += 1
-        # Leave the awkward ones for triage; clear the rest so there is
-        # something to read and code straight away.
-        conn.execute(
-            "UPDATE item_state SET status = 'cleared', updated_by = 'seed' WHERE item_id IN"
-            " (SELECT i.id FROM item i JOIN source s ON s.id = i.source_id"
-            "  WHERE i.track_id = ? AND s.submission_id NOT IN ('900003', '900005', '900008'))",
-            (track_id,),
-        )
-        _team_and_codebook(conn, track_id, decomp, CODEBOOK)
+        have = {r["slug"] for r in conn.execute("SELECT slug FROM dataset")}
+        builders = (("demo", _diagrams), ("ethics-demo", _ethics), ("sessions-demo", _sessions))
+        for slug, build in builders:
+            if slug not in have:
+                build(conn)
+    return any(slug not in have for slug, _ in builders)
 
-        ethics = studies.get("ethics")
-        dataset_id, track_id = importer.ensure_dataset(conn, "ethics-demo", "Ethics questions (synthetic)", "ethics")
-        for n, (topic, question, lens) in enumerate(QUESTIONS):
-            source_id = importer.ensure_source(conn, dataset_id, (f"resp{n:08x}", "Week06", ethics.task))
-            parts = [("topic", topic, False), ("question", question, False), ("lens", lens, True)]
-            importer.add_item(conn, track_id, source_id, "ethics-demo", ethics, None, parts)
-        _team_and_codebook(conn, track_id, ethics, ETHICS_CODEBOOK)
-    return True
+
+def _diagrams(conn) -> None:
+    rng = random.Random(7)
+    dataset_id, track_id = importer.ensure_dataset(conn, "demo", "Demo study (synthetic)", "decomp")
+    decomp = studies.get("decomp")
+    with tempfile.TemporaryDirectory() as scratch:
+        n = 0
+        for student in range(6):
+            for homework, project in HOMEWORKS:
+                key = (f"demo{student:08x}", homework, project)
+                source_id = importer.ensure_source(conn, dataset_id, key, str(900000 + n))
+                photo = None
+                if n != 10:  # one student handed in no diagram
+                    photo = Path(scratch) / f"{n}.jpg"
+                    photo.write_bytes(draw_diagram(rng, sideways=n in (3, 8), identifying=n == 5))
+                parts = [("approach", rng.choice(APPROACH), False), ("challenges", rng.choice(CHALLENGES), False)]
+                importer.add_item(conn, track_id, source_id, "demo", decomp, photo, parts)
+                n += 1
+    # Leave the awkward ones for triage; clear the rest so there is
+    # something to read and code straight away.
+    conn.execute(
+        "UPDATE item_state SET status = 'cleared', updated_by = 'seed' WHERE item_id IN"
+        " (SELECT i.id FROM item i JOIN source s ON s.id = i.source_id"
+        "  WHERE i.track_id = ? AND s.submission_id NOT IN ('900003', '900005', '900008'))",
+        (track_id,),
+    )
+    _team_and_codebook(conn, track_id, decomp, CODEBOOK)
+
+
+def _ethics(conn) -> None:
+    ethics = studies.get("ethics")
+    dataset_id, track_id = importer.ensure_dataset(conn, "ethics-demo", "Ethics questions (synthetic)", "ethics")
+    for n, (topic, question, lens) in enumerate(QUESTIONS):
+        source_id = importer.ensure_source(conn, dataset_id, (f"resp{n:08x}", "Week06", ethics.task))
+        parts = [("topic", topic, False), ("question", question, False), ("lens", lens, True)]
+        importer.add_item(conn, track_id, source_id, "ethics-demo", ethics, None, parts)
+    _team_and_codebook(conn, track_id, ethics, ETHICS_CODEBOOK)
+
+
+def _sessions(conn) -> None:
+    """Built as the importer builds a real export, from rows shaped like its
+    transcript JSON, so the labels go through the same roles and blanking."""
+    rng = random.Random(11)
+    sessions = []
+    for n, participant in enumerate(PARTICIPANTS):
+        pid = f"sess{n:04x}"
+        script = [(RESEARCHER, INTRO)]
+        for k, line in enumerate(sorted(rng.sample(range(len(TALK)), 20))):
+            script.append((participant, TALK[line]))
+            if k % 4 == 3:
+                script.append((RESEARCHER, rng.choice(PROMPTS)))
+        rows, t = [], 0
+        for ordinal, (label, text) in enumerate(script):
+            length = rng.randint(8, 16) * 1000
+            rows.append({"id": f"{pid}-{ordinal}", "speaker": label, "t_start_ms": t, "t_end_ms": t + length - 1000, "text": text, "ordinal": ordinal})
+            t += length
+        segs, _, _ = import_sessions.normalize(rows)
+        sessions.append(import_sessions.Session(
+            pid=pid, video=None, sha256=None, size=0, duration_ms=t, kind="restored", version=f"demo-{pid}", segs=segs,
+        ))
+    import_sessions.classify(sessions, {})
+    import_sessions.scrub(sessions, set())
+    dataset_id, track_id = importer.ensure_dataset(conn, "sessions-demo", "Think-aloud sessions (synthetic)", import_sessions.KIND)
+    taken = []
+    for n, s in enumerate(sessions, start=1):
+        s.episodes = import_sessions.cut_episodes(s.segs, s.duration_ms)
+        import_sessions._store(conn, dataset_id, track_id, "sessions-demo", s, None, f"S{n:02d}", import_sessions._order_key(taken, rng))
+    _team_and_codebook(conn, track_id, studies.get(import_sessions.KIND), SESSIONS_CODEBOOK)
 
 
 def _team_and_codebook(conn, track_id: int, study: studies.Study, codebook) -> None:
@@ -172,13 +265,15 @@ def _team_and_codebook(conn, track_id: int, study: studies.Study, codebook) -> N
 
 
 def reset() -> None:
-    """Developer machines only: start from an empty data directory, keeping incoming/."""
+    """Developer machines only: start from an empty data directory, keeping
+    incoming/ and briefs/."""
     directory = config.data_dir().resolve()
     if directory == Path("/data") or not config.dev_user() and not str(directory).startswith(str(config.APP_DIR)):
         raise SystemExit(f"Refusing to delete {directory}: --reset is for a local data directory.")
-    # incoming/ is where real exports wait to be imported; it is not the tool's to delete.
+    # incoming/ is where real exports wait to be imported, and briefs/ holds the
+    # guides kept out of the repo; neither is the tool's to delete.
     for child in directory.iterdir() if directory.is_dir() else ():
-        if child.name == "incoming":
+        if child.name in ("incoming", "briefs"):
             continue
         shutil.rmtree(child, ignore_errors=True) if child.is_dir() else child.unlink(missing_ok=True)
 
@@ -186,4 +281,4 @@ def reset() -> None:
 if __name__ == "__main__":
     if "--reset" in sys.argv:
         reset()
-    print("Seeded the demo dataset." if run() else "The demo dataset is already there.")
+    print("Seeded the demo studies." if run() else "The demo studies are already there.")

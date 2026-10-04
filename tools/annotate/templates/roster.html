@@ -18,7 +18,8 @@
             <td class="id">{{ p.coder_code }}</td>
             <td>{{ p.email }}</td>
             {# Counts only: what anyone wrote stays theirs until the merge. #}
-            {% if kept is not none %}<td>{{ p.read }}/{{ kept }}</td>{% endif %}
+            {% if study.has_video %}<td>{{ p.sessions }} session{{ '' if p.sessions == 1 else 's' }} · {{ p.read }} episode{{ '' if p.read == 1 else 's' }}</td>
+            {% elif kept is not none %}<td>{{ p.read }}/{{ kept }}</td>{% endif %}
             {% if study.has_image %}<td>{{ p.to_clean }}</td>{% endif %}
             <td>{{ p.jots }}</td>
             <td>{{ 'yes' if p.asked else 'no' }}</td>

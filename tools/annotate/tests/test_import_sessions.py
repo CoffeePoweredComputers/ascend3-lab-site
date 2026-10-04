@@ -244,7 +244,10 @@ def test_reset_spares_what_is_waiting_to_be_imported(data_dir, monkeypatch):
     monkeypatch.setenv("ANNOTATE_DEV_USER", "lead@example.edu")
     (data_dir / "incoming" / "export").mkdir(parents=True)
     (data_dir / "incoming" / "export" / "video.mp4").write_bytes(b"x")
+    (data_dir / "briefs" / "sessions").mkdir(parents=True)
+    (data_dir / "briefs" / "sessions" / "00-onboarding.md").write_text("Kept out of the repo.")
     (data_dir / "raw").mkdir()
     seed.reset()
     assert (data_dir / "incoming" / "export" / "video.mp4").exists()
+    assert stages.brief(0, "sessions") == "Kept out of the repo."
     assert not (data_dir / "raw").exists() and not (data_dir / "annotate.db").exists()

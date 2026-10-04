@@ -3,10 +3,15 @@
 {% block title %}Item {{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
   <div class="deck {{ 'deck--photo' if study.has_image }}">
+    {% if study.has_video %}
+      <section class="deck__video"><p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {{ parts.where(item) }}</p>{{ parts.player(item) }}</section>
+      <section class="deck__card">{{ parts.transcript(item, lines) }}</section>
+    {% else %}
     <section class="deck__card">
       <p class="deck__id"><span class="id">{{ item.token[:6] }}</span></p>
       {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
     </section>
+    {% endif %}
 
     <section class="deck__play">
       {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
@@ -24,4 +29,5 @@
       {% endif %}
     </section>
   </div>
+  {% if study.has_video %}<script src="{{ root }}/static/player.js"></script>{% endif %}
 {% endblock %}

@@ -58,6 +58,8 @@
     // Leave the browser's own behaviour for a focused button, link or radio group.
     if (event.key === 'Enter' && active && ['BUTTON', 'A', 'SUMMARY'].includes(active.tagName)) return;
     if (event.key.startsWith('Arrow') && active && active.type === 'radio') return;
+    // And for the video player itself: the arrows seek, Space plays.
+    if ((event.key === ' ' || event.key.startsWith('Arrow')) && active && active.tagName === 'VIDEO') return;
 
     const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
     const target = document.querySelector(`[data-key="${CSS.escape(key)}"]:not([disabled])`);

@@ -3,9 +3,14 @@
 {% block title %}Code {{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
   <div class="deck {{ 'deck--photo' if study.has_image }}">
+    {% set id_line %}<p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {% if study.has_video %}{{ parts.where(item) }} · {% endif %}card {{ position }} of {{ total }}</p>{% endset %}
+    {% if study.has_video %}<section class="deck__video">{{ id_line }}{{ parts.player(item) }}</section>{% endif %}
     <section class="deck__card">
-      <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · card {{ position }} of {{ total }}</p>
-      {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+      {% if study.has_video %}{{ parts.transcript(item, lines) }}
+      {% else %}
+        {{ id_line }}
+        {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+      {% endif %}
     </section>
 
     <form method="post" class="deck__play">
@@ -77,4 +82,5 @@
       {% endif %}
     </form>
   </div>
+  {% if study.has_video %}<script src="{{ root }}/static/player.js"></script>{% endif %}
 {% endblock %}

@@ -342,6 +342,21 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, var(--secondary
 /* A photo card: the right column holds the writing and then the buttons, so it scrolls with the page. */
 .deck--photo { grid-template-columns: minmax(0, 1fr) minmax(20rem, 1fr); }
 .deck--photo .deck__play { position: static; }
+/* A recorded episode: the video across the whole deck, so text on its screen
+   stays legible; the transcript and the buttons sit in the columns below. */
+.deck__video { grid-column: 1 / -1; display: grid; gap: 0.5rem; }
+.deck__video .deck__id { margin: 0; }
+.player { display: block; width: 100%; max-height: 70vh; object-fit: contain; background: #000; border-radius: var(--radius-md); }
+.player__rate { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
+.transcript { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.line { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0.6rem; align-items: baseline; }
+.line p { margin: 0; overflow-wrap: anywhere; }
+.line--context { color: var(--text-muted); }
+.line__at, button.line__at, .dark button.line__at {
+  margin: 0; padding: 0 0.35rem; justify-self: start; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400;
+  color: var(--text-muted); background: none; border: 1px solid transparent; border-radius: var(--radius-sm);
+}
+button.line__at:hover { color: var(--primary); border-color: var(--border); filter: none; }
 .deck__play fieldset { margin: 0; background: var(--surface-base); }
 .deck__play .fold { border: 0; padding: 0; font-size: 0.85rem; color: var(--text-muted); }
 .deck__nav, .stagenav { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 0; }

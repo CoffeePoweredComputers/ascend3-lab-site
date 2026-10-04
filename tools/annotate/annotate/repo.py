@@ -3,9 +3,11 @@
 Two rules are enforced here rather than in the routes, so there is one place
 to read and to test them:
 
-- ITEM_COLUMNS never includes the source's hash or submission id. Whatever a
-  page renders about an item comes through item_by_token / items_*, so a coder
-  cannot be shown which student a submission came from.
+- ITEM_COLUMNS never includes the source's hash or submission id, nor a
+  recorded session's participant id or video path. Whatever a page renders
+  about an item comes through item_by_token / items_*, so a coder cannot be
+  shown which student or participant an item came from. The video route alone
+  reads the path, through media_path.
 - visible_annotations returns only the caller's own work while a batch is
   open, and the personal-code functions take the caller's roster id. That
   holds for leads too. Everyone's personal codes and jots are read together
@@ -28,12 +30,19 @@ ITEM_COLUMNS = """
     i.id, i.track_id, i.token, i.kind, i.raw_path, i.shuffle_key,
     s.homework, s.project,
     st.status, st.rotation, st.crop_x, st.crop_y, st.crop_w, st.crop_h,
-    st.legible, st.off_task, st.pii_visible, st.low_content, st.note, st.rev
+    st.legible, st.off_task, st.pii_visible, st.low_content, st.note, st.rev,
+    sp.seq AS span_seq, sp.t_start_ms AS span_start, sp.t_end_ms AS span_end, sp.seg_first, sp.seg_last,
+    se.id AS session_id, se.alias, se.duration_ms, se.media_path IS NOT NULL AS has_media,
+    (SELECT COUNT(*) FROM item_span x WHERE x.session_id = se.id) AS episodes
 """
+# The span and session are there only for an episode of a recorded session;
+# every other item has NULL in those columns.
 ITEM_FROM = """
     FROM item i
     JOIN source s ON s.id = i.source_id
     JOIN item_state st ON st.item_id = i.id
+    LEFT JOIN item_span sp ON sp.item_id = i.id
+    LEFT JOIN session se ON se.id = sp.session_id
 """
 
 
@@ -315,6 +324,26 @@ def items_with_status(conn: sqlite3.Connection, track_id: int, statuses: Iterabl
     ).fetchall())
 
 
+def segments(conn: sqlite3.Connection, session_id: int, from_ms: int, to_ms: int) -> list[sqlite3.Row]:
+    """A session's transcript lines that start in [from_ms, to_ms), in order."""
+    return conn.execute(
+        "SELECT seq, t_start_ms, t_end_ms, speaker, text FROM segment"
+        " WHERE session_id = ? AND t_start_ms >= ? AND t_start_ms < ? ORDER BY seq",
+        (session_id, from_ms, to_ms),
+    ).fetchall()
+
+
+def media_path(conn: sqlite3.Connection, token: str) -> Optional[str]:
+    """The item's video, relative to the raw directory. For the video route
+    only: no page is given the path."""
+    row = conn.execute(
+        "SELECT se.media_path FROM item i JOIN item_span sp ON sp.item_id = i.id JOIN session se ON se.id = sp.session_id"
+        " WHERE i.token = ?",
+        (token,),
+    ).fetchone()
+    return row["media_path"] if row else None
+
+
 def can_view_item(item: dict, role: str) -> bool:
     """Held and excluded items are for leads. Everyone on the roster sees the rest."""
     return role == "lead" or item["status"] in ("untriaged", "cleared")
@@ -452,10 +481,49 @@ def _start(roster_id: int) -> float:
     return (roster_id * 0.6180339887) % 1
 
 
+def _reading_start(conn: sqlite3.Connection, track_id: int, roster_id: int) -> float:
+    """Where this person's reading pass begins. Recorded sessions are read a
+    whole session at a time, so there it is just before the first episode of
+    a session, a different one for each person."""
+    firsts = [r[0] for r in conn.execute(
+        "SELECT MIN(i.shuffle_key) AS k FROM item i JOIN item_span sp ON sp.item_id = i.id"
+        " WHERE i.track_id = ? GROUP BY sp.session_id ORDER BY k",
+        (track_id,),
+    )]
+    if not firsts:
+        return _start(roster_id)
+    first = firsts[int(_start(roster_id) * len(firsts))]
+    before = conn.execute("SELECT MAX(shuffle_key) FROM item WHERE track_id = ? AND shuffle_key < ?", (track_id, first)).fetchone()[0]
+    return -1.0 if before is None else before
+
+
 def next_unseen(conn: sqlite3.Connection, track_id: int, roster_id: int, after: Optional[float] = None) -> Optional[dict]:
     """The next card of this person's reading pass: in the data, not yet read by them."""
     where = "st.status = 'cleared' AND i.id NOT IN (SELECT item_id FROM seen WHERE roster_id = ?)"
-    return _next(conn, track_id, where, (roster_id,), _start(roster_id) if after is None else after)
+    return _next(conn, track_id, where, (roster_id,), _reading_start(conn, track_id, roster_id) if after is None else after)
+
+
+def reading_sessions(conn: sqlite3.Connection, track_id: int, roster_id: int) -> list[dict]:
+    """Recorded sessions, one row each, for one person's reading: how many of
+    its episodes in the data they have read, and the token to go on from (the
+    first unread, or the first once all are read). Empty for other studies."""
+    out: dict[int, dict] = {}
+    for r in conn.execute(
+        "SELECT se.id, se.alias, i.token, i.id IN (SELECT item_id FROM seen WHERE roster_id = ?) AS read"
+        " FROM item i JOIN item_state st ON st.item_id = i.id"
+        " JOIN item_span sp ON sp.item_id = i.id JOIN session se ON se.id = sp.session_id"
+        " WHERE i.track_id = ? AND st.status = 'cleared' ORDER BY se.alias, sp.seq",
+        (roster_id, track_id),
+    ):
+        s = out.setdefault(r["id"], {"id": r["id"], "alias": r["alias"], "n": 0, "read": 0, "next": None, "first": r["token"]})
+        s["n"] += 1
+        s["read"] += r["read"]
+        if not r["read"] and not s["next"]:
+            s["next"] = r["token"]
+    for s in out.values():
+        s["done"] = s["read"] == s["n"]
+        s["next"] = s["next"] or s["first"]
+    return list(out.values())
 
 
 MINE_TO_CLEAN = "COALESCE((SELECT roster_id FROM cleaning WHERE item_id = i.id), ?) = ?"
@@ -1477,6 +1545,7 @@ def team_progress(conn: sqlite3.Connection, track_id: int) -> list[dict]:
         rows.append({
             **dict(r),
             "read": len(seen_ids(conn, track_id, r["id"])),
+            "sessions": sum(s["done"] for s in reading_sessions(conn, track_id, r["id"])),
             "jots": count("SELECT COUNT(*) FROM memo WHERE roster_id = ? AND kind = 'jotting'", r["id"]),
             "asked": count("SELECT COUNT(*) FROM memo WHERE roster_id = ? AND kind = 'rq'", r["id"]),
             "candidates": candidates["status"] if candidates else "",

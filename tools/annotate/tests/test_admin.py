@@ -17,8 +17,8 @@ def post(client, path, headers, **data):
 def test_an_admin_opens_and_runs_every_study_with_no_roster_entry(client):
     assert client.get("/", headers=NOT_ADMIN).status_code == 403
     home = client.get("/", headers=ADMIN).text
-    assert home.count('class="card track"') == 2 and "lead" in home
-    for study in ("demo", "ethics-demo"):
+    assert home.count('class="card track"') == 3 and "lead" in home
+    for study in ("demo", "ethics-demo", "sessions-demo"):
         track = track_id(study)
         for page in ("triage", "roster", "export", "codebook", "batches", "open", "production", "stage/0"):
             assert client.get(f"/t/{track}/{page}", headers=ADMIN).status_code == 200, page

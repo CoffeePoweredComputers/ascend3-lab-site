@@ -17,6 +17,12 @@
         <p class="hero__big">Your photos are clean</p>
         <p class="muted">Reading starts when the rest are: {% for email, n in waiting %}{{ email | who }} has {{ n }}{{ ', ' if not loop.last }}{% endfor %}.</p>
       {% endif %}
+    {% elif first and study.has_video %}
+      {# Recorded sessions: each person reads a few whole sessions, in order. #}
+      {% set whole = sessions | selectattr('done') | list | length %}
+      <p class="hero__big">{{ whole }} session{{ '' if whole == 1 else 's' }} read</p>
+      <p class="muted">{{ seen | length }} episode{{ '' if seen | length == 1 else 's' }}</p>
+      <a class="button" href="{{ root }}/t/{{ track.id }}/triage/{{ first.token }}" data-key="Enter">{{ 'Continue' if seen else 'Start' }} <kbd>Enter</kbd></a>
     {% elif first %}
       {# Then everyone reads every card; this is your own pass. #}
       <progress class="hero__bar" value="{{ seen | length }}" max="{{ cards }}">{{ seen | length }} of {{ cards }}</progress>
@@ -41,6 +47,15 @@
       <a href="?status=excluded" {% if status == 'excluded' %}aria-current="page"{% endif %}>excluded <span>{{ counts.excluded }}</span></a>
     </nav>
   {% endif %}
+  {% if study.has_video and not status %}
+    <ul class="chips">
+      {% for s in sessions %}
+        <li><a class="chip {{ 'chip--done' if s.done }}" href="{{ root }}/t/{{ track.id }}/triage/{{ s.next }}">{{ s.alias }} <small>{{ s.read }} of {{ s.n }} read</small></a></li>
+      {% else %}
+        <li class="muted">None.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
   <ul class="chips">
     {% for i in items %}
       <li>
@@ -54,4 +69,5 @@
       <li class="muted">None.</li>
     {% endfor %}
   </ul>
+  {% endif %}
 {% endblock %}

@@ -16,7 +16,7 @@
     </section>
     <ul class="chips">
       {% for i in items %}
-        <li><a class="chip {{ 'chip--done' if i.id in jotted }}" href="{{ root }}/t/{{ track.id }}/items/{{ i.token }}">{{ i.token[:6] }}</a></li>
+        <li><a class="chip {{ 'chip--done' if i.id in jotted }}" href="{{ root }}/t/{{ track.id }}/items/{{ i.token }}">{{ i.token[:6] }}{% if study.has_video %} <small>{{ i.alias }}</small>{% endif %}</a></li>
       {% endfor %}
     </ul>
   {% endif %}

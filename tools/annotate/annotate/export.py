@@ -1,7 +1,7 @@
 """Tidy CSVs for analysis outside the tool, zipped.
 
-This is the one place the student keys (hash, homework, project) leave the
-database, which is why only a lead can download it. People appear as their
+This is the one place the student keys (hash, homework, project, and a
+session's pid) leave the database, which is why only a lead can download it. People appear as their
 coder code; no file contains an email address.
 """
 
@@ -122,6 +122,23 @@ QUERIES = {
         JOIN codebook_version v ON v.id = d.version_id
         JOIN track t ON t.id = v.track_id
         WHERE t.dataset_id = :dataset ORDER BY v.n, d.ord, c.ord
+    """,
+    # Where each episode of a recorded session sits in it, and the export's
+    # own ids of its first and last transcript lines. Header only for a study
+    # of another kind. Text is single-spaced on import, so words are spaces + 1.
+    "episodes.csv": """
+        SELECT i.token, se.pid, se.alias AS session, sp.seq AS episode, sp.t_start_ms, sp.t_end_ms,
+               se.transcript_kind, se.transcript_version, se.cut_rule,
+               f.src_id AS first_src_id, l.src_id AS last_src_id, sp.seg_last - sp.seg_first + 1 AS lines,
+               (SELECT COALESCE(SUM(CASE WHEN g.text = '' THEN 0 ELSE LENGTH(g.text) - LENGTH(REPLACE(g.text, ' ', '')) + 1 END), 0)
+                FROM segment g WHERE g.session_id = se.id AND g.seq BETWEEN sp.seg_first AND sp.seg_last) AS words
+        FROM item_span sp
+        JOIN item i ON i.id = sp.item_id
+        JOIN track t ON t.id = i.track_id
+        JOIN session se ON se.id = sp.session_id
+        JOIN segment f ON f.session_id = se.id AND f.seq = sp.seg_first
+        JOIN segment l ON l.session_id = se.id AND l.seq = sp.seg_last
+        WHERE t.dataset_id = :dataset ORDER BY se.pid, sp.seq
     """,
 }
 

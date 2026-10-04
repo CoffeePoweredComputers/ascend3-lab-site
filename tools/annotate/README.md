@@ -21,12 +21,12 @@ for spreadsheet data, which column is which part.
 | --- | --- | --- |
 | `decomp` | a student's diagram photo with their written approach and challenges | questions about the diagram, and about the reflection |
 | `ethics` | a student's topic and ethics question; the lens they ticked is stored but hidden | questions about the question |
-| `sessions` | an episode: a minute or two of a recorded session, as its transcript lines (the video card is not built yet) | questions about the episode |
+| `sessions` | an episode: a minute or two of a recorded session, its video with the transcript lines beside it | questions about the episode |
 
 The stage guides people follow are in [`briefs/`](briefs/). A study's own
 version in `briefs/<kind>/` wins over the shared one. A study whose guides
 should not be in this repo keeps them in the data directory instead, at
-`/data/briefs/<kind>/`, which is looked in first.
+`/data/briefs/<kind>/`, which is looked in first and which `--reset` leaves alone.
 
 ## How access works
 
@@ -80,7 +80,8 @@ before it.
 7. **Themes.** The topic map (items per code, with examples), and the themes
    the team writes over the codes. The lead can ask the model for a first
    proposal, once.
-8. **Export.**
+8. **Export.** A zip of CSVs joined on the item token, for leads only.
+   `episodes.csv` places each item of a sessions study in its session.
 
 ## What it guarantees
 
@@ -89,6 +90,12 @@ before it.
   exclude `data/`.
 - **Photos are never served as files.** Each is rotated, cropped to the triage
   rectangle, resized and re-encoded from pixels, which drops EXIF.
+- **Video is streamed to the study's people, and that is all.** A recording
+  is reached through an item's token by someone on the study's roster or a
+  site admin, with no download link and no participant id or file name in any
+  URL or page. It is the recording as it was made: faces, voices and the
+  screen are in it, a whole session is reachable from any of its episodes,
+  and a browser can save what it plays.
 - **Coding is blind.** While a deck is open, `repo.visible_annotations`
   returns only the caller's own codes, for leads too. Personal codes and jots
   are read together only by the merge, after open coding closes. The export
@@ -97,8 +104,8 @@ before it.
   or failed, and only a failed run can be started again.
 - **Hidden parts stay hidden.** A written part marked hidden (the ethics lens)
   is never loaded for a page; only the export reads it.
-- **Coders never see who.** Pages do not carry the student hash or submission
-  id; items are addressed by a random token in a shuffled order.
+- **Coders never see who.** Pages do not carry the student hash, submission
+  id or a session's participant id; items are addressed by a random token in a shuffled order.
 - **Published codebook versions do not change**, and a deck is pinned to one.
 - **Agreement is frozen when a deck closes.**
 - **Elevation rewards work, not speed or agreement.** A person sees their own
@@ -112,7 +119,7 @@ No real data is needed. The seed script makes one synthetic study of each kind.
 cd tools/annotate
 python3 -m venv .venv
 .venv/bin/pip install -r requirements-dev.txt
-ANNOTATE_DATA_DIR=./data .venv/bin/python -m annotate.seed      # add --reset to start over (it keeps data/incoming/)
+ANNOTATE_DATA_DIR=./data .venv/bin/python -m annotate.seed      # add --reset to start over (it keeps data/incoming/ and data/briefs/)
 ANNOTATE_DATA_DIR=./data ANNOTATE_DEV_USER=lead@example.edu PORT=8080 .venv/bin/python -m annotate
 ```
 
@@ -206,6 +213,8 @@ blanked where they are spoken. A label the rule cannot place stops the import.
 labels did not give away; put those in a `--names` file, kept beside the data.
 `--replace` cuts the sessions again, and is refused once anyone has worked on
 the items. The study's text is never sent to a live model (`model_ok`).
+People read a session's episodes in order, a session at a time; the reading
+list is by session.
 
 ## Add a kind of study
 
@@ -234,7 +243,7 @@ the items. The study's text is never sent to a live model (`model_ok`).
 | `annotate/export.py` | CSVs out |
 | `annotate/db.py` | schema, additive migrations, daily backup to `/data/backups` |
 | `briefs/` | the stage guides, markdown |
-| `static/deck.js`, `crop.js`, `theme.js` | keys and the trail marker, the crop box, light and dark |
+| `static/deck.js`, `crop.js`, `player.js`, `theme.js` | keys and the trail marker, the crop box, the video keys, light and dark |
 
 The statistics use the same formulas as the wiki's `KappaCalculator`, and the
 tests assert its presets, so the tool and the lesson agree.
@@ -242,6 +251,4 @@ tests assert its presets, so the tool and the lesson agree.
 ## Not built yet
 
 A model check that definitions are applied consistently, sending diagram
-photos to the model, structured diagram transcription, and the video card
-for `sessions` items (they are imported and read as text; nothing serves the
-video yet).
+photos to the model, and structured diagram transcription.

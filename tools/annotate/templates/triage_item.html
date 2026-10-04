@@ -4,12 +4,16 @@
 {% block main %}
   {# mode is clean (a photo nobody has turned and cropped yet), read (a card
      in the data) or resolve (a lead settling one that was flagged). #}
+  {% set id_line %}
+    <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {{ parts.where(item) if study.has_video else item.project | replace('_', ' ') ~ ' · ' ~ item.homework }}
+      {% if mode == 'clean' %}<span class="badge badge--warn">needs cleaning</span>{% endif %}
+      {% if mode == 'resolve' %}<span class="badge badge--warn">{{ 'with the lead' if item.status == 'pii_hold' else item.status }}</span>{% endif %}</p>
+  {% endset %}
   <form method="post" class="deck {{ 'deck--photo' if study.has_image }}">
     {% if mode == 'clean' %}<input type="hidden" name="mode" value="clean">{% endif %}
+    {% if study.has_video %}<section class="deck__video">{{ id_line }}{{ parts.player(item) }}</section>{% endif %}
     <section class="deck__card submission">
-      <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {{ item.project | replace('_', ' ') }} · {{ item.homework }}
-        {% if mode == 'clean' %}<span class="badge badge--warn">needs cleaning</span>{% endif %}
-        {% if mode == 'resolve' %}<span class="badge badge--warn">{{ 'with the lead' if item.status == 'pii_hold' else item.status }}</span>{% endif %}</p>
+      {% if not study.has_video %}{{ id_line }}{% endif %}
       {% if mode == 'resolve' and item.note %}<p class="note">{{ item.note }}</p>{% endif %}
       {% if item.raw_path and mode != 'read' %}
         {# The whole photo, to be turned and cropped. Everyone after sees only the crop. #}
@@ -33,7 +37,8 @@
       {% elif study.has_image %}
         <p class="item-missing">No diagram submitted.</p>
       {% endif %}
-      {% if not study.has_image %}{{ parts.texts(item) }}{% endif %}
+      {% if study.has_video %}{{ parts.transcript(item, lines) }}
+      {% elif not study.has_image %}{{ parts.texts(item) }}{% endif %}
     </section>
 
     <section class="deck__play">
@@ -79,4 +84,5 @@
     </section>
   </form>
   <script src="{{ root }}/static/crop.js"></script>
+  {% if study.has_video %}<script src="{{ root }}/static/player.js"></script>{% endif %}
 {% endblock %}

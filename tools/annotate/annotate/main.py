@@ -12,13 +12,13 @@ from contextlib import asynccontextmanager
 from urllib.parse import quote, urlsplit
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import PlainTextResponse, RedirectResponse, Response
+from fastapi.responses import FileResponse, PlainTextResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from markdown_it import MarkdownIt
 from markupsafe import Markup
 
-from annotate import agreement, assist, auth, config, db, export, images, llm, peaks, repo, stages, stats, studies
+from annotate import agreement, assist, auth, config, db, export, images, import_sessions, llm, peaks, repo, stages, stats, studies
 
 
 @asynccontextmanager
@@ -40,7 +40,18 @@ templates = Jinja2Templates(directory=config.APP_DIR / "templates")
 markdown = MarkdownIt("commonmark", {"html": False}).enable("table")
 # People are shown to their team by the name part of their email.
 templates.env.filters["who"] = lambda email: str(email).split("@")[0]
-templates.env.globals.update(passed=peaks.passed, ahead=peaks.ahead)
+templates.env.globals.update(passed=peaks.passed, ahead=peaks.ahead, roles=import_sessions.ROLES)
+
+
+def clock(ms: int) -> str:
+    """A time in a recording: 23:10, or 1:02:05 past the hour."""
+    minutes, seconds = divmod(int(ms) // 1000, 60)
+    hours, minutes = divmod(minutes, 60)
+    return f"{hours}:{minutes:02d}:{seconds:02d}" if hours else f"{minutes}:{seconds:02d}"
+
+
+templates.env.filters["clock"] = clock
+CONTEXT_MS = 30_000  # transcript shown either side of an episode, muted
 
 
 def page(request: Request, name: str, status_code: int = 200, **context) -> Response:
@@ -202,6 +213,13 @@ def own_item(conn, track_id: int, token: str, role: str):
     return item
 
 
+def transcript(conn, item) -> list:
+    """An episode's lines, with half a minute of the session either side."""
+    if item["session_id"] is None:
+        return []
+    return repo.segments(conn, item["session_id"], item["span_start"] - CONTEXT_MS, item["span_end"] + CONTEXT_MS)
+
+
 def batch_context(conn, request: Request, batch_id: int, lead: bool = False):
     """(user, track, roster row, batch, submitted) where submitted is None for
     someone who is not a coder on the batch. Coders reach only their own batches."""
@@ -228,6 +246,7 @@ def stage_rows(conn, track, user) -> list[dict]:
     deck = repo.starter(conn, tid)
     final = repo.production(conn, tid)
     photos = studies.get(track["dataset_kind"]).has_image
+    video = studies.get(track["dataset_kind"]).has_video
     rows = []
     for n, _, title, key, path in stages.STAGES:
         # `part` is how far through the stage this person is, 0 to 1. The
@@ -243,7 +262,7 @@ def stage_rows(conn, track, user) -> list[dict]:
                 part, progress = 0.5 * counts["cleared"] / cards, f"{counts['cleared']}/{cards} clean"
             else:
                 share = read / cards if cards else 0
-                part, progress = (0.5 + 0.5 * share if photos else share), f"{read}/{cards}"
+                part, progress = (0.5 + 0.5 * share if photos else share), f"{read} read" if video else f"{read}/{cards}"
         elif key == "questions":
             asked = {r["roster_id"] for r in conn.execute("SELECT DISTINCT roster_id FROM memo WHERE track_id = ? AND kind = 'rq'", (tid,))}
             part = 1.0 if me and me["id"] in asked else 0.0
@@ -405,9 +424,11 @@ def triage_list(request: Request, tid: int, status: str = ""):
         seen = repo.seen_ids(conn, tid, me["id"])
         left = repo.cleaning_left(conn, tid)
         waiting = [(r["email"], left[r["id"]]) for r in repo.roster(conn, tid) if left.get(r["id"])]
+        # Recorded sessions are read a session at a time, so they are listed that way.
+        sessions = repo.reading_sessions(conn, tid, me["id"])
     return page(
         request, "triage_list.html", user=user, track=track, me=me, at="triage",
-        items=items, counts=counts, status=status, first=first, seen=seen,
+        items=items, counts=counts, status=status, first=first, seen=seen, sessions=sessions,
         mine=left.get(me["id"], 0) + left.get(0, 0), to_clean=to_clean, waiting=waiting,
     )
 
@@ -422,6 +443,8 @@ def triage_item(request: Request, tid: int, token: str):
         frozen = repo.jots_frozen(conn, tid, me["id"])
         read = len(repo.seen_ids(conn, tid, me["id"]))
         back, forward = repo.neighbours(conn, tid, me["id"], item)
+        lines = transcript(conn, item)
+        session = next((s for s in repo.reading_sessions(conn, tid, me["id"]) if s["id"] == item["session_id"]), None)
     # clean: a photo nobody has turned and cropped yet. read: a card in the
     # data. resolve: a lead deciding on one that was flagged or excluded.
     mode = {"untriaged": "clean", "cleared": "read"}.get(item["status"], "resolve")
@@ -429,9 +452,11 @@ def triage_item(request: Request, tid: int, token: str):
     deck = {"back": f"/t/{tid}/triage", "title": "Read", "value": read, "max": cards}
     if mode == "clean":
         deck.update(title="Clean", value=counts["cleared"])
+    elif session:
+        deck.update(title=f"Read · {session['alias']}", value=session["read"], max=session["n"])
     return page(
         request, "triage_item.html", user=user, track=track, me=me, item=item, at="triage", deck=deck,
-        mode=mode, jot=jot, frozen=frozen,
+        mode=mode, jot=jot, frozen=frozen, lines=lines,
         back=f"/t/{tid}/triage/{back}" if back else None, forward=f"/t/{tid}/triage/{forward}" if forward else None,
     )
 
@@ -544,6 +569,29 @@ def image(request: Request, token: str, full: int = 0):
     return Response(images.served(item, uncropped=uncropped), media_type="image/jpeg")
 
 
+@app.get("/video/{token}")
+def video(request: Request, token: str):
+    """An episode's whole recording; the page's player starts it at the
+    episode. Starlette answers Range requests, so the browser fetches only
+    the part it plays."""
+    with db.db() as conn:
+        item = repo.item_by_token(conn, token)
+        if not item:
+            raise HTTPException(404, "No such video.")
+        _, track, me = auth.require(conn, request, item["track_id"])
+        media = repo.media_path(conn, token)
+    if not studies.get(track["dataset_kind"]).has_video or not media:
+        raise HTTPException(404, "This item has no video.")
+    if not repo.can_view_item(item, me["role"]):
+        raise HTTPException(403, "This item is held for a lead.")
+    raw = config.raw_dir().resolve()
+    path = (raw / media).resolve()
+    if not path.is_relative_to(raw) or not path.is_file():
+        raise HTTPException(404, "This item has no video.")
+    # No filename, so no Content-Disposition: it plays, it is not offered as a download.
+    return FileResponse(path, media_type="video/mp4", headers={"Cross-Origin-Resource-Policy": "same-origin"})
+
+
 # ------------------------------------------------------------- items and memos
 
 
@@ -566,11 +614,12 @@ def item_view(request: Request, tid: int, token: str):
         cleared = repo.items_with_status(conn, tid, ["cleared"])
         jot = repo.my_jot(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
+        lines = transcript(conn, item)
     tokens = [i["token"] for i in cleared]
     at = tokens.index(token) if token in tokens else -1
     deck = {"back": f"/t/{tid}/items", "title": "Items", "value": at + 1, "max": len(tokens)}
     return page(
-        request, "item.html", user=user, track=track, me=me, item=item, jot=jot, frozen=frozen, at="items", deck=deck,
+        request, "item.html", user=user, track=track, me=me, item=item, jot=jot, frozen=frozen, at="items", deck=deck, lines=lines,
         previous=tokens[at - 1] if at > 0 else None,
         following=tokens[at + 1] if 0 <= at < len(tokens) - 1 else None,
     )
@@ -884,6 +933,7 @@ def code_form(request: Request, bid: int, token: str):
         tree = repo.version_tree(conn, batch["version_id"]) if batch["version_id"] else []
         own = repo.visible_annotations(conn, batch, me).get((item["id"], me["coder_code"]), set())
         jot = repo.my_jot(conn, me["id"], item["id"])
+        lines = transcript(conn, item)
         codes, on_card, run = [], set(), None
         if batch["kind"] == "starter":
             codes = repo.my_codes(conn, track["id"], me["id"])
@@ -897,7 +947,7 @@ def code_form(request: Request, bid: int, token: str):
         request, "code.html", user=user, track=track, me=me, batch=batch, item=item, tree=tree, at=batch["kind"], deck=deck,
         previous=mine[position - 1]["token"] if position else None,
         following=mine[position + 1]["token"] if position + 1 < len(mine) else None,
-        own=own, jot=jot, position=position + 1, total=len(mine),
+        own=own, jot=jot, position=position + 1, total=len(mine), lines=lines,
         codes=[c for c in codes if c["status"] == "own"], candidates=[c for c in codes if c["status"] == "candidate"], on_card=on_card,
         locked=bool(submitted) or batch["status"] == "closed",
     )

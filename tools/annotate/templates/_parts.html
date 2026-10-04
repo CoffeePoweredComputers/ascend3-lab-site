@@ -40,12 +40,59 @@
 {# What a coder is shown of an item. The hash and submission id are not in the
    row at all (see ITEM_COLUMNS in repo.py), so they cannot be rendered here. #}
 {% macro show(item) %}
+  {% if study.has_video %}
+    {# An episode away from its card: the transcript of the episode alone, and the way to the video. #}
+    <p class="task">{{ where(item) }} · <a href="{{ root }}/t/{{ track.id }}/items/{{ item.token }}">Card</a></p>
+    <div class="submission"><div class="submission__texts">{{ texts(item) }}</div></div>
+  {% else %}
   <p class="task">{{ item.project | replace('_', ' ') }} · {{ item.homework }}</p>
   {# With a photo: the photo on the left, what the student wrote on the right. #}
   <div class="submission {{ 'submission--photo' if study.has_image }}">
     {{ picture(item) }}
     <div class="submission__texts">{{ texts(item) }}</div>
   </div>
+  {% endif %}
+{% endmacro %}
+
+{# Which episode: the session's alias, the stretch of it, and its place in the session. #}
+{% macro where(item) -%}
+  {{ item.alias }} · {{ item.span_start | clock }}–{{ item.span_end | clock }} · {{ item.span_seq + 1 }} of {{ item.episodes }}
+{%- endmacro %}
+
+{# The episode's video, the width of the deck. The address's #t= has the
+   browser start five seconds early and pause at the episode's end.
+   static/player.js drives the buttons; deck.js gives them their keys. #}
+{% macro player(item) %}
+  {% if item.has_media %}
+    {% set lead_in = [item.span_start - 5000, 0] | max %}
+    <video class="player" data-player data-from="{{ lead_in }}" controls controlslist="nodownload" preload="metadata"
+           src="{{ root }}/video/{{ item.token }}#t={{ '%.1f' | format(lead_in / 1000) }},{{ '%.1f' | format(item.span_end / 1000) }}"></video>
+    <p class="tools">
+      <button type="button" class="quiet" data-key=" " data-play><kbd>Space</kbd> Play</button>
+      <button type="button" class="quiet" data-key="," data-skip="-5"><kbd>,</kbd> −5 s</button>
+      <button type="button" class="quiet" data-key="." data-skip="5"><kbd>.</kbd> +5 s</button>
+      <button type="button" class="quiet" data-key=";" data-replay><kbd>;</kbd> Replay</button>
+      <button type="button" class="quiet" data-key="-" data-rate="-1"><kbd>-</kbd> Slower</button>
+      <button type="button" class="quiet" data-key="=" data-rate="1"><kbd>=</kbd> Faster</button>
+      <span class="player__rate" data-rate-shown>1×</span>
+    </p>
+  {% else %}
+    <p class="item-missing">No video.</p>
+  {% endif %}
+{% endmacro %}
+
+{# The episode's lines, with the half minute either side muted. A line's
+   clock plays the video from there. #}
+{% macro transcript(item, lines) %}
+  <ol class="transcript">
+    {% for l in lines %}
+      <li class="line {{ '' if item.seg_first <= l.seq <= item.seg_last else 'line--context' }}">
+        {% if item.has_media %}<button type="button" class="line__at" data-seek="{{ l.t_start_ms }}">{{ l.t_start_ms | clock }}</button>
+        {% else %}<span class="line__at">{{ l.t_start_ms | clock }}</span>{% endif %}
+        <p>{% if loop.changed(l.speaker) %}<b>{{ roles[l.speaker] }}</b> {% endif %}{{ l.text }}</p>
+      </li>
+    {% endfor %}
+  </ol>
 {% endmacro %}
 
 {% macro picture(item) %}

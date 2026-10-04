@@ -1,4 +1,4 @@
-"""Two kinds of study side by side: each has its own parts, guides and
+"""Kinds of study side by side: each has its own parts, guides and
 first page, and the ethics study keeps the student's lens off every page."""
 
 import csv
@@ -12,10 +12,10 @@ from helpers import batch_tokens, new_batch, relock, roster_ids, tokens, track_i
 LENS_WORDS = ("Outcomes: What is the sum", "Character: What does", "Duty: what do I owe", "Moral distance: many hands", "None, or not sure")
 
 
-def test_the_dashboard_shows_both_studies(client):
+def test_the_dashboard_shows_every_study(client):
     home = client.get("/", headers=CODER1).text
-    assert "Demo study (synthetic)" in home and "Ethics questions (synthetic)" in home
-    assert home.count('class="card track"') == 2
+    assert "Demo study (synthetic)" in home and "Ethics questions (synthetic)" in home and "Think-aloud sessions (synthetic)" in home
+    assert home.count('class="card track"') == 3
     assert home.count("<div") == home.count("</div>")  # each card closes
 
 
