@@ -1,0 +1,118 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-walk-calls:1">
+  <header class="slide__head" data-sid="09-walk-calls:2">
+    <p class="slide__kicker" data-sid="09-walk-calls:3">RECURSION &middot; THE CALLS GO DOWN</p>
+    <h2 data-sid="09-walk-calls:4">fact(3) calls fact(2), which calls fact(1)</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09-walk-calls:5">A walkthrough of a six-line method, int fact of int n: if n equals 1, return 1; otherwise return n times fact of n minus 1. A program-counter bar moves through the lines. On the right, the call stack drawn as a column of frames inside a thin box, top up, with main at the bottom waiting on fact of 3. Press one: fact of 3 is called and a new orange frame grows in on top, with n equals 3. Press two: n is not 1. Press three: the last line needs fact of 2 first, so the frame turns grey and a note beside it says waiting on line 5. Presses four to six do the same for fact of 2, with its own n equals 2, on top. Presses seven and eight: fact of 1 grows in on top with n equals 1, and n equals 1 is true: the base case. Press nine: return 1; three frames are waiting under it. The captions say each call gets its own frame with its own n, and that this is the Week 5 stack: the newest call is on top.</p>
+
+  <!-- Concept intro 1 of 3 (the standing rule: walk code, do not define).
+       fact with short names at --t-code under the PC bar; the call stack on
+       the right in one SVG, in canvas px: frames 440 × 88 at a 96 px pitch
+       inside a thin stone box four frames tall, main at the bottom. A call =
+       a frame GrowsFromCenter on top, orange (the frame doing the work); when
+       it reaches line 5 it has to wait for the call it makes, so it turns
+       --bg-1 / --fg-1 and a stone note says where it waits (:has() on the
+       caption of that step). Lines 1, 2 and 5 run once per call (data-also).
+       steps 1–3: fact(3) — called, n is not 1, waits on line 5.
+       steps 4–6: fact(2) — the same.
+       steps 7–9: fact(1) — called, n == 1, return 1 (the base case). -->
+  <div class="slide__body grid grid--code code-mid rc" data-sid="09-walk-calls:6">
+    <div class="stack rc__left" data-sid="09-walk-calls:7">
+      <div class="editor" data-sid="09-walk-calls:8">
+        <p class="editor__bar" data-sid="09-walk-calls:9">fact: n! = n &times; (n &minus; 1)!</p>
+        <div class="editor__pc" data-sid="09-walk-calls:10"></div>
+        <ol class="editor__code" data-sid="09-walk-calls:11">
+          <li class="walkline frag" data-step="1" data-also="4 7" data-sid="09-walk-calls:12"><span class="tok-key" data-sid="09-walk-calls:13">int</span> fact(<span class="tok-key" data-sid="09-walk-calls:14">int</span> n) {</li>
+          <li class="walkline frag" data-step="2" data-also="5 8" data-sid="09-walk-calls:15">    <span class="tok-key" data-sid="09-walk-calls:16">if</span> (n == <span class="tok-num" data-sid="09-walk-calls:17">1</span>) {</li>
+          <li class="walkline frag" data-step="9" data-sid="09-walk-calls:18">        <span class="tok-key" data-sid="09-walk-calls:19">return</span> <span class="tok-num" data-sid="09-walk-calls:20">1</span>;</li>
+          <li data-sid="09-walk-calls:21">    }</li>
+          <li class="walkline frag" data-step="3" data-also="6" data-sid="09-walk-calls:22">    <span class="tok-key" data-sid="09-walk-calls:23">return</span> n * fact(n - <span class="tok-num" data-sid="09-walk-calls:24">1</span>);</li>
+          <li data-sid="09-walk-calls:25">}</li>
+        </ol>
+      </div>
+      <div class="rc__caps" data-sid="09-walk-calls:26">
+        <p class="rc__cap cap--1 frag" data-step="1" data-sid="09-walk-calls:27">main calls fact(3). A new frame goes on top of the call stack, with its own n = 3.</p>
+        <p class="rc__cap cap--2 frag" data-step="2" data-sid="09-walk-calls:28">Is n == 1? n is 3, so no.</p>
+        <p class="rc__cap cap--3 frag" data-step="3" data-sid="09-walk-calls:29">To return 3 * fact(2), it needs fact(2) first. fact(3) waits on line 5.</p>
+        <p class="rc__cap cap--4 frag" data-step="4" data-sid="09-walk-calls:30">fact(2) gets its own frame and its own n = 2. The n = 3 below is untouched.</p>
+        <p class="rc__cap cap--5 frag" data-step="5" data-sid="09-walk-calls:31">Is n == 1? n is 2, so no.</p>
+        <p class="rc__cap cap--6 frag" data-step="6" data-sid="09-walk-calls:32">2 * fact(1) needs fact(1) first. fact(2) waits on line 5 too.</p>
+        <p class="rc__cap cap--7 frag" data-step="7" data-sid="09-walk-calls:33">fact(1): a third frame, n = 1. Newest call on top: this is the Week 5 stack.</p>
+        <p class="rc__cap cap--8 frag" data-step="8" data-sid="09-walk-calls:34">Is n == 1? Yes. This is the base case.</p>
+        <p class="rc__cap cap--9 frag" data-step="9" data-sid="09-walk-calls:35">fact(1) returns 1 without calling anything. Three frames are waiting under it.</p>
+      </div>
+    </div>
+    <svg class="rc__fig" viewBox="0 0 990 690" role="img" aria-label="The call stack as a column of frames, top up: main at the bottom, then fact of 3, fact of 2 and fact of 1, each with its own n, the lower ones waiting on line 5" data-sid="09-walk-calls:36">
+      <rect class="rc__box" x="20" y="240" width="480" height="392" rx="14" data-sid="09-walk-calls:37"/>
+      <text class="rc__lab" x="260" y="672" data-sid="09-walk-calls:38">call stack</text>
+      <!-- main: the caller; it waits from the moment it calls fact(3) -->
+      <g class="fr fr--wait" data-sid="09-walk-calls:39">
+        <rect x="40" y="536" width="440" height="88" rx="10" data-sid="09-walk-calls:40"/>
+        <text class="fr__call" x="64" y="592" data-sid="09-walk-calls:41">main</text>
+      </g>
+      <text class="fr__note fr__note--main" x="512" y="588" data-sid="09-walk-calls:42">waiting on fact(3)</text>
+      <!-- fact(3) -->
+      <g class="fr fr--3 frag" data-step="1" data-sid="09-walk-calls:43">
+        <rect x="40" y="440" width="440" height="88" rx="10" data-sid="09-walk-calls:44"/>
+        <text class="fr__call" x="64" y="496" data-sid="09-walk-calls:45">fact(3)</text>
+        <text class="fr__loc" x="456" y="494" data-sid="09-walk-calls:46">n = 3</text>
+      </g>
+      <text class="fr__note fr__note--3" x="512" y="492" data-sid="09-walk-calls:47">waiting on line 5</text>
+      <!-- fact(2) -->
+      <g class="fr fr--2 frag" data-step="4" data-sid="09-walk-calls:48">
+        <rect x="40" y="344" width="440" height="88" rx="10" data-sid="09-walk-calls:49"/>
+        <text class="fr__call" x="64" y="400" data-sid="09-walk-calls:50">fact(2)</text>
+        <text class="fr__loc" x="456" y="398" data-sid="09-walk-calls:51">n = 2</text>
+      </g>
+      <text class="fr__note fr__note--2" x="512" y="396" data-sid="09-walk-calls:52">waiting on line 5</text>
+      <!-- fact(1): the base case -->
+      <g class="fr fr--1 frag" data-step="7" data-sid="09-walk-calls:53">
+        <rect x="40" y="248" width="440" height="88" rx="10" data-sid="09-walk-calls:54"/>
+        <text class="fr__call" x="64" y="304" data-sid="09-walk-calls:55">fact(1)</text>
+        <text class="fr__loc" x="456" y="302" data-sid="09-walk-calls:56">n = 1</text>
+      </g>
+      <text class="fr__note fr__note--1" x="512" y="300" data-sid="09-walk-calls:57">base case: returns 1</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="09-walk-calls:58"></div>
+  <aside class="notes" data-sid="09-walk-calls:59">The 7.3 module&rsquo;s factorial with short names: fact of n is n times fact of n minus 1, and fact of 1 is 1. One new idea: the method calls itself. Watch the stack on the right; it is the same stack as Week 5, holding method calls instead of strings. Step 1 &mdash; main calls fact(3): a new frame on top, with its own n = 3. Step 2 &mdash; n is not 1. Step 3 &mdash; to compute 3 * fact(2) it has to call fact(2) first, so fact(3) stops on line 5 and waits. Step 4 &mdash; fact(2) gets its own frame. Two different n&rsquo;s exist now, 3 and 2, one per frame; nothing overwrites the other. Step 5 &mdash; n is not 1. Step 6 &mdash; fact(2) waits on line 5 for fact(1). Step 7 &mdash; fact(1): a third frame, newest on top. Step 8 &mdash; n == 1: this is the base case, the case the method answers without calling itself. Step 9 &mdash; fact(1) returns 1. Ask: where does that 1 go? Next: the answers come back up.</aside>
+
+  <style data-sid="09-walk-calls:60">
+    /* Slide-local: the call-stack grammar shared with Day 2. Editor at
+       --t-code (the 27-character line 5 is 518 px + 70 of chrome) in a 620 px
+       column with one caption at a time under it; the stack in one SVG on
+       the right in canvas px. A frame is a rounded rect with the call in
+       mono on the left and its local on the right; the running frame is the
+       orange 18% tint with an orange stroke, a waiting frame is --bg-1 with a
+       --fg-1 stroke and a stone note beside it. Frames GrowFromCenter; the
+       switch to waiting is a colour crossfade keyed to the caption through
+       :has(). All values from tokens; used by this slide only. */
+    #slide-09 .rc { grid-template-columns: 620px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-09 .rc__fig { display: block; width: 100%; height: 690px; overflow: visible; }
+    #slide-09 .rc__caps { display: grid; }
+    #slide-09 .rc__caps > * { grid-area: 1 / 1; }
+    #slide-09 .slide__body p.rc__cap { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.3; color: var(--accent-1); transition: opacity .3s ease; }
+    #slide-09 .frag.rc__cap.is-current { transition-delay: .3s; }
+    #slide-09 .frag.rc__cap.is-past { opacity: 0; transition-delay: 0s; }
+
+    #slide-09 .rc__box { fill: none; stroke: var(--stone); stroke-width: 3; }
+    #slide-09 .rc__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-09 .fr rect { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .4s ease, stroke .4s ease; }
+    #slide-09 .fr--wait rect,
+    #slide-09 .rc:has(.cap--3:not(.is-pending)) .fr--3 rect,
+    #slide-09 .rc:has(.cap--6:not(.is-pending)) .fr--2 rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-09 .fr__call { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); }
+    #slide-09 .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; }
+    #slide-09 .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .45s var(--ease-smooth); }
+    #slide-09 .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-09 .fr__note { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-09 .rc:has(.cap--1:not(.is-pending)) .fr__note--main,
+    #slide-09 .rc:has(.cap--3:not(.is-pending)) .fr__note--3,
+    #slide-09 .rc:has(.cap--6:not(.is-pending)) .fr__note--2 { opacity: 1; }
+    #slide-09 .rc:has(.cap--8:not(.is-pending)) .fr__note--1 { opacity: 1; fill: var(--accent-3); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09 .fr, #slide-09 .fr rect, #slide-09 .fr__note, #slide-09 .rc__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

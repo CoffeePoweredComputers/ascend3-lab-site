@@ -1,0 +1,153 @@
+<section class="slide slide--warmup" id="slide-09c" data-sid="09c-walk-base:1">
+  <header class="slide__head" data-sid="09c-walk-base:2">
+    <p class="slide__kicker" data-sid="09c-walk-base:3">RECURSION &middot; NO BASE CASE</p>
+    <h2 data-sid="09c-walk-base:4">Without a base case, the calls never stop</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09c-walk-base:5">The same method and call stack, with only main on the stack. Press one: the three base-case lines, if n equals 1, return 1, and the closing brace, are struck through and turn grey; the caption says take the base case out and run the same call, fact of 3. Presses two to four: fact of 3, fact of 2 and fact of 1 each grow a new frame on top, the one below turning grey to wait. Press five: fact of 0 grows in above the top of the stack&rsquo;s box. Press six: fact of minus 1 and a column of dots grow in above it; n only gets smaller and nothing ever returns. Press seven: the box edge turns maroon and the word StackOverflowError appears beside the stack in maroon. Press eight: the stack clears, the strike-through lifts, and the code is labelled: lines 2 to 4 tinted blue, the base case, which stops the calls; line 5 tinted orange, the recursive case, which calls itself on a smaller n.</p>
+
+  <!-- Concept intro 3 of 3: the two parts, shown by removing one. The same
+       picture is transformed in place (no second copy): the base-case lines
+       are struck where they are (a stroke drawn left to right, the text to
+       stone), the same call runs again, and the frames climb past the top of
+       the box — fact(0), fact(-1), dots — until the box edge turns maroon and
+       StackOverflowError appears (maroon = failure). Then the stack clears,
+       the strikes retract, and the two parts are named on the code with two
+       tints: blue for the base case, orange for the recursive case.
+       step 1: strike lines 2–4.   steps 2–6: one call per press.
+       step 7: StackOverflowError. step 8: clear, restore, name the parts. -->
+  <div class="slide__body grid grid--code code-mid rc" data-sid="09c-walk-base:6">
+    <div class="stack rc__left" data-sid="09c-walk-base:7">
+      <div class="editor" data-sid="09c-walk-base:8">
+        <p class="editor__bar" data-sid="09c-walk-base:9">fact: n! = n &times; (n &minus; 1)!</p>
+        <div class="editor__pc" data-sid="09c-walk-base:10"></div>
+        <ol class="editor__code" data-sid="09c-walk-base:11">
+          <li data-sid="09c-walk-base:12"><span class="tok-key" data-sid="09c-walk-base:13">int</span> fact(<span class="tok-key" data-sid="09c-walk-base:14">int</span> n) {</li>
+          <li class="walkline frag bc" data-step="1" data-sid="09c-walk-base:15">    <span class="bc__t" data-sid="09c-walk-base:16"><span class="tok-key" data-sid="09c-walk-base:17">if</span> (n == <span class="tok-num" data-sid="09c-walk-base:18">1</span>) {</span></li>
+          <li class="walkline frag bc" data-step="1" data-sid="09c-walk-base:19">        <span class="bc__t" data-sid="09c-walk-base:20"><span class="tok-key" data-sid="09c-walk-base:21">return</span> <span class="tok-num" data-sid="09c-walk-base:22">1</span>;</span></li>
+          <li class="walkline frag bc" data-step="1" data-sid="09c-walk-base:23">    <span class="bc__t" data-sid="09c-walk-base:24">}</span></li>
+          <li class="walkline frag rcase" data-step="2" data-hold="7" data-sid="09c-walk-base:25">    <span class="tok-key" data-sid="09c-walk-base:26">return</span> n * fact(n - <span class="tok-num" data-sid="09c-walk-base:27">1</span>);</li>
+          <li data-sid="09c-walk-base:28">}</li>
+        </ol>
+      </div>
+      <div class="rc__caps" data-sid="09c-walk-base:29">
+        <p class="rc__cap cap--1 frag" data-step="1" data-sid="09c-walk-base:30">Take the base case out. Run the same call again: fact(3).</p>
+        <p class="rc__cap cap--2 frag" data-step="2" data-sid="09c-walk-base:31">fact(3) calls fact(2), as before.</p>
+        <p class="rc__cap cap--3 frag" data-step="3" data-sid="09c-walk-base:32">fact(2) calls fact(1).</p>
+        <p class="rc__cap cap--4 frag" data-step="4" data-sid="09c-walk-base:33">fact(1) used to stop. Now nothing checks n, so it calls fact(0).</p>
+        <p class="rc__cap cap--5 frag" data-step="5" data-sid="09c-walk-base:34">fact(0) calls fact(-1). n only gets smaller and never reaches 1 again.</p>
+        <p class="rc__cap cap--6 frag" data-step="6" data-sid="09c-walk-base:35">Every call adds a frame. None of them ever returns, so none comes off.</p>
+        <p class="rc__cap rc__cap--fail cap--7 frag" data-step="7" data-sid="09c-walk-base:36">Java runs out of room for frames: StackOverflowError.</p>
+        <div class="rc__cap rc__legend cap--8 frag" data-step="8" data-sid="09c-walk-base:37">
+          <p class="rc__row" data-sid="09c-walk-base:38"><span class="rc__sw rc__sw--base" data-sid="09c-walk-base:39"></span><span data-sid="09c-walk-base:40"><b data-sid="09c-walk-base:41">Base case</b>, lines 2&ndash;4: stops the calls.</span></p>
+          <p class="rc__row" data-sid="09c-walk-base:42"><span class="rc__sw rc__sw--rec" data-sid="09c-walk-base:43"></span><span data-sid="09c-walk-base:44"><b data-sid="09c-walk-base:45">Recursive case</b>, line 5: calls itself on a smaller n.</span></p>
+        </div>
+      </div>
+    </div>
+    <svg class="rc__fig" viewBox="0 0 990 690" role="img" aria-label="The call stack growing without end: fact of 3, 2, 1, 0 and minus 1 pile up past the top of the stack's box, ending in a StackOverflowError" data-sid="09c-walk-base:46">
+      <rect class="rc__box" x="20" y="240" width="480" height="392" rx="14" data-sid="09c-walk-base:47"/>
+      <text class="rc__lab" x="260" y="672" data-sid="09c-walk-base:48">call stack</text>
+      <g class="fr fr--wait" data-sid="09c-walk-base:49">
+        <rect x="40" y="536" width="440" height="88" rx="10" data-sid="09c-walk-base:50"/>
+        <text class="fr__call" x="64" y="592" data-sid="09c-walk-base:51">main</text>
+      </g>
+      <g class="fr fr--3 frag" data-step="2" data-sid="09c-walk-base:52">
+        <rect x="40" y="440" width="440" height="88" rx="10" data-sid="09c-walk-base:53"/>
+        <text class="fr__call" x="64" y="496" data-sid="09c-walk-base:54">fact(3)</text>
+        <text class="fr__loc" x="456" y="494" data-sid="09c-walk-base:55">n = 3</text>
+      </g>
+      <g class="fr fr--2 frag" data-step="3" data-sid="09c-walk-base:56">
+        <rect x="40" y="344" width="440" height="88" rx="10" data-sid="09c-walk-base:57"/>
+        <text class="fr__call" x="64" y="400" data-sid="09c-walk-base:58">fact(2)</text>
+        <text class="fr__loc" x="456" y="398" data-sid="09c-walk-base:59">n = 2</text>
+      </g>
+      <g class="fr fr--1 frag" data-step="4" data-sid="09c-walk-base:60">
+        <rect x="40" y="248" width="440" height="88" rx="10" data-sid="09c-walk-base:61"/>
+        <text class="fr__call" x="64" y="304" data-sid="09c-walk-base:62">fact(1)</text>
+        <text class="fr__loc" x="456" y="302" data-sid="09c-walk-base:63">n = 1</text>
+      </g>
+      <g class="fr fr--0 frag" data-step="5" data-sid="09c-walk-base:64">
+        <rect x="40" y="152" width="440" height="88" rx="10" data-sid="09c-walk-base:65"/>
+        <text class="fr__call" x="64" y="208" data-sid="09c-walk-base:66">fact(0)</text>
+        <text class="fr__loc" x="456" y="206" data-sid="09c-walk-base:67">n = 0</text>
+      </g>
+      <g class="fr fr--m1 frag" data-step="6" data-sid="09c-walk-base:68">
+        <rect x="40" y="56" width="440" height="88" rx="10" data-sid="09c-walk-base:69"/>
+        <text class="fr__call" x="64" y="112" data-sid="09c-walk-base:70">fact(-1)</text>
+        <text class="fr__loc" x="456" y="110" data-sid="09c-walk-base:71">n = -1</text>
+      </g>
+      <g class="fr__dots frag" data-step="6" data-sid="09c-walk-base:72"><circle cx="260" cy="40" r="5" data-sid="09c-walk-base:73"/><circle cx="260" cy="24" r="5" data-sid="09c-walk-base:74"/><circle cx="260" cy="8" r="5" data-sid="09c-walk-base:75"/></g>
+      <text class="rc__err frag" data-step="7" data-anim="fade" x="520" y="112" data-sid="09c-walk-base:76">StackOverflowError</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="09c-walk-base:77"></div>
+  <aside class="notes" data-sid="09c-walk-base:78">What makes it stop? Take the base case out and see. Step 1 &mdash; lines 2 to 4 are gone; the method still compiles, it just always calls itself. Step 2 &mdash; same call, fact(3); it calls fact(2). Step 3 &mdash; fact(2) calls fact(1). Step 4 &mdash; fact(1) used to answer 1. Now nothing checks n, so it calls fact(0). Step 5 &mdash; fact(0) calls fact(-1); n keeps getting smaller and never comes back to 1. Step 6 &mdash; every call is a new frame, and no call ever returns, so no frame ever comes off. Step 7 &mdash; the stack has a fixed amount of memory; when it is full, Java throws StackOverflowError. If you see that in your homework, look for a missing or unreachable base case. Step 8 &mdash; so every recursive method has two parts: a base case that answers without calling itself, which stops the calls, and a recursive case that calls itself on a smaller problem, a smaller n, so the calls get closer to the base case. Those are the 7.3 module&rsquo;s words. Next: Part 3, the third question.</aside>
+
+  <style data-sid="09c-walk-base:79">
+    /* Slide-local: 09's call-stack grammar transformed in place. The struck
+       lines: each line's text is wrapped in a span whose ::after is a stroke
+       drawn left to right (scaleX, Create) while the text crossfades to
+       stone; step 8 retracts the stroke. The frames climb past the box top
+       (y 240) one per press, the dots grow in with fact(-1); the box edge
+       and the error take maroon at step 7 (failure); at step 8 the frames
+       fade, and lines 2–4 / line 5 take a blue / orange tint that the legend
+       under the editor names. All keyed to captions through :has(). All
+       values from tokens; used by this slide only. */
+    #slide-09c .rc { grid-template-columns: 620px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-09c .rc__fig { display: block; width: 100%; height: 690px; overflow: visible; }
+    #slide-09c .rc__caps { display: grid; }
+    #slide-09c .rc__caps > * { grid-area: 1 / 1; }
+    #slide-09c .slide__body .rc__cap { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.3; color: var(--accent-1); transition: opacity .3s ease; }
+    #slide-09c .frag.rc__cap.is-current { transition-delay: .3s; }
+    #slide-09c .frag.rc__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-09c .slide__body .rc__legend { display: grid; row-gap: var(--s-1); color: var(--fg-0); }
+    #slide-09c .slide__body p.rc__row { display: flex; align-items: center; gap: var(--s-2); margin: 0; font-size: var(--t-small); line-height: 1.3; }
+    #slide-09c .rc__row b { font-weight: 700; }
+    #slide-09c .rc__sw { flex: 0 0 auto; width: 32px; height: 32px; border-radius: var(--r-1); }
+    #slide-09c .rc__sw--base { background: color-mix(in srgb, var(--accent-2) 30%, var(--bg-0)); border: 3px solid var(--accent-2); }
+    #slide-09c .rc__sw--rec { background: color-mix(in srgb, var(--accent-3) 30%, var(--bg-0)); border: 3px solid var(--accent-3); }
+
+    /* the strike: drawn on at step 1, lifted at step 8 */
+    #slide-09c .bc__t { position: relative; display: inline-block; transition: color .4s ease; }
+    #slide-09c .bc__t * { transition: color .4s ease; }
+    #slide-09c .bc__t::after { content: ""; position: absolute; left: -4px; right: -4px; top: calc(50% - 2px); border-top: 4px solid var(--fg-1); transform: scaleX(0); transform-origin: left center; transition: transform .45s var(--ease-smooth); }
+    #slide-09c .rc:has(.cap--1:not(.is-pending)) .bc__t,
+    #slide-09c .rc:has(.cap--1:not(.is-pending)) .bc__t * { color: var(--stone); }
+    #slide-09c .rc:has(.cap--1:not(.is-pending)) .bc__t::after { transform: scaleX(1); }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .bc__t { color: var(--fg-0); }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .bc__t .tok-key { color: var(--accent-1); }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .bc__t .tok-num { color: var(--accent-2); }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .bc__t::after { transform: scaleX(0); }
+    /* step 8: the two parts, named by tint */
+    #slide-09c .editor__code li.bc, #slide-09c .editor__code li.rcase { transition: background-color .5s ease; }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .editor__code li.bc { background-color: color-mix(in srgb, var(--accent-2) 16%, transparent); }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .editor__code li.rcase { background-color: color-mix(in srgb, var(--accent-3) 18%, transparent); }
+
+    /* the stack */
+    #slide-09c .rc__box { fill: none; stroke: var(--stone); stroke-width: 3; transition: stroke .4s ease; }
+    #slide-09c .rc:has(.cap--7:not(.is-pending)) .rc__box { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .rc__box { stroke: var(--stone); stroke-width: 3; }
+    #slide-09c .rc__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-09c .fr rect { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .4s ease, stroke .4s ease; }
+    #slide-09c .fr--wait rect,
+    #slide-09c .rc:has(.cap--3:not(.is-pending)) .fr--3 rect,
+    #slide-09c .rc:has(.cap--4:not(.is-pending)) .fr--2 rect,
+    #slide-09c .rc:has(.cap--5:not(.is-pending)) .fr--1 rect,
+    #slide-09c .rc:has(.cap--6:not(.is-pending)) .fr--0 rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-09c .fr__call { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); }
+    #slide-09c .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; }
+    #slide-09c .fr, #slide-09c .fr__dots { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .45s var(--ease-smooth); }
+    #slide-09c .frag.fr.is-pending, #slide-09c .frag.fr__dots.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-09c .fr__dots { fill: var(--stone); }
+    #slide-09c .frag.fr__dots.is-current { transition-delay: .3s; }
+    #slide-09c .rc__err { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); transition: opacity .3s ease; }
+    /* step 8: the overflowed stack clears; main stays */
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .frag.fr,
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .fr__dots,
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .rc__err { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09c .fr, #slide-09c .fr rect, #slide-09c .fr__dots, #slide-09c .rc__err, #slide-09c .rc__box, #slide-09c .rc__cap,
+      #slide-09c .bc__t, #slide-09c .bc__t *, #slide-09c .bc__t::after, #slide-09c .editor__code li.bc, #slide-09c .editor__code li.rcase { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,75 @@
+<section class="slide slide--warmup" id="slide-11" data-sid="11-vote-countdown:1">
+  <header class="slide__head" data-sid="11-vote-countdown:2">
+    <p class="slide__kicker" data-sid="11-vote-countdown:3">PEER INSTRUCTION &middot; VOTE 3</p>
+    <h2 data-sid="11-vote-countdown:4">Which calls does countDown(0, &hellip;) make?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="11-vote-countdown:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="11-vote-countdown:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="11-vote-countdown:7"/><g class="timer__ticks" data-sid="11-vote-countdown:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="11-vote-countdown:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="11-vote-countdown:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="11-vote-countdown:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="11-vote-countdown:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="11-vote-countdown:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="11-vote-countdown:14"/><g class="timer__hand" data-sid="11-vote-countdown:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="11-vote-countdown:16"/></g><text class="timer__time" x="75" y="88" data-sid="11-vote-countdown:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="11-vote-countdown:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="11-vote-countdown:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="11-vote-countdown:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="11-vote-countdown:21"/><g class="timer__ticks" data-sid="11-vote-countdown:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="11-vote-countdown:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="11-vote-countdown:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="11-vote-countdown:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="11-vote-countdown:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="11-vote-countdown:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="11-vote-countdown:28"/><g class="timer__hand" data-sid="11-vote-countdown:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="11-vote-countdown:30"/></g><text class="timer__time" x="75" y="88" data-sid="11-vote-countdown:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="11-vote-countdown:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="11-vote-countdown:33">A peer-instruction question. Under the title, the stem in muted type: if client code calls countDown of 0 and GAMEOVER, what is the order of the subsequent method calls? Below it, two panels. Left, an editor with the method: public void countDown, int leadTime, String message; print leadTime followed by three dots; if leadTime is less than 5, call countDown with leadTime plus 1 and message; else print message. Right, the four options as rows, each led by a maroon disc with its letter: A, countDown 4, 3, 2, 1, 0; B, countDown 4, 3, 2, 1; C, countDown 1, 2, 3, 4, 5; D, countDown 1, 2, 3, 4; each call with the message GAMEOVER. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout: the stem verbatim as the lede (its curly
+       quotes kept), the method in an editor at the dense size on the left
+       (927 px: the 51-character signature at 16.8 px + 70 of chrome), and the
+       four options on the right in JetBrains Mono at the tag size, with
+       56 px key discs and 8 px rows: at the micro size they wrap to five
+       lines each and ran 117 px past the body; at 21 px they take three. Static: only the clocks build; the answer slide
+       traces the calls on the call stack. Peer Instruction W07D1, question
+       3 of 3. -->
+  <div class="slide__body code-dense" data-sid="11-vote-countdown:34">
+    <p class="vote__stem" data-sid="11-vote-countdown:35">If client code calls countDown(0,&rdquo;GAMEOVER&rdquo;), what is the order of the subsequent method calls?</p>
+    <div class="vote__panels vc__panels" data-sid="11-vote-countdown:36">
+      <div class="editor vc__editor" data-sid="11-vote-countdown:37">
+        <p class="editor__bar" data-sid="11-vote-countdown:38">countDown</p>
+        <ol class="editor__code" data-sid="11-vote-countdown:39">
+          <li data-sid="11-vote-countdown:40"><span class="tok-key" data-sid="11-vote-countdown:41">public void</span> countDown(<span class="tok-key" data-sid="11-vote-countdown:42">int</span> leadTime, String message)</li>
+          <li data-sid="11-vote-countdown:43">{</li>
+          <li data-sid="11-vote-countdown:44">    System.out.println(leadTime + "...");</li>
+          <li data-sid="11-vote-countdown:45">    <span class="tok-key" data-sid="11-vote-countdown:46">if</span> (leadTime &lt; <span class="tok-num" data-sid="11-vote-countdown:47">5</span>)</li>
+          <li data-sid="11-vote-countdown:48">    {</li>
+          <li data-sid="11-vote-countdown:49">        countDown(leadTime + <span class="tok-num" data-sid="11-vote-countdown:50">1</span>, message);</li>
+          <li data-sid="11-vote-countdown:51">    }</li>
+          <li data-sid="11-vote-countdown:52">    <span class="tok-key" data-sid="11-vote-countdown:53">else</span> {</li>
+          <li data-sid="11-vote-countdown:54">        System.out.println(message);</li>
+          <li data-sid="11-vote-countdown:55">    }</li>
+          <li data-sid="11-vote-countdown:56">}</li>
+        </ol>
+      </div>
+      <ol class="vote__opts vote__opts--long vc__opts" data-sid="11-vote-countdown:57">
+        <li class="vote__opt" data-sid="11-vote-countdown:58"><span class="vote__key" data-sid="11-vote-countdown:59">A</span><p class="vote__text" data-sid="11-vote-countdown:60"><code data-sid="11-vote-countdown:61"><span class="vc__call" data-sid="11-vote-countdown:77">countDown(4, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:78">countDown(3, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:79">countDown(2, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:80">countDown(1, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:81">countDown(0, &ldquo;GAMEOVER&rdquo;)</span></code></p></li>
+        <li class="vote__opt" data-sid="11-vote-countdown:62"><span class="vote__key" data-sid="11-vote-countdown:63">B</span><p class="vote__text" data-sid="11-vote-countdown:64"><code data-sid="11-vote-countdown:65"><span class="vc__call" data-sid="11-vote-countdown:82">countDown(4, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:83">countDown(3, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:84">countDown(2, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:85">countDown(1, &ldquo;GAMEOVER&rdquo;)</span></code></p></li>
+        <li class="vote__opt" data-sid="11-vote-countdown:66"><span class="vote__key" data-sid="11-vote-countdown:67">C</span><p class="vote__text" data-sid="11-vote-countdown:68"><code data-sid="11-vote-countdown:69"><span class="vc__call" data-sid="11-vote-countdown:86">countDown(1, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:87">countDown(2, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:88">countDown(3, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:89">countDown(4, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:90">countDown(5, &ldquo;GAMEOVER&rdquo;)</span></code></p></li>
+        <li class="vote__opt" data-sid="11-vote-countdown:70"><span class="vote__key" data-sid="11-vote-countdown:71">D</span><p class="vote__text" data-sid="11-vote-countdown:72"><code data-sid="11-vote-countdown:73"><span class="vc__call" data-sid="11-vote-countdown:91">countDown(1, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:92">countDown(2, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:93">countDown(3, &ldquo;GAMEOVER&rdquo;),</span> <span class="vc__call" data-sid="11-vote-countdown:94">countDown(4, &ldquo;GAMEOVER&rdquo;)</span></code></p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="11-vote-countdown:74"></div>
+  <aside class="notes" data-sid="11-vote-countdown:75">Answer: C &mdash; countDown 1, 2, 3, 4, 5 [key ASSUMED by tracing; the PrairieLearn twin u09q02_recursion_countdown_c has the same code and marks this option correct; confirm in Runestone]. The question as printed: client code calls countDown(0, &ldquo;GAMEOVER&rdquo;); what is the order of the calls that follow? Press once: the 1:30 vote clock; press again for the 2:30 discuss clock; press again to move on. The discussion question for the groups: which way does leadTime move, and on which value does the if stop calling? Draw the stack if it helps. Runestone: Peer Instruction W07D1, question 3 of 3 [activity id not known].</aside>
+
+  <style data-sid="11-vote-countdown:76">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js) */
+    #slide-11 .timer { top: var(--s-6); }
+    #slide-11 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-11 .frag.timer.is-past { opacity: .55; }
+    #slide-11 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-11 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-11 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the editor at the dense size (code-dense on the body) in a
+       927 px left panel; the options are calls, so they are set in mono at
+       the tag size, with a 56 px key disc instead of 80 to give the text
+       the width. All values from tokens; used by this slide only. */
+    #slide-11 .vote__stem { max-width: none; }
+    #slide-11 .vc__panels { grid-template-columns: 927px minmax(0, 1fr); column-gap: var(--s-3); align-items: start; }
+    #slide-11 .vc__editor { width: 927px; }
+    #slide-11 .vc__opts .vote__opt { padding: var(--s-1) 0; gap: var(--s-1); }
+    #slide-11 .vc__opts .vote__key { flex: 0 0 48px; width: 48px; height: 48px; font-size: var(--t-small); }
+    #slide-11 .vc__opts .vote__text { font-size: var(--t-tag); line-height: 1.35; }
+    /* a call never breaks in the middle: lines hold two whole calls (2 × 25 mono characters + a space = 643 px of the 657 available), so the numbers line up down each option */
+    #slide-11 .vc__call { white-space: nowrap; }
+    #slide-11 .vc__opts .vote__text code { font-family: var(--font-mono); font-size: 1em; }
+  </style>
+</section>

@@ -1,0 +1,67 @@
+<section class="slide slide--warmup" id="slide-07" data-sid="07-vote-mirror:1">
+  <header class="slide__head" data-sid="07-vote-mirror:2">
+    <p class="slide__kicker" data-sid="07-vote-mirror:3">PEER INSTRUCTION &middot; VOTE 2</p>
+    <h2 data-sid="07-vote-mirror:4">A print on both sides of the call: what comes out?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="07-vote-mirror:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="07-vote-mirror:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="07-vote-mirror:7"/><g class="timer__ticks" data-sid="07-vote-mirror:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="07-vote-mirror:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="07-vote-mirror:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="07-vote-mirror:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="07-vote-mirror:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="07-vote-mirror:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="07-vote-mirror:14"/><g class="timer__hand" data-sid="07-vote-mirror:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="07-vote-mirror:16"/></g><text class="timer__time" x="75" y="88" data-sid="07-vote-mirror:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="07-vote-mirror:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="07-vote-mirror:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="07-vote-mirror:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="07-vote-mirror:21"/><g class="timer__ticks" data-sid="07-vote-mirror:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="07-vote-mirror:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="07-vote-mirror:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="07-vote-mirror:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="07-vote-mirror:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="07-vote-mirror:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="07-vote-mirror:28"/><g class="timer__hand" data-sid="07-vote-mirror:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="07-vote-mirror:30"/></g><text class="timer__time" x="75" y="88" data-sid="07-vote-mirror:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="07-vote-mirror:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="07-vote-mirror:33">A peer-instruction question. Under the title, the stem in muted type: consider the following method. Left, an editor with nine lines: public void mirror of int n; if n is less than or equal to 0, print 0 and a space; else print n and a space, call mirror of n minus 2, then print n and a space again. Right, the question: if mirror of 4 was called, what would be the output? Then four options in code type, each led by a maroon disc with its letter. A: 4 2 0 2 4. B: 4 3 2 1 0 1 2 3 4. C: 2 0 2. D: 0 4 2 4 0. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- 06's layout: the stem's lead-in as the lede, the method at the dense
+       size on the left, the question sentence over the options on the right.
+       The options are printed output, so they are set in mono. Static: only
+       the clocks build; 07b walks it. Peer Instruction W07D2, question 2 of 3
+       (activity id not seen). -->
+  <div class="slide__body code-dense" data-sid="07-vote-mirror:34">
+    <p class="vote__stem" data-sid="07-vote-mirror:35">Consider the following method:</p>
+    <div class="vote__panels vm__panels" data-sid="07-vote-mirror:36">
+      <div class="editor vm__editor" data-sid="07-vote-mirror:37">
+        <p class="editor__bar" data-sid="07-vote-mirror:38">mirror</p>
+        <ol class="editor__code" data-sid="07-vote-mirror:39">
+          <li data-sid="07-vote-mirror:40"><span class="tok-key" data-sid="07-vote-mirror:41">public void</span> mirror(<span class="tok-key" data-sid="07-vote-mirror:42">int</span> n) {</li>
+          <li data-sid="07-vote-mirror:43">    <span class="tok-key" data-sid="07-vote-mirror:44">if</span> (n &lt;= <span class="tok-num" data-sid="07-vote-mirror:45">0</span>) {</li>
+          <li data-sid="07-vote-mirror:46">        System.out.print(<span class="tok-num" data-sid="07-vote-mirror:47">"0 "</span>);</li>
+          <li data-sid="07-vote-mirror:48">    } <span class="tok-key" data-sid="07-vote-mirror:49">else</span> {</li>
+          <li data-sid="07-vote-mirror:50">        System.out.print(n + <span class="tok-num" data-sid="07-vote-mirror:51">" "</span>);</li>
+          <li data-sid="07-vote-mirror:52">        mirror(n - <span class="tok-num" data-sid="07-vote-mirror:53">2</span>);</li>
+          <li data-sid="07-vote-mirror:54">        System.out.print(n + <span class="tok-num" data-sid="07-vote-mirror:55">" "</span>);</li>
+          <li data-sid="07-vote-mirror:56">    }</li>
+          <li data-sid="07-vote-mirror:57">}</li>
+        </ol>
+      </div>
+      <div class="vm__right" data-sid="07-vote-mirror:58">
+        <p class="vote__stem vm__q" data-sid="07-vote-mirror:59">If <code data-sid="07-vote-mirror:60">mirror(4)</code> was called, what would be the output?</p>
+        <ol class="vote__opts" data-sid="07-vote-mirror:61">
+          <li class="vote__opt" data-sid="07-vote-mirror:62"><span class="vote__key" data-sid="07-vote-mirror:63">A</span><p class="vote__text" data-sid="07-vote-mirror:64"><code data-sid="07-vote-mirror:65">4 2 0 2 4</code></p></li>
+          <li class="vote__opt" data-sid="07-vote-mirror:66"><span class="vote__key" data-sid="07-vote-mirror:67">B</span><p class="vote__text" data-sid="07-vote-mirror:68"><code data-sid="07-vote-mirror:69">4 3 2 1 0 1 2 3 4</code></p></li>
+          <li class="vote__opt" data-sid="07-vote-mirror:70"><span class="vote__key" data-sid="07-vote-mirror:71">C</span><p class="vote__text" data-sid="07-vote-mirror:72"><code data-sid="07-vote-mirror:73">2 0 2</code></p></li>
+          <li class="vote__opt" data-sid="07-vote-mirror:74"><span class="vote__key" data-sid="07-vote-mirror:75">D</span><p class="vote__text" data-sid="07-vote-mirror:76"><code data-sid="07-vote-mirror:77">0 4 2 4 0</code></p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07-vote-mirror:78"></div>
+  <aside class="notes" data-sid="07-vote-mirror:79">Answer: A &mdash; 4 2 0 2 4 [ASSUMED by tracing; the key is not in the Runestone paste; confirm in Runestone&rsquo;s results view]. Press once: the 1:30 vote clock; press again for the 2:30 discuss clock; press again to move on. The discussion question for the groups: which calls happen, and for each one, which print runs on the way in and which on the way back? Runestone: Peer Instruction W07D2, question 2 of 3.</aside>
+
+  <style data-sid="07-vote-mirror:80">
+    /* two clocks at the top right, copied from W6D1 05b: the vote ring (1:30)
+       and the discussion ring (2:30), a label under each. */
+    #slide-07 .timer { top: var(--s-6); }
+    #slide-07 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-07 .frag.timer.is-past { opacity: .55; }
+    #slide-07 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-07 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-07 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the editor at the dense size in a 660 px left panel (the
+       longest line is 34 characters: 34 × 16.8 + 70 = 641); the options are
+       output, so they are mono with a little letter spacing, as in W6D1 05b.
+       All values from tokens; used by this slide only. */
+    #slide-07 .vm__panels { grid-template-columns: 660px minmax(0, 1fr); align-items: start; }
+    #slide-07 .vm__editor { width: 660px; }
+    #slide-07 .vm__q { margin-bottom: var(--s-2); }
+    #slide-07 .vote__opt { padding: var(--s-2) 0; }
+    #slide-07 .vote__text code { font-family: var(--font-mono); font-size: 1em; letter-spacing: .08em; }
+  </style>
+</section>

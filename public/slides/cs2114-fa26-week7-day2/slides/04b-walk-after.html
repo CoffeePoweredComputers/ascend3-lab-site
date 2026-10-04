@@ -1,0 +1,131 @@
+<section class="slide slide--warmup" id="slide-04b" data-sid="04b-walk-after:1">
+  <header class="slide__head" data-sid="04b-walk-after:2">
+    <p class="slide__kicker" data-sid="04b-walk-after:3">AFTER THE CALL &middot; THE SAME WALK</p>
+    <h2 data-sid="04b-walk-after:4">print(n) below the call: it runs on the way back</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04b-walk-after:5">The same five-line method and the same call stack drawing as the slide before. Step one: the line print n moves down below the line count of n minus 1; the two lines swap places. Step two: count of 3 is called and its box appears. Steps three to five: count of 3 calls count of 2, which calls count of 1, which calls count of 0; a box appears on top each time and the box below is marked waiting on line 3; nothing is printed. Step six: n is 0, so count of 0 returns and its box fades. Steps seven to nine: count of 1 picks up on the line after its call and prints 1; then its box fades and count of 2 prints 2; then count of 3 prints 3. Step ten: count of 3 finishes. The output reads 1 2 3. Step eleven: the rule: above the call runs on the way in, below the call runs on the way back.</p>
+
+  <!-- The same editor and drawing as 04 with one change: step 1 swaps lines
+       3 and 4 in place (the code spans translate one line height, 48 px, in
+       opposite directions; the gutter numbers stay put), so the room watches
+       the line move rather than reading a second copy. Then the same walk:
+       the frames grow with nothing printed and the prints happen as the
+       frames come off.
+       step 1: the move.  step 2: count(3) is called.
+       steps 3–5: three calls, nothing printed.  step 6: the base case returns.
+       steps 7–9: each frame picks up after its call and prints (1, 2, 3).
+       step 10: count(3) finishes.  step 11: the rule. -->
+  <div class="slide__body grid grid--code code-mid sk" data-sid="04b-walk-after:6">
+    <div class="stack" data-sid="04b-walk-after:7">
+      <div class="editor" data-sid="04b-walk-after:8">
+        <p class="editor__bar" data-sid="04b-walk-after:9">count(n), print below the call</p>
+        <div class="editor__pc" data-sid="04b-walk-after:10"></div>
+        <ol class="editor__code" data-sid="04b-walk-after:11">
+          <li data-sid="04b-walk-after:12"><span class="tok-key" data-sid="04b-walk-after:13">void</span> count(<span class="tok-key" data-sid="04b-walk-after:14">int</span> n) {</li>
+          <li class="walkline frag" data-step="2" data-also="6" data-sid="04b-walk-after:15">    <span class="tok-key" data-sid="04b-walk-after:16">if</span> (n == <span class="tok-num" data-sid="04b-walk-after:17">0</span>) { <span class="tok-key" data-sid="04b-walk-after:18">return</span>; }</li>
+          <li class="walkline frag" data-step="3" data-also="4 5" data-sid="04b-walk-after:19">    <span class="mv mv--dn" data-sid="04b-walk-after:20">print(n);</span></li>
+          <li class="walkline frag" data-step="7" data-also="8 9" data-sid="04b-walk-after:21">    <span class="mv mv--up" data-sid="04b-walk-after:22">count(n - <span class="tok-num" data-sid="04b-walk-after:23">1</span>);</span></li>
+          <li class="walkline frag" data-step="10" data-hold="11" data-sid="04b-walk-after:24">}</li>
+        </ol>
+      </div>
+      <p class="sk__call" data-sid="04b-walk-after:25">called as <b data-sid="04b-walk-after:26">count(3)</b></p>
+    </div>
+
+    <div class="codewalk sk__right" data-sid="04b-walk-after:27">
+      <svg class="sk__fig" viewBox="0 0 1000 452" role="img" aria-label="The call stack as boxes stacked from the bottom up, one per call of count, beside a white output plate where the printed numbers appear on the way back" data-sid="04b-walk-after:28">
+        <path class="sk__base" d="M0 412H440" data-sid="04b-walk-after:29"/>
+        <text class="sk__lab" x="220" y="446" data-sid="04b-walk-after:30">call stack</text>
+
+        <g class="fr fr--a frag" data-step="2" data-sid="04b-walk-after:31"><rect class="fr__box" x="0" y="312" width="440" height="88" rx="12" data-sid="04b-walk-after:32"/><text class="fr__call" x="24" y="352" data-sid="04b-walk-after:33">count(3)</text><text class="fr__wait" x="24" y="386" data-sid="04b-walk-after:34">waiting on line 3</text><text class="fr__loc" x="416" y="366" data-sid="04b-walk-after:35">n = 3</text></g>
+        <g class="fr fr--b frag" data-step="3" data-sid="04b-walk-after:36"><rect class="fr__box" x="0" y="216" width="440" height="88" rx="12" data-sid="04b-walk-after:37"/><text class="fr__call" x="24" y="256" data-sid="04b-walk-after:38">count(2)</text><text class="fr__wait" x="24" y="290" data-sid="04b-walk-after:39">waiting on line 3</text><text class="fr__loc" x="416" y="270" data-sid="04b-walk-after:40">n = 2</text></g>
+        <g class="fr fr--c frag" data-step="4" data-sid="04b-walk-after:41"><rect class="fr__box" x="0" y="120" width="440" height="88" rx="12" data-sid="04b-walk-after:42"/><text class="fr__call" x="24" y="160" data-sid="04b-walk-after:43">count(1)</text><text class="fr__wait" x="24" y="194" data-sid="04b-walk-after:44">waiting on line 3</text><text class="fr__loc" x="416" y="174" data-sid="04b-walk-after:45">n = 1</text></g>
+        <g class="fr fr--d frag" data-step="5" data-sid="04b-walk-after:46"><rect class="fr__box" x="0" y="24" width="440" height="88" rx="12" data-sid="04b-walk-after:47"/><text class="fr__call" x="24" y="64" data-sid="04b-walk-after:48">count(0)</text><text class="fr__loc" x="416" y="78" data-sid="04b-walk-after:49">n = 0</text></g>
+
+        <rect class="out__plate" x="520" y="24" width="440" height="176" rx="12" data-sid="04b-walk-after:50"/>
+        <text class="out__lab" x="544" y="64" data-sid="04b-walk-after:51">output</text>
+        <text class="out__t frag" data-step="7" x="544" y="160" data-sid="04b-walk-after:52">1</text>
+        <text class="out__t frag" data-step="8" x="624" y="160" data-sid="04b-walk-after:53">2</text>
+        <text class="out__t frag" data-step="9" x="704" y="160" data-sid="04b-walk-after:54">3</text>
+      </svg>
+      <div class="codewalk__caps" data-sid="04b-walk-after:55">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-after:56">One change: print(n) moves below the call. Same call, count(3).</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-walk-after:57">count(3) is called: n = 3, not 0.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-after:58">No print first now: count(3) calls count(2) straight away and waits on line 3.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-after:59">count(2) calls count(1) and waits. Still nothing printed.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-after:60">count(1) calls count(0). Four frames, and the output is empty.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-after:61">n is 0: the base case returns. Its frame comes off.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-walk-after:62">count(1) picks up on the line after its call: print(n) prints 1.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04b-walk-after:63">count(1) is done and comes off. count(2) picks up after its call and prints 2.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="04b-walk-after:64">count(2) comes off. count(3) picks up and prints 3.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="04b-walk-after:65">count(3) finishes. Output: 1 2 3, all of it printed on the way back.</p>
+        <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="04b-walk-after:66">Above the call: on the way in. Below the call: on the way back.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04b-walk-after:67"></div>
+  <aside class="notes" data-sid="04b-walk-after:68">Same method, one change. Step 1 &mdash; print(n) moves below the recursive call; the two lines swap places. Same call: count(3). Step 2 &mdash; count(3) is called; n is 3, not 0. Step 3 &mdash; the first thing it does now is call count(2), and it waits on line 3. Nothing printed. Step 4 &mdash; count(2) calls count(1) and waits. Step 5 &mdash; count(1) calls count(0). Four frames and an empty output. Ask: when will anything print? Step 6 &mdash; count(0) is the base case and returns; its frame comes off. Step 7 &mdash; count(1) picks up where it was waiting, on the line after its call, and that line is the print: 1. Step 8 &mdash; count(1) is done and comes off; count(2) picks up and prints 2. Step 9 &mdash; count(3) prints 3. Step 10 &mdash; done: 1 2 3. Same calls in the same order, opposite output. Step 11 &mdash; the rule for the whole hour: above the call runs on the way in, below the call runs on the way back. Next: the peer instruction routine and two votes on exactly this.</aside>
+
+  <style data-sid="04b-walk-after:69">
+    /* Slide-local: 04's layout and drawing (editor 600 px at --t-code, the
+       call stack in one 1000 × 452 SVG at 1:1, frames 440 × 88 at a 96 px
+       pitch, running = orange 18% tint + orange stroke, waiting = bg-1 +
+       fg-1 stroke with the "waiting on line 3" note). Step 1 is a real move:
+       the two code spans are inline-blocks that translate one line height
+       (32 px × 1.5 = 48) in opposite directions, so the lines trade places and
+       the gutter numbers stay where they are; the PC bar then follows the li,
+       which is why line 3's walkline carries the calls and line 4's the
+       prints. Frame states keyed to the caption frags with :has(), in step
+       order. Used by this slide only, all values from tokens. */
+    #slide-04b .sk { grid-template-columns: 600px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    #slide-04b .sk__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+    #slide-04b .sk__call b { color: var(--fg-0); }
+    #slide-04b .sk__right { gap: var(--s-3); }
+    #slide-04b .sk__fig { display: block; width: 1000px; height: 452px; overflow: visible; }
+    #slide-04b .sk__base { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-04b .sk__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    /* the move: the lines swap */
+    #slide-04b .mv { display: inline-block; transition: transform .7s var(--ease-smooth); }
+    #slide-04b .sk:has(.cap--1:not(.is-pending)) .mv--dn { transform: translateY(48px); }
+    #slide-04b .sk:has(.cap--1:not(.is-pending)) .mv--up { transform: translateY(-48px); }
+
+    /* frames: running by default */
+    #slide-04b .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-04b .fr__call, #slide-04b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-04b .fr__loc { text-anchor: end; }
+    #slide-04b .fr__wait { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04b .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* waiting, in step order */
+    #slide-04b .sk:has(.cap--3:not(.is-pending)) .fr--a .fr__box,
+    #slide-04b .sk:has(.cap--4:not(.is-pending)) .fr--b .fr__box,
+    #slide-04b .sk:has(.cap--5:not(.is-pending)) .fr--c .fr__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-04b .sk:has(.cap--3:not(.is-pending)) .fr--a .fr__wait,
+    #slide-04b .sk:has(.cap--4:not(.is-pending)) .fr--b .fr__wait,
+    #slide-04b .sk:has(.cap--5:not(.is-pending)) .fr--c .fr__wait { opacity: 1; }
+    /* the way back: each return fades a frame and the one below runs again */
+    #slide-04b .sk:has(.cap--6:not(.is-pending)) .fr--d,
+    #slide-04b .sk:has(.cap--8:not(.is-pending)) .fr--c,
+    #slide-04b .sk:has(.cap--9:not(.is-pending)) .fr--b,
+    #slide-04b .sk:has(.cap--10:not(.is-pending)) .fr--a { opacity: 0; }
+    #slide-04b .sk:has(.cap--6:not(.is-pending)) .fr--c .fr__box,
+    #slide-04b .sk:has(.cap--8:not(.is-pending)) .fr--b .fr__box,
+    #slide-04b .sk:has(.cap--9:not(.is-pending)) .fr--a .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-04b .sk:has(.cap--6:not(.is-pending)) .fr--c .fr__wait,
+    #slide-04b .sk:has(.cap--8:not(.is-pending)) .fr--b .fr__wait,
+    #slide-04b .sk:has(.cap--9:not(.is-pending)) .fr--a .fr__wait { opacity: 0; }
+
+    /* the output plate */
+    #slide-04b .out__plate { fill: var(--paper); stroke: var(--stone); stroke-width: 2; }
+    #slide-04b .out__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-04b .out__t { font-family: var(--font-mono); font-size: var(--t-h3); fill: var(--fg-0); transition: opacity .3s ease; }
+
+    #slide-04b .codewalk__caps { min-height: 150px; }
+    #slide-04b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04b .mv, #slide-04b .fr, #slide-04b .fr__box, #slide-04b .fr__wait, #slide-04b .out__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

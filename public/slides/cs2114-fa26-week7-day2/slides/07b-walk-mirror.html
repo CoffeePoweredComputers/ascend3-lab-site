@@ -1,0 +1,122 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-mirror:1">
+  <header class="slide__head" data-sid="07b-walk-mirror:2">
+    <p class="slide__kicker" data-sid="07b-walk-mirror:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-mirror:4">4 2 0 2 4: each number once on the way in, once on the way back</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-mirror:5">A walkthrough of mirror of 4 under a program-counter bar. On the right, the call stack as boxes stacked from the bottom up and a white plate labelled output. Step one: mirror of 4 is called, its box appears, and the print above the call prints 4. Step two: it calls mirror of 2; a box appears on top and the box below is marked waiting on line 6. Step three: 2. Step four: mirror of 2 calls mirror of 0. Step five: 0 is less than or equal to 0, so the base case prints 0 and makes no call. Step six: mirror of 0's box fades and mirror of 2 prints 2 with the line below its call. Step seven: mirror of 2's box fades and mirror of 4 prints 4. Step eight: the last box fades; the output reads 4 2 0 2 4. Step nine: a caption says what options B, C and D each assume, and the four options appear under the code with B, C and D struck through and A left standing.</p>
+
+  <!-- The answer as the deck's call-stack walk, one output token per press.
+       The print above the call runs on the way in (4, 2), the base case
+       prints the middle 0, the print below the call runs on the way back
+       (2, 4).
+       steps 1–4: two calls, two prints on the way in.
+       step 5: the base case prints 0.
+       steps 6–7: the prints below the call: 2, 4.
+       step 8: mirror(4) finishes.  step 9: wrong options named; verdict A. -->
+  <div class="slide__body grid grid--code code-mid sk" data-sid="07b-walk-mirror:6">
+    <div class="stack" data-sid="07b-walk-mirror:7">
+      <div class="editor sk__editor" data-sid="07b-walk-mirror:8">
+        <p class="editor__bar" data-sid="07b-walk-mirror:9">mirror, called as mirror(4)</p>
+        <div class="editor__pc" data-sid="07b-walk-mirror:10"></div>
+        <ol class="editor__code" data-sid="07b-walk-mirror:11">
+          <li data-sid="07b-walk-mirror:12"><span class="tok-key" data-sid="07b-walk-mirror:13">public void</span> mirror(<span class="tok-key" data-sid="07b-walk-mirror:14">int</span> n) {</li>
+          <li data-sid="07b-walk-mirror:15">    <span class="tok-key" data-sid="07b-walk-mirror:16">if</span> (n &lt;= <span class="tok-num" data-sid="07b-walk-mirror:17">0</span>) {</li>
+          <li class="walkline frag" data-step="5" data-sid="07b-walk-mirror:18">        System.out.print(<span class="tok-num" data-sid="07b-walk-mirror:19">"0 "</span>);</li>
+          <li data-sid="07b-walk-mirror:20">    } <span class="tok-key" data-sid="07b-walk-mirror:21">else</span> {</li>
+          <li class="walkline frag" data-step="1" data-also="3" data-sid="07b-walk-mirror:22">        System.out.print(n + <span class="tok-num" data-sid="07b-walk-mirror:23">" "</span>);</li>
+          <li class="walkline frag" data-step="2" data-also="4" data-sid="07b-walk-mirror:24">        mirror(n - <span class="tok-num" data-sid="07b-walk-mirror:25">2</span>);</li>
+          <li class="walkline frag" data-step="6" data-also="7" data-sid="07b-walk-mirror:26">        System.out.print(n + <span class="tok-num" data-sid="07b-walk-mirror:27">" "</span>);</li>
+          <li data-sid="07b-walk-mirror:28">    }</li>
+          <li class="walkline frag" data-step="8" data-hold="9" data-sid="07b-walk-mirror:29">}</li>
+        </ol>
+      </div>
+      <ol class="verdict frag" data-step="9" data-sid="07b-walk-mirror:30">
+        <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-mirror:31"><span class="verdict__txt" data-sid="07b-walk-mirror:32">4 2 0 2 4</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-mirror:33"><span class="verdict__txt" data-sid="07b-walk-mirror:34">4 3 2 1 0 1 2 3 4</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07b-walk-mirror:35"><span class="verdict__txt" data-sid="07b-walk-mirror:36">2 0 2</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07b-walk-mirror:37"><span class="verdict__txt" data-sid="07b-walk-mirror:38">0 4 2 4 0</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk sk__right" data-sid="07b-walk-mirror:39">
+      <svg class="sk__fig" viewBox="0 0 886 364" role="img" aria-label="The call stack as boxes stacked from the bottom up, one per call of mirror, beside a white output plate where the printed numbers appear one at a time" data-sid="07b-walk-mirror:40">
+        <path class="sk__base" d="M0 324H440" data-sid="07b-walk-mirror:41"/>
+        <text class="sk__lab" x="220" y="358" data-sid="07b-walk-mirror:42">call stack</text>
+
+        <g class="fr fr--a frag" data-step="1" data-sid="07b-walk-mirror:43"><rect class="fr__box" x="0" y="224" width="440" height="88" rx="12" data-sid="07b-walk-mirror:44"/><text class="fr__call" x="24" y="264" data-sid="07b-walk-mirror:45">mirror(4)</text><text class="fr__wait" x="24" y="298" data-sid="07b-walk-mirror:46">waiting on line 6</text><text class="fr__loc" x="416" y="278" data-sid="07b-walk-mirror:47">n = 4</text></g>
+        <g class="fr fr--b frag" data-step="2" data-sid="07b-walk-mirror:48"><rect class="fr__box" x="0" y="128" width="440" height="88" rx="12" data-sid="07b-walk-mirror:49"/><text class="fr__call" x="24" y="168" data-sid="07b-walk-mirror:50">mirror(2)</text><text class="fr__wait" x="24" y="202" data-sid="07b-walk-mirror:51">waiting on line 6</text><text class="fr__loc" x="416" y="182" data-sid="07b-walk-mirror:52">n = 2</text></g>
+        <g class="fr fr--c frag" data-step="4" data-sid="07b-walk-mirror:53"><rect class="fr__box" x="0" y="32" width="440" height="88" rx="12" data-sid="07b-walk-mirror:54"/><text class="fr__call" x="24" y="72" data-sid="07b-walk-mirror:55">mirror(0)</text><text class="fr__loc" x="416" y="86" data-sid="07b-walk-mirror:56">n = 0</text></g>
+
+        <rect class="out__plate" x="480" y="32" width="406" height="200" rx="12" data-sid="07b-walk-mirror:57"/>
+        <text class="out__lab" x="504" y="72" data-sid="07b-walk-mirror:58">output</text>
+        <text class="out__t frag" data-step="1" x="504" y="176" data-sid="07b-walk-mirror:59">4</text>
+        <text class="out__t frag" data-step="3" x="576" y="176" data-sid="07b-walk-mirror:60">2</text>
+        <text class="out__t out__t--mid frag" data-step="5" x="648" y="176" data-sid="07b-walk-mirror:61">0</text>
+        <text class="out__t frag" data-step="6" x="720" y="176" data-sid="07b-walk-mirror:62">2</text>
+        <text class="out__t frag" data-step="7" x="792" y="176" data-sid="07b-walk-mirror:63">4</text>
+      </svg>
+      <div class="codewalk__caps" data-sid="07b-walk-mirror:64">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="07b-walk-mirror:65">mirror(4): 4 is not 0 or less, so the else runs. The print above the call: 4.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="07b-walk-mirror:66">mirror(4) calls mirror(2), not mirror(3): the step is n &minus; 2. It waits on line 6.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-mirror:67">mirror(2) prints 2 on the way in.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="07b-walk-mirror:68">mirror(2) calls mirror(0) and waits.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="07b-walk-mirror:69">0 is 0 or less: the base case prints the middle 0 and makes no call.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="07b-walk-mirror:70">mirror(0) comes off. mirror(2) picks up after its call and prints 2 again.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="07b-walk-mirror:71">mirror(2) comes off. mirror(4) prints 4 again.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="07b-walk-mirror:72">mirror(4) finishes. Output: 4 2 0 2 4.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="07b-walk-mirror:73">B steps by 1, but the call is mirror(n &minus; 2). C skips the first call&rsquo;s prints. D prints the base case first, but 4 prints before any call.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-mirror:74"></div>
+  <aside class="notes" data-sid="07b-walk-mirror:75">Answer: A &mdash; 4 2 0 2 4 [ASSUMED by tracing; confirm in Runestone]. Same picture as the last vote, with a print on both sides of the call. Step 1 &mdash; mirror(4): 4 is not 0 or less, so the else runs, and the print above the call prints 4. Step 2 &mdash; it calls mirror(2), not mirror(3): the call is n minus 2. mirror(4) waits on line 6. Step 3 &mdash; mirror(2) prints 2 on the way in. Step 4 &mdash; mirror(2) calls mirror(0). Step 5 &mdash; 0 is 0 or less: the base case prints 0 and makes no call. That is the middle of the output. Step 6 &mdash; mirror(0) is done; mirror(2) picks up on line 7, the print below the call: 2. Step 7 &mdash; mirror(4) picks up: 4. Step 8 &mdash; done: 4 2 0 2 4. Each number prints twice, once on the way in and once on the way back; the base case prints once. Step 9 &mdash; the wrong answers. B counts down by one, but the call is mirror(n &minus; 2). C leaves out the prints of the first call, mirror(4). D puts the base case&rsquo;s 0 first, but 4 is printed before mirror(4) makes any call. Next: Part 2, the same idea on a linked chain.</aside>
+
+  <style data-sid="07b-walk-mirror:76">
+    /* Slide-local: the editor at --t-code (730 px: the print lines are 34
+       characters, 34 × 19.2 + 70 = 723) with the verdict under it; on the
+       right the call stack in one 886 × 364 SVG at 1:1: frames 440 × 88 at a
+       96 px pitch, top-up, and the output plate beside them with one token
+       per press at the h3 size so the 4 2 0 2 4 shape reads from the back.
+       Running = orange 18% tint + orange stroke; waiting = bg-1 + fg-1 stroke
+       and the "waiting on line 6" note. Frames grow from centre and fade when
+       they return; states keyed to the caption frags with :has(), in step
+       order. Used by this slide only, all values from tokens. */
+    #slide-07b .sk { grid-template-columns: 730px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-07b .sk__editor { width: 730px; }
+    #slide-07b .sk__right { gap: var(--s-3); }
+    #slide-07b .sk__fig { display: block; width: 886px; height: 364px; overflow: visible; }
+    #slide-07b .sk__base { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-07b .sk__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    #slide-07b .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-07b .fr__call, #slide-07b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-07b .fr__loc { text-anchor: end; }
+    #slide-07b .fr__wait { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-07b .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-07b .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* waiting, in step order */
+    #slide-07b .sk:has(.cap--2:not(.is-pending)) .fr--a .fr__box,
+    #slide-07b .sk:has(.cap--4:not(.is-pending)) .fr--b .fr__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-07b .sk:has(.cap--2:not(.is-pending)) .fr--a .fr__wait,
+    #slide-07b .sk:has(.cap--4:not(.is-pending)) .fr--b .fr__wait { opacity: 1; }
+    /* the way back */
+    #slide-07b .sk:has(.cap--6:not(.is-pending)) .fr--c,
+    #slide-07b .sk:has(.cap--7:not(.is-pending)) .fr--b,
+    #slide-07b .sk:has(.cap--8:not(.is-pending)) .fr--a { opacity: 0; }
+    #slide-07b .sk:has(.cap--6:not(.is-pending)) .fr--b .fr__box,
+    #slide-07b .sk:has(.cap--7:not(.is-pending)) .fr--a .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-07b .sk:has(.cap--6:not(.is-pending)) .fr--b .fr__wait,
+    #slide-07b .sk:has(.cap--7:not(.is-pending)) .fr--a .fr__wait { opacity: 0; }
+
+    #slide-07b .out__plate { fill: var(--paper); stroke: var(--stone); stroke-width: 2; }
+    #slide-07b .out__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-07b .out__t { font-family: var(--font-mono); font-size: var(--t-h3); fill: var(--fg-0); transition: opacity .3s ease; }
+
+    #slide-07b .codewalk__caps { min-height: 150px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .fr, #slide-07b .fr__box, #slide-07b .fr__wait, #slide-07b .out__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

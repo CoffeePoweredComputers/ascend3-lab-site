@@ -1,0 +1,125 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-entry:1">
+  <header class="slide__head" data-sid="06b-walk-entry:2">
+    <p class="slide__kicker" data-sid="06b-walk-entry:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-entry:4">Entry on the way in, Exit on the way back</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-entry:5">A walkthrough of example of 3 under a program-counter bar, one press per printed line. On the right, the call stack as boxes stacked from the bottom up and a white plate labelled output. Step one: example of 3 is called, its box appears and it prints Entry 3. Step two: it calls example of 2; a box appears on top and the box below is marked waiting on line 4. Step three: Entry 2. Step four: example of 2 calls example of 1. Step five: Entry 1. Step six: x is 1, so the if is false; example of 1 prints Exit 1. Step seven: example of 1's box fades and example of 2 picks up after its call and prints Exit 2. Step eight: example of 2's box fades and example of 3 prints Exit 3. Step nine: the last box fades, a caption says what options B, C and D each assume, and the four options appear across the bottom with B, C and D struck through and A left standing.</p>
+
+  <!-- The answer as the deck's call-stack walk: the method under the PC bar
+       at --t-code, frames on the right with the output plate beside them,
+       one printed line per press. The Entry line is above the call, so it
+       prints as each frame arrives; the Exit line is below it, so it prints
+       as each frame finishes. The verdict runs across the full width (each
+       option is about 55 characters).
+       steps 1–5: three calls, three Entry lines.
+       step 6: the if is false at x = 1: Exit 1.
+       steps 7–8: each frame picks up after its call: Exit 2, Exit 3.
+       step 9: the last frame comes off; wrong options named; verdict A. -->
+  <div class="slide__body grid grid--code code-mid sk" data-sid="06b-walk-entry:6">
+    <div class="editor sk__editor" data-sid="06b-walk-entry:7">
+      <p class="editor__bar" data-sid="06b-walk-entry:8">example, called as example(3)</p>
+      <div class="editor__pc" data-sid="06b-walk-entry:9"></div>
+      <ol class="editor__code" data-sid="06b-walk-entry:10">
+        <li data-sid="06b-walk-entry:11"><span class="tok-key" data-sid="06b-walk-entry:12">public void</span> example(<span class="tok-key" data-sid="06b-walk-entry:13">int</span> x) {</li>
+        <li class="walkline frag" data-step="1" data-also="3 5" data-sid="06b-walk-entry:14">    System.out.println(<span class="tok-num" data-sid="06b-walk-entry:15">"Entry "</span> + x);</li>
+        <li data-sid="06b-walk-entry:16">    <span class="tok-key" data-sid="06b-walk-entry:17">if</span> (x &gt; <span class="tok-num" data-sid="06b-walk-entry:18">1</span>) {</li>
+        <li class="walkline frag" data-step="2" data-also="4" data-sid="06b-walk-entry:19">        example(x - <span class="tok-num" data-sid="06b-walk-entry:20">1</span>);</li>
+        <li data-sid="06b-walk-entry:21">    }</li>
+        <li class="walkline frag" data-step="6" data-also="7 8" data-sid="06b-walk-entry:22">    System.out.println(<span class="tok-num" data-sid="06b-walk-entry:23">"Exit "</span> + x);</li>
+        <li class="walkline frag" data-step="9" data-sid="06b-walk-entry:24">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk sk__right" data-sid="06b-walk-entry:25">
+      <svg class="sk__fig" viewBox="0 0 836 340" role="img" aria-label="The call stack as boxes stacked from the bottom up, one per call of example, beside a white output plate where the printed lines appear one at a time" data-sid="06b-walk-entry:26">
+        <path class="sk__base" d="M0 324H440" data-sid="06b-walk-entry:27"/>
+        <text class="sk__lab sk__lab--side" x="480" y="334" data-sid="06b-walk-entry:28">call stack</text>
+
+        <g class="fr fr--a frag" data-step="1" data-sid="06b-walk-entry:29"><rect class="fr__box" x="0" y="224" width="440" height="88" rx="12" data-sid="06b-walk-entry:30"/><text class="fr__call" x="24" y="264" data-sid="06b-walk-entry:31">example(3)</text><text class="fr__wait" x="24" y="298" data-sid="06b-walk-entry:32">waiting on line 4</text><text class="fr__loc" x="416" y="278" data-sid="06b-walk-entry:33">x = 3</text></g>
+        <g class="fr fr--b frag" data-step="2" data-sid="06b-walk-entry:34"><rect class="fr__box" x="0" y="128" width="440" height="88" rx="12" data-sid="06b-walk-entry:35"/><text class="fr__call" x="24" y="168" data-sid="06b-walk-entry:36">example(2)</text><text class="fr__wait" x="24" y="202" data-sid="06b-walk-entry:37">waiting on line 4</text><text class="fr__loc" x="416" y="182" data-sid="06b-walk-entry:38">x = 2</text></g>
+        <g class="fr fr--c frag" data-step="4" data-sid="06b-walk-entry:39"><rect class="fr__box" x="0" y="32" width="440" height="88" rx="12" data-sid="06b-walk-entry:40"/><text class="fr__call" x="24" y="72" data-sid="06b-walk-entry:41">example(1)</text><text class="fr__loc" x="416" y="86" data-sid="06b-walk-entry:42">x = 1</text></g>
+
+        <rect class="out__plate" x="480" y="32" width="356" height="280" rx="12" data-sid="06b-walk-entry:43"/>
+        <text class="out__lab" x="504" y="72" data-sid="06b-walk-entry:44">output</text>
+        <text class="out__t frag" data-step="1" x="504" y="120" data-sid="06b-walk-entry:45">Entry 3</text>
+        <text class="out__t frag" data-step="3" x="504" y="156" data-sid="06b-walk-entry:46">Entry 2</text>
+        <text class="out__t frag" data-step="5" x="504" y="192" data-sid="06b-walk-entry:47">Entry 1</text>
+        <text class="out__t frag" data-step="6" x="504" y="228" data-sid="06b-walk-entry:48">Exit 1</text>
+        <text class="out__t frag" data-step="7" x="504" y="264" data-sid="06b-walk-entry:49">Exit 2</text>
+        <text class="out__t frag" data-step="8" x="504" y="300" data-sid="06b-walk-entry:50">Exit 3</text>
+      </svg>
+      <div class="codewalk__caps" data-sid="06b-walk-entry:51">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-entry:52">example(3) is called. Its first line prints Entry 3.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-entry:53">3 &gt; 1, so example(3) calls example(2) and waits on line 4.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-entry:54">example(2) prints Entry 2.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-entry:55">2 &gt; 1: example(2) calls example(1) and waits.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-entry:56">example(1) prints Entry 1.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="06b-walk-entry:57">x is 1, so the if is false: no call. example(1) prints Exit 1.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-entry:58">example(1) comes off. example(2) picks up after its call: Exit 2.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="06b-walk-entry:59">example(2) comes off. example(3) picks up: Exit 3.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="06b-walk-entry:60">C: each call ends before the next. B: Entry 1 first. D: example(2) ends too early.</p>
+      </div>
+    </div>
+
+    <ol class="verdict frag" data-step="9" data-sid="06b-walk-entry:61">
+      <li class="verdict__opt verdict__opt--right" data-sid="06b-walk-entry:62"><span class="verdict__txt" data-sid="06b-walk-entry:63">Entry 3 &rarr; Entry 2 &rarr; Entry 1 &rarr; Exit 1 &rarr; Exit 2 &rarr; Exit 3</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06b-walk-entry:64"><span class="verdict__txt" data-sid="06b-walk-entry:65">Entry 1 &rarr; Entry 2 &rarr; Entry 3 &rarr; Exit 3 &rarr; Exit 2 &rarr; Exit 1</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06b-walk-entry:66"><span class="verdict__txt" data-sid="06b-walk-entry:67">Entry 3 &rarr; Exit 3 &rarr; Entry 2 &rarr; Exit 2 &rarr; Entry 1 &rarr; Exit 1</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06b-walk-entry:68"><span class="verdict__txt" data-sid="06b-walk-entry:69">Entry 3 &rarr; Entry 2 &rarr; Exit 2 &rarr; Entry 1 &rarr; Exit 1 &rarr; Exit 3</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-entry:70"></div>
+  <aside class="notes" data-sid="06b-walk-entry:71">Answer: A &mdash; Entry 3, Entry 2, Entry 1, Exit 1, Exit 2, Exit 3 [ASSUMED by tracing; confirm in Runestone]. The Entry print is above the call and the Exit print is below it: the same thing we just saw with count. Step 1 &mdash; example(3) is called and prints Entry 3. Step 2 &mdash; 3 is more than 1, so it calls example(2) and waits on line 4. Step 3 &mdash; Entry 2. Step 4 &mdash; example(2) calls example(1) and waits. Step 5 &mdash; Entry 1. Step 6 &mdash; x is 1, the if is false, so there is no call; example(1) goes straight to its Exit line: Exit 1. Step 7 &mdash; example(1) is done; example(2) picks up on the line after its call: Exit 2. Step 8 &mdash; example(3) picks up: Exit 3. Step 9 &mdash; the wrong answers. C treats each call as if it finished before the next one started, but example(3) is still waiting when example(2) runs. B prints the innermost call first, but Entry 3 prints before any call is made. D has example(2) finishing before example(1) has even started. Next: Vote 2, a method with a print on both sides of the call.</aside>
+
+  <style data-sid="06b-walk-entry:72">
+    /* Slide-local: the editor at --t-code (780 px: the println lines are 37
+       characters, 37 × 19.2 + 70 = 780) and, on the right, the call stack in
+       one 836 × 340 SVG at 1:1 (the "call stack" label sits beside the base line, under the plate, to save a row): frames 440 × 88 at a 96 px pitch, top-up, the
+       output plate beside them with one printed line per press. Running =
+       orange 18% tint + orange stroke; waiting = bg-1 + fg-1 stroke and the
+       "waiting on line 4" note. Frames grow from centre and fade when they
+       return; states keyed to the caption frags with :has(), in step order.
+       The verdict spans both columns (each option is 55 mono characters, too
+       wide for either column). Used by this slide only, all values from
+       tokens. */
+    #slide-06b .sk { grid-template-columns: 780px minmax(0, 1fr); column-gap: var(--s-5); row-gap: var(--s-3); align-items: start; }
+    #slide-06b .sk__editor { width: 780px; }
+    #slide-06b .sk__right { gap: var(--s-3); }
+    #slide-06b .sk__fig { display: block; width: 836px; height: 340px; overflow: visible; }
+    #slide-06b .sk__base { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-06b .sk__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-06b .sk__lab--side { text-anchor: start; }
+
+    #slide-06b .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-06b .fr__call, #slide-06b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-06b .fr__loc { text-anchor: end; }
+    #slide-06b .fr__wait { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-06b .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06b .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* waiting, in step order */
+    #slide-06b .sk:has(.cap--2:not(.is-pending)) .fr--a .fr__box,
+    #slide-06b .sk:has(.cap--4:not(.is-pending)) .fr--b .fr__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-06b .sk:has(.cap--2:not(.is-pending)) .fr--a .fr__wait,
+    #slide-06b .sk:has(.cap--4:not(.is-pending)) .fr--b .fr__wait { opacity: 1; }
+    /* the way back */
+    #slide-06b .sk:has(.cap--7:not(.is-pending)) .fr--c,
+    #slide-06b .sk:has(.cap--8:not(.is-pending)) .fr--b,
+    #slide-06b .sk:has(.cap--9:not(.is-pending)) .fr--a { opacity: 0; }
+    #slide-06b .sk:has(.cap--7:not(.is-pending)) .fr--b .fr__box,
+    #slide-06b .sk:has(.cap--8:not(.is-pending)) .fr--a .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-06b .sk:has(.cap--7:not(.is-pending)) .fr--b .fr__wait,
+    #slide-06b .sk:has(.cap--8:not(.is-pending)) .fr--a .fr__wait { opacity: 0; }
+
+    #slide-06b .out__plate { fill: var(--paper); stroke: var(--stone); stroke-width: 2; }
+    #slide-06b .out__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-06b .out__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); transition: opacity .3s ease; }
+
+    #slide-06b .codewalk__caps { min-height: 100px; }
+    #slide-06b .verdict { grid-column: 1 / -1; flex-direction: column; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .fr, #slide-06b .fr__box, #slide-06b .fr__wait, #slide-06b .out__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

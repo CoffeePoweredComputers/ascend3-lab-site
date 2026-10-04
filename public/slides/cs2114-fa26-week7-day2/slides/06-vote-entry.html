@@ -1,0 +1,68 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-vote-entry:1">
+  <header class="slide__head" data-sid="06-vote-entry:2">
+    <p class="slide__kicker" data-sid="06-vote-entry:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06-vote-entry:4">Entry and Exit: in what order do they print?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="06-vote-entry:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-entry:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-entry:7"/><g class="timer__ticks" data-sid="06-vote-entry:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-entry:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-entry:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-entry:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-entry:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-entry:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-entry:14"/><g class="timer__hand" data-sid="06-vote-entry:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-entry:16"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-entry:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="06-vote-entry:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="06-vote-entry:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-entry:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-entry:21"/><g class="timer__ticks" data-sid="06-vote-entry:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-entry:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-entry:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-entry:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-entry:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-entry:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-entry:28"/><g class="timer__hand" data-sid="06-vote-entry:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-entry:30"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-entry:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="06-vote-entry:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="06-vote-entry:33">A peer-instruction question. Under the title, the stem in muted type: consider the following method. Left, an editor with seven lines: public void example of int x; print Entry plus x; if x is greater than 1, call example of x minus 1; then print Exit plus x; closing brace. Right, the question: if example of 3 is called, what is the order of printed lines? Then four options, each led by a maroon disc with its letter. A: Entry 3, Entry 2, Entry 1, Exit 1, Exit 2, Exit 3. B: Entry 1, Entry 2, Entry 3, Exit 3, Exit 2, Exit 1. C: Entry 3, Exit 3, Entry 2, Exit 2, Entry 1, Exit 1. D: Entry 3, Entry 2, Exit 2, Entry 1, Exit 1, Exit 3. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- W6D1 05b's vote layout: the stem's lead-in as the muted lede, the
+       method in an editor at the dense size on the left, the question
+       sentence above the four options on the right, so the slide reads in the
+       Runestone order (lead-in, code, question, options). Static: only the
+       clocks build; 06b walks the method. Peer Instruction W07D2, question 1
+       of 3 (activity id not seen). -->
+  <div class="slide__body code-dense" data-sid="06-vote-entry:34">
+    <p class="vote__stem" data-sid="06-vote-entry:35">Consider the following method:</p>
+    <div class="vote__panels ve__panels" data-sid="06-vote-entry:36">
+      <div class="editor ve__editor" data-sid="06-vote-entry:37">
+        <p class="editor__bar" data-sid="06-vote-entry:38">example</p>
+        <ol class="editor__code" data-sid="06-vote-entry:39">
+          <li data-sid="06-vote-entry:40"><span class="tok-key" data-sid="06-vote-entry:41">public void</span> example(<span class="tok-key" data-sid="06-vote-entry:42">int</span> x) {</li>
+          <li data-sid="06-vote-entry:43">    System.out.println(<span class="tok-num" data-sid="06-vote-entry:44">"Entry "</span> + x);</li>
+          <li data-sid="06-vote-entry:45">    <span class="tok-key" data-sid="06-vote-entry:46">if</span> (x &gt; <span class="tok-num" data-sid="06-vote-entry:47">1</span>) {</li>
+          <li data-sid="06-vote-entry:48">        example(x - <span class="tok-num" data-sid="06-vote-entry:49">1</span>);</li>
+          <li data-sid="06-vote-entry:50">    }</li>
+          <li data-sid="06-vote-entry:51">    System.out.println(<span class="tok-num" data-sid="06-vote-entry:52">"Exit "</span> + x);</li>
+          <li data-sid="06-vote-entry:53">}</li>
+        </ol>
+      </div>
+      <div class="ve__right" data-sid="06-vote-entry:54">
+        <p class="vote__stem ve__q" data-sid="06-vote-entry:55">If <code data-sid="06-vote-entry:56">example(3)</code> is called, what is the order of printed lines?</p>
+        <ol class="vote__opts vote__opts--long" data-sid="06-vote-entry:57">
+          <li class="vote__opt" data-sid="06-vote-entry:58"><span class="vote__key" data-sid="06-vote-entry:59">A</span><p class="vote__text" data-sid="06-vote-entry:60">Entry 3 &rarr; Entry 2 &rarr; Entry 1 &rarr; Exit 1 &rarr; Exit 2 &rarr; Exit 3</p></li>
+          <li class="vote__opt" data-sid="06-vote-entry:61"><span class="vote__key" data-sid="06-vote-entry:62">B</span><p class="vote__text" data-sid="06-vote-entry:63">Entry 1 &rarr; Entry 2 &rarr; Entry 3 &rarr; Exit 3 &rarr; Exit 2 &rarr; Exit 1</p></li>
+          <li class="vote__opt" data-sid="06-vote-entry:64"><span class="vote__key" data-sid="06-vote-entry:65">C</span><p class="vote__text" data-sid="06-vote-entry:66">Entry 3 &rarr; Exit 3 &rarr; Entry 2 &rarr; Exit 2 &rarr; Entry 1 &rarr; Exit 1</p></li>
+          <li class="vote__opt" data-sid="06-vote-entry:67"><span class="vote__key" data-sid="06-vote-entry:68">D</span><p class="vote__text" data-sid="06-vote-entry:69">Entry 3 &rarr; Entry 2 &rarr; Exit 2 &rarr; Entry 1 &rarr; Exit 1 &rarr; Exit 3</p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-vote-entry:70"></div>
+  <aside class="notes" data-sid="06-vote-entry:71">Answer: A &mdash; Entry 3, Entry 2, Entry 1, Exit 1, Exit 2, Exit 3 [ASSUMED by tracing; the key is not in the Runestone paste; confirm in Runestone&rsquo;s results view]. Press once: the 1:30 vote clock; press again for the 2:30 discuss clock; press again to move on. The discussion question for the groups: which print is above the call and which is below it, and what does that mean for when each one runs? Runestone: Peer Instruction W07D2, question 1 of 3.</aside>
+
+  <style data-sid="06-vote-entry:72">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js). Copied from W6D1 05b. */
+    #slide-06 .timer { top: var(--s-6); }
+    #slide-06 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06 .frag.timer.is-past { opacity: .55; }
+    #slide-06 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-06 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the editor at the dense size in a 700 px left panel (the
+       println lines are 37 characters: 37 × 16.8 + 70 = 692); the question
+       sentence and the options on the right; the options are 55 characters,
+       so they take the --long rows at the micro size, one line each (as W6D1 06/07 did for long options). All values from
+       tokens; used by this slide only. */
+    #slide-06 .ve__panels { grid-template-columns: 700px minmax(0, 1fr); align-items: start; }
+    #slide-06 .ve__editor { width: 700px; }
+    #slide-06 .ve__q { margin-bottom: var(--s-2); }
+    #slide-06 .vote__opts--long .vote__text { font-size: var(--t-micro); }   /* 55 characters at the micro size (14.8 px each, 814 px) stay on one line; at the small size the four rows ran the body to 6 px of slack */
+  </style>
+</section>
