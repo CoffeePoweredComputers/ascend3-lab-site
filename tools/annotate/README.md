@@ -213,8 +213,10 @@ blanked where they are spoken. A label the rule cannot place stops the import.
 labels did not give away; put those in a `--names` file, kept beside the data.
 `--replace` cuts the sessions again, and is refused once anyone has worked on
 the items. The study's text is never sent to a live model (`model_ok`).
-People read a session's episodes in order, a session at a time; the reading
-list is by session.
+People read a whole session on one page, the video beside every line of its
+transcript, and jot on lines; a jot is filed under the episode its line falls
+in, which is what agreement is later compared by. "Mark session read" marks
+the session's episodes read. The reading list is by session.
 
 ## Add a kind of study
 
@@ -243,7 +245,7 @@ list is by session.
 | `annotate/export.py` | CSVs out |
 | `annotate/db.py` | schema, additive migrations, daily backup to `/data/backups` |
 | `briefs/` | the stage guides, markdown |
-| `static/deck.js`, `crop.js`, `player.js`, `theme.js` | keys and the trail marker, the crop box, the video keys, light and dark |
+| `static/deck.js`, `crop.js`, `player.js`, `session.js`, `theme.js` | keys and the trail marker, the crop box, the video keys, a session's page (following, jots), light and dark |
 
 The statistics use the same formulas as the wiki's `KappaCalculator`, and the
 tests assert its presets, so the tool and the lesson agree.

@@ -333,6 +333,29 @@ def segments(conn: sqlite3.Connection, session_id: int, from_ms: int, to_ms: int
     ).fetchall()
 
 
+def session_by_alias(conn: sqlite3.Connection, track_id: int, alias: str) -> Optional[dict]:
+    """A recorded session of this track's study, by the alias pages show. Never
+    its pid or its video's path."""
+    row = conn.execute(
+        "SELECT se.id, se.alias, se.duration_ms, se.media_path IS NOT NULL AS has_media"
+        " FROM session se JOIN track t ON t.dataset_id = se.dataset_id WHERE t.id = ? AND se.alias = ?",
+        (track_id, alias),
+    ).fetchone()
+    return dict(row) if row else None
+
+
+def session_lines(conn: sqlite3.Connection, track_id: int, session_id: int) -> list[dict]:
+    """Every line of a session in order, each with the episode it falls in:
+    that episode's token and status. The segment id is for repo only."""
+    return [dict(r) for r in conn.execute(
+        "SELECT g.id, g.seq, g.t_start_ms, g.speaker, g.text, i.id AS item_id, i.token, st.status"
+        " FROM segment g JOIN item_span sp ON sp.session_id = g.session_id AND g.seq BETWEEN sp.seg_first AND sp.seg_last"
+        " JOIN item i ON i.id = sp.item_id JOIN item_state st ON st.item_id = i.id"
+        " WHERE g.session_id = ? AND i.track_id = ? ORDER BY g.seq",
+        (session_id, track_id),
+    )]
+
+
 def media_path(conn: sqlite3.Connection, token: str) -> Optional[str]:
     """The item's video, relative to the raw directory. For the video route
     only: no page is given the path."""
@@ -526,6 +549,31 @@ def reading_sessions(conn: sqlite3.Connection, track_id: int, roster_id: int) ->
     return list(out.values())
 
 
+def mark_session_read(conn: sqlite3.Connection, track_id: int, session_id: int, roster_id: int, read: bool = True) -> int:
+    """Mark every episode of a session that is in the data as read by this
+    person, or take the marks off again. Returns how many were newly read."""
+    items = [r["id"] for r in conn.execute(
+        "SELECT i.id FROM item i JOIN item_span sp ON sp.item_id = i.id JOIN item_state st ON st.item_id = i.id"
+        " WHERE i.track_id = ? AND sp.session_id = ? AND st.status = 'cleared'",
+        (track_id, session_id),
+    )]
+    if not read:
+        conn.executemany("DELETE FROM seen WHERE item_id = ? AND roster_id = ?", [(i, roster_id) for i in items])
+        return 0
+    return sum(mark_seen(conn, i, roster_id) for i in items)
+
+
+def next_session(conn: sqlite3.Connection, track_id: int, roster_id: int, session_id: int) -> Optional[str]:
+    """The alias of the session to read after this one: the next in this
+    person's order with an episode they have not read. None when there is none."""
+    last = conn.execute(
+        "SELECT MAX(i.shuffle_key) FROM item i JOIN item_span sp ON sp.item_id = i.id WHERE i.track_id = ? AND sp.session_id = ?",
+        (track_id, session_id),
+    ).fetchone()[0]
+    following = next_unseen(conn, track_id, roster_id, after=last)
+    return following["alias"] if following else None
+
+
 MINE_TO_CLEAN = "COALESCE((SELECT roster_id FROM cleaning WHERE item_id = i.id), ?) = ?"
 
 
@@ -592,12 +640,17 @@ def feet(conn: sqlite3.Connection, track_id: int, roster_id: Optional[int] = Non
     ).fetchone()[0]
     total = FEET["triaged"] * (read + cleaned) + FEET["coded"] * coded
     mine = " AND roster_id = ?" if roster_id else ""
+    args = (track_id, roster_id) if roster_id else (track_id,)
     for row in conn.execute(
-        f"SELECT kind, COUNT(*) AS n FROM memo WHERE track_id = ?{mine} GROUP BY kind",
-        (track_id, roster_id) if roster_id else (track_id,),
+        f"SELECT kind, COUNT(*) AS n FROM memo WHERE track_id = ?{mine} AND segment_id IS NULL GROUP BY kind", args
     ):
         total += FEET.get(row["kind"], 0) * row["n"]
-    return total
+    # Jots on transcript lines earn what a jot on a card does, once per
+    # episode they fall in, however many lines of it are jotted on.
+    episodes = conn.execute(
+        f"SELECT COUNT(*) FROM (SELECT DISTINCT roster_id, item_id FROM memo WHERE track_id = ?{mine} AND segment_id IS NOT NULL)", args
+    ).fetchone()[0]
+    return total + FEET["jotting"] * episodes
 
 
 def trail_stats(conn: sqlite3.Connection, track_id: int, me: sqlite3.Row) -> dict:
@@ -634,26 +687,29 @@ def add_memo(
     item_id: Optional[int] = None,
     batch_id: Optional[int] = None,
     code_key: Optional[str] = None,
+    segment_id: Optional[int] = None,
 ) -> None:
     body = body.strip()
     if not body:
         raise Refused("Nothing to save: the text is empty.")
     conn.execute(
-        "INSERT INTO memo (track_id, roster_id, kind, item_id, batch_id, code_key, body, created_at)"
-        " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        (track_id, roster_id, kind, item_id, batch_id, code_key or None, body[:10000], now()),
+        "INSERT INTO memo (track_id, roster_id, kind, item_id, batch_id, code_key, body, created_at, segment_id)"
+        " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (track_id, roster_id, kind, item_id, batch_id, code_key or None, body[:10000], now(), segment_id),
     )
 
 
 def set_jotting(conn: sqlite3.Connection, track_id: int, roster_id: int, item_id: int, body: str) -> bool:
     """One jot per person per card, written in place. Returns True when this
     is the card's first jot by them. Earlier separate jots on the card fold
-    into the one being written."""
+    into the one being written. Jots on the card's transcript lines are
+    their own and are left alone."""
     body = body.strip()
     if not body:
         raise Refused("Nothing to save: the text is empty.")
     rows = conn.execute(
-        "SELECT id FROM memo WHERE roster_id = ? AND item_id = ? AND kind = 'jotting' ORDER BY id", (roster_id, item_id)
+        "SELECT id FROM memo WHERE roster_id = ? AND item_id = ? AND kind = 'jotting' AND segment_id IS NULL ORDER BY id",
+        (roster_id, item_id),
     ).fetchall()
     if not rows:
         add_memo(conn, track_id, roster_id, "jotting", body, item_id=item_id)
@@ -664,8 +720,40 @@ def set_jotting(conn: sqlite3.Connection, track_id: int, roster_id: int, item_id
 
 
 def my_jot(conn: sqlite3.Connection, roster_id: int, item_id: int) -> str:
-    """What this person has jotted on a card, as the text of one box."""
-    return "\n\n".join(r["body"] for r in reversed(my_jottings(conn, roster_id, item_id)))
+    """What this person has jotted on a card, as the text of one box. Jots on
+    its transcript lines are not in the box: saving the box would copy them."""
+    return "\n\n".join(r["body"] for r in reversed(my_jottings(conn, roster_id, item_id)) if r["segment_id"] is None)
+
+
+def line_jots(conn: sqlite3.Connection, roster_id: int, session_id: int) -> dict[int, str]:
+    """{line seq: body} for this person's jots on a session's lines. Nobody else's."""
+    return {r["seq"]: r["body"] for r in conn.execute(
+        "SELECT g.seq, m.body FROM memo m JOIN segment g ON g.id = m.segment_id"
+        " WHERE m.roster_id = ? AND m.kind = 'jotting' AND g.session_id = ?",
+        (roster_id, session_id),
+    )}
+
+
+def set_line_jot(conn: sqlite3.Connection, track_id: int, roster_id: int, session_id: int, seq: int, body: str) -> bool:
+    """Write this person's jot on one transcript line, in place; empty text
+    deletes it. It is filed under the episode the line falls in, which must
+    be in the data. Returns True when it is their first jot on that episode."""
+    line = next((g for g in session_lines(conn, track_id, session_id) if g["seq"] == seq), None)
+    if not line:
+        raise Refused("No such line.")
+    if line["status"] != "cleared":
+        raise Refused("That part of the session is not in the data.")
+    body = body.strip()
+    if not body:
+        conn.execute("DELETE FROM memo WHERE roster_id = ? AND segment_id = ? AND kind = 'jotting'", (roster_id, line["id"]))
+        return False
+    if conn.execute("UPDATE memo SET body = ? WHERE roster_id = ? AND segment_id = ? AND kind = 'jotting'", (body[:10000], roster_id, line["id"])).rowcount:
+        return False
+    first = not conn.execute(
+        "SELECT 1 FROM memo WHERE roster_id = ? AND item_id = ? AND kind = 'jotting' AND segment_id IS NOT NULL", (roster_id, line["item_id"])
+    ).fetchone()
+    add_memo(conn, track_id, roster_id, "jotting", body, item_id=line["item_id"], segment_id=line["id"])
+    return first
 
 
 def shared_memos(conn: sqlite3.Connection, track_id: int, kind: str) -> list[sqlite3.Row]:

@@ -1,7 +1,8 @@
-// The episode's player. The browser itself starts the video five seconds
-// before the episode and pauses at its end (the #t= on its address); this
-// wires up the buttons beside it, which deck.js presses for their keys, and
-// the clock on each transcript line. Times come in data- attributes, in ms.
+// The video's buttons. On an episode's card the browser itself starts the
+// video five seconds before the episode and pauses at its end (the #t= on
+// its address); on a session's page it plays the whole recording. This wires
+// up the buttons beside it, which deck.js presses for their keys, and the
+// clock on each transcript line. Times come in data- attributes, in ms.
 (function () {
   const video = document.querySelector('[data-player]');
   if (!video) return;
@@ -28,7 +29,8 @@
 
   speed(rate);
   document.querySelector('[data-play]').addEventListener('click', () => (video.paused ? play() : video.pause()));
-  document.querySelector('[data-replay]').addEventListener('click', () => play(Number(video.dataset.from) / 1000));
+  const replay = document.querySelector('[data-replay]');
+  if (replay) replay.addEventListener('click', () => play(Number(video.dataset.from) / 1000));
   document.querySelectorAll('[data-skip]').forEach((button) => button.addEventListener('click', () => {
     video.currentTime = Math.max(0, video.currentTime + Number(button.dataset.skip));
   }));

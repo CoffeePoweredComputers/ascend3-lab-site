@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}{{ session.alias }} · Annotation bench{% endblock %}
+{% block main %}
+  {# A whole session: the video on one side, every line of the transcript on
+     the other. static/session.js follows the line being spoken and writes the
+     jots; without it the page still reads, and the video's own controls seek. #}
+  <div class="session" data-session data-resume="{{ track.id }}/{{ session.alias }}"
+       data-jot-url="{{ root }}/t/{{ track.id }}/session/{{ session.alias | urlencode }}/line/">
+    <section class="session__video">
+      {% if video %}
+        <video class="player" data-player controls controlslist="nodownload" preload="metadata" src="{{ root }}/video/{{ video }}"></video>
+        <p class="tools">
+          <button type="button" class="quiet" data-key=" " data-play><kbd>Space</kbd> Play</button>
+          <button type="button" class="quiet" data-key="," data-skip="-5"><kbd>,</kbd> −5 s</button>
+          <button type="button" class="quiet" data-key="." data-skip="5"><kbd>.</kbd> +5 s</button>
+          <button type="button" class="quiet" data-key="-" data-rate="-1"><kbd>-</kbd> Slower</button>
+          <button type="button" class="quiet" data-key="=" data-rate="1"><kbd>=</kbd> Faster</button>
+          <span class="player__rate" data-rate-shown>1×</span>
+          <button type="button" class="quiet" data-key="f" data-follow aria-pressed="true" hidden><kbd>F</kbd> Follow</button>
+          {% if can_jot %}<button type="button" class="quiet" data-key="j" data-jot-now hidden><kbd>J</kbd> Jot</button>{% endif %}
+        </p>
+      {% else %}
+        <p class="item-missing">No video.</p>
+      {% endif %}
+      {% if me.id and not stage.locked %}
+        <form method="post" action="{{ root }}/t/{{ track.id }}/session/{{ session.alias | urlencode }}/read" class="session__done">
+          {% if done %}
+            <p class="muted">Read.</p>
+            <button name="read" value="0" class="quiet">Mark unread</button>
+          {% else %}
+            <button class="big big--go"><b>Mark session read</b></button>
+          {% endif %}
+        </form>
+      {% endif %}
+    </section>
+
+    <ol class="transcript transcript--session" data-lines tabindex="0" aria-label="Transcript">
+      {% for l in rows %}
+        {% if l.gap %}
+          <li class="line line--context" data-t="{{ l.t_start_ms }}"><span class="line__at">{{ l.t_start_ms | clock }}</span><p>Not in the data.</p></li>
+        {% else %}
+          <li class="line {{ '' if l.open else 'line--context' }}" data-t="{{ l.t_start_ms }}" {% if l.open %}data-seq="{{ l.seq }}"{% endif %}>
+            {% if video %}<button type="button" class="line__at" data-seek="{{ l.t_start_ms }}">{{ l.t_start_ms | clock }}</button>
+            {% else %}<span class="line__at">{{ l.t_start_ms | clock }}</span>{% endif %}
+            <p>{% if loop.changed(l.speaker) %}<b>{{ roles[l.speaker] }}</b> {% endif %}{{ l.text }}</p>
+            {% if can_jot and l.open %}<button type="button" class="line__jot" data-jot hidden aria-label="Jot on this line">jot</button>{% endif %}
+            {% if l.jot %}<p class="line__note pre" data-jot-saved>{{ l.jot }}</p>{% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ol>
+  </div>
+  {% if can_jot %}
+    {# One editor, moved under whichever line is being jotted on. #}
+    <form class="linejot" data-jot-form hidden>
+      <textarea name="body" rows="3" maxlength="10000" aria-label="Jot on this line"></textarea>
+      <p class="tools">
+        <button>Save <kbd>Ctrl+Enter</kbd></button>
+        <button type="button" class="quiet" data-jot-cancel>Cancel <kbd>Esc</kbd></button>
+        <span class="hint" data-jot-error></span>
+      </p>
+    </form>
+  {% endif %}
+  {% if video %}<script src="{{ root }}/static/player.js"></script>{% endif %}
+  <script src="{{ root }}/static/session.js"></script>
+{% endblock %}

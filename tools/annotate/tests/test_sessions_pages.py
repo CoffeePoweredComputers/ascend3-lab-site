@@ -1,4 +1,4 @@
-"""The pages of a study of recorded sessions: the video card, the reading
+"""The pages of a study of recorded sessions: the episode card, the reading
 list by session, and every other page an episode turns up on. None of them
 may carry who the participant is or where their video came from."""
 
@@ -94,7 +94,7 @@ def all_tokens(track) -> list[str]:
 def test_the_card_is_the_video_with_the_transcript_once(client, study):
     token = all_tokens(study)[1]
     sp = span(token)
-    for path in (f"/t/{study}/triage/{token}", f"/t/{study}/items/{token}"):
+    for path in (f"/t/{study}/items/{token}",):
         page = client.get(path, headers=CODER1).text
         assert "<video" in page and f"/video/{token}#t=" in page and "/img/" not in page
         assert 'controlslist="nodownload"' in page and "autoplay" not in page
@@ -110,7 +110,7 @@ def test_a_session_without_its_video_is_read_as_text(client, study):
     with db.db() as conn:
         conn.execute("UPDATE session SET media_path = NULL")
     token = all_tokens(study)[0]
-    page = client.get(f"/t/{study}/triage/{token}", headers=CODER1).text
+    page = client.get(f"/t/{study}/items/{token}", headers=CODER1).text
     assert "No video." in page and "<video" not in page and "data-seek" not in page
     assert page.count(a_line(token)) == 1
 
@@ -122,28 +122,16 @@ def test_reading_goes_a_session_at_a_time(client, study):
         page = client.get(f"/t/{study}/triage", headers=headers).text
         assert "0 sessions read" in page and "to read" not in page
         assert all(f"S0{n} <small>0 of " in page for n in (1, 2, 3))
-        firsts[email] = re.search(r'triage/([\w-]+)" data-key="Enter">Start', page)[1]
-        assert span(firsts[email])["seq"] == 0  # the start of a session
-    assert len({span(t)["session_id"] for t in firsts.values()}) == 3  # each person at a different one
+        firsts[email] = re.search(r'session/(S\d+)" data-key="Enter">Start', page)[1]
+    assert len(set(firsts.values())) == 3  # each person at a different one
 
-    # Reading carries on through the same session, in order.
+    # Reading a session whole counts as one, on the reading list and the roster.
+    finish(study, 1)
     first = firsts["coder1@example.edu"]
-    following = post(client, f"/t/{study}/triage/{first}", CODER1, jot="noticed")
-    nxt = following.split("/triage/")[1].split("?")[0]
-    assert span(nxt)["session_id"] == span(first)["session_id"] and span(nxt)["seq"] == 1
+    post(client, f"/t/{study}/session/{first}/read", CODER1)
     page = client.get(f"/t/{study}/triage", headers=CODER1).text
-    alias = span(first)["alias"]
-    assert f"triage/{nxt}\">{alias} <small>1 of " in page and "Continue" in page
-    assert "1 episode" in client.get(f"/t/{study}/triage", headers=CODER1).text
-    assert "1 read" in page  # the trail's count, with no total
-
-    # A whole session read counts as one, on the reading list and the roster.
-    session = span(first)["session_id"]
-    with db.db() as conn:
-        me = conn.execute("SELECT id FROM roster WHERE email = 'coder1@example.edu'").fetchone()["id"]
-        for r in conn.execute("SELECT item_id FROM item_span WHERE session_id = ?", (session,)).fetchall():
-            repo.mark_seen(conn, r["item_id"], me)
-    assert "1 session read" in client.get(f"/t/{study}/triage", headers=CODER1).text
+    assert "1 session read" in page and "Continue" in page
+    assert f'session/{first}">{first} <small>' in page
     roster = client.get(f"/t/{study}/roster", headers=LEAD).text
     assert "1 session · " in roster and "0 sessions · 0 episodes" in roster
 
@@ -155,7 +143,7 @@ def test_no_page_shows_who_or_where_from(client, study):
     pages = ["/", f"/t/{study}/stage/0", f"/t/{study}/triage", f"/t/{study}/items", f"/t/{study}/memos",
              f"/t/{study}/questions", f"/t/{study}/codebook", f"/t/{study}/open", f"/t/{study}/codes",
              f"/t/{study}/batches", f"/t/{study}/history", f"/t/{study}/guide/1", f"/t/{study}/production"]
-    pages += [f"/t/{study}/triage/{t}" for t in tokens] + [f"/t/{study}/items/{t}" for t in tokens[:3]]
+    pages += [f"/t/{study}/session/S0{n}" for n in (1, 2, 3)] + [f"/t/{study}/items/{t}" for t in tokens[:3]]
 
     def check(paths, people=EVERYONE.values()):
         for headers in people:

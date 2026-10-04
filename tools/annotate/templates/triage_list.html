@@ -22,7 +22,7 @@
       {% set whole = sessions | selectattr('done') | list | length %}
       <p class="hero__big">{{ whole }} session{{ '' if whole == 1 else 's' }} read</p>
       <p class="muted">{{ seen | length }} episode{{ '' if seen | length == 1 else 's' }}</p>
-      <a class="button" href="{{ root }}/t/{{ track.id }}/triage/{{ first.token }}" data-key="Enter">{{ 'Continue' if seen else 'Start' }} <kbd>Enter</kbd></a>
+      <a class="button" href="{{ root }}/t/{{ track.id }}/session/{{ first.alias | urlencode }}" data-key="Enter">{{ 'Continue' if seen else 'Start' }} <kbd>Enter</kbd></a>
     {% elif first %}
       {# Then everyone reads every card; this is your own pass. #}
       <progress class="hero__bar" value="{{ seen | length }}" max="{{ cards }}">{{ seen | length }} of {{ cards }}</progress>
@@ -50,7 +50,7 @@
   {% if study.has_video and not status %}
     <ul class="chips">
       {% for s in sessions %}
-        <li><a class="chip {{ 'chip--done' if s.done }}" href="{{ root }}/t/{{ track.id }}/triage/{{ s.next }}">{{ s.alias }} <small>{{ s.read }} of {{ s.n }} read</small></a></li>
+        <li><a class="chip {{ 'chip--done' if s.done }}" href="{{ root }}/t/{{ track.id }}/session/{{ s.alias | urlencode }}">{{ s.alias }} <small>{{ s.read }} of {{ s.n }} read</small></a></li>
       {% else %}
         <li class="muted">None.</li>
       {% endfor %}

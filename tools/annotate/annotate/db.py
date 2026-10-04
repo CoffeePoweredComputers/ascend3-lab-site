@@ -208,7 +208,7 @@ MIGRATIONS = [
     );
 
     -- kind: jotting (its author's alone until the merge), memo and rq
-    -- (shared with the track).
+    -- (shared with the track). A later migration adds segment_id.
     CREATE TABLE memo (
         id         INTEGER PRIMARY KEY,
         track_id   INTEGER NOT NULL REFERENCES track(id),
@@ -378,6 +378,12 @@ MIGRATIONS = [
         seg_last   INTEGER NOT NULL,
         UNIQUE (session_id, seq)
     );
+    """,
+    """
+    -- A jot written on one transcript line. item_id is still the episode the
+    -- line falls in; one per person per line.
+    ALTER TABLE memo ADD COLUMN segment_id INTEGER REFERENCES segment(id);
+    CREATE UNIQUE INDEX one_jot_per_line ON memo(roster_id, segment_id) WHERE segment_id IS NOT NULL;
     """,
 ]
 

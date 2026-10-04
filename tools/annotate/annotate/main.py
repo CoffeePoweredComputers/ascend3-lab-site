@@ -12,7 +12,7 @@ from contextlib import asynccontextmanager
 from urllib.parse import quote, urlsplit
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse, PlainTextResponse, RedirectResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, PlainTextResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from markdown_it import MarkdownIt
@@ -438,6 +438,9 @@ def triage_item(request: Request, tid: int, token: str):
     with db.db() as conn:
         user, track, me = auth.require(conn, request, tid)
         item = own_item(conn, tid, token, me["role"])
+        if studies.get(track["dataset_kind"]).has_video and item["status"] == "cleared":
+            # A recorded session is read whole, on its own page, from this episode on.
+            return go(f"/t/{tid}/session/{quote(item['alias'])}?at={item['span_start']}")
         counts = repo.triage_counts(conn, tid)
         jot = repo.my_jot(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
@@ -550,6 +553,87 @@ async def triage_save(request: Request, tid: int, token: str):
     if following:
         return go(f"/t/{tid}/triage/{following['token']}", ok=said or "Saved")
     return go(f"/t/{tid}/triage", ok="Every card read")
+
+
+# -------------------------------------------------------------------- sessions
+
+
+def session_of(conn, request: Request, tid: int, alias: str):
+    """(user, track, roster row, session) for a recorded session, by its alias."""
+    user, track, me = auth.require(conn, request, tid)
+    session = studies.get(track["dataset_kind"]).has_video and repo.session_by_alias(conn, tid, alias)
+    if not session:
+        raise HTTPException(404, "No such session.")
+    return user, track, me, session
+
+
+@app.get("/t/{tid}/session/{alias}")
+def session_page(request: Request, tid: int, alias: str):
+    """A whole recorded session, read and jotted on line by line. Its episodes
+    are still what is marked read and compared, so each line carries its
+    own; one held or excluded takes no jot and, for a coder, shows nothing."""
+    with db.db() as conn:
+        user, track, me, session = session_of(conn, request, tid, alias)
+        lines = repo.session_lines(conn, tid, session["id"])
+        jots = repo.line_jots(conn, me["id"], session["id"])
+        can_jot = bool(me["id"]) and repo.is_open(conn, tid, 1) and not repo.jots_frozen(conn, tid, me["id"])
+        mine = next((s for s in repo.reading_sessions(conn, tid, me["id"]) if s["id"] == session["id"]), None)
+    rows, hidden = [], None
+    for g in lines:
+        if not repo.can_view_item(g, me["role"]):
+            if g["item_id"] != hidden:
+                rows.append({"gap": True, "t_start_ms": g["t_start_ms"]})  # one row for the episode, none of its words
+            hidden = g["item_id"]
+            continue
+        rows.append({
+            "seq": g["seq"], "t_start_ms": g["t_start_ms"], "speaker": g["speaker"], "text": g["text"],
+            "open": g["status"] == "cleared", "jot": jots.get(g["seq"], ""),
+        })
+    # The whole recording, reached through an episode this person may see.
+    video = next((g["token"] for g in lines if repo.can_view_item(g, me["role"])), None) if session["has_media"] else None
+    deck = {"back": f"/t/{tid}/triage", "title": f"Read · {session['alias']}", "value": mine["read"] if mine else 0, "max": mine["n"] if mine else 0}
+    return page(
+        request, "session.html", user=user, track=track, me=me, at="triage", deck=deck, session=session,
+        rows=rows, video=video, can_jot=can_jot, done=bool(mine and mine["done"]),
+    )
+
+
+@app.post("/t/{tid}/session/{alias}/line/{seq}")
+async def line_jot(request: Request, tid: int, alias: str, seq: int):
+    """Save one line's jot from the session page's script. Empty text deletes it."""
+    form = await form_of(request)
+    try:
+        with db.db() as conn:
+            _, _, me, session = session_of(conn, request, tid, alias)
+            auth.on_team(me)
+            repo.require_open(conn, tid, 1)
+            if repo.jots_frozen(conn, tid, me["id"]):
+                raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
+            repo.set_line_jot(conn, tid, me["id"], session["id"], seq, str(form.get("body") or ""))
+            body = repo.line_jots(conn, me["id"], session["id"]).get(seq, "")
+    except repo.Refused as refusal:  # rolled back; the script shows the reason
+        return JSONResponse({"error": str(refusal)}, status_code=409)
+    return JSONResponse({"body": body})
+
+
+@app.post("/t/{tid}/session/{alias}/read")
+async def session_read(request: Request, tid: int, alias: str):
+    """Mark a whole session read, and go on to the next. read=0 takes it back."""
+    form = await form_of(request)
+    with db.db() as conn:
+        _, _, me, session = session_of(conn, request, tid, alias)
+        auth.on_team(me)
+        repo.require_open(conn, tid, 1)
+        if form.get("read") == "0":
+            repo.mark_session_read(conn, tid, session["id"], me["id"], read=False)
+            return go(f"/t/{tid}/session/{quote(session['alias'])}", ok="Marked unread")
+        before = repo.feet(conn, tid, me["id"], me["email"])
+        fresh = repo.mark_session_read(conn, tid, session["id"], me["id"])
+        said = f"{session['alias']} read" + (f" · +{fresh * repo.FEET['triaged']} ft" if fresh else "") + passing(conn, tid, me, before)
+        following = repo.next_session(conn, tid, me["id"], session["id"])
+    if following:
+        return go(f"/t/{tid}/session/{quote(following)}", ok=said)
+    return go(f"/t/{tid}/triage", ok=said + " · every session read")
 
 
 @app.get("/img/{token}")
