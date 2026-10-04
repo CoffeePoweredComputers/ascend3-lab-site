@@ -214,8 +214,8 @@ def test_coders_are_not_offered_pages_that_refuse_them(client):
     assert f"/b/{batch}/agreement" not in client.get(f"/t/{track}/history", headers=CODER1).text
     assert f"/b/{batch}/agreement" in client.get(f"/t/{track}/history", headers=CODER2).text
     # Only the lead is offered the button that moves the team on.
-    assert "Lock Open coding again" in client.get(f"/t/{track}/questions", headers=LEAD).text
-    assert "Lock Open coding again" not in client.get(f"/t/{track}/questions", headers=CODER1).text
+    assert "Lock Calibration again" in client.get(f"/t/{track}/codebook", headers=LEAD).text
+    assert "Lock Calibration again" not in client.get(f"/t/{track}/codebook", headers=CODER1).text
 
 
 def test_export_cells_cannot_run_as_formulas(client):

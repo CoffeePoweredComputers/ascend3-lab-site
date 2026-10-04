@@ -71,6 +71,24 @@ QUERIES = {
         WHERE t.dataset_id = :dataset
         ORDER BY m.id
     """,
+    # Every wording of every research question, oldest first. memos.csv has
+    # each as first asked; the row with current = 1 is how it stands now.
+    "questions.csv": """
+        SELECT question, coder, body, set_aside, current, at FROM (
+            SELECT m.id AS question, 0 AS step, r.coder_code AS coder, m.body, 0 AS set_aside,
+                   NOT EXISTS (SELECT 1 FROM question_edit x WHERE x.memo_id = m.id) AS current,
+                   m.created_at AS at, m.track_id
+            FROM memo m JOIN roster r ON r.id = m.roster_id
+            WHERE m.kind = 'rq'
+            UNION ALL
+            SELECT e.memo_id, e.id, r.coder_code, e.body, e.aside,
+                   e.id = (SELECT MAX(x.id) FROM question_edit x WHERE x.memo_id = e.memo_id),
+                   e.at, m.track_id
+            FROM question_edit e JOIN memo m ON m.id = e.memo_id JOIN roster r ON r.id = e.roster_id
+        ) q
+        JOIN track t ON t.id = q.track_id
+        WHERE t.dataset_id = :dataset ORDER BY question, step
+    """,
     # Each person's own codes from open coding and what the merge made of
     # them. Held back, like codes.csv, until open coding is closed.
     "personal_codes.csv": """

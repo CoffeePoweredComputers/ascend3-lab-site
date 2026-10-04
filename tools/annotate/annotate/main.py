@@ -606,8 +606,27 @@ def memos(request: Request, tid: int):
 def questions(request: Request, tid: int):
     with db.db() as conn:
         user, track, me = auth.require(conn, request, tid)
-        rows = repo.shared_memos(conn, tid, "rq")
+        rows = repo.questions(conn, tid)
     return page(request, "questions.html", user=user, track=track, me=me, at="questions", questions=rows)
+
+
+@app.post("/t/{tid}/questions/{qid}")
+async def question_change(request: Request, tid: int, qid: int):
+    form = await form_of(request)
+    with db.db() as conn:
+        _, _, me = auth.require(conn, request, tid)
+        auth.on_team(me)
+        repo.require_questions_open(conn, tid)
+        # One press does one thing: a button that moves a question in or out
+        # of the set sends `aside`, and leaves the wording alone.
+        if "aside" in form:
+            aside = form.get("aside") == "1"
+            changed = repo.change_question(conn, tid, qid, me["id"], aside=aside)
+            said = "Set aside" if aside else "Back in the set"
+        else:
+            changed = repo.change_question(conn, tid, qid, me["id"], body=str(form.get("body") or ""))
+            said = "Reworded"
+    return go(f"/t/{tid}/questions", ok=said if changed else "No change")
 
 
 @app.post("/t/{tid}/memos")
@@ -620,7 +639,7 @@ async def memo_add(request: Request, tid: int):
         _, _, me = auth.require(conn, request, tid)
         auth.on_team(me)
         if kind == "rq":
-            repo.require_open(conn, tid, 2)
+            repo.require_questions_open(conn, tid)
         before = repo.feet(conn, tid, me["id"], me["email"])
         repo.add_memo(conn, tid, me["id"], kind, str(form.get("body") or ""), code_key=str(form.get("code_key") or "").strip())
         said = f"Shared with the team · +{repo.FEET['memo']} ft" + passing(conn, tid, me, before)

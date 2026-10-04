@@ -42,6 +42,7 @@ def test_an_admin_outside_the_team_is_dealt_nothing_and_does_none_of_its_work(cl
     for path, data in (
         (f"/t/{track}/triage/{card}", {"jot": "mine"}),
         (f"/t/{track}/memos", {"kind": "rq", "body": "A question"}),
+        (f"/t/{track}/questions/1", {"body": "A rewording"}),
         (f"/t/{track}/open/generate", {}),
     ):
         assert post(client, path, ADMIN, **data).status_code == 403, path

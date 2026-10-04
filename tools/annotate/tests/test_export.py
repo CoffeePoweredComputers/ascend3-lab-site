@@ -6,7 +6,7 @@ import io
 import zipfile
 
 from conftest import CODER1, CODER2, LEAD
-from helpers import batch_tokens, new_batch, roster_ids, track_id
+from helpers import batch_tokens, new_batch, relock, roster_ids, track_id
 
 from annotate import export
 
@@ -35,6 +35,7 @@ def tables(client, track) -> dict[str, list[dict]]:
 
 def test_export_is_tidy_and_joinable(client):
     track, batch, items = closed_round(client)
+    relock(track, done=(1,))  # the question set is still open
     client.post(f"/t/{track}/memos", headers=CODER1, data={"kind": "rq", "body": "How do arrows change?"})
     out = tables(client, track)
 

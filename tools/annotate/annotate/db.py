@@ -331,6 +331,22 @@ MIGRATIONS = [
         roster_id INTEGER NOT NULL REFERENCES roster(id)
     );
     """,
+    """
+    -- A change to a research question (a memo of kind rq): new wording, or
+    -- setting it aside or putting it back. Rows are only ever added. The memo
+    -- row keeps what was first asked and the newest row here is how the
+    -- question stands now, so no wording is ever lost.
+    CREATE TABLE question_edit (
+        id        INTEGER PRIMARY KEY,
+        memo_id   INTEGER NOT NULL REFERENCES memo(id),
+        roster_id INTEGER NOT NULL REFERENCES roster(id),
+        body      TEXT NOT NULL,
+        aside     INTEGER NOT NULL DEFAULT 0,
+        at        TEXT NOT NULL
+    );
+
+    CREATE INDEX question_edit_memo ON question_edit(memo_id);
+    """,
 ]
 
 

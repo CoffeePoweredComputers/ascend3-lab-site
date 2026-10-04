@@ -256,6 +256,8 @@ def set_stage_done(conn: sqlite3.Connection, track_id: int, stage: int, done: bo
     """The lead finishing a stage is what opens the next one for everyone."""
     if stage not in TEAM_STAGES:
         raise Refused("That stage is not one the lead finishes.")
+    if stage == 2 and not done and questions_closed(conn, track_id):
+        raise Refused("The question set is closed and stays closed.")
     if done:
         require_open(conn, track_id, stage)
         if stage == 0:
@@ -608,6 +610,74 @@ def shared_memos(conn: sqlite3.Connection, track_id: int, kind: str) -> list[sql
     ).fetchall()
 
 
+def questions(conn: sqlite3.Connection, track_id: int) -> list[dict]:
+    """The team's research questions as they stand, newest first. A question's
+    memo row is what was first asked and is never rewritten; each change since
+    is a row in question_edit. `earlier` is every wording before this one,
+    newest first, and `aside` is the change that took it out of the set."""
+    changes: dict[int, list[sqlite3.Row]] = {}
+    for e in conn.execute(
+        "SELECT e.*, r.coder_code FROM question_edit e JOIN memo m ON m.id = e.memo_id"
+        " JOIN roster r ON r.id = e.roster_id WHERE m.track_id = ? AND m.kind = 'rq' ORDER BY e.id",
+        (track_id,),
+    ):
+        changes.setdefault(e["memo_id"], []).append(e)
+    out = []
+    for m in shared_memos(conn, track_id, "rq"):
+        wordings = [{"body": m["body"], "coder_code": m["coder_code"], "at": m["created_at"]}]
+        aside = None
+        for e in changes.get(m["id"], []):
+            if e["body"] != wordings[-1]["body"]:
+                wordings.append({"body": e["body"], "coder_code": e["coder_code"], "at": e["at"]})
+            aside = (aside or e) if e["aside"] else None
+        out.append({
+            "id": m["id"], "body": wordings[-1]["body"], "coder_code": m["coder_code"], "created_at": m["created_at"],
+            "reworded": wordings[-1] if len(wordings) > 1 else None,
+            "earlier": wordings[-2::-1],
+            "aside": aside,
+        })
+    return out
+
+
+def questions_closed(conn: sqlite3.Connection, track_id: int) -> bool:
+    """The lead opening open coding closes the set, for good: everyone goes in
+    with the same questions, and set_stage_done will not undo it."""
+    return 2 in stage_marks(conn, track_id)
+
+
+def require_questions_open(conn: sqlite3.Connection, track_id: int) -> None:
+    require_open(conn, track_id, 2)
+    if questions_closed(conn, track_id):
+        raise Refused("The question set is closed.")
+
+
+def change_question(
+    conn: sqlite3.Connection,
+    track_id: int,
+    memo_id: int,
+    roster_id: int,
+    body: Optional[str] = None,
+    aside: Optional[bool] = None,
+) -> bool:
+    """Reword a question, set it aside or put it back. This adds a row and
+    rewrites nothing, so every earlier wording is kept. Returns False when
+    there was nothing to change."""
+    question = next((q for q in questions(conn, track_id) if q["id"] == memo_id), None)
+    if not question:
+        raise Refused("No such question in this study.")
+    body = question["body"] if body is None else body.strip()[:10000]
+    if not body:
+        raise Refused("Nothing to save: the text is empty.")
+    aside = bool(question["aside"]) if aside is None else aside
+    if body == question["body"] and aside == bool(question["aside"]):
+        return False
+    conn.execute(
+        "INSERT INTO question_edit (memo_id, roster_id, body, aside, at) VALUES (?, ?, ?, ?, ?)",
+        (memo_id, roster_id, body, int(aside), now()),
+    )
+    return True
+
+
 def my_jottings(conn: sqlite3.Connection, roster_id: int, item_id: Optional[int] = None) -> list[sqlite3.Row]:
     sql = (
         "SELECT m.*, i.token FROM memo m JOIN item i ON i.id = m.item_id"
@@ -813,7 +883,7 @@ def candidate_inputs(conn: sqlite3.Connection, track_id: int, roster_id: int) ->
     texts = _texts(conn, {j["item_id"] for j in jots})
     return {
         "jots": [{"item": texts.get(j["item_id"], ""), "jot": j["body"][:500]} for j in jots],
-        "questions": [m["body"][:500] for m in shared_memos(conn, track_id, "rq")],
+        "questions": [q["body"][:500] for q in questions(conn, track_id) if not q["aside"]],
     }
 
 

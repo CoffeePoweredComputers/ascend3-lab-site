@@ -8,6 +8,7 @@ One zip of CSVs for the whole study. It contains the hashed student ids, so do n
 | `codes.csv` | code applied | Closed batches only. `coder` is a coder code or `CONSENSUS`. |
 | `assignments.csv` | item given to a coder | A done assignment with no `codes.csv` rows for a multi-label dimension was coded "none". |
 | `memos.csv` | memo | Jottings, memos and questions. |
+| `questions.csv` | wording of a research question | Every wording, oldest first. `current` is 1 on the one that stands; `set_aside` is 1 when it is out of the set. |
 | `personal_codes.csv` | person's own code | From open coding, with what the merge made of it in `became`. |
 | `personal_code_cards.csv` | card a personal code is on | Joins to `personal_codes.csv` on `code_id`. |
 | `agreement.csv` | dimension or code, per round | As frozen at close. |

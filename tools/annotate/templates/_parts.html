@@ -7,8 +7,9 @@
       <p class="eyebrow">Stage {{ stage.n }}</p>
       <h1>{{ stage.title }}</h1>
     </div>
-    {# The lead moves the team on. Open coding is finished by closing its deck. #}
-    {% if me.role == 'lead' and not stage.auto and stage_next and (stage.done or stage.key != 'starter') %}
+    {# The lead moves the team on. Open coding is finished by closing its deck.
+       Finishing Questions closes the set for good, so it has no way back. #}
+    {% if me.role == 'lead' and not stage.auto and stage_next and (stage.done or stage.key != 'starter') and not (stage.done and stage.key == 'questions') %}
       <form method="post" action="{{ root }}/t/{{ track.id }}/stage/{{ stage.n }}/done">
         <input type="hidden" name="done" value="{{ '0' if stage.done else '1' }}">
         <button class="{{ 'quiet' if stage.done }}">{{ 'Lock ' ~ stage_next.title ~ ' again' if stage.done else 'Unlock ' ~ stage_next.title }}</button>

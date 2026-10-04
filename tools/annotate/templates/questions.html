@@ -1,20 +1,75 @@
 {% extends "base.html" %}
 {% import "_parts.html" as parts with context %}
 {% block title %}Questions · Annotation bench{% endblock %}
+
+{# Every wording a question had before the one that stands. #}
+{% macro earlier(q) %}
+  {% if q.earlier %}
+    <details class="fold">
+      <summary>Earlier wording <small>{{ q.earlier | length }}</small></summary>
+      {% for w in q.earlier %}
+        <p class="pre muted">{{ w.body }}</p>
+        <p class="meta">{{ w.coder_code }} · {{ w.at[:10] }}</p>
+      {% endfor %}
+    </details>
+  {% endif %}
+{% endmacro %}
+
 {% block main %}
   {{ parts.head() }}
+  {# The lead unlocking the next stage closes the set. #}
+  {% set open = not stage.done %}
+  {% set kept = questions | rejectattr('aside') | list %}
+  {% set aside = questions | selectattr('aside') | list %}
 
-  <form method="post" action="{{ root }}/t/{{ track.id }}/memos" class="card pad">
-    <input type="hidden" name="kind" value="rq">
-    <label>Research question <small>shared with the team</small>
-      <textarea name="body" rows="3" required placeholder="How do ... ? What you would code. What made you ask."></textarea>
-    </label>
-    <button>Share</button>
-  </form>
+  {% if open %}
+    <form method="post" action="{{ root }}/t/{{ track.id }}/memos" class="card pad">
+      <input type="hidden" name="kind" value="rq">
+      <label>Research question <small>shared with the team</small>
+        <textarea name="body" rows="3" required placeholder="How do ... ? What you would code. What made you ask."></textarea>
+      </label>
+      <button>Share</button>
+    </form>
+    <p class="muted">The set closes for good when the lead unlocks {{ stage_next.title }}.</p>
+  {% else %}
+    <p class="muted">Closed. This is the set the team took into {{ stage_next.title }}.</p>
+  {% endif %}
 
-  {% for m in questions %}
-    <div class="note"><p class="pre">{{ m.body }}</p><p class="meta">{{ m.coder_code }} · {{ m.created_at[:10] }}</p></div>
+  <h2>Question set <small>{{ kept | length }}</small></h2>
+  {% for q in kept %}
+    <div class="note question">
+      <p class="pre">{{ q.body }}</p>
+      <p class="meta">{{ q.coder_code }} · {{ q.created_at[:10] }}{% if q.reworded %} · reworded by {{ q.reworded.coder_code }} · {{ q.reworded.at[:10] }}{% endif %}</p>
+      {% if open %}
+        <details class="fold">
+          <summary>Edit</summary>
+          <form method="post" action="{{ root }}/t/{{ track.id }}/questions/{{ q.id }}">
+            <textarea name="body" rows="3" required aria-label="Question">{{ q.body }}</textarea>
+            <button>Save</button>
+            <button class="quiet" name="aside" value="1" formnovalidate>Set aside</button>
+          </form>
+        </details>
+      {% endif %}
+      {{ earlier(q) }}
+    </div>
   {% else %}
     <p class="muted">No questions yet.</p>
   {% endfor %}
+
+  {% if aside %}
+    <h2>Set aside <small>{{ aside | length }}</small></h2>
+    {% for q in aside %}
+      <div class="note question">
+        <p class="pre muted">{{ q.body }}</p>
+        <p class="meta">{{ q.coder_code }} · {{ q.created_at[:10] }} · set aside by {{ q.aside.coder_code }} · {{ q.aside.at[:10] }}</p>
+        {% if open %}
+          <form method="post" action="{{ root }}/t/{{ track.id }}/questions/{{ q.id }}">
+            <input type="hidden" name="aside" value="0">
+            <button class="quiet">Put back</button>
+          </form>
+        {% endif %}
+        {{ earlier(q) }}
+      </div>
+    {% endfor %}
+  {% endif %}
 {% endblock %}

@@ -55,7 +55,9 @@ before it.
    everyone after sees the crop. Then each person reads every item and jots. Anyone can
    flag an item; the lead keeps or excludes it. People start at different
    points in the order.
-2. **Questions.** Each person shares a research question.
+2. **Questions.** Each person shares a research question. Anyone can reword
+   one or set it aside; a change is a new row, so every earlier wording is
+   kept. The lead opening the next stage closes the set for good.
 3. **Open coding.** Each person presses Generate once: a model proposes
    candidate codes from their own jots and the team's questions, and their
    jotting closes. The lead deals the same cards to everyone. Each person ticks

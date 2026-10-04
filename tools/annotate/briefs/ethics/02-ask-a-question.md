@@ -1,5 +1,7 @@
 Propose at least one research question. The first codebook is built to answer the ones the team picks.
 
+Then settle the set as a team. Anyone can reword a question or set it aside; earlier wordings are kept. The set closes for good when the lead unlocks Open coding.
+
 ## The study starts with
 
 What do students ask about? Build a topic map: a short list of topic areas that every response fits into.

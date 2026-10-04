@@ -12,7 +12,7 @@ import pytest
 from conftest import CODER1, CODER2, LEAD
 from helpers import batch_tokens, new_batch, relock, tokens, track_id
 
-from annotate import assist, db, llm, merge, repo, studies
+from annotate import assist, db, export, llm, merge, repo, studies
 
 EVERYONE = (LEAD, CODER1, CODER2)
 
@@ -81,6 +81,98 @@ def test_the_trail_shows_where_the_team_is(client, study):
     assert ">0/14<" in side
     relock(study, done=(1,))
     assert client.get(f"/t/{study}/triage", headers=CODER1).text.count(">locked<") == 5
+
+
+# ---------------------------------------------------------------- question set
+
+
+def asked(conn) -> list[tuple]:
+    return [tuple(r) for r in conn.execute("SELECT * FROM memo WHERE kind = 'rq' ORDER BY id")]
+
+
+def test_the_team_settles_one_question_set_and_no_wording_is_lost(client, study):
+    relock(study, done=(1,))
+    post(client, f"/t/{study}/memos", CODER1, kind="rq", body="What tensions do students have?")
+    post(client, f"/t/{study}/memos", CODER2, kind="rq", body="What concerns come up?")
+    with db.db() as conn:
+        second, first = [q["id"] for q in repo.questions(conn, study)]
+        before = asked(conn)
+        coder1 = conn.execute("SELECT id FROM roster WHERE track_id = ? AND email = 'coder1@example.edu'", (study,)).fetchone()["id"]
+
+    # Anyone on the team rewords anyone's question or sets it aside.
+    assert "ok=Reworded" in post(client, f"/t/{study}/questions/{first}", CODER2, body="What ethical tensions do students name?")
+    assert "No%20change" in post(client, f"/t/{study}/questions/{first}", CODER2, body="What ethical tensions do students name?")
+    assert "Set%20aside" in post(client, f"/t/{study}/questions/{second}", LEAD, aside="1", body="typed, but this button does not reword")
+    assert "error=" in post(client, f"/t/{study}/questions/{first}", CODER1, body="   ")
+    page = client.get(f"/t/{study}/questions", headers=CODER1).text
+    assert "What ethical tensions do students name?" in page and "reworded by C03" in page
+    assert "Earlier wording" in page and "What tensions do students have?" in page
+    assert "set aside by C01" in page and "Put back" in page and "typed, but" not in page
+    with db.db() as conn:
+        assert asked(conn) == before  # what was first asked is exactly as it was written
+        # Open coding's candidates come from the set as it stands.
+        assert repo.candidate_inputs(conn, study, coder1)["questions"] == ["What ethical tensions do students name?"]
+
+    assert "Back%20in%20the%20set" in post(client, f"/t/{study}/questions/{second}", CODER1, aside="0")
+    with db.db() as conn:
+        assert len(repo.candidate_inputs(conn, study, coder1)["questions"]) == 2
+        dataset = conn.execute("SELECT dataset_id FROM track WHERE id = ?", (study,)).fetchone()[0]
+        rows = list(csv.DictReader(io.StringIO(export.table(conn, "questions.csv", dataset))))
+    assert [(r["coder"], r["body"], r["set_aside"], r["current"]) for r in rows] == [
+        ("C02", "What tensions do students have?", "0", "0"),
+        ("C03", "What ethical tensions do students name?", "0", "1"),
+        ("C03", "What concerns come up?", "0", "0"),
+        ("C01", "What concerns come up?", "1", "0"),
+        ("C02", "What concerns come up?", "0", "1"),
+    ]
+    # A question belongs to its own study.
+    other = track_id("demo")
+    relock(other, done=(1,))
+    assert "No%20such%20question" in post(client, f"/t/{other}/questions/{first}", CODER1, body="Not here")
+
+
+def test_the_question_set_closes_for_good_when_the_lead_unlocks_open_coding(client, study):
+    relock(study, done=(1,))
+    post(client, f"/t/{study}/memos", CODER1, kind="rq", body="What do they ask about?")
+    with db.db() as conn:
+        question = repo.questions(conn, study)[0]["id"]
+    page = client.get(f"/t/{study}/questions", headers=LEAD).text
+    assert "Unlock Open coding" in page and "closes for good" in page and "<summary>Edit</summary>" in page
+
+    assert "error=" not in post(client, f"/t/{study}/stage/2/done", LEAD, done="1")
+    assert "error=" in post(client, f"/t/{study}/memos", CODER1, kind="rq", body="One more")
+    assert "error=" in post(client, f"/t/{study}/questions/{question}", CODER1, body="Changed after the fact")
+    assert "error=" in post(client, f"/t/{study}/questions/{question}", LEAD, aside="1")
+    page = client.get(f"/t/{study}/questions", headers=LEAD).text
+    assert "Closed." in page and "What do they ask about?" in page
+    assert "<summary>Edit</summary>" not in page and 'value="rq"' not in page
+    # Not even the lead opens it again.
+    assert "Lock Open coding again" not in page
+    assert "stays%20closed" in post(client, f"/t/{study}/stage/2/done", LEAD, done="0")
+    assert 'class="locked"' not in client.get(f"/t/{study}/open", headers=CODER1).text
+    with db.db() as conn:
+        assert [q["body"] for q in repo.questions(conn, study)] == ["What do they ask about?"]
+
+
+def test_questions_asked_before_they_could_be_edited_come_through_untouched(client, study):
+    """The study that is live: questions shared, and a database from before question_edit."""
+    relock(study, done=(1,))
+    post(client, f"/t/{study}/memos", CODER1, kind="rq", body="What ethical tensions do students articulate having?")
+    post(client, f"/t/{study}/memos", CODER1, kind="rq", body="What general concerns do students express?")
+    conn = db.connect()
+    conn.execute("DROP TABLE question_edit")
+    conn.execute(f"PRAGMA user_version = {len(db.MIGRATIONS) - 1}")
+    before = asked(conn)
+    conn.close()
+
+    db.init()
+    with db.db() as conn:
+        assert asked(conn) == before and len(before) == 2
+        assert [(q["body"], q["aside"], q["earlier"]) for q in repo.questions(conn, study)] == [
+            ("What general concerns do students express?", None, []),
+            ("What ethical tensions do students articulate having?", None, []),
+        ]
+    assert "<summary>Edit</summary>" in client.get(f"/t/{study}/questions", headers=CODER2).text
 
 
 # ---------------------------------------------------------------- reading pass
@@ -162,8 +254,9 @@ def test_generate_runs_once_from_your_own_jots_and_closes_them(client, study, mo
     for token in cards[:3]:
         jot(client, study, CODER1, token, "about responsibility for the outcome")
         jot(client, study, CODER2, token, "privacy and surveillance")
-    relock(study, done=(1, 2))
+    relock(study, done=(1,))
     post(client, f"/t/{study}/memos", CODER2, kind="rq", body="Which topics come up?")
+    relock(study, done=(1, 2))
 
     before = client.get(f"/t/{study}/open", headers=CODER1).text
     assert "From your 3 jots" in before and "Once only" in before
