@@ -1,0 +1,160 @@
+<section class="slide slide--warmup" id="slide-10b" data-sid="10b-walk-chain:1">
+  <header class="slide__head" data-sid="10b-walk-chain:2">
+    <p class="slide__kicker" data-sid="10b-walk-chain:3">VOTE 3 &middot; THE ANSWER</p>
+    <h2 data-sid="10b-walk-chain:4">Reverse order: the print is below the call</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10b-walk-chain:5">A walkthrough of displayChain on the chain A, B, C from two slides before, under a program-counter bar. On the right, the chain with a blue ring on the node the running call is looking at, the call stack as boxes stacked from the bottom up, each showing curr with a blue arrow to its node, and a white plate labelled output. Step one: displayChain is called with A; curr is not null. Steps two to four: before printing anything, each call calls displayChain on curr's next, so boxes for B, C and null appear in turn, the ring moves along the chain, and each box below is marked waiting on line 3. Step five: curr is null, the if is false, and that call returns without printing. Step six: the call for C picks up on the line after its call and prints C. Step seven: its box fades and the call for B prints B. Step eight: the call for A prints A. Step nine: the last box fades, the output reads C, B, A on three lines, and the three options appear under the code with A and C struck through and B, in reverse order, left standing.</p>
+
+  <!-- The answer in 09's drawing: the same chain, the same stack, the same
+       ring. The only difference from show is that println sits BELOW the
+       call, so every call goes all the way down first and the prints happen
+       on the way back. Frames carry the method name only (displayChain(A)
+       would run into the local); the local curr points at its node.
+       step 1: displayChain(A).  steps 2–4: three calls, nothing printed.
+       step 5: curr == null: the if is false, return.
+       steps 6–8: each frame prints after its call: C, B, A.
+       step 9: the last frame finishes; verdict B. -->
+  <div class="slide__body grid grid--code code-dense sk" data-sid="10b-walk-chain:6">
+    <div class="stack" data-sid="10b-walk-chain:7">
+      <div class="editor sk__editor" data-sid="10b-walk-chain:8">
+        <p class="editor__bar" data-sid="10b-walk-chain:9">displayChain, called as displayChain(firstNode)</p>
+        <div class="editor__pc" data-sid="10b-walk-chain:10"></div>
+        <ol class="editor__code" data-sid="10b-walk-chain:11">
+          <li data-sid="10b-walk-chain:12"><span class="tok-key" data-sid="10b-walk-chain:13">private void</span> displayChain(Node curr) {</li>
+          <li class="walkline frag" data-step="1" data-also="5" data-sid="10b-walk-chain:14">    <span class="tok-key" data-sid="10b-walk-chain:15">if</span> (curr != <span class="tok-key" data-sid="10b-walk-chain:16">null</span>) {</li>
+          <li class="walkline frag" data-step="2" data-also="3 4" data-sid="10b-walk-chain:17">        displayChain(curr.getNext());</li>
+          <li class="walkline frag" data-step="6" data-also="7 8" data-sid="10b-walk-chain:18">        System.out.println(curr.getData());</li>
+          <li data-sid="10b-walk-chain:19">    }</li>
+          <li class="walkline frag" data-step="9" data-sid="10b-walk-chain:20">}</li>
+        </ol>
+      </div>
+      <div class="codewalk" data-sid="10b-walk-chain:21">
+        <div class="codewalk__caps" data-sid="10b-walk-chain:22">
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="10b-walk-chain:23">curr refers to A. Not null, so the if runs.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="10b-walk-chain:24">The first line in the if is the call on the rest, starting at B. A&rsquo;s call waits on line 3 and prints nothing yet.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="10b-walk-chain:25">B&rsquo;s call does the same: it calls on the rest, starting at C, and waits.</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="10b-walk-chain:26">C&rsquo;s call calls on its next: null.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="10b-walk-chain:27">curr is null: the if is false and the call returns. The empty chain prints nothing.</p>
+          <p class="walkcap cap--6 frag" data-step="6" data-sid="10b-walk-chain:28">C&rsquo;s call picks up on the line after its call: it prints C.</p>
+          <p class="walkcap cap--7 frag" data-step="7" data-sid="10b-walk-chain:29">C&rsquo;s call comes off. B&rsquo;s call picks up and prints B.</p>
+          <p class="walkcap cap--8 frag" data-step="8" data-sid="10b-walk-chain:30">A&rsquo;s call picks up and prints A.</p>
+          <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="10b-walk-chain:31">Below the call, so on the way back: C B A. Put it above the call, as in show, and it prints A B C.</p>
+        </div>
+      </div>
+      <ol class="verdict frag" data-step="9" data-sid="10b-walk-chain:32">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="10b-walk-chain:33"><span class="verdict__txt" data-sid="10b-walk-chain:34">In order</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="10b-walk-chain:35"><span class="verdict__txt" data-sid="10b-walk-chain:36">In reverse order</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="10b-walk-chain:37"><span class="verdict__txt" data-sid="10b-walk-chain:38">Neither</span></li>
+      </ol>
+    </div>
+
+    <svg class="sk__fig" viewBox="0 0 816 580" role="img" aria-label="The chain A, B, C ending in null with a blue ring that moves along it, and under it the call stack, one box per call of displayChain, beside a white output plate where C, B and A are printed on three lines" data-sid="10b-walk-chain:39">
+      <defs data-sid="10b-walk-chain:40">
+        <marker id="w7d2-10b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="10b-walk-chain:41"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="10b-walk-chain:42"/></marker>
+      </defs>
+
+      <!-- the chain -->
+      <g class="nd" data-sid="10b-walk-chain:43"><rect x="0" y="24" width="150" height="80" rx="10" data-sid="10b-walk-chain:44"/><path d="M75 24v80" data-sid="10b-walk-chain:45"/><text class="nd__f" x="8" y="44" data-sid="10b-walk-chain:46">data</text><text class="nd__f" x="83" y="44" data-sid="10b-walk-chain:47">next</text><text class="nd__v" x="37" y="88" data-sid="10b-walk-chain:48">A</text></g>
+      <g class="nd" data-sid="10b-walk-chain:49"><rect x="210" y="24" width="150" height="80" rx="10" data-sid="10b-walk-chain:50"/><path d="M285 24v80" data-sid="10b-walk-chain:51"/><text class="nd__f" x="218" y="44" data-sid="10b-walk-chain:52">data</text><text class="nd__f" x="293" y="44" data-sid="10b-walk-chain:53">next</text><text class="nd__v" x="247" y="88" data-sid="10b-walk-chain:54">B</text></g>
+      <g class="nd" data-sid="10b-walk-chain:55"><rect x="420" y="24" width="150" height="80" rx="10" data-sid="10b-walk-chain:56"/><path d="M495 24v80" data-sid="10b-walk-chain:57"/><text class="nd__f" x="428" y="44" data-sid="10b-walk-chain:58">data</text><text class="nd__f" x="503" y="44" data-sid="10b-walk-chain:59">next</text><text class="nd__v" x="457" y="88" data-sid="10b-walk-chain:60">C</text></g>
+      <path class="nd__arr" d="M112 72H206" data-sid="10b-walk-chain:61"/>
+      <path class="nd__arr" d="M322 72H416" data-sid="10b-walk-chain:62"/>
+      <path class="nd__arr" d="M532 72H626" data-sid="10b-walk-chain:63"/>
+      <text class="nd__null" x="705" y="84" data-sid="10b-walk-chain:64">null</text>
+      <rect class="ring" x="-8" y="14" width="166" height="100" rx="16" data-sid="10b-walk-chain:65"/>
+
+      <!-- the call stack -->
+      <path class="sk__base" d="M0 540H440" data-sid="10b-walk-chain:66"/>
+      <text class="sk__lab" x="220" y="574" data-sid="10b-walk-chain:67">call stack</text>
+      <g class="fr fr--a frag" data-step="1" data-sid="10b-walk-chain:68"><rect class="fr__box" x="0" y="440" width="440" height="88" rx="12" data-sid="10b-walk-chain:69"/><text class="fr__call" x="24" y="480" data-sid="10b-walk-chain:70">displayChain</text><text class="fr__wait" x="24" y="514" data-sid="10b-walk-chain:71">waiting on line 3</text><text class="fr__loc" x="250" y="494" data-sid="10b-walk-chain:72">curr</text><path class="fr__arr" d="M318 484H352" data-sid="10b-walk-chain:73"/><rect class="fr__nd" x="358" y="460" width="56" height="48" rx="8" data-sid="10b-walk-chain:74"/><text class="fr__ndv" x="386" y="494" data-sid="10b-walk-chain:75">A</text></g>
+      <g class="fr fr--b frag" data-step="2" data-sid="10b-walk-chain:76"><rect class="fr__box" x="0" y="344" width="440" height="88" rx="12" data-sid="10b-walk-chain:77"/><text class="fr__call" x="24" y="384" data-sid="10b-walk-chain:78">displayChain</text><text class="fr__wait" x="24" y="418" data-sid="10b-walk-chain:79">waiting on line 3</text><text class="fr__loc" x="250" y="398" data-sid="10b-walk-chain:80">curr</text><path class="fr__arr" d="M318 388H352" data-sid="10b-walk-chain:81"/><rect class="fr__nd" x="358" y="364" width="56" height="48" rx="8" data-sid="10b-walk-chain:82"/><text class="fr__ndv" x="386" y="398" data-sid="10b-walk-chain:83">B</text></g>
+      <g class="fr fr--c frag" data-step="3" data-sid="10b-walk-chain:84"><rect class="fr__box" x="0" y="248" width="440" height="88" rx="12" data-sid="10b-walk-chain:85"/><text class="fr__call" x="24" y="288" data-sid="10b-walk-chain:86">displayChain</text><text class="fr__wait" x="24" y="322" data-sid="10b-walk-chain:87">waiting on line 3</text><text class="fr__loc" x="250" y="302" data-sid="10b-walk-chain:88">curr</text><path class="fr__arr" d="M318 292H352" data-sid="10b-walk-chain:89"/><rect class="fr__nd" x="358" y="268" width="56" height="48" rx="8" data-sid="10b-walk-chain:90"/><text class="fr__ndv" x="386" y="302" data-sid="10b-walk-chain:91">C</text></g>
+      <g class="fr fr--d frag" data-step="4" data-sid="10b-walk-chain:92"><rect class="fr__box" x="0" y="152" width="440" height="88" rx="12" data-sid="10b-walk-chain:93"/><text class="fr__call" x="24" y="192" data-sid="10b-walk-chain:94">displayChain</text><text class="fr__loc" x="250" y="206" data-sid="10b-walk-chain:95">curr</text><path class="fr__arr" d="M318 196H344" data-sid="10b-walk-chain:96"/><text class="fr__null" x="350" y="206" data-sid="10b-walk-chain:97">null</text></g>
+
+      <rect class="out__plate" x="470" y="152" width="346" height="200" rx="12" data-sid="10b-walk-chain:98"/>
+      <text class="out__lab" x="494" y="192" data-sid="10b-walk-chain:99">output</text>
+      <text class="out__t frag" data-step="6" x="494" y="244" data-sid="10b-walk-chain:100">C</text>
+      <text class="out__t frag" data-step="7" x="494" y="290" data-sid="10b-walk-chain:101">B</text>
+      <text class="out__t frag" data-step="8" x="494" y="336" data-sid="10b-walk-chain:102">A</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="10b-walk-chain:103"></div>
+  <aside class="notes" data-sid="10b-walk-chain:104">Answer: B &mdash; in reverse order [ASSUMED by tracing; confirm in Runestone. The PL twin with the print above the call, u09q03_recursion_linkedchain_c, is keyed &ldquo;In order&rdquo;]. Same chain, same picture as show. Step 1 &mdash; displayChain is called with the first node, A; curr is not null, so the if runs. Step 2 &mdash; the first line inside the if is the call on the rest, so A&rsquo;s call calls on B and waits on line 3. Nothing printed. Step 3 &mdash; B&rsquo;s call does the same, on C. Step 4 &mdash; C&rsquo;s call calls on null. Step 5 &mdash; curr is null, the if is false, the call returns. The empty chain prints nothing: that is the base case, even though the code never says return. Step 6 &mdash; C&rsquo;s call picks up on the line after its call and prints C. Step 7 &mdash; B. Step 8 &mdash; A. Step 9 &mdash; C, B, A: reverse order. A is what show printed, with the print above the call. C, neither, would need some node to be skipped or printed twice; every call prints its own node exactly once. Next: Part 3, writing one of these yourself.</aside>
+
+  <style data-sid="10b-walk-chain:105">
+    /* Slide-local: 09's drawing at 816 px (the editor needs 800 at the dense
+       size: the println line is 43 characters, 43 × 16.8 + 70 = 792; at the
+       code size it would be 896 and the chain would not fit beside it). The
+       captions and the verdict sit under the editor. On the right one
+       816 × 580 SVG at 1:1: the chain (Node boxes 150 × 80, data | next, blue
+       arrows, null in stone) with a blue ring that moves to the running
+       call's node by translateX (a real move), and the call stack under it
+       (frames 440 × 88, 96 px pitch, top-up; running = orange 18% tint +
+       orange stroke; waiting = bg-1 + fg-1 stroke + "waiting on line 3").
+       println output goes on the paper plate one line per press. All states
+       keyed to the caption frags with :has(), in step order. Used by this
+       slide only, all values from tokens. */
+    #slide-10b .sk { grid-template-columns: 800px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-10b .sk__editor { width: 800px; }
+    #slide-10b .codewalk__caps { min-height: 150px; }
+    #slide-10b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-10b .sk__fig { display: block; width: 816px; height: 580px; overflow: visible; }
+    #slide-10b .sk__base { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-10b .sk__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    /* the chain */
+    #slide-10b .nd rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-10b .nd path { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-10b .nd__f { font-family: var(--font-mono); font-size: 16px; fill: var(--fg-1); }
+    #slide-10b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-10b .nd__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w7d2-10b-head); }
+    #slide-10b .nd__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); text-anchor: middle; }
+    #slide-10b .ring { fill: none; stroke: var(--accent-2); stroke-width: 5; opacity: 0; transition: transform .6s var(--ease-smooth), opacity .3s ease; }
+    #slide-10b .sk:has(.cap--1:not(.is-pending)) .ring { opacity: 1; }
+    #slide-10b .sk:has(.cap--2:not(.is-pending)) .ring { transform: translateX(210px); }
+    #slide-10b .sk:has(.cap--3:not(.is-pending)) .ring { transform: translateX(420px); }
+    #slide-10b .sk:has(.cap--4:not(.is-pending)) .ring { transform: translateX(630px); }
+    #slide-10b .sk:has(.cap--5:not(.is-pending)) .ring { transform: translateX(420px); }
+    #slide-10b .sk:has(.cap--7:not(.is-pending)) .ring { transform: translateX(210px); }
+    #slide-10b .sk:has(.cap--8:not(.is-pending)) .ring { transform: translateX(0px); }
+    #slide-10b .sk:has(.cap--9:not(.is-pending)) .ring { opacity: 0; }
+
+    /* frames: running by default */
+    #slide-10b .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-10b .fr__call, #slide-10b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-10b .fr__wait { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-10b .fr__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w7d2-10b-head); }
+    #slide-10b .fr__nd { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-10b .fr__ndv { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-10b .fr__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); }
+    #slide-10b .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-10b .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* waiting, in step order */
+    #slide-10b .sk:has(.cap--2:not(.is-pending)) .fr--a .fr__box,
+    #slide-10b .sk:has(.cap--3:not(.is-pending)) .fr--b .fr__box,
+    #slide-10b .sk:has(.cap--4:not(.is-pending)) .fr--c .fr__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-10b .sk:has(.cap--2:not(.is-pending)) .fr--a .fr__wait,
+    #slide-10b .sk:has(.cap--3:not(.is-pending)) .fr--b .fr__wait,
+    #slide-10b .sk:has(.cap--4:not(.is-pending)) .fr--c .fr__wait { opacity: 1; }
+    /* the way back: each return fades a frame and the one below runs again */
+    #slide-10b .sk:has(.cap--5:not(.is-pending)) .fr--d,
+    #slide-10b .sk:has(.cap--7:not(.is-pending)) .fr--c,
+    #slide-10b .sk:has(.cap--8:not(.is-pending)) .fr--b,
+    #slide-10b .sk:has(.cap--9:not(.is-pending)) .fr--a { opacity: 0; }
+    #slide-10b .sk:has(.cap--5:not(.is-pending)) .fr--c .fr__box,
+    #slide-10b .sk:has(.cap--7:not(.is-pending)) .fr--b .fr__box,
+    #slide-10b .sk:has(.cap--8:not(.is-pending)) .fr--a .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-10b .sk:has(.cap--5:not(.is-pending)) .fr--c .fr__wait,
+    #slide-10b .sk:has(.cap--7:not(.is-pending)) .fr--b .fr__wait,
+    #slide-10b .sk:has(.cap--8:not(.is-pending)) .fr--a .fr__wait { opacity: 0; }
+
+    #slide-10b .out__plate { fill: var(--paper); stroke: var(--stone); stroke-width: 2; }
+    #slide-10b .out__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-10b .out__t { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10b .ring, #slide-10b .fr, #slide-10b .fr__box, #slide-10b .fr__wait, #slide-10b .out__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

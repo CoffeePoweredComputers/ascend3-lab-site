@@ -1,0 +1,94 @@
+<section class="slide" id="slide-01b" data-sid="01b-today:1">
+  <header class="slide__head" data-sid="01b-today:2">
+    <h2 data-sid="01b-today:3">Today</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, each arriving in turn as a numbered column with a drawing of what the chapter is about. One, before the call and after it, when does each line run: three stacked boxes, the top one orange, with an arrow running down on the left and an arrow running back up on the right. Two, recursion on a linked chain, this node, then the rest: three boxes joined by arrows, the first one orange, the other two bracketed underneath. Three, writing one, when to stop, how to get smaller: three lines of code, each led by an orange dot.</p>
+
+  <!-- The agenda is the hour in three pictures: a call stack with the way in
+       and the way back, a chain split into this node and the rest, and three
+       lines of code written from three questions. Each column is the divider
+       that follows it, so the three chapter slides are a callback rather than
+       an announcement. Titles here are the tab captions; the dividers carry
+       the same words full size. Two-weight pen; columns grow from centre.
+       step 1: the stack — Part 1, lines above and below the call, two votes.
+       step 2: the chain — Part 2, recursion on a linked chain, one vote.
+       step 3: the three lines — Part 3, writing a recursive method, homework. -->
+  <div class="slide__body" data-sid="01b-today:5">
+    <ol class="grid ag" data-sid="01b-today:6">
+      <li class="ag__ch frag" data-step="1" data-sid="01b-today:7">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Three stacked boxes, the top one orange, with an arrow going down on the left and an arrow coming back up on the right" data-sid="01b-today:49">
+          <g class="ink" data-sid="01b-today:50"><rect x="110" y="128" width="140" height="44" rx="8" data-sid="01b-today:51"/><rect x="110" y="180" width="140" height="44" rx="8" data-sid="01b-today:52"/></g>
+          <g class="edge" data-sid="01b-today:53"><rect x="110" y="76" width="140" height="44" rx="8" data-sid="01b-today:54"/></g>
+          <g class="ink" data-sid="01b-today:55"><path d="M64 72V196M50 182l14 16 14-16" data-sid="01b-today:56"/><path d="M296 196V72M282 86l14-16 14 16" data-sid="01b-today:57"/></g>
+          <g class="stone" data-sid="01b-today:58"><path d="M30 232h300" data-sid="01b-today:59"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:17">01</p>
+        <h3 data-sid="01b-today:18">Before the call and after it: when does each line run?</h3>
+      </li>
+      <li class="ag__ch frag" data-step="2" data-sid="01b-today:19">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Three boxes joined by arrows, the first one orange and the other two bracketed underneath" data-sid="01b-today:60">
+          <g class="edge" data-sid="01b-today:61"><rect x="24" y="96" width="76" height="56" rx="8" data-sid="01b-today:62"/></g>
+          <g class="ink" data-sid="01b-today:63"><rect x="142" y="96" width="76" height="56" rx="8" data-sid="01b-today:64"/><rect x="260" y="96" width="76" height="56" rx="8" data-sid="01b-today:65"/><path d="M100 124h34M124 114l12 10-12 10M218 124h34M242 114l12 10-12 10" data-sid="01b-today:66"/></g>
+          <g class="stone" data-sid="01b-today:67"><path d="M142 172v14h194v-14" data-sid="01b-today:68"/><path d="M30 232h300" data-sid="01b-today:69"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:34">02</p>
+        <h3 data-sid="01b-today:35">Recursion on a linked chain: this node, then the rest</h3>
+      </li>
+      <li class="ag__ch frag" data-step="3" data-sid="01b-today:36">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Three lines of code, each led by an orange dot" data-sid="01b-today:70">
+          <g class="edge-fill" data-sid="01b-today:71"><circle cx="64" cy="88" r="11" data-sid="01b-today:72"/><circle cx="64" cy="140" r="11" data-sid="01b-today:73"/><circle cx="64" cy="192" r="11" data-sid="01b-today:74"/></g>
+          <g class="ink" data-sid="01b-today:75"><path d="M100 88h196M100 140h150M100 192h176" data-sid="01b-today:76"/></g>
+          <g class="stone" data-sid="01b-today:77"><path d="M30 232h300" data-sid="01b-today:78"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:44">03</p>
+        <h3 data-sid="01b-today:45">Writing one: when to stop, how to get smaller</h3>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="01b-today:46"></div>
+  <aside class="notes" data-sid="01b-today:47">Three parts, all about one idea from last class&rsquo;s call stack. Step 1: Part 1 &mdash; a line above the recursive call and a line below it run at different times; we walk one small method twice, then two votes. Step 2: Part 2 &mdash; the same idea on a linked chain: a method handles this node and calls itself on the rest; one vote. Step 3: Part 3 &mdash; writing a recursive method from three questions, then this week&rsquo;s homework. Next: the deadlines.</aside>
+
+  <style data-sid="01b-today:48">
+    /* Slide-local: the agenda as three previews of the hour, W2D2's tab
+       grammar — a rule across the top, a display numeral in the tabs' orange,
+       the caption as the title — with the drawing of what the chapter is about
+       sitting on the rule above them. The drawing box is a fixed 360 so the
+       rules line up across columns whatever the title's line count; every
+       viewBox has the box's 3:2 proportions and is bottom-anchored, so all
+       three render at one scale. Pen inks: neutral for the world, orange for
+       the thing doing the work (the running frame, this node, the three
+       questions), stone for the ground lines and the bracket. Columns are
+       dealt in by growing from centre. Used by this slide only, all values
+       from tokens. */
+    #slide-01b .ag {
+      grid-template-columns: repeat(3, 1fr);
+      list-style: none; padding: 0; margin: 0;
+    }
+    #slide-01b .ag__ch { display: flex; flex-direction: column; margin: 0; }
+    #slide-01b .ag__ch svg { display: block; flex: 0 0 auto; width: 100%; height: 360px; margin-bottom: var(--s-3); }
+    #slide-01b .ag__n {
+      margin: 0 0 var(--s-1); padding-top: var(--s-3);
+      border-top: 4px solid var(--accent-1);
+      font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-3);
+    }
+    #slide-01b .ag__ch h3 { flex: 0 0 auto; font-size: var(--t-body); line-height: 1.15; margin-bottom: 0; }
+
+    #slide-01b .ag .ink,
+    #slide-01b .ag .stone,
+    #slide-01b .ag .edge { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-01b .ag .ink { stroke: var(--fg-1); }
+    #slide-01b .ag .stone { stroke: var(--stone); }
+    #slide-01b .ag .edge { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    #slide-01b .ag .edge-fill { fill: var(--accent-3); }
+
+    #slide-01b .ag__ch {
+      transform-origin: 50% 50%;
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-01b .frag.ag__ch.is-pending { opacity: 0; transform: scale(0.4); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-01b .ag__ch { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

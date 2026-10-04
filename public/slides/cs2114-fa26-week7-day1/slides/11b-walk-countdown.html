@@ -1,0 +1,121 @@
+<section class="slide slide--warmup" id="slide-11b" data-sid="11b-walk-countdown:1">
+  <header class="slide__head" data-sid="11b-walk-countdown:2">
+    <p class="slide__kicker" data-sid="11b-walk-countdown:3">VOTE 3 &middot; THE ANSWER</p>
+    <h2 data-sid="11b-walk-countdown:4">leadTime goes up: countDown(1) through countDown(5)</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11b-walk-countdown:5">A walkthrough of countDown under a program-counter bar, with the call stack on the right and a white output plate beside it. Presses one to five: the bar sits on the print, the if and the recursive call while, one press at a time, a new orange frame grows in on top of the stack, countDown with leadTime 0, then 1, 2, 3 and 4, the frame below turning grey to wait, and the output plate gains 0..., 1..., 2..., 3..., 4... The captions note that the argument goes up by one, so A and B, which count down, are wrong, and that 4 is less than 5, so countDown of 5 is called, which rules out D. Press six: the frame for leadTime 5 grows in, 5... prints, and 5 is not less than 5. Press seven: the else branch prints GAMEOVER. Press eight: the six frames fade, newest first. Press nine: the four options return under the code, A, B and D struck through and C, countDown 1, 2, 3, 4, 5, left standing.</p>
+
+  <!-- The answer as a walk on the call-stack grammar of 09–09c: the method
+       at the dense size under the PC bar (it is 11 lines and 927 px wide),
+       the stack on the right in one SVG (frames 440 × 88 at a 96 px pitch,
+       six of them, inside the thin stone box), and an output plate on the
+       paper with one token per press (plain fade). The frames carry the
+       method name and the local, leadTime = k; the call with both arguments
+       does not fit a frame at a readable size. A call: its frame grows on
+       top in orange and the one below turns to waiting. Nothing runs after
+       the recursive call in this method, so the returns are one press: the
+       frames fade, newest first.
+       steps 1–5: countDown(0)…countDown(4), each prints and calls the next.
+       step 6: countDown(5) prints; 5 < 5 is false.  step 7: GAMEOVER.
+       step 8: the frames pop.  step 9: verdict. -->
+  <div class="slide__body grid grid--code code-dense cd" data-sid="11b-walk-countdown:6">
+    <div class="stack cd__left" data-sid="11b-walk-countdown:7">
+      <div class="editor" data-sid="11b-walk-countdown:8">
+        <p class="editor__bar" data-sid="11b-walk-countdown:9">countDown</p>
+        <div class="editor__pc" data-sid="11b-walk-countdown:10"></div>
+        <ol class="editor__code" data-sid="11b-walk-countdown:11">
+          <li data-sid="11b-walk-countdown:12"><span class="tok-key" data-sid="11b-walk-countdown:13">public void</span> countDown(<span class="tok-key" data-sid="11b-walk-countdown:14">int</span> leadTime, String message)</li>
+          <li data-sid="11b-walk-countdown:15">{</li>
+          <li class="walkline frag" data-step="1" data-hold="5" data-also="6" data-sid="11b-walk-countdown:16">    System.out.println(leadTime + "...");</li>
+          <li class="walkline frag" data-step="1" data-hold="5" data-also="6" data-sid="11b-walk-countdown:17">    <span class="tok-key" data-sid="11b-walk-countdown:18">if</span> (leadTime &lt; <span class="tok-num" data-sid="11b-walk-countdown:19">5</span>)</li>
+          <li class="walkline frag" data-step="1" data-hold="5" data-sid="11b-walk-countdown:20">    {</li>
+          <li class="walkline frag" data-step="1" data-hold="5" data-sid="11b-walk-countdown:21">        countDown(leadTime + <span class="tok-num" data-sid="11b-walk-countdown:22">1</span>, message);</li>
+          <li data-sid="11b-walk-countdown:23">    }</li>
+          <li class="walkline frag" data-step="7" data-sid="11b-walk-countdown:24">    <span class="tok-key" data-sid="11b-walk-countdown:25">else</span> {</li>
+          <li class="walkline frag" data-step="7" data-sid="11b-walk-countdown:26">        System.out.println(message);</li>
+          <li data-sid="11b-walk-countdown:27">    }</li>
+          <li data-sid="11b-walk-countdown:28">}</li>
+        </ol>
+      </div>
+      <div class="cd__caps" data-sid="11b-walk-countdown:29">
+        <p class="cd__cap cap--1 frag" data-step="1" data-sid="11b-walk-countdown:30">countDown(0) prints 0... and 0 &lt; 5 is true, so it calls countDown(0 + 1).</p>
+        <p class="cd__cap cap--2 frag" data-step="2" data-sid="11b-walk-countdown:31">countDown(1): 1..., then countDown(2). The argument goes up by 1, not down.</p>
+        <p class="cd__cap cap--3 frag" data-step="3" data-sid="11b-walk-countdown:32">countDown(2): 2..., then countDown(3). A and B count down; this code adds 1.</p>
+        <p class="cd__cap cap--4 frag" data-step="4" data-sid="11b-walk-countdown:33">countDown(3): 3..., then countDown(4).</p>
+        <p class="cd__cap cap--5 frag" data-step="5" data-sid="11b-walk-countdown:34">countDown(4): 4 &lt; 5 is still true, so countDown(5) is called. That rules out D.</p>
+        <p class="cd__cap cap--6 frag" data-step="6" data-sid="11b-walk-countdown:35">countDown(5) prints 5..., and 5 &lt; 5 is false: no more calls.</p>
+        <p class="cd__cap cap--7 frag" data-step="7" data-sid="11b-walk-countdown:36">The else branch prints GAMEOVER.</p>
+        <p class="cd__cap cap--8 frag" data-step="8" data-sid="11b-walk-countdown:37">Nothing runs after the recursive call, so the frames come off, newest first.</p>
+        <ol class="verdict frag" data-step="9" data-sid="11b-walk-countdown:39">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="11b-walk-countdown:40"><span class="verdict__txt" data-sid="11b-walk-countdown:41">4, 3, 2, 1, 0</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="11b-walk-countdown:42"><span class="verdict__txt" data-sid="11b-walk-countdown:43">4, 3, 2, 1</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="11b-walk-countdown:44"><span class="verdict__txt" data-sid="11b-walk-countdown:45">1, 2, 3, 4, 5</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="11b-walk-countdown:46"><span class="verdict__txt" data-sid="11b-walk-countdown:47">1, 2, 3, 4</span></li>
+        </ol>
+      </div>
+    </div>
+    <svg class="cd__fig" viewBox="0 0 689 690" role="img" aria-label="The call stack for countDown starting at 0: six frames with leadTime 0 to 5 pile up one per call, while an output plate fills with 0... to 5... and then GAMEOVER; then the frames come off, newest first" data-sid="11b-walk-countdown:48">
+      <rect class="cd__box" x="2" y="16" width="452" height="592" rx="14" data-sid="11b-walk-countdown:49"/>
+      <text class="cd__lab" x="228" y="648" data-sid="11b-walk-countdown:50">call stack</text>
+      <g class="fr fr--0 frag" data-step="1" style="--i: 5" data-sid="11b-walk-countdown:51"><rect x="8" y="504" width="440" height="88" rx="10" data-sid="11b-walk-countdown:52"/><text class="fr__call" x="28" y="556" data-sid="11b-walk-countdown:53">countDown</text><text class="fr__loc" x="428" y="556" data-sid="11b-walk-countdown:54">leadTime = 0</text></g>
+      <g class="fr fr--1 frag" data-step="2" style="--i: 4" data-sid="11b-walk-countdown:55"><rect x="8" y="408" width="440" height="88" rx="10" data-sid="11b-walk-countdown:56"/><text class="fr__call" x="28" y="460" data-sid="11b-walk-countdown:57">countDown</text><text class="fr__loc" x="428" y="460" data-sid="11b-walk-countdown:58">leadTime = 1</text></g>
+      <g class="fr fr--2 frag" data-step="3" style="--i: 3" data-sid="11b-walk-countdown:59"><rect x="8" y="312" width="440" height="88" rx="10" data-sid="11b-walk-countdown:60"/><text class="fr__call" x="28" y="364" data-sid="11b-walk-countdown:61">countDown</text><text class="fr__loc" x="428" y="364" data-sid="11b-walk-countdown:62">leadTime = 2</text></g>
+      <g class="fr fr--3 frag" data-step="4" style="--i: 2" data-sid="11b-walk-countdown:63"><rect x="8" y="216" width="440" height="88" rx="10" data-sid="11b-walk-countdown:64"/><text class="fr__call" x="28" y="268" data-sid="11b-walk-countdown:65">countDown</text><text class="fr__loc" x="428" y="268" data-sid="11b-walk-countdown:66">leadTime = 3</text></g>
+      <g class="fr fr--4 frag" data-step="5" style="--i: 1" data-sid="11b-walk-countdown:67"><rect x="8" y="120" width="440" height="88" rx="10" data-sid="11b-walk-countdown:68"/><text class="fr__call" x="28" y="172" data-sid="11b-walk-countdown:69">countDown</text><text class="fr__loc" x="428" y="172" data-sid="11b-walk-countdown:70">leadTime = 4</text></g>
+      <g class="fr fr--5 frag" data-step="6" style="--i: 0" data-sid="11b-walk-countdown:71"><rect x="8" y="24" width="440" height="88" rx="10" data-sid="11b-walk-countdown:72"/><text class="fr__call" x="28" y="76" data-sid="11b-walk-countdown:73">countDown</text><text class="fr__loc" x="428" y="76" data-sid="11b-walk-countdown:74">leadTime = 5</text></g>
+      <!-- the output plate: one printed token per press -->
+      <rect class="cd__plate" x="476" y="16" width="210" height="392" rx="10" data-sid="11b-walk-countdown:75"/>
+      <text class="cd__plab" x="496" y="56" data-sid="11b-walk-countdown:76">output</text>
+      <text class="cd__out frag" data-step="1" x="496" y="112" data-sid="11b-walk-countdown:77">0...</text>
+      <text class="cd__out frag" data-step="2" x="496" y="156" data-sid="11b-walk-countdown:78">1...</text>
+      <text class="cd__out frag" data-step="3" x="496" y="200" data-sid="11b-walk-countdown:79">2...</text>
+      <text class="cd__out frag" data-step="4" x="496" y="244" data-sid="11b-walk-countdown:80">3...</text>
+      <text class="cd__out frag" data-step="5" x="496" y="288" data-sid="11b-walk-countdown:81">4...</text>
+      <text class="cd__out frag" data-step="6" x="496" y="332" data-sid="11b-walk-countdown:82">5...</text>
+      <text class="cd__out frag" data-step="7" x="496" y="376" data-sid="11b-walk-countdown:83">GAMEOVER</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="11b-walk-countdown:84"></div>
+  <aside class="notes" data-sid="11b-walk-countdown:85">Answer: C &mdash; countDown(1) through countDown(5) [key ASSUMED; the PrairieLearn twin agrees; confirm in Runestone]. Same picture as fact: a new frame for every call, newest on top, and an output plate for what gets printed. Step 1 &mdash; countDown(0): prints 0..., and 0 &lt; 5, so it calls countDown(leadTime + 1), which is countDown(1). Step 2 &mdash; countDown(1) prints 1... and calls countDown(2). The method is named countDown, but the argument is leadTime + 1: it counts up. That is why A and B are wrong. Step 3 &mdash; 2..., countDown(3). Step 4 &mdash; 3..., countDown(4). Step 5 &mdash; 4 &lt; 5 is still true, so countDown(5) is called; D stops one call too early. Step 6 &mdash; countDown(5) prints 5..., and 5 &lt; 5 is false. That is the base case: no more calls. Step 7 &mdash; the else prints GAMEOVER. Step 8 &mdash; there is nothing after the recursive call, so each frame just returns and comes off, newest first. Step 9 &mdash; the calls after countDown(0) are 1, 2, 3, 4, 5: C. Next class: what happens when a method does have work after its recursive call. Next: before next class.</aside>
+
+  <style data-sid="11b-walk-countdown:86">
+    /* Slide-local: the call-stack grammar of 09–09c with an output plate.
+       Editor at the dense size (927 px) on the left, one caption at a time
+       under it, the verdict taking the caption cell last; one SVG on the right in canvas px. Frames
+       GrowFromCenter on their call; the frame below crossfades to the
+       waiting colours (:has() on the next caption); the pop is a plain fade,
+       newest first (--i stagger). Output tokens FadeIn on the --paper plate.
+       All values from tokens; used by this slide only. */
+    #slide-11b .cd { grid-template-columns: 927px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-11b .cd__fig { display: block; width: 100%; height: 690px; overflow: visible; }
+    #slide-11b .cd__caps { display: grid; }
+    #slide-11b .cd__caps > * { grid-area: 1 / 1; }
+    #slide-11b .slide__body p.cd__cap { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.3; color: var(--accent-1); transition: opacity .3s ease; }
+    #slide-11b .frag.cd__cap.is-current { transition-delay: .3s; }
+    #slide-11b .frag.cd__cap.is-past { opacity: 0; transition-delay: 0s; }
+
+    #slide-11b .cd__box { fill: none; stroke: var(--stone); stroke-width: 3; }
+    #slide-11b .cd__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-11b .fr rect { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .4s ease, stroke .4s ease; }
+    #slide-11b .cd:has(.cap--2:not(.is-pending)) .fr--0 rect,
+    #slide-11b .cd:has(.cap--3:not(.is-pending)) .fr--1 rect,
+    #slide-11b .cd:has(.cap--4:not(.is-pending)) .fr--2 rect,
+    #slide-11b .cd:has(.cap--5:not(.is-pending)) .fr--3 rect,
+    #slide-11b .cd:has(.cap--6:not(.is-pending)) .fr--4 rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-11b .fr__call { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-11b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; }
+    #slide-11b .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .45s var(--ease-smooth); }
+    #slide-11b .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+    /* step 8: the returns — plain fades, newest (top) first */
+    #slide-11b .cd:has(.cap--8:not(.is-pending)) .fr { opacity: 0; transition: opacity .3s ease calc(var(--i) * .15s); }
+
+    #slide-11b .cd__plate { fill: var(--paper); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-11b .cd__plab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-11b .cd__out { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
+    #slide-11b .frag.cd__out.is-current { transition-delay: .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11b .fr, #slide-11b .fr rect, #slide-11b .cd__out, #slide-11b .cd__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

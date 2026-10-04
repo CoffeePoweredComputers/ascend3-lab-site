@@ -1,0 +1,176 @@
+<section class="slide slide--warmup" id="slide-12" data-sid="12-write-count:1">
+  <header class="slide__head" data-sid="12-write-count:2">
+    <p class="slide__kicker" data-sid="12-write-count:3">WRITING ONE &middot; THREE QUESTIONS</p>
+    <h2 data-sid="12-write-count:4">Count the nodes of a chain, one question at a time</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="12-write-count:5">A recursive method written one line per question, then run. Left, an editor that starts with only the header int count of Node curr and its closing brace, and a list of three questions under it. Step one: question 1, when do I stop?, appears, and the line if curr is null, return 0 is written. Step two: question 2, what is the smaller problem?, and the line int rest equals count of curr's next. Step three: question 3, what do I do with its answer?, and the line return 1 plus rest. On the right, the chain A, B, C ending in null with a blue ring on the node the running call is looking at, and the call stack under it. Steps four to seven: count is called on A, then on B, C and null, a box appearing for each with the one below marked waiting on line 3. Step eight: curr is null, so that call returns 0; a blue pill reading 0 moves down into the box for C and the null box fades. Steps nine to eleven: each box returns 1 plus what it got, so pills reading 1, 2 and 3 move down one box at a time; the last one, 3, drops below the stack as the answer.</p>
+
+  <!-- Writing a recursive method from three questions, one press each; each
+       answer adds its line to the editor (walkline--new, orange gutter: yours
+       to write). The example is deliberately none of the five homework
+       problems (power, countdownList, reverse, arrayToString, sumFrom): it
+       counts the nodes of a chain. The answer line is split into rest and
+       return so questions 2 and 3 each add one line. Then the method runs on
+       09's chain in the deck's call-stack grammar; returned values are blue
+       pills that appear in the frame that returns and travel 96 px down into
+       the frame below (a real move), then fade when that frame returns.
+       steps 1–3: the three questions, one line each.
+       step 4: count(A).  steps 5–7: three calls down the chain.
+       step 8: count(null) returns 0.  steps 9–11: 1, 2, 3 come back up. -->
+  <div class="slide__body grid grid--code code-mid sk" data-sid="12-write-count:6">
+    <div class="stack" data-sid="12-write-count:7">
+      <div class="editor sk__editor" data-sid="12-write-count:8">
+        <p class="editor__bar" data-sid="12-write-count:9">count(curr), called as count(firstNode)</p>
+        <div class="editor__pc" data-sid="12-write-count:10"></div>
+        <ol class="editor__code" data-sid="12-write-count:11">
+          <li data-sid="12-write-count:12"><span class="tok-key" data-sid="12-write-count:13">int</span> count(Node curr) {</li>
+          <li class="walkline walkline--new frag" data-step="1" data-also="4 8" data-sid="12-write-count:14">    <span class="tok-key" data-sid="12-write-count:15">if</span> (curr == <span class="tok-key" data-sid="12-write-count:16">null</span>) { <span class="tok-key" data-sid="12-write-count:17">return</span> <span class="tok-num" data-sid="12-write-count:18">0</span>; }</li>
+          <li class="walkline walkline--new frag" data-step="2" data-also="5 6 7" data-sid="12-write-count:19">    <span class="tok-key" data-sid="12-write-count:20">int</span> rest = count(curr.getNext());</li>
+          <li class="walkline walkline--new frag" data-step="3" data-also="9 10 11" data-sid="12-write-count:21">    <span class="tok-key" data-sid="12-write-count:22">return</span> <span class="tok-num" data-sid="12-write-count:23">1</span> + rest;</li>
+          <li data-sid="12-write-count:24">}</li>
+        </ol>
+      </div>
+      <ol class="wq" data-sid="12-write-count:25">
+        <li class="wq__q frag" data-step="1" data-sid="12-write-count:26"><span class="wq__n" data-sid="12-write-count:27">1</span>When do I stop?</li>
+        <li class="wq__q frag" data-step="2" data-sid="12-write-count:28"><span class="wq__n" data-sid="12-write-count:29">2</span>What is the smaller problem?</li>
+        <li class="wq__q frag" data-step="3" data-sid="12-write-count:30"><span class="wq__n" data-sid="12-write-count:31">3</span>What do I do with its answer?</li>
+      </ol>
+      <div class="codewalk" data-sid="12-write-count:32">
+        <div class="codewalk__caps" data-sid="12-write-count:33">
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="12-write-count:34">When there is no chain left. curr == null is the empty chain, and it has 0 nodes.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="12-write-count:35">The rest of the chain, from curr.getNext(). The same method counts it.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="12-write-count:36">Add 1 for this node to the count of the rest.</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="12-write-count:37">Run it: count(A). curr is not null.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="12-write-count:38">count(A) calls count on the rest, from B, and waits on line 3.</p>
+          <p class="walkcap cap--6 frag" data-step="6" data-sid="12-write-count:39">count(B) calls count(C) and waits.</p>
+          <p class="walkcap cap--7 frag" data-step="7" data-sid="12-write-count:40">count(C) calls count on null and waits.</p>
+          <p class="walkcap cap--8 frag" data-step="8" data-sid="12-write-count:41">The empty chain returns 0. It goes back to count(C) as rest.</p>
+          <p class="walkcap cap--9 frag" data-step="9" data-sid="12-write-count:42">count(C) returns 1 + 0 = 1 to count(B).</p>
+          <p class="walkcap cap--10 frag" data-step="10" data-sid="12-write-count:43">count(B) returns 1 + 1 = 2 to count(A).</p>
+          <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="12-write-count:44">count(A) returns 1 + 2 = 3. The answers came back up: 0, 1, 2, 3.</p>
+        </div>
+      </div>
+    </div>
+
+    <svg class="sk__fig" viewBox="0 0 836 620" role="img" aria-label="The chain A, B, C ending in null with a blue ring that moves along it, and under it the call stack, one box per call of count, with blue pills carrying each returned count down to the box below" data-sid="12-write-count:45">
+      <defs data-sid="12-write-count:46">
+        <marker id="w7d2-12-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="12-write-count:47"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="12-write-count:48"/></marker>
+      </defs>
+
+      <!-- the chain -->
+      <g class="nd" data-sid="12-write-count:49"><rect x="0" y="24" width="150" height="80" rx="10" data-sid="12-write-count:50"/><path d="M75 24v80" data-sid="12-write-count:51"/><text class="nd__f" x="8" y="44" data-sid="12-write-count:52">data</text><text class="nd__f" x="83" y="44" data-sid="12-write-count:53">next</text><text class="nd__v" x="37" y="88" data-sid="12-write-count:54">A</text></g>
+      <g class="nd" data-sid="12-write-count:55"><rect x="210" y="24" width="150" height="80" rx="10" data-sid="12-write-count:56"/><path d="M285 24v80" data-sid="12-write-count:57"/><text class="nd__f" x="218" y="44" data-sid="12-write-count:58">data</text><text class="nd__f" x="293" y="44" data-sid="12-write-count:59">next</text><text class="nd__v" x="247" y="88" data-sid="12-write-count:60">B</text></g>
+      <g class="nd" data-sid="12-write-count:61"><rect x="420" y="24" width="150" height="80" rx="10" data-sid="12-write-count:62"/><path d="M495 24v80" data-sid="12-write-count:63"/><text class="nd__f" x="428" y="44" data-sid="12-write-count:64">data</text><text class="nd__f" x="503" y="44" data-sid="12-write-count:65">next</text><text class="nd__v" x="457" y="88" data-sid="12-write-count:66">C</text></g>
+      <path class="nd__arr" d="M112 72H206" data-sid="12-write-count:67"/>
+      <path class="nd__arr" d="M322 72H416" data-sid="12-write-count:68"/>
+      <path class="nd__arr" d="M532 72H626" data-sid="12-write-count:69"/>
+      <text class="nd__null" x="705" y="84" data-sid="12-write-count:70">null</text>
+      <rect class="ring" x="-8" y="14" width="166" height="100" rx="16" data-sid="12-write-count:71"/>
+
+      <!-- the call stack -->
+      <path class="sk__base" d="M0 540H440" data-sid="12-write-count:72"/>
+      <text class="sk__lab" x="220" y="574" data-sid="12-write-count:73">call stack</text>
+      <g class="fr fr--a frag" data-step="4" data-sid="12-write-count:74"><rect class="fr__box" x="0" y="440" width="440" height="88" rx="12" data-sid="12-write-count:75"/><text class="fr__call" x="24" y="480" data-sid="12-write-count:76">count(A)</text><text class="fr__wait" x="24" y="514" data-sid="12-write-count:77">waiting on line 3</text><text class="fr__loc" x="236" y="494" data-sid="12-write-count:78">curr</text><path class="fr__arr" d="M310 484H352" data-sid="12-write-count:79"/><rect class="fr__nd" x="358" y="460" width="56" height="48" rx="8" data-sid="12-write-count:80"/><text class="fr__ndv" x="386" y="494" data-sid="12-write-count:81">A</text></g>
+      <g class="fr fr--b frag" data-step="5" data-sid="12-write-count:82"><rect class="fr__box" x="0" y="344" width="440" height="88" rx="12" data-sid="12-write-count:83"/><text class="fr__call" x="24" y="384" data-sid="12-write-count:84">count(B)</text><text class="fr__wait" x="24" y="418" data-sid="12-write-count:85">waiting on line 3</text><text class="fr__loc" x="236" y="398" data-sid="12-write-count:86">curr</text><path class="fr__arr" d="M310 388H352" data-sid="12-write-count:87"/><rect class="fr__nd" x="358" y="364" width="56" height="48" rx="8" data-sid="12-write-count:88"/><text class="fr__ndv" x="386" y="398" data-sid="12-write-count:89">B</text></g>
+      <g class="fr fr--c frag" data-step="6" data-sid="12-write-count:90"><rect class="fr__box" x="0" y="248" width="440" height="88" rx="12" data-sid="12-write-count:91"/><text class="fr__call" x="24" y="288" data-sid="12-write-count:92">count(C)</text><text class="fr__wait" x="24" y="322" data-sid="12-write-count:93">waiting on line 3</text><text class="fr__loc" x="236" y="302" data-sid="12-write-count:94">curr</text><path class="fr__arr" d="M310 292H352" data-sid="12-write-count:95"/><rect class="fr__nd" x="358" y="268" width="56" height="48" rx="8" data-sid="12-write-count:96"/><text class="fr__ndv" x="386" y="302" data-sid="12-write-count:97">C</text></g>
+      <g class="fr fr--d frag" data-step="7" data-sid="12-write-count:98"><rect class="fr__box" x="0" y="152" width="440" height="88" rx="12" data-sid="12-write-count:99"/><text class="fr__call" x="24" y="192" data-sid="12-write-count:100">count(null)</text><text class="fr__loc" x="236" y="206" data-sid="12-write-count:101">curr</text><path class="fr__arr" d="M310 196H344" data-sid="12-write-count:102"/><text class="fr__null" x="350" y="206" data-sid="12-write-count:103">null</text></g>
+
+      <!-- returned values: each appears beside the frame that returns and moves down one frame -->
+      <g class="pill frag" data-step="8" data-sid="12-write-count:104"><rect x="470" y="170" width="100" height="52" rx="26" data-sid="12-write-count:105"/><text x="520" y="206" data-sid="12-write-count:106">0</text></g>
+      <g class="pill frag" data-step="9" data-sid="12-write-count:107"><rect x="470" y="266" width="100" height="52" rx="26" data-sid="12-write-count:108"/><text x="520" y="302" data-sid="12-write-count:109">1</text></g>
+      <g class="pill frag" data-step="10" data-sid="12-write-count:110"><rect x="470" y="362" width="100" height="52" rx="26" data-sid="12-write-count:111"/><text x="520" y="398" data-sid="12-write-count:112">2</text></g>
+      <g class="pill frag" data-step="11" data-sid="12-write-count:113"><rect x="470" y="458" width="100" height="52" rx="26" data-sid="12-write-count:114"/><text x="520" y="494" data-sid="12-write-count:115">3</text></g>
+      <text class="pill__lab frag" data-step="11" x="590" y="590" data-sid="12-write-count:116">returned</text>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="12-write-count:117"></div>
+  <aside class="notes" data-sid="12-write-count:118">Writing a recursive method from three questions. The example is counting the nodes of a chain, which is not one of the homework problems. Step 1 &mdash; question 1, when do I stop? When there is no chain left: curr == null. An empty chain has 0 nodes, so return 0. Step 2 &mdash; question 2, what is the smaller problem? The rest of the chain, which starts at curr.getNext(). Trust the same method to count it, the way show trusted itself to show the rest. Step 3 &mdash; question 3, what do I do with its answer? Add 1, for this node. Three lines, three questions. Now run it. Step 4 &mdash; count(A); curr is not null. Step 5 &mdash; line 3 calls count on the rest, from B, and count(A) waits there. Steps 6 and 7 &mdash; the same for B and C; C&rsquo;s next is null. Step 8 &mdash; count(null) is the base case and returns 0; the 0 goes back down into count(C), which was waiting on line 3, and becomes rest. Step 9 &mdash; count(C) returns 1 + 0 = 1. Step 10 &mdash; count(B) returns 2. Step 11 &mdash; count(A) returns 3. The add happens below the call, so it happens on the way back: that is why the numbers come up the stack. Next: the homework, five methods of this shape.</aside>
+
+  <style data-sid="12-write-count:119">
+    /* Slide-local: the editor at --t-code (780 px: the rest line is 37
+       characters, 37 × 19.2 + 70 = 780); its three answer lines are
+       walkline--new (hidden until written, orange gutter numeral: yours to
+       write). Under it the three questions, one per press, each with an
+       orange numeral, then the caption row. On the right 09's chain and stack
+       in one 836 × 620 SVG at 1:1 (Node boxes 150 × 80, blue arrows, null in
+       stone; a blue ring that moves to the running call's node; frames
+       440 × 88 at a 96 px pitch, running = orange 18% tint + orange stroke,
+       waiting = bg-1 + fg-1 stroke + "waiting on line 3"). Returned values
+       are blue pills (a value travelling back: blue, as W6D1 05c's str
+       pill): each fades in beside the frame that returns, then translates
+       96 px down to the frame below (a real move, delayed so it lands after
+       it appears), and fades when that frame returns. All states keyed to the
+       caption frags with :has(), in step order. Used by this slide only, all
+       values from tokens. */
+    #slide-12 .sk { grid-template-columns: 780px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-12 .sk__editor { width: 780px; }
+    #slide-12 .wq { list-style: none; margin: 0; padding: 0; display: grid; row-gap: var(--s-1); }
+    #slide-12 .wq__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-12 .wq__n { display: inline-block; width: var(--s-5); font-family: var(--font-display); color: var(--accent-3); }
+    #slide-12 .codewalk__caps { min-height: 100px; }
+    #slide-12 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-12 .sk__fig { display: block; width: 836px; height: 620px; overflow: visible; }
+    #slide-12 .sk__base { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+    #slide-12 .sk__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    /* the chain */
+    #slide-12 .nd rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-12 .nd path { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-12 .nd__f { font-family: var(--font-mono); font-size: 16px; fill: var(--fg-1); }
+    #slide-12 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-12 .nd__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w7d2-12-head); }
+    #slide-12 .nd__null { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--stone); text-anchor: middle; }
+    #slide-12 .ring { fill: none; stroke: var(--accent-2); stroke-width: 5; opacity: 0; transition: transform .6s var(--ease-smooth), opacity .3s ease; }
+    #slide-12 .sk:has(.cap--4:not(.is-pending)) .ring { opacity: 1; }
+    #slide-12 .sk:has(.cap--5:not(.is-pending)) .ring { transform: translateX(210px); }
+    #slide-12 .sk:has(.cap--6:not(.is-pending)) .ring { transform: translateX(420px); }
+    #slide-12 .sk:has(.cap--7:not(.is-pending)) .ring { transform: translateX(630px); }
+    #slide-12 .sk:has(.cap--8:not(.is-pending)) .ring { transform: translateX(420px); }
+    #slide-12 .sk:has(.cap--9:not(.is-pending)) .ring { transform: translateX(210px); }
+    #slide-12 .sk:has(.cap--10:not(.is-pending)) .ring { transform: translateX(0px); }
+    #slide-12 .sk:has(.cap--11:not(.is-pending)) .ring { opacity: 0; }
+
+    /* frames: running by default */
+    #slide-12 .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-12 .fr__call, #slide-12 .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-12 .fr__wait { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-12 .fr__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w7d2-12-head); }
+    #slide-12 .fr__nd { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-12 .fr__ndv { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-12 .fr__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); }
+    #slide-12 .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-12 .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* waiting, in step order */
+    #slide-12 .sk:has(.cap--5:not(.is-pending)) .fr--a .fr__box,
+    #slide-12 .sk:has(.cap--6:not(.is-pending)) .fr--b .fr__box,
+    #slide-12 .sk:has(.cap--7:not(.is-pending)) .fr--c .fr__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-12 .sk:has(.cap--5:not(.is-pending)) .fr--a .fr__wait,
+    #slide-12 .sk:has(.cap--6:not(.is-pending)) .fr--b .fr__wait,
+    #slide-12 .sk:has(.cap--7:not(.is-pending)) .fr--c .fr__wait { opacity: 1; }
+    /* the way back: each return fades a frame and the one below runs again */
+    #slide-12 .sk:has(.cap--8:not(.is-pending)) .fr--d,
+    #slide-12 .sk:has(.cap--9:not(.is-pending)) .fr--c,
+    #slide-12 .sk:has(.cap--10:not(.is-pending)) .fr--b,
+    #slide-12 .sk:has(.cap--11:not(.is-pending)) .fr--a { opacity: 0; }
+    #slide-12 .sk:has(.cap--8:not(.is-pending)) .fr--c .fr__box,
+    #slide-12 .sk:has(.cap--9:not(.is-pending)) .fr--b .fr__box,
+    #slide-12 .sk:has(.cap--10:not(.is-pending)) .fr--a .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-12 .sk:has(.cap--8:not(.is-pending)) .fr--c .fr__wait,
+    #slide-12 .sk:has(.cap--9:not(.is-pending)) .fr--b .fr__wait,
+    #slide-12 .sk:has(.cap--10:not(.is-pending)) .fr--a .fr__wait { opacity: 0; }
+
+    /* the returned values */
+    #slide-12 .pill rect { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; }
+    #slide-12 .pill text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-2); text-anchor: middle; }
+    #slide-12 .pill { transition: opacity .25s ease, transform .6s var(--ease-smooth); }
+    #slide-12 .frag.pill.is-current, #slide-12 .frag.pill.is-past { transform: translateY(96px); transition-delay: 0s, .35s; }
+    #slide-12 .frag.pill.is-past { opacity: 0; }
+    #slide-12 .pill__lab { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); transition: opacity .3s ease; }
+    #slide-12 .frag.pill__lab.is-current { transition-delay: .9s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-12 .ring, #slide-12 .fr, #slide-12 .fr__box, #slide-12 .fr__wait, #slide-12 .pill, #slide-12 .pill__lab { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

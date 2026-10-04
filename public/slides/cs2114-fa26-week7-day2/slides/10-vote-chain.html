@@ -1,0 +1,73 @@
+<section class="slide slide--warmup" id="slide-10" data-sid="10-vote-chain:1">
+  <header class="slide__head" data-sid="10-vote-chain:2">
+    <p class="slide__kicker" data-sid="10-vote-chain:3">PEER INSTRUCTION &middot; VOTE 3</p>
+    <h2 data-sid="10-vote-chain:4">displayChain: which order does the chain print in?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="10-vote-chain:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="10-vote-chain:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="10-vote-chain:7"/><g class="timer__ticks" data-sid="10-vote-chain:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="10-vote-chain:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="10-vote-chain:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="10-vote-chain:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="10-vote-chain:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="10-vote-chain:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="10-vote-chain:14"/><g class="timer__hand" data-sid="10-vote-chain:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="10-vote-chain:16"/></g><text class="timer__time" x="75" y="88" data-sid="10-vote-chain:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="10-vote-chain:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="10-vote-chain:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="10-vote-chain:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="10-vote-chain:21"/><g class="timer__ticks" data-sid="10-vote-chain:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="10-vote-chain:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="10-vote-chain:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="10-vote-chain:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="10-vote-chain:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="10-vote-chain:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="10-vote-chain:28"/><g class="timer__hand" data-sid="10-vote-chain:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="10-vote-chain:30"/></g><text class="timer__time" x="75" y="88" data-sid="10-vote-chain:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="10-vote-chain:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="10-vote-chain:33">A peer-instruction question, quoted in reading order. Left, two editors. The first is headed given fields and holds two lines: private Node firstNode, with the comment reference to first node, and private int numberOfEntries. The second is headed and the following code and holds six lines: private void displayChain of Node curr; if curr is not null, call displayChain of curr's next, then print curr's data; two closing braces. Right, the question: indicate how the private helper member method would print a non-empty chain. Then three options, each led by a maroon disc with its letter: A, in order; B, in reverse order; C, neither. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout with the stem's two lead-ins as the editor
+       bars ("Given fields:" over the fields, "And the following code:" over
+       the method), so the stem reads in its own order without two extra
+       lines; the question sentence over the three options on the right.
+       Static: only the clocks build; 10b walks it on the chain from 09.
+       Peer Instruction W07D2, question 3 of 3 (activity id not seen); PL twins
+       questions/dataStructures/recursion/u09q03_recursion_linkedchain_*. -->
+  <div class="slide__body code-dense" data-sid="10-vote-chain:34">
+    <div class="vote__panels vc__panels" data-sid="10-vote-chain:35">
+      <div class="stack vc__left" data-sid="10-vote-chain:36">
+        <div class="editor vc__editor" data-sid="10-vote-chain:37">
+          <p class="editor__bar" data-sid="10-vote-chain:38">Given fields:</p>
+          <ol class="editor__code" data-sid="10-vote-chain:39">
+            <li data-sid="10-vote-chain:40"><span class="tok-key" data-sid="10-vote-chain:41">private</span> Node firstNode;  // Reference to first node</li>
+            <li data-sid="10-vote-chain:42"><span class="tok-key" data-sid="10-vote-chain:43">private int</span> numberOfEntries;</li>
+          </ol>
+        </div>
+        <div class="editor vc__editor" data-sid="10-vote-chain:44">
+          <p class="editor__bar" data-sid="10-vote-chain:45">And the following code:</p>
+          <ol class="editor__code" data-sid="10-vote-chain:46">
+            <li data-sid="10-vote-chain:47"><span class="tok-key" data-sid="10-vote-chain:48">private void</span> displayChain(Node curr) {</li>
+            <li data-sid="10-vote-chain:49">    <span class="tok-key" data-sid="10-vote-chain:50">if</span> (curr != <span class="tok-key" data-sid="10-vote-chain:51">null</span>) {</li>
+            <li data-sid="10-vote-chain:52">        displayChain(curr.getNext());</li>
+            <li data-sid="10-vote-chain:53">        System.out.println(curr.getData());</li>
+            <li data-sid="10-vote-chain:54">    }</li>
+            <li data-sid="10-vote-chain:55">}</li>
+          </ol>
+        </div>
+      </div>
+      <div class="vc__right" data-sid="10-vote-chain:56">
+        <p class="vote__stem vc__q" data-sid="10-vote-chain:57">Indicate how the private helper member method would print a non-empty chain</p>
+        <ol class="vote__opts" data-sid="10-vote-chain:58">
+          <li class="vote__opt" data-sid="10-vote-chain:59"><span class="vote__key" data-sid="10-vote-chain:60">A</span><p class="vote__text" data-sid="10-vote-chain:61">In order</p></li>
+          <li class="vote__opt" data-sid="10-vote-chain:62"><span class="vote__key" data-sid="10-vote-chain:63">B</span><p class="vote__text" data-sid="10-vote-chain:64">In reverse order</p></li>
+          <li class="vote__opt" data-sid="10-vote-chain:65"><span class="vote__key" data-sid="10-vote-chain:66">C</span><p class="vote__text" data-sid="10-vote-chain:67">Neither</p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10-vote-chain:68"></div>
+  <aside class="notes" data-sid="10-vote-chain:69">Answer: B &mdash; in reverse order [ASSUMED by tracing; the key is not in the Runestone paste; confirm in Runestone&rsquo;s results view. The PL twin u09q03_recursion_linkedchain_c, with the print above the call, is keyed &ldquo;In order&rdquo;, which agrees]. Press once: the 1:30 vote clock; press again for the 2:30 discuss clock; press again to move on. The discussion question for the groups: compare this with show from two slides ago. What is different, and when does the print run now? Runestone: Peer Instruction W07D2, question 3 of 3.</aside>
+
+  <style data-sid="10-vote-chain:70">
+    /* two clocks at the top right, copied from W6D1 05b: the vote ring (1:30)
+       and the discussion ring (2:30), a label under each. */
+    #slide-10 .timer { top: var(--s-6); }
+    #slide-10 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-10 .frag.timer.is-past { opacity: .55; }
+    #slide-10 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-10 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-10 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: two editors at the dense size in a 930 px left column (the
+       field line with its comment is 51 characters: 51 × 16.8 + 70 = 927);
+       the question and the three short options on the right at the body
+       size. The stem's lead-ins are the editor bars. All values from tokens;
+       used by this slide only. */
+    #slide-10 .vc__panels { grid-template-columns: 930px minmax(0, 1fr); align-items: start; }
+    #slide-10 .vc__editor { width: 930px; }
+    #slide-10 .vc__q { margin-bottom: var(--s-2); }
+    #slide-10 .vc__right { padding-top: var(--s-5); }          /* clear the two clocks' labels, which reach y 243 */
+  </style>
+</section>

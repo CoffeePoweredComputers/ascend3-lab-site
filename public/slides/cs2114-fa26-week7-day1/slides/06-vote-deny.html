@@ -1,0 +1,62 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-vote-deny:1">
+  <header class="slide__head" data-sid="06-vote-deny:2">
+    <p class="slide__kicker" data-sid="06-vote-deny:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06-vote-deny:4">Which key question helps least with the deny list?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="06-vote-deny:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-deny:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-deny:7"/><g class="timer__ticks" data-sid="06-vote-deny:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-deny:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-deny:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-deny:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-deny:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-deny:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-deny:14"/><g class="timer__hand" data-sid="06-vote-deny:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-deny:16"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-deny:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="06-vote-deny:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="06-vote-deny:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06-vote-deny:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06-vote-deny:21"/><g class="timer__ticks" data-sid="06-vote-deny:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06-vote-deny:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06-vote-deny:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06-vote-deny:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06-vote-deny:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06-vote-deny:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06-vote-deny:28"/><g class="timer__hand" data-sid="06-vote-deny:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06-vote-deny:30"/></g><text class="timer__time" x="75" y="88" data-sid="06-vote-deny:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="06-vote-deny:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="06-vote-deny:33">A peer-instruction question. On the left, the stem as a block of small text in three paragraphs: your organization&rsquo;s online services have been hit by a flurry of Denial of Service attacks, which flood a server with fake requests so legitimate ones cannot be served; the analysis suggests a distributed attack sent from many machines, such as botnets, zombie computers that run remote commands without the owner&rsquo;s knowledge. Your team is deciding what to do; one approach is an allow list and deny list, where access from addresses on the deny list, which may be individual machines, networks or whole countries, is prevented, and access from whitelisted addresses is always allowed. Using the 8 Key questions you must consider if permanently putting certain addresses on the deny list is an ethical solution. Under a rule, in darker type, the question: which question would be the least helpful in determining if permanently putting certain addresses on the deny list is an ethical course of action. On the right, the five options as rows, each led by a maroon disc with its letter: A, Responsibilities; B, Monetary gains/losses; C, Liberty; D, Fairness; E, Outcomes. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout (deck.css .vote) without the lede: the stem is
+       about 1,050 characters in three paragraphs, so it is the left panel,
+       1080 px of micro text (PIL greedy wrap: 8 + 4 + 2 lines, and 2 for the
+       question), with its last sentence, the actual question, set apart
+       under a rule in ink. The five options are short, so they keep the
+       small size on the right. Quoted verbatim from Runestone, quirks kept
+       ("deny list" and "whitelisted"; "… an ethical solution." with no
+       "is"). No drawing: nothing on the left may point at an option.
+       Static: only the two clocks build; the answer slide lights the eight
+       key questions one by one. Peer Instruction W07D1, question 1 of 3. -->
+  <div class="slide__body" data-sid="06-vote-deny:34">
+    <div class="vote__panels vd__panels" data-sid="06-vote-deny:35">
+      <div class="vd__stem" data-sid="06-vote-deny:36">
+        <p data-sid="06-vote-deny:37">Your organization&rsquo;s online services have recently been hit by a flurry of Denial of Service attacks. Denial of Service attacks occur when an attacker, or attackers, attempt to make a computer device, service, or network resource unavailable to users. Attacks may flood a server or resource with fake service requests to overload systems in order to prevent legitimate requests from being fulfilled. Analysis of the attacks suggests that you are dealing with a Distributed DOS (DDOS), where requests are sent from many machines, for example Botnets are zombie computers that receive/execute remote commands without the owner&rsquo;s knowledge.</p>
+        <p data-sid="06-vote-deny:38">Your team is attempting to determine an appropriate course of action. One approach is to maintain an allow list/deny list in which access from addresses on the deny list (individual machines, networks, or even whole countries) is prevented and access from whitelisted addresses is always allowed.</p>
+        <p data-sid="06-vote-deny:39">Using the 8 Key questions you must consider if permanently putting certain addresses on the deny list an ethical solution.</p>
+        <p class="vd__ask" data-sid="06-vote-deny:40">Which question would be the least helpful in determining if permanently putting certain addresses on the deny list is an ethical course of action?</p>
+      </div>
+      <ol class="vote__opts vote__opts--long vd__opts" data-sid="06-vote-deny:41">
+        <li class="vote__opt" data-sid="06-vote-deny:42"><span class="vote__key" data-sid="06-vote-deny:43">A</span><p class="vote__text" data-sid="06-vote-deny:44">Responsibilities</p></li>
+        <li class="vote__opt" data-sid="06-vote-deny:45"><span class="vote__key" data-sid="06-vote-deny:46">B</span><p class="vote__text" data-sid="06-vote-deny:47">Monetary gains/losses</p></li>
+        <li class="vote__opt" data-sid="06-vote-deny:48"><span class="vote__key" data-sid="06-vote-deny:49">C</span><p class="vote__text" data-sid="06-vote-deny:50">Liberty</p></li>
+        <li class="vote__opt" data-sid="06-vote-deny:51"><span class="vote__key" data-sid="06-vote-deny:52">D</span><p class="vote__text" data-sid="06-vote-deny:53">Fairness</p></li>
+        <li class="vote__opt" data-sid="06-vote-deny:54"><span class="vote__key" data-sid="06-vote-deny:55">E</span><p class="vote__text" data-sid="06-vote-deny:56">Outcomes</p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-vote-deny:57"></div>
+  <aside class="notes" data-sid="06-vote-deny:58">Answer: B &mdash; Monetary gains/losses; it is not one of JMU&rsquo;s Eight Key Questions, and the other four are [key ASSUMED, not visible in the paste; confirm in Runestone&rsquo;s results view]. The question as printed: a distributed denial-of-service attack, a team considering an allow list and a deny list, and which of the five would be least helpful in deciding whether putting addresses on the deny list permanently is ethical. Press once: the 1:30 vote clock; press again for the 2:30 discuss clock; press again to move on. The discussion question for the groups: which of the five is not one of the eight questions from the 6.1 module, and what would each of the others ask about the deny list? Runestone: Peer Instruction W07D1, question 1 of 3 [activity id not known].</aside>
+
+  <style data-sid="06-vote-deny:59">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js) */
+    #slide-06 .timer { top: var(--s-6); }
+    #slide-06 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06 .frag.timer.is-past { opacity: .55; }
+    #slide-06 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-06 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the stem as a 1080 px text panel at the micro size in the
+       stem's muted ink, the question sentence under a rule in ink; the five
+       one- or two-word options at the small size on the right. All values
+       from tokens; used by this slide only. */
+    #slide-06 .vd__panels { grid-template-columns: 1080px minmax(0, 1fr); align-items: start; }
+    #slide-06 .vd__stem p { margin: 0 0 var(--s-2); font-size: var(--t-micro); line-height: 1.35; color: var(--fg-1); }
+    #slide-06 .vd__stem .vd__ask { margin: var(--s-3) 0 0; padding-top: var(--s-2); border-top: 3px solid color-mix(in srgb, var(--stone) 45%, var(--bg-0)); color: var(--fg-0); }
+    #slide-06 .vd__opts .vote__opt { padding: var(--s-2) 0; }
+  </style>
+</section>

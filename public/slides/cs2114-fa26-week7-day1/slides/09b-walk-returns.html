@@ -1,0 +1,147 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-returns:1">
+  <header class="slide__head" data-sid="09b-walk-returns:2">
+    <p class="slide__kicker" data-sid="09b-walk-returns:3">RECURSION &middot; THE RETURNS COME BACK UP</p>
+    <h2 data-sid="09b-walk-returns:4">Each answer goes down to the frame that waited for it</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09b-walk-returns:5">The same method and the same call stack, continuing from the last slide: main at the bottom, then fact of 3 and fact of 2 waiting on line 5, and fact of 1 on top in orange at the base case. Press one: fact of 1 returns 1, and a blue pill holding 1 grows in on its frame. Press two: the fact of 1 frame fades away and the pill travels down into fact of 2, which turns orange again; its note now reads return 2 times 1. Press three: fact of 2 returns 2; the pill now holds 2. Press four: the fact of 2 frame fades, the 2 travels down into fact of 3, which turns orange and reads return 3 times 2. Press five: fact of 3 returns 6. Press six: the fact of 3 frame fades and the 6 travels down into main. Press seven: the caption sums it up: the calls went down 3, 2, 1, and the answers came back up 1, 2, 6.</p>
+
+  <!-- Concept intro 2 of 3: the picture 09 ended on, continued. A return is
+       a blue pill (a value, the deck's blue) that grows in on the returning
+       frame; when that frame pops (plain fade) the pill really moves one
+       96 px pitch down into the frame that was waiting, which turns orange
+       again and shows the multiply it can now finish. Then that frame
+       returns, and so on down to main.
+       step 1: fact(1) returns 1.          step 2: pop; 1 lands in fact(2).
+       step 3: fact(2) returns 2.          step 4: pop; 2 lands in fact(3).
+       step 5: fact(3) returns 6.          step 6: pop; 6 lands in main.
+       step 7: the summary (PC bar off). -->
+  <div class="slide__body grid grid--code code-mid rc" data-sid="09b-walk-returns:6">
+    <div class="stack rc__left" data-sid="09b-walk-returns:7">
+      <div class="editor" data-sid="09b-walk-returns:8">
+        <p class="editor__bar" data-sid="09b-walk-returns:9">fact: n! = n &times; (n &minus; 1)!</p>
+        <div class="editor__pc" data-sid="09b-walk-returns:10"></div>
+        <ol class="editor__code" data-sid="09b-walk-returns:11">
+          <li data-sid="09b-walk-returns:12"><span class="tok-key" data-sid="09b-walk-returns:13">int</span> fact(<span class="tok-key" data-sid="09b-walk-returns:14">int</span> n) {</li>
+          <li data-sid="09b-walk-returns:15">    <span class="tok-key" data-sid="09b-walk-returns:16">if</span> (n == <span class="tok-num" data-sid="09b-walk-returns:17">1</span>) {</li>
+          <li class="walkline frag" data-step="1" data-sid="09b-walk-returns:18">        <span class="tok-key" data-sid="09b-walk-returns:19">return</span> <span class="tok-num" data-sid="09b-walk-returns:20">1</span>;</li>
+          <li data-sid="09b-walk-returns:21">    }</li>
+          <li class="walkline frag" data-step="2" data-hold="6" data-sid="09b-walk-returns:22">    <span class="tok-key" data-sid="09b-walk-returns:23">return</span> n * fact(n - <span class="tok-num" data-sid="09b-walk-returns:24">1</span>);</li>
+          <li data-sid="09b-walk-returns:25">}</li>
+        </ol>
+      </div>
+      <div class="rc__caps" data-sid="09b-walk-returns:26">
+        <p class="rc__cap cap--1 frag" data-step="1" data-sid="09b-walk-returns:27">Base case: fact(1) returns 1.</p>
+        <p class="rc__cap cap--2 frag" data-step="2" data-sid="09b-walk-returns:28">fact(1)&rsquo;s frame pops. The 1 goes to fact(2), which was waiting on line 5: 2 * 1.</p>
+        <p class="rc__cap cap--3 frag" data-step="3" data-sid="09b-walk-returns:29">fact(2) returns 2.</p>
+        <p class="rc__cap cap--4 frag" data-step="4" data-sid="09b-walk-returns:30">fact(2)&rsquo;s frame pops. fact(3) gets its 2 and can finish: 3 * 2.</p>
+        <p class="rc__cap cap--5 frag" data-step="5" data-sid="09b-walk-returns:31">fact(3) returns 6.</p>
+        <p class="rc__cap cap--6 frag" data-step="6" data-sid="09b-walk-returns:32">fact(3)&rsquo;s frame pops and 6 reaches main. The stack is back where it started.</p>
+        <p class="rc__cap cap--7 frag" data-step="7" data-sid="09b-walk-returns:33">The calls went down: 3, 2, 1. The answers came back up: 1, 2, 6.</p>
+      </div>
+    </div>
+    <svg class="rc__fig" viewBox="0 0 990 690" role="img" aria-label="The call stack from the last slide, unwinding: each frame returns a value in a blue pill, the frame pops, and the pill moves down into the frame that was waiting for it, until 6 reaches main" data-sid="09b-walk-returns:34">
+      <rect class="rc__box" x="20" y="240" width="480" height="392" rx="14" data-sid="09b-walk-returns:35"/>
+      <text class="rc__lab" x="260" y="672" data-sid="09b-walk-returns:36">call stack</text>
+      <!-- main -->
+      <g class="fr fr--main fr--wait" data-sid="09b-walk-returns:37">
+        <rect x="40" y="536" width="440" height="88" rx="10" data-sid="09b-walk-returns:38"/>
+        <text class="fr__call" x="64" y="592" data-sid="09b-walk-returns:39">main</text>
+      </g>
+      <text class="fr__note fr__note--wait fr__w--main" x="512" y="588" data-sid="09b-walk-returns:40">waiting on fact(3)</text>
+      <text class="fr__note fr__note--now fr__n--main" x="512" y="588" data-sid="09b-walk-returns:41">fact(3) gave back 6</text>
+      <!-- fact(3) -->
+      <g class="fr fr--3 fr--wait" data-sid="09b-walk-returns:42">
+        <rect x="40" y="440" width="440" height="88" rx="10" data-sid="09b-walk-returns:43"/>
+        <text class="fr__call" x="64" y="496" data-sid="09b-walk-returns:44">fact(3)</text>
+        <text class="fr__loc" x="456" y="494" data-sid="09b-walk-returns:45">n = 3</text>
+      </g>
+      <text class="fr__note fr__note--wait fr__w--3" x="512" y="492" data-sid="09b-walk-returns:46">waiting on line 5</text>
+      <text class="fr__note fr__note--now fr__n--3" x="512" y="492" data-sid="09b-walk-returns:47">return 3 * 2</text>
+      <!-- fact(2) -->
+      <g class="fr fr--2 fr--wait" data-sid="09b-walk-returns:48">
+        <rect x="40" y="344" width="440" height="88" rx="10" data-sid="09b-walk-returns:49"/>
+        <text class="fr__call" x="64" y="400" data-sid="09b-walk-returns:50">fact(2)</text>
+        <text class="fr__loc" x="456" y="398" data-sid="09b-walk-returns:51">n = 2</text>
+      </g>
+      <text class="fr__note fr__note--wait fr__w--2" x="512" y="396" data-sid="09b-walk-returns:52">waiting on line 5</text>
+      <text class="fr__note fr__note--now fr__n--2" x="512" y="396" data-sid="09b-walk-returns:53">return 2 * 1</text>
+      <!-- fact(1): running, at the base case -->
+      <g class="fr fr--1" data-sid="09b-walk-returns:54">
+        <rect x="40" y="248" width="440" height="88" rx="10" data-sid="09b-walk-returns:55"/>
+        <text class="fr__call" x="64" y="304" data-sid="09b-walk-returns:56">fact(1)</text>
+        <text class="fr__loc" x="456" y="302" data-sid="09b-walk-returns:57">n = 1</text>
+      </g>
+      <text class="fr__note fr__w--1 fr__note--base" x="512" y="300" data-sid="09b-walk-returns:58">base case</text>
+      <!-- the returned values: grow in on the returning frame, move one pitch down on its pop -->
+      <g class="rv rv--1 frag" data-step="1" data-sid="09b-walk-returns:59"><rect x="250" y="266" width="100" height="52" rx="26" data-sid="09b-walk-returns:60"/><text x="300" y="304" data-sid="09b-walk-returns:61">1</text></g>
+      <g class="rv rv--2 frag" data-step="3" data-sid="09b-walk-returns:62"><rect x="250" y="362" width="100" height="52" rx="26" data-sid="09b-walk-returns:63"/><text x="300" y="400" data-sid="09b-walk-returns:64">2</text></g>
+      <g class="rv rv--6 frag" data-step="5" data-sid="09b-walk-returns:65"><rect x="250" y="458" width="100" height="52" rx="26" data-sid="09b-walk-returns:66"/><text x="300" y="496" data-sid="09b-walk-returns:67">6</text></g>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-returns:68"></div>
+  <aside class="notes" data-sid="09b-walk-returns:69">The same picture, picking up where the last slide stopped: three fact frames on top of main, fact(1) at the base case. Step 1 &mdash; fact(1) returns 1: the blue pill is the returned value. Step 2 &mdash; fact(1) is finished, so its frame comes off the stack, and the 1 goes back to whoever called it: fact(2), which was waiting in the middle of line 5. Now it can do 2 * 1. Step 3 &mdash; fact(2) returns 2. Step 4 &mdash; its frame pops, and fact(3) gets the 2 and finishes 3 * 2. Step 5 &mdash; fact(3) returns 6. Step 6 &mdash; its frame pops and main gets 6. Step 7 &mdash; the calls went down 3, 2, 1, and the work happened on the way back up, each frame finishing its own multiply after the call above it returned. Ask: what if the base case were missing? Next.</aside>
+
+  <style data-sid="09b-walk-returns:70">
+    /* Slide-local: 09's call-stack grammar. Frames start as 09 left them
+       (static here); a pop is a plain fade of the frame and its note; a
+       frame that gets a value back turns orange again and its stone note
+       crossfades to the multiply it can finish, in ink. The returned value is
+       a blue pill (GrowFromCenter on its return) that really moves 96 px
+       down when its frame pops, then fades as the next value replaces it.
+       Every change is keyed to a caption through :has(), so a back-step
+       reverses it. All values from tokens; used by this slide only. */
+    #slide-09b .rc { grid-template-columns: 620px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-09b .rc__fig { display: block; width: 100%; height: 690px; overflow: visible; }
+    #slide-09b .rc__caps { display: grid; }
+    #slide-09b .rc__caps > * { grid-area: 1 / 1; }
+    #slide-09b .slide__body p.rc__cap { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.3; color: var(--accent-1); transition: opacity .3s ease; }
+    #slide-09b .frag.rc__cap.is-current { transition-delay: .3s; }
+    #slide-09b .frag.rc__cap.is-past { opacity: 0; transition-delay: 0s; }
+
+    #slide-09b .rc__box { fill: none; stroke: var(--stone); stroke-width: 3; }
+    #slide-09b .rc__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-09b .fr { transition: opacity .35s ease; }
+    #slide-09b .fr rect { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .4s ease, stroke .4s ease; }
+    #slide-09b .fr--wait rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    /* a frame that gets its value back is working again */
+    #slide-09b .rc:has(.cap--2:not(.is-pending)) .fr--2 rect,
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .fr--3 rect,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .fr--main rect { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-09b .fr__call { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); }
+    #slide-09b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; }
+    #slide-09b .fr__note { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); transition: opacity .3s ease; }
+    #slide-09b .fr__note--base { fill: var(--accent-3); }
+    #slide-09b .fr__note--now { fill: var(--fg-0); opacity: 0; }
+    /* pops: the frame and its note fade */
+    #slide-09b .rc:has(.cap--2:not(.is-pending)) .fr--1,
+    #slide-09b .rc:has(.cap--2:not(.is-pending)) .fr__w--1,
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .fr--2,
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .fr__n--2,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .fr--3,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .fr__n--3 { opacity: 0; }
+    /* the waiting note gives way to the multiply */
+    #slide-09b .rc:has(.cap--2:not(.is-pending)) .fr__w--2,
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .fr__w--3,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .fr__w--main { opacity: 0; }
+    #slide-09b .rc:has(.cap--2:not(.is-pending)) .fr__n--2,
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .fr__n--3,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .fr__n--main { opacity: 1; }
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .fr__n--2,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .fr__n--3 { opacity: 0; }
+
+    /* the returned values */
+    #slide-09b .rv rect { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; }
+    #slide-09b .rv text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-2); text-anchor: middle; }
+    #slide-09b .rv { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .6s var(--ease-smooth); }
+    #slide-09b .frag.rv.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-09b .rc:has(.cap--2:not(.is-pending)) .rv--1,
+    #slide-09b .rc:has(.cap--4:not(.is-pending)) .rv--2,
+    #slide-09b .rc:has(.cap--6:not(.is-pending)) .rv--6 { transform: translateY(96px); transition-delay: .15s; }
+    #slide-09b .rc:has(.cap--3:not(.is-pending)) .rv--1,
+    #slide-09b .rc:has(.cap--5:not(.is-pending)) .rv--2 { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .fr, #slide-09b .fr rect, #slide-09b .fr__note, #slide-09b .rv, #slide-09b .rc__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
