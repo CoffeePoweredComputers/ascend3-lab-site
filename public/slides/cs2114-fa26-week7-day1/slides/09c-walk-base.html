@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="09c-walk-base:3">RECURSION &middot; NO BASE CASE</p>
     <h2 data-sid="09c-walk-base:4">Without a base case, the calls never stop</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="09c-walk-base:5">The same method and call stack, with only main on the stack. Press one: the three base-case lines, if n equals 1, return 1, and the closing brace, are struck through and turn grey; the caption says take the base case out and run the same call, fact of 3. Presses two to four: fact of 3, fact of 2 and fact of 1 each grow a new frame on top, the one below turning grey to wait. Press five: fact of 0 grows in above the top of the stack&rsquo;s box. Press six: fact of minus 1 and a column of dots grow in above it; n only gets smaller and nothing ever returns. Press seven: the box edge turns maroon and the word StackOverflowError appears beside the stack in maroon. Press eight: the stack clears, the strike-through lifts, and the code is labelled: lines 2 to 4 tinted blue, the base case, which stops the calls; line 5 tinted orange, the recursive case, which calls itself on a smaller n.</p>
+  <p class="sr-only slide__desc" data-sid="09c-walk-base:5">The same method and call stack, with only main on the stack. Press one: the three base-case lines, if n equals 1, return 1, and the closing brace, are struck through and turn grey; the caption says take the base case out and run the same call, fact of 3. Presses two to four: fact of 3, fact of 2 and fact of 1 each grow a new frame on top, the one below turning grey to wait. Press five: fact of 0 grows in above the top of the stack&rsquo;s box. Press six: fact of minus 1 and a column of dots grow in above it; n only gets smaller and nothing ever returns. Press seven: the stack runs away. The frames shrink to thin bars and pile up faster and faster, over the heading and past the top of the slide, while a counter beside the stack races to 16,555 frames and a buzzing tone rises with it. Then everything freezes under a pale haze with a stuttering sound, and the slide cuts to a blue crash screen in the style of an operating system: a sad face, the words your lecture ran into a problem and needs to restart, a percentage that counts up to 100, the stop code STACK_OVERFLOW, and what failed: fact of minus 16,551, no base case. Two falling notes play. Press eight: the crash screen fades, the stack clears, the strike-through lifts, and the code is labelled: lines 2 to 4 tinted blue, the base case, which stops the calls; line 5 tinted orange, the recursive case, which calls itself on a smaller n. Beside the stack a note says: your computer is fine; Java stops your program and prints this error, StackOverflowError.</p>
 
   <!-- Concept intro 3 of 3: the two parts, shown by removing one. The same
        picture is transformed in place (no second copy): the base-case lines
@@ -14,7 +14,19 @@
        the strikes retract, and the two parts are named on the code with two
        tints: blue for the base case, orange for the recursive case.
        step 1: strike lines 2–4.   steps 2–6: one call per press.
-       step 7: StackOverflowError. step 8: clear, restore, name the parts. -->
+       step 7: the crash (the instructor's ask, 2026-10-04: the stack out of
+               control, the slide dying like a crashed computer, with sound).
+               The slide's script plays one timed sequence and sets data-crash
+               on the section: "run" (2.8 s: the frames become bars drawn by
+               the script, compress and pile past the slide's top while a
+               counter runs to 16,555, the depth measured on this laptop),
+               "freeze" (0.9 s: a pale haze, the sound stuck), "blue" (a
+               crash screen in the tool blue with the stop code). Sound is
+               synthesised (Web Audio, no files). Arriving at step 7 any way
+               but forward from step 6, or with motion off, shows the crash
+               screen still and silent.
+       step 8: the restart — clear, restore, name the parts, and say what
+               really happens (only the program stops). -->
   <div class="slide__body grid grid--code code-mid rc" data-sid="09c-walk-base:6">
     <div class="stack rc__left" data-sid="09c-walk-base:7">
       <div class="editor" data-sid="09c-walk-base:8">
@@ -36,7 +48,7 @@
         <p class="rc__cap cap--4 frag" data-step="4" data-sid="09c-walk-base:33">fact(1) used to stop. Now nothing checks n, so it calls fact(0).</p>
         <p class="rc__cap cap--5 frag" data-step="5" data-sid="09c-walk-base:34">fact(0) calls fact(-1). n only gets smaller and never reaches 1 again.</p>
         <p class="rc__cap cap--6 frag" data-step="6" data-sid="09c-walk-base:35">Every call adds a frame. None of them ever returns, so none comes off.</p>
-        <p class="rc__cap rc__cap--fail cap--7 frag" data-step="7" data-sid="09c-walk-base:36">Java runs out of room for frames: StackOverflowError.</p>
+        <p class="rc__cap rc__cap--fail cap--7 frag" data-step="7" data-sid="09c-walk-base:36">It does not stop at five. The frames keep coming until the stack&rsquo;s memory runs out.</p>
         <div class="rc__cap rc__legend cap--8 frag" data-step="8" data-sid="09c-walk-base:37">
           <p class="rc__row" data-sid="09c-walk-base:38"><span class="rc__sw rc__sw--base" data-sid="09c-walk-base:39"></span><span data-sid="09c-walk-base:40"><b data-sid="09c-walk-base:41">Base case</b>, lines 2&ndash;4: stops the calls.</span></p>
           <p class="rc__row" data-sid="09c-walk-base:42"><span class="rc__sw rc__sw--rec" data-sid="09c-walk-base:43"></span><span data-sid="09c-walk-base:44"><b data-sid="09c-walk-base:45">Recursive case</b>, line 5: calls itself on a smaller n.</span></p>
@@ -76,11 +88,25 @@
         <text class="fr__loc" x="456" y="110" data-sid="09c-walk-base:71">n = -1</text>
       </g>
       <g class="fr__dots frag" data-step="6" data-sid="09c-walk-base:72"><circle cx="260" cy="40" r="5" data-sid="09c-walk-base:73"/><circle cx="260" cy="24" r="5" data-sid="09c-walk-base:74"/><circle cx="260" cy="8" r="5" data-sid="09c-walk-base:75"/></g>
-      <text class="rc__err frag" data-step="7" data-anim="fade" x="520" y="112" data-sid="09c-walk-base:76">StackOverflowError</text>
+      <!-- step 7: the script draws the runaway stack here (bars) and runs the counter -->
+      <g class="rw" aria-hidden="true" data-sid="09c-walk-base:80"></g>
+      <text class="rw__n" x="520" y="112" aria-hidden="true" data-sid="09c-walk-base:81">5</text>
+      <text class="rw__lab" x="520" y="152" aria-hidden="true" data-sid="09c-walk-base:82">frames on the stack</text>
+      <!-- step 8: what really happens -->
+      <text class="rc__real frag" data-step="8" data-anim="fade" data-sid="09c-walk-base:83"><tspan x="520" y="330" data-sid="09c-walk-base:84">Your computer is fine.</tspan><tspan x="520" y="378" data-sid="09c-walk-base:85">Java stops your program</tspan><tspan x="520" y="426" data-sid="09c-walk-base:86">and prints this error:</tspan><tspan class="rc__real-err" x="520" y="474" data-sid="09c-walk-base:87">StackOverflowError</tspan></text>
     </svg>
   </div>
+  <!-- step 7's last two beats: the haze of a hung window, then the crash screen -->
+  <div class="crash__haze" aria-hidden="true" data-sid="09c-walk-base:88"></div>
+  <div class="bsod" aria-hidden="true" data-sid="09c-walk-base:89">
+    <p class="bsod__face" data-sid="09c-walk-base:90">:(</p>
+    <p class="bsod__msg" data-sid="09c-walk-base:91">Your lecture ran into a problem and needs to restart. We&rsquo;re just collecting some error info, and then you can restart it.</p>
+    <p class="bsod__pct" data-sid="09c-walk-base:92"><span class="bsod__n" data-sid="09c-walk-base:93">0</span>% complete</p>
+    <p class="bsod__small" data-sid="09c-walk-base:94">Stop code: STACK_OVERFLOW</p>
+    <p class="bsod__small" data-sid="09c-walk-base:95">What failed: fact(-16551), no base case</p>
+  </div>
   <div class="slide__number" data-sid="09c-walk-base:77"></div>
-  <aside class="notes" data-sid="09c-walk-base:78">What makes it stop? Take the base case out and see. Step 1 &mdash; lines 2 to 4 are gone; the method still compiles, it just always calls itself. Step 2 &mdash; same call, fact(3); it calls fact(2). Step 3 &mdash; fact(2) calls fact(1). Step 4 &mdash; fact(1) used to answer 1. Now nothing checks n, so it calls fact(0). Step 5 &mdash; fact(0) calls fact(-1); n keeps getting smaller and never comes back to 1. Step 6 &mdash; every call is a new frame, and no call ever returns, so no frame ever comes off. Step 7 &mdash; the stack has a fixed amount of memory; when it is full, Java throws StackOverflowError. If you see that in your homework, look for a missing or unreachable base case. Step 8 &mdash; so every recursive method has two parts: a base case that answers without calling itself, which stops the calls, and a recursive case that calls itself on a smaller problem, a smaller n, so the calls get closer to the base case. Those are the 7.3 module&rsquo;s words. Next: Part 3, the third question.</aside>
+  <aside class="notes" data-sid="09c-walk-base:78">What makes it stop? Take the base case out and see. Step 1 &mdash; lines 2 to 4 are gone; the method still compiles, it just always calls itself. Step 2 &mdash; same call, fact(3); it calls fact(2). Step 3 &mdash; fact(2) calls fact(1). Step 4 &mdash; fact(1) used to answer 1. Now nothing checks n, so it calls fact(0). Step 5 &mdash; fact(0) calls fact(-1); n keeps getting smaller and never comes back to 1. Step 6 &mdash; every call is a new frame, and no call ever returns, so no frame ever comes off. Step 7 &mdash; the crash; it plays by itself for about seven seconds, with sound [the laptop&rsquo;s audio has to reach the room; try the volume once before class; pressing back stops it; the m key, motion off, skips to the crash screen]. The frames pile up faster and faster and the counter runs to about 16,500: that is how many calls Java&rsquo;s default 1 MB stack held on this laptop before it ran out. Then the picture hangs and the &ldquo;computer&rdquo; crashes. Let it land, then say it plainly: the stack has a fixed amount of memory, and when it is full Java throws StackOverflowError. Step 8 &mdash; restart. The crash screen was a joke: your computer is fine. Only your program stops, and Java prints StackOverflowError followed by the same line of the trace 1,024 times. If you see that in your homework, look for a missing or unreachable base case. So every recursive method has two parts: a base case that answers without calling itself, which stops the calls, and a recursive case that calls itself on a smaller problem, a smaller n, so the calls get closer to the base case. Those are the 7.3 module&rsquo;s words. Next: Part 3, the third question.</aside>
 
   <style data-sid="09c-walk-base:79">
     /* Slide-local: 09's call-stack grammar transformed in place. The struck
@@ -139,15 +165,189 @@
     #slide-09c .frag.fr.is-pending, #slide-09c .frag.fr__dots.is-pending { opacity: 0; transform: scale(0.4); }
     #slide-09c .fr__dots { fill: var(--stone); }
     #slide-09c .frag.fr__dots.is-current { transition-delay: .3s; }
-    #slide-09c .rc__err { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); transition: opacity .3s ease; }
     /* step 8: the overflowed stack clears; main stays */
     #slide-09c .rc:has(.cap--8:not(.is-pending)) .frag.fr,
-    #slide-09c .rc:has(.cap--8:not(.is-pending)) .fr__dots,
-    #slide-09c .rc:has(.cap--8:not(.is-pending)) .rc__err { opacity: 0; }
+    #slide-09c .rc:has(.cap--8:not(.is-pending)) .fr__dots { opacity: 0; }
+
+    /* step 7, the crash: one timed sequence run by the script below, which
+       only sets data-crash on the section (run, freeze, blue). While it is
+       set, the five lettered frames give way to the script's bars: waiting
+       frames in the waiting colours, the newest one orange, as everywhere in
+       this grammar, drawn thinner as more arrive (the structure grows in
+       place). The counter is maroon because this is the failure. The haze is
+       one fade (a hung window whitens once); the crash screen cuts in and
+       fades out on the restart. Nothing flashes: every brightness change
+       happens once. */
+    #slide-09c[data-crash] .frag.fr, #slide-09c[data-crash] .fr__dots { opacity: 0; transition: opacity .15s ease; }
+    #slide-09c .rw__bar { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-09c .rw__bar--top { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-09c .rw__n { font-family: var(--font-mono); font-size: var(--t-h3); fill: var(--accent-1); opacity: 0; }
+    #slide-09c .rw__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); opacity: 0; }
+    #slide-09c[data-crash] .rw__n, #slide-09c[data-crash] .rw__lab { opacity: 1; }
+    #slide-09c .crash__haze { position: absolute; inset: 0; z-index: 10; pointer-events: none; background: color-mix(in srgb, var(--paper) 55%, transparent); opacity: 0; transition: opacity .2s ease; }
+    #slide-09c[data-crash="freeze"] .crash__haze { opacity: 1; }
+    #slide-09c .bsod { position: absolute; inset: 0; z-index: 11; box-sizing: border-box; padding: var(--s-7) var(--s-8); background: var(--accent-2); color: var(--bg-0); font-family: var(--font-body); opacity: 0; visibility: hidden; transition: opacity .5s ease, visibility 0s linear .5s; }
+    #slide-09c[data-crash="blue"] .bsod { opacity: 1; visibility: visible; transition: none; }
+    #slide-09c .bsod p { margin: 0; color: inherit; }
+    #slide-09c .bsod p.bsod__face { font-size: var(--t-h1); line-height: 1.1; margin-bottom: var(--s-5); }
+    #slide-09c .bsod p.bsod__msg { max-width: 1400px; font-size: var(--t-body); line-height: 1.3; margin-bottom: var(--s-5); }
+    #slide-09c .bsod p.bsod__pct { font-size: var(--t-body); line-height: 1.3; margin-bottom: var(--s-6); }
+    #slide-09c .bsod p.bsod__small { font-size: var(--t-micro); line-height: 1.5; }
+    /* step 8: what really happens, in the space the stack leaves */
+    #slide-09c .rc__real { font-family: var(--font-display); font-size: var(--t-small); fill: var(--fg-0); transition: opacity .3s ease; }
+    #slide-09c .rc__real-err { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); }
+    #slide-09c .frag.rc__real.is-current { transition-delay: .5s; }
 
     @media (prefers-reduced-motion: reduce) {
-      #slide-09c .fr, #slide-09c .fr rect, #slide-09c .fr__dots, #slide-09c .rc__err, #slide-09c .rc__box, #slide-09c .rc__cap,
+      #slide-09c .fr, #slide-09c .fr rect, #slide-09c .fr__dots, #slide-09c .rc__real, #slide-09c .crash__haze, #slide-09c .bsod, #slide-09c .rc__box, #slide-09c .rc__cap,
       #slide-09c .bc__t, #slide-09c .bc__t *, #slide-09c .bc__t::after, #slide-09c .editor__code li.bc, #slide-09c .editor__code li.rcase { transition-duration: 0s !important; transition-delay: 0s !important; }
     }
   </style>
+
+  <script data-sid="09c-walk-base:96">
+    // Step 7 only: the crash. One timed sequence (the runaway stack, the hang,
+    // the crash screen) with synthesised sound. The script draws the runaway
+    // bars, runs the counter and the percentage, and sets data-crash on the
+    // section; every colour and fade is CSS. It plays only when step 7 is
+    // reached forward from step 6. Any other arrival (stepping back from 8, a
+    // direct link), motion off, or a presenter preview (?embed=1) shows the
+    // crash screen still and silent. Leaving step 7 cancels everything.
+    // Sound: browsers allow it only after a user gesture, so the context is
+    // unlocked on a key press while this slide is up (presses 1 to 6).
+    (function () {
+      var slide = document.getElementById('slide-09c');
+      if (!slide) return;
+      var EMBED = /[?&]embed=1(?:&|$)/.test(location.search);
+      var NS = 'http://www.w3.org/2000/svg';
+      var rw = slide.querySelector('.rw'), num = slide.querySelector('.rw__n'), pct = slide.querySelector('.bsod__n');
+      var END = 16555;                 // frames at the overflow: measured on this laptop (OpenJDK, default 1 MB stack)
+      var RUN = 2800, HANG = 900;      // ms of runaway, ms of freeze
+      var FOOT = 528, TOP = -264;      // svg y of the stack's foot (the top of main) and of the slide's top edge
+      var PITCH = 96, POOL = 96;       // one frame's pitch at full size; the most bars ever drawn
+      var bars = [], timers = [], raf = 0, last = -1, state = '';
+      for (var i = 0; POOL > i; i++) {
+        var r = document.createElementNS(NS, 'rect');
+        r.setAttribute('x', 40); r.setAttribute('width', 440); r.setAttribute('class', 'rw__bar');
+        r.style.display = 'none'; rw.appendChild(r); bars.push(r);
+      }
+
+      // n frames on the stack: full-size frames while they fit under the
+      // slide's top edge, then the same height shared by more and more bars.
+      function draw(n) {
+        var shown = Math.min(n, POOL), p = Math.min(PITCH, (FOOT - TOP) / shown), h = p * 88 / 96;
+        for (var i = 0; POOL > i; i++) {
+          var b = bars[i];
+          if (i >= shown) { b.style.display = 'none'; continue; }
+          b.style.display = '';
+          b.setAttribute('y', (FOOT - i * p - h).toFixed(1));
+          b.setAttribute('height', h.toFixed(1));
+          b.setAttribute('rx', Math.min(10, h / 3).toFixed(1));
+          b.setAttribute('stroke-width', Math.max(1, Math.min(4, h / 5)).toFixed(1));
+          b.setAttribute('class', i === shown - 1 ? 'rw__bar rw__bar--top' : 'rw__bar');
+        }
+        num.textContent = n.toLocaleString('en-US');
+      }
+      function set(s) { state = s; if (s) slide.setAttribute('data-crash', s); else slide.removeAttribute('data-crash'); }
+      function still() {
+        return EMBED || document.documentElement.classList.contains('no-motion') ||
+          !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+      }
+
+      // ---- sound: a soft pulsing tone that rises and speeds up with the stack, the
+      // same tone stuck while the picture hangs, then two falling notes ----
+      var AC = window.AudioContext || window.webkitAudioContext, ctx = null, master = null, nodes = [];
+      function unlock() {
+        if (EMBED || !AC || !slide.classList.contains('is-active')) return;
+        if (!ctx) ctx = new AC();
+        if (ctx.state === 'suspended') ctx.resume();
+      }
+      document.addEventListener('keydown', unlock, true);
+      document.addEventListener('pointerdown', unlock, true);
+      function ready() {
+        if (!ctx) return false;
+        if (ctx.state === 'suspended') ctx.resume();
+        if (!master) { master = ctx.createGain(); master.connect(ctx.destination); }
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.setValueAtTime(0.12, ctx.currentTime);
+        return true;
+      }
+      function hush() {
+        if (!ctx || !master) return;
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.setValueAtTime(0, ctx.currentTime);
+        while (nodes.length) { try { nodes.pop().stop(); } catch (err) {} }
+      }
+      function note(type, f, t, dur, peak) {
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = type; o.frequency.setValueAtTime(f, t);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(peak, t + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05); nodes.push(o);
+      }
+      function chord(after) {
+        if (!ready()) return;
+        var t = ctx.currentTime + after + 0.02;
+        note('sine', 587.33, t, 0.22, 0.4);
+        note('sine', 392.00, t + 0.2, 1.1, 0.4);
+        note('sine', 196.00, t + 0.2, 1.1, 0.3);
+      }
+      function sound() {
+        if (!ready()) return;
+        var t = ctx.currentTime + 0.02, run = RUN / 1000, hang = HANG / 1000, end = t + run + hang;
+        var o = ctx.createOscillator(), lp = ctx.createBiquadFilter(), gate = ctx.createGain(),
+            lfo = ctx.createOscillator(), depth = ctx.createGain(), vol = ctx.createGain();
+        o.type = 'triangle';               // softened 2026-10-04: a square at 1100 Hz was harsh in the room
+        o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(520, t + run);
+        lp.type = 'lowpass'; lp.frequency.value = 1200;
+        lfo.type = 'sine';                 // the gate: a pulse that speeds up into a flutter, then sticks at one rate
+        lfo.frequency.setValueAtTime(4, t); lfo.frequency.exponentialRampToValueAtTime(24, t + run);
+        lfo.frequency.setValueAtTime(12, t + run);
+        gate.gain.value = 0.5; depth.gain.value = 0.5; lfo.connect(depth); depth.connect(gate.gain);
+        vol.gain.setValueAtTime(0.0001, t); vol.gain.exponentialRampToValueAtTime(0.3, t + 0.1);
+        vol.gain.exponentialRampToValueAtTime(0.6, t + run);
+        vol.gain.setValueAtTime(0.45, t + run); vol.gain.setValueAtTime(0.45, end - 0.02);
+        vol.gain.linearRampToValueAtTime(0, end);
+        o.connect(lp); lp.connect(gate); gate.connect(vol); vol.connect(master);
+        o.start(t); lfo.start(t); o.stop(end + 0.05); lfo.stop(end + 0.05);
+        nodes.push(o, lfo);
+        chord(run + hang + 0.3);
+      }
+
+      // ---- the sequence ----
+      function reset() {
+        if (raf) cancelAnimationFrame(raf); raf = 0;
+        while (timers.length) clearTimeout(timers.pop());
+        hush();
+        if (state) set('');
+        for (var i = 0; POOL > i; i++) bars[i].style.display = 'none';
+      }
+      function blue(count) {
+        set('blue'); draw(END);
+        if (!count) { pct.textContent = '100'; return; }
+        [0, 14, 37, 62, 88, 100].forEach(function (v, i) {
+          timers.push(setTimeout(function () { pct.textContent = v; }, i * 600));
+        });
+      }
+      function run() {
+        set('run'); sound();
+        var t0 = performance.now();
+        (function frame() {
+          var u = Math.min(1, (performance.now() - t0) / RUN);
+          draw(Math.round(5 * Math.pow(END / 5, Math.pow(u, 1.6))));
+          if (u >= 1) { raf = 0; set('freeze'); timers.push(setTimeout(function () { blue(true); }, HANG)); return; }
+          raf = requestAnimationFrame(frame);
+        })();
+      }
+      function onStep(e) {
+        var step = slide.classList.contains('is-active') && e && e.detail ? e.detail.step : -1;
+        if (step !== 7) { reset(); last = step; return; }
+        if (state) return;
+        if (last === 6 && !still()) run();
+        else { blue(false); if (last === 6) chord(0); }
+        last = 7;
+      }
+      window.addEventListener('deck:stepchange', onStep);
+    })();
+  </script>
 </section>
