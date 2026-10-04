@@ -20,7 +20,8 @@
 
 {# Back and Next for a card deck. Both are always drawn, in the same place;
    one that leads nowhere is greyed out. Past the last card, Next goes on to
-   the next stage. #}
+   the next stage. With no forward label there is only Back: the way on is
+   the card's own button. #}
 {% macro deck_nav(back, forward, forward_label='Next') %}
   <nav class="deck__nav" aria-label="Cards">
     {% if back %}
@@ -28,7 +29,8 @@
     {% else %}
       <span class="button quiet is-off" aria-disabled="true"><kbd>←</kbd> Back</span>
     {% endif %}
-    {% if forward %}
+    {% if not forward_label %}
+    {% elif forward %}
       <a class="button" href="{{ root }}{{ forward }}" data-key="ArrowRight">{{ forward_label }} <kbd>→</kbd></a>
     {% elif stage_next %}
       <a class="button" href="{{ root }}/t/{{ track.id }}/{{ stage_next.path }}" data-key="ArrowRight">Next: {{ stage_next.title }} <kbd>→</kbd></a>

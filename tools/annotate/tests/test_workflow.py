@@ -397,6 +397,7 @@ def test_open_coding_builds_a_personal_codebook(client, coded):
     assert "Generate%20your%20candidate%20codes%20first" in client.get(f"/b/{batch}/code/{cards[0]}", headers=CODER2).headers["location"]
     post(client, f"/t/{track}/open/generate", CODER2)
     card = client.get(f"/b/{batch}/code/{cards[0]}", headers=CODER2).text
+    assert "Skip" not in card.split('id="main"')[1] and 'data-key="ArrowRight"' not in card  # Enter is the only way on
     assert "a candidate you tick becomes yours" in card and "Blame" in card and 'data-key="/"' in card and 'data-key="n"' in card
     # Each code's definition is on the card beside its name, under a search box.
     assert 'data-filters="codes"' in card and 'class="picker__def"' in card and "title=" not in card.split('id="codes"')[1].split("</fieldset>")[0]

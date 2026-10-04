@@ -28,7 +28,8 @@
 
     <form method="post" class="deck__play">
       {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
-      {{ parts.deck_nav('/b/' ~ batch.id ~ '/code/' ~ previous if previous, '/b/' ~ batch.id ~ ('/code/' ~ following if following else ''), 'Skip' if following else 'Finish') }}
+      {# No way past a card but Enter, which saves it. #}
+      {{ parts.deck_nav('/b/' ~ batch.id ~ '/code/' ~ previous if previous, none, none) }}
       {% if batch.kind == 'starter' %}
         {# Your own codebook, built as you go, then the candidates. Number keys
            are your codes, in the order you made them, so a code keeps its key.
@@ -76,6 +77,7 @@
       {% endif %}
       {% if locked %}
         <p class="muted">Locked.</p>
+        <a class="button big big--go" href="{{ root }}/b/{{ batch.id }}{{ '/code/' ~ following if following }}" data-key="Enter"><kbd>Enter</kbd><b>{{ 'Next card' if following else 'Finish' }}</b></a>
       {% else %}
         {% if batch.kind != 'starter' %}
           <details class="fold"{{ ' open' if jot }}>
