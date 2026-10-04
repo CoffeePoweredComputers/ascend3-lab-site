@@ -21,9 +21,12 @@ for spreadsheet data, which column is which part.
 | --- | --- | --- |
 | `decomp` | a student's diagram photo with their written approach and challenges | questions about the diagram, and about the reflection |
 | `ethics` | a student's topic and ethics question; the lens they ticked is stored but hidden | questions about the question |
+| `sessions` | an episode: a minute or two of a recorded session, as its transcript lines (the video card is not built yet) | questions about the episode |
 
 The stage guides people follow are in [`briefs/`](briefs/). A study's own
-version in `briefs/<kind>/` wins over the shared one.
+version in `briefs/<kind>/` wins over the shared one. A study whose guides
+should not be in this repo keeps them in the data directory instead, at
+`/data/briefs/<kind>/`, which is looked in first.
 
 ## How access works
 
@@ -109,7 +112,7 @@ No real data is needed. The seed script makes one synthetic study of each kind.
 cd tools/annotate
 python3 -m venv .venv
 .venv/bin/pip install -r requirements-dev.txt
-ANNOTATE_DATA_DIR=./data .venv/bin/python -m annotate.seed      # add --reset to start over
+ANNOTATE_DATA_DIR=./data .venv/bin/python -m annotate.seed      # add --reset to start over (it keeps data/incoming/)
 ANNOTATE_DATA_DIR=./data ANNOTATE_DEV_USER=lead@example.edu PORT=8080 .venv/bin/python -m annotate
 ```
 
@@ -187,6 +190,23 @@ docker exec ascend-tool-annotate python -m annotate.import_table /data/incoming/
 Columns are found by their header text, so a reordered sheet still loads, and a
 later download of the same form adds only the new responses.
 
+**An export of recorded sessions** (`sessions`): `session-index.csv`,
+`file-manifest.csv`, and per session a transcript JSON and a primary video.
+
+```bash
+docker exec ascend-tool-annotate python -m annotate.import_sessions /data/incoming/export \
+    --dataset sessions --title "Think-aloud sessions" --lead you@vt.edu
+```
+
+Each session is cut into episodes: where the researcher next speaks once a
+minute has passed, or at two and a half minutes. Speaker labels are names, so
+none is stored: each becomes Researcher or Participant, and its parts are
+blanked where they are spoken. A label the rule cannot place stops the import.
+`--dry-run` also lists words that are capitalised mid-sentence, for names the
+labels did not give away; put those in a `--names` file, kept beside the data.
+`--replace` cuts the sessions again, and is refused once anyone has worked on
+the items. The study's text is never sent to a live model (`model_ok`).
+
 ## Add a kind of study
 
 1. Add a `Study` to `annotate/studies.py`.
@@ -209,7 +229,7 @@ later download of the same form adds only the new responses.
 | `annotate/assist.py` | the model jobs: candidate codes, merge proposal, theme proposal |
 | `annotate/merge.py` | grouping personal codes, pure functions |
 | `annotate/images.py` | rotate, crop, strip, cache |
-| `annotate/importer.py`, `import_table.py`, `tabular.py` | real data in |
+| `annotate/importer.py`, `import_table.py`, `tabular.py`, `import_sessions.py` | real data in |
 | `annotate/seed.py` | synthetic data in |
 | `annotate/export.py` | CSVs out |
 | `annotate/db.py` | schema, additive migrations, daily backup to `/data/backups` |
@@ -222,5 +242,6 @@ tests assert its presets, so the tool and the lesson agree.
 ## Not built yet
 
 A model check that definitions are applied consistently, sending diagram
-photos to the model, structured diagram transcription, and video or
-transcript-segment items.
+photos to the model, structured diagram transcription, and the video card
+for `sessions` items (they are imported and read as text; nothing serves the
+video yet).

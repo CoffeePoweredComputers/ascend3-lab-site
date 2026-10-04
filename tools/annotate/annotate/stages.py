@@ -26,12 +26,19 @@ STAGES = [
 ]
 
 def brief(stage: int, kind: str) -> str:
-    """The stage's guide as markdown, shipped in the repo. A study's own
-    version in briefs/<kind>/ wins over the shared one in briefs/."""
+    """The stage's guide as markdown. A study's own version wins over the
+    shared one in briefs/. Its own version is looked for in the data directory
+    first, for a study whose guides are kept out of the repo, then in
+    briefs/<kind>/. A study with no guide for a stage gets an empty one."""
     stem = next(s[1] for s in STAGES if s[0] == stage)
-    own = config.APP_DIR / "briefs" / kind / f"{stem}.md"
-    shared = config.APP_DIR / "briefs" / f"{stem}.md"
-    return (own if own.exists() else shared).read_text(encoding="utf-8")
+    for path in (
+        config.data_dir() / "briefs" / kind / f"{stem}.md",
+        config.APP_DIR / "briefs" / kind / f"{stem}.md",
+        config.APP_DIR / "briefs" / f"{stem}.md",
+    ):
+        if path.exists():
+            return path.read_text(encoding="utf-8")
+    return ""
 
 
 def sections(text: str) -> tuple[str, list[tuple[str, str]]]:

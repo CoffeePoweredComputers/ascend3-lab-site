@@ -331,6 +331,54 @@ MIGRATIONS = [
         roster_id INTEGER NOT NULL REFERENCES roster(id)
     );
     """,
+    """
+    -- A recorded session: one video and its transcript. pid is a join key
+    -- like source.hash and is never put on a page; alias is what a page
+    -- shows. order_key is where the session's items sit in the reading order.
+    CREATE TABLE session (
+        id                 INTEGER PRIMARY KEY,
+        dataset_id         INTEGER NOT NULL REFERENCES dataset(id),
+        pid                TEXT NOT NULL,
+        alias              TEXT NOT NULL,
+        duration_ms        INTEGER NOT NULL,
+        media_path         TEXT,
+        media_sha256       TEXT,
+        transcript_kind    TEXT NOT NULL,
+        transcript_version TEXT NOT NULL,
+        cut_rule           TEXT NOT NULL,
+        order_key          REAL NOT NULL,
+        UNIQUE (dataset_id, pid),
+        UNIQUE (dataset_id, alias)
+    );
+
+    -- One transcript line. speaker is a role (R researcher, P participant,
+    -- ? unknown), never a name. src_id and src_ordinal are the export's own.
+    CREATE TABLE segment (
+        id          INTEGER PRIMARY KEY,
+        session_id  INTEGER NOT NULL REFERENCES session(id),
+        seq         INTEGER NOT NULL,
+        t_start_ms  INTEGER NOT NULL,
+        t_end_ms    INTEGER NOT NULL,
+        speaker     TEXT NOT NULL,
+        text        TEXT NOT NULL,
+        src_id      TEXT NOT NULL,
+        src_ordinal INTEGER NOT NULL,
+        UNIQUE (session_id, seq)
+    );
+
+    -- The stretch of a session that an item is. seg_first and seg_last are
+    -- segment.seq, both inside the stretch.
+    CREATE TABLE item_span (
+        item_id    INTEGER PRIMARY KEY REFERENCES item(id),
+        session_id INTEGER NOT NULL REFERENCES session(id),
+        seq        INTEGER NOT NULL,
+        t_start_ms INTEGER NOT NULL,
+        t_end_ms   INTEGER NOT NULL,
+        seg_first  INTEGER NOT NULL,
+        seg_last   INTEGER NOT NULL,
+        UNIQUE (session_id, seq)
+    );
+    """,
 ]
 
 

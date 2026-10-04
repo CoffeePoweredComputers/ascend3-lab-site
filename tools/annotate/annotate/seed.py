@@ -7,8 +7,8 @@ Two studies. "demo": twelve submissions, each a drawn "diagram" (a few
 sideways, one with a stand-in for something identifying, one missing) with an
 approach and a challenges reflection. "ethics-demo": fourteen invented ethics
 questions with a topic and a hidden lens. Each has a lead, two coders and a
-published codebook, and stands at calibration. Running it again changes nothing; --reset deletes the data
-directory first.
+published codebook, and stands at calibration. Running it again changes nothing; --reset empties the data
+directory first, all but incoming/.
 """
 
 from __future__ import annotations
@@ -172,11 +172,15 @@ def _team_and_codebook(conn, track_id: int, study: studies.Study, codebook) -> N
 
 
 def reset() -> None:
-    """Developer machines only: start from an empty data directory."""
+    """Developer machines only: start from an empty data directory, keeping incoming/."""
     directory = config.data_dir().resolve()
     if directory == Path("/data") or not config.dev_user() and not str(directory).startswith(str(config.APP_DIR)):
         raise SystemExit(f"Refusing to delete {directory}: --reset is for a local data directory.")
-    shutil.rmtree(directory, ignore_errors=True)
+    # incoming/ is where real exports wait to be imported; it is not the tool's to delete.
+    for child in directory.iterdir() if directory.is_dir() else ():
+        if child.name == "incoming":
+            continue
+        shutil.rmtree(child, ignore_errors=True) if child.is_dir() else child.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

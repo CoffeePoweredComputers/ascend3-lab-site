@@ -2,8 +2,9 @@
 
 The trail, the card decks, batches, agreement and the export are the same for
 every study. This file holds the rest: what an item is made of, which of its
-parts a codebook question can be about, why an item can be excluded, and, for
-studies that arrive as a spreadsheet, which column is which part.
+parts a codebook question can be about, why an item can be excluded, whether
+it is a stretch of video, and, for studies that arrive as a spreadsheet, which
+column is which part.
 
 A dataset's `kind` column picks one of these. Stage guides live beside it, in
 briefs/<kind>/, falling back to briefs/ for the stages that read the same for
@@ -42,6 +43,11 @@ class Study:
     about: str = ""
     # Every card read must carry a jot; a card cannot be passed without one.
     jot_required: bool = False
+    # An item is a stretch of a recording: a time range of one video, with the
+    # transcript lines inside it (annotate/import_sessions.py).
+    has_video: bool = False
+    # False keeps the study's text on the server: no live model is sent it.
+    model_ok: bool = True
 
 
 STUDIES = {
@@ -78,6 +84,20 @@ STUDIES = {
             Column("lens", "which lens", hidden=True),
         ),
         about="Each item is a question about ethics in computing written by a second-semester programming student, with the topic they gave it.",
+    ),
+    "sessions": Study(
+        kind="sessions",
+        track_title="Episodes",
+        parts=("episode",),
+        has_image=False,
+        main_parts=("episode",),
+        exclude_reasons=(
+            ("setup", "Setup or logistics only"),
+            ("unusable", "Cannot see or hear the work"),
+        ),
+        has_video=True,
+        model_ok=False,
+        about="Each item is a stretch of a recorded think-aloud session. Only the transcript is given here.",
     ),
 }
 

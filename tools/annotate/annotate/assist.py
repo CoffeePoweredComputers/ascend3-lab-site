@@ -47,6 +47,13 @@ def run(track_id: int, kind: str, roster_id: int, think: Callable[[], object], s
         threading.Thread(target=work, daemon=True).start()
 
 
+def _mode(study: studies.Study) -> str:
+    """llm.mode(), except that a study whose items may not leave the server
+    never reaches a live model."""
+    mode = llm.mode()
+    return "off" if mode == "live" and not study.model_ok else mode
+
+
 # ------------------------------------------------------------------ candidates
 
 
@@ -55,9 +62,9 @@ def candidates(study: studies.Study, given: dict) -> tuple[list[dict], str]:
     repo.candidate_inputs: one person's jots and the team's questions."""
     if not given["jots"]:
         return [], "You have no jots, so there is nothing to propose from."
-    if llm.mode() == "off":
+    if _mode(study) == "off":
         return [], "No model is set up, so there are no candidates."
-    if llm.mode() == "mock":
+    if _mode(study) == "mock":
         return _stand_in(study, given), ""
     jots = "\n".join(f"- [{j['item']}] -> {j['jot']}" for j in given["jots"])
     questions = "\n".join(f"- {q}" for q in given["questions"]) or "- (none yet)"
@@ -117,7 +124,7 @@ def proposal(study: studies.Study, given: dict, plain: bool = False) -> list[dic
     beside them. Without a model, or with plain=True, the counts and the names
     decide alone."""
     codes, done = given["codes"], given["done"]
-    if plain or llm.mode() != "live":
+    if plain or _mode(study) != "live":
         return merge.by_cards(codes, done)
     shared = merge.overlaps(codes, done)
     owners = {r: chr(ord("A") + n) for n, r in enumerate(sorted({c["roster_id"] for c in codes}))}
@@ -171,7 +178,7 @@ def themes(study: studies.Study, given: dict) -> tuple[list[dict], str]:
     repo.topic_map: the final codes with their counts and examples. A theme
     is a claim about the data, so with no model there is no stand-in: the
     team writes them."""
-    if llm.mode() != "live":
+    if _mode(study) != "live":
         return [], "No model is set up, so there is no proposal. Build the themes by hand."
     lines = "\n".join(
         f"{c['dimension']}/{c['key']} | {c['label']} | {c['definition']} | on {c['n']} of {given['total']} items"
