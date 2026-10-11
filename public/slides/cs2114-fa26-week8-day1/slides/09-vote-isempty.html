@@ -7,11 +7,11 @@
   <p class="tlabel tlabel--vote" data-sid="09-vote-isempty:18">vote</p>
   <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="09-vote-isempty:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="09-vote-isempty:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="09-vote-isempty:21"/><g class="timer__ticks" data-sid="09-vote-isempty:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="09-vote-isempty:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="09-vote-isempty:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="09-vote-isempty:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="09-vote-isempty:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="09-vote-isempty:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="09-vote-isempty:28"/><g class="timer__hand" data-sid="09-vote-isempty:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="09-vote-isempty:30"/></g><text class="timer__time" x="75" y="88" data-sid="09-vote-isempty:31">2:30</text></svg></div>
   <p class="tlabel tlabel--discuss" data-sid="09-vote-isempty:32">discuss</p>
-  <p class="sr-only slide__desc" data-sid="09-vote-isempty:33">A peer-instruction question. Under the title, the question in muted type: which of the following would NOT correctly complete the isEmpty method for a doubly linked implementation of a deque in all cases? Left, an editor with four lines: public boolean isEmpty; open brace; return, angle bracket, fill in code here, angle bracket, semicolon; closing brace. Right, four options in code, each led by a maroon disc with its letter. A: firstNode equals null, and, lastNode equals null. B: firstNode equals null. C: lastNode equals null. D: firstNode equals lastNode. Two clocks sit in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+  <p class="sr-only slide__desc" data-sid="09-vote-isempty:33">A peer-instruction question. Under the title, the question in muted type: which of the following would NOT correctly complete the isEmpty method for a doubly linked implementation of a deque in all cases? Left, an editor with four lines: public boolean isEmpty; open brace; return, angle bracket, fill in code here, angle bracket, semicolon; closing brace. Right, four options in code, each led by a maroon disc with its letter. A: firstNode equals null, and, lastNode equals null. B: firstNode equals null. C: lastNode equals null. D: firstNode equals lastNode. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
 
   <!-- 08's layout with the Runestone order: the question sentence (quoted in
        full) as the lede, the method frame in an editor on the left, the four
-       expressions on the right as options set in mono at the code size, since
+       expressions on the right as options set in mono at --t-small, since
        they are code. Text quoted from the Runestone paste: "NOT", "in all
        cases?", lowercase "public" (the PrairieLearn twin has "Public"), the
        "< fill in code here >" placeholder. Static: only the clocks build; 09b
@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class="slide__number" data-sid="09-vote-isempty:59"></div>
-  <aside class="notes" data-sid="09-vote-isempty:60">Answer: D &mdash; (firstNode == lastNode) [key from the PrairieLearn twin u10q07_linkeddeque_tracing_c; confirm in Runestone&rsquo;s results view]. Press once: the 1:30 vote clock, silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. Read the word NOT out loud: the question asks for the one that fails. The question for the groups: draw the deque empty, with one node and with two nodes, and check each expression on each drawing. Runestone: Peer Instruction W08D1, question 2 of 2 (vtcs2_deque_isEmpty).</aside>
+  <aside class="notes" data-sid="09-vote-isempty:60">Answer: D &mdash; (firstNode == lastNode) [key from the PrairieLearn twin u10q07_linkeddeque_tracing_c; confirm in Runestone&rsquo;s results view]. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. Read the word NOT out loud. The question asks for the one expression that fails. Ask the groups to draw the deque empty, with one node and with two nodes, and to check each expression on each drawing. Runestone: Peer Instruction W08D1, question 2 of 2 (vtcs2_deque_isEmpty).</aside>
 
   <style data-sid="09-vote-isempty:61">
     /* two clocks at the top right: the vote ring (1:30) and the discussion
@@ -53,11 +53,14 @@
     #slide-09 .tlabel--discuss { right: var(--s-8); }
     /* Slide-local: the editor at --t-code in a 710 px left panel (the return
        line is 33 characters: 33 × 19.2 + 70 = 704); the options are code, so
-       they are set in mono at the code size: the longest, 41 characters, is
-       787 px beside its 80 px disc in the 906 px right column. All values from
+       they are set in mono at --t-small (21.6 px/char) beside a 56 px disc
+       (as 08). The longest, 41 characters, is 886 px and does not fit the
+       826 px left for text, so the text is capped at 23.5ch: A wraps after
+       "&&" onto two lines (475 px), D (23 characters, 497 px) stays on one. All values from
        tokens; used by this slide only. */
     #slide-09 .vi__panels { grid-template-columns: 710px minmax(0, 1fr); align-items: center; }
     #slide-09 .vi__editor { width: 710px; }
-    #slide-09 .vi__opts .vote__text { font-family: var(--font-mono); font-size: var(--t-code); white-space: nowrap; }
+    #slide-09 .vi__opts .vote__text { max-width: 23.5ch; font-family: var(--font-mono); font-size: var(--t-small); }
+    #slide-09 .vote__key { width: 56px; height: 56px; font-size: var(--t-small); }
   </style>
 </section>

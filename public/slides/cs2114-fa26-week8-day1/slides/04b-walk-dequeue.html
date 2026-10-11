@@ -1,15 +1,15 @@
 <section class="slide slide--warmup" id="slide-04b" data-sid="04b-walk-dequeue:1">
   <header class="slide__head" data-sid="04b-walk-dequeue:2">
     <p class="slide__kicker" data-sid="04b-walk-dequeue:3">A LINKED QUEUE &middot; WALKTHROUGH</p>
-    <h2 data-sid="04b-walk-dequeue:4">dequeue(): firstNode moves; lastNode only when the queue empties</h2>
+    <h2 data-sid="04b-walk-dequeue:4">dequeue() changes firstNode, and lastNode only on a one-node queue</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04b-walk-dequeue:5">A walkthrough of dequeue from the module's video under a program-counter bar: T dequeue; T front equals getFront; firstNode dot setData of null; firstNode equals firstNode dot getNext; if firstNode is null, lastNode equals null; return front. On the right, a queue of two nodes holding A and B: a blue firstNode pill points at A, a blue lastNode pill points at B, and A links to B. Step one: front equals A, shown in a dark pill below. Step two: A's data part is washed orange and A becomes null. Step three: firstNode's arrow swings to B, and A's node, which nothing refers to now, fades away. Step four: firstNode is not null, so the if is skipped. Step five: return A. Step six: dequeue again; front equals B. Step seven: B's data becomes null. Step eight: firstNode becomes null: its arrow goes and the word null appears beside it, while lastNode still points at B. Step nine: firstNode equals null is true. Step ten: lastNode equals null; its arrow goes, and B's node fades. Step eleven: return B. Step twelve: dequeue once more on the empty queue; getFront throws an EmptyQueueException, shown in maroon, and the bar stops on that line. Step thirteen: the one-node case is the one with the extra line.</p>
+  <p class="sr-only slide__desc" data-sid="04b-walk-dequeue:5">A walkthrough of dequeue from the module's video under a program-counter bar: T dequeue; T front equals getFront; firstNode dot setData of null; firstNode equals firstNode dot getNext; if firstNode is null, lastNode equals null; return front. On the right, a queue of two nodes holding A and B: a blue firstNode pill refers to A, a blue lastNode pill refers to B, and A links to B. Step one: front equals A, shown in a dark pill below. Step two: A's data part is washed orange and its value is replaced by null. Step three: firstNode's arrow re-points to B. Nothing refers to A's node, and it fades out. Step four: firstNode is not null, so the if is skipped. Step five: return A. Step six: dequeue again; front equals B. Step seven: B's data becomes null. Step eight: firstNode is set to null. Its arrow is removed and the word null appears beside it. lastNode still refers to B. Step nine: firstNode equals null is true. Step ten: lastNode equals null. Its arrow is removed and B's node fades out. Step eleven: return B. Step twelve: dequeue once more on the empty queue; getFront throws an EmptyQueueException, shown in maroon, and the bar stops on that line. Step thirteen: the one-node case needs the extra line.</p>
 
   <!-- Concept intro, part 2: the video's dequeue (LinkedQueueRemove.pdf
        slide 1, including its firstNode.setData(null) line), run three times
        on the queue A, B. The same picture grammar as 04: blue pills and
-       references, a reference that is re-pointed swings, a reference set to
-       null fades and its stone null comes back, a node nothing refers to
+       references, a re-pointed reference swings, a reference set to null
+       fades and its stone null fades back in, a node nothing refers to
        fades, a write washes the compartment orange for its step, the local
        front is an ink pill. The third call throws inside getFront() (Carrano's
        getFront throws EmptyQueueException when the queue is empty): the plate
@@ -51,7 +51,7 @@
           <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="04b-walk-dequeue:39"/>
           <rect class="nd__wash" x="3" y="153" width="104" height="84" rx="7" data-sid="04b-walk-dequeue:40"/>
           <path class="nd__div" d="M110 150v90" data-sid="04b-walk-dequeue:41"/>
-          <text class="nd__f" x="10" y="174" data-sid="04b-walk-dequeue:42">data</text><text class="nd__f" x="120" y="174" data-sid="04b-walk-dequeue:43">next</text>
+          <text class="nd__f" x="10" y="178" data-sid="04b-walk-dequeue:42">data</text><text class="nd__f" x="116" y="178" data-sid="04b-walk-dequeue:43">next</text>
           <text class="nd__v" x="55" y="224" data-sid="04b-walk-dequeue:44">A</text>
           <text class="nd__dn" x="55" y="224" data-sid="04b-walk-dequeue:45">null</text>
           <path class="lnk" d="M150 205 C 190 205, 230 205, 274 205" data-sid="04b-walk-dequeue:46"/>
@@ -60,7 +60,7 @@
           <rect class="nd__box" x="280" y="150" width="190" height="90" rx="10" data-sid="04b-walk-dequeue:48"/>
           <rect class="nd__wash" x="283" y="153" width="104" height="84" rx="7" data-sid="04b-walk-dequeue:49"/>
           <path class="nd__div" d="M390 150v90" data-sid="04b-walk-dequeue:50"/>
-          <text class="nd__f" x="290" y="174" data-sid="04b-walk-dequeue:51">data</text><text class="nd__f" x="400" y="174" data-sid="04b-walk-dequeue:52">next</text>
+          <text class="nd__f" x="290" y="178" data-sid="04b-walk-dequeue:51">data</text><text class="nd__f" x="396" y="178" data-sid="04b-walk-dequeue:52">next</text>
           <text class="nd__v" x="335" y="224" data-sid="04b-walk-dequeue:53">B</text>
           <text class="nd__dn" x="335" y="224" data-sid="04b-walk-dequeue:54">null</text>
           <text class="nd__nl" x="430" y="224" data-sid="04b-walk-dequeue:55">null</text>
@@ -77,24 +77,24 @@
         <g class="exc frag" data-step="12" data-sid="04b-walk-dequeue:62"><rect x="0" y="290" width="470" height="64" rx="10" data-sid="04b-walk-dequeue:63"/><text x="235" y="334" data-sid="04b-walk-dequeue:64">EmptyQueueException</text></g>
       </svg>
       <div class="codewalk__caps" data-sid="04b-walk-dequeue:65">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-dequeue:66">dequeue() on the queue A, B. getFront() returns the front value: front = A.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-dequeue:66">dequeue() runs on the queue A, B. getFront() returns A, and front is A.</p>
         <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-walk-dequeue:67">The front node&rsquo;s data is set to null. The value is already saved in front.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-dequeue:68">firstNode moves to the next node, B. Nothing refers to A&rsquo;s node now.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-dequeue:69">firstNode is B, not null: the if is skipped.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-dequeue:70">return front: A. The queue is B.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-dequeue:71">dequeue() again. front = B.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-dequeue:68">firstNode now refers to B. Nothing refers to A&rsquo;s node.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-dequeue:69">firstNode is B, not null, so the if is skipped.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-dequeue:70">return front returns A. The queue holds B.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-dequeue:71">dequeue() runs again, and front is B.</p>
         <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-walk-dequeue:72">B&rsquo;s data is set to null.</p>
-        <p class="walkcap cap--8 frag" data-step="8" data-sid="04b-walk-dequeue:73">firstNode = B&rsquo;s next, which is null. lastNode still refers to the node just removed.</p>
-        <p class="walkcap cap--9 frag" data-step="9" data-sid="04b-walk-dequeue:74">firstNode == null is true: that was the only node.</p>
-        <p class="walkcap cap--10 frag" data-step="10" data-sid="04b-walk-dequeue:75">lastNode = null. Both references are null: the queue is empty.</p>
-        <p class="walkcap cap--11 frag" data-step="11" data-sid="04b-walk-dequeue:76">return front: B.</p>
-        <p class="walkcap walkcap--fail cap--12 frag" data-step="12" data-sid="04b-walk-dequeue:77">dequeue() once more. getFront() on an empty queue throws EmptyQueueException.</p>
-        <p class="walkcap walkcap--plant cap--13 frag" data-step="13" data-sid="04b-walk-dequeue:78">The one-node case is the one with the extra line.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04b-walk-dequeue:73">firstNode is set to B&rsquo;s next, which is null. lastNode still refers to B.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="04b-walk-dequeue:74">firstNode == null is true because B was the only node.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="04b-walk-dequeue:75">lastNode = null. Both references are null, so the queue is empty.</p>
+        <p class="walkcap cap--11 frag" data-step="11" data-sid="04b-walk-dequeue:76">return front returns B.</p>
+        <p class="walkcap walkcap--fail cap--12 frag" data-step="12" data-sid="04b-walk-dequeue:77">dequeue() runs on the empty queue. getFront() throws EmptyQueueException.</p>
+        <p class="walkcap walkcap--plant cap--13 frag" data-step="13" data-sid="04b-walk-dequeue:78">The one-node case needs the extra line.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="04b-walk-dequeue:79"></div>
-  <aside class="notes" data-sid="04b-walk-dequeue:80">This is dequeue from the LinkedQueueRemove video, line for line except the comment above the if. Remove happens at the front. Step 1 &mdash; dequeue() on the queue A, B: getFront() returns A, kept in the local front. Step 2 &mdash; the video sets the front node&rsquo;s data to null before letting go of it; the value is already in front. Step 3 &mdash; firstNode moves to the next node. Nothing refers to A&rsquo;s node any more, so it is garbage. Step 4 &mdash; firstNode is B, so the if does not run. Step 5 &mdash; return A. Step 6 &mdash; dequeue() again, on a queue with one node. Step 7 &mdash; B&rsquo;s data becomes null. Step 8 &mdash; firstNode = firstNode.getNext(), and B&rsquo;s next is null. Stop here and ask what lastNode refers to: still B, the node we just removed. Step 9 &mdash; this is what the if is for; the video&rsquo;s comment says &ldquo;handle case when dequeued the only node remaining.&rdquo; Step 10 &mdash; lastNode = null; both references are null, which is what an empty queue looks like. Step 11 &mdash; return B. Step 12 &mdash; dequeue() on the empty queue: getFront() throws EmptyQueueException, the exception from the video, and nothing after it runs. Step 13 &mdash; one node is the only case where dequeue has to touch lastNode. Next: why the class keeps lastNode at all.</aside>
+  <aside class="notes" data-sid="04b-walk-dequeue:80">This is dequeue from the LinkedQueueRemove video, line for line except the comment above the if. Removal happens at the front. Step 1. dequeue() runs on the queue A, B. getFront() returns A, and the local front holds it. Step 2. The video sets the front node&rsquo;s data to null before firstNode is reassigned. The value is already saved in front. Step 3. firstNode now refers to B. Nothing refers to A&rsquo;s node, so it is garbage. Step 4. firstNode is B, so the if does not run. Step 5. The method returns A. Step 6. dequeue() runs again, on a queue with one node. Step 7. B&rsquo;s data is set to null. Step 8. firstNode = firstNode.getNext(), and B&rsquo;s next is null. Stop here and ask what lastNode refers to. It still refers to B, the node that was just removed. Step 9. This case is what the if is for. The video&rsquo;s comment says &ldquo;handle case when dequeued the only node remaining.&rdquo; Step 10. lastNode = null. Both references are null, which is the empty state. Step 11. The method returns B. Step 12. dequeue() runs on the empty queue. getFront() throws EmptyQueueException, the exception from the video, and no later line runs. Step 13. A one-node queue is the only case where dequeue writes lastNode. Next is the reason the class keeps lastNode.</aside>
 
   <style data-sid="04b-walk-dequeue:81">
     /* Slide-local: 04's layout and picture grammar (editor 790 px at --t-code:
@@ -123,10 +123,10 @@
     #slide-04b .nd { transition: opacity .4s ease; }
     #slide-04b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
     #slide-04b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-04b .nd__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-04b .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
     #slide-04b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
-    #slide-04b .nd__dn { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
-    #slide-04b .nd__nl { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; }
+    #slide-04b .nd__dn { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
     #slide-04b .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
     #slide-04b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d1-04b-head); }
 

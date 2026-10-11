@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-11" data-sid="11-hw-linkedqueue:1">
   <header class="slide__head" data-sid="11-hw-linkedqueue:2">
     <p class="slide__kicker" data-sid="11-hw-linkedqueue:3">WEEK 8 HOMEWORK &middot; DUE FRI OCT 16, 11:59 PM</p>
-    <h2 data-sid="11-hw-linkedqueue:4">Four of the eight: methods on a linked queue</h2>
+    <h2 data-sid="11-hw-linkedqueue:4">Four of the eight problems are methods on a linked queue</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="11-hw-linkedqueue:5">On the left, the queue the homework problems use as their example: a firstNode pill pointing at a node holding 1, which links to 2, then 3, whose next is null, and a lastNode pill pointing at 3. Under it a card listing what the LinkedQueue class already has: the fields firstNode and lastNode, the methods isEmpty, getFront and clear, and the Node methods getData, getNext and setNext. Under the card, the signpost: PrairieLearn, Assessments, Week 8: Queues, Coding Practice; 8 problems; your best 4 count; due Friday. On the right, four cards arriving one per press. LinkedQueue Enqueue, void enqueuePractice of T newEntry: link the new node in when the queue is not empty, and update lastNode either way. LinkedQueue Dequeue, T dequeue: remove and return the front; mind a one-node queue. LinkedQueue Priority Enqueue, void priorityEnqueue of T newEntry: the new entry goes to the front, 4, 1, 2, 3; mind the empty queue. LinkedQueue Almost-Priority Enqueue, void almostPriorityEnqueue of T newEntry: the new entry goes right after the first, 1, 4, 2, 3; mind a one-node queue.</p>
+  <p class="sr-only slide__desc" data-sid="11-hw-linkedqueue:5">On the left, the queue the homework problems use as their example: a firstNode pill that refers to a node holding 1, which links to 2, then 3, whose next is null, and a lastNode pill that refers to 3. Under it a card listing what the LinkedQueue class already has: the fields firstNode and lastNode, the methods isEmpty, getFront and clear, and the Node methods getData, getNext and setNext. Under the card, the signpost: PrairieLearn, Assessments, Week 8: Queues, Coding Practice; 8 problems; your best 4 count; due Friday. On the right, four cards arriving one per press. LinkedQueue Enqueue, void enqueuePractice of T newEntry: link the node in, and always update lastNode. LinkedQueue Dequeue, T dequeue: return the front, and check a one-node queue. LinkedQueue Priority Enqueue, void priorityEnqueue of T newEntry: add 4 at the front, and check an empty queue. LinkedQueue Almost-Priority Enqueue, void almostPriorityEnqueue of T newEntry: add 4 after node 1, and check a one-node queue.</p>
 
   <!-- W5D1 13's homework-card grammar for the four LinkedQueue problems
        (x700–x703; Day 2 shows the four ArrayQueue ones). Left: the PL
@@ -11,29 +11,29 @@
        drawn in Part 1's grammar, the class card, the signpost. Right: one card
        per problem in the assessment's order: the PL title, the signature
        without "public", and the part to think hardest about, phrased from the
-       problem statement (the examples are the statement's own). No solution
+       problem statement (4 is the statement's own example entry). No solution
        code: these are graded. Cards grow from centre; the signpost fades in
        with the fourth.
        steps 1–4: x700, x701, x702, x703. -->
   <div class="slide__body hw" data-sid="11-hw-linkedqueue:6">
     <div class="stack hw__left" data-sid="11-hw-linkedqueue:7">
-      <svg class="hw__fig" viewBox="0 0 760 150" role="img" aria-label="The homework's example queue: firstNode points at 1, which links to 2 and then 3; lastNode points at 3" data-sid="11-hw-linkedqueue:8">
+      <svg class="hw__fig" viewBox="0 0 760 150" role="img" aria-label="The homework's example queue: firstNode refers to 1, which links to 2 and then 3; lastNode refers to 3" data-sid="11-hw-linkedqueue:8">
         <defs data-sid="11-hw-linkedqueue:9">
           <marker id="w8d1-11-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="11-hw-linkedqueue:10"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="11-hw-linkedqueue:11"/></marker>
         </defs>
-        <text class="hw__tag" x="0" y="136" data-sid="11-hw-linkedqueue:12">the problems&rsquo; own example</text>
+        <text class="hw__tag" x="0" y="140" data-sid="11-hw-linkedqueue:12">the problems&rsquo; own example</text>
         <g class="hw__pill" data-sid="11-hw-linkedqueue:13"><rect x="0" y="26" width="176" height="44" rx="8" data-sid="11-hw-linkedqueue:14"/><text x="88" y="57" data-sid="11-hw-linkedqueue:15">firstNode</text></g>
         <path class="hw__arr" d="M176 48 C 184 48, 190 48, 196 48" data-sid="11-hw-linkedqueue:16"/>
-        <g class="hw__node" data-sid="11-hw-linkedqueue:17"><rect x="200" y="10" width="120" height="76" rx="8" data-sid="11-hw-linkedqueue:18"/><path d="M260 10v76" data-sid="11-hw-linkedqueue:19"/><text class="hw__f" x="205" y="32" data-sid="11-hw-linkedqueue:20">data</text><text class="hw__f" x="263" y="32" data-sid="11-hw-linkedqueue:21">next</text><text class="hw__v" x="230" y="74" data-sid="11-hw-linkedqueue:22">1</text></g>
-        <path class="hw__arr" d="M290 60 C 310 60, 334 60, 356 60" data-sid="11-hw-linkedqueue:23"/>
-        <g class="hw__node" data-sid="11-hw-linkedqueue:24"><rect x="360" y="10" width="120" height="76" rx="8" data-sid="11-hw-linkedqueue:25"/><path d="M420 10v76" data-sid="11-hw-linkedqueue:26"/><text class="hw__f" x="365" y="32" data-sid="11-hw-linkedqueue:27">data</text><text class="hw__f" x="423" y="32" data-sid="11-hw-linkedqueue:28">next</text><text class="hw__v" x="390" y="74" data-sid="11-hw-linkedqueue:29">2</text></g>
-        <path class="hw__arr" d="M450 60 C 470 60, 494 60, 516 60" data-sid="11-hw-linkedqueue:30"/>
-        <g class="hw__node" data-sid="11-hw-linkedqueue:31"><rect x="520" y="10" width="120" height="76" rx="8" data-sid="11-hw-linkedqueue:32"/><path d="M580 10v76" data-sid="11-hw-linkedqueue:33"/><text class="hw__f" x="525" y="32" data-sid="11-hw-linkedqueue:34">data</text><text class="hw__f" x="583" y="32" data-sid="11-hw-linkedqueue:35">next</text><text class="hw__v" x="550" y="74" data-sid="11-hw-linkedqueue:36">3</text><text class="hw__null" x="610" y="74" data-sid="11-hw-linkedqueue:37">null</text></g>
-        <g class="hw__pill" data-sid="11-hw-linkedqueue:38"><rect x="500" y="106" width="160" height="44" rx="8" data-sid="11-hw-linkedqueue:39"/><text x="580" y="137" data-sid="11-hw-linkedqueue:40">lastNode</text></g>
-        <path class="hw__arr" d="M580 106 C 580 100, 580 96, 580 90" data-sid="11-hw-linkedqueue:41"/>
+        <g class="hw__node" data-sid="11-hw-linkedqueue:17"><rect x="200" y="10" width="150" height="76" rx="8" data-sid="11-hw-linkedqueue:18"/><path d="M275 10v76" data-sid="11-hw-linkedqueue:19"/><text class="hw__f" x="237" y="34" data-sid="11-hw-linkedqueue:20">data</text><text class="hw__f" x="312" y="34" data-sid="11-hw-linkedqueue:21">next</text><text class="hw__v" x="237" y="76" data-sid="11-hw-linkedqueue:22">1</text></g>
+        <path class="hw__arr" d="M312 62 C 336 62, 360 62, 386 62" data-sid="11-hw-linkedqueue:23"/>
+        <g class="hw__node" data-sid="11-hw-linkedqueue:24"><rect x="390" y="10" width="150" height="76" rx="8" data-sid="11-hw-linkedqueue:25"/><path d="M465 10v76" data-sid="11-hw-linkedqueue:26"/><text class="hw__f" x="427" y="34" data-sid="11-hw-linkedqueue:27">data</text><text class="hw__f" x="502" y="34" data-sid="11-hw-linkedqueue:28">next</text><text class="hw__v" x="427" y="76" data-sid="11-hw-linkedqueue:29">2</text></g>
+        <path class="hw__arr" d="M502 62 C 526 62, 550 62, 576 62" data-sid="11-hw-linkedqueue:30"/>
+        <g class="hw__node" data-sid="11-hw-linkedqueue:31"><rect x="580" y="10" width="150" height="76" rx="8" data-sid="11-hw-linkedqueue:32"/><path d="M655 10v76" data-sid="11-hw-linkedqueue:33"/><text class="hw__f" x="617" y="34" data-sid="11-hw-linkedqueue:34">data</text><text class="hw__f" x="692" y="34" data-sid="11-hw-linkedqueue:35">next</text><text class="hw__v" x="617" y="76" data-sid="11-hw-linkedqueue:36">3</text><text class="hw__null" x="692" y="74" data-sid="11-hw-linkedqueue:37">null</text></g>
+        <g class="hw__pill" data-sid="11-hw-linkedqueue:38"><rect x="575" y="106" width="160" height="44" rx="8" data-sid="11-hw-linkedqueue:39"/><text x="655" y="137" data-sid="11-hw-linkedqueue:40">lastNode</text></g>
+        <path class="hw__arr" d="M655 106 C 655 100, 655 96, 655 90" data-sid="11-hw-linkedqueue:41"/>
       </svg>
       <div class="tile tile--a2" data-sid="11-hw-linkedqueue:42">
-        <p class="tile__label" data-sid="11-hw-linkedqueue:43">class LinkedQueue&lt;T&gt; &mdash; already written</p>
+        <p class="tile__label" data-sid="11-hw-linkedqueue:43">class LinkedQueue&lt;T&gt;, already written</p>
         <ul class="hw__api" data-sid="11-hw-linkedqueue:44">
           <li data-sid="11-hw-linkedqueue:45">Node&lt;T&gt; firstNode &middot; Node&lt;T&gt; lastNode</li>
           <li data-sid="11-hw-linkedqueue:46">isEmpty() &middot; getFront() &middot; clear()</li>
@@ -46,58 +46,63 @@
       <div class="tile tile--a3 frag" data-step="1" data-sid="11-hw-linkedqueue:51">
         <h3 data-sid="11-hw-linkedqueue:52">LinkedQueue Enqueue</h3>
         <p class="hw__sig" data-sid="11-hw-linkedqueue:53">void enqueuePractice(T newEntry)</p>
-        <p class="hw__hard" data-sid="11-hw-linkedqueue:54">link it in when not empty; update lastNode either way</p>
+        <p class="hw__hard" data-sid="11-hw-linkedqueue:54">Link the node in. Always update lastNode.</p>
       </div>
       <div class="tile tile--a3 frag" data-step="2" data-sid="11-hw-linkedqueue:55">
         <h3 data-sid="11-hw-linkedqueue:56">LinkedQueue Dequeue</h3>
         <p class="hw__sig" data-sid="11-hw-linkedqueue:57">T dequeue()</p>
-        <p class="hw__hard" data-sid="11-hw-linkedqueue:58">remove and return the front; mind a one-node queue</p>
+        <p class="hw__hard" data-sid="11-hw-linkedqueue:58">Return the front. Check a one-node queue.</p>
       </div>
       <div class="tile tile--a3 frag" data-step="3" data-sid="11-hw-linkedqueue:59">
         <h3 data-sid="11-hw-linkedqueue:60">LinkedQueue Priority Enqueue</h3>
         <p class="hw__sig" data-sid="11-hw-linkedqueue:61">void priorityEnqueue(T newEntry)</p>
-        <p class="hw__hard" data-sid="11-hw-linkedqueue:62">to the front: 4 &rarr; 1 &rarr; 2 &rarr; 3; mind the empty queue</p>
+        <p class="hw__hard" data-sid="11-hw-linkedqueue:62">Add 4 at the front. Check an empty queue.</p>
       </div>
       <div class="tile tile--a3 frag" data-step="4" data-sid="11-hw-linkedqueue:63">
         <h3 data-sid="11-hw-linkedqueue:64">LinkedQueue Almost-Priority Enqueue</h3>
         <p class="hw__sig" data-sid="11-hw-linkedqueue:65">void almostPriorityEnqueue(T newEntry)</p>
-        <p class="hw__hard" data-sid="11-hw-linkedqueue:66">right after the first: 1 &rarr; 4 &rarr; 2 &rarr; 3; mind a one-node queue</p>
+        <p class="hw__hard" data-sid="11-hw-linkedqueue:66">Add 4 after node 1. Check a one-node queue.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="11-hw-linkedqueue:67"></div>
-  <aside class="notes" data-sid="11-hw-linkedqueue:68">This week&rsquo;s homework on PrairieLearn has eight problems at 10 points each and your best four count, due Friday October 16 at 11:59 PM. The first four are on a linked queue, today&rsquo;s class; the other four are on an array queue, next class. The queue on the left is the example the problems themselves use: 1, 2, 3, firstNode at 1 and lastNode at 3. Step 1 &mdash; LinkedQueue Enqueue: the empty case is written for you; the problem says the rest is missing: link the new node in when the queue is not empty, and lastNode is never updated. That is 04. Step 2 &mdash; LinkedQueue Dequeue: remove and return the front value. The queue is not empty, by precondition; think about the queue with one node, which is 04b. Step 3 &mdash; Priority Enqueue: the new entry goes to the front instead of the back. Draw it on the empty queue first: which references have to change? Step 4 &mdash; Almost-Priority Enqueue: the new entry goes right after the first node. The empty case is handled; draw the queue with exactly one node and ask what lastNode should be afterwards. Also due this week: Challenge Exercise 08, Carrano Deque, on Friday, which is the deque from today; and Project 2 Deliverable 3, the prototype with tests on at least two element types, at the start of your lab. Next: the deadlines once more.</aside>
+  <aside class="notes" data-sid="11-hw-linkedqueue:68">This week&rsquo;s homework on PrairieLearn has eight problems at 10 points each, and your best four count. It is due Friday October 16 at 11:59 PM. The first four problems are on a linked queue, which is today&rsquo;s topic. The other four are on an array queue, which is next class. The queue on the left is the example that the problems use: 1, 2, 3, with firstNode at 1 and lastNode at 3. Step 1. LinkedQueue Enqueue. The empty case is already written. The problem says that the rest is missing: the new node is not linked in when the queue is not empty, and lastNode is never updated. This is slide 04. Step 2. LinkedQueue Dequeue. Remove and return the front value. The precondition says the queue is not empty. Think about the queue with one node, which is slide 04b. Step 3. Priority Enqueue. The new entry goes to the front instead of the back, so 4 added to 1, 2, 3 gives 4, 1, 2, 3. Draw it on the empty queue first and ask which references have to change. Step 4. Almost-Priority Enqueue. The new entry goes right after the first node, so 4 gives 1, 4, 2, 3. The empty case is handled. Draw the queue with exactly one node and ask what lastNode should be afterwards. Also due this week: Challenge Exercise 08, Carrano Deque, on Friday, which is the deque from today; and Project 2 Deliverable 3, the prototype with tests on at least two element types, at the start of your lab. Next are the deadlines again.</aside>
 
   <style data-sid="11-hw-linkedqueue:69">
     /* Slide-local: W5D1 13's two columns: left 760 px (the example queue in
        one 760 × 150 SVG at 1:1, Part 1's Node grammar at 120 × 76, then the
        class card, then the signpost), right the four cards stacked (each one
-       line of title, signature and hint; the longest signature, 38 mono
-       characters at the micro size, is 638 px). Cards in the orange of "yours
+       line of title, signature and hint in a 770 px inner width; the longest
+       signature, 38 mono characters at --t-micro, is 638 px; the hints are at
+       --t-small, the longest, "Add 4 after node 1. Check a one-node queue.",
+       730 px by PIL). The signatures and the class card stay mono at
+       --t-micro: at --t-small "Node<T> firstNode · Node<T> lastNode" is 778
+       px in a 690 px card. Nodes 150 × 76 (data 75 | next 75) so that the
+       28 px field labels (67 px) fit. Cards in the orange of "yours
        to write", GrowFromCenter one per press; the signpost fades in with the
        fourth. All values from tokens; used by this slide only. */
     #slide-11 .hw { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
     #slide-11 .hw__left { gap: var(--s-2); }
-    #slide-11 .hw__cards { gap: 12px; }
+    #slide-11 .hw__cards { gap: var(--s-1); }
     #slide-11 .hw__fig { display: block; width: 760px; height: 150px; overflow: visible; }
-    #slide-11 .hw__tag { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-11 .hw__tag { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
     #slide-11 .hw__pill rect { fill: var(--accent-2); }
     #slide-11 .hw__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
     #slide-11 .hw__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d1-11-head); }
     #slide-11 .hw__node rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
     #slide-11 .hw__node path { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-11 .hw__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
-    #slide-11 .hw__v { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
-    #slide-11 .hw__null { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; }
+    #slide-11 .hw__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-11 .hw__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11 .hw__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
     #slide-11 .hw__api { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.5; color: var(--fg-0); }
     #slide-11 .hw__api li { margin: 0; line-height: 1.5; }
     #slide-11 .hw__sign { margin: 0; transition: opacity .3s ease; }
     #slide-11 .hw__sign b { color: var(--accent-1); }
     #slide-11 .frag.hw__sign.is-current, #slide-11 .frag.hw__sign.is-past { transition-delay: .5s; }
-    #slide-11 .hw__cards .tile { padding: 10px var(--s-4); }
-    #slide-11 .hw__cards h3 { margin: 0 0 4px; font-size: var(--t-small); line-height: 1.15; color: var(--fg-0); }
-    #slide-11 .hw__sig { margin: 0 0 4px; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
-    #slide-11 .hw__hard { margin: 0; font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
+    #slide-11 .hw__cards .tile { padding: var(--s-1) var(--s-4); }
+    #slide-11 .hw__cards h3 { margin: 0 0 4px; font-size: var(--t-small); line-height: 1.1; color: var(--fg-0); }
+    #slide-11 .hw__sig { margin: 0 0 2px; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
+    #slide-11 .hw__hard { margin: 0; font-size: var(--t-small); line-height: 1.3; color: var(--fg-1); }
     #slide-11 .hw__cards .tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
     #slide-11 .hw__cards .frag.tile.is-pending { opacity: 0; transform: scale(0.4); }
     @media (prefers-reduced-motion: reduce) {

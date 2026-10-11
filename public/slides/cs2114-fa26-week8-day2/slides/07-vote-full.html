@@ -12,8 +12,8 @@
   <!-- The deck's vote layout (deck.css .vote) with W6D1 06's long-option
        treatment: the stem verbatim as the lede, the array drawn on the left
        blank and unmarked (six of the deck's 128 px vote cells: capacity 5
-       plus the unused slot), the seven options on the right at the micro
-       size with 8 px rows and 56 px key discs, because seven rows of the
+       plus the unused slot), the seven options on the right at the small
+       size with 6 px rows and 48 px key discs, because seven rows of the
        80 px discs do not fit under a three-line stem. Quoted as pasted,
        including the lower-case "invalid". Static: nothing here is a step but
        the two clocks; the answer slide counts. Runestone activity
@@ -43,7 +43,7 @@
     </div>
   </div>
   <div class="slide__number" data-sid="07-vote-full:73"></div>
-  <aside class="notes" data-sid="07-vote-full:74">Answer: E &mdash; five elements in the queue [key from the PrairieLearn twin u10q09_circulararrayqueue_d, which is this question verbatim; confirm in Runestone&rsquo;s results view]. The question as printed: an array queue with one unused entry, capacity 5, frontIndex 3 and backIndex 1; what is the status of the queue? Press once: the 1:30 vote clock, silent first answers. Press again for the 2:30 discussion clock; press again to move on. If groups stall, the prompt for the discussion: start at frontIndex, walk to backIndex, and count the slots you pass, both ends included. Runestone: Peer Instruction W08D2, question 2 of 2, activity vtcs2_circularArray_full.</aside>
+  <aside class="notes" data-sid="07-vote-full:74">Answer: E &mdash; five elements in the queue [key from the PrairieLearn twin u10q09_circulararrayqueue_d, which is this question verbatim; confirm in Runestone&rsquo;s results view]. The question gives an array queue with one unused entry, capacity 5, frontIndex 3 and backIndex 1, and asks for the status of the queue. The first press starts the 1:30 vote clock; students answer on their own first. The second press starts the 2:30 discussion clock, and the third moves on. If a group has no way in, ask them to count the slots from frontIndex to backIndex, both ends included, going from slot 5 to slot 0. Runestone: Peer Instruction W08D2, question 2 of 2, activity vtcs2_circularArray_full.</aside>
 
   <style data-sid="07-vote-full:75">
     /* two clocks at the top right: the vote ring (1:30) and the discussion
@@ -56,12 +56,15 @@
     #slide-07 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
     #slide-07 .tlabel--vote { right: calc(var(--s-8) + 190px); }
     #slide-07 .tlabel--discuss { right: var(--s-8); }
-    /* Slide-local: seven options at the micro size with 6 px rows and 48 px
-       key discs (W6D1 06's long-option treatment, smaller discs for seven
-       rows: with 56 px discs and 8 px rows the slack was 6 px). All values
+    /* Slide-local: seven options at --t-small, line-height 1.3 (46.8 px, under
+       the 48 px key disc, so a row is 48 + 12 as it was at the micro size),
+       6 px rows (W6D1 06's long-option treatment, smaller discs for seven
+       rows: with 56 px discs and 8 px rows the slack was 6 px); the cell
+       index at --t-micro (deck.css has --t-tag). All values
        from tokens; used by this slide only. */
     #slide-07 .vf__opts .vote__opt { padding: 6px 0; }
     #slide-07 .vf__opts .vote__key { width: var(--s-5); height: var(--s-5); font-size: var(--t-small); }
-    #slide-07 .vf__opts .vote__text { font-size: var(--t-micro); line-height: 1.4; }
+    #slide-07 .vf__opts .vote__text { font-size: var(--t-small); line-height: 1.3; }
+    #slide-07 .vote__idx { font-size: var(--t-micro); }
   </style>
 </section>

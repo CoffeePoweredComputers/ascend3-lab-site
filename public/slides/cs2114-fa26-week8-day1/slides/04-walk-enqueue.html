@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-04" data-sid="04-walk-enqueue:1">
   <header class="slide__head" data-sid="04-walk-enqueue:2">
     <p class="slide__kicker" data-sid="04-walk-enqueue:3">A LINKED QUEUE &middot; WALKTHROUGH</p>
-    <h2 data-sid="04-walk-enqueue:4">enqueue(x): link the new node in after lastNode</h2>
+    <h2 data-sid="04-walk-enqueue:4">enqueue(x) links the new node in after lastNode</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04-walk-enqueue:5">A walkthrough of enqueue from the module's video under a program-counter bar: void enqueue of T x; Node newNode equals new Node of x and null; if isEmpty, firstNode equals newNode; else lastNode dot setNext of newNode; then lastNode equals newNode. On the right, two blue pills labelled firstNode and lastNode, each with the word null beside it, above an empty row where nodes will appear. Each node is a box with a data part and a next part. Step one: enqueue of A; a new node holding A, next null, appears, tinted orange and labelled newNode. Step two: isEmpty is true. Step three: firstNode equals newNode; firstNode's null goes and an arrow points it at A. Step four: lastNode equals newNode; lastNode also points at A. Step five: enqueue of B; a new node holding B appears to the right. Step six: the queue is not empty, so the else runs. Step seven: lastNode dot setNext; A's next part is washed orange, its null goes and an arrow draws from A to B. Step eight: lastNode equals newNode; lastNode's arrow swings from A to B; firstNode has not moved. Steps nine to eleven: enqueue of C the same way; B links to C and lastNode swings to C. Step twelve: enqueue touches only lastNode, however long the chain is.</p>
+  <p class="sr-only slide__desc" data-sid="04-walk-enqueue:5">A walkthrough of enqueue from the module's video under a program-counter bar: void enqueue of T x; Node newNode equals new Node of x and null; if isEmpty, firstNode equals newNode; else lastNode dot setNext of newNode; then lastNode equals newNode. On the right, two blue pills labelled firstNode and lastNode, each with the word null beside it, above an empty row where nodes will appear. Each node is a box with a data part and a next part. Step one: enqueue of A; a new node holding A, next null, appears, tinted orange and labelled newNode. Step two: isEmpty is true. Step three: firstNode equals newNode; the null beside firstNode is removed and an arrow from firstNode to A appears. Step four: lastNode equals newNode; lastNode also refers to A. Step five: enqueue of B; a new node holding B appears to the right. Step six: the queue is not empty, so the else runs. Step seven: lastNode dot setNext; A's next part is washed orange, its null is removed and an arrow is drawn from A to B. Step eight: lastNode equals newNode; lastNode's arrow re-points from A to B; firstNode is unchanged. Steps nine to eleven: enqueue of C the same way; B's next is set to C and lastNode re-points to C. Step twelve: enqueue writes one link and lastNode, whatever the length of the chain.</p>
 
   <!-- Concept intro for Part 1: the video's enqueue (LinkedQueuesEnqueue.pdf
        slide 4) with newEntry shortened to x, walked three times on one
@@ -51,7 +51,7 @@
           <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="04-walk-enqueue:39"/>
           <rect class="nd__wash" x="113" y="153" width="74" height="84" rx="7" data-sid="04-walk-enqueue:40"/>
           <path class="nd__div" d="M110 150v90" data-sid="04-walk-enqueue:41"/>
-          <text class="nd__f" x="10" y="174" data-sid="04-walk-enqueue:42">data</text><text class="nd__f" x="120" y="174" data-sid="04-walk-enqueue:43">next</text>
+          <text class="nd__f" x="10" y="178" data-sid="04-walk-enqueue:42">data</text><text class="nd__f" x="116" y="178" data-sid="04-walk-enqueue:43">next</text>
           <text class="nd__v" x="55" y="224" data-sid="04-walk-enqueue:44">A</text>
           <text class="nd__nl" x="150" y="224" data-sid="04-walk-enqueue:45">null</text>
           <text class="nd__new" x="95" y="276" data-sid="04-walk-enqueue:46">newNode</text>
@@ -60,7 +60,7 @@
           <rect class="nd__box" x="280" y="150" width="190" height="90" rx="10" data-sid="04-walk-enqueue:48"/>
           <rect class="nd__wash" x="393" y="153" width="74" height="84" rx="7" data-sid="04-walk-enqueue:49"/>
           <path class="nd__div" d="M390 150v90" data-sid="04-walk-enqueue:50"/>
-          <text class="nd__f" x="290" y="174" data-sid="04-walk-enqueue:51">data</text><text class="nd__f" x="400" y="174" data-sid="04-walk-enqueue:52">next</text>
+          <text class="nd__f" x="290" y="178" data-sid="04-walk-enqueue:51">data</text><text class="nd__f" x="396" y="178" data-sid="04-walk-enqueue:52">next</text>
           <text class="nd__v" x="335" y="224" data-sid="04-walk-enqueue:53">B</text>
           <text class="nd__nl" x="430" y="224" data-sid="04-walk-enqueue:54">null</text>
           <text class="nd__new" x="375" y="276" data-sid="04-walk-enqueue:55">newNode</text>
@@ -69,7 +69,7 @@
           <rect class="nd__box" x="560" y="150" width="190" height="90" rx="10" data-sid="04-walk-enqueue:57"/>
           <rect class="nd__wash" x="673" y="153" width="74" height="84" rx="7" data-sid="04-walk-enqueue:58"/>
           <path class="nd__div" d="M670 150v90" data-sid="04-walk-enqueue:59"/>
-          <text class="nd__f" x="570" y="174" data-sid="04-walk-enqueue:60">data</text><text class="nd__f" x="680" y="174" data-sid="04-walk-enqueue:61">next</text>
+          <text class="nd__f" x="570" y="178" data-sid="04-walk-enqueue:60">data</text><text class="nd__f" x="676" y="178" data-sid="04-walk-enqueue:61">next</text>
           <text class="nd__v" x="615" y="224" data-sid="04-walk-enqueue:62">C</text>
           <text class="nd__nl" x="710" y="224" data-sid="04-walk-enqueue:63">null</text>
           <text class="nd__new" x="655" y="276" data-sid="04-walk-enqueue:64">newNode</text>
@@ -86,23 +86,23 @@
         <path class="ref ref--last" d="M600 48 C 600 110, 150 90, 150 146" data-sid="04-walk-enqueue:70"/>
       </svg>
       <div class="codewalk__caps" data-sid="04-walk-enqueue:71">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-enqueue:72">enqueue(A) on an empty queue. A new node: data A, next null.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-enqueue:73">isEmpty() is true: firstNode is null.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-enqueue:74">firstNode = newNode. The new node is the front.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-enqueue:75">lastNode = newNode. It is the back as well: both references point at the one node.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-enqueue:76">enqueue(B). A new node holding B.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-enqueue:72">enqueue(A) on an empty queue creates a node with data A and next null.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-enqueue:73">isEmpty() is true because firstNode is null.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-enqueue:74">firstNode = newNode. The new node is the front node.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-enqueue:75">lastNode = newNode. Both references now refer to the same node.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-enqueue:76">enqueue(B) creates a node holding B.</p>
         <p class="walkcap cap--6 frag" data-step="6" data-sid="04-walk-enqueue:77">The queue is not empty, so the else runs.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="04-walk-enqueue:78">lastNode.setNext(newNode): the back node, A, now links to B.</p>
-        <p class="walkcap cap--8 frag" data-step="8" data-sid="04-walk-enqueue:79">lastNode = newNode: lastNode moves to B. firstNode did not move.</p>
-        <p class="walkcap cap--9 frag" data-step="9" data-sid="04-walk-enqueue:80">enqueue(C). A new node holding C; the queue is not empty.</p>
-        <p class="walkcap cap--10 frag" data-step="10" data-sid="04-walk-enqueue:81">lastNode.setNext(newNode): B links to C.</p>
-        <p class="walkcap cap--11 frag" data-step="11" data-sid="04-walk-enqueue:82">lastNode moves to C.</p>
-        <p class="walkcap walkcap--plant cap--12 frag" data-step="12" data-sid="04-walk-enqueue:83">enqueue touches only lastNode, however long the chain is.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04-walk-enqueue:78">lastNode.setNext(newNode) sets A's next to B.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04-walk-enqueue:79">lastNode = newNode, so lastNode now refers to B. firstNode is unchanged.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="04-walk-enqueue:80">enqueue(C) creates a node holding C. The queue is not empty.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="04-walk-enqueue:81">lastNode.setNext(newNode) sets B's next to C.</p>
+        <p class="walkcap cap--11 frag" data-step="11" data-sid="04-walk-enqueue:82">lastNode now refers to C.</p>
+        <p class="walkcap walkcap--plant cap--12 frag" data-step="12" data-sid="04-walk-enqueue:83">enqueue writes one link and lastNode, whatever the length of the chain.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="04-walk-enqueue:84"></div>
-  <aside class="notes" data-sid="04-walk-enqueue:85">This is enqueue from the LinkedQueuesEnqueue video, with newEntry shortened to x so it fits at this size. The class has two references: firstNode for the front, lastNode for the back. A new entry goes to the back. Step 1 &mdash; enqueue(A) on an empty queue: the constructor makes a node with data A and next null. The orange tint marks newNode, the node this call is building. Step 2 &mdash; isEmpty() is true, because firstNode is null. Step 3 &mdash; firstNode = newNode: the new node is the front. Step 4 &mdash; lastNode = newNode, after the if: the one node is the back too. Both references point at the same node; remember that state, it comes back in Vote 2. Step 5 &mdash; enqueue(B): a second node. Step 6 &mdash; not empty, so the else. Step 7 &mdash; lastNode.setNext(newNode): the old back node, A, now links to B. Step 8 &mdash; lastNode moves to B. Point out that firstNode has not moved since step 3. Steps 9 to 11 &mdash; enqueue(C), the same: C is linked after B and lastNode moves to C. Step 12 &mdash; enqueue never walks the chain. It reads lastNode, writes one link and moves lastNode, whether the queue has three nodes or three thousand. Next: dequeue, at the other end.</aside>
+  <aside class="notes" data-sid="04-walk-enqueue:85">This is enqueue from the LinkedQueuesEnqueue video, with newEntry shortened to x so that it fits at this size. The class has two references: firstNode for the front and lastNode for the back. A new entry goes at the back. Step 1. enqueue(A) runs on an empty queue. The constructor makes a node with data A and next null. The orange tint marks newNode, the node this call creates. Step 2. isEmpty() is true, because firstNode is null. Step 3. firstNode = newNode, so the new node is the front node. Step 4. lastNode = newNode runs after the if, so the same node is also the back node. Both references refer to one node. This state comes back in Vote 2. Step 5. enqueue(B) creates a second node. Step 6. The queue is not empty, so the else runs. Step 7. lastNode.setNext(newNode) sets A's next to B. Step 8. lastNode now refers to B. firstNode has not changed since step 3. Steps 9 to 11. enqueue(C) does the same: B's next is set to C and lastNode refers to C. Step 12. enqueue does not walk the chain. It reads lastNode, writes one link and assigns lastNode, so its cost does not depend on the length. Next is dequeue, at the other end.</aside>
 
   <style data-sid="04-walk-enqueue:86">
     /* Slide-local: the editor at --t-code (790 px: the constructor line is 37
@@ -133,10 +133,10 @@
     /* nodes */
     #slide-04 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
     #slide-04 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-04 .nd__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
+    #slide-04 .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
     #slide-04 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-04 .nd__nl { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
-    #slide-04 .nd__new { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-04 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04 .nd__new { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
     #slide-04 .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
     #slide-04 .nd { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
     #slide-04 .frag.nd.is-pending { opacity: 0; transform: scale(0.4); }

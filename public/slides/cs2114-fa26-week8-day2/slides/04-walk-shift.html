@@ -1,23 +1,23 @@
 <section class="slide slide--warmup" id="slide-04" data-sid="04-walk-shift:1">
   <header class="slide__head" data-sid="04-walk-shift:2">
     <p class="slide__kicker" data-sid="04-walk-shift:3">A QUEUE ON AN ARRAY &middot; FIRST TRY</p>
-    <h2 data-sid="04-walk-shift:4">Keep the front at slot 0, and dequeue has to shift</h2>
+    <h2 data-sid="04-walk-shift:4">With the front fixed at slot 0, dequeue shifts every entry</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04-walk-shift:5">A walkthrough of a first-try dequeue for a queue kept in an array with its front always at slot 0, under a program-counter bar: read contents at 0 into front, then a loop that copies contents at i plus 1 into contents at i, then n comes down, the old last slot is cleared, and front is returned. On the right, the call, the values of n and front, and a large counter labelled moves. Under both, a ten-slot array holding A, B, C, D and E in slots 0 to 4. Step one: slot 0 takes a blue edge, front becomes A, the counter reads 1. Steps two to five: the bar stays on the loop while B, C, D and E each slide one slot to the left, the value they land on fading as they arrive, and the counter rolls to 5. Step six: n is struck from 5 to 4. Step seven: the E left in slot 4 fades. Step eight: the caption says five entries, five moves: removing one entry costs n moves.</p>
+  <p class="sr-only slide__desc" data-sid="04-walk-shift:5">A walkthrough of a first-try dequeue for a queue kept in an array with its front always at slot 0, under a program-counter bar: read contents at 0 into front, then a loop that copies contents at i plus 1 into contents at i, then n comes down, the old last slot is cleared, and front is returned. On the right, the call, the values of n and front, and a large counter labelled moves. Under both, a ten-slot array holding A, B, C, D and E in slots 0 to 4. Step one: slot 0 takes a blue edge, front becomes A, the counter reads 1. Steps two to five: the bar stays on the loop while B, C, D and E are each copied one slot to the left; the value each copy overwrites fades, and the counter rolls to 5. Step six: n is struck from 5 to 4. Step seven: the E in slot 4 fades. Step eight: the caption says that removing one entry from n entries costs n moves.</p>
 
-  <!-- Concept intro, walk 1 of 4. The obvious design first: the front stays
-       at slot 0, so taking it off means moving everything behind it up one —
-       W5D1 09b's shift, now on a queue. This is the deck's own code (the
+  <!-- Concept intro, walk 1 of 4. The front stays at slot 0, so removing it
+       copies every later entry one slot to the left. This is W5D1 09b's
+       shift, applied to a queue. This is the deck's own code (the
        module only asks "what if dequeue 4 times?"), with n for the count so
        the loop line stays short. The loop body is held under the bar for
-       four presses (data-hold) while one entry per press slides one pitch;
+       four presses (data-hold) while one entry per press moves one pitch;
        the moves counter counts the read and the copies, so it ends on n.
        The strip is the deck's walk strip without its marker rows: this
        design has no frontIndex to draw.
        step 1: the read · steps 2–5: the shift · 6: n-- · 7: the null · 8: the plant -->
   <div class="slide__body codewalk code-mid sh" data-sid="04-walk-shift:6">
     <div class="editor" data-sid="04-walk-shift:7">
-      <p class="editor__bar" data-sid="04-walk-shift:8">dequeue, first try &mdash; the front stays at slot 0</p>
+      <p class="editor__bar" data-sid="04-walk-shift:8">dequeue, first try: front fixed at slot 0</p>
       <div class="editor__pc" data-sid="04-walk-shift:9"></div>
       <ol class="editor__code" data-sid="04-walk-shift:10">
         <li data-sid="04-walk-shift:11">T dequeue() {</li>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="sh__right" data-sid="04-walk-shift:27">
-      <p class="sh__call" data-sid="04-walk-shift:28">queue.dequeue() &mdash; five entries</p>
+      <p class="sh__call" data-sid="04-walk-shift:28">queue.dequeue() on five entries</p>
       <p class="sh__meta" data-sid="04-walk-shift:29">n = <span class="sh__cv sh__cv--0" data-sid="04-walk-shift:30">5</span><span class="sh__cv sh__cv--1" data-sid="04-walk-shift:31"><span class="sr-only" data-sid="04-walk-shift:32">now </span>4</span> &nbsp;&middot;&nbsp; front = <span class="sh__fvs" data-sid="04-walk-shift:33"><span class="sh__fv sh__fv--none" data-sid="04-walk-shift:34">&mdash;</span><span class="sh__fv sh__fv--a" data-sid="04-walk-shift:35">A</span></span></p>
       <div class="moves" data-sid="04-walk-shift:36">
         <p class="moves__label" data-sid="04-walk-shift:37">moves</p>
@@ -44,14 +44,14 @@
         </div>
       </div>
       <div class="codewalk__caps" data-sid="04-walk-shift:54">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-shift:55">front = contents[0]: A is the front. One move, a read.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-shift:56">i = 0: contents[0] = contents[1]. B moves into slot 0; A is gone.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-shift:57">i = 1: C moves left.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-shift:58">i = 2: D moves left.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-shift:59">i = 3: E moves left. Every entry behind the front has moved.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="04-walk-shift:60">n comes down: 5 &rarr; 4.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="04-walk-shift:61">The old last slot is cleared; E was already copied into slot 3.</p>
-        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04-walk-shift:62">Five entries, five moves: one read, four shifts. Removing one entry costs n moves.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-shift:55">front = contents[0] reads A. The read is one move.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-shift:56">With i = 0, contents[0] = contents[1] copies B into slot 0, over A.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-shift:57">With i = 1, C is copied into slot 1.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-shift:58">With i = 2, D is copied into slot 2.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-shift:59">With i = 3, E is copied into slot 3. Every entry after the front has moved.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04-walk-shift:60">n-- changes n from 5 to 4.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04-walk-shift:61">contents[4] = null clears slot 4. E is already in slot 3.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04-walk-shift:62">Removing one entry from n entries costs n moves: one read and n &minus; 1 copies.</p>
       </div>
     </div>
 
@@ -61,14 +61,14 @@
         <rect x="570" y="0" width="96" height="96" rx="10" data-sid="04-walk-shift:70"/><rect x="678" y="0" width="96" height="96" rx="10" data-sid="04-walk-shift:71"/><rect x="786" y="0" width="96" height="96" rx="10" data-sid="04-walk-shift:72"/><rect x="894" y="0" width="96" height="96" rx="10" data-sid="04-walk-shift:73"/><rect x="1002" y="0" width="96" height="96" rx="10" data-sid="04-walk-shift:74"/>
       </g>
       <g class="sh__idx" data-sid="04-walk-shift:75"><text x="78" y="126" data-sid="04-walk-shift:76">0</text><text x="186" y="126" data-sid="04-walk-shift:77">1</text><text x="294" y="126" data-sid="04-walk-shift:78">2</text><text x="402" y="126" data-sid="04-walk-shift:79">3</text><text x="510" y="126" data-sid="04-walk-shift:80">4</text><text x="618" y="126" data-sid="04-walk-shift:81">5</text><text x="726" y="126" data-sid="04-walk-shift:82">6</text><text x="834" y="126" data-sid="04-walk-shift:83">7</text><text x="942" y="126" data-sid="04-walk-shift:84">8</text><text x="1050" y="126" data-sid="04-walk-shift:85">9</text></g>
-      <!-- the entries where they start; each fades when a mover lands on it -->
+      <!-- the entries where they start; each fades when a copy is written over it -->
       <g class="sh__vals" data-sid="04-walk-shift:86"><text class="o0" x="78" y="60" data-sid="04-walk-shift:87">A</text><text class="o1" x="186" y="60" data-sid="04-walk-shift:88">B</text><text class="o2" x="294" y="60" data-sid="04-walk-shift:89">C</text><text class="o3" x="402" y="60" data-sid="04-walk-shift:90">D</text><text class="o4" x="510" y="60" data-sid="04-walk-shift:91">E</text></g>
       <!-- the copies: each starts on top of its original and slides one pitch left -->
       <g class="sh__vals" data-sid="04-walk-shift:92"><text class="mv m1" x="186" y="60" data-sid="04-walk-shift:93">B</text><text class="mv m2" x="294" y="60" data-sid="04-walk-shift:94">C</text><text class="mv m3" x="402" y="60" data-sid="04-walk-shift:95">D</text><text class="mv m4" x="510" y="60" data-sid="04-walk-shift:96">E</text></g>
     </svg>
   </div>
   <div class="slide__number" data-sid="04-walk-shift:97"></div>
-  <aside class="notes" data-sid="04-walk-shift:98">This is the first design anyone tries: keep the front of the queue at slot 0, the way a line of people shuffles forward. It is not the module&rsquo;s code; contents is the array and n is the number of entries. We count moves of entries: reads and copies. Step 1: read slot 0, that is the front, A; one move. Steps 2 to 5: the loop, one press per entry. B, C, D and E each move up one slot; the counter goes to 5. Step 6: n comes down. Step 7: the old last slot is cleared, because E now sits in slot 3 as well. Step 8: five entries, five moves, and the n minus one copies are the part that grows. A thousand entries in the queue, a thousand moves to take one out. Ask: the entries already sit in order; what if they stayed where they are? Next: the module&rsquo;s answer, which moves the front instead.</aside>
+  <aside class="notes" data-sid="04-walk-shift:98">This design keeps the front of the queue at slot 0. It is the stack from Week 5 with its top at slot 0, which shifted every entry on each push and pop, and it has the same cost. It is the deck&rsquo;s own code, not the module&rsquo;s. contents is the array and n is the number of entries. The counter counts moves of entries: reads and copies. n-- and the null assignment are not counted. Step 1: the method reads slot 0, which holds the front, A. That is one move. Steps 2 to 5: the loop runs once per press. B, C, D and E are each copied one slot to the left, and the counter reaches 5. Step 6: n goes from 5 to 4. Step 7: slot 4 is set to null, because E is now also in slot 3. Step 8: five entries cost five moves. The n minus 1 copies grow with the number of entries. Ask the class: the entries are already in order, so what if they stay where they are? The next slide moves frontIndex instead.</aside>
 
   <style data-sid="04-walk-shift:99">
     /* Slide-local: the editor at --t-code (820 px clears the 38-character copy
@@ -76,8 +76,8 @@
        moves counter and the captions; the array under both in one SVG at 1:1.
        Cells 96 px on a 108 px pitch, the walk strip of the whole Part 1 (the
        brief's 128 px cells leave no room beside the strip on 04b–04d; PLAN.md).
-       Each copy slides one pitch left (a real move, translateX(-108px)) and the
-       value it lands on fades as it arrives; the slot being written takes the
+       Each copy moves one pitch left (a real move, translateX(-108px)) and the
+       value it overwrites fades as it arrives; the slot being written takes the
        blue edge for its step. n strikes in place, front crossfades. All keyed
        to the caption frags through :has(), so a back-step reverses it. All
        values from tokens; used by this slide only. */
@@ -85,8 +85,8 @@
     #slide-04 .editor { grid-column: 1; grid-row: 1; }
     #slide-04 .sh__right { grid-column: 2; grid-row: 1; display: grid; row-gap: var(--s-3); align-content: start; }
     #slide-04 .sh__fig { grid-column: 1 / -1; grid-row: 2; display: block; width: 1110px; height: 134px; overflow: visible; }
-    #slide-04 .sh__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
-    #slide-04 .sh__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-1); }
+    #slide-04 .sh__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-04 .sh__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-1); }
 
     #slide-04 .sh__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
     #slide-04 .sh__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
@@ -106,7 +106,7 @@
     #slide-04 .sh__fv--a { opacity: 0; }
     #slide-04 .slide__body:has(.cap--1:not(.is-pending)) .sh__fv--none { opacity: 0; }
     #slide-04 .slide__body:has(.cap--1:not(.is-pending)) .sh__fv--a { opacity: 1; }
-    /* steps 2–5: one copy per press slides one pitch left; the value it lands on fades as it arrives */
+    /* steps 2–5: one copy per press moves one pitch left; the value it overwrites fades as it arrives */
     #slide-04 .slide__body:has(.cap--2:not(.is-pending)) .m1 { transform: translateX(-108px); }
     #slide-04 .slide__body:has(.cap--2:not(.is-pending)) .o0 { opacity: 0; transition-delay: .3s; }
     #slide-04 .slide__body:has(.cap--3:not(.is-pending)) .m2 { transform: translateX(-108px); }

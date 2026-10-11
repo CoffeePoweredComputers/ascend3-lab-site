@@ -15,7 +15,8 @@
        slots, because capacity 10 with one unused slot is an array of 11 (the
        module's initialCapacity + 1) — and the options are lettered rows on
        the right, quoted as pasted. The deck's 128 px cells narrowed to 70 so
-       eleven fit the 870 px panel. Static: nothing here is a step but the two
+       eleven fit the 870 px panel; the index in each corner at --t-micro
+       (deck.css has --t-tag). Static: nothing here is a step but the two
        clocks; the answer slide counts. Runestone activity
        vtcs2_circularArray_indexing (Peer Instruction W08D2, question 1 of 2). -->
   <div class="slide__body" data-sid="06-vote-indexing:34">
@@ -46,7 +47,7 @@
     </div>
   </div>
   <div class="slide__number" data-sid="06-vote-indexing:78"></div>
-  <aside class="notes" data-sid="06-vote-indexing:79">Answer: D &mdash; front 9, rear 2 [key from the PrairieLearn twin u10q08_circulararrayqueue_b, which is this question verbatim; confirm in Runestone&rsquo;s results view]. The question as printed: a queue on a circular array with one unused slot, capacity 10, size 5; which are legal values for front and rear? Press once: the 1:30 vote clock, silent first answers. Press again for the 2:30 discussion clock; press again to move on. If groups stall, the prompt for the discussion: front and rear are frontIndex and backIndex from Part 1; for each option, count the occupied slots on the drawing. Runestone: Peer Instruction W08D2, question 1 of 2, activity vtcs2_circularArray_indexing.</aside>
+  <aside class="notes" data-sid="06-vote-indexing:79">Answer: D &mdash; front 9, rear 2 [key from the PrairieLearn twin u10q08_circulararrayqueue_b, which is this question verbatim; confirm in Runestone&rsquo;s results view]. The question asks which front and rear values are legal for a queue on a circular array with one unused slot, capacity 10 and size 5. The first press starts the 1:30 vote clock; students answer on their own first. The second press starts the 2:30 discussion clock, and the third moves on. If a group has no way in, tell them that front and rear are frontIndex and backIndex from Part 1, and ask them to count the occupied slots on the drawing for each option. Runestone: Peer Instruction W08D2, question 1 of 2, activity vtcs2_circularArray_indexing.</aside>
 
   <style data-sid="06-vote-indexing:80">
     /* two clocks at the top right: the vote ring (1:30) and the discussion
@@ -66,6 +67,7 @@
        only. */
     #slide-06 .vi__row { gap: var(--s-1); }
     #slide-06 .vi__row .vote__cell { width: 70px; height: 70px; }
+    #slide-06 .vi__row .vote__idx { font-size: var(--t-micro); }
     #slide-06 .vi__opts .vote__opt { padding: var(--s-1) 0; }
     #slide-06 .vi__opts .vote__text { font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; }
   </style>

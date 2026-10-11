@@ -1,16 +1,16 @@
 <section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-removefront:1">
   <header class="slide__head" data-sid="06b-walk-removefront:2">
     <p class="slide__kicker" data-sid="06b-walk-removefront:3">A LINKED DEQUE &middot; WALKTHROUGH</p>
-    <h2 data-sid="06b-walk-removefront:4">removeFront(): the new front node forgets the old one</h2>
+    <h2 data-sid="06b-walk-removefront:4">removeFront() sets the new front node&rsquo;s prev to null</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="06b-walk-removefront:5">A walkthrough of removeFront from the module's video under a program-counter bar: T removeFront; T front equals getFront; firstNode equals firstNode dot getNext; if firstNode is null, lastNode equals null; else firstNode dot setPrev of null; return front. On the right, a deque of two nodes, A and B, each with prev, data and next parts: A's next arrow arcs over to B and B's prev arrow arcs under, back to A; firstNode points at A and lastNode at B. Step one: front equals A, in a dark pill below. Step two: firstNode's arrow swings to B; B's prev still points back at A. Step three: firstNode is not null, so the else runs. Step four: firstNode dot setPrev of null; B's prev part is washed orange, the arrow under the chain goes and B's prev reads null; nothing refers to A's node, and it fades. Step five: return A. Step six: removeFront again, on the deque with only B; front equals B. Step seven: firstNode becomes B's next, which is null; its arrow goes. Step eight: firstNode equals null is true. Step nine: lastNode equals null as well; its arrow goes and B's node fades. Step ten: return B. Step eleven: the front end moved every time; the back end changed only when the deque emptied.</p>
+  <p class="sr-only slide__desc" data-sid="06b-walk-removefront:5">A walkthrough of removeFront from the module's video under a program-counter bar: T removeFront; T front equals getFront; firstNode equals firstNode dot getNext; if firstNode is null, lastNode equals null; else firstNode dot setPrev of null; return front. On the right, a deque of two nodes, A and B, each with prev, data and next parts: A's next arrow arcs over to B and B's prev arrow arcs under, back to A; firstNode refers to A and lastNode to B. Step one: front equals A, in a dark pill below. Step two: firstNode's arrow re-points to B. B's prev still refers to A. Step three: firstNode is not null, so the else runs. Step four: firstNode dot setPrev of null; B's prev part is washed orange, the arrow under the chain is removed and B's prev reads null. Nothing refers to A's node, and it fades out. Step five: return A. Step six: removeFront runs again on the deque that holds only B, and front equals B. Step seven: firstNode is set to B's next, which is null, and its arrow is removed. Step eight: firstNode equals null is true. Step nine: lastNode equals null. Its arrow is removed and B's node fades out. Step ten: return B. Step eleven: firstNode changed on every call. lastNode changed only when the last node was removed.</p>
 
   <!-- The video's removeFront (DequeRemoveAndWrapUp.pdf slide 1), run twice:
        the else branch on A ⇄ B, then the if on the one-node deque. 06's
        DLNode grammar; 04b's motion for the references and the removed nodes.
        The slide primes Vote 1 (removeBack's own one-node case) without naming
-       removeBack: it shows that the front end moves on every call and the
-       back end only when the deque empties.
+       removeBack: it shows that firstNode changes on every call and lastNode
+       only when the last node is removed.
        steps 1–5: removeFront on A ⇄ B.  steps 6–10: on B alone.
        step 11: the closing line. -->
   <div class="slide__body grid grid--code code-mid rf" data-sid="06b-walk-removefront:6">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="codewalk rf__right" data-sid="06b-walk-removefront:27">
-      <svg class="rf__fig" viewBox="0 0 816 350" role="img" aria-label="A doubly linked deque of two nodes, A and B, with firstNode and lastNode pills; removeFront moves firstNode to B, cuts B's prev, and then empties the deque" data-sid="06b-walk-removefront:28">
+      <svg class="rf__fig" viewBox="0 0 816 350" role="img" aria-label="A doubly linked deque of two nodes, A and B, with firstNode and lastNode pills; removeFront sets firstNode to B, sets B's prev to null, and then removes B" data-sid="06b-walk-removefront:28">
         <defs data-sid="06b-walk-removefront:29">
           <marker id="w8d1-06b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="06b-walk-removefront:30"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="06b-walk-removefront:31"/></marker>
         </defs>
@@ -43,23 +43,23 @@
         <text class="pnull pnull--last" x="574" y="34" data-sid="06b-walk-removefront:39">null</text>
 
         <g class="dn dn--a" data-sid="06b-walk-removefront:40">
-          <rect class="dn__box" x="40" y="150" width="210" height="80" rx="10" data-sid="06b-walk-removefront:41"/>
-          <path class="dn__div" d="M110 150v80M180 150v80" data-sid="06b-walk-removefront:42"/>
-          <text class="dn__f" x="75" y="172" data-sid="06b-walk-removefront:43">prev</text><text class="dn__f" x="145" y="172" data-sid="06b-walk-removefront:44">data</text><text class="dn__f" x="215" y="172" data-sid="06b-walk-removefront:45">next</text>
-          <text class="dn__nl" x="75" y="216" data-sid="06b-walk-removefront:46">null</text>
-          <text class="dn__v" x="145" y="218" data-sid="06b-walk-removefront:47">A</text>
-          <path class="lnk" d="M215 152 C 215 100, 415 100, 415 148" data-sid="06b-walk-removefront:48"/>
+          <rect class="dn__box" x="40" y="150" width="240" height="80" rx="10" data-sid="06b-walk-removefront:41"/>
+          <path class="dn__div" d="M120 150v80M200 150v80" data-sid="06b-walk-removefront:42"/>
+          <text class="dn__f" x="80" y="176" data-sid="06b-walk-removefront:43">prev</text><text class="dn__f" x="160" y="176" data-sid="06b-walk-removefront:44">data</text><text class="dn__f" x="240" y="176" data-sid="06b-walk-removefront:45">next</text>
+          <text class="dn__nl" x="80" y="218" data-sid="06b-walk-removefront:46">null</text>
+          <text class="dn__v" x="160" y="218" data-sid="06b-walk-removefront:47">A</text>
+          <path class="lnk" d="M240 152 C 240 100, 420 100, 420 148" data-sid="06b-walk-removefront:48"/>
         </g>
         <g class="dn dn--b" data-sid="06b-walk-removefront:49">
-          <rect class="dn__box" x="380" y="150" width="210" height="80" rx="10" data-sid="06b-walk-removefront:50"/>
-          <rect class="dn__wash" x="383" y="153" width="64" height="74" rx="6" data-sid="06b-walk-removefront:51"/>
-          <path class="dn__div" d="M450 150v80M520 150v80" data-sid="06b-walk-removefront:52"/>
-          <text class="dn__f" x="415" y="172" data-sid="06b-walk-removefront:53">prev</text><text class="dn__f" x="485" y="172" data-sid="06b-walk-removefront:54">data</text><text class="dn__f" x="555" y="172" data-sid="06b-walk-removefront:55">next</text>
-          <text class="dn__nl dn__nl--prev" x="415" y="216" data-sid="06b-walk-removefront:56">null</text>
-          <text class="dn__v" x="485" y="218" data-sid="06b-walk-removefront:57">B</text>
-          <text class="dn__nl" x="555" y="216" data-sid="06b-walk-removefront:58">null</text>
+          <rect class="dn__box" x="380" y="150" width="240" height="80" rx="10" data-sid="06b-walk-removefront:50"/>
+          <rect class="dn__wash" x="383" y="153" width="74" height="74" rx="6" data-sid="06b-walk-removefront:51"/>
+          <path class="dn__div" d="M460 150v80M540 150v80" data-sid="06b-walk-removefront:52"/>
+          <text class="dn__f" x="420" y="176" data-sid="06b-walk-removefront:53">prev</text><text class="dn__f" x="500" y="176" data-sid="06b-walk-removefront:54">data</text><text class="dn__f" x="580" y="176" data-sid="06b-walk-removefront:55">next</text>
+          <text class="dn__nl dn__nl--prev" x="420" y="218" data-sid="06b-walk-removefront:56">null</text>
+          <text class="dn__v" x="500" y="218" data-sid="06b-walk-removefront:57">B</text>
+          <text class="dn__nl" x="580" y="218" data-sid="06b-walk-removefront:58">null</text>
         </g>
-        <path class="lnk lnk--prev" d="M415 230 C 415 282, 215 282, 215 234" data-sid="06b-walk-removefront:59"/>
+        <path class="lnk lnk--prev" d="M420 230 C 420 282, 240 282, 240 234" data-sid="06b-walk-removefront:59"/>
 
         <path class="ref ref--first" d="M88 48 C 88 90, 88 110, 88 146" data-sid="06b-walk-removefront:60"/>
         <path class="ref ref--last" d="M540 48 C 540 90, 540 110, 540 146" data-sid="06b-walk-removefront:61"/>
@@ -67,22 +67,22 @@
         <g class="loc frag" data-step="1" data-sid="06b-walk-removefront:62"><rect x="0" y="296" width="250" height="52" rx="8" data-sid="06b-walk-removefront:63"/><text class="loc__t loc__t--a" x="125" y="332" data-sid="06b-walk-removefront:64">front = A</text><text class="loc__t loc__t--b" x="125" y="332" data-sid="06b-walk-removefront:65">front = B</text></g>
       </svg>
       <div class="codewalk__caps" data-sid="06b-walk-removefront:66">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-removefront:67">removeFront() on A, B. front = A.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-removefront:68">firstNode moves to B. B&rsquo;s prev still points back at A.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-removefront:69">firstNode is not null: the else runs.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-removefront:70">firstNode.setPrev(null): B lets go of A. Nothing refers to A&rsquo;s node now.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-removefront:71">return front: A.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="06b-walk-removefront:72">removeFront() again, on a deque with one node. front = B.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-removefront:73">firstNode = B&rsquo;s next, which is null.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-removefront:67">removeFront() runs on A, B, and front is A.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-removefront:68">firstNode now refers to B. B&rsquo;s prev still refers to A.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-removefront:69">firstNode is not null, so the else runs.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-removefront:70">firstNode.setPrev(null) sets B&rsquo;s prev to null. Nothing refers to A&rsquo;s node.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-removefront:71">return front returns A.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="06b-walk-removefront:72">removeFront() runs again on a deque with one node, and front is B.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-removefront:73">firstNode is set to B&rsquo;s next, which is null.</p>
         <p class="walkcap cap--8 frag" data-step="8" data-sid="06b-walk-removefront:74">firstNode == null is true.</p>
-        <p class="walkcap cap--9 frag" data-step="9" data-sid="06b-walk-removefront:75">lastNode = null as well. Both references are null: the deque is empty.</p>
-        <p class="walkcap cap--10 frag" data-step="10" data-sid="06b-walk-removefront:76">return front: B.</p>
-        <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="06b-walk-removefront:77">The front end moved every time. The back end changed only when the deque emptied.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="06b-walk-removefront:75">lastNode = null. Both references are null, so the deque is empty.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="06b-walk-removefront:76">return front returns B.</p>
+        <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="06b-walk-removefront:77">firstNode changed on every call. lastNode changed only when the last node was removed.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="06b-walk-removefront:78"></div>
-  <aside class="notes" data-sid="06b-walk-removefront:79">removeFront from the DequeRemoveAndWrapUp video. It is dequeue with one more line, because the new front node still has a prev. Step 1 &mdash; front = A. Step 2 &mdash; firstNode moves to B. Unlike the queue, A is not garbage yet: B&rsquo;s prev still points back at it. Step 3 &mdash; firstNode is not null, so the else runs. Step 4 &mdash; setPrev(null): the new front has no node before it. Now nothing refers to A, and it is gone. Step 5 &mdash; return A. Step 6 &mdash; removeFront() on a deque with one node. Step 7 &mdash; firstNode becomes B&rsquo;s next, null. Step 8 &mdash; the if is true. Step 9 &mdash; lastNode = null too: an empty deque has both references null. Step 10 &mdash; return B. Step 11 &mdash; firstNode moved on every call; lastNode changed only when the last node went. Do not name removeBack here; it is the first question. Next: the peer-instruction routine.</aside>
+  <aside class="notes" data-sid="06b-walk-removefront:79">This is removeFront from the DequeRemoveAndWrapUp video. It is dequeue with one more line, because the new front node still has a prev. Step 1. front = A. Step 2. firstNode now refers to B. Unlike in the queue, A is not garbage yet, because B&rsquo;s prev still refers to it. Step 3. firstNode is not null, so the else runs. Step 4. setPrev(null) sets B&rsquo;s prev to null, since the new front node has no node before it. Now nothing refers to A&rsquo;s node. Step 5. The method returns A. Step 6. removeFront() runs on a deque with one node. Step 7. firstNode is set to B&rsquo;s next, which is null. Step 8. The if is true. Step 9. lastNode = null. An empty deque has both references null. Step 10. The method returns B. Step 11. firstNode changed on every call. lastNode changed only when the last node was removed. Do not name removeBack here, because it is the first question. Next is the peer-instruction routine.</aside>
 
   <style data-sid="06b-walk-removefront:80">
     /* Slide-local: 06's layout and DLNode grammar (editor 790 px at --t-code:
@@ -108,9 +108,9 @@
     #slide-06b .dn { transition: opacity .4s ease; }
     #slide-06b .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
     #slide-06b .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-06b .dn__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle; }
+    #slide-06b .dn__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
     #slide-06b .dn__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-06b .dn__nl { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-06b .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
     #slide-06b .dn__nl--prev { opacity: 0; }
     #slide-06b .dn__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
     #slide-06b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d1-06b-head); transition: opacity .3s ease; }
@@ -122,7 +122,7 @@
 
     /* ---- states, in step order ---- */
     #slide-06b .rf:has(.cap--2.is-current) .pill--first rect { stroke: var(--accent-3); }
-    #slide-06b .rf:has(.cap--2:not(.is-pending)) .ref--first { d: path("M88 48 C 88 100, 485 80, 485 146"); }
+    #slide-06b .rf:has(.cap--2:not(.is-pending)) .ref--first { d: path("M88 48 C 88 100, 470 80, 470 146"); }
     #slide-06b .rf:has(.cap--4.is-current) .dn--b .dn__wash { opacity: 1; }
     #slide-06b .rf:has(.cap--4:not(.is-pending)) .lnk--prev { opacity: 0; }
     #slide-06b .rf:has(.cap--4:not(.is-pending)) .dn__nl--prev { opacity: 1; transition-delay: .3s; }

@@ -1,0 +1,50 @@
+<section class="slide slide--warmup" id="slide-16" data-sid="16-next-week:1">
+  <header class="slide__head" data-sid="16-next-week:2">
+    <p class="slide__kicker" data-sid="16-next-week:3">NEXT WEEK</p>
+    <h2 data-sid="16-next-week:4">Stacks and queues work at the ends. A list works anywhere.</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="16-next-week:5">A table with four rows and three columns: where each structure adds, where it removes, and where it is in this course. Stack: adds at the top, removes at the top, Week 5. Queue: adds at the back, removes at the front, Week 8, Days 1 and 2. Deque: adds at both ends, removes at both ends, Week 8, Day 1. On the first press a fourth row grows in: list, adds at any position, removes at any position, Week 9, the 9.1 module, due Sunday. A caption under the table says Week 9 puts a list on a chain and on an array, the fourth pair.</p>
+
+  <!-- The bridge to Week 9: the three structures of Weeks 5 and 8 as a table
+       (the add and remove ends from DequeRemoveAndWrapUp.pdf slide 3), then
+       the list as a fourth row. Static except
+       step 1: the list row grows in, and the caption fades in after it. -->
+  <div class="slide__body nw" data-sid="16-next-week:6">
+    <table class="nw__t" data-sid="16-next-week:7">
+      <thead data-sid="16-next-week:8"><tr data-sid="16-next-week:9"><th data-sid="16-next-week:10"></th><th data-sid="16-next-week:11">adds</th><th data-sid="16-next-week:12">removes</th><th data-sid="16-next-week:13">in this course</th></tr></thead>
+      <tbody data-sid="16-next-week:14">
+        <tr data-sid="16-next-week:15"><td class="nw__n" data-sid="16-next-week:16">stack</td><td data-sid="16-next-week:17">the top</td><td data-sid="16-next-week:18">the top</td><td data-sid="16-next-week:19">Week 5</td></tr>
+        <tr data-sid="16-next-week:20"><td class="nw__n" data-sid="16-next-week:21">queue</td><td data-sid="16-next-week:22">the back</td><td data-sid="16-next-week:23">the front</td><td data-sid="16-next-week:24">Week 8, Days 1 and 2</td></tr>
+        <tr data-sid="16-next-week:25"><td class="nw__n" data-sid="16-next-week:26">deque</td><td data-sid="16-next-week:27">both ends</td><td data-sid="16-next-week:28">both ends</td><td data-sid="16-next-week:29">Week 8, Day 1</td></tr>
+        <tr class="nw__list frag" data-step="1" data-sid="16-next-week:30"><td class="nw__n" data-sid="16-next-week:31">list</td><td data-sid="16-next-week:32">any position</td><td data-sid="16-next-week:33">any position</td><td data-sid="16-next-week:34">Week 9, the 9.1 module, due Sunday</td></tr>
+      </tbody>
+    </table>
+    <p class="nw__cap frag" data-step="1" data-sid="16-next-week:35">Week 9 puts a list on a chain and on an array, the fourth pair.</p>
+  </div>
+  <div class="slide__number" data-sid="16-next-week:36"></div>
+  <aside class="notes" data-sid="16-next-week:37">Every structure since Week 5 adds and removes only at its ends. A stack works at the top, a queue adds at the back and removes at the front, and a deque works at both ends. Step 1. A list adds, removes and reads at any position, given by an index. In Week 9 we write a list on a linked chain and on an array, as we did for the bag, the stack and the queue. The 9.1 module is due Sunday. Next: the calendar.</aside>
+
+  <style data-sid="16-next-week:38">
+    /* Slide-local: one four-row table at --t-body for the names and --t-small
+       for the cells (W5D1 12's table grammar without badges), the three rows
+       of past weeks static, the list row in the orange 18% tint because it is
+       this coming week's work; the caption under the table at --t-small.
+       Motion: the list row GrowsFromCenter on step 1 and the caption fades in
+       after it. Used by this slide only, all values from tokens. */
+    #slide-16 .nw { display: grid; row-gap: var(--s-5); align-content: start; }
+    #slide-16 .nw__t { width: 100%; border-collapse: collapse; font-size: var(--t-small); line-height: 1.3; }
+    #slide-16 .nw__t th { font-weight: 400; color: var(--fg-1); text-align: left; padding: 0 var(--s-3) var(--s-2) var(--s-3); border-bottom: 3px solid var(--fg-1); }
+    #slide-16 .nw__t td { padding: var(--s-3); border-bottom: 2px solid var(--bg-1); color: var(--fg-0); }
+    #slide-16 .nw__t th:first-child, #slide-16 .nw__t td:first-child { width: 220px; }
+    #slide-16 .nw__t td.nw__n { font-family: var(--font-display); font-size: var(--t-body); color: var(--accent-1); }
+    #slide-16 .nw__list td { background: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    #slide-16 .nw__list { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-16 .frag.nw__list.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-16 .slide__body p.nw__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-16 .frag.nw__cap.is-current, #slide-16 .frag.nw__cap.is-past { transition-delay: .5s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-16 .nw__list, #slide-16 .nw__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

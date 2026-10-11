@@ -1,14 +1,14 @@
 <section class="slide slide--warmup" id="slide-04c" data-sid="04c-walk-lastnode:1">
   <header class="slide__head" data-sid="04c-walk-lastnode:2">
     <p class="slide__kicker" data-sid="04c-walk-lastnode:3">A LINKED QUEUE &middot; WHY lastNode</p>
-    <h2 data-sid="04c-walk-lastnode:4">Without lastNode, every enqueue walks the whole chain</h2>
+    <h2 data-sid="04c-walk-lastnode:4">Without lastNode, every enqueue visits every node</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04c-walk-lastnode:5">Two short pieces of code on the left. The first, without lastNode: Node curr equals firstNode; while curr dot getNext is not null, curr equals curr dot getNext; then curr dot setNext of newNode. The second, with lastNode: lastNode dot setNext of newNode; lastNode equals newNode. On the right, a queue of six nodes, A to F, with a firstNode pill pointing at A and a lastNode pill pointing at F, and under it two large counters of nodes visited: one in maroon for the code without lastNode, one in blue for the code with it. Step one: a blue ring labelled curr appears on A; the maroon counter reads 1. Steps two and three: the ring moves to B, then C; the counter reads 2, then 3. Step four: the ring moves on to F; the counter reads 6, and the loop stops because F's next is null. Step five: F's next part is washed orange: the one write, after six visits. Step six: the ring goes; with lastNode, F is reached in one visit, its next part is written, and the blue counter reads 1. Step seven: lastNode equals newNode, ready for the next enqueue. Step eight: O of 1, because of one extra reference.</p>
+  <p class="sr-only slide__desc" data-sid="04c-walk-lastnode:5">Two short pieces of code on the left. The first, without lastNode: Node curr equals firstNode; while curr dot getNext is not null, curr equals curr dot getNext; then curr dot setNext of newNode. The second, with lastNode: lastNode dot setNext of newNode; lastNode equals newNode. On the right, a queue of six nodes, A to F, with a firstNode pill pointing at A and a lastNode pill pointing at F, and under it two large counters of nodes visited: one in maroon for the code without lastNode, one in blue for the code with it. Step one: a blue ring labelled curr appears on A, and the maroon counter reads 1. Steps two and three: the ring moves to B, then C, and the counter reads 2, then 3. Step four: the ring moves to F and the counter reads 6. The loop stops because F's next is null. Step five: F's next part is washed orange. This is the one write, after six visits. Step six: the ring is removed. With lastNode, F is reached in one visit, its next part is written, and the blue counter reads 1. Step seven: lastNode equals newNode. Step eight: one extra reference makes enqueue O of 1.</p>
 
   <!-- Why the class keeps lastNode, in W5D1 04's counting grammar: the
        non-empty part of an enqueue WITHOUT lastNode (the deck's own code: the
        module only says enqueue is O(1) "with use of lastNode reference"),
-       walked on six nodes with a curr ring that really moves and a maroon
+       walked on six nodes with a curr ring that moves (translateX) and a maroon
        counter of nodes visited (the roll is allowed: the tally counts), then
        the two lines WITH lastNode and a blue counter that stops at 1. The new
        node is not drawn: the write is an orange wash on F's next compartment.
@@ -47,23 +47,23 @@
         <g class="pill pill--first" data-sid="04c-walk-lastnode:30"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="04c-walk-lastnode:31"/><text x="88" y="31" data-sid="04c-walk-lastnode:32">firstNode</text></g>
         <g class="pill pill--last" data-sid="04c-walk-lastnode:33"><rect x="756" y="0" width="160" height="44" rx="8" data-sid="04c-walk-lastnode:34"/><text x="836" y="31" data-sid="04c-walk-lastnode:35">lastNode</text></g>
         <path class="ref" d="M58 44 C 58 70, 58 86, 58 106" data-sid="04c-walk-lastnode:36"/>
-        <path class="ref" d="M838 44 C 838 70, 838 86, 838 106" data-sid="04c-walk-lastnode:37"/>
+        <path class="ref" d="M845 44 C 845 70, 845 86, 845 106" data-sid="04c-walk-lastnode:37"/>
 
-        <g class="nd" data-sid="04c-walk-lastnode:38"><rect class="nd__box" x="0" y="110" width="116" height="76" rx="8" data-sid="04c-walk-lastnode:39"/><path class="nd__div" d="M60 110v76" data-sid="04c-walk-lastnode:40"/><text class="nd__f" x="5" y="132" data-sid="04c-walk-lastnode:41">data</text><text class="nd__f" x="63" y="132" data-sid="04c-walk-lastnode:42">next</text><text class="nd__v" x="30" y="174" data-sid="04c-walk-lastnode:43">A</text></g>
-        <g class="nd" data-sid="04c-walk-lastnode:44"><rect class="nd__box" x="156" y="110" width="116" height="76" rx="8" data-sid="04c-walk-lastnode:45"/><path class="nd__div" d="M216 110v76" data-sid="04c-walk-lastnode:46"/><text class="nd__f" x="161" y="132" data-sid="04c-walk-lastnode:47">data</text><text class="nd__f" x="219" y="132" data-sid="04c-walk-lastnode:48">next</text><text class="nd__v" x="186" y="174" data-sid="04c-walk-lastnode:49">B</text></g>
-        <g class="nd" data-sid="04c-walk-lastnode:50"><rect class="nd__box" x="312" y="110" width="116" height="76" rx="8" data-sid="04c-walk-lastnode:51"/><path class="nd__div" d="M372 110v76" data-sid="04c-walk-lastnode:52"/><text class="nd__f" x="317" y="132" data-sid="04c-walk-lastnode:53">data</text><text class="nd__f" x="375" y="132" data-sid="04c-walk-lastnode:54">next</text><text class="nd__v" x="342" y="174" data-sid="04c-walk-lastnode:55">C</text></g>
-        <g class="nd" data-sid="04c-walk-lastnode:56"><rect class="nd__box" x="468" y="110" width="116" height="76" rx="8" data-sid="04c-walk-lastnode:57"/><path class="nd__div" d="M528 110v76" data-sid="04c-walk-lastnode:58"/><text class="nd__f" x="473" y="132" data-sid="04c-walk-lastnode:59">data</text><text class="nd__f" x="531" y="132" data-sid="04c-walk-lastnode:60">next</text><text class="nd__v" x="498" y="174" data-sid="04c-walk-lastnode:61">D</text></g>
-        <g class="nd" data-sid="04c-walk-lastnode:62"><rect class="nd__box" x="624" y="110" width="116" height="76" rx="8" data-sid="04c-walk-lastnode:63"/><path class="nd__div" d="M684 110v76" data-sid="04c-walk-lastnode:64"/><text class="nd__f" x="629" y="132" data-sid="04c-walk-lastnode:65">data</text><text class="nd__f" x="687" y="132" data-sid="04c-walk-lastnode:66">next</text><text class="nd__v" x="654" y="174" data-sid="04c-walk-lastnode:67">E</text></g>
-        <g class="nd nd--f" data-sid="04c-walk-lastnode:68"><rect class="nd__box" x="780" y="110" width="116" height="76" rx="8" data-sid="04c-walk-lastnode:69"/><rect class="nd__wash" x="843" y="113" width="50" height="70" rx="5" data-sid="04c-walk-lastnode:70"/><path class="nd__div" d="M840 110v76" data-sid="04c-walk-lastnode:71"/><text class="nd__f" x="785" y="132" data-sid="04c-walk-lastnode:72">data</text><text class="nd__f" x="843" y="132" data-sid="04c-walk-lastnode:73">next</text><text class="nd__v" x="810" y="174" data-sid="04c-walk-lastnode:74">F</text><text class="nd__nl" x="868" y="174" data-sid="04c-walk-lastnode:75">null</text></g>
-        <path class="lnk" d="M88 160 H 154" data-sid="04c-walk-lastnode:76"/>
-        <path class="lnk" d="M244 160 H 310" data-sid="04c-walk-lastnode:77"/>
-        <path class="lnk" d="M400 160 H 466" data-sid="04c-walk-lastnode:78"/>
-        <path class="lnk" d="M556 160 H 622" data-sid="04c-walk-lastnode:79"/>
-        <path class="lnk" d="M712 160 H 778" data-sid="04c-walk-lastnode:80"/>
+        <g class="nd" data-sid="04c-walk-lastnode:38"><rect class="nd__box" x="0" y="110" width="130" height="76" rx="8" data-sid="04c-walk-lastnode:39"/><path class="nd__div" d="M56 110v76" data-sid="04c-walk-lastnode:40"/><text class="nd__v" x="28" y="161" data-sid="04c-walk-lastnode:43">A</text></g>
+        <g class="nd" data-sid="04c-walk-lastnode:44"><rect class="nd__box" x="156" y="110" width="130" height="76" rx="8" data-sid="04c-walk-lastnode:45"/><path class="nd__div" d="M212 110v76" data-sid="04c-walk-lastnode:46"/><text class="nd__v" x="184" y="161" data-sid="04c-walk-lastnode:49">B</text></g>
+        <g class="nd" data-sid="04c-walk-lastnode:50"><rect class="nd__box" x="312" y="110" width="130" height="76" rx="8" data-sid="04c-walk-lastnode:51"/><path class="nd__div" d="M368 110v76" data-sid="04c-walk-lastnode:52"/><text class="nd__v" x="340" y="161" data-sid="04c-walk-lastnode:55">C</text></g>
+        <g class="nd" data-sid="04c-walk-lastnode:56"><rect class="nd__box" x="468" y="110" width="130" height="76" rx="8" data-sid="04c-walk-lastnode:57"/><path class="nd__div" d="M524 110v76" data-sid="04c-walk-lastnode:58"/><text class="nd__v" x="496" y="161" data-sid="04c-walk-lastnode:61">D</text></g>
+        <g class="nd" data-sid="04c-walk-lastnode:62"><rect class="nd__box" x="624" y="110" width="130" height="76" rx="8" data-sid="04c-walk-lastnode:63"/><path class="nd__div" d="M680 110v76" data-sid="04c-walk-lastnode:64"/><text class="nd__v" x="652" y="161" data-sid="04c-walk-lastnode:67">E</text></g>
+        <g class="nd nd--f" data-sid="04c-walk-lastnode:68"><rect class="nd__box" x="780" y="110" width="130" height="76" rx="8" data-sid="04c-walk-lastnode:69"/><rect class="nd__wash" x="839" y="113" width="68" height="70" rx="5" data-sid="04c-walk-lastnode:70"/><path class="nd__div" d="M836 110v76" data-sid="04c-walk-lastnode:71"/><text class="nd__v" x="808" y="161" data-sid="04c-walk-lastnode:74">F</text><text class="nd__nl" x="873" y="158" data-sid="04c-walk-lastnode:75">null</text></g>
+        <path class="lnk" d="M93 148 H 154" data-sid="04c-walk-lastnode:76"/>
+        <path class="lnk" d="M249 148 H 310" data-sid="04c-walk-lastnode:77"/>
+        <path class="lnk" d="M405 148 H 466" data-sid="04c-walk-lastnode:78"/>
+        <path class="lnk" d="M561 148 H 622" data-sid="04c-walk-lastnode:79"/>
+        <path class="lnk" d="M717 148 H 778" data-sid="04c-walk-lastnode:80"/>
 
         <!-- curr: a ring that travels; the lastNode visit: a ring that does not -->
-        <g class="ring" data-sid="04c-walk-lastnode:81"><rect x="-8" y="100" width="132" height="96" rx="14" data-sid="04c-walk-lastnode:82"/><text x="58" y="226" data-sid="04c-walk-lastnode:83">curr</text></g>
-        <rect class="ring2" x="772" y="100" width="132" height="96" rx="14" data-sid="04c-walk-lastnode:84"/>
+        <g class="ring" data-sid="04c-walk-lastnode:81"><rect x="-6" y="100" width="142" height="96" rx="14" data-sid="04c-walk-lastnode:82"/><text x="65" y="226" data-sid="04c-walk-lastnode:83">curr</text></g>
+        <rect class="ring2" x="774" y="100" width="142" height="96" rx="14" data-sid="04c-walk-lastnode:84"/>
       </svg>
 
       <div class="ln__counts" data-sid="04c-walk-lastnode:85">
@@ -85,25 +85,26 @@
       </div>
 
       <div class="codewalk__caps" data-sid="04c-walk-lastnode:109">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-walk-lastnode:110">Without lastNode, enqueue has to find the back. curr starts at firstNode: 1 node visited.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-walk-lastnode:111">A&rsquo;s next is not null: curr steps to B. 2 visited.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-walk-lastnode:112">C: 3 visited.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-walk-lastnode:113">D, E, F: 6 visited. F&rsquo;s next is null, so the loop stops.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="04c-walk-lastnode:114">Then one write: F links to the new node. Six visits for one link; 1,000 nodes, 1,000 visits.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="04c-walk-lastnode:115">With lastNode the back is one reference away: one visit, the same write.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="04c-walk-lastnode:116">lastNode = newNode: it is ready for the next enqueue.</p>
-        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04c-walk-lastnode:117">O(1) because of one extra reference.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-walk-lastnode:110">Without lastNode, enqueue has to find the back node. curr starts at firstNode, so 1 node is visited.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-walk-lastnode:111">A&rsquo;s next is not null, so curr is set to B. 2 nodes visited.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-walk-lastnode:112">curr is set to C. 3 nodes visited.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-walk-lastnode:113">curr is set to D, then E, then F. 6 nodes visited. F&rsquo;s next is null, so the loop stops.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04c-walk-lastnode:114">curr.setNext(newNode) writes one link after six visits. With n nodes it takes n visits.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04c-walk-lastnode:115">With lastNode, the back node is one reference away. That is one visit and the same write.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04c-walk-lastnode:116">lastNode = newNode, so the next enqueue also takes one visit.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04c-walk-lastnode:117">One extra reference makes enqueue O(1).</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="04c-walk-lastnode:118"></div>
-  <aside class="notes" data-sid="04c-walk-lastnode:119">Why does the class keep lastNode at all? The video says enqueue is O(1) &ldquo;with use of lastNode reference&rdquo;; this slide shows what it costs without it. The code on top is the non-empty part of an enqueue that only has firstNode. Step 1 &mdash; curr starts at the front; that is one node visited. Steps 2 and 3 &mdash; the loop steps curr forward while there is a next node: B, C. Step 4 &mdash; and on to F, six visits; F&rsquo;s next is null, so curr is the back. Step 5 &mdash; only now the one write that enqueue is for. With n nodes this is n visits, every time: O(n), the Week 5 word. Step 6 &mdash; with lastNode we already know where the back is: one visit, the same write. Step 7 &mdash; and lastNode moves, so the next enqueue is one visit too. Step 8 &mdash; one extra reference turns O(n) into O(1). The same idea is behind the deque in Part 2. Next: Part 2.</aside>
+  <aside class="notes" data-sid="04c-walk-lastnode:119">Why does the class keep lastNode? The video says enqueue is O(1) &ldquo;with use of lastNode reference&rdquo;. This slide shows the cost without it. The code on top is the non-empty part of an enqueue that has only firstNode. Step 1. curr starts at the front node, which is one node visited. Steps 2 and 3. The loop sets curr to the next node while there is one: B, then C. Step 4. curr is set to D, E and F, for six visits. F&rsquo;s next is null, so curr is the back node. Step 5. The one write that enqueue needs happens only now. With n nodes this is n visits on every call, which is O(n) in the Week 5 terms. Step 6. With lastNode the back node is already known. That is one visit and the same write. Step 7. lastNode is assigned the new node, so the next enqueue is also one visit. Step 8. One extra reference changes enqueue from O(n) to O(1). The deque in Part 2 uses the same idea. Next is Part 2.</aside>
 
   <style data-sid="04c-walk-lastnode:120">
     /* Slide-local: two editors stacked on the left at --t-code (700 px: the
        while line is 32 characters, 32 × 19.2 + 70 = 684); on the right one
-       916 × 240 SVG at 1:1 (six nodes 116 × 76 on a 156 px pitch, data 60 |
-       next 56, W4D1's grammar), then the two counters side by side (deck.css
+       916 × 240 SVG at 1:1 (six nodes 130 × 76 on a 156 px pitch, value 56 |
+       next 74; no field labels here, because 04 and 04b name the parts and
+       a 28 px "data" does not fit a 56 px compartment), then the two counters side by side (deck.css
        .moves: maroon for the walk, --ok blue for lastNode), then the
        captions. The curr ring travels by translateX (a real move); the
        lastNode visit is a second ring that fades in on F; the write is an
@@ -122,9 +123,8 @@
     #slide-04c .ref, #slide-04c .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d1-04c-head); }
     #slide-04c .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
     #slide-04c .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-04c .nd__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); }
-    #slide-04c .nd__v { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
-    #slide-04c .nd__nl { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; }
+    #slide-04c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04c .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
     #slide-04c .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
 
     #slide-04c .ring rect, #slide-04c .ring2 { fill: none; stroke: var(--accent-2); stroke-width: 5; }

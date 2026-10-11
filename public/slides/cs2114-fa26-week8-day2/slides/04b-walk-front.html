@@ -3,21 +3,21 @@
     <p class="slide__kicker" data-sid="04b-walk-front:3">A QUEUE ON AN ARRAY &middot; MOVE THE FRONT</p>
     <h2 data-sid="04b-walk-front:4">Dequeue moves frontIndex, not the entries</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04b-walk-front:5">A walkthrough of two methods under a program-counter bar. Left, dequeue: front is read from contents at frontIndex, that slot is set to null, frontIndex goes up by one, front is returned. Middle, enqueue of x: backIndex goes up by one and x is written at contents at backIndex. Right, a counter labelled moves. Below, a ten-slot array holding A to E in slots 0 to 4, a blue pill labelled frontIndex above slot 0 and a blue pill labelled backIndex below slot 4. Step one: slot 0 takes a blue edge and the counter reads 1. Step two: A fades. Step three: the frontIndex pill moves to slot 1. Step four: the caption says one move for one dequeue. Step five: the backIndex pill moves to slot 5 and F grows in there. Step six: the backIndex pill moves on to slot 9 while G, H, I and J grow into slots 6 to 9. Step seven: B, C and D fade and the frontIndex pill moves to slot 4. Step eight: the bar returns to the backIndex line of enqueue, and the caption says the front moves, the empty slots pile up at the left, and there is no slot 10 for the next entry.</p>
+  <p class="sr-only slide__desc" data-sid="04b-walk-front:5">A walkthrough of two methods under a program-counter bar. Left, dequeue: front is read from contents at frontIndex, that slot is set to null, frontIndex goes up by one, front is returned. Middle, enqueue of x: backIndex goes up by one and x is written at contents at backIndex. Right, a counter labelled moves. Below, a ten-slot array holding A to E in slots 0 to 4, a blue pill labelled frontIndex above slot 0 and a blue pill labelled backIndex below slot 4. Step one: slot 0 takes a blue edge and the counter reads 1. Step two: A fades. Step three: the frontIndex pill moves to slot 1. Step four: the caption says one move for one dequeue. Step five: the backIndex pill moves to slot 5 and F grows in there. Step six: the backIndex pill moves on to slot 9 while G, H, I and J grow into slots 6 to 9. Step seven: B, C and D fade and the frontIndex pill moves to slot 4. Step eight: the bar returns to the backIndex line of enqueue, and the caption says that slots 0 to 3 are empty but the next backIndex is 10, and there is no slot 10.</p>
 
   <!-- Concept intro, walk 2 of 4: the module's idea without its % yet.
        dequeue is the video's (ArrayQueueRemove p. 3) with the front read
        straight from contents and frontIndex + 1 in place of the % line; enqueue
        is the video's with backIndex + 1. The two pills are the indices: front
        above the strip, back below it (one row would stack them when they are
-       equal). A pill that changes value travels whole pitches (a real move).
+       equal). A pill that changes value moves in whole pitches (a real move).
        The counter (blue: it stays small) shows the one move a dequeue costs
-       now. The last press runs into the end of the array, the plant for 04c.
+       now. On the last press backIndex + 1 is past the end of the array; that is the plant for 04c.
        steps 1–4: one dequeue · 5–6: enqueues to slot 9 · 7: three dequeues · 8: no slot 10 -->
   <div class="slide__body codewalk code-mid fr" data-sid="04b-walk-front:6">
     <div class="fr__top" data-sid="04b-walk-front:7">
       <div class="editor fr__deq" data-sid="04b-walk-front:8">
-        <p class="editor__bar" data-sid="04b-walk-front:9">dequeue &mdash; the front moves</p>
+        <p class="editor__bar" data-sid="04b-walk-front:9">dequeue, moving frontIndex</p>
         <div class="editor__pc" data-sid="04b-walk-front:10"></div>
         <ol class="editor__code" data-sid="04b-walk-front:11">
           <li data-sid="04b-walk-front:12">T dequeue() {</li>
@@ -29,7 +29,7 @@
         </ol>
       </div>
       <div class="editor fr__enq" data-sid="04b-walk-front:21">
-        <p class="editor__bar" data-sid="04b-walk-front:22">enqueue &mdash; the back moves</p>
+        <p class="editor__bar" data-sid="04b-walk-front:22">enqueue, moving backIndex</p>
         <div class="editor__pc" data-sid="04b-walk-front:23"></div>
         <ol class="editor__code" data-sid="04b-walk-front:24">
           <li data-sid="04b-walk-front:25"><span class="tok-key" data-sid="04b-walk-front:26">void</span> enqueue(T x) {</li>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="fr__bottom" data-sid="04b-walk-front:37">
-      <svg class="fr__fig" viewBox="0 0 1110 226" role="img" aria-label="A ten-slot array with a frontIndex pill above it and a backIndex pill below it; during the walk A is dequeued, F to J are enqueued into slots 5 to 9, and B to D are dequeued, so the front pill ends on slot 4 and the back pill on slot 9" data-sid="04b-walk-front:38">
+      <svg class="fr__fig" viewBox="-12 0 1152 230" role="img" aria-label="A ten-slot array with a frontIndex pill above it and a backIndex pill below it; during the walk A is dequeued, F to J are enqueued into slots 5 to 9, and B to D are dequeued, so the front pill ends on slot 4 and the back pill on slot 9" data-sid="04b-walk-front:38">
         <g class="fr__cells" data-sid="04b-walk-front:39">
           <rect class="c0" x="30" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:40"/><rect x="138" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:41"/><rect x="246" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:42"/><rect x="354" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:43"/><rect x="462" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:44"/>
           <rect class="c5" x="570" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:45"/><rect x="678" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:46"/><rect x="786" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:47"/><rect x="894" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:48"/><rect class="c9" x="1002" y="50" width="96" height="96" rx="10" data-sid="04b-walk-front:49"/>
@@ -59,30 +59,31 @@
           <text class="gr g6" style="--i: 0" x="726" y="110" data-sid="04b-walk-front:68">G</text><text class="gr g6" style="--i: 1" x="834" y="110" data-sid="04b-walk-front:69">H</text><text class="gr g6" style="--i: 2" x="942" y="110" data-sid="04b-walk-front:70">I</text><text class="gr g6" style="--i: 3" x="1050" y="110" data-sid="04b-walk-front:71">J</text>
         </g>
         <!-- frontIndex above the strip, backIndex below it; drawn on slot 0 and moved by translate -->
-        <g class="pill pf" data-sid="04b-walk-front:72"><rect x="8" y="0" width="140" height="36" rx="18" data-sid="04b-walk-front:73"/><text x="78" y="25" data-sid="04b-walk-front:74">frontIndex</text><path d="M70 36 L86 36 L78 46 Z" data-sid="04b-walk-front:75"/></g>
-        <g class="pill pb" data-sid="04b-walk-front:76"><rect x="8" y="190" width="140" height="36" rx="18" data-sid="04b-walk-front:77"/><text x="78" y="215" data-sid="04b-walk-front:78">backIndex</text><path d="M70 190 L86 190 L78 180 Z" data-sid="04b-walk-front:79"/></g>
+        <g class="pill pf" data-sid="04b-walk-front:72"><rect x="-10" y="0" width="176" height="40" rx="20" data-sid="04b-walk-front:73"/><text x="78" y="30" data-sid="04b-walk-front:74">frontIndex</text><path d="M70 40 L86 40 L78 48 Z" data-sid="04b-walk-front:75"/></g>
+        <g class="pill pb" data-sid="04b-walk-front:76"><rect x="-10" y="190" width="176" height="40" rx="20" data-sid="04b-walk-front:77"/><text x="78" y="220" data-sid="04b-walk-front:78">backIndex</text><path d="M70 190 L86 190 L78 180 Z" data-sid="04b-walk-front:79"/></g>
       </svg>
       <div class="codewalk__caps" data-sid="04b-walk-front:80">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-front:81">front = contents[frontIndex]: A. One move, a read.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-walk-front:82">Slot 0 is cleared.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-front:83">frontIndex moves to 1. B is the front now, and B never moved.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-front:84">One move per dequeue, at five entries or five thousand.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-front:85">enqueue(F): backIndex moves to 5, and F goes there.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-front:86">G, H, I, J: backIndex reaches 9, the last slot.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-walk-front:87">Three more dequeues: B, C, D go and frontIndex walks to 4.</p>
-        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04b-walk-front:88">The front moves, and the empty slots pile up at the left. The next backIndex + 1 is 10: there is no slot 10.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-front:81">front = contents[frontIndex] reads A. The read is one move.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-walk-front:82">contents[frontIndex] = null clears slot 0.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-front:83">frontIndex is now 1. B is the front, and B is still in slot 1.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-front:84">One move per dequeue, for any number of entries.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-front:85">enqueue(F) sets backIndex to 5 and puts F in slot 5.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-front:86">Four more enqueues put G, H, I and J in slots 6 to 9. backIndex is 9.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-walk-front:87">Three more dequeues remove B, C and D. frontIndex is 4.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="04b-walk-front:88">Slots 0 to 3 are empty, but the next backIndex + 1 is 10, and there is no slot 10.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="04b-walk-front:89"></div>
-  <aside class="notes" data-sid="04b-walk-front:90">The module&rsquo;s idea, before its one extra symbol. The entries stay where they are; two indices say where the queue starts and ends. frontIndex is the slot of the front entry, backIndex the slot of the back entry, both inclusive. Step 1: read the front, A, one move. Step 2: clear the slot. Step 3: frontIndex goes up by one; watch the pill move, not the entries. B is the front and it never moved. Step 4: one move, whatever the size; compare the five on the last slide. Step 5: enqueue F, backIndex up by one, write. Step 6: four more, and backIndex is on slot 9, the last one. Step 7: three more dequeues; frontIndex is on 4 and slots 0 to 3 are empty. Step 8: the next enqueue would put backIndex on 10, and there is no slot 10, although four slots are free. Ask the room where the next entry should go. Next: the % that sends it to slot 0.</aside>
+  <aside class="notes" data-sid="04b-walk-front:90">The module&rsquo;s design, without the % for now. The entries stay in their slots. Two indices give the slots of the front entry and the back entry, both inclusive. Step 1: the method reads the front, A. That is one move. Step 2: slot 0 is set to null. Step 3: frontIndex goes up by one. The pill moves; the entries do not. B is now the front, and B is still in slot 1. Step 4: a dequeue is one move for any number of entries; the shifting version on the last slide took five. Step 5: enqueue F. backIndex goes up by one and F is written there. Step 6: four more enqueues, and backIndex is 9, the last slot. Step 7: three more dequeues. frontIndex is 4 and slots 0 to 3 are empty. Step 8: the next enqueue would set backIndex to 10. There is no slot 10, although four slots are free. Ask the class where the next entry should go. The next slide uses % to send it to slot 0.</aside>
 
   <style data-sid="04b-walk-front:91">
     /* Slide-local: two editors side by side at --t-code (dequeue 760 px for
        its 35-character read line, 35 × 19.2 + 70 = 742; enqueue 660 px for its
        30-character line, 646) with the counter beside them; under them the
-       walk strip in one SVG at 1:1 (cells 96 px on a 108 px pitch, 1110 px)
-       and the captions to its right (522 px). The pills are groups drawn on
+       walk strip in one SVG at 1:1 (cells 96 px on a 108 px pitch; 1152 px
+       with 12 px each side for the 176 px pills at --t-micro) and the
+       captions to its right (480 px). The pills are groups drawn on
        slot 0 and moved by translateX in whole pitches; entries that are
        enqueued grow from centre, entries that are dequeued fade. Every state
        change is keyed to the caption frags through :has(), in step order, so
@@ -90,8 +91,8 @@
        only. */
     #slide-04b .fr { display: grid; grid-template-rows: auto auto; row-gap: var(--s-4); align-content: start; }
     #slide-04b .fr__top { display: grid; grid-template-columns: 760px 660px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
-    #slide-04b .fr__bottom { display: grid; grid-template-columns: 1110px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
-    #slide-04b .fr__fig { display: block; width: 1110px; height: 226px; overflow: visible; }
+    #slide-04b .fr__bottom { display: grid; grid-template-columns: 1152px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04b .fr__fig { display: block; width: 1152px; height: 230px; overflow: visible; }
     #slide-04b .moves { align-self: center; }
 
     #slide-04b .fr__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
@@ -100,7 +101,7 @@
     #slide-04b .fr__vals .gr { transform-box: fill-box; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4); transition: opacity .25s ease, transform .5s var(--ease-smooth); }
     #slide-04b .pill rect { fill: var(--accent-2); }
     #slide-04b .pill path { fill: var(--accent-2); }
-    #slide-04b .pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
     #slide-04b .pill { transition: transform .7s var(--ease-smooth); }
     #slide-04b .pf { transform: translateX(0px); }
     #slide-04b .pb { transform: translateX(432px); }

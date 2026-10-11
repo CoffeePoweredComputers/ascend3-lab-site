@@ -1,0 +1,120 @@
+<section class="slide slide--warmup" id="slide-02b" data-sid="02b-bridge-linked:1">
+  <header class="slide__head" data-sid="02b-bridge-linked:2">
+    <p class="slide__kicker" data-sid="02b-bridge-linked:3">FROM DAY 1 TO DAY 2</p>
+    <h2 data-sid="02b-bridge-linked:4">The same queue, stored in an array instead of a chain</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02b-bridge-linked:5">A bridge from Day 1 to Day 2, built in four presses. Press one: on the left, Day 1's linked queue, three nodes holding A, B and C linked left to right, C's next null, with a blue pill labelled firstNode pointing at A and a blue pill labelled lastNode pointing at C; in the centre, the five queue operations in a column: enqueue, dequeue, getFront, isEmpty and clear. The caption says Day 1 stored the queue on a linked chain, with firstNode at the front and lastNode at the back. Press two: on the right, an array of ten slots grows in, holding A, B and C in slots 0 to 2, with a blue pill labelled frontIndex above slot 0 and a blue pill labelled backIndex below slot 2; the caption says the operations are the same and the storage is different, and the two references are replaced by two indices. Press three: a line under it says the queue is the third ADT stored two ways, after ArrayBag and LinkedBag in Weeks 3 and 4 and ArrayStack and LinkedStack in Week 5. Press four: the question for today, in maroon: on a chain, dequeue moved firstNode; what does dequeue do to the array?</p>
+
+  <!-- Bridge from Day 1 (LinkedQueue) to Day 2 (ArrayQueue). One SVG in canvas
+       px (1664 × 250): left, Day 1's chain (W8D1 04c's 130 × 76 Node boxes,
+       value 56 | next 74, no field labels) with both pills; centre, the five
+       operations in mono; right, W8D2 04b's strip with both index pills. The
+       strip is scaled down from 04b's 96 px cells on a 108 px pitch to 72 px on
+       an 80 px pitch so the three parts fit side by side in 1664 px.
+       step 1: the chain and the operations.
+       step 2: the strip grows in; the narration changes.
+       step 3: the pattern line (bag, stack, queue).
+       step 4: the question for Part 1. -->
+  <div class="slide__body bl" data-sid="02b-bridge-linked:6">
+    <svg class="bl__fig" viewBox="0 0 1664 250" role="img" aria-label="Left, a linked queue of three nodes A, B and C with firstNode pointing at A and lastNode pointing at C. Centre, the operations enqueue, dequeue, getFront, isEmpty and clear. Right, a ten-slot array holding A, B and C in slots 0 to 2, with frontIndex above slot 0 and backIndex below slot 2" data-sid="02b-bridge-linked:7">
+      <defs data-sid="02b-bridge-linked:8">
+        <marker id="w8d2-02b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02b-bridge-linked:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02b-bridge-linked:10"/></marker>
+      </defs>
+
+      <!-- Day 1: the linked queue -->
+      <g class="bl__chain frag" data-step="1" data-sid="02b-bridge-linked:11">
+        <g class="pill" data-sid="02b-bridge-linked:12"><rect x="1" y="30" width="176" height="48" rx="8" data-sid="02b-bridge-linked:13"/><text x="89" y="64" data-sid="02b-bridge-linked:14">firstNode</text></g>
+        <g class="pill" data-sid="02b-bridge-linked:15"><rect x="321" y="30" width="176" height="48" rx="8" data-sid="02b-bridge-linked:16"/><text x="409" y="64" data-sid="02b-bridge-linked:17">lastNode</text></g>
+        <path class="ref" d="M89 78 C 89 96, 89 110, 89 124" data-sid="02b-bridge-linked:18"/>
+        <path class="ref" d="M409 78 C 409 96, 409 110, 409 124" data-sid="02b-bridge-linked:19"/>
+        <g class="nd" data-sid="02b-bridge-linked:20"><rect class="nd__box" x="24" y="130" width="130" height="76" rx="10" data-sid="02b-bridge-linked:21"/><path class="nd__div" d="M80 130v76" data-sid="02b-bridge-linked:22"/><text class="nd__v" x="52" y="180" data-sid="02b-bridge-linked:23">A</text></g>
+        <path class="lnk" d="M117 168 C 140 168, 158 168, 172 168" data-sid="02b-bridge-linked:24"/>
+        <g class="nd" data-sid="02b-bridge-linked:25"><rect class="nd__box" x="184" y="130" width="130" height="76" rx="10" data-sid="02b-bridge-linked:26"/><path class="nd__div" d="M240 130v76" data-sid="02b-bridge-linked:27"/><text class="nd__v" x="212" y="180" data-sid="02b-bridge-linked:28">B</text></g>
+        <path class="lnk" d="M277 168 C 300 168, 318 168, 332 168" data-sid="02b-bridge-linked:29"/>
+        <g class="nd" data-sid="02b-bridge-linked:30"><rect class="nd__box" x="344" y="130" width="130" height="76" rx="10" data-sid="02b-bridge-linked:31"/><path class="nd__div" d="M400 130v76" data-sid="02b-bridge-linked:32"/><text class="nd__v" x="372" y="180" data-sid="02b-bridge-linked:33">C</text><text class="nd__nl" x="437" y="178" data-sid="02b-bridge-linked:34">null</text></g>
+      </g>
+
+      <!-- the operations, the same on both -->
+      <g class="bl__ops frag" data-step="1" data-sid="02b-bridge-linked:35">
+        <text x="650" y="40" data-sid="02b-bridge-linked:36">enqueue(x)</text>
+        <text x="650" y="90" data-sid="02b-bridge-linked:37">dequeue()</text>
+        <text x="650" y="140" data-sid="02b-bridge-linked:38">getFront()</text>
+        <text x="650" y="190" data-sid="02b-bridge-linked:39">isEmpty()</text>
+        <text x="650" y="240" data-sid="02b-bridge-linked:40">clear()</text>
+      </g>
+
+      <!-- Day 2: the array, frontIndex above, backIndex below -->
+      <g class="bl__strip frag" data-step="2" data-sid="02b-bridge-linked:41">
+        <g class="bl__cells" data-sid="02b-bridge-linked:42">
+          <rect x="852" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:43"/><rect x="932" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:44"/><rect x="1012" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:45"/><rect x="1092" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:46"/><rect x="1172" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:47"/>
+          <rect x="1252" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:48"/><rect x="1332" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:49"/><rect x="1412" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:50"/><rect x="1492" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:51"/><rect x="1572" y="76" width="72" height="72" rx="8" data-sid="02b-bridge-linked:52"/>
+        </g>
+        <g class="bl__idx" data-sid="02b-bridge-linked:53"><text x="888" y="178" data-sid="02b-bridge-linked:54">0</text><text x="968" y="178" data-sid="02b-bridge-linked:55">1</text><text x="1048" y="178" data-sid="02b-bridge-linked:56">2</text><text x="1128" y="178" data-sid="02b-bridge-linked:57">3</text><text x="1208" y="178" data-sid="02b-bridge-linked:58">4</text><text x="1288" y="178" data-sid="02b-bridge-linked:59">5</text><text x="1368" y="178" data-sid="02b-bridge-linked:60">6</text><text x="1448" y="178" data-sid="02b-bridge-linked:61">7</text><text x="1528" y="178" data-sid="02b-bridge-linked:62">8</text><text x="1608" y="178" data-sid="02b-bridge-linked:63">9</text></g>
+        <g class="bl__vals" data-sid="02b-bridge-linked:64"><text x="888" y="125" data-sid="02b-bridge-linked:65">A</text><text x="968" y="125" data-sid="02b-bridge-linked:66">B</text><text x="1048" y="125" data-sid="02b-bridge-linked:67">C</text></g>
+        <g class="pill pill--idx" data-sid="02b-bridge-linked:68"><rect x="800" y="20" width="176" height="40" rx="20" data-sid="02b-bridge-linked:69"/><text x="888" y="50" data-sid="02b-bridge-linked:70">frontIndex</text><path d="M880 60 L896 60 L888 68 Z" data-sid="02b-bridge-linked:71"/></g>
+        <g class="pill pill--idx" data-sid="02b-bridge-linked:72"><rect x="960" y="192" width="176" height="40" rx="20" data-sid="02b-bridge-linked:73"/><text x="1048" y="222" data-sid="02b-bridge-linked:74">backIndex</text><path d="M1040 192 L1056 192 L1048 184 Z" data-sid="02b-bridge-linked:75"/></g>
+      </g>
+    </svg>
+
+    <div class="bl__caps" data-sid="02b-bridge-linked:76">
+      <p class="bl__cap cap--1 frag" data-step="1" data-sid="02b-bridge-linked:77">Day 1 stored the queue on a linked chain, with firstNode at the front and lastNode at the back.</p>
+      <p class="bl__cap bl__cap--keep cap--2 frag" data-step="2" data-sid="02b-bridge-linked:78">The operations are the same and the storage is different. The two references are replaced by two indices.</p>
+    </div>
+    <p class="bl__pattern frag" data-step="3" data-sid="02b-bridge-linked:79">The queue is the third ADT stored two ways. ArrayBag and LinkedBag were Weeks 3 and 4, and ArrayStack and LinkedStack were Week 5.</p>
+    <p class="bl__q frag" data-step="4" data-sid="02b-bridge-linked:80">On a chain, dequeue moved firstNode. What does dequeue do to the array?</p>
+  </div>
+  <div class="slide__number" data-sid="02b-bridge-linked:81"></div>
+  <aside class="notes" data-sid="02b-bridge-linked:82">Monday&rsquo;s class (Tuesday&rsquo;s for the TR section) put a queue on a linked chain. Today the same queue goes in an array. Step 1. This is Day 1&rsquo;s linked queue after enqueue of A, B and C. firstNode refers to the front node and lastNode to the back node. The column in the middle is the queue&rsquo;s operations: enqueue, dequeue, getFront, isEmpty and clear. Step 2. The class keeps the same five operations and stores the entries in an array instead. In place of firstNode and lastNode it keeps two indices, frontIndex for the slot of the front entry and backIndex for the slot of the back entry. A, B and C are in slots 0 to 2. Step 3. This is the third time we store one ADT two ways. The bag had ArrayBag and LinkedBag in Weeks 3 and 4, and the stack had ArrayStack and LinkedStack in Week 5. Each time the interface stayed the same and the cost of some methods changed. Step 4. On the chain, dequeue moved firstNode to the next node and nothing else moved. Ask the class what dequeue should do to the array. Part 1 starts with the obvious design and counts its moves.</aside>
+
+  <style data-sid="02b-bridge-linked:83">
+    /* Slide-local: a bridge from Day 1 to Day 2. One SVG at 1:1 (1664 × 250)
+       with three parts side by side: the chain (W8D1 04c's 130 × 76 boxes,
+       labels at --t-micro, values at --t-small), the operations in mono at
+       --t-small, and the strip (72 px cells on an 80 px pitch, a scaled-down
+       W8D2 04b strip, so that ten slots fit beside the other two; pills
+       176 × 40 at --t-micro, frontIndex above and backIndex below). Under it
+       the narration (two captions, the second stays), the pattern line and the
+       question in display maroon, all at --t-small. Motion: the chain and the
+       strip GrowFromCenter, the operations and the lines fade in. Used by this
+       slide only, all values from tokens. */
+    #slide-02b .bl { display: grid; grid-template-rows: auto auto auto auto; row-gap: var(--s-3); align-content: start; }
+    #slide-02b .bl__fig { display: block; width: 1664px; height: 250px; overflow: visible; }
+
+    #slide-02b .pill rect, #slide-02b .pill path { fill: var(--accent-2); }
+    #slide-02b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-02b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02b .lnk, #slide-02b .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d2-02b-head); }
+    #slide-02b .ref { stroke-width: 5; }
+
+    #slide-02b .bl__ops text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+
+    #slide-02b .bl__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-02b .bl__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-02b .bl__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+
+    /* GrowFromCenter: the two drawings; the operations fade in */
+    #slide-02b .bl__chain, #slide-02b .bl__strip { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02b .frag.bl__chain.is-pending, #slide-02b .frag.bl__strip.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-02b .bl__ops { transition: opacity .3s ease; }
+    #slide-02b .frag.bl__ops.is-current, #slide-02b .frag.bl__ops.is-past { transition-delay: .4s; }
+
+    /* narration: caption 1 is replaced by caption 2, which stays */
+    #slide-02b .bl__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02b .bl__caps > * { grid-area: 1 / 1; }
+    #slide-02b .slide__body p.bl__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02b .frag.bl__cap.is-current { transition-delay: .3s; }
+    #slide-02b .frag.bl__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02b .frag.bl__cap--keep.is-past { opacity: 1; }
+
+    #slide-02b .slide__body p.bl__pattern { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-02b .slide__body p.bl__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02b .bl__chain, #slide-02b .bl__strip, #slide-02b .bl__ops, #slide-02b .bl__cap,
+      #slide-02b .bl__pattern, #slide-02b .bl__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

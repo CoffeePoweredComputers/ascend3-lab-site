@@ -1,18 +1,18 @@
 <section class="slide slide--warmup" id="slide-06" data-sid="06-walk-addtoback:1">
   <header class="slide__head" data-sid="06-walk-addtoback:2">
     <p class="slide__kicker" data-sid="06-walk-addtoback:3">A LINKED DEQUE &middot; WALKTHROUGH</p>
-    <h2 data-sid="06-walk-addtoback:4">addToBack(x): a node with prev, data and next</h2>
+    <h2 data-sid="06-walk-addtoback:4">addToBack(x) creates a node with prev, data and next</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="06-walk-addtoback:5">A walkthrough of addToBack from the module's video under a program-counter bar: void addToBack of T x; DLNode newNode equals new DLNode of lastNode, x and null; if isEmpty, firstNode equals newNode; else lastNode dot setNext of newNode; then lastNode equals newNode. On the right, two blue pills labelled firstNode and lastNode, each with the word null beside it. Each node is a box with three parts: prev, data and next. Step one: addToBack of A on an empty deque; a node appears holding A with prev null and next null, tinted orange and labelled newNode. Step two: isEmpty is true. Step three: firstNode points at A. Step four: lastNode points at A too. Step five: addToBack of B; a node holding B appears to the right, and because the constructor was given lastNode as prev, a blue arrow draws below the chain from B's prev back to A. Step six: not empty, so the else runs. Step seven: lastNode dot setNext; A's next part is washed orange, its null goes and a blue arrow draws above the chain from A to B. Step eight: lastNode's arrow swings from A to B. Step nine: two arrows per link, so adding at the back writes two of them.</p>
+  <p class="sr-only slide__desc" data-sid="06-walk-addtoback:5">A walkthrough of addToBack from the module's video under a program-counter bar: void addToBack of T x; DLNode newNode equals new DLNode of lastNode, x and null; if isEmpty, firstNode equals newNode; else lastNode dot setNext of newNode; then lastNode equals newNode. On the right, two blue pills labelled firstNode and lastNode, each with the word null beside it. Each node is a box with three parts: prev, data and next. Step one: addToBack of A on an empty deque; a node appears holding A with prev null and next null, tinted orange and labelled newNode. Step two: isEmpty is true. Step three: firstNode refers to A. Step four: lastNode also refers to A. Step five: addToBack of B; a node holding B appears to the right, and because the constructor was given lastNode as prev, a blue arrow is drawn below the chain from B's prev to A. Step six: the deque is not empty, so the else runs. Step seven: lastNode dot setNext; A's next part is washed orange, its null is removed and a blue arrow is drawn above the chain from A to B. Step eight: lastNode's arrow re-points from A to B. Step nine: each link is two references, so addToBack writes two of them.</p>
 
   <!-- Concept intro for Part 2: the video's DLNode (prev | data | next, in
        the order of its constructor and of the video's drawing) and its
        addToBack (DequeIntro.pdf slide 8), walked twice. The constructor line
        is split over two lines (one PC block) and newEntry shortened to x so
        the editor stays at --t-code. next arrows arc ABOVE the chain, prev
-       arrows BELOW it, both blue. The point of the slide is the second add:
-       the constructor writes B's prev on its own, and the else writes A's
-       next: two writes per link.
+       arrows BELOW it, both blue. The slide is about the second add. The
+       constructor writes B's prev and the else writes A's next, so each link
+       takes two writes.
        steps 1–4: addToBack(A) on empty.  steps 5–8: addToBack(B).
        step 9: the rule. -->
   <div class="slide__body grid grid--code code-mid da" data-sid="06-walk-addtoback:6">
@@ -45,55 +45,56 @@
         <text class="pnull pnull--last" x="574" y="34" data-sid="06-walk-addtoback:38">null</text>
 
         <g class="dn dn--a frag" data-step="1" data-sid="06-walk-addtoback:39">
-          <rect class="dn__box" x="40" y="150" width="210" height="80" rx="10" data-sid="06-walk-addtoback:40"/>
-          <rect class="dn__wash" x="183" y="153" width="64" height="74" rx="6" data-sid="06-walk-addtoback:41"/>
-          <path class="dn__div" d="M110 150v80M180 150v80" data-sid="06-walk-addtoback:42"/>
-          <text class="dn__f" x="75" y="172" data-sid="06-walk-addtoback:43">prev</text><text class="dn__f" x="145" y="172" data-sid="06-walk-addtoback:44">data</text><text class="dn__f" x="215" y="172" data-sid="06-walk-addtoback:45">next</text>
-          <text class="dn__nl" x="75" y="216" data-sid="06-walk-addtoback:46">null</text>
-          <text class="dn__v" x="145" y="218" data-sid="06-walk-addtoback:47">A</text>
-          <text class="dn__nl dn__nl--next" x="215" y="216" data-sid="06-walk-addtoback:48">null</text>
-          <text class="dn__new" x="145" y="300" data-sid="06-walk-addtoback:49">newNode</text>
+          <rect class="dn__box" x="40" y="150" width="240" height="80" rx="10" data-sid="06-walk-addtoback:40"/>
+          <rect class="dn__wash" x="203" y="153" width="74" height="74" rx="6" data-sid="06-walk-addtoback:41"/>
+          <path class="dn__div" d="M120 150v80M200 150v80" data-sid="06-walk-addtoback:42"/>
+          <text class="dn__f" x="80" y="176" data-sid="06-walk-addtoback:43">prev</text><text class="dn__f" x="160" y="176" data-sid="06-walk-addtoback:44">data</text><text class="dn__f" x="240" y="176" data-sid="06-walk-addtoback:45">next</text>
+          <text class="dn__nl" x="80" y="218" data-sid="06-walk-addtoback:46">null</text>
+          <text class="dn__v" x="160" y="218" data-sid="06-walk-addtoback:47">A</text>
+          <text class="dn__nl dn__nl--next" x="240" y="218" data-sid="06-walk-addtoback:48">null</text>
+          <text class="dn__new" x="160" y="300" data-sid="06-walk-addtoback:49">newNode</text>
         </g>
         <g class="dn dn--b frag" data-step="5" data-sid="06-walk-addtoback:50">
-          <rect class="dn__box" x="380" y="150" width="210" height="80" rx="10" data-sid="06-walk-addtoback:51"/>
-          <path class="dn__div" d="M450 150v80M520 150v80" data-sid="06-walk-addtoback:52"/>
-          <text class="dn__f" x="415" y="172" data-sid="06-walk-addtoback:53">prev</text><text class="dn__f" x="485" y="172" data-sid="06-walk-addtoback:54">data</text><text class="dn__f" x="555" y="172" data-sid="06-walk-addtoback:55">next</text>
-          <text class="dn__v" x="485" y="218" data-sid="06-walk-addtoback:56">B</text>
-          <text class="dn__nl" x="555" y="216" data-sid="06-walk-addtoback:57">null</text>
-          <text class="dn__new" x="485" y="300" data-sid="06-walk-addtoback:58">newNode</text>
+          <rect class="dn__box" x="380" y="150" width="240" height="80" rx="10" data-sid="06-walk-addtoback:51"/>
+          <path class="dn__div" d="M460 150v80M540 150v80" data-sid="06-walk-addtoback:52"/>
+          <text class="dn__f" x="420" y="176" data-sid="06-walk-addtoback:53">prev</text><text class="dn__f" x="500" y="176" data-sid="06-walk-addtoback:54">data</text><text class="dn__f" x="580" y="176" data-sid="06-walk-addtoback:55">next</text>
+          <text class="dn__v" x="500" y="218" data-sid="06-walk-addtoback:56">B</text>
+          <text class="dn__nl" x="580" y="218" data-sid="06-walk-addtoback:57">null</text>
+          <text class="dn__new" x="500" y="300" data-sid="06-walk-addtoback:58">newNode</text>
         </g>
 
         <!-- B's prev, written by the constructor (below the chain) -->
-        <path class="lnk frag" data-step="5" pathLength="100" d="M415 230 C 415 282, 215 282, 215 248" data-sid="06-walk-addtoback:59"/>
-        <path class="lnkh frag" data-step="5" data-anim="fade" d="M215 234 L208 248 L222 248 Z" data-sid="06-walk-addtoback:60"/>
+        <path class="lnk frag" data-step="5" pathLength="100" d="M420 230 C 420 282, 240 282, 240 248" data-sid="06-walk-addtoback:59"/>
+        <path class="lnkh frag" data-step="5" data-anim="fade" d="M240 234 L233 248 L247 248 Z" data-sid="06-walk-addtoback:60"/>
         <!-- A's next, written by setNext (above the chain) -->
-        <path class="lnk lnk--next frag" data-step="7" pathLength="100" d="M215 152 C 215 100, 415 100, 415 136" data-sid="06-walk-addtoback:61"/>
-        <path class="lnkh frag" data-step="7" data-anim="fade" d="M415 148 L408 134 L422 134 Z" data-sid="06-walk-addtoback:62"/>
+        <path class="lnk lnk--next frag" data-step="7" pathLength="100" d="M240 152 C 240 100, 420 100, 420 136" data-sid="06-walk-addtoback:61"/>
+        <path class="lnkh frag" data-step="7" data-anim="fade" d="M420 148 L413 134 L427 134 Z" data-sid="06-walk-addtoback:62"/>
 
         <path class="ref ref--first" d="M88 48 C 88 90, 88 110, 88 146" data-sid="06-walk-addtoback:63"/>
-        <path class="ref ref--last" d="M430 48 C 430 100, 150 80, 150 146" data-sid="06-walk-addtoback:64"/>
+        <path class="ref ref--last" d="M440 48 C 440 100, 160 80, 160 146" data-sid="06-walk-addtoback:64"/>
       </svg>
       <div class="codewalk__caps" data-sid="06-walk-addtoback:65">
         <p class="walkcap cap--1 frag" data-step="1" data-sid="06-walk-addtoback:66">addToBack(A) on an empty deque. The new node&rsquo;s prev is lastNode, which is null.</p>
         <p class="walkcap cap--2 frag" data-step="2" data-sid="06-walk-addtoback:67">isEmpty() is true.</p>
         <p class="walkcap cap--3 frag" data-step="3" data-sid="06-walk-addtoback:68">firstNode = newNode.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="06-walk-addtoback:69">lastNode = newNode. One node, both references on it.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="06-walk-addtoback:70">addToBack(B). The constructor sets prev to lastNode: B&rsquo;s prev points back at A.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="06-walk-addtoback:71">Not empty: the else runs.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="06-walk-addtoback:72">lastNode.setNext(newNode): A&rsquo;s next now points at B.</p>
-        <p class="walkcap cap--8 frag" data-step="8" data-sid="06-walk-addtoback:73">lastNode moves to B.</p>
-        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="06-walk-addtoback:74">Two arrows per link, so adding at the back writes two of them.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06-walk-addtoback:69">lastNode = newNode. Both references refer to the one node.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06-walk-addtoback:70">addToBack(B) calls the constructor with lastNode as prev, so B&rsquo;s prev refers to A.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="06-walk-addtoback:71">The deque is not empty, so the else runs.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="06-walk-addtoback:72">lastNode.setNext(newNode) sets A&rsquo;s next to B.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="06-walk-addtoback:73">lastNode now refers to B.</p>
+        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="06-walk-addtoback:74">Each link is two references, so addToBack writes two of them.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="06-walk-addtoback:75"></div>
-  <aside class="notes" data-sid="06-walk-addtoback:76">The deque in the videos uses DLNode, a doubly linked node: prev, data and next. The constructor takes them in that order, so that is how the boxes are drawn. next arrows go over the top, prev arrows underneath. This is addToBack from the DequeIntro video, with newEntry shortened to x and the constructor call on two lines. Step 1 &mdash; addToBack(A) on an empty deque: the constructor gets lastNode as prev, and lastNode is null. Step 2 &mdash; isEmpty() is true. Step 3 &mdash; firstNode = newNode. Step 4 &mdash; lastNode = newNode: one node, both references on it, the same as the queue. Step 5 &mdash; addToBack(B). Look at the constructor: prev is lastNode, which is A, so B&rsquo;s prev arrow already points back at A before the if runs. Step 6 &mdash; not empty, so the else. Step 7 &mdash; lastNode.setNext(newNode): the other direction, A&rsquo;s next to B. Step 8 &mdash; lastNode moves to B. Step 9 &mdash; a link in a doubly linked chain is two arrows, so every add writes two: here one in the constructor and one in the else. Ask the room which two lines addToFront would need. Next: removing from the front.</aside>
+  <aside class="notes" data-sid="06-walk-addtoback:76">The deque in the videos uses DLNode, a doubly linked node with prev, data and next. The constructor takes them in that order, so the boxes are drawn in that order. next arrows are drawn above the chain and prev arrows below it. This is addToBack from the DequeIntro video, with newEntry shortened to x and the constructor call on two lines. Step 1. addToBack(A) runs on an empty deque. The constructor gets lastNode as prev, and lastNode is null. Step 2. isEmpty() is true. Step 3. firstNode = newNode. Step 4. lastNode = newNode. Both references refer to the one node, as in the queue. Step 5. addToBack(B) runs. The constructor&rsquo;s prev argument is lastNode, which is A, so B&rsquo;s prev refers to A before the if runs. Step 6. The deque is not empty, so the else runs. Step 7. lastNode.setNext(newNode) sets A&rsquo;s next to B, the other direction. Step 8. lastNode now refers to B. Step 9. A link in a doubly linked chain is two references, so every add writes two. Here one is written in the constructor and one in the else. Ask the room which two lines addToFront would need. Next is removing from the front.</aside>
 
   <style data-sid="06-walk-addtoback:77">
     /* Slide-local: the editor at --t-code (800 px: the constructor's second
        line is 38 characters, 38 × 19.2 + 70 = 800); on the right one 816 × 320
-       SVG at 1:1 with the captions under it. DLNode boxes 210 × 80, three 70 px
-       compartments (prev | data | next), labels at the tag size; next arrows
+       SVG at 1:1 with the captions under it. DLNode boxes 240 × 80, three 80 px
+       compartments (prev | data | next), labels at --t-micro (4 × 16.8 = 67
+       px in a 76 px inner width); next arrows
        arc above the chain and prev arrows below, both blue; null in stone.
        Motion as on 04: nodes GrowFromCenter, references FadeIn then swing,
        links Create with the head landing after (B's prev with a delay behind
@@ -113,10 +114,10 @@
 
     #slide-06 .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
     #slide-06 .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-06 .dn__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle; }
+    #slide-06 .dn__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
     #slide-06 .dn__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-06 .dn__nl { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
-    #slide-06 .dn__new { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-06 .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-06 .dn__new { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
     #slide-06 .dn__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
     #slide-06 .dn { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
     #slide-06 .frag.dn.is-pending { opacity: 0; transform: scale(0.4); }

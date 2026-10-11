@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="11-hw-arrayqueue:3">WEEK 8 HOMEWORK &middot; DUE FRI OCT 16, 11:59 PM</p>
     <h2 data-sid="11-hw-arrayqueue:4">The four ArrayQueue problems in this week&rsquo;s eight</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="11-hw-arrayqueue:5">Top left, a full array queue of capacity 5: six slots, entries A and B in slots 4 and 5, C, D and E in slots 0 to 2, slot 3 hatched as the unused slot, a blue frontIndex pill above slot 4 and a blue backIndex pill below slot 2. Top right, a card listing what the handed-out ArrayQueue class already has: the fields contents, frontIndex and backIndex, and the methods isEmpty, checkCapacity, getFront, dequeue and clear. Below, four cards in two rows, arriving one per step. ArrayQueue Bad Enqueue 1, void incorrectEnqueue1 of T newEntry: think about where backIndex points at the write. ArrayQueue Bad Enqueue 2, void incorrectEnqueue2 of T newEntry: think about which index an enqueue moves. ArrayQueue Manipulate 1, void transform: one red stays, and six entries is full. ArrayQueue Manipulate 2, void transform: it starts full, seven in capacity 7. A line along the bottom reads: PrairieLearn, Assessments, Week 8: Queues, Coding Practice; 8 problems; best 4 count; due Friday.</p>
+  <p class="sr-only slide__desc" data-sid="11-hw-arrayqueue:5">Top left, a full array queue of capacity 5: six slots, entries A and B in slots 4 and 5, C, D and E in slots 0 to 2, slot 3 hatched as the unused slot, a blue frontIndex pill above slot 4 and a blue backIndex pill below slot 2. Top right, a card listing what the handed-out ArrayQueue class already has: the fields contents, frontIndex and backIndex, and the methods isEmpty, checkCapacity, getFront, dequeue and clear. Below, four cards in two rows, arriving one per step. ArrayQueue Bad Enqueue 1, void incorrectEnqueue1 of T newEntry: check where backIndex is at the write. ArrayQueue Bad Enqueue 2, void incorrectEnqueue2 of T newEntry: check which index an enqueue changes. ArrayQueue Manipulate 1, void transform: one red stays, and six entries fill the queue. ArrayQueue Manipulate 2, void transform: it starts full, with seven entries. A line along the bottom reads: PrairieLearn, Week 8: Queues, Coding Practice; best 4 of 8 count; due Friday.</p>
 
   <!-- W5D1 13's homework-card grammar for the four array problems of the
        set (the Day 1 deck carried the four LinkedQueue ones), rearranged so
@@ -11,15 +11,15 @@
        the four problem cards in a 2 × 2 grid under them, the signpost along
        the bottom. The picture is a full queue in the deck's strip grammar
        (front above, back below, the unused slot hatched); the class card
-       names what the handed-out class already has — the class in x704–x707
+       names what the handed-out class already has; the class in x704–x707
        is fixed-size with checkCapacity(), not ensureCapacity(). Each problem
-       card: the PL title, the signature without "public", and the part to
-       think hardest about, phrased from the problem statement. No solution
+       card has the PL title, the signature without "public", and one
+       sentence on the hardest part, phrased from the problem statement. No solution
        code: these are graded. Cards grow from centre; the signpost fades in
        with the fourth.
        steps 1–4: x704, x705, x706, x707 -->
   <div class="slide__body hw" data-sid="11-hw-arrayqueue:6">
-    <svg class="hw__fig" viewBox="0 0 700 230" role="img" aria-label="A full array queue of capacity 5: six slots, A and B in slots 4 and 5, C, D and E in slots 0 to 2, slot 3 hatched as unused, frontIndex on slot 4 and backIndex on slot 2" data-sid="11-hw-arrayqueue:7">
+    <svg class="hw__fig" viewBox="0 0 700 234" role="img" aria-label="A full array queue of capacity 5: six slots, A and B in slots 4 and 5, C, D and E in slots 0 to 2, slot 3 hatched as unused, frontIndex on slot 4 and backIndex on slot 2" data-sid="11-hw-arrayqueue:7">
       <defs data-sid="11-hw-arrayqueue:8">
         <pattern id="w8d2-11-hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)" data-sid="11-hw-arrayqueue:9">
           <path d="M0 0 V16" style="stroke: var(--stone); stroke-width: 5" data-sid="11-hw-arrayqueue:10"/>
@@ -32,11 +32,11 @@
       </g>
       <g class="hw__vals" data-sid="11-hw-arrayqueue:18"><text x="70" y="112" data-sid="11-hw-arrayqueue:19">C</text><text x="182" y="112" data-sid="11-hw-arrayqueue:20">D</text><text x="294" y="112" data-sid="11-hw-arrayqueue:21">E</text><text x="518" y="112" data-sid="11-hw-arrayqueue:22">A</text><text x="630" y="112" data-sid="11-hw-arrayqueue:23">B</text></g>
       <g class="hw__idx" data-sid="11-hw-arrayqueue:24"><text x="70" y="178" data-sid="11-hw-arrayqueue:25">0</text><text x="182" y="178" data-sid="11-hw-arrayqueue:26">1</text><text x="294" y="178" data-sid="11-hw-arrayqueue:27">2</text><text x="406" y="178" data-sid="11-hw-arrayqueue:28">3</text><text x="518" y="178" data-sid="11-hw-arrayqueue:29">4</text><text x="630" y="178" data-sid="11-hw-arrayqueue:30">5</text></g>
-      <g class="pill" transform="translate(448 0)" data-sid="11-hw-arrayqueue:31"><rect x="0" y="0" width="140" height="36" rx="18" data-sid="11-hw-arrayqueue:32"/><text x="70" y="25" data-sid="11-hw-arrayqueue:33">frontIndex</text><path d="M62 36 L78 36 L70 46 Z" data-sid="11-hw-arrayqueue:34"/></g>
-      <g class="pill" transform="translate(224 0)" data-sid="11-hw-arrayqueue:35"><rect x="0" y="194" width="140" height="36" rx="18" data-sid="11-hw-arrayqueue:36"/><text x="70" y="219" data-sid="11-hw-arrayqueue:37">backIndex</text><path d="M62 194 L78 194 L70 184 Z" data-sid="11-hw-arrayqueue:38"/></g>
+      <g class="pill" transform="translate(448 0)" data-sid="11-hw-arrayqueue:31"><rect x="-18" y="0" width="176" height="40" rx="20" data-sid="11-hw-arrayqueue:32"/><text x="70" y="30" data-sid="11-hw-arrayqueue:33">frontIndex</text><path d="M62 40 L78 40 L70 48 Z" data-sid="11-hw-arrayqueue:34"/></g>
+      <g class="pill" transform="translate(224 0)" data-sid="11-hw-arrayqueue:35"><rect x="-18" y="194" width="176" height="40" rx="20" data-sid="11-hw-arrayqueue:36"/><text x="70" y="224" data-sid="11-hw-arrayqueue:37">backIndex</text><path d="M62 194 L78 194 L70 184 Z" data-sid="11-hw-arrayqueue:38"/></g>
     </svg>
     <div class="tile tile--a2 hw__class" data-sid="11-hw-arrayqueue:39">
-      <p class="tile__label" data-sid="11-hw-arrayqueue:40">ArrayQueue &mdash; already written</p>
+      <p class="tile__label" data-sid="11-hw-arrayqueue:40">ArrayQueue, already written</p>
       <ul class="hw__api" data-sid="11-hw-arrayqueue:41">
         <li data-sid="11-hw-arrayqueue:42">T[] contents &middot; frontIndex &middot; backIndex</li>
         <li data-sid="11-hw-arrayqueue:43">isEmpty() &middot; checkCapacity() &middot; getFront()</li>
@@ -46,43 +46,44 @@
     <div class="tile tile--a3 hw__card frag" data-step="1" style="grid-column: 1; grid-row: 2" data-sid="11-hw-arrayqueue:45">
       <h3 data-sid="11-hw-arrayqueue:46">ArrayQueue Bad Enqueue 1</h3>
       <p class="hw__sig" data-sid="11-hw-arrayqueue:47">void incorrectEnqueue1(T newEntry)</p>
-      <p class="hw__hard" data-sid="11-hw-arrayqueue:48"><span class="hw__k" data-sid="11-hw-arrayqueue:49">think about</span> where backIndex points at the write</p>
+      <p class="hw__hard" data-sid="11-hw-arrayqueue:48">Check where backIndex is at the write.</p>
     </div>
     <div class="tile tile--a3 hw__card frag" data-step="2" style="grid-column: 2; grid-row: 2" data-sid="11-hw-arrayqueue:50">
       <h3 data-sid="11-hw-arrayqueue:51">ArrayQueue Bad Enqueue 2</h3>
       <p class="hw__sig" data-sid="11-hw-arrayqueue:52">void incorrectEnqueue2(T newEntry)</p>
-      <p class="hw__hard" data-sid="11-hw-arrayqueue:53"><span class="hw__k" data-sid="11-hw-arrayqueue:54">think about</span> which index an enqueue moves</p>
+      <p class="hw__hard" data-sid="11-hw-arrayqueue:53">Check which index an enqueue changes.</p>
     </div>
     <div class="tile tile--a3 hw__card frag" data-step="3" style="grid-column: 1; grid-row: 3" data-sid="11-hw-arrayqueue:55">
       <h3 data-sid="11-hw-arrayqueue:56">ArrayQueue Manipulate 1</h3>
       <p class="hw__sig" data-sid="11-hw-arrayqueue:57">void transform()</p>
-      <p class="hw__hard" data-sid="11-hw-arrayqueue:58"><span class="hw__k" data-sid="11-hw-arrayqueue:59">think about</span> one red stays; six entries is full</p>
+      <p class="hw__hard" data-sid="11-hw-arrayqueue:58">One red stays, and six entries fill the queue.</p>
     </div>
     <div class="tile tile--a3 hw__card frag" data-step="4" style="grid-column: 2; grid-row: 3" data-sid="11-hw-arrayqueue:60">
       <h3 data-sid="11-hw-arrayqueue:61">ArrayQueue Manipulate 2</h3>
       <p class="hw__sig" data-sid="11-hw-arrayqueue:62">void transform()</p>
-      <p class="hw__hard" data-sid="11-hw-arrayqueue:63"><span class="hw__k" data-sid="11-hw-arrayqueue:64">think about</span> it starts full: seven in capacity 7</p>
+      <p class="hw__hard" data-sid="11-hw-arrayqueue:63">It starts full, with seven entries.</p>
     </div>
-    <p class="note hw__sign frag" data-step="4" data-anim="fade" data-sid="11-hw-arrayqueue:65">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="11-hw-arrayqueue:66">Week 8: Queues &mdash; Coding Practice</b> &middot; 8 problems &middot; best 4 count &middot; due Friday</p>
+    <p class="note hw__sign frag" data-step="4" data-anim="fade" data-sid="11-hw-arrayqueue:65">PrairieLearn &rsaquo; <b data-sid="11-hw-arrayqueue:66">Week 8: Queues &mdash; Coding Practice</b> &middot; best 4 of 8 count &middot; due Friday</p>
   </div>
   <div class="slide__number" data-sid="11-hw-arrayqueue:67"></div>
-  <aside class="notes" data-sid="11-hw-arrayqueue:68">This week&rsquo;s homework has eight problems at 10 points each; your best four count, due Friday October 16 at 11:59 PM on PrairieLearn. Last class showed the four LinkedQueue problems; these are the four on an array. All four hand you an ArrayQueue that works the way today&rsquo;s slides do, with contents, frontIndex, backIndex and one unused slot; it is fixed-size, so a full queue makes checkCapacity throw instead of growing. The drawing is a full one: front on 4, back on 2, slot 3 unused. Step 1 &mdash; Bad Enqueue 1: someone else&rsquo;s enqueue with a mistake; find it. Ask where backIndex points at the moment the entry is written. Step 2 &mdash; Bad Enqueue 2: their second try, a different mistake; which of the two indices should an enqueue change? Step 3 &mdash; Manipulate 1: the queue holds red, red, red, and you may only call enqueue and dequeue to end with red, orange, yellow, green, blue, violet. Six entries in a queue of capacity 6 is full, so plan the order of your calls. Step 4 &mdash; Manipulate 2: the queue holds 13 down to 7, seven entries in a queue of capacity 7, and has to end as 9 down to 3. Where to find it: PrairieLearn, Assessments, Week 8: Queues &mdash; Coding Practice. Also due this week: Challenge Exercise 08, the Carrano Deque, on Friday; Project 2 Deliverable 3, the prototype with tests on two or more element types, at the start of your lab this week; and the 9.1 Lists and 9.2 More on Generics modules on Sunday. Next: the deadlines.</aside>
+  <aside class="notes" data-sid="11-hw-arrayqueue:68">This week&rsquo;s homework has eight problems at 10 points each. The best four count, and they are due Friday October 16 at 11:59 PM on PrairieLearn. Last class showed the four LinkedQueue problems; these are the four on an array. All four give students an ArrayQueue that works like the one on today&rsquo;s slides, with contents, frontIndex, backIndex and one unused slot. It is fixed-size, so when the queue is full, checkCapacity throws an exception instead of growing the array. The drawing shows a full queue: frontIndex 4, backIndex 2, slot 3 unused. Step 1, Bad Enqueue 1: an enqueue with one mistake, and the task is to find it. Ask where backIndex is when the entry is written. Step 2, Bad Enqueue 2: a second enqueue with a different mistake. Ask which of the two indices an enqueue should change. Step 3, Manipulate 1: the queue holds red, red, red. Using only enqueue and dequeue, it has to end as red, orange, yellow, green, blue, violet. Six entries fill a queue of capacity 6, so the order of the calls matters. Step 4, Manipulate 2: the queue holds 13 down to 7, seven entries in a queue of capacity 7, and has to end as 9 down to 3. Location: PrairieLearn, Assessments, Week 8: Queues &mdash; Coding Practice. Also due this week: Challenge Exercise 08, the Carrano Deque, on Friday; Project 2 Deliverable 3, the prototype with tests on two or more element types, at the start of each student&rsquo;s lab this week; and the 9.1 Lists and 9.2 More on Generics modules on Sunday. The next slide shows the deadlines.</aside>
 
   <style data-sid="11-hw-arrayqueue:69">
     /* Slide-local: a 2 × 3 grid. Top row: the queue in the deck's strip
-       grammar at 100 px cells on a 112 px pitch (700 × 230, blue pills front
-       above and back below, occupied slots in the orange 18% wash, the unused
-       slot a stone hatch) and the class card. Rows two and three: the four
-       problem cards in the orange of "yours to write", title in the body font,
-       signature in mono at the micro size, the hint at the micro size after
-       an orange label, explicit grid cells so auto-flow cannot misplace a
+       grammar at 100 px cells on a 112 px pitch (700 × 234, blue pills front
+       above and back below, 176 × 40 for their --t-micro labels, occupied
+       slots in the orange 18% wash, the unused slot a stone hatch) and the
+       class card (label at --t-small, fields and methods in mono at
+       --t-micro). Rows two and three: the four problem cards in the orange
+       of "yours to write", title in the body font, signature in mono at
+       --t-micro, the hint as one sentence at --t-small, explicit grid cells so auto-flow cannot misplace a
        frag. The signpost spans the bottom. Cards GrowFromCenter one per
        press; the signpost fades in with the fourth. All values from tokens;
        used by this slide only. */
-    #slide-11 .hw { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto auto; column-gap: var(--s-4); row-gap: var(--s-3); align-content: start; }
-    #slide-11 .hw__fig { grid-column: 1; grid-row: 1; display: block; width: 700px; height: 230px; overflow: visible; }
+    #slide-11 .hw { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto auto; column-gap: var(--s-4); row-gap: var(--s-2); align-content: start; }
+    #slide-11 .hw__fig { grid-column: 1; grid-row: 1; display: block; width: 700px; height: 234px; overflow: visible; }
     #slide-11 .hw__class { grid-column: 2; grid-row: 1; align-self: center; }
-    #slide-11 .hw__sign { grid-column: 1 / -1; grid-row: 4; margin: 0; font-size: var(--t-micro); line-height: 1.4; transition: opacity .3s ease; }
+    #slide-11 .hw__sign { grid-column: 1 / -1; grid-row: 4; margin: 0; font-size: var(--t-small); line-height: 1.35; transition: opacity .3s ease; }
     #slide-11 .hw__sign b { color: var(--accent-1); }
     #slide-11 .frag.hw__sign.is-current, #slide-11 .frag.hw__sign.is-past { transition-delay: .5s; }
     #slide-11 .hw__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
@@ -90,15 +91,14 @@
     #slide-11 .hw__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
     #slide-11 .hw__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
     #slide-11 .pill rect, #slide-11 .pill path { fill: var(--accent-2); }
-    #slide-11 .pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-11 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
     #slide-11 .hw__api { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-0); }
     #slide-11 .hw__api li { margin: 0; line-height: 1.5; }
     #slide-11 .hw__card { padding: var(--s-1) var(--s-4); }
-    #slide-11 .hw__class .tile__label { font-size: var(--t-micro); }
+    #slide-11 .hw__class .tile__label { font-size: var(--t-small); }
     #slide-11 .hw__card h3 { margin: 0 0 var(--s-1); font-size: var(--t-small); line-height: 1.25; color: var(--fg-0); }
     #slide-11 .hw__sig { margin: 0 0 var(--s-1); font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.3; color: var(--fg-0); }
-    #slide-11 .hw__hard { margin: 0; font-size: var(--t-micro); line-height: 1.35; color: var(--fg-1); }
-    #slide-11 .hw__k { margin-right: var(--s-1); font-family: var(--font-mono); font-size: var(--t-tag); color: var(--accent-3); }
+    #slide-11 .hw__hard { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); }
     #slide-11 .hw__card { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
     #slide-11 .frag.hw__card.is-pending { opacity: 0; transform: scale(0.4); }
     @media (prefers-reduced-motion: reduce) {

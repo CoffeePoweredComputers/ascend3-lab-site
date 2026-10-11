@@ -1,17 +1,17 @@
 <section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-removeback:1">
   <header class="slide__head" data-sid="08b-walk-removeback:2">
     <p class="slide__kicker" data-sid="08b-walk-removeback:3">VOTE 1 &middot; THE ANSWER</p>
-    <h2 data-sid="08b-walk-removeback:4">lastNode == null: the node removed was the only one</h2>
+    <h2 data-sid="08b-walk-removeback:4">lastNode == null is true when the removed node was the only node</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="08b-walk-removeback:5">A walkthrough of the vote's removeBack under a program-counter bar. On the right, a deque of two nodes, A and B, each with prev, data and next parts: A's next arrow arcs over to B, B's prev arrow arcs under, back to A; firstNode points at A and lastNode at B. Step one: back equals getBack, B, in a dark pill below. Step two: lastNode equals lastNode dot getPrev: lastNode's arrow swings back to A. Step three: lastNode is A, not null, so the else runs. Step four: lastNode dot setNext of null: A's next part is washed orange, the arrow over the chain goes, A's next reads null, and B's node, which nothing refers to now, fades. Step five: return B. Step six: removeBack again, on the deque with only A; back equals A. Step seven: lastNode becomes A's prev, which is null; its arrow goes. Step eight: lastNode equals null is true: the node just removed was the only one. Step nine: firstNode equals null; its arrow goes and A's node fades: both references read null and the deque is empty. Step ten: return A. Step eleven: removeBack once more, on the empty deque: getBack throws an EmptyQueueException, shown in maroon, before line 4 is reached; option C never gets to the test. Step twelve: a caption rules out A, because whatever a deque holds has a back, and B, because a linked deque is never full. Step thirteen: the four options, A, B and C struck through and D, removing from a deque with one item, left standing.</p>
+  <p class="sr-only slide__desc" data-sid="08b-walk-removeback:5">A walkthrough of the vote's removeBack under a program-counter bar. On the right, a deque of two nodes, A and B, each with prev, data and next parts: A's next arrow arcs over to B, B's prev arrow arcs under, back to A; firstNode refers to A and lastNode to B. Step one: back equals getBack, which is B, shown in a dark pill below. Step two: lastNode equals lastNode dot getPrev, and lastNode's arrow re-points to A. Step three: lastNode is A, not null, so the else runs. Step four: lastNode dot setNext of null. A's next part is washed orange, the arrow over the chain is removed and A's next reads null. Nothing refers to B's node, and it fades out. Step five: return B. Step six: removeBack runs again on the deque that holds only A, and back equals A. Step seven: lastNode is set to A's prev, which is null, and its arrow is removed. Step eight: lastNode equals null is true because the node just removed was the only node. Step nine: firstNode equals null. Its arrow is removed and A's node fades out. Both references are null, so the deque is empty. Step ten: return A. Step eleven: removeBack runs on the empty deque. getBack throws an EmptyQueueException, shown in maroon, before line 4 is reached, so option C never reaches the test. Step twelve: a caption rules out A, because a deque that holds items has a back node, and B, because a linked deque is never full. Step thirteen: the four options, with A, B and C struck through and D, removing from a deque with one item, not struck.</p>
 
   <!-- The answer as 06b's walk at the other end: the vote's removeBack under
        the PC bar, run on A ⇄ B (the else), on A alone (the if: the case the
        question asks about), and once more on the empty deque, where getBack()
        throws before the test (Carrano's getBack throws EmptyQueueException;
        the next step has no walkline, so the bar fades out on the throw). The
-       other two options are ruled out in words, then the verdict takes the
-       caption cell.
+       other two options are ruled out in a caption, then the verdict replaces
+       the captions in the same cell.
        steps 1–5: removeBack on A ⇄ B.  steps 6–10: on A alone.
        step 11: on empty, the throw (C).  step 12: A and B.  step 13: verdict D. -->
   <div class="slide__body grid grid--code code-mid rb" data-sid="08b-walk-removeback:6">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="codewalk rb__right" data-sid="08b-walk-removeback:27">
-      <svg class="rb__fig" viewBox="0 0 886 360" role="img" aria-label="A doubly linked deque of two nodes, A and B, with firstNode and lastNode pills; removeBack moves lastNode back to A, cuts A's next, then empties the deque, then throws on the empty deque" data-sid="08b-walk-removeback:28">
+      <svg class="rb__fig" viewBox="0 0 886 360" role="img" aria-label="A doubly linked deque of two nodes, A and B, with firstNode and lastNode pills; removeBack sets lastNode to A and A's next to null, then removes A, then throws on the empty deque" data-sid="08b-walk-removeback:28">
         <defs data-sid="08b-walk-removeback:29">
           <marker id="w8d1-08b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08b-walk-removeback:30"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08b-walk-removeback:31"/></marker>
         </defs>
@@ -43,22 +43,22 @@
         <text class="pnull pnull--last" x="574" y="34" data-sid="08b-walk-removeback:39">null</text>
 
         <g class="dn dn--a" data-sid="08b-walk-removeback:40">
-          <rect class="dn__box" x="40" y="150" width="210" height="80" rx="10" data-sid="08b-walk-removeback:41"/>
-          <rect class="dn__wash" x="183" y="153" width="64" height="74" rx="6" data-sid="08b-walk-removeback:42"/>
-          <path class="dn__div" d="M110 150v80M180 150v80" data-sid="08b-walk-removeback:43"/>
-          <text class="dn__f" x="75" y="172" data-sid="08b-walk-removeback:44">prev</text><text class="dn__f" x="145" y="172" data-sid="08b-walk-removeback:45">data</text><text class="dn__f" x="215" y="172" data-sid="08b-walk-removeback:46">next</text>
-          <text class="dn__nl" x="75" y="216" data-sid="08b-walk-removeback:47">null</text>
-          <text class="dn__v" x="145" y="218" data-sid="08b-walk-removeback:48">A</text>
-          <text class="dn__nl dn__nl--next" x="215" y="216" data-sid="08b-walk-removeback:49">null</text>
+          <rect class="dn__box" x="40" y="150" width="240" height="80" rx="10" data-sid="08b-walk-removeback:41"/>
+          <rect class="dn__wash" x="203" y="153" width="74" height="74" rx="6" data-sid="08b-walk-removeback:42"/>
+          <path class="dn__div" d="M120 150v80M200 150v80" data-sid="08b-walk-removeback:43"/>
+          <text class="dn__f" x="80" y="176" data-sid="08b-walk-removeback:44">prev</text><text class="dn__f" x="160" y="176" data-sid="08b-walk-removeback:45">data</text><text class="dn__f" x="240" y="176" data-sid="08b-walk-removeback:46">next</text>
+          <text class="dn__nl" x="80" y="218" data-sid="08b-walk-removeback:47">null</text>
+          <text class="dn__v" x="160" y="218" data-sid="08b-walk-removeback:48">A</text>
+          <text class="dn__nl dn__nl--next" x="240" y="218" data-sid="08b-walk-removeback:49">null</text>
         </g>
-        <path class="lnk lnk--next" d="M215 152 C 215 100, 415 100, 415 148" data-sid="08b-walk-removeback:50"/>
+        <path class="lnk lnk--next" d="M240 152 C 240 100, 420 100, 420 148" data-sid="08b-walk-removeback:50"/>
         <g class="dn dn--b" data-sid="08b-walk-removeback:51">
-          <rect class="dn__box" x="380" y="150" width="210" height="80" rx="10" data-sid="08b-walk-removeback:52"/>
-          <path class="dn__div" d="M450 150v80M520 150v80" data-sid="08b-walk-removeback:53"/>
-          <text class="dn__f" x="415" y="172" data-sid="08b-walk-removeback:54">prev</text><text class="dn__f" x="485" y="172" data-sid="08b-walk-removeback:55">data</text><text class="dn__f" x="555" y="172" data-sid="08b-walk-removeback:56">next</text>
-          <text class="dn__v" x="485" y="218" data-sid="08b-walk-removeback:57">B</text>
-          <text class="dn__nl" x="555" y="216" data-sid="08b-walk-removeback:58">null</text>
-          <path class="lnk" d="M415 230 C 415 282, 215 282, 215 234" data-sid="08b-walk-removeback:59"/>
+          <rect class="dn__box" x="380" y="150" width="240" height="80" rx="10" data-sid="08b-walk-removeback:52"/>
+          <path class="dn__div" d="M460 150v80M540 150v80" data-sid="08b-walk-removeback:53"/>
+          <text class="dn__f" x="420" y="176" data-sid="08b-walk-removeback:54">prev</text><text class="dn__f" x="500" y="176" data-sid="08b-walk-removeback:55">data</text><text class="dn__f" x="580" y="176" data-sid="08b-walk-removeback:56">next</text>
+          <text class="dn__v" x="500" y="218" data-sid="08b-walk-removeback:57">B</text>
+          <text class="dn__nl" x="580" y="218" data-sid="08b-walk-removeback:58">null</text>
+          <path class="lnk" d="M420 230 C 420 282, 240 282, 240 234" data-sid="08b-walk-removeback:59"/>
         </g>
 
         <path class="ref ref--first" d="M88 48 C 88 90, 88 110, 88 146" data-sid="08b-walk-removeback:60"/>
@@ -68,18 +68,18 @@
         <g class="exc frag" data-step="11" data-sid="08b-walk-removeback:66"><rect x="0" y="292" width="470" height="64" rx="10" data-sid="08b-walk-removeback:67"/><text x="235" y="336" data-sid="08b-walk-removeback:68">EmptyQueueException</text></g>
       </svg>
       <div class="codewalk__caps rb__caps" data-sid="08b-walk-removeback:69">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="08b-walk-removeback:70">removeBack() on A, B. back = getBack(): B.</p>
-        <p class="walkcap cap--2 frag" data-step="2" data-sid="08b-walk-removeback:71">lastNode = lastNode.getPrev(): lastNode moves back to A.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="08b-walk-removeback:72">lastNode is A, not null: the else runs.</p>
-        <p class="walkcap cap--4 frag" data-step="4" data-sid="08b-walk-removeback:73">lastNode.setNext(null): A lets go of B. Nothing refers to B&rsquo;s node now.</p>
-        <p class="walkcap cap--5 frag" data-step="5" data-sid="08b-walk-removeback:74">return back: B. One node is left.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="08b-walk-removeback:75">removeBack() again, on the deque with one node. back = A.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="08b-walk-removeback:76">lastNode = A&rsquo;s prev, which is null.</p>
-        <p class="walkcap walkcap--key cap--8 frag" data-step="8" data-sid="08b-walk-removeback:77">lastNode == null is true: the node just removed was the only one.</p>
-        <p class="walkcap cap--9 frag" data-step="9" data-sid="08b-walk-removeback:78">firstNode = null. Both references read null: the deque is empty.</p>
-        <p class="walkcap cap--10 frag" data-step="10" data-sid="08b-walk-removeback:79">return back: A.</p>
-        <p class="walkcap walkcap--fail cap--11 frag" data-step="11" data-sid="08b-walk-removeback:80">C: on an empty deque, getBack() throws before line 4. Even without it, lastNode.getPrev() on null is a NullPointerException.</p>
-        <p class="walkcap cap--12 frag" data-step="12" data-sid="08b-walk-removeback:81">A: whatever a deque holds has a back, so &ldquo;items only at the front&rdquo; is not a state. B: a linked deque is never full.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="08b-walk-removeback:70">removeBack() runs on A, B. getBack() returns B, so back is B.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="08b-walk-removeback:71">lastNode = lastNode.getPrev(), so lastNode now refers to A.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="08b-walk-removeback:72">lastNode is A, not null, so the else runs.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="08b-walk-removeback:73">lastNode.setNext(null) sets A&rsquo;s next to null. Nothing refers to B&rsquo;s node.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="08b-walk-removeback:74">return back returns B. The deque holds one node.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="08b-walk-removeback:75">removeBack() runs again on the deque with one node, and back is A.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="08b-walk-removeback:76">lastNode is set to A&rsquo;s prev, which is null.</p>
+        <p class="walkcap walkcap--key cap--8 frag" data-step="8" data-sid="08b-walk-removeback:77">lastNode == null is true because the node just removed was the only node.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="08b-walk-removeback:78">firstNode = null. Both references are null, so the deque is empty.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="08b-walk-removeback:79">return back returns A.</p>
+        <p class="walkcap walkcap--fail cap--11 frag" data-step="11" data-sid="08b-walk-removeback:80">C is the empty deque. getBack() throws before line 4 is reached. Without that check, lastNode.getPrev() would throw a NullPointerException.</p>
+        <p class="walkcap cap--12 frag" data-step="12" data-sid="08b-walk-removeback:81">A is not a state, because a deque that holds items has a back node. B is not a state either, because a linked deque is never full.</p>
         <ol class="verdict frag" data-step="13" data-sid="08b-walk-removeback:82">
           <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="08b-walk-removeback:83"><span class="verdict__txt" data-sid="08b-walk-removeback:84">Removing from a deque with items only at the front</span></li>
           <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="08b-walk-removeback:85"><span class="verdict__txt" data-sid="08b-walk-removeback:86">Removing from a full deque</span></li>
@@ -90,14 +90,16 @@
     </div>
   </div>
   <div class="slide__number" data-sid="08b-walk-removeback:91"></div>
-  <aside class="notes" data-sid="08b-walk-removeback:92">Answer: D &mdash; Removing from a deque with one item [key from the PrairieLearn twin u10q07_linkeddeque_tracing_b; confirm in Runestone]. Walk it on the same two-node deque as removeFront. Step 1 &mdash; back = getBack(): B. Step 2 &mdash; lastNode moves back one node, to A, using prev; this is why the deque has prev. Step 3 &mdash; A is not null, so the else. Step 4 &mdash; setNext(null): the new back node has nothing after it, and B is gone. Step 5 &mdash; return B. Step 6 &mdash; removeBack() on the deque with one node. Step 7 &mdash; lastNode becomes A&rsquo;s prev, and the only node has no prev: null. Step 8 &mdash; this is the case the question asks about: the test is true exactly when the node we just removed was the only one. Step 9 &mdash; firstNode = null: both ends are null, an empty deque. Step 10 &mdash; return A. Step 11 &mdash; C: call it once more on the empty deque. getBack() throws first, so line 4 is never reached; and even if it did not, lastNode is already null before the method starts, so lastNode.getPrev() would be a NullPointerException. Step 12 &mdash; A: a deque that holds anything has a back as well as a front, so &ldquo;only at the front&rdquo; describes nothing. B: a linked deque grows one node at a time and is never full; full is an array idea, Wednesday&rsquo;s. Step 13 &mdash; D. Next: Vote 2.</aside>
+  <aside class="notes" data-sid="08b-walk-removeback:92">Answer: D &mdash; Removing from a deque with one item [key from the PrairieLearn twin u10q07_linkeddeque_tracing_b; confirm in Runestone]. Walk it on the same two-node deque as removeFront. Step 1. back = getBack(), which is B. Step 2. lastNode is set to the node before it, A, through prev. This is why the deque has prev. Step 3. lastNode is not null, so the else runs. Step 4. setNext(null) sets A&rsquo;s next to null, because the new back node has no node after it. Nothing refers to B&rsquo;s node now. Step 5. The method returns B. Step 6. removeBack() runs on the deque with one node. Step 7. lastNode is set to A&rsquo;s prev, and the only node has a null prev. Step 8. This is the case the question asks about. The test is true exactly when the removed node was the only node. Step 9. firstNode = null, so both references are null and the deque is empty. Step 10. The method returns A. Step 11. Option C: call it once more on the empty deque. getBack() throws first, so line 4 is never reached. Without that check, lastNode is already null when the method starts, so lastNode.getPrev() would throw a NullPointerException. Step 12. Option A: a deque that holds anything has a back node as well as a front node, so &ldquo;only at the front&rdquo; describes no state. Option B: a linked deque adds one node at a time and is never full. Full is a property of arrays, which is Wednesday&rsquo;s topic. Step 13. The answer is D. Next is Vote 2.</aside>
 
   <style data-sid="08b-walk-removeback:93">
     /* Slide-local: the editor at --t-code (730 px: the getPrev line is 34
        characters, 34 × 19.2 + 70 = 723); on the right one 886 × 360 SVG at 1:1
        in 06's DLNode grammar, the captions under it with the verdict stacked
-       in the same cell (each option is up to 50 mono characters, 874 px at
-       the micro size, which fits only the right column). Motion as on 06b:
+       in the same cell. The verdict is in the body face at --t-small (the
+       options are words, not code): the longest, "A Removing from a deque
+       with items only at the front", is 843 px in the 886 px column (PIL);
+       four rows are about 211 px, so the cell reserves 215. Motion as on 06b:
        lastNode swings back to A (d transition); setNext washes A's next orange
        for its step, the next arrow fades, A's next null fades in; a node
        nothing refers to fades (B with its prev arrow); a reference set to null
@@ -108,8 +110,8 @@
     #slide-08b .rb { grid-template-columns: 730px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
     #slide-08b .rb__editor { width: 730px; }
     #slide-08b .rb__fig { display: block; width: 886px; height: 360px; overflow: visible; }
-    #slide-08b .rb__caps { min-height: 170px; }
-    #slide-08b .rb__caps .verdict { grid-area: 1 / 1; flex-direction: column; align-self: start; }
+    #slide-08b .rb__caps { min-height: 215px; }
+    #slide-08b .rb__caps .verdict { grid-area: 1 / 1; flex-direction: column; align-self: start; font-family: var(--font-body); font-size: var(--t-small); }
     #slide-08b .walkcap--key { color: var(--fg-0); }
     #slide-08b .walkcap--fail { color: var(--accent-1); }
 
@@ -120,9 +122,9 @@
     #slide-08b .dn { transition: opacity .4s ease; }
     #slide-08b .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
     #slide-08b .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
-    #slide-08b .dn__f { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--fg-1); text-anchor: middle; }
+    #slide-08b .dn__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
     #slide-08b .dn__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
-    #slide-08b .dn__nl { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-08b .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
     #slide-08b .dn__nl--next { opacity: 0; }
     #slide-08b .dn__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
     #slide-08b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d1-08b-head); transition: opacity .3s ease; }

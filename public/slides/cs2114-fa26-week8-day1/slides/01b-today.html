@@ -2,17 +2,17 @@
   <header class="slide__head" data-sid="01b-today:2">
     <h2 data-sid="01b-today:3">Today</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, each arriving in turn as a numbered column with a drawing of what the chapter is about. One, a queue on a linked chain: two references: a chain of three boxes joined by arrows, with an orange arrow coming down onto the first box and another onto the last. Two, a deque: each node knows both neighbours: two boxes with an orange arrow from the first to the second above them and another from the second back to the first below them. Three, this week's work: a sheet with lines of writing on it and an orange pencil beside it.</p>
+  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, shown one at a time as numbered columns, with a drawing of what the chapter is about. One, a linked queue keeps two references: a chain of three boxes joined by arrows, with an orange arrow coming down onto the first box and another onto the last. Two, each node in a deque has prev and next: two boxes with an orange arrow from the first to the second above them and another from the second back to the first below them. Three, this week's work: a sheet with lines of writing on it and an orange pencil beside it.</p>
 
   <!-- The agenda as three pictures of the hour: the two references a linked
        queue keeps (one at each end of the chain), the two arrows a deque's
        nodes carry (one each way), and the homework sheet. Each caption is the
-       divider title that follows, so the dividers are a callback. Each drawing
-       sits on the rule above its numeral and title, in the deck's two-weight
-       pen; columns grow from centre one per press.
-       step 1: the chain with two orange references — Part 1.
-       step 2: two nodes linked both ways — Part 2.
-       step 3: the sheet and pencil — Part 3. -->
+       title of the divider for that part. Each drawing is on the rule above
+       its numeral and title, in the deck's two-weight pen; columns grow from
+       centre one per press.
+       step 1: the chain with two orange references (Part 1).
+       step 2: two nodes linked both ways (Part 2).
+       step 3: the sheet and pencil (Part 3). -->
   <div class="slide__body" data-sid="01b-today:5">
     <ol class="grid ag" data-sid="01b-today:6">
       <li class="ag__ch frag" data-step="1" data-sid="01b-today:7">
@@ -31,7 +31,7 @@
           <g class="stone" data-sid="01b-today:21"><path d="M20 232h320" data-sid="01b-today:22"/></g>
         </svg>
         <p class="ag__n" data-sid="01b-today:23">01</p>
-        <h3 data-sid="01b-today:24">A queue on a linked chain: two references</h3>
+        <h3 data-sid="01b-today:24">A linked queue keeps two references</h3>
       </li>
       <li class="ag__ch frag" data-step="2" data-sid="01b-today:25">
         <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Two boxes with an orange arrow from the first to the second above them and another from the second back to the first below them" data-sid="01b-today:26">
@@ -46,7 +46,7 @@
           <g class="stone" data-sid="01b-today:36"><path d="M20 232h320" data-sid="01b-today:37"/></g>
         </svg>
         <p class="ag__n" data-sid="01b-today:38">02</p>
-        <h3 data-sid="01b-today:39">A deque: each node knows both neighbours</h3>
+        <h3 data-sid="01b-today:39">Each node in a deque has prev and next</h3>
       </li>
       <li class="ag__ch frag" data-step="3" data-sid="01b-today:40">
         <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A sheet with lines of writing on it and an orange pencil beside it" data-sid="01b-today:41">
@@ -64,16 +64,16 @@
     </ol>
   </div>
   <div class="slide__number" data-sid="01b-today:52"></div>
-  <aside class="notes" data-sid="01b-today:53">Three parts, all on the 8.1 Queues module you watched before Sunday. Step 1: Part 1 is a queue on a linked chain. A queue adds at one end and removes at the other, so the class keeps two references, firstNode and lastNode. We walk enqueue and dequeue and watch what happens to those two references. Step 2: Part 2 is the deque, which adds and removes at both ends, so each node gets a second link, prev. We walk two of its methods, then the two peer-instruction questions. Step 3: Part 3 is this week&rsquo;s work: the homework, the challenge exercise and your project deliverable. Next: the deadlines.</aside>
+  <aside class="notes" data-sid="01b-today:53">Three parts, all on the 8.1 Queues module that was due Sunday. Step 1. Part 1 is a linked queue. A queue adds at one end and removes at the other, so the class keeps two references, firstNode and lastNode. We walk enqueue and dequeue and follow what happens to those two references. Step 2. Part 2 is the deque, which adds and removes at both ends, so each node has a second reference, prev. We walk two of its methods, then the two peer-instruction questions. Step 3. Part 3 is this week&rsquo;s work: the homework, the challenge exercise and the project deliverable. Next are the deadlines.</aside>
 
   <style data-sid="01b-today:54">
-    /* Slide-local: the agenda as three previews of the hour, W7D1's tab
+    /* Slide-local: the agenda as three drawings, one per part, W7D1's tab
        grammar: a rule across the top, a display numeral in the tabs' orange,
        the caption as the title, the drawing of the chapter on the rule above
        them. The drawing box is a fixed 360 so the rules line up whatever the
        title's line count; every viewBox has the box's 3:2 proportions and is
        bottom-anchored, so all three render at one scale. Pen inks: neutral for
-       the world, orange for the thing being pointed at (the two references,
+       the world, orange for the subject of each drawing (the two references,
        the two links, the pencil), stone for the ground lines; the sheet is the
        deck's paper. Columns grow from centre. Used by this slide only, all
        values from tokens. */

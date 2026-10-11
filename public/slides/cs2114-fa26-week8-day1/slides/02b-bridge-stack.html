@@ -1,0 +1,151 @@
+<section class="slide slide--warmup" id="slide-02b" data-sid="02b-bridge-stack:1">
+  <header class="slide__head" data-sid="02b-bridge-stack:2">
+    <p class="slide__kicker" data-sid="02b-bridge-stack:3">FROM WEEK 7 TO WEEK 8</p>
+    <h2 data-sid="02b-bridge-stack:4">A stack is last in, first out. A queue is first in, first out.</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02b-bridge-stack:5">A bridge from last week to this week, built in four presses. Press one: on the left, a small call stack from Week 7, three frames stacked top-up on a base line, fact of 1 on top in orange with fact of 2 and fact of 3 under it, labelled call stack; the caption says that in Week 7 a frame is pushed on each call and popped on return, so the last one in is the first one out. Press two: in the centre, Week 5's linked stack, three nodes holding A, B and C, each with a data part and a next part, linked left to right, C's next null, and one blue pill labelled topNode with an arrow to A; the caption says a stack on a linked chain needs one reference, topNode, and push and pop both happen at that end. Press three: the same chain becomes a queue; the pill's label changes from topNode to firstNode, a second pill labelled lastNode grows in above C and its arrow is drawn down to C; the caption says a queue adds at one end and removes at the other, so the chain needs a second reference, lastNode, and that is the only new thing in Part 1. Press four: a table under the drawing, quoted from the module's video, says where each structure adds and removes: a stack adds with push of item at the front, the top, and removes with pop at the front; a queue adds with enqueue of item at the back and removes with dequeue at the front; a deque adds with addFront of item at the front and addBack of item at the back, and removes with removeFront at the front and removeBack at the back. The caption says the deque, in Part 2, adds and removes at both ends.</p>
+
+  <!-- Bridge from Week 7 (recursion on the call stack) and Week 5 (LinkedStack)
+       to Part 1 (LinkedQueue). One SVG in canvas px (1664 × 210), the caption
+       row under it, the comparison table under that.
+       step 1: the call stack recall (W7D1 09's frames at reduced size) grows in.
+       step 2: the LinkedStack chain (W8D1 04's Node boxes, W5D1 08's topNode) grows in.
+       step 3: the same chain becomes a queue in place: topNode's label crossfades to
+               firstNode, the lastNode pill grows in and its arrow Creates.
+       step 4: the comparison from DequeRemoveAndWrapUp.pdf slide 3 fades in. -->
+  <div class="slide__body br" data-sid="02b-bridge-stack:6">
+    <svg class="br__fig" viewBox="0 0 1664 210" role="img" aria-label="Left, a call stack of three frames, fact of 1 on top of fact of 2 and fact of 3. Centre, a linked chain of three nodes, A, B and C, with a topNode pill pointing at A that is relabelled firstNode, and a lastNode pill that appears above C with an arrow to C" data-sid="02b-bridge-stack:7">
+      <defs data-sid="02b-bridge-stack:8">
+        <marker id="w8d1-02b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02b-bridge-stack:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02b-bridge-stack:10"/></marker>
+      </defs>
+
+      <!-- Week 7: the call stack, top-up; the running frame orange, the waiting ones panel colour -->
+      <g class="br__cs frag" data-step="1" data-sid="02b-bridge-stack:11">
+        <g class="fr fr--run" data-sid="02b-bridge-stack:12"><rect x="0" y="10" width="300" height="56" rx="8" data-sid="02b-bridge-stack:13"/><text class="fr__call" x="20" y="48" data-sid="02b-bridge-stack:14">fact(1)</text><text class="fr__loc" x="284" y="48" data-sid="02b-bridge-stack:15">n = 1</text></g>
+        <g class="fr" data-sid="02b-bridge-stack:16"><rect x="0" y="74" width="300" height="56" rx="8" data-sid="02b-bridge-stack:17"/><text class="fr__call" x="20" y="112" data-sid="02b-bridge-stack:18">fact(2)</text><text class="fr__loc" x="284" y="112" data-sid="02b-bridge-stack:19">n = 2</text></g>
+        <g class="fr" data-sid="02b-bridge-stack:20"><rect x="0" y="138" width="300" height="56" rx="8" data-sid="02b-bridge-stack:21"/><text class="fr__call" x="20" y="176" data-sid="02b-bridge-stack:22">fact(3)</text><text class="fr__loc" x="284" y="176" data-sid="02b-bridge-stack:23">n = 3</text></g>
+        <path class="br__base" d="M0 202 H300" data-sid="02b-bridge-stack:24"/>
+        <text class="br__lab" x="316" y="196" data-sid="02b-bridge-stack:25">call stack</text>
+      </g>
+
+      <!-- Week 5: a linked stack, one reference at the first node -->
+      <g class="br__chain frag" data-step="2" data-sid="02b-bridge-stack:26">
+        <g class="pill" data-sid="02b-bridge-stack:27"><rect x="647" y="0" width="176" height="48" rx="8" data-sid="02b-bridge-stack:28"/><text class="pill__t pill__t--top" x="735" y="34" data-sid="02b-bridge-stack:29">topNode</text><text class="pill__t pill__t--first" x="735" y="34" data-sid="02b-bridge-stack:30">firstNode</text></g>
+        <path class="ref" d="M735 48 C 735 70, 735 86, 735 104" data-sid="02b-bridge-stack:31"/>
+        <g class="nd" data-sid="02b-bridge-stack:32">
+          <rect class="nd__box" x="640" y="110" width="190" height="90" rx="10" data-sid="02b-bridge-stack:33"/><path class="nd__div" d="M750 110v90" data-sid="02b-bridge-stack:34"/>
+          <text class="nd__f" x="650" y="138" data-sid="02b-bridge-stack:35">data</text><text class="nd__f" x="756" y="138" data-sid="02b-bridge-stack:36">next</text>
+          <text class="nd__v" x="695" y="184" data-sid="02b-bridge-stack:37">A</text>
+        </g>
+        <path class="lnk" d="M790 165 C 830 165, 870 165, 906 165" data-sid="02b-bridge-stack:38"/>
+        <g class="nd" data-sid="02b-bridge-stack:39">
+          <rect class="nd__box" x="920" y="110" width="190" height="90" rx="10" data-sid="02b-bridge-stack:40"/><path class="nd__div" d="M1030 110v90" data-sid="02b-bridge-stack:41"/>
+          <text class="nd__f" x="930" y="138" data-sid="02b-bridge-stack:42">data</text><text class="nd__f" x="1036" y="138" data-sid="02b-bridge-stack:43">next</text>
+          <text class="nd__v" x="975" y="184" data-sid="02b-bridge-stack:44">B</text>
+        </g>
+        <path class="lnk" d="M1070 165 C 1110 165, 1150 165, 1186 165" data-sid="02b-bridge-stack:45"/>
+        <g class="nd" data-sid="02b-bridge-stack:46">
+          <rect class="nd__box" x="1200" y="110" width="190" height="90" rx="10" data-sid="02b-bridge-stack:47"/><path class="nd__div" d="M1310 110v90" data-sid="02b-bridge-stack:48"/>
+          <text class="nd__f" x="1210" y="138" data-sid="02b-bridge-stack:49">data</text><text class="nd__f" x="1316" y="138" data-sid="02b-bridge-stack:50">next</text>
+          <text class="nd__v" x="1255" y="184" data-sid="02b-bridge-stack:51">C</text>
+          <text class="nd__nl" x="1350" y="184" data-sid="02b-bridge-stack:52">null</text>
+        </g>
+      </g>
+
+      <!-- Part 1: the second reference -->
+      <g class="pill pill--last frag" data-step="3" data-sid="02b-bridge-stack:53"><rect x="1207" y="0" width="176" height="48" rx="8" data-sid="02b-bridge-stack:54"/><text class="pill__t" x="1295" y="34" data-sid="02b-bridge-stack:55">lastNode</text></g>
+      <path class="arr frag" data-step="3" pathLength="100" d="M1295 48 C 1295 66, 1295 80, 1295 94" data-sid="02b-bridge-stack:56"/>
+      <path class="arrh frag" data-step="3" data-anim="fade" d="M1295 108 L1288 94 L1302 94 Z" data-sid="02b-bridge-stack:57"/>
+    </svg>
+
+    <div class="br__caps" data-sid="02b-bridge-stack:58">
+      <p class="br__cap cap--1 frag" data-step="1" data-sid="02b-bridge-stack:59">In Week 7, a frame is pushed on each call and popped on return. The last one in is the first one out.</p>
+      <p class="br__cap cap--2 frag" data-step="2" data-sid="02b-bridge-stack:60">In Week 5, a stack on a linked chain needed one reference, topNode. Push and pop both happen at that end.</p>
+      <p class="br__cap cap--3 frag" data-step="3" data-sid="02b-bridge-stack:61">A queue adds at one end and removes at the other, so the chain needs a second reference, lastNode. That is the only new thing in Part 1.</p>
+      <p class="br__cap cap--4 frag" data-step="4" data-sid="02b-bridge-stack:62">The deque, in Part 2, adds and removes at both ends.</p>
+    </div>
+
+    <div class="br__t frag" data-step="4" data-sid="02b-bridge-stack:63">
+      <table data-sid="02b-bridge-stack:64">
+        <thead data-sid="02b-bridge-stack:65"><tr data-sid="02b-bridge-stack:66"><th data-sid="02b-bridge-stack:67"></th><th data-sid="02b-bridge-stack:68">adds</th><th data-sid="02b-bridge-stack:69">removes</th></tr></thead>
+        <tbody data-sid="02b-bridge-stack:70">
+          <tr data-sid="02b-bridge-stack:71"><td class="br__n" data-sid="02b-bridge-stack:72">stack</td><td data-sid="02b-bridge-stack:73"><code data-sid="02b-bridge-stack:74">push(item)</code> at the front (top)</td><td data-sid="02b-bridge-stack:75"><code data-sid="02b-bridge-stack:76">pop()</code> at the front (top)</td></tr>
+          <tr data-sid="02b-bridge-stack:77"><td class="br__n" data-sid="02b-bridge-stack:78">queue</td><td data-sid="02b-bridge-stack:79"><code data-sid="02b-bridge-stack:80">enqueue(item)</code> at the back</td><td data-sid="02b-bridge-stack:81"><code data-sid="02b-bridge-stack:82">dequeue()</code> at the front</td></tr>
+          <tr data-sid="02b-bridge-stack:83"><td class="br__n" data-sid="02b-bridge-stack:84">deque</td><td data-sid="02b-bridge-stack:85"><code data-sid="02b-bridge-stack:86">addFront(item)</code> at the front<br data-sid="02b-bridge-stack:87"><code data-sid="02b-bridge-stack:88">addBack(item)</code> at the back</td><td data-sid="02b-bridge-stack:89"><code data-sid="02b-bridge-stack:90">removeFront()</code> at the front<br data-sid="02b-bridge-stack:91"><code data-sid="02b-bridge-stack:92">removeBack()</code> at the back</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="02b-bridge-stack:93"></div>
+  <aside class="notes" data-sid="02b-bridge-stack:94">Before Fall Break we used the call stack. Today we keep the chain from Week 5 and change one thing about it. Step 1. In Week 7 each method call pushed a frame on the call stack, and each return popped it. fact(1) was the last frame pushed and the first one popped. A stack is last in, first out. Step 2. In Week 5 we stored a stack on a linked chain. The class had one reference, topNode, to the first node. push added a node at that end and pop removed the node at that end, so one reference was enough. Step 3. A queue is first in, first out. It adds at the back and removes at the front, so it works at both ends of the chain. The reference to the first node is now called firstNode, and the class keeps a second reference, lastNode, to the last node. The nodes are the same Node class as in Week 5. lastNode is the only new thing in Part 1. Step 4. This table is the comparison from the end of the module&rsquo;s deque video. A stack adds and removes at the front, which is the top. A queue adds at the back and removes at the front. A deque, a double-ended queue, adds and removes at both ends; that is Part 2. Each one also has a method that reads without removing: peek for the stack, getFront for the queue, getFront and getBack for the deque. Part 1 starts with enqueue on a linked queue.</aside>
+
+  <style data-sid="02b-bridge-stack:95">
+    /* Slide-local: a bridge from Week 7 and Week 5 to Part 1. One SVG at 1:1
+       (1664 × 210): left, the call stack in W7D1 09's frame grammar at reduced
+       size (300 × 56 frames on a 64 px pitch, labels at --t-micro); centre, W8D1
+       04's Node boxes (190 × 90, data | next) on a 280 px pitch with blue pills
+       and blue links. Under it one caption at a time at --t-small (two lines
+       reserved), then the comparison table at --t-small. Motion: the two
+       drawings GrowFromCenter; the pill label crossfades from topNode to
+       firstNode; the lastNode pill GrowsFromCenter and its arrow Creates, the
+       head fading in after the shaft; the table fades in. Used by this slide
+       only, all values from tokens. */
+    #slide-02b .br { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-3); align-content: start; }
+    #slide-02b .br__fig { display: block; width: 1664px; height: 210px; overflow: visible; }
+
+    /* call stack */
+    #slide-02b .fr rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-02b .fr--run rect { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-02b .fr__call { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-02b .fr__loc { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: end; }
+    #slide-02b .br__base { fill: none; stroke: var(--stone); stroke-width: 3; }
+    #slide-02b .br__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); }
+
+    /* chain */
+    #slide-02b .pill rect { fill: var(--accent-2); }
+    #slide-02b .pill__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; transition: opacity .4s ease; }
+    #slide-02b .pill__t--first { opacity: 0; }
+    #slide-02b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02b .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-02b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02b .lnk, #slide-02b .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w8d1-02b-head); }
+    #slide-02b .ref { stroke-width: 5; }
+
+    /* GrowFromCenter: the two drawings and the lastNode pill */
+    #slide-02b .br__cs, #slide-02b .br__chain, #slide-02b .pill--last { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02b .frag.br__cs.is-pending, #slide-02b .frag.br__chain.is-pending, #slide-02b .frag.pill--last.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* step 3: topNode is relabelled firstNode */
+    #slide-02b .br:has(.cap--3:not(.is-pending)) .pill__t--top { opacity: 0; }
+    #slide-02b .br:has(.cap--3:not(.is-pending)) .pill__t--first { opacity: 1; }
+    /* step 3: lastNode's arrow Creates, the head after it */
+    #slide-02b .arr { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-02b .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-02b .frag.arr.is-current, #slide-02b .frag.arr.is-past { stroke-dashoffset: 0; transition-delay: .4s; }
+    #slide-02b .arrh { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-02b .frag.arrh.is-current, #slide-02b .frag.arrh.is-past { transition-delay: .85s; }
+
+    /* captions: one at a time */
+    #slide-02b .br__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02b .br__caps > * { grid-area: 1 / 1; }
+    #slide-02b .slide__body p.br__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02b .frag.br__cap.is-current { transition-delay: .3s; }
+    #slide-02b .frag.br__cap.is-past { opacity: 0; transition-delay: 0s; }
+
+    /* the comparison table */
+    #slide-02b .br__t { transition: opacity .3s ease; }
+    #slide-02b .br__t table { width: 100%; border-collapse: collapse; font-size: var(--t-small); line-height: 1.3; }
+    #slide-02b .br__t th { font-weight: 400; color: var(--fg-1); text-align: left; padding: 0 0 var(--s-1); border-bottom: 3px solid var(--fg-1); }
+    #slide-02b .br__t td { padding: var(--s-1) var(--s-3) var(--s-1) 0; border-bottom: 2px solid var(--bg-1); color: var(--fg-0); vertical-align: top; }
+    #slide-02b .br__t th:first-child, #slide-02b .br__t td:first-child { width: 180px; }
+    #slide-02b .br__t code { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
+    #slide-02b .br__t td.br__n { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02b .br__cs, #slide-02b .br__chain, #slide-02b .pill--last, #slide-02b .pill__t,
+      #slide-02b .arr, #slide-02b .arrh, #slide-02b .br__cap, #slide-02b .br__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

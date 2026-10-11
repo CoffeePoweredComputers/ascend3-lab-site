@@ -2,16 +2,15 @@
   <header class="slide__head" data-sid="01b-today:2">
     <h2 data-sid="01b-today:3">Today</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, each arriving in turn as a numbered column with a drawing of what the chapter is about. One, a queue on an array, where the front moves and the indices wrap: a row of five cells, the first two empty and the last three orange, with an arrow curving from the end of the row back to its start. Two, which slots are in the queue: a row of five cells with the last two and the first one orange, a marker above the fourth cell and a marker below the first. Three, this week's work: three lines of code, each led by an orange dot.</p>
+  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, each arriving in turn as a numbered column with a drawing of what the chapter is about. One, a queue on an array, where frontIndex moves and both indices wrap around: a row of five cells, the first two empty and the last three orange, with an arrow curving from the end of the row back to its start. Two, which slots are in the queue: a row of five cells with the last two and the first one orange, a marker above the fourth cell and a marker below the first. Three, this week's work: three lines of code, each led by an orange dot.</p>
 
-  <!-- The agenda is the hour in three pictures: an array whose end wraps back
-       to its start, the same row with the queue's entries wrapped round it and
-       the two markers that bound them (the votes), and three lines of code
-       (the homework). Each column is the divider that follows it, so the three
-       chapter slides are a callback rather than an announcement. Two-weight
-       pen; columns grow from centre.
-       step 1: the wrapping row — Part 1, four walks.
-       step 2: the wrapped entries — Part 2, two votes.
+  <!-- The agenda has one picture per part: a row with an arrow from its last
+       cell back to its first, the same row with the queue's entries running
+       past the end and the two markers at front and back (the votes), and
+       three lines of code (the homework). Each column's caption is the title
+       of the divider for that part. Two-weight pen; columns grow from centre.
+       step 1: the row with the return arrow — Part 1, four walks.
+       step 2: the entries past the end — Part 2, two votes.
        step 3: the three lines — Part 3, the homework. -->
   <div class="slide__body" data-sid="01b-today:5">
     <ol class="grid ag" data-sid="01b-today:6">
@@ -23,7 +22,7 @@
           <g class="stone" data-sid="01b-today:19"><path d="M30 232h300" data-sid="01b-today:20"/></g>
         </svg>
         <p class="ag__n" data-sid="01b-today:21">01</p>
-        <h3 data-sid="01b-today:22">A queue on an array: the front moves and the indices wrap</h3>
+        <h3 data-sid="01b-today:22">A queue on an array, where frontIndex moves and both indices wrap around</h3>
       </li>
       <li class="ag__ch frag" data-step="2" data-sid="01b-today:23">
         <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A row of five cells with the last two and the first one orange, a marker above the fourth cell and a marker below the first" data-sid="01b-today:24">
@@ -47,14 +46,14 @@
     </ol>
   </div>
   <div class="slide__number" data-sid="01b-today:51"></div>
-  <aside class="notes" data-sid="01b-today:52">Three parts, one array. Step 1: Part 1 &mdash; a queue stored in an array; we walk four short pieces of code and see that the front of the queue moves, that both indices wrap round from the last slot to slot 0, and that one slot always stays empty. Step 2: Part 2 &mdash; two votes, both about reading frontIndex and backIndex and counting the entries between them. Step 3: Part 3 &mdash; the four array-queue problems in this week&rsquo;s homework. Next: the deadlines.</aside>
+  <aside class="notes" data-sid="01b-today:52">There are three parts, all on one array. Step 1: Part 1 is a queue stored in an array. We walk four short pieces of code. They show that frontIndex moves, that both indices go from the last slot to slot 0, and that one slot always stays empty. Step 2: Part 2 is two votes. Both are about reading frontIndex and backIndex and counting the entries between them. Step 3: Part 3 is the four array-queue problems in this week&rsquo;s homework. The deadlines follow.</aside>
 
   <style data-sid="01b-today:53">
-    /* Slide-local: the agenda as three previews of the hour, W2D2's tab
+    /* Slide-local: the agenda as three columns, W2D2's tab
        grammar — a rule across the top, a display numeral in the tabs' orange,
        the caption as the title — with the drawing of what the chapter is about
        sitting on the rule above them. The drawing box is a fixed 360 so the
-       rules line up across columns whatever the title's line count; every
+       rules line up across columns for any number of title lines; every
        viewBox has the box's 3:2 proportions and is bottom-anchored, so all
        three render at one scale. Pen inks: neutral for the world, orange for
        the queue's entries and the homework, stone for the ground lines.

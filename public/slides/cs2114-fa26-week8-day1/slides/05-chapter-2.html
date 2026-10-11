@@ -1,11 +1,11 @@
 <section class="slide slide--section slide--center divider" id="slide-05" data-transition="fade" data-sid="05-chapter-2:1">
-  <!-- Section divider: PART 2 OF 3, full size. The heading is the tab
-       caption from 01b-today, so the divider is a callback, not an announcement. -->
+  <!-- Section divider: PART 2 OF 3, full size. The heading repeats the
+       tab caption from 01b-today. -->
   <header class="slide__head" data-sid="05-chapter-2:2">
     <p class="slide__kicker" data-sid="05-chapter-2:3">PART 2 OF 3</p>
-    <h2 data-sid="05-chapter-2:4">A deque: each node knows both neighbours</h2>
-    <p class="sr-only slide__desc" data-sid="05-chapter-2:5">Section divider. The chapter title, A deque: each node knows both neighbours, centred on an otherwise empty slide under a small label reading part 2 of 3. Nothing builds.</p>
+    <h2 data-sid="05-chapter-2:4">Each node in a deque has prev and next</h2>
+    <p class="sr-only slide__desc" data-sid="05-chapter-2:5">Section divider. The chapter title, Each node in a deque has prev and next, centred on an otherwise empty slide under a small label reading part 2 of 3. Nothing builds.</p>
   </header>
   <div class="slide__number" data-sid="05-chapter-2:6"></div>
-  <aside class="notes" data-sid="05-chapter-2:7">Part 2. A deque, a double-ended queue, adds and removes at both ends. Removing at the back means finding the node before the last one, and a singly linked chain cannot go backwards. So the deque in the videos uses a doubly linked node: each node has prev as well as next.</aside>
+  <aside class="notes" data-sid="05-chapter-2:7">Part 2. A deque, a double-ended queue, adds and removes at both ends. Removing at the back needs the node before the last one, and a node in a singly linked chain has no reference to the node before it. So the deque in the videos uses a doubly linked node, which has prev as well as next.</aside>
 </section>
