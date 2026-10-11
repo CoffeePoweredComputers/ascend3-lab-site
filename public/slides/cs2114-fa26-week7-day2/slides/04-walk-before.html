@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-04" data-sid="04-walk-before:1">
   <header class="slide__head" data-sid="04-walk-before:2">
-    <p class="slide__kicker" data-sid="04-walk-before:3">BEFORE THE CALL &middot; A WALK</p>
-    <h2 data-sid="04-walk-before:4">print(n) above the call: it runs on the way in</h2>
+    <p class="slide__kicker" data-sid="04-walk-before:3">PRINT BEFORE THE CALL &middot; WALKTHROUGH</p>
+    <h2 data-sid="04-walk-before:4">print(n) above the call runs before the next call</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04-walk-before:5">A walkthrough of a five-line method under a program-counter bar: void count of int n; if n equals 0, return; print n; count of n minus 1; closing brace. On the right, the call stack drawn as boxes stacked from the bottom up, and a white plate labelled output. Step one: count of 3 is called and its box appears with n equals 3. Step two: it prints 3. Step three: it calls count of 2; a new box appears on top and the box below is marked waiting on line 4. Steps four to seven: count of 2 prints 2 and calls count of 1, count of 1 prints 1 and calls count of 0. Step eight: n is 0, so count of 0 returns and its box fades. Step nine: the three remaining boxes finish one after another and fade, because nothing is left after the call. The output reads 3 2 1. Step ten: the rule: a line above the call runs on the way in.</p>
+  <p class="sr-only slide__desc" data-sid="04-walk-before:5">A walkthrough of a five-line method under a program-counter bar: void count of int n; if n equals 0, return; print n; count of n minus 1; closing brace. On the right, the call stack drawn as boxes stacked from the bottom up, and a white plate labelled output. Step one: count of 3 is called and its box appears with n equals 3. Step two: it prints 3. Step three: it calls count of 2; a new box appears on top and the box below is marked waiting on line 4. Steps four to seven: count of 2 prints 2 and calls count of 1, count of 1 prints 1 and calls count of 0. Step eight: n is 0, so count of 0 returns and its box fades. Step nine: the three remaining boxes finish one after another and fade, because nothing is left after the call. The output reads 3 2 1. Step ten: the rule: a line above the call runs before the next call starts.</p>
 
   <!-- The concept intro for the hour (the instructor's standing rule: walk
        code, no definition slide). count(3) with print(n) ABOVE the call;
@@ -48,21 +48,21 @@
         <text class="out__t frag" data-step="6" x="704" y="160" data-sid="04-walk-before:52">1</text>
       </svg>
       <div class="codewalk__caps" data-sid="04-walk-before:53">
-        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-before:54">count(3) is called: a frame with its own n = 3. n is not 0, so it carries on.</p>
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-before:54">count(3) is called: a frame with its own n = 3. n is not 0, so it keeps going.</p>
         <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-before:55">print(n) comes first: 3.</p>
         <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-before:56">count(3) calls count(2) and waits on line 4. The new frame has its own n = 2.</p>
         <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-before:57">count(2) prints 2.</p>
         <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-before:58">count(2) calls count(1) and waits.</p>
         <p class="walkcap cap--6 frag" data-step="6" data-sid="04-walk-before:59">count(1) prints 1.</p>
         <p class="walkcap cap--7 frag" data-step="7" data-sid="04-walk-before:60">count(1) calls count(0) and waits. Four frames.</p>
-        <p class="walkcap cap--8 frag" data-step="8" data-sid="04-walk-before:61">n is 0: the base case returns. Its frame comes off and count(1) picks up after its call.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04-walk-before:61">n is 0: the base case returns. Its frame is removed and count(1) continues after its call.</p>
         <p class="walkcap cap--9 frag" data-step="9" data-sid="04-walk-before:62">After the call there is only the closing brace, so count(1), count(2) and count(3) each finish. Output: 3 2 1.</p>
-        <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="04-walk-before:63">A line above the call runs on the way in, before the next call starts.</p>
+        <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="04-walk-before:63">A line above the recursive call runs before the next call starts.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="04-walk-before:64"></div>
-  <aside class="notes" data-sid="04-walk-before:65">A small method, different from last class&rsquo;s fact: count(n) prints n and then counts down from n &minus; 1. print(n) is short for System.out.print. Watch where the print sits: above the recursive call. Step 1 &mdash; count(3) is called; one frame with its own n. n is not 0, so we go on. Step 2 &mdash; print(n): 3. Step 3 &mdash; count(3) calls count(2) and waits on line 4; a new frame, its own n. Step 4 &mdash; count(2) prints 2. Step 5 &mdash; count(2) calls count(1) and waits. Step 6 &mdash; count(1) prints 1. Step 7 &mdash; count(1) calls count(0). Four frames on the stack. Step 8 &mdash; n is 0, the base case returns; that frame comes off and count(1) picks up on the line after its call. Step 9 &mdash; the line after the call is the closing brace, so there is nothing left to do: count(1), count(2), count(3) finish one after another. The output is 3 2 1, and all of it printed on the way in. Step 10 &mdash; the rule for the top half: a line above the call runs on the way in. Next: the same method with one line moved.</aside>
+  <aside class="notes" data-sid="04-walk-before:65">A small method, different from last class&rsquo;s fact: count(n) prints n and then counts down from n &minus; 1. print(n) is short for System.out.print. Watch where the print sits: above the recursive call. Step 1 &mdash; count(3) is called; one frame with its own n. n is not 0, so we go on. Step 2 &mdash; print(n): 3. Step 3 &mdash; count(3) calls count(2) and waits on line 4; a new frame, its own n. Step 4 &mdash; count(2) prints 2. Step 5 &mdash; count(2) calls count(1) and waits. Step 6 &mdash; count(1) prints 1. Step 7 &mdash; count(1) calls count(0). Four frames on the stack. Step 8 &mdash; n is 0, the base case returns; that frame is removed and count(1) continues on the line after its call. Step 9 &mdash; the line after the call is the closing brace, so there is nothing left to do: count(1), count(2), count(3) finish one after another. The output is 3 2 1, and all of it printed before the next call started. Step 10 &mdash; the rule: a line above the call runs before the next call starts. Next: the same method with one line moved.</aside>
 
   <style data-sid="04-walk-before:66">
     /* Slide-local: the editor at --t-code (600 px: the if line is 27

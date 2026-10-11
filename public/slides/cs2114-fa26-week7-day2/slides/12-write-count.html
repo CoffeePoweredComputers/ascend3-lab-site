@@ -1,7 +1,7 @@
 <section class="slide slide--warmup" id="slide-12" data-sid="12-write-count:1">
   <header class="slide__head" data-sid="12-write-count:2">
-    <p class="slide__kicker" data-sid="12-write-count:3">WRITING ONE &middot; THREE QUESTIONS</p>
-    <h2 data-sid="12-write-count:4">Count the nodes of a chain, one question at a time</h2>
+    <p class="slide__kicker" data-sid="12-write-count:3">WRITING A RECURSIVE METHOD</p>
+    <h2 data-sid="12-write-count:4">Count the nodes in a chain with three questions</h2>
   </header>
   <p class="sr-only slide__desc" data-sid="12-write-count:5">A recursive method written one line per question, then run. Left, an editor that starts with only the header int count of Node curr and its closing brace, and a list of three questions under it. Step one: question 1, when do I stop?, appears, and the line if curr is null, return 0 is written. Step two: question 2, what is the smaller problem?, and the line int rest equals count of curr's next. Step three: question 3, what do I do with its answer?, and the line return 1 plus rest. On the right, the chain A, B, C ending in null with a blue ring on the node the running call is looking at, and the call stack under it. Steps four to seven: count is called on A, then on B, C and null, a box appearing for each with the one below marked waiting on line 3. Step eight: curr is null, so that call returns 0; a blue pill reading 0 moves down into the box for C and the null box fades. Steps nine to eleven: each box returns 1 plus what it got, so pills reading 1, 2 and 3 move down one box at a time; the last one, 3, drops below the stack as the answer.</p>
 
@@ -37,17 +37,17 @@
       </ol>
       <div class="codewalk" data-sid="12-write-count:32">
         <div class="codewalk__caps" data-sid="12-write-count:33">
-          <p class="walkcap cap--1 frag" data-step="1" data-sid="12-write-count:34">When there is no chain left. curr == null is the empty chain, and it has 0 nodes.</p>
-          <p class="walkcap cap--2 frag" data-step="2" data-sid="12-write-count:35">The rest of the chain, from curr.getNext(). The same method counts it.</p>
-          <p class="walkcap cap--3 frag" data-step="3" data-sid="12-write-count:36">Add 1 for this node to the count of the rest.</p>
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="12-write-count:34">When curr is null. There are no nodes left, so return 0.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="12-write-count:35">Counting the nodes after this one, from curr.getNext(). Call count on it.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="12-write-count:36">Add 1 for this node to the count that comes back.</p>
           <p class="walkcap cap--4 frag" data-step="4" data-sid="12-write-count:37">Run it: count(A). curr is not null.</p>
-          <p class="walkcap cap--5 frag" data-step="5" data-sid="12-write-count:38">count(A) calls count on the rest, from B, and waits on line 3.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="12-write-count:38">count(A) calls count(B) and waits on line 3.</p>
           <p class="walkcap cap--6 frag" data-step="6" data-sid="12-write-count:39">count(B) calls count(C) and waits.</p>
           <p class="walkcap cap--7 frag" data-step="7" data-sid="12-write-count:40">count(C) calls count on null and waits.</p>
-          <p class="walkcap cap--8 frag" data-step="8" data-sid="12-write-count:41">The empty chain returns 0. It goes back to count(C) as rest.</p>
+          <p class="walkcap cap--8 frag" data-step="8" data-sid="12-write-count:41">count(null) returns 0. count(C) stores it in rest.</p>
           <p class="walkcap cap--9 frag" data-step="9" data-sid="12-write-count:42">count(C) returns 1 + 0 = 1 to count(B).</p>
           <p class="walkcap cap--10 frag" data-step="10" data-sid="12-write-count:43">count(B) returns 1 + 1 = 2 to count(A).</p>
-          <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="12-write-count:44">count(A) returns 1 + 2 = 3. The answers came back up: 0, 1, 2, 3.</p>
+          <p class="walkcap walkcap--plant cap--11 frag" data-step="11" data-sid="12-write-count:44">count(A) returns 1 + 2 = 3: the chain has 3 nodes.</p>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@
     </svg>
   </div>
   <div class="slide__number" data-sid="12-write-count:117"></div>
-  <aside class="notes" data-sid="12-write-count:118">Writing a recursive method from three questions. The example is counting the nodes of a chain, which is not one of the homework problems. Step 1 &mdash; question 1, when do I stop? When there is no chain left: curr == null. An empty chain has 0 nodes, so return 0. Step 2 &mdash; question 2, what is the smaller problem? The rest of the chain, which starts at curr.getNext(). Trust the same method to count it, the way show trusted itself to show the rest. Step 3 &mdash; question 3, what do I do with its answer? Add 1, for this node. Three lines, three questions. Now run it. Step 4 &mdash; count(A); curr is not null. Step 5 &mdash; line 3 calls count on the rest, from B, and count(A) waits there. Steps 6 and 7 &mdash; the same for B and C; C&rsquo;s next is null. Step 8 &mdash; count(null) is the base case and returns 0; the 0 goes back down into count(C), which was waiting on line 3, and becomes rest. Step 9 &mdash; count(C) returns 1 + 0 = 1. Step 10 &mdash; count(B) returns 2. Step 11 &mdash; count(A) returns 3. The add happens below the call, so it happens on the way back: that is why the numbers come up the stack. Next: the homework, five methods of this shape.</aside>
+  <aside class="notes" data-sid="12-write-count:118">Writing a recursive method from three questions. The example is counting the nodes of a chain, which is not one of the homework problems. Step 1 &mdash; question 1, when do I stop? When curr == null. There are no nodes left, so return 0. Step 2 &mdash; question 2, what is the smaller problem? Counting the nodes after this one, starting at curr.getNext(). Call count on it, the same way show called itself on the next node. Step 3 &mdash; question 3, what do I do with its answer? Add 1, for this node. Three lines, three questions. Now run it. Step 4 &mdash; count(A); curr is not null. Step 5 &mdash; line 3 calls count(B), and count(A) waits there. Steps 6 and 7 &mdash; the same for B and C; C&rsquo;s next is null. Step 8 &mdash; count(null) is the base case and returns 0; the 0 goes back down into count(C), which was waiting on line 3, and becomes rest. Step 9 &mdash; count(C) returns 1 + 0 = 1. Step 10 &mdash; count(B) returns 2. Step 11 &mdash; count(A) returns 3. The add is below the call, so it runs after each call returns: that is why the answers 0, 1, 2, 3 come back one call at a time. Next: the homework, five methods of this shape.</aside>
 
   <style data-sid="12-write-count:119">
     /* Slide-local: the editor at --t-code (780 px: the rest line is 37

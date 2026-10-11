@@ -1,7 +1,7 @@
 <section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-mirror:1">
   <header class="slide__head" data-sid="07b-walk-mirror:2">
     <p class="slide__kicker" data-sid="07b-walk-mirror:3">VOTE 2 &middot; THE ANSWER</p>
-    <h2 data-sid="07b-walk-mirror:4">4 2 0 2 4: each number once on the way in, once on the way back</h2>
+    <h2 data-sid="07b-walk-mirror:4">4 2 0 2 4: each number prints before its call and after it</h2>
   </header>
   <p class="sr-only slide__desc" data-sid="07b-walk-mirror:5">A walkthrough of mirror of 4 under a program-counter bar. On the right, the call stack as boxes stacked from the bottom up and a white plate labelled output. Step one: mirror of 4 is called, its box appears, and the print above the call prints 4. Step two: it calls mirror of 2; a box appears on top and the box below is marked waiting on line 6. Step three: 2. Step four: mirror of 2 calls mirror of 0. Step five: 0 is less than or equal to 0, so the base case prints 0 and makes no call. Step six: mirror of 0's box fades and mirror of 2 prints 2 with the line below its call. Step seven: mirror of 2's box fades and mirror of 4 prints 4. Step eight: the last box fades; the output reads 4 2 0 2 4. Step nine: a caption says what options B, C and D each assume, and the four options appear under the code with B, C and D struck through and A left standing.</p>
 
@@ -58,18 +58,18 @@
       <div class="codewalk__caps" data-sid="07b-walk-mirror:64">
         <p class="walkcap cap--1 frag" data-step="1" data-sid="07b-walk-mirror:65">mirror(4): 4 is not 0 or less, so the else runs. The print above the call: 4.</p>
         <p class="walkcap cap--2 frag" data-step="2" data-sid="07b-walk-mirror:66">mirror(4) calls mirror(2), not mirror(3): the step is n &minus; 2. It waits on line 6.</p>
-        <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-mirror:67">mirror(2) prints 2 on the way in.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-mirror:67">mirror(2) prints 2 before its call.</p>
         <p class="walkcap cap--4 frag" data-step="4" data-sid="07b-walk-mirror:68">mirror(2) calls mirror(0) and waits.</p>
         <p class="walkcap cap--5 frag" data-step="5" data-sid="07b-walk-mirror:69">0 is 0 or less: the base case prints the middle 0 and makes no call.</p>
-        <p class="walkcap cap--6 frag" data-step="6" data-sid="07b-walk-mirror:70">mirror(0) comes off. mirror(2) picks up after its call and prints 2 again.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="07b-walk-mirror:71">mirror(2) comes off. mirror(4) prints 4 again.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="07b-walk-mirror:70">mirror(0) is removed. mirror(2) continues after its call and prints 2 again.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="07b-walk-mirror:71">mirror(2) is removed. mirror(4) prints 4 again.</p>
         <p class="walkcap cap--8 frag" data-step="8" data-sid="07b-walk-mirror:72">mirror(4) finishes. Output: 4 2 0 2 4.</p>
         <p class="walkcap cap--9 frag" data-step="9" data-sid="07b-walk-mirror:73">B steps by 1, but the call is mirror(n &minus; 2). C skips the first call&rsquo;s prints. D prints the base case first, but 4 prints before any call.</p>
       </div>
     </div>
   </div>
   <div class="slide__number" data-sid="07b-walk-mirror:74"></div>
-  <aside class="notes" data-sid="07b-walk-mirror:75">Answer: A &mdash; 4 2 0 2 4 [ASSUMED by tracing; confirm in Runestone]. Same picture as the last vote, with a print on both sides of the call. Step 1 &mdash; mirror(4): 4 is not 0 or less, so the else runs, and the print above the call prints 4. Step 2 &mdash; it calls mirror(2), not mirror(3): the call is n minus 2. mirror(4) waits on line 6. Step 3 &mdash; mirror(2) prints 2 on the way in. Step 4 &mdash; mirror(2) calls mirror(0). Step 5 &mdash; 0 is 0 or less: the base case prints 0 and makes no call. That is the middle of the output. Step 6 &mdash; mirror(0) is done; mirror(2) picks up on line 7, the print below the call: 2. Step 7 &mdash; mirror(4) picks up: 4. Step 8 &mdash; done: 4 2 0 2 4. Each number prints twice, once on the way in and once on the way back; the base case prints once. Step 9 &mdash; the wrong answers. B counts down by one, but the call is mirror(n &minus; 2). C leaves out the prints of the first call, mirror(4). D puts the base case&rsquo;s 0 first, but 4 is printed before mirror(4) makes any call. Next: Part 2, the same idea on a linked chain.</aside>
+  <aside class="notes" data-sid="07b-walk-mirror:75">Answer: A &mdash; 4 2 0 2 4 [ASSUMED by tracing; confirm in Runestone]. Same picture as the last vote, with a print on both sides of the call. Step 1 &mdash; mirror(4): 4 is not 0 or less, so the else runs, and the print above the call prints 4. Step 2 &mdash; it calls mirror(2), not mirror(3): the call is n minus 2. mirror(4) waits on line 6. Step 3 &mdash; mirror(2) prints 2 before its call. Step 4 &mdash; mirror(2) calls mirror(0). Step 5 &mdash; 0 is 0 or less: the base case prints 0 and makes no call. That is the middle of the output. Step 6 &mdash; mirror(0) is done; mirror(2) continues on line 7, the print below the call: 2. Step 7 &mdash; mirror(4) continues: 4. Step 8 &mdash; done: 4 2 0 2 4. Each number prints twice, once before its call and once after it returns; the base case prints once. Step 9 &mdash; the wrong answers. B counts down by one, but the call is mirror(n &minus; 2). C leaves out the prints of the first call, mirror(4). D puts the base case&rsquo;s 0 first, but 4 is printed before mirror(4) makes any call. Next: Part 2, the same idea on a linked chain.</aside>
 
   <style data-sid="07b-walk-mirror:76">
     /* Slide-local: the editor at --t-code (730 px: the print lines are 34

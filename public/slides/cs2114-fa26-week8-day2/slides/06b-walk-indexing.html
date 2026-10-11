@@ -1,0 +1,115 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-indexing:1">
+  <header class="slide__head" data-sid="06b-walk-indexing:2">
+    <p class="slide__kicker" data-sid="06b-walk-indexing:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-indexing:4">Only front 9, rear 2 holds five entries in eleven slots</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-indexing:5">An array of eleven slots numbered 0 to 10, with a blue frontIndex pill above it and a blue backIndex pill below it, both on slot 0. One press per option. Step one, option A: the backIndex pill moves to slot 5, slots 0 to 5 wash orange one after another, and a tally row reads A, front 0, rear 5, 6 entries. Step two, option B: the pills move to 4 and 9, slots 4 to 9 wash orange, and the row reads 6 entries. Step three, option C: the pills move to 7 and 2, slots 7, 8, 9, 10, 0, 1 and 2 wash orange, and the row reads 7 entries. Step four, option D: the frontIndex pill moves to 9, slots 9, 10, 0, 1 and 2 wash orange, and the row reads 5 entries. Step five: the caption explains the trap: if rear were the next free slot, A, B and C would each hold 5, but the back index is the back entry's own slot and the array has 11 slots. Step six: the five options return under the tally, A, B, C and E struck through and D, front 9, rear 2, left standing; the caption says count the slots from front to rear, inclusive, in an array of 11.</p>
+
+  <!-- The answer is a count, done four times on one strip: capacity 10 plus
+       the unused slot is an array of 11 (the module's initialCapacity + 1),
+       and front and rear are the module's inclusive frontIndex and backIndex.
+       The strip is the brief's grammar at full size (128 px cells on a 144
+       px pitch, eleven of them = 1568 px); the pills travel to each option's
+       slots (a real move) and the occupied slots wash orange from front to
+       rear in a stagger while that option's press is current. Each option's
+       count stays behind as a tally row, so the four numbers can be compared
+       when the trap caption arrives. The verdict strikes A, B, C and E.
+       steps 1–4: options A–D · 5: the trap · 6: the verdict -->
+  <div class="slide__body codewalk ix" data-sid="06b-walk-indexing:6">
+    <svg class="ix__fig" viewBox="0 0 1610 258" role="img" aria-label="An eleven-slot array with a frontIndex pill above it and a backIndex pill below it; for each option the pills move to its front and rear and the slots between them, front to rear through the wrap, wash orange" data-sid="06b-walk-indexing:7">
+      <g class="ix__cells" data-sid="06b-walk-indexing:8">
+        <rect class="wa wc wd" style="--a: 0; --c: 4; --d: 2" x="20" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:9"/>
+        <rect class="wa wc wd" style="--a: 1; --c: 5; --d: 3" x="164" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:10"/>
+        <rect class="wa wc wd" style="--a: 2; --c: 6; --d: 4" x="308" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:11"/>
+        <rect class="wa" style="--a: 3" x="452" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:12"/>
+        <rect class="wa wb" style="--a: 4; --b: 0" x="596" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:13"/>
+        <rect class="wa wb" style="--a: 5; --b: 1" x="740" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:14"/>
+        <rect class="wb" style="--b: 2" x="884" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:15"/>
+        <rect class="wb wc" style="--b: 3; --c: 0" x="1028" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:16"/>
+        <rect class="wb wc" style="--b: 4; --c: 1" x="1172" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:17"/>
+        <rect class="wb wc wd" style="--b: 5; --c: 2; --d: 0" x="1316" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:18"/>
+        <rect class="wc wd" style="--c: 3; --d: 1" x="1460" y="50" width="128" height="128" rx="10" data-sid="06b-walk-indexing:19"/>
+      </g>
+      <g class="ix__idx" data-sid="06b-walk-indexing:20"><text x="84" y="206" data-sid="06b-walk-indexing:21">0</text><text x="228" y="206" data-sid="06b-walk-indexing:22">1</text><text x="372" y="206" data-sid="06b-walk-indexing:23">2</text><text x="516" y="206" data-sid="06b-walk-indexing:24">3</text><text x="660" y="206" data-sid="06b-walk-indexing:25">4</text><text x="804" y="206" data-sid="06b-walk-indexing:26">5</text><text x="948" y="206" data-sid="06b-walk-indexing:27">6</text><text x="1092" y="206" data-sid="06b-walk-indexing:28">7</text><text x="1236" y="206" data-sid="06b-walk-indexing:29">8</text><text x="1380" y="206" data-sid="06b-walk-indexing:30">9</text><text x="1524" y="206" data-sid="06b-walk-indexing:31">10</text></g>
+      <g class="pill pf" data-sid="06b-walk-indexing:32"><rect x="14" y="0" width="140" height="36" rx="18" data-sid="06b-walk-indexing:33"/><text x="84" y="25" data-sid="06b-walk-indexing:34">frontIndex</text><path d="M76 36 L92 36 L84 46 Z" data-sid="06b-walk-indexing:35"/></g>
+      <g class="pill pb" data-sid="06b-walk-indexing:36"><rect x="14" y="222" width="140" height="36" rx="18" data-sid="06b-walk-indexing:37"/><text x="84" y="247" data-sid="06b-walk-indexing:38">backIndex</text><path d="M76 222 L92 222 L84 212 Z" data-sid="06b-walk-indexing:39"/></g>
+    </svg>
+
+    <div class="ix__row" data-sid="06b-walk-indexing:40">
+      <ol class="ix__tally" data-sid="06b-walk-indexing:41">
+        <li class="frag" data-step="1" data-sid="06b-walk-indexing:42"><b data-sid="06b-walk-indexing:43">A</b> front 0 &middot; rear 5 &rarr; <span class="ix__n" data-sid="06b-walk-indexing:44">6</span> entries</li>
+        <li class="frag" data-step="2" data-sid="06b-walk-indexing:45"><b data-sid="06b-walk-indexing:46">B</b> front 4 &middot; rear 9 &rarr; <span class="ix__n" data-sid="06b-walk-indexing:47">6</span> entries</li>
+        <li class="frag" data-step="3" data-sid="06b-walk-indexing:48"><b data-sid="06b-walk-indexing:49">C</b> front 7 &middot; rear 2 &rarr; <span class="ix__n" data-sid="06b-walk-indexing:50">7</span> entries</li>
+        <li class="frag" data-step="4" data-sid="06b-walk-indexing:51"><b data-sid="06b-walk-indexing:52">D</b> front 9 &middot; rear 2 &rarr; <span class="ix__n" data-sid="06b-walk-indexing:53">5</span> entries</li>
+      </ol>
+      <div class="codewalk__caps" data-sid="06b-walk-indexing:54">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-indexing:55">Capacity 10 plus the unused slot: 11 slots, 0 to 10. A: front 0 to rear 5, both ends included, is six entries.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-indexing:56">B: slots 4 to 9, six entries.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-indexing:57">C: 7, 8, 9, 10, then round to 0, 1, 2. Seven entries.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-indexing:58">D: 9, 10, then 0, 1, 2. Five entries: the size the question gives.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-indexing:59">The trap: if rear were the next free slot, A, B and C would each hold 5. But backIndex is the back entry&rsquo;s own slot, and the array has 11 slots, not 10.</p>
+        <p class="walkcap walkcap--plant cap--6 frag" data-step="6" data-sid="06b-walk-indexing:60">Count the slots from front to rear, inclusive, in an array of 11.</p>
+      </div>
+    </div>
+
+    <ol class="verdict frag" data-step="6" data-sid="06b-walk-indexing:61">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06b-walk-indexing:62"><span class="verdict__txt" data-sid="06b-walk-indexing:63">front: 0 rear: 5</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06b-walk-indexing:64"><span class="verdict__txt" data-sid="06b-walk-indexing:65">front: 4 rear: 9</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06b-walk-indexing:66"><span class="verdict__txt" data-sid="06b-walk-indexing:67">front: 7 rear: 2</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="06b-walk-indexing:68"><span class="verdict__txt" data-sid="06b-walk-indexing:69">front: 9 rear: 2</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="06b-walk-indexing:70"><span class="verdict__txt" data-sid="06b-walk-indexing:71">all of the above</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-indexing:72"></div>
+  <aside class="notes" data-sid="06b-walk-indexing:73">Answer: D &mdash; front 9, rear 2 [key from the PrairieLearn twin; confirm in Runestone&rsquo;s results view]. Start with the array: capacity 10 with one unused slot is an array of 11 slots, numbered 0 to 10, the initialCapacity plus 1 from the constructor. front and rear are frontIndex and backIndex: the slot of the front entry and the slot of the back entry, both counted. Step 1: A, 0 to 5, six entries. Step 2: B, 4 to 9, six. Step 3: C wraps: 7, 8, 9, 10, then 0, 1, 2, seven. Step 4: D, 9, 10, 0, 1, 2, five. That is the size the question gives. Step 5: why A, B and C are tempting. If you picture ten slots and rear as the next free slot, as some textbooks do, A, B and C all give five. With the module&rsquo;s definitions they do not. E is out once A is out. Step 6: the verdict. Runestone activity vtcs2_circularArray_indexing. Next: Vote 2, the same counting from the other side.</aside>
+
+  <style data-sid="06b-walk-indexing:74">
+    /* Slide-local: the strip at the brief's full size in one SVG at 1:1
+       (1610 × 258: the front pill row, 128 px cells on a 144 px pitch, the
+       index under each cell in mono at the micro size, the back pill row);
+       under it the tally rows left (mono at the small size, one per press,
+       plain fade) and the captions right; the verdict under both. The pills
+       are groups drawn on slot 0 and moved in whole pitches. The occupied
+       slots of the option being shown take the orange 18% wash with an
+       orange stroke while its press is current, staggered front to rear by a
+       per-option index (--a … --d); the verdict press shows D's again. All
+       keyed to the caption frags through :has(), so a back-step reverses it.
+       All values from tokens; used by this slide only. */
+    #slide-06b .ix { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-06b .ix__fig { display: block; width: 1610px; height: 258px; overflow: visible; }
+    #slide-06b .ix__row { display: grid; grid-template-columns: 720px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-06b .ix__tally { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+    #slide-06b .ix__tally li { margin: 0; line-height: 1.6; }
+    #slide-06b .ix__tally b { display: inline-block; width: var(--s-5); color: var(--accent-1); }
+    #slide-06b .ix__n { font-weight: 700; color: var(--accent-3); }
+
+    #slide-06b .ix__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
+    #slide-06b .ix__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-06b .pill rect, #slide-06b .pill path { fill: var(--accent-2); }
+    #slide-06b .pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-06b .pill { transform: translateX(0px); transition: transform .8s var(--ease-smooth); }
+
+    /* step 1: A — front 0, rear 5 */
+    #slide-06b .slide__body:has(.cap--1:not(.is-pending)) .pb { transform: translateX(720px); }
+    #slide-06b .slide__body:has(.cap--1.is-current) .wa { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); transition-delay: calc(.6s + var(--a) * .12s); }
+    /* step 2: B — front 4, rear 9 */
+    #slide-06b .slide__body:has(.cap--2:not(.is-pending)) .pf { transform: translateX(576px); }
+    #slide-06b .slide__body:has(.cap--2:not(.is-pending)) .pb { transform: translateX(1296px); }
+    #slide-06b .slide__body:has(.cap--2.is-current) .wb { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); transition-delay: calc(.6s + var(--b) * .12s); }
+    /* step 3: C — front 7, rear 2 */
+    #slide-06b .slide__body:has(.cap--3:not(.is-pending)) .pf { transform: translateX(1008px); }
+    #slide-06b .slide__body:has(.cap--3:not(.is-pending)) .pb { transform: translateX(288px); }
+    #slide-06b .slide__body:has(.cap--3.is-current) .wc { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); transition-delay: calc(.6s + var(--c) * .12s); }
+    /* step 4: D — front 9, rear 2; shown again with the verdict */
+    #slide-06b .slide__body:has(.cap--4:not(.is-pending)) .pf { transform: translateX(1296px); }
+    #slide-06b .slide__body:has(.cap--4.is-current) .wd,
+    #slide-06b .slide__body:has(.cap--6.is-current) .wd { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); transition-delay: calc(.6s + var(--d) * .12s); }
+
+    #slide-06b .codewalk__caps { min-height: 196px; }
+    #slide-06b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .ix__cells rect, #slide-06b .pill { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

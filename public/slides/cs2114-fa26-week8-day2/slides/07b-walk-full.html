@@ -1,0 +1,112 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-full:1">
+  <header class="slide__head" data-sid="07b-walk-full:2">
+    <p class="slide__kicker" data-sid="07b-walk-full:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-full:4">Front 3 to back 1, through the wrap, is five entries: full</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-full:5">An array of six slots numbered 0 to 5, with a blue frontIndex pill above it and a blue backIndex pill below it, both on slot 0, and a counter labelled entries. Step one: the frontIndex pill moves to slot 3 and the backIndex pill to slot 1. Steps two to six: slots 3, 4, 5, 0 and 1 wash orange one per press while the counter rolls from 1 to 5; on the last of these, slot 2 is hatched in grey as the unused slot. Step seven: the caption evaluates the full test: backIndex plus 2, mod 6, is 3, which is frontIndex. Step eight: the caption rules out four, six and invalid. Step nine: the seven options return at the bottom, all struck through except E, five elements in the queue, and the caption says count from frontIndex to backIndex the long way round, through the wrap.</p>
+
+  <!-- The answer is the same count as Vote 1, one slot per press, because
+       this time the wrap is the whole question. Capacity 5 plus the unused
+       slot is an array of six; the pills land on 3 and 1 (a real move); the
+       slots from front to back wash orange in queue order — 3, 4, 5, then
+       round to 0, 1 — while the entries counter rolls, since it counts. The
+       slot left over, 2, is the unused one and takes the stone hatch, and the
+       full test from 04d confirms it. The captions dismiss the distractors,
+       then the verdict.
+       1 the pills land · 2–6 one slot per press · 7 the full test · 8 D, F, G · 9 verdict -->
+  <div class="slide__body codewalk fu" data-sid="07b-walk-full:6">
+    <div class="fu__top" data-sid="07b-walk-full:7">
+      <svg class="fu__fig" viewBox="0 0 890 258" role="img" aria-label="A six-slot array with frontIndex on slot 3 and backIndex on slot 1; slots 3, 4, 5, 0 and 1 wash orange in that order and slot 2 is hatched as the unused slot" data-sid="07b-walk-full:8">
+        <defs data-sid="07b-walk-full:9">
+          <pattern id="w8d2-07b-hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)" data-sid="07b-walk-full:10">
+            <path d="M0 0 V16" style="stroke: var(--stone); stroke-width: 5" data-sid="07b-walk-full:11"/>
+          </pattern>
+        </defs>
+        <g class="fu__cells" data-sid="07b-walk-full:12">
+          <rect class="c0" x="20" y="50" width="128" height="128" rx="10" data-sid="07b-walk-full:13"/><rect class="c1" x="164" y="50" width="128" height="128" rx="10" data-sid="07b-walk-full:14"/><rect class="c2" x="308" y="50" width="128" height="128" rx="10" data-sid="07b-walk-full:15"/>
+          <rect class="c3" x="452" y="50" width="128" height="128" rx="10" data-sid="07b-walk-full:16"/><rect class="c4" x="596" y="50" width="128" height="128" rx="10" data-sid="07b-walk-full:17"/><rect class="c5" x="740" y="50" width="128" height="128" rx="10" data-sid="07b-walk-full:18"/>
+        </g>
+        <rect class="fu__hatch" x="308" y="50" width="128" height="128" rx="10" fill="url(#w8d2-07b-hatch)" data-sid="07b-walk-full:19"/>
+        <g class="fu__idx" data-sid="07b-walk-full:20"><text x="84" y="206" data-sid="07b-walk-full:21">0</text><text x="228" y="206" data-sid="07b-walk-full:22">1</text><text x="372" y="206" data-sid="07b-walk-full:23">2</text><text x="516" y="206" data-sid="07b-walk-full:24">3</text><text x="660" y="206" data-sid="07b-walk-full:25">4</text><text x="804" y="206" data-sid="07b-walk-full:26">5</text></g>
+        <g class="pill pf" data-sid="07b-walk-full:27"><rect x="14" y="0" width="140" height="36" rx="18" data-sid="07b-walk-full:28"/><text x="84" y="25" data-sid="07b-walk-full:29">frontIndex</text><path d="M76 36 L92 36 L84 46 Z" data-sid="07b-walk-full:30"/></g>
+        <g class="pill pb" data-sid="07b-walk-full:31"><rect x="14" y="222" width="140" height="36" rx="18" data-sid="07b-walk-full:32"/><text x="84" y="247" data-sid="07b-walk-full:33">backIndex</text><path d="M76 222 L92 222 L84 212 Z" data-sid="07b-walk-full:34"/></g>
+      </svg>
+      <div class="moves moves--ok" data-sid="07b-walk-full:35">
+        <p class="moves__label" data-sid="07b-walk-full:36">entries</p>
+        <div class="moves__stack" data-sid="07b-walk-full:37">
+          <div class="heap-obj__field" data-sid="07b-walk-full:38"><p class="heap-val heap-val--old frag" data-step="2" data-sid="07b-walk-full:39">0</p><p class="heap-val frag" data-step="2" data-sid="07b-walk-full:40">1</p></div>
+          <div class="heap-obj__field" data-sid="07b-walk-full:41"><p class="heap-val heap-val--old frag" data-step="3" data-sid="07b-walk-full:42">1</p><p class="heap-val frag" data-step="3" data-sid="07b-walk-full:43">2</p></div>
+          <div class="heap-obj__field" data-sid="07b-walk-full:44"><p class="heap-val heap-val--old frag" data-step="4" data-sid="07b-walk-full:45">2</p><p class="heap-val frag" data-step="4" data-sid="07b-walk-full:46">3</p></div>
+          <div class="heap-obj__field" data-sid="07b-walk-full:47"><p class="heap-val heap-val--old frag" data-step="5" data-sid="07b-walk-full:48">3</p><p class="heap-val frag" data-step="5" data-sid="07b-walk-full:49">4</p></div>
+          <div class="heap-obj__field" data-sid="07b-walk-full:50"><p class="heap-val heap-val--old frag" data-step="6" data-sid="07b-walk-full:51">4</p><p class="heap-val frag" data-step="6" data-sid="07b-walk-full:52">5</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="codewalk__caps" data-sid="07b-walk-full:53">
+      <p class="walkcap cap--1 frag" data-step="1" data-sid="07b-walk-full:54">Capacity 5 plus the unused slot: an array of six, 0 to 5. frontIndex is 3, backIndex is 1.</p>
+      <p class="walkcap cap--2 frag" data-step="2" data-sid="07b-walk-full:55">Start at frontIndex: slot 3 holds the front entry. One.</p>
+      <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-full:56">Slot 4. Two.</p>
+      <p class="walkcap cap--4 frag" data-step="4" data-sid="07b-walk-full:57">Slot 5, the last slot. Three.</p>
+      <p class="walkcap cap--5 frag" data-step="5" data-sid="07b-walk-full:58">(5 + 1) % 6 is 0: round to slot 0. Four.</p>
+      <p class="walkcap cap--6 frag" data-step="6" data-sid="07b-walk-full:59">Slot 1 is backIndex, the back entry: stop. Five. Slot 2 is left over: the unused one.</p>
+      <p class="walkcap cap--7 frag" data-step="7" data-sid="07b-walk-full:60">The full test agrees: (backIndex + 2) % contents.length = (1 + 2) % 6 = 3 = frontIndex. Five entries in a queue of capacity 5.</p>
+      <p class="walkcap cap--8 frag" data-step="8" data-sid="07b-walk-full:61">D stops at slot 4 or forgets the wrap. F would fill all six slots, and one always stays unused. G: 3 and 1 are both legal slots, and full is a legal state.</p>
+      <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="07b-walk-full:62">Count from frontIndex to backIndex the long way round, through the wrap.</p>
+    </div>
+
+    <ol class="verdict frag" data-step="9" data-sid="07b-walk-full:63">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-full:64"><span class="verdict__txt" data-sid="07b-walk-full:65">empty queue</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07b-walk-full:66"><span class="verdict__txt" data-sid="07b-walk-full:67">one element in the queue</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07b-walk-full:68"><span class="verdict__txt" data-sid="07b-walk-full:69">three elements in the queue</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="07b-walk-full:70"><span class="verdict__txt" data-sid="07b-walk-full:71">four elements in the queue</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-full:72"><span class="verdict__txt" data-sid="07b-walk-full:73">five elements in the queue</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 4" data-sid="07b-walk-full:74"><span class="verdict__txt" data-sid="07b-walk-full:75">six elements in the queue</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 5" data-sid="07b-walk-full:76"><span class="verdict__txt" data-sid="07b-walk-full:77">invalid</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-full:78"></div>
+  <aside class="notes" data-sid="07b-walk-full:79">Answer: E &mdash; five elements in the queue [key from the PrairieLearn twin; confirm in Runestone&rsquo;s results view]. Step 1: capacity 5 with one unused entry is an array of six slots, 0 to 5. Put the two indices on it: front on 3, back on 1. Back is before front, so the queue wraps. Steps 2 to 6: walk from the front, one slot per press: 3, 4, 5, then (5 + 1) % 6 is 0, then 1, which is the back. Five entries. Slot 2 is the one left over, the unused slot. Step 7: the full test from Part 1 says the same thing: back plus 2 is 3, mod 6 still 3, which is front. Step 8: the wrong answers. Four comes from stopping at slot 4 or from counting 3 to 1 the short way as if there were no slot 5. Six would need every slot, and this design always leaves one empty. Invalid: both indices are legal, and a full queue is a legal state. Empty, one and three do not match the count. Step 9: the verdict. Runestone activity vtcs2_circularArray_full. Next: Part 3, the homework.</aside>
+
+  <style data-sid="07b-walk-full:80">
+    /* Slide-local: the six-slot strip at the brief's size in one SVG at 1:1
+       (890 × 258: the front pill row, 128 px cells on a 144 px pitch, the
+       index under each cell at the micro size, the back pill row) with the
+       entries counter beside it; the captions across the full width under it
+       (the distractor caption needs about three lines of the body width); the
+       verdict at the bottom. The pills are groups drawn on slot 0 that travel
+       to 3 and 1. One slot per press takes the orange 18% wash with an orange
+       stroke and keeps it; slot 2 takes the stone hatch on step 6. All keyed
+       to the caption frags through :has(), so a back-step reverses it. All
+       values from tokens; used by this slide only. */
+    #slide-07b .fu { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-07b .fu__top { display: grid; grid-template-columns: 890px minmax(0, 1fr); column-gap: var(--s-6); align-items: center; }
+    #slide-07b .fu__fig { display: block; width: 890px; height: 258px; overflow: visible; }
+
+    #slide-07b .fu__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
+    #slide-07b .fu__hatch { stroke: var(--stone); stroke-width: 3; opacity: 0; transition: opacity .4s ease; }
+    #slide-07b .fu__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-07b .pill rect, #slide-07b .pill path { fill: var(--accent-2); }
+    #slide-07b .pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-07b .pill { transform: translateX(0px); transition: transform .8s var(--ease-smooth); }
+
+    /* step 1: the pills land on 3 and 1 */
+    #slide-07b .slide__body:has(.cap--1:not(.is-pending)) .pf { transform: translateX(432px); }
+    #slide-07b .slide__body:has(.cap--1:not(.is-pending)) .pb { transform: translateX(144px); }
+    /* steps 2–6: one slot per press, in queue order */
+    #slide-07b .slide__body:has(.cap--2:not(.is-pending)) .c3,
+    #slide-07b .slide__body:has(.cap--3:not(.is-pending)) .c4,
+    #slide-07b .slide__body:has(.cap--4:not(.is-pending)) .c5,
+    #slide-07b .slide__body:has(.cap--5:not(.is-pending)) .c0,
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .c1 { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    /* step 6: the slot left over is the unused one */
+    #slide-07b .slide__body:has(.cap--6:not(.is-pending)) .fu__hatch { opacity: .6; transition-delay: .4s; }
+
+    #slide-07b .codewalk__caps { min-height: 150px; }
+    #slide-07b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .fu__cells rect, #slide-07b .fu__hatch, #slide-07b .pill { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

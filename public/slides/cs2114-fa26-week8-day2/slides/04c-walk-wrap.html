@@ -1,0 +1,132 @@
+<section class="slide slide--warmup" id="slide-04c" data-sid="04c-walk-wrap:1">
+  <header class="slide__head" data-sid="04c-walk-wrap:2">
+    <p class="slide__kicker" data-sid="04c-walk-wrap:3">A QUEUE ON AN ARRAY &middot; WRAP AROUND</p>
+    <h2 data-sid="04c-walk-wrap:4">After the last slot comes slot 0</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04c-walk-wrap:5">A walkthrough under a program-counter bar of enqueue, whose first line is now backIndex equals backIndex plus 1, mod contents dot length, followed by the matching line from dequeue: frontIndex equals frontIndex plus 1, mod contents dot length. Below, the ten-slot array as the last slide left it: E to J in slots 4 to 9, the frontIndex pill above slot 4, the backIndex pill below slot 9, slots 0 to 3 empty. Beside the array, a table with the columns backIndex and backIndex plus 1 mod 10. Steps one to five fill the table one row per press: 0 gives 1, 1 gives 2, 5 gives 6, 8 gives 9, and, in orange, 9 gives 0. Step six: enqueue K; the backIndex pill travels from slot 9 back to slot 0 and K grows in there. Step seven: enqueue L into slot 1. Step eight: five dequeues; E to I fade and the frontIndex pill moves to slot 9. Step nine: one more dequeue; J fades and the frontIndex pill travels from slot 9 back to slot 0. Step ten: the caption says the percent sign turns the strip into a ring.</p>
+
+  <!-- Concept intro, walk 3 of 4: the one symbol that makes it work. The
+       editor is the video's enqueue (ArrayQueueIntro p. 6, ensureCapacity()
+       left out until 04d's notes) plus the frontIndex line of the video's
+       dequeue (ArrayQueueRemove p. 3) under a comment, so both % lines fit
+       six lines at --t-code. The table is the video's own (Intro p. 8,
+       "Cases when queue.length is 10"), built one row per press while the
+       bar is held on the line it describes; 9 → 0 takes the orange. Then the
+       wrap happens for real: the backIndex pill travels from slot 9 back to
+       slot 0, later the frontIndex pill does the same.
+       steps 1–5: the table · 6–7: enqueue K, L · 8: five dequeues · 9: the front wraps · 10: plant -->
+  <div class="slide__body codewalk code-mid wr" data-sid="04c-walk-wrap:6">
+    <div class="wr__top" data-sid="04c-walk-wrap:7">
+      <div class="editor" data-sid="04c-walk-wrap:8">
+        <p class="editor__bar" data-sid="04c-walk-wrap:9">enqueue, and the matching line of dequeue &mdash; now with %</p>
+        <div class="editor__pc" data-sid="04c-walk-wrap:10"></div>
+        <ol class="editor__code" data-sid="04c-walk-wrap:11">
+          <li data-sid="04c-walk-wrap:12"><span class="tok-key" data-sid="04c-walk-wrap:13">void</span> enqueue(T x) {</li>
+          <li class="walkline frag" data-step="1" data-hold="5" data-also="6 7" data-sid="04c-walk-wrap:14">    backIndex = (backIndex + <span class="tok-num" data-sid="04c-walk-wrap:15">1</span>) % contents.length;</li>
+          <li class="walkline frag" data-step="6" data-also="7" data-sid="04c-walk-wrap:16">    contents[backIndex] = x;</li>
+          <li data-sid="04c-walk-wrap:17">}</li>
+          <li class="wr__cmt" data-sid="04c-walk-wrap:18">// in dequeue():</li>
+          <li class="walkline frag" data-step="8" data-also="9" data-sid="04c-walk-wrap:19">    frontIndex = (frontIndex + <span class="tok-num" data-sid="04c-walk-wrap:20">1</span>) % contents.length;</li>
+        </ol>
+      </div>
+      <div class="codewalk__caps" data-sid="04c-walk-wrap:21">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-walk-wrap:22">The video&rsquo;s cases for an array of 10. backIndex 0: (0 + 1) % 10 is 1.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-walk-wrap:23">1 gives 2. Below 10, % 10 changes nothing.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-walk-wrap:24">5 gives 6.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-walk-wrap:25">8 gives 9.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04c-walk-wrap:26">9: (9 + 1) % 10 is 10 % 10, which is 0.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04c-walk-wrap:27">enqueue(K): backIndex wraps from 9 to 0, and K goes into a slot that dequeue emptied.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04c-walk-wrap:28">enqueue(L): 0 gives 1.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04c-walk-wrap:29">Five dequeues: E to I go, and frontIndex walks from 4 to 9.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="04c-walk-wrap:30">One more: (9 + 1) % 10 is 0. frontIndex wraps the same way.</p>
+        <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="04c-walk-wrap:31">% turns the strip into a ring: after slot 9 comes slot 0, for both indices.</p>
+      </div>
+    </div>
+
+    <div class="wr__bottom" data-sid="04c-walk-wrap:32">
+      <svg class="wr__fig" viewBox="0 0 1110 226" role="img" aria-label="The ten-slot array with E to J in slots 4 to 9, frontIndex on 4 and backIndex on 9; K and L are enqueued into slots 0 and 1 as backIndex wraps to 0, then E to J are dequeued and frontIndex wraps to 0" data-sid="04c-walk-wrap:33">
+        <g class="wr__cells" data-sid="04c-walk-wrap:34">
+          <rect class="c0" x="30" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:35"/><rect class="c1" x="138" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:36"/><rect x="246" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:37"/><rect x="354" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:38"/><rect x="462" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:39"/>
+          <rect x="570" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:40"/><rect x="678" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:41"/><rect x="786" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:42"/><rect x="894" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:43"/><rect class="c9" x="1002" y="50" width="96" height="96" rx="10" data-sid="04c-walk-wrap:44"/>
+        </g>
+        <g class="wr__idx" data-sid="04c-walk-wrap:45"><text x="78" y="176" data-sid="04c-walk-wrap:46">0</text><text x="186" y="176" data-sid="04c-walk-wrap:47">1</text><text x="294" y="176" data-sid="04c-walk-wrap:48">2</text><text x="402" y="176" data-sid="04c-walk-wrap:49">3</text><text x="510" y="176" data-sid="04c-walk-wrap:50">4</text><text x="618" y="176" data-sid="04c-walk-wrap:51">5</text><text x="726" y="176" data-sid="04c-walk-wrap:52">6</text><text x="834" y="176" data-sid="04c-walk-wrap:53">7</text><text x="942" y="176" data-sid="04c-walk-wrap:54">8</text><text x="1050" y="176" data-sid="04c-walk-wrap:55">9</text></g>
+        <g class="wr__vals" data-sid="04c-walk-wrap:56">
+          <text class="gr gk" x="78" y="110" data-sid="04c-walk-wrap:57">K</text><text class="gr gl" x="186" y="110" data-sid="04c-walk-wrap:58">L</text>
+          <text class="dq" style="--i: 0" x="510" y="110" data-sid="04c-walk-wrap:59">E</text><text class="dq" style="--i: 1" x="618" y="110" data-sid="04c-walk-wrap:60">F</text><text class="dq" style="--i: 2" x="726" y="110" data-sid="04c-walk-wrap:61">G</text><text class="dq" style="--i: 3" x="834" y="110" data-sid="04c-walk-wrap:62">H</text><text class="dq" style="--i: 4" x="942" y="110" data-sid="04c-walk-wrap:63">I</text>
+          <text class="vj" x="1050" y="110" data-sid="04c-walk-wrap:64">J</text>
+        </g>
+        <g class="pill pf" data-sid="04c-walk-wrap:65"><rect x="8" y="0" width="140" height="36" rx="18" data-sid="04c-walk-wrap:66"/><text x="78" y="25" data-sid="04c-walk-wrap:67">frontIndex</text><path d="M70 36 L86 36 L78 46 Z" data-sid="04c-walk-wrap:68"/></g>
+        <g class="pill pb" data-sid="04c-walk-wrap:69"><rect x="8" y="190" width="140" height="36" rx="18" data-sid="04c-walk-wrap:70"/><text x="78" y="215" data-sid="04c-walk-wrap:71">backIndex</text><path d="M70 190 L86 190 L78 180 Z" data-sid="04c-walk-wrap:72"/></g>
+      </svg>
+      <table class="wr__tab" data-sid="04c-walk-wrap:73">
+        <thead data-sid="04c-walk-wrap:74"><tr data-sid="04c-walk-wrap:75"><th data-sid="04c-walk-wrap:76">backIndex</th><th data-sid="04c-walk-wrap:77">(backIndex + 1) % 10</th></tr></thead>
+        <tbody data-sid="04c-walk-wrap:78">
+          <tr class="frag" data-step="1" data-sid="04c-walk-wrap:79"><td data-sid="04c-walk-wrap:80">0</td><td data-sid="04c-walk-wrap:81">1</td></tr>
+          <tr class="frag" data-step="2" data-sid="04c-walk-wrap:82"><td data-sid="04c-walk-wrap:83">1</td><td data-sid="04c-walk-wrap:84">2</td></tr>
+          <tr class="frag" data-step="3" data-sid="04c-walk-wrap:85"><td data-sid="04c-walk-wrap:86">5</td><td data-sid="04c-walk-wrap:87">6</td></tr>
+          <tr class="frag" data-step="4" data-sid="04c-walk-wrap:88"><td data-sid="04c-walk-wrap:89">8</td><td data-sid="04c-walk-wrap:90">9</td></tr>
+          <tr class="frag wr__wrap" data-step="5" data-sid="04c-walk-wrap:91"><td data-sid="04c-walk-wrap:92">9</td><td data-sid="04c-walk-wrap:93">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04c-walk-wrap:94"></div>
+  <aside class="notes" data-sid="04c-walk-wrap:95">This is the module&rsquo;s enqueue; the only change from the last slide is the percent sign. Under the method is the matching line from dequeue, which gets the same treatment. Steps 1 to 5 are the table from the video: what the line gives for a few values of backIndex when the array has 10 slots. For 0 to 8, adding one and taking the remainder after dividing by 10 changes nothing. For 9 it gives 0. Step 6: enqueue K. backIndex was 9, the last slot; it becomes 0, and K goes into slot 0, which a dequeue emptied two slides ago. Step 7: L goes into slot 1. Step 8: five dequeues; frontIndex walks from 4 to 9. Step 9: one more dequeue, and frontIndex wraps to 0 by the same arithmetic. Step 10: the array is a strip in memory, but the two indices treat it as a ring. In the video the field in this table is called queue; in the class code it is contents, and the deck uses contents. Next: what goes wrong when the ring is completely full.</aside>
+
+  <style data-sid="04c-walk-wrap:96">
+    /* Slide-local: the editor at --t-code, 1080 px for its 51-character
+       frontIndex line (51 × 19.2 + 70 = 1049; at 1050 the sweep flagged the
+       line as clipped), the captions beside it (552 px);
+       under them the walk strip in one SVG at 1:1 (cells 96 on a 108 pitch)
+       and the video's table to its right (522 px), header at the tag size,
+       values in mono at the micro size, one row per press (plain fade), the
+       9 → 0 row in the orange of the wrap. The pills start on slots 4 and 9
+       (translateX 432 and 972) and travel; a wrap is the long move back to
+       0. All keyed to the caption frags through :has(), so a back-step
+       reverses it. All values from tokens; used by this slide only. */
+    #slide-04c .wr { display: grid; grid-template-rows: auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-04c .wr__top { display: grid; grid-template-columns: 1080px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04c .wr__bottom { display: grid; grid-template-columns: 1110px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04c .wr__fig { display: block; width: 1110px; height: 226px; overflow: visible; }
+    #slide-04c .wr__cmt { color: var(--fg-1); }
+
+    #slide-04c .wr__tab { border-collapse: collapse; margin: 0; }
+    #slide-04c .wr__tab th { padding: var(--s-1) var(--s-2); border-bottom: 3px solid var(--stone); font-family: var(--font-mono); font-size: var(--t-tag); font-weight: 400; line-height: 1.3; color: var(--fg-1); text-align: left; }
+    #slide-04c .wr__tab td { padding: 2px var(--s-2); border-bottom: 2px solid color-mix(in srgb, var(--stone) 35%, var(--bg-0)); font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-0); }
+    #slide-04c .wr__tab .wr__wrap td { color: var(--accent-3); font-weight: 700; }
+
+    #slide-04c .wr__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
+    #slide-04c .wr__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04c .wr__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04c .wr__vals .gr { transform-box: fill-box; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4); transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04c .pill rect, #slide-04c .pill path { fill: var(--accent-2); }
+    #slide-04c .pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04c .pill { transition: transform .9s var(--ease-smooth); }
+    #slide-04c .pf { transform: translateX(432px); }
+    #slide-04c .pb { transform: translateX(972px); }
+
+    /* steps 1–5: the line is examined; slot 9 rings orange when its row arrives */
+    #slide-04c .slide__body:has(.cap--5.is-current) .c9 { stroke: var(--accent-3); }
+    /* step 6: enqueue(K) — backIndex wraps 9 → 0 */
+    #slide-04c .slide__body:has(.cap--6:not(.is-pending)) .pb { transform: translateX(0px); }
+    #slide-04c .slide__body:has(.cap--6:not(.is-pending)) .gk { opacity: 1; transform: scale(1); transition-delay: .7s; }
+    #slide-04c .slide__body:has(.cap--6.is-current) .c0 { stroke: var(--accent-3); }
+    /* step 7: enqueue(L) */
+    #slide-04c .slide__body:has(.cap--7:not(.is-pending)) .pb { transform: translateX(108px); }
+    #slide-04c .slide__body:has(.cap--7:not(.is-pending)) .gl { opacity: 1; transform: scale(1); transition-delay: .5s; }
+    /* step 8: five dequeues — frontIndex 4 → 9 */
+    #slide-04c .slide__body:has(.cap--8:not(.is-pending)) .pf { transform: translateX(972px); }
+    #slide-04c .slide__body:has(.cap--8:not(.is-pending)) .dq { opacity: 0; transition-delay: calc(var(--i) * .12s); }
+    /* step 9: one more — frontIndex wraps 9 → 0 */
+    #slide-04c .slide__body:has(.cap--9:not(.is-pending)) .vj { opacity: 0; }
+    #slide-04c .slide__body:has(.cap--9:not(.is-pending)) .pf { transform: translateX(0px); }
+    #slide-04c .slide__body:has(.cap--9.is-current) .c0 { stroke: var(--accent-3); }
+
+    #slide-04c .codewalk__caps { min-height: 150px; }
+    #slide-04c .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04c .wr__cells rect, #slide-04c .wr__vals text, #slide-04c .wr__vals .gr, #slide-04c .pill { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

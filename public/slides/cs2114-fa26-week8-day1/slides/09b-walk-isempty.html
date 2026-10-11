@@ -1,0 +1,163 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-isempty:1">
+  <header class="slide__head" data-sid="09b-walk-isempty:2">
+    <p class="slide__kicker" data-sid="09b-walk-isempty:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="09b-walk-isempty:4">firstNode == lastNode is also true with one node</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09b-walk-isempty:5">A board with one column per state of a deque and one row per expression. The rows are: is it empty?, then the four options, each led by its letter: A, firstNode equals null and lastNode equals null; B, firstNode equals null; C, lastNode equals null; D, firstNode equals lastNode. Step one: the first column arrives, headed by an empty deque, with firstNode and lastNode both null; is it empty reads true, and all four options read true. Step two: the second column, a deque with one node that both firstNode and lastNode point at; is it empty reads false; A, B and C read false; D reads true, in an orange cell, and D's letter disc fills maroon. Step three: the third column, a deque of two nodes linked both ways, firstNode on the first and lastNode on the second; is it empty reads false and all four read false. Step four: the four options under the board, A, B and C struck through and D left standing.</p>
+
+  <!-- The answer as a board, W7D1 06b's idea in a table: one column per
+       state of a deque, the state drawn small at the head of its column
+       (pills, mini DLNodes), and one row per expression under the reference
+       row "is it empty?". A column arrives per press: its drawing grows from
+       centre and its five cells fade in one after another. A, B and C match
+       the reference row in every column; D's one-node cell takes the orange
+       tint (the cell that answers the question) and D's letter disc fills
+       maroon. The verdict takes the caption cell. (The brief drew the states
+       on the left and the board on the right; heading each column with its
+       own state keeps picture and values in one line of sight.)
+       steps 1–3: empty, one node, two nodes.  step 4: verdict D. -->
+  <div class="slide__body ie" data-sid="09b-walk-isempty:6">
+    <!-- column heads -->
+    <div class="ie__state frag" data-step="1" style="grid-column: 2; grid-row: 1" data-sid="09b-walk-isempty:7">
+      <p class="ie__name" data-sid="09b-walk-isempty:8">empty</p>
+      <svg viewBox="0 0 280 150" role="img" aria-label="An empty deque: firstNode is null and lastNode is null" data-sid="09b-walk-isempty:9">
+        <g class="mp" data-sid="09b-walk-isempty:10"><rect x="10" y="22" width="136" height="38" rx="6" data-sid="09b-walk-isempty:11"/><text x="78" y="48" data-sid="09b-walk-isempty:12">firstNode</text></g>
+        <text class="mnull" x="160" y="48" data-sid="09b-walk-isempty:13">null</text>
+        <g class="mp" data-sid="09b-walk-isempty:14"><rect x="10" y="88" width="136" height="38" rx="6" data-sid="09b-walk-isempty:15"/><text x="78" y="114" data-sid="09b-walk-isempty:16">lastNode</text></g>
+        <text class="mnull" x="160" y="114" data-sid="09b-walk-isempty:17">null</text>
+      </svg>
+    </div>
+    <div class="ie__state frag" data-step="2" style="grid-column: 3; grid-row: 1" data-sid="09b-walk-isempty:18">
+      <p class="ie__name" data-sid="09b-walk-isempty:19">one node</p>
+      <svg viewBox="0 0 280 150" role="img" aria-label="A deque with one node: firstNode and lastNode both point at it" data-sid="09b-walk-isempty:20">
+        <defs data-sid="09b-walk-isempty:21">
+          <marker id="w8d1-09b-head2" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="09b-walk-isempty:22"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="09b-walk-isempty:23"/></marker>
+        </defs>
+        <g class="mp" data-sid="09b-walk-isempty:24"><rect x="2" y="0" width="136" height="38" rx="6" data-sid="09b-walk-isempty:25"/><text x="70" y="26" data-sid="09b-walk-isempty:26">firstNode</text></g>
+        <g class="mp" data-sid="09b-walk-isempty:27"><rect x="146" y="0" width="128" height="38" rx="6" data-sid="09b-walk-isempty:28"/><text x="210" y="26" data-sid="09b-walk-isempty:29">lastNode</text></g>
+        <path class="marr" style="marker-end: url(#w8d1-09b-head2)" d="M70 38 C 70 70, 120 70, 120 92" data-sid="09b-walk-isempty:30"/>
+        <path class="marr" style="marker-end: url(#w8d1-09b-head2)" d="M210 38 C 210 70, 160 70, 160 92" data-sid="09b-walk-isempty:31"/>
+        <g class="mn" data-sid="09b-walk-isempty:32"><rect x="65" y="96" width="150" height="50" rx="6" data-sid="09b-walk-isempty:33"/><path d="M115 96v50M165 96v50" data-sid="09b-walk-isempty:34"/><text x="140" y="130" data-sid="09b-walk-isempty:35">A</text></g>
+      </svg>
+    </div>
+    <div class="ie__state frag" data-step="3" style="grid-column: 4; grid-row: 1" data-sid="09b-walk-isempty:36">
+      <p class="ie__name" data-sid="09b-walk-isempty:37">two nodes</p>
+      <svg viewBox="0 0 280 150" role="img" aria-label="A deque with two nodes linked both ways: firstNode points at the first and lastNode at the second" data-sid="09b-walk-isempty:38">
+        <defs data-sid="09b-walk-isempty:39">
+          <marker id="w8d1-09b-head3" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="09b-walk-isempty:40"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="09b-walk-isempty:41"/></marker>
+        </defs>
+        <g class="mp" data-sid="09b-walk-isempty:42"><rect x="2" y="0" width="136" height="38" rx="6" data-sid="09b-walk-isempty:43"/><text x="70" y="26" data-sid="09b-walk-isempty:44">firstNode</text></g>
+        <g class="mp" data-sid="09b-walk-isempty:45"><rect x="146" y="0" width="128" height="38" rx="6" data-sid="09b-walk-isempty:46"/><text x="210" y="26" data-sid="09b-walk-isempty:47">lastNode</text></g>
+        <path class="marr" style="marker-end: url(#w8d1-09b-head3)" d="M62 38 C 62 60, 62 74, 62 92" data-sid="09b-walk-isempty:48"/>
+        <path class="marr" style="marker-end: url(#w8d1-09b-head3)" d="M218 38 C 218 60, 218 74, 218 92" data-sid="09b-walk-isempty:49"/>
+        <g class="mn" data-sid="09b-walk-isempty:50"><rect x="2" y="96" width="120" height="50" rx="6" data-sid="09b-walk-isempty:51"/><path d="M42 96v50M82 96v50" data-sid="09b-walk-isempty:52"/><text x="62" y="130" data-sid="09b-walk-isempty:53">A</text></g>
+        <g class="mn" data-sid="09b-walk-isempty:54"><rect x="158" y="96" width="120" height="50" rx="6" data-sid="09b-walk-isempty:55"/><path d="M198 96v50M238 96v50" data-sid="09b-walk-isempty:56"/><text x="218" y="130" data-sid="09b-walk-isempty:57">B</text></g>
+        <path class="marr" style="marker-end: url(#w8d1-09b-head3)" d="M102 110 C 120 110, 136 110, 156 110" data-sid="09b-walk-isempty:58"/>
+        <path class="marr" style="marker-end: url(#w8d1-09b-head3)" d="M178 134 C 160 134, 144 134, 124 134" data-sid="09b-walk-isempty:59"/>
+      </svg>
+    </div>
+
+    <!-- row labels -->
+    <p class="ie__rowname" style="grid-column: 1; grid-row: 2" data-sid="09b-walk-isempty:60">is it empty?</p>
+    <p class="ie__opt" style="grid-column: 1; grid-row: 3" data-sid="09b-walk-isempty:61"><span class="ie__key" data-sid="09b-walk-isempty:62">A</span><code data-sid="09b-walk-isempty:63">(firstNode == null) &amp;&amp; (lastNode == null)</code></p>
+    <p class="ie__opt" style="grid-column: 1; grid-row: 4" data-sid="09b-walk-isempty:64"><span class="ie__key" data-sid="09b-walk-isempty:65">B</span><code data-sid="09b-walk-isempty:66">(firstNode == null)</code></p>
+    <p class="ie__opt" style="grid-column: 1; grid-row: 5" data-sid="09b-walk-isempty:67"><span class="ie__key" data-sid="09b-walk-isempty:68">C</span><code data-sid="09b-walk-isempty:69">(lastNode == null)</code></p>
+    <p class="ie__opt" style="grid-column: 1; grid-row: 6" data-sid="09b-walk-isempty:70"><span class="ie__key ie__key--d" data-sid="09b-walk-isempty:71">D</span><code data-sid="09b-walk-isempty:72">(firstNode == lastNode)</code></p>
+
+    <!-- empty -->
+    <p class="ie__cell ie__cell--ref frag" data-step="1" style="grid-column: 2; grid-row: 2; --i: 0" data-sid="09b-walk-isempty:73">true</p>
+    <p class="ie__cell frag" data-step="1" style="grid-column: 2; grid-row: 3; --i: 1" data-sid="09b-walk-isempty:74">true</p>
+    <p class="ie__cell frag" data-step="1" style="grid-column: 2; grid-row: 4; --i: 2" data-sid="09b-walk-isempty:75">true</p>
+    <p class="ie__cell frag" data-step="1" style="grid-column: 2; grid-row: 5; --i: 3" data-sid="09b-walk-isempty:76">true</p>
+    <p class="ie__cell frag" data-step="1" style="grid-column: 2; grid-row: 6; --i: 4" data-sid="09b-walk-isempty:77">true</p>
+    <!-- one node -->
+    <p class="ie__cell ie__cell--ref frag" data-step="2" style="grid-column: 3; grid-row: 2; --i: 0" data-sid="09b-walk-isempty:78">false</p>
+    <p class="ie__cell frag" data-step="2" style="grid-column: 3; grid-row: 3; --i: 1" data-sid="09b-walk-isempty:79">false</p>
+    <p class="ie__cell frag" data-step="2" style="grid-column: 3; grid-row: 4; --i: 2" data-sid="09b-walk-isempty:80">false</p>
+    <p class="ie__cell frag" data-step="2" style="grid-column: 3; grid-row: 5; --i: 3" data-sid="09b-walk-isempty:81">false</p>
+    <p class="ie__cell ie__cell--hit frag" data-step="2" style="grid-column: 3; grid-row: 6; --i: 4" data-sid="09b-walk-isempty:82">true</p>
+    <!-- two nodes -->
+    <p class="ie__cell ie__cell--ref frag" data-step="3" style="grid-column: 4; grid-row: 2; --i: 0" data-sid="09b-walk-isempty:83">false</p>
+    <p class="ie__cell frag" data-step="3" style="grid-column: 4; grid-row: 3; --i: 1" data-sid="09b-walk-isempty:84">false</p>
+    <p class="ie__cell frag" data-step="3" style="grid-column: 4; grid-row: 4; --i: 2" data-sid="09b-walk-isempty:85">false</p>
+    <p class="ie__cell frag" data-step="3" style="grid-column: 4; grid-row: 5; --i: 3" data-sid="09b-walk-isempty:86">false</p>
+    <p class="ie__cell frag" data-step="3" style="grid-column: 4; grid-row: 6; --i: 4" data-sid="09b-walk-isempty:87">false</p>
+
+    <!-- one caption at a time, then the verdict in the same cell -->
+    <div class="ie__caps" style="grid-column: 1 / -1; grid-row: 7" data-sid="09b-walk-isempty:88">
+      <p class="ie__cap cap--1 frag" data-step="1" data-sid="09b-walk-isempty:89">Empty: both references are null. All four expressions are true.</p>
+      <p class="ie__cap cap--2 frag" data-step="2" data-sid="09b-walk-isempty:90">One node: both references point at it. A, B and C say false, as they should. D says true.</p>
+      <p class="ie__cap cap--3 frag" data-step="3" data-sid="09b-walk-isempty:91">Two nodes: all four are false.</p>
+      <ol class="verdict frag" data-step="4" data-sid="09b-walk-isempty:92">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="09b-walk-isempty:93"><span class="verdict__txt" data-sid="09b-walk-isempty:94">(firstNode == null) &amp;&amp; (lastNode == null)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="09b-walk-isempty:95"><span class="verdict__txt" data-sid="09b-walk-isempty:96">(firstNode == null)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="09b-walk-isempty:97"><span class="verdict__txt" data-sid="09b-walk-isempty:98">(lastNode == null)</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="09b-walk-isempty:99"><span class="verdict__txt" data-sid="09b-walk-isempty:100">(firstNode == lastNode)</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-isempty:101"></div>
+  <aside class="notes" data-sid="09b-walk-isempty:102">Answer: D &mdash; (firstNode == lastNode) [key from the PrairieLearn twin u10q07_linkeddeque_tracing_c; confirm in Runestone]. The question asks which one does NOT work in all cases, so check every expression against every state of a deque. Three states are enough: empty, one node, more than one. Step 1 &mdash; empty: both references are null. A is true, B is true, C is true, and D, null == null, is true too. So far all four work. Step 2 &mdash; one node: firstNode and lastNode both refer to that node. It is not empty, and A, B and C all say false. D compares the two references, they are the same node, so D says true: it calls a deque with one item empty. This is the state from the very first enqueue and from the last removal in Vote 1. Step 3 &mdash; two nodes: everything is false, D included, so D only fails at exactly one node, which is why it is easy to miss when testing. Step 4 &mdash; D. B is the one the video&rsquo;s queue uses; C works too, because in a correct deque the two references are null together. Next: Part 3, this week&rsquo;s work.</aside>
+
+  <style data-sid="09b-walk-isempty:103">
+    /* Slide-local: the board is one grid: a 770 px label column (A's
+       expression is 41 mono characters at the micro size, 689 px, beside a
+       52 px disc) and three 1fr state columns (282 px each); row 1 is the
+       column heads (the state's name and its drawing at 280 × 150, pills and
+       mini DLNodes in the deck's blue and panel colours), row 2 the reference
+       row "is it empty?" on paper, rows 3–6 the options, row 7 the caption
+       cell where the verdict lands. Every cell has an explicit grid position.
+       Motion: a column head GrowsFromCenter on its press and its five cells
+       FadeIn on a stagger behind it; D's one-node cell takes the orange tint
+       and an orange edge, and D's disc fills maroon, keyed to caption 2 with
+       :has(). Used by this slide only, all values from tokens. */
+    #slide-09b .ie {
+      display: grid;
+      grid-template-columns: 770px repeat(3, minmax(0, 1fr));
+      grid-template-rows: auto repeat(5, 52px) auto;
+      column-gap: var(--s-2); row-gap: 10px; align-content: start;
+    }
+    #slide-09b .ie__state { display: flex; flex-direction: column; align-items: center; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-09b .frag.ie__state.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-09b .slide__body p.ie__name { margin: 0 0 var(--s-1); font-family: var(--font-display); font-size: var(--t-small); line-height: 1.2; color: var(--fg-0); }
+    #slide-09b .ie__state svg { display: block; width: 100%; height: 150px; overflow: visible; }
+    #slide-09b .mp rect { fill: var(--accent-2); }
+    #slide-09b .mp text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-09b .mnull { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--stone); }
+    #slide-09b .marr { fill: none; stroke: var(--accent-2); stroke-width: 3; stroke-linecap: round; }
+    #slide-09b .mn rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-09b .mn path { fill: none; stroke: var(--fg-1); stroke-width: 3; }
+    #slide-09b .mn text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+
+    #slide-09b .slide__body p.ie__rowname { margin: 0; align-self: center; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.2; color: var(--fg-0); }
+    #slide-09b .slide__body p.ie__opt { display: flex; align-items: center; gap: var(--s-2); margin: 0; font-size: var(--t-micro); line-height: 1.2; color: var(--fg-0); }
+    #slide-09b .ie__opt code { font-family: var(--font-mono); font-size: var(--t-micro); white-space: nowrap; }
+    #slide-09b .ie__key {
+      flex: 0 0 auto; display: grid; place-items: center; width: 44px; height: 44px; box-sizing: border-box; border-radius: 50%;
+      border: 3px solid var(--accent-1); color: var(--accent-1); font-family: var(--font-display); font-size: var(--t-micro); line-height: 1;
+      transition: background-color .3s ease, color .3s ease;
+    }
+
+    #slide-09b .slide__body p.ie__cell {
+      display: grid; place-items: center; margin: 0; box-sizing: border-box;
+      border: 3px solid transparent; border-radius: var(--r-2); background: var(--bg-1);
+      font-family: var(--font-mono); font-size: var(--t-small); line-height: 1; color: var(--fg-1);
+      transition: opacity .3s ease, background-color .3s ease, border-color .3s ease, color .3s ease;
+    }
+    #slide-09b .slide__body p.ie__cell--ref { background: var(--paper); color: var(--fg-0); font-weight: 700; }
+    #slide-09b .frag.ie__cell.is-current, #slide-09b .frag.ie__cell.is-past { transition-delay: calc(.35s + var(--i) * .15s); }
+
+    #slide-09b .ie:has(.cap--2:not(.is-pending)) p.ie__cell--hit { background: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); border-color: var(--accent-3); color: var(--fg-0); }
+    #slide-09b .ie:has(.cap--2:not(.is-pending)) .ie__key--d { background: var(--accent-1); color: var(--paper); transition-delay: 1.2s; }
+
+    #slide-09b .ie__caps { display: grid; margin-top: var(--s-2); min-height: 100px; }
+    #slide-09b .ie__caps > * { grid-area: 1 / 1; align-self: start; }
+    #slide-09b .slide__body p.ie__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-09b .frag.ie__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-09b .frag.ie__cap.is-current { transition-delay: .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .ie__state, #slide-09b .ie__cell, #slide-09b .ie__key, #slide-09b .ie__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="10b-walk-chain:3">VOTE 3 &middot; THE ANSWER</p>
     <h2 data-sid="10b-walk-chain:4">Reverse order: the print is below the call</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="10b-walk-chain:5">A walkthrough of displayChain on the chain A, B, C from two slides before, under a program-counter bar. On the right, the chain with a blue ring on the node the running call is looking at, the call stack as boxes stacked from the bottom up, each showing curr with a blue arrow to its node, and a white plate labelled output. Step one: displayChain is called with A; curr is not null. Steps two to four: before printing anything, each call calls displayChain on curr's next, so boxes for B, C and null appear in turn, the ring moves along the chain, and each box below is marked waiting on line 3. Step five: curr is null, the if is false, and that call returns without printing. Step six: the call for C picks up on the line after its call and prints C. Step seven: its box fades and the call for B prints B. Step eight: the call for A prints A. Step nine: the last box fades, the output reads C, B, A on three lines, and the three options appear under the code with A and C struck through and B, in reverse order, left standing.</p>
+  <p class="sr-only slide__desc" data-sid="10b-walk-chain:5">A walkthrough of displayChain on the chain A, B, C from two slides before, under a program-counter bar. On the right, the chain with a blue ring on the node the running call is looking at, the call stack as boxes stacked from the bottom up, each showing curr with a blue arrow to its node, and a white plate labelled output. Step one: displayChain is called with A; curr is not null. Steps two to four: before printing anything, each call calls displayChain on curr's next, so boxes for B, C and null appear in turn, the ring moves along the chain, and each box below is marked waiting on line 3. Step five: curr is null, the if is false, and that call returns without printing. Step six: the call for C continues on the line after its call and prints C. Step seven: its box fades and the call for B prints B. Step eight: the call for A prints A. Step nine: the last box fades, the output reads C, B, A on three lines, and the three options appear under the code with A and C struck through and B, in reverse order, left standing.</p>
 
   <!-- The answer in 09's drawing: the same chain, the same stack, the same
        ring. The only difference from show is that println sits BELOW the
@@ -31,14 +31,14 @@
       <div class="codewalk" data-sid="10b-walk-chain:21">
         <div class="codewalk__caps" data-sid="10b-walk-chain:22">
           <p class="walkcap cap--1 frag" data-step="1" data-sid="10b-walk-chain:23">curr refers to A. Not null, so the if runs.</p>
-          <p class="walkcap cap--2 frag" data-step="2" data-sid="10b-walk-chain:24">The first line in the if is the call on the rest, starting at B. A&rsquo;s call waits on line 3 and prints nothing yet.</p>
-          <p class="walkcap cap--3 frag" data-step="3" data-sid="10b-walk-chain:25">B&rsquo;s call does the same: it calls on the rest, starting at C, and waits.</p>
-          <p class="walkcap cap--4 frag" data-step="4" data-sid="10b-walk-chain:26">C&rsquo;s call calls on its next: null.</p>
-          <p class="walkcap cap--5 frag" data-step="5" data-sid="10b-walk-chain:27">curr is null: the if is false and the call returns. The empty chain prints nothing.</p>
-          <p class="walkcap cap--6 frag" data-step="6" data-sid="10b-walk-chain:28">C&rsquo;s call picks up on the line after its call: it prints C.</p>
-          <p class="walkcap cap--7 frag" data-step="7" data-sid="10b-walk-chain:29">C&rsquo;s call comes off. B&rsquo;s call picks up and prints B.</p>
-          <p class="walkcap cap--8 frag" data-step="8" data-sid="10b-walk-chain:30">A&rsquo;s call picks up and prints A.</p>
-          <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="10b-walk-chain:31">Below the call, so on the way back: C B A. Put it above the call, as in show, and it prints A B C.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="10b-walk-chain:24">The first line in the if is the recursive call, on B. A&rsquo;s call waits on line 3 and prints nothing yet.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="10b-walk-chain:25">B&rsquo;s call does the same: it calls on C and waits.</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="10b-walk-chain:26">C&rsquo;s call calls on its next node, which is null.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="10b-walk-chain:27">curr is null: the if is false and the call returns without printing.</p>
+          <p class="walkcap cap--6 frag" data-step="6" data-sid="10b-walk-chain:28">C&rsquo;s call continues on the line after its call: it prints C.</p>
+          <p class="walkcap cap--7 frag" data-step="7" data-sid="10b-walk-chain:29">C&rsquo;s call is removed. B&rsquo;s call continues and prints B.</p>
+          <p class="walkcap cap--8 frag" data-step="8" data-sid="10b-walk-chain:30">A&rsquo;s call continues and prints A.</p>
+          <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="10b-walk-chain:31">The print runs after each call returns: C B A. Above the call, as in show, it prints A B C.</p>
         </div>
       </div>
       <ol class="verdict frag" data-step="9" data-sid="10b-walk-chain:32">
@@ -79,7 +79,7 @@
     </svg>
   </div>
   <div class="slide__number" data-sid="10b-walk-chain:103"></div>
-  <aside class="notes" data-sid="10b-walk-chain:104">Answer: B &mdash; in reverse order [ASSUMED by tracing; confirm in Runestone. The PL twin with the print above the call, u09q03_recursion_linkedchain_c, is keyed &ldquo;In order&rdquo;]. Same chain, same picture as show. Step 1 &mdash; displayChain is called with the first node, A; curr is not null, so the if runs. Step 2 &mdash; the first line inside the if is the call on the rest, so A&rsquo;s call calls on B and waits on line 3. Nothing printed. Step 3 &mdash; B&rsquo;s call does the same, on C. Step 4 &mdash; C&rsquo;s call calls on null. Step 5 &mdash; curr is null, the if is false, the call returns. The empty chain prints nothing: that is the base case, even though the code never says return. Step 6 &mdash; C&rsquo;s call picks up on the line after its call and prints C. Step 7 &mdash; B. Step 8 &mdash; A. Step 9 &mdash; C, B, A: reverse order. A is what show printed, with the print above the call. C, neither, would need some node to be skipped or printed twice; every call prints its own node exactly once. Next: Part 3, writing one of these yourself.</aside>
+  <aside class="notes" data-sid="10b-walk-chain:104">Answer: B &mdash; in reverse order [ASSUMED by tracing; confirm in Runestone. The PL twin with the print above the call, u09q03_recursion_linkedchain_c, is keyed &ldquo;In order&rdquo;]. Same chain, same picture as show. Step 1 &mdash; displayChain is called with the first node, A; curr is not null, so the if runs. Step 2 &mdash; the first line inside the if is the recursive call, so A&rsquo;s call calls on B and waits on line 3. Nothing printed. Step 3 &mdash; B&rsquo;s call does the same, on C. Step 4 &mdash; C&rsquo;s call calls on null. Step 5 &mdash; curr is null, the if is false, the call returns. The empty chain prints nothing: that is the base case, even though the code never says return. Step 6 &mdash; C&rsquo;s call continues on the line after its call and prints C. Step 7 &mdash; B. Step 8 &mdash; A. Step 9 &mdash; C, B, A: reverse order. A is what show printed, with the print above the call. C, neither, would need some node to be skipped or printed twice; every call prints its own node exactly once. Next: Part 3, writing one of these yourself.</aside>
 
   <style data-sid="10b-walk-chain:105">
     /* Slide-local: 09's drawing at 816 px (the editor needs 800 at the dense

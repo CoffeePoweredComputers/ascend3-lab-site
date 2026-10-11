@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-entry:1">
   <header class="slide__head" data-sid="06b-walk-entry:2">
     <p class="slide__kicker" data-sid="06b-walk-entry:3">VOTE 1 &middot; THE ANSWER</p>
-    <h2 data-sid="06b-walk-entry:4">Entry on the way in, Exit on the way back</h2>
+    <h2 data-sid="06b-walk-entry:4">Entry prints before the call, Exit after it</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="06b-walk-entry:5">A walkthrough of example of 3 under a program-counter bar, one press per printed line. On the right, the call stack as boxes stacked from the bottom up and a white plate labelled output. Step one: example of 3 is called, its box appears and it prints Entry 3. Step two: it calls example of 2; a box appears on top and the box below is marked waiting on line 4. Step three: Entry 2. Step four: example of 2 calls example of 1. Step five: Entry 1. Step six: x is 1, so the if is false; example of 1 prints Exit 1. Step seven: example of 1's box fades and example of 2 picks up after its call and prints Exit 2. Step eight: example of 2's box fades and example of 3 prints Exit 3. Step nine: the last box fades, a caption says what options B, C and D each assume, and the four options appear across the bottom with B, C and D struck through and A left standing.</p>
+  <p class="sr-only slide__desc" data-sid="06b-walk-entry:5">A walkthrough of example of 3 under a program-counter bar, one press per printed line. On the right, the call stack as boxes stacked from the bottom up and a white plate labelled output. Step one: example of 3 is called, its box appears and it prints Entry 3. Step two: it calls example of 2; a box appears on top and the box below is marked waiting on line 4. Step three: Entry 2. Step four: example of 2 calls example of 1. Step five: Entry 1. Step six: x is 1, so the if is false; example of 1 prints Exit 1. Step seven: example of 1's box fades and example of 2 continues after its call and prints Exit 2. Step eight: example of 2's box fades and example of 3 prints Exit 3. Step nine: the last box fades, a caption says what options B, C and D each assume, and the four options appear across the bottom with B, C and D struck through and A left standing.</p>
 
   <!-- The answer as the deck's call-stack walk: the method under the PC bar
        at --t-code, frames on the right with the output plate beside them,
@@ -55,9 +55,9 @@
         <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-entry:55">2 &gt; 1: example(2) calls example(1) and waits.</p>
         <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-entry:56">example(1) prints Entry 1.</p>
         <p class="walkcap cap--6 frag" data-step="6" data-sid="06b-walk-entry:57">x is 1, so the if is false: no call. example(1) prints Exit 1.</p>
-        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-entry:58">example(1) comes off. example(2) picks up after its call: Exit 2.</p>
-        <p class="walkcap cap--8 frag" data-step="8" data-sid="06b-walk-entry:59">example(2) comes off. example(3) picks up: Exit 3.</p>
-        <p class="walkcap cap--9 frag" data-step="9" data-sid="06b-walk-entry:60">C: each call ends before the next. B: Entry 1 first. D: example(2) ends too early.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-entry:58">example(1) is removed. example(2) continues after its call: Exit 2.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="06b-walk-entry:59">example(2) is removed. example(3) continues: Exit 3.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="06b-walk-entry:60">C: ends each call before the next. B: prints Entry 1 first. D: ends example(2) too early.</p>
       </div>
     </div>
 
@@ -69,7 +69,7 @@
     </ol>
   </div>
   <div class="slide__number" data-sid="06b-walk-entry:70"></div>
-  <aside class="notes" data-sid="06b-walk-entry:71">Answer: A &mdash; Entry 3, Entry 2, Entry 1, Exit 1, Exit 2, Exit 3 [ASSUMED by tracing; confirm in Runestone]. The Entry print is above the call and the Exit print is below it: the same thing we just saw with count. Step 1 &mdash; example(3) is called and prints Entry 3. Step 2 &mdash; 3 is more than 1, so it calls example(2) and waits on line 4. Step 3 &mdash; Entry 2. Step 4 &mdash; example(2) calls example(1) and waits. Step 5 &mdash; Entry 1. Step 6 &mdash; x is 1, the if is false, so there is no call; example(1) goes straight to its Exit line: Exit 1. Step 7 &mdash; example(1) is done; example(2) picks up on the line after its call: Exit 2. Step 8 &mdash; example(3) picks up: Exit 3. Step 9 &mdash; the wrong answers. C treats each call as if it finished before the next one started, but example(3) is still waiting when example(2) runs. B prints the innermost call first, but Entry 3 prints before any call is made. D has example(2) finishing before example(1) has even started. Next: Vote 2, a method with a print on both sides of the call.</aside>
+  <aside class="notes" data-sid="06b-walk-entry:71">Answer: A &mdash; Entry 3, Entry 2, Entry 1, Exit 1, Exit 2, Exit 3 [ASSUMED by tracing; confirm in Runestone]. The Entry print is above the call and the Exit print is below it: the same thing we just saw with count. Step 1 &mdash; example(3) is called and prints Entry 3. Step 2 &mdash; 3 is more than 1, so it calls example(2) and waits on line 4. Step 3 &mdash; Entry 2. Step 4 &mdash; example(2) calls example(1) and waits. Step 5 &mdash; Entry 1. Step 6 &mdash; x is 1, the if is false, so there is no call; example(1) goes straight to its Exit line: Exit 1. Step 7 &mdash; example(1) is done; example(2) continues on the line after its call: Exit 2. Step 8 &mdash; example(3) continues: Exit 3. Step 9 &mdash; the wrong answers. C treats each call as if it finished before the next one started, but example(3) is still waiting when example(2) runs. B prints the innermost call first, but Entry 3 prints before any call is made. D has example(2) finishing before example(1) has even started. Next: Vote 2, a method with a print on both sides of the call.</aside>
 
   <style data-sid="06b-walk-entry:72">
     /* Slide-local: the editor at --t-code (780 px: the println lines are 37

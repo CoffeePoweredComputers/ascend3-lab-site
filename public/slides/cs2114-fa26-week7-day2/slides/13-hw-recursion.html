@@ -3,7 +3,7 @@
     <p class="slide__kicker" data-sid="13-hw-recursion:3">WEEK 7 HOMEWORK &middot; DUE FRI OCT 9, 11:59 PM</p>
     <h2 data-sid="13-hw-recursion:4">Five recursive methods; your best three count</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="13-hw-recursion:5">Six cards in two columns. The first card, on from the start, lists the three questions: one, when do I stop; two, what is the smaller problem; three, what do I do with its answer. Then one card per press for the five homework problems, each with its title, its method signature and the number of the question to think hardest about. Recursive Power, int power of int base and int exponent: question 1, stop on the exponent, not the base. Recursive Countdown, List of Integer countdownList of int n: question 3, put n in front of the list that comes back. Recursive LinkedChain Reverse, Node of T reverse of Node of T head: question 3, fix this node's link and return the new head. Recursive Array to String, String arrayToString of int array arr and int index: question 3, a comma only if more comes after arr at index. Recursive Array Sum, int sumFrom of int array arr and int index: question 2, the same array, from index plus 1. A line under the cards reads: PrairieLearn, Assessments, Week 7: Recursion, Coding Practice; 10 points each.</p>
+  <p class="sr-only slide__desc" data-sid="13-hw-recursion:5">Six cards in two columns. The first card, on from the start, lists the three questions: one, when do I stop; two, what is the smaller problem; three, what do I do with its answer. Then one card per press for the five homework problems, each with its title, its method signature and the number of the question to think hardest about. Recursive Power, int power of int base and int exponent: question 1, stop when the exponent is 0. Recursive Countdown, List of Integer countdownList of int n: question 3, add n to the front of the returned list. Recursive LinkedChain Reverse, Node of T reverse of Node of T head: question 3, fix this node's link and return the new head. Recursive Array to String, String arrayToString of int array arr and int index: question 3, add a comma only if arr at index is not last. Recursive Array Sum, int sumFrom of int array arr and int index: question 2, the same array, starting at index plus 1. A line under the cards reads: PrairieLearn, Assessments, Week 7: Recursion, Coding Practice; 10 points each.</p>
 
   <!-- The W5D1 homework-card grammar for five problems: a 2 × 3 grid of
        tiles, the first one the three questions from 12 (on from the start, as
@@ -16,7 +16,7 @@
        steps 1–5: power, countdownList, reverse, arrayToString, sumFrom. -->
   <div class="slide__body hw" data-sid="13-hw-recursion:6">
     <div class="tile hw__card hw__card--q" data-sid="13-hw-recursion:7">
-      <h3 data-sid="13-hw-recursion:8">Ask these three</h3>
+      <h3 data-sid="13-hw-recursion:8">Three questions</h3>
       <ol class="hw__qs" data-sid="13-hw-recursion:9">
         <li data-sid="13-hw-recursion:10"><span class="hw__n" data-sid="13-hw-recursion:11">1</span>When do I stop?</li>
         <li data-sid="13-hw-recursion:12"><span class="hw__n" data-sid="13-hw-recursion:13">2</span>What is the smaller problem?</li>
@@ -26,12 +26,12 @@
     <div class="tile tile--a3 hw__card frag" data-step="1" data-sid="13-hw-recursion:16">
       <h3 data-sid="13-hw-recursion:17">Recursive Power</h3>
       <p class="hw__sig" data-sid="13-hw-recursion:18">int power(int base, int exponent)</p>
-      <p class="hw__hard" data-sid="13-hw-recursion:19"><span class="hw__n" data-sid="13-hw-recursion:20">1</span>stop on the exponent, not the base</p>
+      <p class="hw__hard" data-sid="13-hw-recursion:19"><span class="hw__n" data-sid="13-hw-recursion:20">1</span>stop when the exponent is 0</p>
     </div>
     <div class="tile tile--a3 hw__card frag" data-step="2" data-sid="13-hw-recursion:21">
       <h3 data-sid="13-hw-recursion:22">Recursive Countdown</h3>
       <p class="hw__sig" data-sid="13-hw-recursion:23">List&lt;Integer&gt; countdownList(int n)</p>
-      <p class="hw__hard" data-sid="13-hw-recursion:24"><span class="hw__n" data-sid="13-hw-recursion:25">3</span>put n in front of the list that comes back</p>
+      <p class="hw__hard" data-sid="13-hw-recursion:24"><span class="hw__n" data-sid="13-hw-recursion:25">3</span>add n to the front of the returned list</p>
     </div>
     <div class="tile tile--a3 hw__card frag" data-step="3" data-sid="13-hw-recursion:26">
       <h3 data-sid="13-hw-recursion:27">Recursive LinkedChain Reverse</h3>
@@ -41,17 +41,17 @@
     <div class="tile tile--a3 hw__card frag" data-step="4" data-sid="13-hw-recursion:31">
       <h3 data-sid="13-hw-recursion:32">Recursive Array to String</h3>
       <p class="hw__sig" data-sid="13-hw-recursion:33">String arrayToString(int[] arr, int index)</p>
-      <p class="hw__hard" data-sid="13-hw-recursion:34"><span class="hw__n" data-sid="13-hw-recursion:35">3</span>a comma only if more comes after arr[index]</p>
+      <p class="hw__hard" data-sid="13-hw-recursion:34"><span class="hw__n" data-sid="13-hw-recursion:35">3</span>add a comma only if arr[index] is not last</p>
     </div>
     <div class="tile tile--a3 hw__card frag" data-step="5" data-sid="13-hw-recursion:36">
       <h3 data-sid="13-hw-recursion:37">Recursive Array Sum</h3>
       <p class="hw__sig" data-sid="13-hw-recursion:38">int sumFrom(int[] arr, int index)</p>
-      <p class="hw__hard" data-sid="13-hw-recursion:39"><span class="hw__n" data-sid="13-hw-recursion:40">2</span>the same array, from index + 1</p>
+      <p class="hw__hard" data-sid="13-hw-recursion:39"><span class="hw__n" data-sid="13-hw-recursion:40">2</span>the same array, starting at index + 1</p>
     </div>
     <p class="note hw__sign frag" data-step="5" data-anim="fade" data-sid="13-hw-recursion:41">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="13-hw-recursion:42">Week 7: Recursion &mdash; Coding Practice</b> &middot; 10 points each</p>
   </div>
   <div class="slide__number" data-sid="13-hw-recursion:43"></div>
-  <aside class="notes" data-sid="13-hw-recursion:44">This week&rsquo;s homework is five short recursive methods on PrairieLearn; do at least three, the best three count, 10 points each, due Friday October 9 at 11:59 PM [the deadline CSV and PrairieLearn both say Friday Oct 9, which is Fall Break; confirm the date you want to announce]. Each problem statement already gives you the base case and the recursive case in words; your job is to turn them into code. The first card is the three questions from the last slide. Step 1 &mdash; Recursive Power: the thing to get right is question 1; you stop when the exponent reaches 0, whatever the base is, even 0 or negative. Step 2 &mdash; Recursive Countdown returns a list: question 3, what to do with the list that comes back from the smaller call; n goes in front. Step 3 &mdash; Recursive LinkedChain Reverse: question 3 again; after the rest is reversed, this node&rsquo;s link has to be fixed, and you return the head you got back. Draw it first. Step 4 &mdash; Recursive Array to String: question 3, the comma, only when there is more to come. Step 5 &mdash; Recursive Array Sum: question 2; the smaller problem is the same array starting one index later. The signpost: PrairieLearn, Assessments, Week 7: Recursion &mdash; Coding Practice. Next: the deadlines once more, then Fall Break.</aside>
+  <aside class="notes" data-sid="13-hw-recursion:44">This week&rsquo;s homework is five short recursive methods on PrairieLearn; do at least three, the best three count, 10 points each, due Friday October 9 at 11:59 PM [the deadline CSV and PrairieLearn both say Friday Oct 9, which is Fall Break; confirm the date you want to announce]. Each problem statement already gives you the base case and the recursive case in words; your job is to turn them into code. The first card is the three questions from the last slide. Step 1 &mdash; Recursive Power: the thing to get right is question 1; you stop when the exponent reaches 0, whatever the base is, even 0 or negative. Step 2 &mdash; Recursive Countdown returns a list: question 3, what to do with the list that comes back from the smaller call; n goes in front. Step 3 &mdash; Recursive LinkedChain Reverse: question 3 again; after the rest is reversed, this node&rsquo;s link has to be fixed, and you return the head you got back. Draw it first. Step 4 &mdash; Recursive Array to String: question 3, the comma, only when there is more to come. Step 5 &mdash; Recursive Array Sum: question 2; the smaller problem is the same array starting one index later. Where to find it: PrairieLearn, Assessments, Week 7: Recursion &mdash; Coding Practice. Next: the deadlines once more, then Fall Break.</aside>
 
   <style data-sid="13-hw-recursion:45">
     /* Slide-local: six tiles in a 2 × 3 grid (816 px each, so the longest

@@ -1,7 +1,7 @@
 <section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-returns:1">
   <header class="slide__head" data-sid="09b-walk-returns:2">
     <p class="slide__kicker" data-sid="09b-walk-returns:3">RECURSION &middot; THE RETURNS COME BACK UP</p>
-    <h2 data-sid="09b-walk-returns:4">Each answer goes down to the frame that waited for it</h2>
+    <h2 data-sid="09b-walk-returns:4">Each answer goes to the frame that was waiting for it</h2>
   </header>
   <p class="sr-only slide__desc" data-sid="09b-walk-returns:5">The same method and the same call stack, continuing from the last slide: main at the bottom, then fact of 3 and fact of 2 waiting on line 5, and fact of 1 on top in orange at the base case. Press one: fact of 1 returns 1, and a blue pill holding 1 grows in on its frame. Press two: the fact of 1 frame fades away and the pill travels down into fact of 2, which turns orange again; its note now reads return 2 times 1. Press three: fact of 2 returns 2; the pill now holds 2. Press four: the fact of 2 frame fades, the 2 travels down into fact of 3, which turns orange and reads return 3 times 2. Press five: fact of 3 returns 6. Press six: the fact of 3 frame fades and the 6 travels down into main. Press seven: the caption sums it up: the calls went down 3, 2, 1, and the answers came back up 1, 2, 6.</p>
 

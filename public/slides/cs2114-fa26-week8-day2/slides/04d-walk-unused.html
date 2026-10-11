@@ -1,0 +1,141 @@
+<section class="slide slide--warmup" id="slide-04d" data-sid="04d-walk-unused:1">
+  <header class="slide__head" data-sid="04d-walk-unused:2">
+    <p class="slide__kicker" data-sid="04d-walk-unused:3">A QUEUE ON AN ARRAY &middot; FULL OR EMPTY?</p>
+    <h2 data-sid="04d-walk-unused:4">Keep one slot unused, and full stops looking like empty</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04d-walk-unused:5">A walkthrough of the module's three tests, which appear as code lines one at a time under a program-counter bar. Below them, a ten-slot array with a frontIndex pill above slot 0 and a backIndex pill below slot 9, and a counter labelled entries. Step one: the empty test appears, frontIndex equals equals backIndex plus 1, mod contents dot length; for a new queue, 9 plus 1 mod 10 is 0, so it is empty. Step two: enqueue A; the backIndex pill travels from slot 9 back to slot 0 and A grows in. Step three: B to I grow into slots 1 to 8 and the backIndex pill moves to 8. Step four: J grows into slot 9, the backIndex pill moves to 9, all ten slots wash orange and the counter reads 10; the empty test passes on a full queue. Step five: the caption says full and empty give the same two numbers. Step six: J fades, slot 9 is hatched in grey as unused, the backIndex pill moves back to 8, and the full test appears: frontIndex equals equals backIndex plus 2, mod contents dot length, which holds. Step seven: the empty test now fails. Step eight: A to H fade, the frontIndex pill moves to slot 8, the hatch goes, and the one-entry test appears: frontIndex equals equals backIndex. Step nine: the caption says one empty slot tells full from empty.</p>
+
+  <!-- Concept intro, walk 4 of 4: why a queue of capacity 9 is an array of 10.
+       No method under the bar here: the code is the three relationships from
+       the wrap-up video (ArrayQueueWrapUp p. 2), each line hidden until it is
+       needed (walkline--new) and the bar on the test being evaluated. The
+       queue starts as the constructor leaves it (frontIndex 0, backIndex
+       contents.length - 1 = 9), fills to ten, and lands on the same two
+       numbers; then the rule stops it at nine and slot 9 is hatched stone.
+       Counted cells take the orange wash; the entries counter rolls because
+       it counts.
+       1 empty · 2 A wraps the back · 3 B–I · 4 J, ten, the test lies · 5 same numbers ·
+       6 full at nine · 7 empty test fails · 8 one entry · 9 plant -->
+  <div class="slide__body codewalk code-mid un" data-sid="04d-walk-unused:6">
+    <div class="un__top" data-sid="04d-walk-unused:7">
+      <div class="editor" data-sid="04d-walk-unused:8">
+        <p class="editor__bar" data-sid="04d-walk-unused:9">the three tests &mdash; from the module&rsquo;s wrap-up</p>
+        <div class="editor__pc" data-sid="04d-walk-unused:10"></div>
+        <ol class="editor__code" data-sid="04d-walk-unused:11">
+          <li class="walkline walkline--new frag un__cmt" data-step="1" data-sid="04d-walk-unused:12">// empty</li>
+          <li class="walkline walkline--new frag" data-step="1" data-also="4 5 7" data-sid="04d-walk-unused:13">frontIndex == (backIndex + <span class="tok-num" data-sid="04d-walk-unused:14">1</span>) % contents.length</li>
+          <li class="walkline walkline--new frag un__cmt" data-step="6" data-sid="04d-walk-unused:15">// full</li>
+          <li class="walkline walkline--new frag" data-step="6" data-sid="04d-walk-unused:16">frontIndex == (backIndex + <span class="tok-num" data-sid="04d-walk-unused:17">2</span>) % contents.length</li>
+          <li class="walkline walkline--new frag un__cmt" data-step="8" data-sid="04d-walk-unused:18">// one entry</li>
+          <li class="walkline walkline--new frag" data-step="8" data-sid="04d-walk-unused:19">frontIndex == backIndex</li>
+        </ol>
+      </div>
+      <div class="codewalk__caps" data-sid="04d-walk-unused:20">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04d-walk-unused:21">A new queue: frontIndex 0, backIndex 9 (contents.length &minus; 1). (9 + 1) % 10 = 0 = frontIndex: empty.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04d-walk-unused:22">enqueue(A): backIndex wraps from 9 to 0.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04d-walk-unused:23">B to I: nine entries, backIndex 8.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04d-walk-unused:24">J makes ten. frontIndex 0, backIndex 9: (9 + 1) % 10 = 0. The empty test passes on a full queue.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04d-walk-unused:25">Full and empty give the same two numbers. The indices cannot tell them apart.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04d-walk-unused:26">The fix: the queue is full at nine, and slot 9 stays unused. (8 + 2) % 10 = 0 = frontIndex: full.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04d-walk-unused:27">And the empty test now fails: (8 + 1) % 10 is 9, not 0.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04d-walk-unused:28">Eight dequeues leave I alone: frontIndex 8 == backIndex 8. One entry.</p>
+        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="04d-walk-unused:29">One empty slot tells full from empty. A queue of capacity 9 is an array of 10.</p>
+      </div>
+    </div>
+
+    <div class="un__bottom" data-sid="04d-walk-unused:30">
+      <svg class="un__fig" viewBox="0 0 1110 226" role="img" aria-label="The ten-slot array: a new queue with frontIndex on 0 and backIndex on 9 is filled with A to J, then J is taken back and slot 9 hatched as unused, then A to H are dequeued so that frontIndex and backIndex both sit on slot 8" data-sid="04d-walk-unused:31">
+        <defs data-sid="04d-walk-unused:32">
+          <pattern id="w8d2-04d-hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)" data-sid="04d-walk-unused:33">
+            <path d="M0 0 V16" style="stroke: var(--stone); stroke-width: 5" data-sid="04d-walk-unused:34"/>
+          </pattern>
+        </defs>
+        <g class="un__cells" data-sid="04d-walk-unused:35">
+          <rect class="c0" style="--i: 0" x="30" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:36"/><rect class="c1" style="--i: 1" x="138" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:37"/><rect class="c2" style="--i: 2" x="246" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:38"/><rect class="c3" style="--i: 3" x="354" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:39"/><rect class="c4" style="--i: 4" x="462" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:40"/>
+          <rect class="c5" style="--i: 5" x="570" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:41"/><rect class="c6" style="--i: 6" x="678" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:42"/><rect class="c7" style="--i: 7" x="786" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:43"/><rect class="c8" style="--i: 8" x="894" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:44"/><rect class="c9" style="--i: 9" x="1002" y="50" width="96" height="96" rx="10" data-sid="04d-walk-unused:45"/>
+        </g>
+        <rect class="un__hatch" x="1002" y="50" width="96" height="96" rx="10" fill="url(#w8d2-04d-hatch)" data-sid="04d-walk-unused:46"/>
+        <g class="un__idx" data-sid="04d-walk-unused:47"><text x="78" y="176" data-sid="04d-walk-unused:48">0</text><text x="186" y="176" data-sid="04d-walk-unused:49">1</text><text x="294" y="176" data-sid="04d-walk-unused:50">2</text><text x="402" y="176" data-sid="04d-walk-unused:51">3</text><text x="510" y="176" data-sid="04d-walk-unused:52">4</text><text x="618" y="176" data-sid="04d-walk-unused:53">5</text><text x="726" y="176" data-sid="04d-walk-unused:54">6</text><text x="834" y="176" data-sid="04d-walk-unused:55">7</text><text x="942" y="176" data-sid="04d-walk-unused:56">8</text><text x="1050" y="176" data-sid="04d-walk-unused:57">9</text></g>
+        <g class="un__vals" data-sid="04d-walk-unused:58">
+          <text class="gr ga dq" style="--i: 0" x="78" y="110" data-sid="04d-walk-unused:59">A</text>
+          <text class="gr gbi dq" style="--i: 1" x="186" y="110" data-sid="04d-walk-unused:60">B</text><text class="gr gbi dq" style="--i: 2" x="294" y="110" data-sid="04d-walk-unused:61">C</text><text class="gr gbi dq" style="--i: 3" x="402" y="110" data-sid="04d-walk-unused:62">D</text><text class="gr gbi dq" style="--i: 4" x="510" y="110" data-sid="04d-walk-unused:63">E</text>
+          <text class="gr gbi dq" style="--i: 5" x="618" y="110" data-sid="04d-walk-unused:64">F</text><text class="gr gbi dq" style="--i: 6" x="726" y="110" data-sid="04d-walk-unused:65">G</text><text class="gr gbi dq" style="--i: 7" x="834" y="110" data-sid="04d-walk-unused:66">H</text><text class="gr gbi" style="--i: 8" x="942" y="110" data-sid="04d-walk-unused:67">I</text>
+          <text class="gr gj" x="1050" y="110" data-sid="04d-walk-unused:68">J</text>
+        </g>
+        <g class="pill pf" data-sid="04d-walk-unused:69"><rect x="8" y="0" width="140" height="36" rx="18" data-sid="04d-walk-unused:70"/><text x="78" y="25" data-sid="04d-walk-unused:71">frontIndex</text><path d="M70 36 L86 36 L78 46 Z" data-sid="04d-walk-unused:72"/></g>
+        <g class="pill pb" data-sid="04d-walk-unused:73"><rect x="8" y="190" width="140" height="36" rx="18" data-sid="04d-walk-unused:74"/><text x="78" y="215" data-sid="04d-walk-unused:75">backIndex</text><path d="M70 190 L86 190 L78 180 Z" data-sid="04d-walk-unused:76"/></g>
+      </svg>
+      <div class="moves moves--ok" data-sid="04d-walk-unused:77">
+        <p class="moves__label" data-sid="04d-walk-unused:78">entries</p>
+        <div class="moves__stack" data-sid="04d-walk-unused:79">
+          <div class="heap-obj__field" data-sid="04d-walk-unused:80"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04d-walk-unused:81">0</p><p class="heap-val frag" data-step="2" data-sid="04d-walk-unused:82">1</p></div>
+          <div class="heap-obj__field" data-sid="04d-walk-unused:83"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04d-walk-unused:84">1</p><p class="heap-val frag" data-step="3" data-sid="04d-walk-unused:85">9</p></div>
+          <div class="heap-obj__field" data-sid="04d-walk-unused:86"><p class="heap-val heap-val--old frag" data-step="4" data-sid="04d-walk-unused:87">9</p><p class="heap-val frag" data-step="4" data-sid="04d-walk-unused:88">10</p></div>
+          <div class="heap-obj__field" data-sid="04d-walk-unused:89"><p class="heap-val heap-val--old frag" data-step="6" data-sid="04d-walk-unused:90">10</p><p class="heap-val frag" data-step="6" data-sid="04d-walk-unused:91">9</p></div>
+          <div class="heap-obj__field" data-sid="04d-walk-unused:92"><p class="heap-val heap-val--old frag" data-step="8" data-sid="04d-walk-unused:93">9</p><p class="heap-val frag" data-step="8" data-sid="04d-walk-unused:94">1</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04d-walk-unused:95"></div>
+  <aside class="notes" data-sid="04d-walk-unused:96">The last piece: how does the queue know whether it is full or empty? The code under the bar is the three tests from the module&rsquo;s wrap-up video; they appear as we need them. Step 1: a new queue. The constructor sets frontIndex to 0 and backIndex to contents.length minus 1, which is 9. The empty test: 9 plus 1, mod 10, is 0, which is frontIndex, so empty. Step 2: enqueue A; backIndex wraps from 9 to 0. Step 3: B to I. Step 4: J fills the last slot. Ten entries, frontIndex 0, backIndex 9: exactly the numbers we started with, and the empty test says empty. Step 5: with every slot usable, full and empty look the same. Step 6: the module&rsquo;s fix: never use the last free slot. The queue counts as full at nine entries, slot 9 stays empty, and full now has its own test, plus 2. Step 7: the empty test fails on the full queue, as it should. Step 8: eight dequeues leave one entry, and then frontIndex equals backIndex. Step 9: this is why the constructor allocates initialCapacity plus 1 slots: a queue of capacity 9 is an array of 10. Two remarks if there is time: the wrap-up also mentions the other fix, a size field, which needs no unused slot; and the module&rsquo;s enqueue calls ensureCapacity first, which, when the full test holds, copies the entries in queue order into an array twice as long, starting at slot 0. Next: Part 2, two votes on exactly these numbers.</aside>
+
+  <style data-sid="04d-walk-unused:97">
+    /* Slide-local: the three tests in an editor at --t-code (990 px for the
+       47-character lines, 47 × 19.2 + 70 = 972) with the captions beside it
+       (642 px); the walk strip under them in one SVG at 1:1 (cells 96 on a 108
+       pitch) and the entries counter to its right. The tests are
+       walkline--new lines, revealed when reached; the bar sits on the test
+       being evaluated. Entries grow from centre on enqueue and fade on
+       dequeue; the pills travel in whole pitches (the wrap is the long move
+       from 9 back to 0); counted cells take the orange 18% wash with an
+       orange stroke; the unused slot is a stone hatch. All keyed to the
+       caption frags through :has(), in step order, so a back-step reverses
+       it. All values from tokens; used by this slide only. */
+    #slide-04d .un { display: grid; grid-template-rows: auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-04d .un__top { display: grid; grid-template-columns: 990px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04d .un__bottom { display: grid; grid-template-columns: 1110px minmax(0, 1fr); column-gap: var(--s-5); align-items: center; }
+    #slide-04d .un__fig { display: block; width: 1110px; height: 226px; overflow: visible; }
+    #slide-04d .un__cmt { color: var(--fg-1); }
+
+    #slide-04d .un__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .3s ease; }
+    #slide-04d .un__hatch { stroke: var(--stone); stroke-width: 3; opacity: 0; transition: opacity .4s ease; }
+    #slide-04d .un__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04d .un__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04d .un__vals .gr { transform-box: fill-box; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4); transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04d .pill rect, #slide-04d .pill path { fill: var(--accent-2); }
+    #slide-04d .pill text { font-family: var(--font-mono); font-size: var(--t-tag); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04d .pill { transition: transform .9s var(--ease-smooth); }
+    #slide-04d .pf { transform: translateX(0px); }
+    #slide-04d .pb { transform: translateX(972px); }
+
+    /* step 2: enqueue(A) — backIndex wraps 9 → 0 */
+    #slide-04d .slide__body:has(.cap--2:not(.is-pending)) .pb { transform: translateX(0px); }
+    #slide-04d .slide__body:has(.cap--2:not(.is-pending)) .ga { opacity: 1; transform: scale(1); transition-delay: .7s; }
+    /* step 3: B to I — backIndex 0 → 8 */
+    #slide-04d .slide__body:has(.cap--3:not(.is-pending)) .pb { transform: translateX(864px); }
+    #slide-04d .slide__body:has(.cap--3:not(.is-pending)) .gbi { opacity: 1; transform: scale(1); transition-delay: calc(var(--i) * .1s); }
+    /* step 4: J makes ten — backIndex 8 → 9, every slot counted */
+    #slide-04d .slide__body:has(.cap--4:not(.is-pending)) .pb { transform: translateX(972px); }
+    #slide-04d .slide__body:has(.cap--4:not(.is-pending)) .gj { opacity: 1; transform: scale(1); transition-delay: .5s; }
+    #slide-04d .slide__body:has(.cap--4:not(.is-pending)) .un__cells rect { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); transition-delay: calc(.6s + var(--i) * .08s); }
+    /* step 6: full at nine — J goes, slot 9 is hatched, backIndex 9 → 8 */
+    #slide-04d .slide__body:has(.cap--6:not(.is-pending)) .gj { opacity: 0; transform: scale(1); transition-delay: 0s; }
+    #slide-04d .slide__body:has(.cap--6:not(.is-pending)) .pb { transform: translateX(864px); }
+    #slide-04d .slide__body:has(.cap--6:not(.is-pending)) .un__cells .c9 { stroke: var(--stone); fill: var(--bg-1); transition-delay: 0s; }
+    #slide-04d .slide__body:has(.cap--6:not(.is-pending)) .un__hatch { opacity: .6; transition-delay: .3s; }
+    /* step 8: eight dequeues — A to H go, frontIndex 0 → 8, only slot 8 is counted, the hatch goes */
+    #slide-04d .slide__body:has(.cap--8:not(.is-pending)) .dq { opacity: 0; transform: scale(1); transition-delay: calc(var(--i) * .08s); }
+    #slide-04d .slide__body:has(.cap--8:not(.is-pending)) .pf { transform: translateX(864px); }
+    #slide-04d .slide__body:has(.cap--8:not(.is-pending)) .un__cells rect { stroke: var(--stone); fill: var(--bg-1); transition-delay: 0s; }
+    #slide-04d .slide__body:has(.cap--8:not(.is-pending)) .un__cells .c8 { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    #slide-04d .slide__body:has(.cap--8:not(.is-pending)) .un__hatch { opacity: 0; transition-delay: 0s; }
+
+    #slide-04d .codewalk__caps { min-height: 196px; }
+    #slide-04d .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04d .un__cells rect, #slide-04d .un__hatch, #slide-04d .un__vals .gr, #slide-04d .pill { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

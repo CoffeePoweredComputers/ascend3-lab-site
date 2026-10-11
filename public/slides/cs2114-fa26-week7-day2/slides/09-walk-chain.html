@@ -1,9 +1,9 @@
 <section class="slide slide--warmup" id="slide-09" data-sid="09-walk-chain:1">
   <header class="slide__head" data-sid="09-walk-chain:2">
-    <p class="slide__kicker" data-sid="09-walk-chain:3">RECURSION ON A CHAIN &middot; A WALK</p>
-    <h2 data-sid="09-walk-chain:4">show(curr): this node, then the rest of the chain</h2>
+    <p class="slide__kicker" data-sid="09-walk-chain:3">RECURSION ON A CHAIN &middot; WALKTHROUGH</p>
+    <h2 data-sid="09-walk-chain:4">show(curr): print this node, then show the next</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="09-walk-chain:5">A walkthrough of a recursive method on a linked chain, under a program-counter bar: void show of Node curr; if curr is null, return; print curr's data; show of curr's next; closing brace. On the right, a chain of three nodes holding A, B and C, each with a data part and a next part, joined by blue arrows, the last next pointing at the word null. Under it, the call stack as boxes stacked from the bottom up, each box showing curr with a blue arrow to the letter of its node, and a white plate labelled output. A blue ring marks the node the running call is looking at. Step one: show is called with the node holding A. Step two: it prints A. Step three: it calls show on curr's next; a new box appears with curr pointing at B, the ring moves to B, and the box below is marked waiting on line 4. Steps four to six: B is printed, show is called on C, C is printed. Step seven: show is called on C's next, which is null; the ring moves to null. Step eight: curr is null, so that call returns and its box fades. Step nine: the other three boxes finish one after another; the output reads A B C. Step ten: a chain is one node plus a shorter chain, and null is the empty chain.</p>
+  <p class="sr-only slide__desc" data-sid="09-walk-chain:5">A walkthrough of a recursive method on a linked chain, under a program-counter bar: void show of Node curr; if curr is null, return; print curr's data; show of curr's next; closing brace. On the right, a chain of three nodes holding A, B and C, each with a data part and a next part, joined by blue arrows, the last next pointing at the word null. Under it, the call stack as boxes stacked from the bottom up, each box showing curr with a blue arrow to the letter of its node, and a white plate labelled output. A blue ring marks the node the running call is looking at. Step one: show is called with the node holding A. Step two: it prints A. Step three: it calls show on curr's next; a new box appears with curr pointing at B, the ring moves to B, and the box below is marked waiting on line 4. Steps four to six: B is printed, show is called on C, C is printed. Step seven: show is called on C's next, which is null; the ring moves to null. Step eight: curr is null, so that call returns and its box fades. Step nine: the other three boxes finish one after another; the output reads A B C. Step ten: each call prints one node and calls show on the next, and it stops at null.</p>
 
   <!-- The concept intro for Part 2, in the deck's call-stack grammar with the
        chain drawn above the stack (W4D1 Node boxes, data | next, blue
@@ -32,15 +32,15 @@
       <div class="codewalk" data-sid="09-walk-chain:21">
         <div class="codewalk__caps" data-sid="09-walk-chain:22">
           <p class="walkcap cap--1 frag" data-step="1" data-sid="09-walk-chain:23">show starts at the first node: curr refers to A. Not null.</p>
-          <p class="walkcap cap--2 frag" data-step="2" data-sid="09-walk-chain:24">This node first: print A.</p>
-          <p class="walkcap cap--3 frag" data-step="3" data-sid="09-walk-chain:25">Then the rest of the chain: show(curr.getNext()) starts at B. show(A) waits on line 4.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="09-walk-chain:24">Print this node: A.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="09-walk-chain:25">Then call show(curr.getNext()), which starts at B. show(A) waits on line 4.</p>
           <p class="walkcap cap--4 frag" data-step="4" data-sid="09-walk-chain:26">show(B) prints B.</p>
-          <p class="walkcap cap--5 frag" data-step="5" data-sid="09-walk-chain:27">The rest after B starts at C.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="09-walk-chain:27">show(B) calls show(C) and waits.</p>
           <p class="walkcap cap--6 frag" data-step="6" data-sid="09-walk-chain:28">show(C) prints C.</p>
-          <p class="walkcap cap--7 frag" data-step="7" data-sid="09-walk-chain:29">The rest after C is null: a chain with no nodes at all.</p>
+          <p class="walkcap cap--7 frag" data-step="7" data-sid="09-walk-chain:29">C&rsquo;s next is null, so show(null) is called.</p>
           <p class="walkcap cap--8 frag" data-step="8" data-sid="09-walk-chain:30">curr == null is the base case: nothing to show, so it returns.</p>
           <p class="walkcap cap--9 frag" data-step="9" data-sid="09-walk-chain:31">Nothing is below the call, so each frame just finishes. Output: A B C, in order.</p>
-          <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="09-walk-chain:32">A chain is one node plus a shorter chain. null is the empty chain, so stop there.</p>
+          <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="09-walk-chain:32">Each call prints one node and calls show on the next. It stops at null.</p>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
     </svg>
   </div>
   <div class="slide__number" data-sid="09-walk-chain:97"></div>
-  <aside class="notes" data-sid="09-walk-chain:98">The 7.3 module&rsquo;s chain, with its names: Node, curr, getData, getNext; firstNode is the class&rsquo;s first node. print is short for System.out.print. The method handles one node and hands the rest of the chain to itself. Step 1 &mdash; show is called with the first node; curr refers to A, not null. Step 2 &mdash; this node first: print A. Step 3 &mdash; then the rest: curr.getNext() is the chain that starts at B, and show calls itself on it. show(A) waits on line 4. The blue ring follows the running call&rsquo;s curr. Step 4 &mdash; show(B) prints B. Step 5 &mdash; the rest after B starts at C. Step 6 &mdash; prints C. Step 7 &mdash; C&rsquo;s next is null, and show is called on that. Step 8 &mdash; curr == null is the base case: an empty chain has nothing to show, so it returns. Step 9 &mdash; the call is the last line, so every frame just finishes. A B C, in order. Step 10 &mdash; the idea for the rest of the hour: a chain is one node plus a shorter chain, and null is the empty chain, which is why curr == null is the base case. Next: Vote 3. Same chain, one line in a different place.</aside>
+  <aside class="notes" data-sid="09-walk-chain:98">The 7.3 module&rsquo;s chain, with its names: Node, curr, getData, getNext; firstNode is the class&rsquo;s first node. print is short for System.out.print. The method handles one node and calls itself on the next node. Step 1 &mdash; show is called with the first node; curr refers to A, not null. Step 2 &mdash; this node first: print A. Step 3 &mdash; then show calls itself on curr.getNext(), the node B. show(A) waits on line 4. The blue ring follows the running call&rsquo;s curr. Step 4 &mdash; show(B) prints B. Step 5 &mdash; show(B) calls show(C). Step 6 &mdash; prints C. Step 7 &mdash; C&rsquo;s next is null, and show is called on that. Step 8 &mdash; curr == null is the base case: an empty chain has nothing to show, so it returns. Step 9 &mdash; the call is the last line, so every frame just finishes. A B C, in order. Step 10 &mdash; each call prints one node and calls show on the next. When curr is null there are no nodes left, so curr == null is the base case. Next: Vote 3. Same chain, one line in a different place.</aside>
 
   <style data-sid="09-walk-chain:99">
     /* Slide-local: the editor at --t-code (710 px: the if line is 33
