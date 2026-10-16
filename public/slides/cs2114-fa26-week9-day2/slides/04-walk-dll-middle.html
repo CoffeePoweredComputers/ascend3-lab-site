@@ -1,0 +1,136 @@
+<section class="slide slide--warmup" id="slide-04" data-sid="04-walk-dll-middle:1">
+  <header class="slide__head" data-sid="04-walk-dll-middle:2">
+    <p class="slide__kicker" data-sid="04-walk-dll-middle:3">A DOUBLY LINKED LIST &middot; WALKTHROUGH</p>
+    <h2 data-sid="04-walk-dll-middle:4">Two statements remove a middle node, with no search</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-walk-dll-middle:5">A walkthrough under a program-counter bar of two statements, each written on two lines: curr dot getPrevious, dot setNext of curr dot getNext; then curr dot getNext, dot setPrevious of curr dot getPrevious. On the right, a doubly linked list of three nodes, A, B and C, each a box with three parts: prev, data and next. Next arrows arc above the chain and prev arrows below it. A blue pill labelled firstNode points at A, a blue pill labelled lastNode points at C, and an orange pill labelled curr, below the chain, points at B. Step one: curr refers to B, the middle node. Step two: the first statement runs; A's next part is washed orange and A's next arrow swings over B to C. Step three: the second statement runs; C's prev part is washed orange and C's prev arrow swings under B to A. Step four: no node in the list refers to B; B, its two arrows and curr fade out. Step five: the removal needs no search, because curr refers to the node and its prev refers to the node before it.</p>
+
+  <!-- Concept intro for Part 1: the general case of removing curr from a
+       doubly linked list, in the vote's method names (getPrevious, setNext,
+       getNext, setPrevious; no 9.1 video shows doubly linked removal code).
+       Each statement is split after its first call so the editor is 780 px
+       and the three 240 px DLNode boxes fit beside it. W8D1's grammar: next
+       arrows above, prev arrows below, both blue; the written compartment
+       washes orange for its step; a reference that changes swings.
+       step 1: the list and curr.  step 2: A's next.  step 3: C's prev.
+       step 4: B is unreachable and fades.  step 5: the plant. -->
+  <div class="slide__body grid grid--code code-mid dm" data-sid="04-walk-dll-middle:6">
+    <div class="editor dm__editor" data-sid="04-walk-dll-middle:7">
+      <p class="editor__bar" data-sid="04-walk-dll-middle:8">remove curr from the middle</p>
+      <div class="editor__pc" data-sid="04-walk-dll-middle:9"></div>
+      <ol class="editor__code" data-sid="04-walk-dll-middle:10">
+        <li class="walkline frag" data-step="2" data-sid="04-walk-dll-middle:11">curr.getPrevious()</li>
+        <li class="walkline frag" data-step="2" data-sid="04-walk-dll-middle:12">    .setNext(curr.getNext());</li>
+        <li class="walkline frag" data-step="3" data-sid="04-walk-dll-middle:13">curr.getNext()</li>
+        <li class="walkline frag" data-step="3" data-sid="04-walk-dll-middle:14">    .setPrevious(curr.getPrevious());</li>
+      </ol>
+    </div>
+
+    <div class="codewalk dm__right" data-sid="04-walk-dll-middle:15">
+      <svg class="dm__fig" viewBox="0 0 836 330" role="img" aria-label="A doubly linked list of three nodes, A, B and C, with firstNode on A, lastNode on C and curr on B; A's next swings to C, C's prev swings to A, and B fades" data-sid="04-walk-dll-middle:16">
+        <defs data-sid="04-walk-dll-middle:17">
+          <marker id="w9d2-04-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04-walk-dll-middle:18"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="04-walk-dll-middle:19"/></marker>
+          <marker id="w9d2-04-head-o" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04-walk-dll-middle:20"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-3)" data-sid="04-walk-dll-middle:21"/></marker>
+        </defs>
+
+        <g class="pill" data-sid="04-walk-dll-middle:22"><rect x="32" y="0" width="176" height="44" rx="8" data-sid="04-walk-dll-middle:23"/><text x="120" y="31" data-sid="04-walk-dll-middle:24">firstNode</text></g>
+        <g class="pill" data-sid="04-walk-dll-middle:25"><rect x="636" y="0" width="160" height="44" rx="8" data-sid="04-walk-dll-middle:26"/><text x="716" y="31" data-sid="04-walk-dll-middle:27">lastNode</text></g>
+        <path class="ref" d="M120 44 C 120 70, 120 84, 120 104" data-sid="04-walk-dll-middle:28"/>
+        <path class="ref" d="M716 44 C 716 70, 716 84, 716 104" data-sid="04-walk-dll-middle:29"/>
+
+        <g class="dn dn--a" data-sid="04-walk-dll-middle:30">
+          <rect class="dn__box" x="0" y="110" width="240" height="80" rx="10" data-sid="04-walk-dll-middle:31"/>
+          <rect class="dn__wash" x="163" y="113" width="74" height="74" rx="6" data-sid="04-walk-dll-middle:32"/>
+          <path class="dn__div" d="M80 110v80M160 110v80" data-sid="04-walk-dll-middle:33"/>
+          <text class="dn__f" x="40" y="136" data-sid="04-walk-dll-middle:34">prev</text><text class="dn__f" x="120" y="136" data-sid="04-walk-dll-middle:35">data</text><text class="dn__f" x="200" y="136" data-sid="04-walk-dll-middle:36">next</text>
+          <text class="dn__nl" x="40" y="178" data-sid="04-walk-dll-middle:37">null</text>
+          <text class="dn__v" x="120" y="178" data-sid="04-walk-dll-middle:38">A</text>
+        </g>
+        <g class="dn dn--b" data-sid="04-walk-dll-middle:39">
+          <rect class="dn__box" x="298" y="110" width="240" height="80" rx="10" data-sid="04-walk-dll-middle:40"/>
+          <path class="dn__div" d="M378 110v80M458 110v80" data-sid="04-walk-dll-middle:41"/>
+          <text class="dn__f" x="338" y="136" data-sid="04-walk-dll-middle:42">prev</text><text class="dn__f" x="418" y="136" data-sid="04-walk-dll-middle:43">data</text><text class="dn__f" x="498" y="136" data-sid="04-walk-dll-middle:44">next</text>
+          <text class="dn__v" x="418" y="178" data-sid="04-walk-dll-middle:45">B</text>
+          <!-- B's own references go with it -->
+          <path class="lnk" d="M498 112 C 498 66, 636 66, 636 104" data-sid="04-walk-dll-middle:46"/>
+          <path class="lnk" d="M338 188 C 338 236, 200 236, 200 196" data-sid="04-walk-dll-middle:47"/>
+        </g>
+        <g class="dn dn--c" data-sid="04-walk-dll-middle:48">
+          <rect class="dn__box" x="596" y="110" width="240" height="80" rx="10" data-sid="04-walk-dll-middle:49"/>
+          <rect class="dn__wash" x="599" y="113" width="74" height="74" rx="6" data-sid="04-walk-dll-middle:50"/>
+          <path class="dn__div" d="M676 110v80M756 110v80" data-sid="04-walk-dll-middle:51"/>
+          <text class="dn__f" x="636" y="136" data-sid="04-walk-dll-middle:52">prev</text><text class="dn__f" x="716" y="136" data-sid="04-walk-dll-middle:53">data</text><text class="dn__f" x="796" y="136" data-sid="04-walk-dll-middle:54">next</text>
+          <text class="dn__v" x="716" y="178" data-sid="04-walk-dll-middle:55">C</text>
+          <text class="dn__nl" x="796" y="178" data-sid="04-walk-dll-middle:56">null</text>
+        </g>
+
+        <!-- the two references the method writes -->
+        <path class="lnk lnk--anext" data-swing='[[2,"M200 112 C 200 22, 636 22, 636 104"]]' d="M200 112 C 200 66, 338 66, 338 104" data-sid="04-walk-dll-middle:57"/>
+        <path class="lnk lnk--cprev" data-swing='[[3,"M636 188 C 636 330, 200 330, 200 196"]]' d="M636 188 C 636 236, 498 236, 498 196" data-sid="04-walk-dll-middle:58"/>
+
+        <g class="cur" data-sid="04-walk-dll-middle:59"><rect x="358" y="230" width="120" height="44" rx="8" data-sid="04-walk-dll-middle:60"/><text x="418" y="261" data-sid="04-walk-dll-middle:61">curr</text><path class="cur__ref" d="M418 230 C 418 220, 418 212, 418 196" data-sid="04-walk-dll-middle:62"/></g>
+      </svg>
+      <div class="codewalk__caps dm__caps" data-sid="04-walk-dll-middle:63">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-dll-middle:64">curr refers to B, the middle node. B&rsquo;s prev is A and B&rsquo;s next is C.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-dll-middle:65">curr.getPrevious() is A. A&rsquo;s next is set to curr.getNext(), which is C.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-dll-middle:66">curr.getNext() is C. C&rsquo;s prev is set to curr.getPrevious(), which is A.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-dll-middle:67">No node in the list refers to B now. When the method returns, nothing refers to B.</p>
+        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="04-walk-dll-middle:68">The removal needs no search, because curr refers to the node and its prev refers to the node before it.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04-walk-dll-middle:69"></div>
+  <aside class="notes" data-sid="04-walk-dll-middle:70">Every node now has prev, data and next. next arrows are drawn above the chain and prev arrows below it, as in the deque last week. The method names are the ones in today&rsquo;s first vote: getPrevious, setNext, getNext and setPrevious. Each statement is written on two lines so the code fits beside the drawing. Step 1. curr refers to B. Something found B before this code runs, for example a loop, or an iterator, which is next week. Step 2. curr.getPrevious() is A, so this line sets A&rsquo;s next to curr.getNext(), which is C. Walking forward from A now skips B. Step 3. curr.getNext() is C, so this line sets C&rsquo;s prev to A. Walking backward from C now skips B. Step 4. B still refers to A and C, but nothing in the list refers to B, and when the method returns curr is gone too. Step 5. In a singly linked list the method had to walk to the node before B. Here B&rsquo;s prev gives that node in one step. Ask the room what happens if curr is A. That is the next slide.</aside>
+
+  <style data-sid="04-walk-dll-middle:71">
+    /* Slide-local: the editor at --t-code, 780 px (the longest line is 37
+       characters: 37 × 19.2 + 70 = 780); on the right one 836 × 330 SVG at
+       1:1 with the captions under it. DLNode boxes 240 × 80 on a 298 px
+       pitch, three 80 px compartments (prev | data | next), labels at
+       --t-micro; next arrows above, prev arrows below, both blue; null in
+       stone; curr is an orange-edged pill under B, because it is the local the
+       work is done through. Motion: A's next and C's prev swing (CSS d plus
+       data-swing for Safari) and turn orange while their line runs; the
+       written compartment washes orange for its step; B, its own arrows and
+       curr fade on step 4. States keyed to the caption frags with :has(), in
+       step order. Used by this slide only, all values from tokens. */
+    #slide-04 .dm { grid-template-columns: 780px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-04 .dm__editor { width: 780px; }
+    #slide-04 .dm__fig { display: block; width: 836px; height: 330px; overflow: visible; }
+    #slide-04 .dm__caps { min-height: 150px; }
+    #slide-04 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-04 .pill rect { fill: var(--accent-2); }
+    #slide-04 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04 .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d2-04-head); }
+
+    #slide-04 .dn { transition: opacity .4s ease; }
+    #slide-04 .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04 .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04 .dn__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04 .dn__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04 .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-04 .dn__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+
+    #slide-04 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-04-head); transition: d .7s var(--ease-smooth), stroke .3s ease; }
+
+    #slide-04 .cur { transition: opacity .4s ease; }
+    #slide-04 .cur rect { fill: var(--bg-0); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-04 .cur text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04 .cur__ref { fill: none; stroke: var(--accent-3); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-04-head-o); }
+
+    /* ---- states, in step order ---- */
+    #slide-04 .dm:has(.cap--2.is-current) .dn--a .dn__wash { opacity: 1; }
+    #slide-04 .dm:has(.cap--2.is-current) .lnk--anext { stroke: var(--accent-3); }
+    #slide-04 .dm:has(.cap--2:not(.is-pending)) .lnk--anext { d: path("M200 112 C 200 22, 636 22, 636 104"); }
+    #slide-04 .dm:has(.cap--3.is-current) .dn--c .dn__wash { opacity: 1; }
+    #slide-04 .dm:has(.cap--3.is-current) .lnk--cprev { stroke: var(--accent-3); }
+    #slide-04 .dm:has(.cap--3:not(.is-pending)) .lnk--cprev { d: path("M636 188 C 636 330, 200 330, 200 196"); }
+    #slide-04 .dm:has(.cap--4:not(.is-pending)) .dn--b { opacity: 0; }
+    #slide-04 .dm:has(.cap--4:not(.is-pending)) .cur { opacity: 0; transition-delay: .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .dn, #slide-04 .dn__wash, #slide-04 .lnk, #slide-04 .cur { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

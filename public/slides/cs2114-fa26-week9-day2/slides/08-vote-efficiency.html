@@ -1,0 +1,85 @@
+<section class="slide slide--warmup" id="slide-08" data-sid="08-vote-efficiency:1">
+  <header class="slide__head" data-sid="08-vote-efficiency:2">
+    <p class="slide__kicker" data-sid="08-vote-efficiency:3">PEER INSTRUCTION &middot; VOTE 2</p>
+    <h2 data-sid="08-vote-efficiency:4">What does remove cost at each of three positions?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="08-vote-efficiency:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="08-vote-efficiency:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="08-vote-efficiency:7"/><g class="timer__ticks" data-sid="08-vote-efficiency:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="08-vote-efficiency:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="08-vote-efficiency:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="08-vote-efficiency:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="08-vote-efficiency:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="08-vote-efficiency:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="08-vote-efficiency:14"/><g class="timer__hand" data-sid="08-vote-efficiency:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="08-vote-efficiency:16"/></g><text class="timer__time" x="75" y="88" data-sid="08-vote-efficiency:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="08-vote-efficiency:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="08-vote-efficiency:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="08-vote-efficiency:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="08-vote-efficiency:21"/><g class="timer__ticks" data-sid="08-vote-efficiency:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="08-vote-efficiency:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="08-vote-efficiency:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="08-vote-efficiency:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="08-vote-efficiency:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="08-vote-efficiency:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="08-vote-efficiency:28"/><g class="timer__hand" data-sid="08-vote-efficiency:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="08-vote-efficiency:30"/></g><text class="timer__time" x="75" y="88" data-sid="08-vote-efficiency:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="08-vote-efficiency:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="08-vote-efficiency:33">A peer-instruction question. Under the title, the stem: given a singly linked list with firstNode and lastNode references, what is the efficiency of remove of givenPosition for the first, middle, and last position in the list? Left, a drawing of a singly linked list of five nodes, A to E, each with data and next, E's next null, with a blue pill labelled firstNode pointing at A and a blue pill labelled lastNode pointing at E; the words first, middle and last stand under A, C and E. Right, five options, each led by a maroon disc with its letter. A: O of 1; O of 1; O of 1. B: O of 1; O of n; O of 1. C: O of 1; O of n; O of n. D: O of 1; O of 1; O of n. E: O of n; O of n; O of n. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout (deck.css .vote): the verbatim stem as the
+       lede, the list drawn on the left (five Link boxes 130 × 76 in W8D1
+       04c's grammar, both pills; the position words under A, C and E point
+       at the list, not at an option), the five options on the right as
+       rows with 56 px discs (five rows of the shared 80 px discs run past
+       the body). The option text is quoted with its semicolons, including
+       the trailing ones on A, C and D. Static: only the clocks build; 08b
+       walks it. Runestone: Peer Instruction W09D2, question 2. -->
+  <div class="slide__body" data-sid="08-vote-efficiency:34">
+    <p class="vote__stem" data-sid="08-vote-efficiency:35">Given a singly linked list with firstNode and lastNode references. What is the efficiency of remove(givenPosition) for the first, middle, and last position in the list?</p>
+    <div class="vote__panels" data-sid="08-vote-efficiency:36">
+      <svg class="ve__fig" viewBox="0 0 870 260" role="img" aria-label="A singly linked list of five nodes, A to E, with firstNode on A and lastNode on E; the words first, middle and last under A, C and E" data-sid="08-vote-efficiency:37">
+        <defs data-sid="08-vote-efficiency:38">
+          <marker id="w9d2-08-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08-vote-efficiency:39"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08-vote-efficiency:40"/></marker>
+        </defs>
+        <g class="pill" data-sid="08-vote-efficiency:41"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="08-vote-efficiency:42"/><text x="88" y="31" data-sid="08-vote-efficiency:43">firstNode</text></g>
+        <g class="pill" data-sid="08-vote-efficiency:44"><rect x="667" y="0" width="160" height="44" rx="8" data-sid="08-vote-efficiency:45"/><text x="747" y="31" data-sid="08-vote-efficiency:46">lastNode</text></g>
+        <path class="ref" d="M66 44 C 66 70, 66 86, 66 106" data-sid="08-vote-efficiency:47"/>
+        <path class="ref" d="M746 44 C 746 70, 746 86, 746 106" data-sid="08-vote-efficiency:48"/>
+        <g class="nd" data-sid="08-vote-efficiency:49"><rect class="nd__box" x="38" y="110" width="130" height="76" rx="10" data-sid="08-vote-efficiency:50"/><path class="nd__div" d="M94 110v76" data-sid="08-vote-efficiency:51"/><text class="nd__v" x="66" y="160" data-sid="08-vote-efficiency:52">A</text></g>
+        <g class="nd" data-sid="08-vote-efficiency:53"><rect class="nd__box" x="204" y="110" width="130" height="76" rx="10" data-sid="08-vote-efficiency:54"/><path class="nd__div" d="M260 110v76" data-sid="08-vote-efficiency:55"/><text class="nd__v" x="232" y="160" data-sid="08-vote-efficiency:56">B</text></g>
+        <g class="nd" data-sid="08-vote-efficiency:57"><rect class="nd__box" x="370" y="110" width="130" height="76" rx="10" data-sid="08-vote-efficiency:58"/><path class="nd__div" d="M426 110v76" data-sid="08-vote-efficiency:59"/><text class="nd__v" x="398" y="160" data-sid="08-vote-efficiency:60">C</text></g>
+        <g class="nd" data-sid="08-vote-efficiency:61"><rect class="nd__box" x="536" y="110" width="130" height="76" rx="10" data-sid="08-vote-efficiency:62"/><path class="nd__div" d="M592 110v76" data-sid="08-vote-efficiency:63"/><text class="nd__v" x="564" y="160" data-sid="08-vote-efficiency:64">D</text></g>
+        <g class="nd" data-sid="08-vote-efficiency:65"><rect class="nd__box" x="702" y="110" width="130" height="76" rx="10" data-sid="08-vote-efficiency:66"/><path class="nd__div" d="M758 110v76" data-sid="08-vote-efficiency:67"/><text class="nd__v" x="730" y="160" data-sid="08-vote-efficiency:68">E</text><text class="nd__nl" x="795" y="158" data-sid="08-vote-efficiency:69">null</text></g>
+        <path class="lnk" d="M131 148 H 200" data-sid="08-vote-efficiency:70"/>
+        <path class="lnk" d="M297 148 H 366" data-sid="08-vote-efficiency:71"/>
+        <path class="lnk" d="M463 148 H 532" data-sid="08-vote-efficiency:72"/>
+        <path class="lnk" d="M629 148 H 698" data-sid="08-vote-efficiency:73"/>
+        <text class="ve__pos" x="103" y="236" data-sid="08-vote-efficiency:74">first</text>
+        <text class="ve__pos" x="435" y="236" data-sid="08-vote-efficiency:75">middle</text>
+        <text class="ve__pos" x="767" y="236" data-sid="08-vote-efficiency:76">last</text>
+      </svg>
+      <ol class="vote__opts vote__opts--long ve__opts" data-sid="08-vote-efficiency:77">
+        <li class="vote__opt" data-sid="08-vote-efficiency:78"><span class="vote__key" data-sid="08-vote-efficiency:79">A</span><p class="vote__text" data-sid="08-vote-efficiency:80">O(1); O(1); O(1);</p></li>
+        <li class="vote__opt" data-sid="08-vote-efficiency:81"><span class="vote__key" data-sid="08-vote-efficiency:82">B</span><p class="vote__text" data-sid="08-vote-efficiency:83">O(1); O(n); O(1)</p></li>
+        <li class="vote__opt" data-sid="08-vote-efficiency:84"><span class="vote__key" data-sid="08-vote-efficiency:85">C</span><p class="vote__text" data-sid="08-vote-efficiency:86">O(1); O(n); O(n);</p></li>
+        <li class="vote__opt" data-sid="08-vote-efficiency:87"><span class="vote__key" data-sid="08-vote-efficiency:88">D</span><p class="vote__text" data-sid="08-vote-efficiency:89">O(1); O(1); O(n);</p></li>
+        <li class="vote__opt" data-sid="08-vote-efficiency:90"><span class="vote__key" data-sid="08-vote-efficiency:91">E</span><p class="vote__text" data-sid="08-vote-efficiency:92">O(n); O(n); O(n);</p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="08-vote-efficiency:93"></div>
+  <aside class="notes" data-sid="08-vote-efficiency:94">Answer: C &mdash; O(1); O(n); O(n); [key assumed from the PrairieLearn twin u11q07_list_lastnoderef_c; confirm in Runestone&rsquo;s results view before class]. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. The list is singly linked: each node has data and next only. Ask the groups which node the method needs in each case, and how it gets a reference to that node. Runestone: Peer Instruction W09D2, question 2 of 2.</aside>
+
+  <style data-sid="08-vote-efficiency:95">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js). Copied from W8D1 08. */
+    #slide-08 .timer { top: var(--s-6); }
+    #slide-08 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-08 .frag.timer.is-past { opacity: .55; }
+    #slide-08 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-08 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-08 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the list in the shared 870 px left panel as one SVG at
+       1:1 (Link boxes 130 × 76 on a 166 px pitch, labels at --t-micro,
+       values at --t-small, the position words in stone); the options in
+       mono at --t-body with 56 px key discs. All values from tokens; used by
+       this slide only. */
+    #slide-08 .ve__fig { display: block; width: 870px; height: 260px; overflow: visible; }
+    #slide-08 .pill rect { fill: var(--accent-2); }
+    #slide-08 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08 .ref, #slide-08 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-08-head); }
+    #slide-08 .ref { stroke-width: 5; }
+    #slide-08 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-08 .ve__pos { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-08 .slide__body .ve__opts .vote__text { font-family: var(--font-mono); font-size: var(--t-body); }
+    #slide-08 .vote__key { width: 56px; height: 56px; font-size: var(--t-small); }
+  </style>
+</section>

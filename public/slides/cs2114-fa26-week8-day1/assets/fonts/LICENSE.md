@@ -13,3 +13,10 @@ permits bundling and redistribution.
   License: SIL OFL 1.1 — https://github.com/JetBrains/JetBrainsMono/blob/master/OFL.txt
 
 Full OFL text: https://openfontlicense.org/open-font-license-official-text/
+
+## Liberation Sans and Liberation Serif
+
+Copyright (c) 2010 Google Corporation; Copyright (c) 2012 Red Hat, Inc. Licensed under
+the SIL Open Font License, Version 1.1 (https://openfontlicense.org). Bundled as WOFF
+(converted from the Liberation 2.x TrueType files) so that body and heading text use the
+same metrics in every browser; metric-compatible with Arial / Times New Roman.

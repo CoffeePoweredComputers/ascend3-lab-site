@@ -1,0 +1,112 @@
+<section class="slide" id="slide-01b" data-sid="01b-today:1">
+  <header class="slide__head" data-sid="01b-today:2">
+    <h2 data-sid="01b-today:3">Today</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, shown one at a time as numbered columns, with a drawing of what the chapter is about. One, a linked list adds at any position: a chain of three boxes joined by arrows, with an orange box below the gap between the second and third and orange arrows into it and out of it. Two, removing means finding the node before: a chain of three boxes where an orange arc runs from the first box over the middle one to the last, and the middle box is grey. Three, this week's work: a sheet with lines of writing on it and an orange pencil beside it.</p>
+
+  <!-- The agenda as three pictures: a node arriving in the middle of a chain
+       (Part 1), a chain whose middle node is skipped by the node before it
+       (Part 2), the homework sheet (Part 3). Each caption is the title of the
+       divider for that part. Two-weight pen; columns grow from centre one per
+       press.
+       step 1: the insertion (Part 1).
+       step 2: the skip (Part 2).
+       step 3: the sheet and pencil (Part 3). -->
+  <div class="slide__body" data-sid="01b-today:5">
+    <ol class="grid ag" data-sid="01b-today:6">
+      <li class="ag__ch frag" data-step="1" data-sid="01b-today:7">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A chain of three boxes joined by arrows, with an orange box below the gap between the second and third, an orange arrow from the second box down into it and another from it up to the third box" data-sid="01b-today:8">
+          <g class="ink" data-sid="01b-today:9">
+            <rect x="20" y="60" width="80" height="54" rx="8" data-sid="01b-today:10"/>
+            <rect x="140" y="60" width="80" height="54" rx="8" data-sid="01b-today:11"/>
+            <rect x="260" y="60" width="80" height="54" rx="8" data-sid="01b-today:12"/>
+            <path d="M100 87h30" data-sid="01b-today:13"/>
+          </g>
+          <path class="ink-fill" d="M138 87l-12 -7v14z" data-sid="01b-today:14"/>
+          <rect class="ag__new" x="200" y="150" width="80" height="54" rx="8" data-sid="01b-today:15"/>
+          <g class="edge" data-sid="01b-today:16"><path d="M200 114c0 20 10 30 20 30" data-sid="01b-today:17"/><path d="M280 177c20 0 20 -40 20 -54" data-sid="01b-today:18"/></g>
+          <path class="edge-fill" d="M226 146l-14 -8v16z" data-sid="01b-today:19"/>
+          <path class="edge-fill" d="M300 116l-8 14h16z" data-sid="01b-today:20"/>
+          <g class="stone" data-sid="01b-today:21"><path d="M20 232h320" data-sid="01b-today:22"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:23">01</p>
+        <h3 data-sid="01b-today:24">A linked list adds at any position</h3>
+      </li>
+      <li class="ag__ch frag" data-step="2" data-sid="01b-today:25">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A chain of three boxes where an orange arc runs from the first box over the grey middle box to the last box" data-sid="01b-today:26">
+          <g class="ink" data-sid="01b-today:27">
+            <rect x="20" y="120" width="80" height="54" rx="8" data-sid="01b-today:28"/>
+            <rect x="260" y="120" width="80" height="54" rx="8" data-sid="01b-today:29"/>
+          </g>
+          <g class="stone" data-sid="01b-today:30"><rect x="140" y="120" width="80" height="54" rx="8" data-sid="01b-today:31"/><path d="M220 147h30" data-sid="01b-today:32"/></g>
+          <g class="edge" data-sid="01b-today:33"><path d="M80 116c0 -70 200 -70 210 -12" data-sid="01b-today:34"/></g>
+          <path class="edge-fill" d="M290 118l-10 -18h20z" data-sid="01b-today:35"/>
+          <g class="stone" data-sid="01b-today:36"><path d="M20 232h320" data-sid="01b-today:37"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:38">02</p>
+        <h3 data-sid="01b-today:39">Removing means finding the node before</h3>
+      </li>
+      <li class="ag__ch frag" data-step="3" data-sid="01b-today:40">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A sheet with lines of writing on it and an orange pencil beside it" data-sid="01b-today:41">
+          <rect class="ag__plate" x="60" y="24" width="170" height="196" rx="10" data-sid="01b-today:42"/>
+          <g class="ink" data-sid="01b-today:43">
+            <path d="M88 66h110M88 104h90M88 142h110M88 180h70" data-sid="01b-today:44"/>
+          </g>
+          <g class="edge" style="stroke-width: 14" data-sid="01b-today:45"><path d="M262 194L312 62" data-sid="01b-today:46"/></g>
+          <path class="edge-fill" d="M256 212l-1 -24l14 6z" data-sid="01b-today:47"/>
+          <g class="stone" data-sid="01b-today:48"><path d="M20 232h320" data-sid="01b-today:49"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:50">03</p>
+        <h3 data-sid="01b-today:51">This week&rsquo;s work</h3>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="01b-today:52"></div>
+  <aside class="notes" data-sid="01b-today:53">Three parts, all on the 9.1 Lists module that was due Sunday. Step 1. Part 1 is adding to a linked list. A list can add at any position, not only at the ends. We walk add at the front, in the middle and at the end, and follow which references change. Step 2. Part 2 is removing. To remove a node from a singly linked chain you need the node before it, because that node&rsquo;s next is the reference that changes. Then the two peer-instruction questions. Step 3. Part 3 is this week&rsquo;s work: the homework, the challenge exercise and the projects. Next are the deadlines.</aside>
+
+  <style data-sid="01b-today:54">
+    /* Slide-local: the agenda as three drawings, one per part, W8D1's tab
+       grammar: a rule across the top, a display numeral in the tabs' orange,
+       the caption as the title, the drawing of the chapter on the rule above
+       them. The drawing box is a fixed 360 so the rules line up whatever the
+       title's line count; every viewBox is bottom-anchored, so all three
+       render at one scale. Pen inks: neutral for the world, orange for the
+       subject of each drawing (the new node and its two links, the arc that
+       skips the middle node, the pencil), stone for the skipped node and the
+       ground lines. Columns grow from centre. Used by this slide only, all
+       values from tokens. */
+    #slide-01b .ag {
+      grid-template-columns: repeat(3, 1fr);
+      list-style: none; padding: 0; margin: 0;
+    }
+    #slide-01b .ag__ch { display: flex; flex-direction: column; margin: 0; }
+    #slide-01b .ag__ch svg { display: block; flex: 0 0 auto; width: 100%; height: 360px; margin-bottom: var(--s-3); }
+    #slide-01b .ag__n {
+      margin: 0 0 var(--s-1); padding-top: var(--s-3);
+      border-top: 4px solid var(--accent-1);
+      font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-3);
+    }
+    #slide-01b .ag__ch h3 { flex: 0 0 auto; font-size: var(--t-body); line-height: 1.15; margin-bottom: 0; }
+
+    #slide-01b .ag .ink,
+    #slide-01b .ag .stone,
+    #slide-01b .ag .edge { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-01b .ag .ink { stroke: var(--fg-1); }
+    #slide-01b .ag .ink-fill { fill: var(--fg-1); }
+    #slide-01b .ag .stone { stroke: var(--stone); }
+    #slide-01b .ag .edge { stroke: var(--accent-3); }
+    #slide-01b .ag .edge-fill { fill: var(--accent-3); }
+    #slide-01b .ag__new { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 5; }
+    #slide-01b .ag__plate { fill: var(--paper); stroke: var(--fg-1); stroke-width: 3; }
+
+    #slide-01b .ag__ch {
+      transform-origin: 50% 50%;
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-01b .frag.ag__ch.is-pending { opacity: 0; transform: scale(0.4); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-01b .ag__ch { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

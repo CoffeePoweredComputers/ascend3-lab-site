@@ -1,0 +1,67 @@
+<section class="slide slide--warmup" id="slide-16" data-sid="16-next-week:1">
+  <header class="slide__head" data-sid="16-next-week:2">
+    <p class="slide__kicker" data-sid="16-next-week:3">NEXT WEEK</p>
+    <h2 data-sid="16-next-week:4">Week 10 sorts with compareTo, and Test 2 is in lecture</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="16-next-week:5">Two blocks. Left: Week 10, comparing, sorting and iterators. Under it, the line of code from isSorted, a of i dot compareTo of a of i plus 1 is greater than 0, and a caption saying that sorting calls compareTo on pairs of entries, and that the bound T extends Comparable of T is what lets one sort method do that for any type. A line under it says the 10.1, 10.2 and 10.3 modules are due Sunday, October 25. On the first press a card grows in on the right, outlined in maroon: Test 2, in lecture; MW section Wednesday October 28; TR section Thursday October 29; LockDown Browser, bring your student ID.</p>
+
+  <!-- The bridge to Week 10: the compareTo line from 11 is the link between
+       Part 3 and next week's sorting; then the Test 2 card (dates from the
+       Canvas home page; logistics from the 10.1 Assessment 3 Info page; the
+       delivery platform is not settled, so the card says LockDown Browser
+       only, and the topic list is in no source).
+       step 1: the Test 2 card grows in. -->
+  <div class="slide__body nw" data-sid="16-next-week:6">
+    <div class="nw__wk" data-sid="16-next-week:7">
+      <p class="nw__name" data-sid="16-next-week:8">Week 10 &middot; Comparing, sorting and iterators</p>
+      <p class="nw__code" data-sid="16-next-week:9"><code data-sid="16-next-week:10">a[i].compareTo(a[i + 1]) &gt; 0</code></p>
+      <p class="nw__cap" data-sid="16-next-week:11">Sorting calls compareTo on pairs of entries. The bound &lt;T extends Comparable&lt;T&gt;&gt; is what lets one sort method do that for any type.</p>
+      <p class="nw__due" data-sid="16-next-week:12">The 10.1, 10.2 and 10.3 modules are due Sunday, Oct 25.</p>
+    </div>
+    <div class="nw__test frag" data-step="1" data-sid="16-next-week:13">
+      <p class="nw__tname" data-sid="16-next-week:14">Test 2</p>
+      <p class="nw__tline" data-sid="16-next-week:15">in lecture</p>
+      <ul class="nw__tlist" data-sid="16-next-week:16">
+        <li data-sid="16-next-week:17"><span class="nw__sec" data-sid="16-next-week:18">MW</span> Wed Oct 28</li>
+        <li data-sid="16-next-week:19"><span class="nw__sec" data-sid="16-next-week:20">TR</span> Thu Oct 29</li>
+      </ul>
+      <p class="nw__tline" data-sid="16-next-week:21">LockDown Browser &middot; bring your student ID</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="16-next-week:22"></div>
+  <aside class="notes" data-sid="16-next-week:23">Next week is comparing, sorting and iterators. The compareTo line is the one isSorted used in Part 3. A sort calls compareTo on two entries again and again, and the bound &lt;T extends Comparable&lt;T&gt;&gt; is what lets one sort method do that for Integer, String or a class you write. The 10.1, 10.2 and 10.3 modules are due Sunday, Oct 25. Step 1. Test 2 is in lecture next week: Wednesday Oct 28 for the MW section and Thursday Oct 29 for the TR section, in LockDown Browser. Bring your student ID; laptop only, and do the Canvas two-factor sign-in before you start. Test 2 covers [NOT IN ANY SOURCE: Test 2's topic list]. Students with SSD accommodations book their seat in RegisterBlast at least three business days before their test. Next: the calendar.</aside>
+
+  <style data-sid="16-next-week:24">
+    /* Slide-local: two blocks side by side. Left (1fr): the week's name in
+       display maroon at --t-body, the compareTo line in mono at --t-code on a
+       panel, a caption and the due line at --t-small. Right (560 px): the
+       Test 2 card, maroon dashed outline on an 8% maroon wash (the clocks'
+       test-band drawing), the name at --t-h3, the lines at --t-small. Motion:
+       the card GrowsFromCenter on step 1. Used by this slide only, all values
+       from tokens. */
+    #slide-16 .nw { display: grid; grid-template-columns: minmax(0, 1fr) 560px; column-gap: var(--s-6); align-items: start; }
+    #slide-16 .nw__wk { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-16 .slide__body p.nw__name { margin: 0; font-family: var(--font-display); font-size: var(--t-body); line-height: 1.2; color: var(--accent-1); }
+    #slide-16 .slide__body p.nw__code { margin: 0; padding: var(--s-2) var(--s-3); border-radius: var(--r-2); background: var(--bg-1); }
+    #slide-16 .nw__code code { font-family: var(--font-mono); font-size: var(--t-code); color: var(--fg-0); }
+    #slide-16 .slide__body p.nw__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); }
+    #slide-16 .slide__body p.nw__due { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); }
+
+    #slide-16 .nw__test {
+      display: grid; row-gap: var(--s-2); padding: var(--s-4); box-sizing: border-box;
+      border: 4px dashed var(--accent-1); border-radius: var(--r-3);
+      background: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0));
+      transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-16 .frag.nw__test.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-16 .slide__body p.nw__tname { margin: 0; font-family: var(--font-display); font-size: var(--t-h3); line-height: 1.1; color: var(--accent-1); }
+    #slide-16 .slide__body p.nw__tline { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); }
+    #slide-16 .nw__tlist { list-style: none; margin: 0; padding: 0; font-size: var(--t-small); color: var(--fg-0); }
+    #slide-16 .nw__tlist li { margin: 0; line-height: 1.5; }
+    #slide-16 .nw__sec { display: inline-block; min-width: 3em; font-family: var(--font-mono); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-16 .nw__test { transition-duration: 0s !important; }
+    }
+  </style>
+</section>

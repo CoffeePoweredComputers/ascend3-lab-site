@@ -1,0 +1,163 @@
+<section class="slide slide--warmup" id="slide-11" data-sid="11-walk-bounded:1">
+  <header class="slide__head" data-sid="11-walk-bounded:2">
+    <p class="slide__kicker" data-sid="11-walk-bounded:3">GENERICS WITH BOUNDS &middot; WALKTHROUGH</p>
+    <h2 data-sid="11-walk-bounded:4">A bound on T lets the method call compareTo</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-walk-bounded:5">A walkthrough of a generic method under a program-counter bar: static T, boolean isSorted of T array a; for int i from 0 while i plus 1 is less than a dot length; if a of i dot compareTo of a of i plus 1 is greater than 0, return false; after the loop, return true. On the right, the call being run, a pill naming the type T, the array as cells, a ring around the two entries being compared and the result. Step one: compareTo is marked in maroon and a plate says cannot find symbol compareTo, because with T alone the compiler knows only Object's methods. Step two: the first line becomes static T extends Comparable of T, with the bound in orange, and the error plate goes away. Step three: isSorted of an Integer array 3, 5, 9; T is Integer; the ring is on 3 and 5, and 3 dot compareTo of 5 is minus 1. Step four: the ring moves to 5 and 9; minus 1 again. Step five: the loop ends and the method returns true. Step six: isSorted of a String array pear, apple; T is String; pear dot compareTo of apple is 15. Step seven: the method returns false. Step eight: isSorted of an Object array does not compile, shown in a maroon plate, because Object does not implement Comparable. Step nine: the bound lets one isSorted work for Integer, String and every other class that implements Comparable.</p>
+
+  <!-- Concept intro for Part 3, the 9.2 module's bounded type parameter
+       (MoreOnGenerics.pdf pp. 3–6 and 14) on a method that needs compareTo:
+       the deck's own isSorted, with concrete calls on Integer[] and String[].
+       Line 1 crossfades from <T> to <T extends Comparable<T>>; the added
+       words are orange. The right side is one SVG at 1:1 with the
+       call, a T pill, the array cells, a ring around the pair being compared
+       (a real move) and the result line, which crossfades per press.
+       step 1: the error.  step 2: the bound.  steps 3–5: Integer[].
+       steps 6–7: String[].  step 8: Object[].  step 9: the plant. -->
+  <div class="slide__body grid grid--code code-mid bd" data-sid="11-walk-bounded:6">
+    <div class="editor bd__editor" data-sid="11-walk-bounded:7">
+      <p class="editor__bar" data-sid="11-walk-bounded:8">isSorted, a generic method</p>
+      <div class="editor__pc" data-sid="11-walk-bounded:9"></div>
+      <ol class="editor__code" data-sid="11-walk-bounded:10">
+        <li class="walkline frag" data-step="2" data-sid="11-walk-bounded:11"><span class="sw" data-sid="11-walk-bounded:12"><span class="sw__o" data-sid="11-walk-bounded:13"><span class="tok-key" data-sid="11-walk-bounded:14">static</span> &lt;T&gt;</span><span class="sw__n" data-sid="11-walk-bounded:15"><span class="tok-key" data-sid="11-walk-bounded:16">static</span> &lt;T <span class="bd__new" data-sid="11-walk-bounded:17">extends Comparable&lt;T&gt;</span>&gt;</span></span></li>
+        <li data-sid="11-walk-bounded:18"><span class="tok-key" data-sid="11-walk-bounded:19">boolean</span> isSorted(T[] a) {</li>
+        <li data-sid="11-walk-bounded:20">  <span class="tok-key" data-sid="11-walk-bounded:21">for</span> (<span class="tok-key" data-sid="11-walk-bounded:22">int</span> i = <span class="tok-num" data-sid="11-walk-bounded:23">0</span>; i + <span class="tok-num" data-sid="11-walk-bounded:24">1</span> &lt; a.length; i++)</li>
+        <li class="walkline frag" data-step="1" data-also="3 4 6" data-sid="11-walk-bounded:25">    <span class="tok-key" data-sid="11-walk-bounded:26">if</span> (a[i].<span class="bd__err" data-sid="11-walk-bounded:27">compareTo</span>(a[i + <span class="tok-num" data-sid="11-walk-bounded:28">1</span>]) &gt; <span class="tok-num" data-sid="11-walk-bounded:29">0</span>)</li>
+        <li class="walkline frag" data-step="7" data-sid="11-walk-bounded:30">      <span class="tok-key" data-sid="11-walk-bounded:31">return false</span>;</li>
+        <li class="walkline frag" data-step="5" data-sid="11-walk-bounded:32">  <span class="tok-key" data-sid="11-walk-bounded:33">return true</span>;</li>
+        <li data-sid="11-walk-bounded:34">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk bd__right" data-sid="11-walk-bounded:35">
+      <svg class="bd__fig" viewBox="0 0 776 320" role="img" aria-label="The call being run, a pill naming T, the array as cells with a ring around the pair being compared, and the result of compareTo; maroon plates for the two calls that do not compile" data-sid="11-walk-bounded:36">
+        <text class="call call--int" x="0" y="26" data-sid="11-walk-bounded:37">isSorted(new Integer[] {3, 5, 9})</text>
+        <text class="call call--str" x="0" y="26" data-sid="11-walk-bounded:38">isSorted(new String[] {"pear", "apple"})</text>
+        <text class="call call--obj" x="0" y="26" data-sid="11-walk-bounded:39">isSorted(new Object[] {"a", "b"})</text>
+
+        <g class="tp" data-sid="11-walk-bounded:40"><rect x="0" y="48" width="260" height="44" rx="8" data-sid="11-walk-bounded:41"/>
+          <text class="tp__t tp__t--int" x="130" y="79" data-sid="11-walk-bounded:42">T is Integer</text>
+          <text class="tp__t tp__t--str" x="130" y="79" data-sid="11-walk-bounded:43">T is String</text>
+          <text class="tp__t tp__t--obj" x="130" y="79" data-sid="11-walk-bounded:44">T is Object</text>
+        </g>
+
+        <g class="arr arr--int" data-sid="11-walk-bounded:45">
+          <rect x="0" y="124" width="140" height="96" rx="8" data-sid="11-walk-bounded:46"/><rect x="156" y="124" width="140" height="96" rx="8" data-sid="11-walk-bounded:47"/><rect x="312" y="124" width="140" height="96" rx="8" data-sid="11-walk-bounded:48"/>
+          <text class="arr__v" x="70" y="184" data-sid="11-walk-bounded:49">3</text><text class="arr__v" x="226" y="184" data-sid="11-walk-bounded:50">5</text><text class="arr__v" x="382" y="184" data-sid="11-walk-bounded:51">9</text>
+          <text class="arr__i" x="70" y="252" data-sid="11-walk-bounded:52">0</text><text class="arr__i" x="226" y="252" data-sid="11-walk-bounded:53">1</text><text class="arr__i" x="382" y="252" data-sid="11-walk-bounded:54">2</text>
+        </g>
+        <g class="arr arr--str" data-sid="11-walk-bounded:55">
+          <rect x="0" y="124" width="200" height="96" rx="8" data-sid="11-walk-bounded:56"/><rect x="216" y="124" width="200" height="96" rx="8" data-sid="11-walk-bounded:57"/>
+          <text class="arr__v" x="100" y="184" data-sid="11-walk-bounded:58">"pear"</text><text class="arr__v" x="316" y="184" data-sid="11-walk-bounded:59">"apple"</text>
+          <text class="arr__i" x="100" y="252" data-sid="11-walk-bounded:60">0</text><text class="arr__i" x="316" y="252" data-sid="11-walk-bounded:61">1</text>
+        </g>
+        <rect class="ring ring--int" x="-8" y="116" width="312" height="112" rx="14" data-sid="11-walk-bounded:62"/>
+        <rect class="ring ring--str" x="-8" y="116" width="432" height="112" rx="14" data-sid="11-walk-bounded:63"/>
+
+        <text class="res res--1" x="0" y="306" data-sid="11-walk-bounded:64">3.compareTo(5) is -1</text>
+        <text class="res res--2" x="0" y="306" data-sid="11-walk-bounded:65">5.compareTo(9) is -1</text>
+        <text class="res res--3" x="0" y="306" data-sid="11-walk-bounded:66">returns true</text>
+        <text class="res res--4" x="0" y="306" data-sid="11-walk-bounded:67">"pear".compareTo("apple") is 15</text>
+        <text class="res res--5" x="0" y="306" data-sid="11-walk-bounded:68">returns false</text>
+
+        <g class="plate plate--sym frag" data-step="1" data-sid="11-walk-bounded:69"><rect x="0" y="124" width="700" height="72" rx="10" data-sid="11-walk-bounded:70"/><text x="350" y="172" data-sid="11-walk-bounded:71">cannot find symbol: compareTo</text></g>
+        <g class="plate plate--obj frag" data-step="8" data-sid="11-walk-bounded:72"><rect x="0" y="124" width="420" height="72" rx="10" data-sid="11-walk-bounded:73"/><text x="210" y="172" data-sid="11-walk-bounded:74">does not compile</text></g>
+      </svg>
+
+      <div class="codewalk__caps bd__caps" data-sid="11-walk-bounded:75">
+        <p class="walkcap walkcap--fail cap--1 frag" data-step="1" data-sid="11-walk-bounded:76">With &lt;T&gt; alone, T can be any class, so the compiler allows only Object&rsquo;s methods on a[i]. Object has no compareTo.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="11-walk-bounded:77">With &lt;T extends Comparable&lt;T&gt;&gt;, every T has compareTo(T), so line 4 compiles.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="11-walk-bounded:78">On an Integer[], T is Integer. 3.compareTo(5) is -1, which is not greater than 0.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="11-walk-bounded:79">i is 1. 5.compareTo(9) is also -1.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="11-walk-bounded:80">i + 1 is 3, which is not less than 3, so the loop ends and the method returns true.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="11-walk-bounded:81">On a String[], T is String. "pear".compareTo("apple") is 15, because p comes 15 letters after a.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="11-walk-bounded:82">15 is greater than 0, so the method returns false.</p>
+        <p class="walkcap walkcap--fail cap--8 frag" data-step="8" data-sid="11-walk-bounded:83">The call with an Object[] does not compile, because Object does not implement Comparable.</p>
+        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="11-walk-bounded:84">The bound lets one isSorted work for Integer, String and every other class that implements Comparable.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="11-walk-bounded:85"></div>
+  <aside class="notes" data-sid="11-walk-bounded:86">The 9.2 module calls this a bounded type parameter: &lt;typeParameterName extends UpperBound&gt;. The video&rsquo;s own example is add(T first, T second) with &lt;T extends Number&gt;, which calls doubleValue(); the idea is the same as here. (That example&rsquo;s println concatenates strings, so add(3, 4) prints &ldquo;Sum = 3.04.0&rdquo;; worth knowing if a student asks.) This slide uses compareTo, because sorting needs it next week. isSorted is our own method. Step 1. With &lt;T&gt; alone, T could be any class at all, so inside the method the compiler lets a[i] call only what every Object has. Object has no compareTo, so line 4 does not compile. Step 2. The bound says T must implement Comparable&lt;T&gt;, so every T has compareTo(T) and line 4 compiles. The video writes the same bound on sort: &lt;T extends Comparable&lt;T&gt;&gt; void sort(List&lt;T&gt; list). Step 3. Called on an Integer array, T is Integer. 3.compareTo(5) is negative because 3 comes first. Step 4. 5.compareTo(9) is negative too. Step 5. The loop ends, so the array is sorted. Step 6. Called on a String array, T is String. String&rsquo;s compareTo compares letters; p is 15 letters after a, so the result is 15. Step 7. Positive means out of order, so the method returns false. Step 8. Object does not implement Comparable, so the compiler rejects the call before the program runs. Step 9. One method, any type that can be compared. Next: the video&rsquo;s wildcard example.</aside>
+
+  <style data-sid="11-walk-bounded:87">
+    /* Slide-local: the editor at --t-code, 840 px (the for line is 40
+       characters: 40 × 19.2 + 70 = 838); on the right one 776 × 320 SVG at
+       1:1 and the captions under it. Line 1 holds the old and the new header
+       stacked in one inline grid and crossfades on step 2 (no digit roll; the
+       added words in orange). compareTo washes maroon on step 1. In the
+       drawing: the call in mono at --t-micro (a label), the T pill in blue
+       at --t-micro, array cells 140 or 200 px with values at --t-small and
+       indices at --t-micro, a blue ring around the pair being compared that
+       travels one pitch (156 px) by translateX, the result line in mono at
+       --t-small, crossfading per press, and maroon dashed plates for the two
+       compile errors (GrowFromCenter in, plain fade out). States keyed to the
+       caption frags with :has(), in step order. Used by this slide only,
+       all values from tokens. */
+    #slide-11 .bd { grid-template-columns: 840px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-11 .bd__editor { width: 840px; }
+    #slide-11 .bd__fig { display: block; width: 776px; height: 320px; overflow: visible; }
+    #slide-11 .bd__caps { min-height: 150px; margin-top: var(--s-3); }
+    #slide-11 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-11 .walkcap--fail { color: var(--accent-1); }
+
+    #slide-11 .sw { display: inline-grid; }
+    #slide-11 .sw > span { grid-area: 1 / 1; transition: opacity .35s ease; }
+    #slide-11 .sw__n { opacity: 0; }
+    #slide-11 .bd__new { color: var(--accent-3); font-weight: 700; }
+    #slide-11 .bd__err { border-radius: var(--r-1); transition: background-color .3s ease, color .3s ease; }
+
+    #slide-11 .call { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); opacity: 0; transition: opacity .3s ease; }
+    #slide-11 .tp { opacity: 0; transition: opacity .3s ease; }
+    #slide-11 .tp rect { fill: var(--accent-2); }
+    #slide-11 .tp__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-11 .arr { opacity: 0; transition: opacity .35s ease; }
+    #slide-11 .arr rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-11 .arr__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11 .arr__i { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-11 .ring { fill: none; stroke: var(--accent-2); stroke-width: 5; opacity: 0; transition: opacity .3s ease, transform .6s var(--ease-smooth); }
+    #slide-11 .res { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); opacity: 0; transition: opacity .3s ease; }
+    #slide-11 .plate rect { fill: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0)); stroke: var(--accent-1); stroke-width: 4; stroke-dasharray: 12 8; }
+    #slide-11 .plate text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-11 .plate { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-11 .frag.plate.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-11 .bd:has(.cap--1.is-current) .bd__err { background: color-mix(in srgb, var(--accent-1) 18%, var(--bg-1)); color: var(--accent-1); }
+    #slide-11 .bd:has(.cap--2:not(.is-pending)) .sw__o { opacity: 0; }
+    #slide-11 .bd:has(.cap--2:not(.is-pending)) .sw__n { opacity: 1; }
+    #slide-11 .bd:has(.cap--2:not(.is-pending)) .plate--sym { opacity: 0; }
+    /* Integer[] */
+    #slide-11 .bd:has(.cap--3:not(.is-pending)) .call--int,
+    #slide-11 .bd:has(.cap--3:not(.is-pending)) .tp,
+    #slide-11 .bd:has(.cap--3:not(.is-pending)) .tp__t--int,
+    #slide-11 .bd:has(.cap--3:not(.is-pending)) .arr--int { opacity: 1; }
+    #slide-11 .bd:has(.cap--3.is-current) .ring--int { opacity: 1; transition-delay: .3s; }
+    #slide-11 .bd:has(.cap--3.is-current) .res--1 { opacity: 1; transition-delay: .5s; }
+    #slide-11 .bd:has(.cap--4.is-current) .ring--int { opacity: 1; transform: translateX(156px); }
+    #slide-11 .bd:has(.cap--4.is-current) .res--2 { opacity: 1; transition-delay: .5s; }
+    #slide-11 .bd:has(.cap--5.is-current) .ring--int { transform: translateX(156px); }
+    #slide-11 .bd:has(.cap--5.is-current) .res--3 { opacity: 1; }
+    /* String[] */
+    #slide-11 .bd:has(.cap--6:not(.is-pending)) .call--int,
+    #slide-11 .bd:has(.cap--6:not(.is-pending)) .tp__t--int,
+    #slide-11 .bd:has(.cap--6:not(.is-pending)) .arr--int { opacity: 0; }
+    #slide-11 .bd:has(.cap--6:not(.is-pending)) .call--str,
+    #slide-11 .bd:has(.cap--6:not(.is-pending)) .tp__t--str,
+    #slide-11 .bd:has(.cap--6:not(.is-pending)) .arr--str { opacity: 1; transition-delay: .3s; }
+    #slide-11 .bd:has(.cap--6.is-current) .ring--str { opacity: 1; transition-delay: .6s; }
+    #slide-11 .bd:has(.cap--6.is-current) .res--4 { opacity: 1; transition-delay: .8s; }
+    #slide-11 .bd:has(.cap--7.is-current) .res--5 { opacity: 1; }
+    /* Object[] */
+    #slide-11 .bd:has(.cap--8:not(.is-pending)) .call--str,
+    #slide-11 .bd:has(.cap--8:not(.is-pending)) .tp__t--str,
+    #slide-11 .bd:has(.cap--8:not(.is-pending)) .arr--str { opacity: 0; transition-delay: 0s; }
+    #slide-11 .bd:has(.cap--8:not(.is-pending)) .call--obj,
+    #slide-11 .bd:has(.cap--8:not(.is-pending)) .tp__t--obj { opacity: 1; transition-delay: .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .sw > span, #slide-11 .bd__err, #slide-11 .call, #slide-11 .tp, #slide-11 .tp__t, #slide-11 .arr,
+      #slide-11 .ring, #slide-11 .res, #slide-11 .plate { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

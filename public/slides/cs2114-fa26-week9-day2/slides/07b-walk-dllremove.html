@@ -1,0 +1,200 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-dllremove:1">
+  <header class="slide__head" data-sid="07b-walk-dllremove:2">
+    <p class="slide__kicker" data-sid="07b-walk-dllremove:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-dllremove:4">E tests the only node, the first node and the last node first</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-dllremove:5">Option E under a program-counter bar, with its braces moved so that it fits: if firstNode equals lastNode, set both to null; else, if curr equals firstNode, firstNode equals curr dot getNext and firstNode dot setPrev of null; else if curr equals lastNode, lastNode equals curr dot getPrev and lastNode dot setNext of null; else the two general lines. On the right, a doubly linked list drawn as boxes with prev, data and next, firstNode and lastNode as blue pills above and curr as an orange pill below. Run one, steps one and two: the list holds only A; firstNode equals lastNode is true; both references are set to null and A fades. Run two, steps three to six: the list is A, B, C and curr is A; the first test is false, curr equals firstNode is true, firstNode swings to B, B's prev arrow is removed and B's prev reads null, and A fades. Run three, steps seven and eight: the list is A, B, C again and curr is C; the first two tests are false and curr equals lastNode is true; lastNode swings to B, B's next arrow is removed and B's next reads null, and C fades. Run four, steps nine and ten: the list is A, B, C again and curr is B; all three tests are false; A's next swings to C, C's prev swings to A, and B fades. Step eleven: a caption rules out A, which is the general lines alone and throws on the first node and on the last node. Step twelve: a caption rules out B, which still calls methods on the null prev and next of the only node, and C and D, which do not compile because curr dot getPrevious has no parentheses, and which test a size of 0 that a non-empty list never has. Step thirteen: the five options, with A to D struck through and E not struck: only E handles the only node, the first node and the last node before the general case.</p>
+
+  <!-- The answer as a walk of E itself, on four lists (data-also on the
+       first test): the only node, the first of three, the last of three and
+       the middle of three. E is reformatted to K&R braces with 2-space
+       indentation (15 lines instead of 19) so it fits at --t-code; the bar
+       says so. getPrev/setPrev are read as the stem's getPrevious/
+       setPrevious, because every option uses them. A run that removes a node
+       ends with that node faded; the next run rebuilds A ⇄ B ⇄ C (fades back
+       in, references swing back).
+       steps 1–2: only A.  steps 3–6: remove A.  steps 7–8: remove C.
+       steps 9–10: remove B.  step 11: A.  step 12: B, C, D.  step 13: verdict E. -->
+  <div class="slide__body grid grid--code code-mid dr" data-sid="07b-walk-dllremove:6">
+    <div class="editor dr__editor" data-sid="07b-walk-dllremove:7">
+      <p class="editor__bar" data-sid="07b-walk-dllremove:8">option E, with its braces moved to fit</p>
+      <div class="editor__pc" data-sid="07b-walk-dllremove:9"></div>
+      <ol class="editor__code" data-sid="07b-walk-dllremove:10">
+        <li class="walkline frag" data-step="1" data-also="3" data-sid="07b-walk-dllremove:11"><span class="tok-key" data-sid="07b-walk-dllremove:12">if</span> (firstNode == lastNode) {</li>
+        <li class="walkline frag" data-step="2" data-sid="07b-walk-dllremove:13">  firstNode = <span class="tok-key" data-sid="07b-walk-dllremove:14">null</span>;</li>
+        <li class="walkline frag" data-step="2" data-sid="07b-walk-dllremove:15">  lastNode = <span class="tok-key" data-sid="07b-walk-dllremove:16">null</span>;</li>
+        <li data-sid="07b-walk-dllremove:17">} <span class="tok-key" data-sid="07b-walk-dllremove:18">else</span> {</li>
+        <li class="walkline frag" data-step="4" data-sid="07b-walk-dllremove:19">  <span class="tok-key" data-sid="07b-walk-dllremove:20">if</span> (curr == firstNode) {</li>
+        <li class="walkline frag" data-step="5" data-sid="07b-walk-dllremove:21">    firstNode = curr.getNext();</li>
+        <li class="walkline frag" data-step="6" data-sid="07b-walk-dllremove:22">    firstNode.setPrev(<span class="tok-key" data-sid="07b-walk-dllremove:23">null</span>);</li>
+        <li class="walkline frag" data-step="7" data-sid="07b-walk-dllremove:24">  } <span class="tok-key" data-sid="07b-walk-dllremove:25">else if</span> (curr == lastNode) {</li>
+        <li class="walkline frag" data-step="8" data-sid="07b-walk-dllremove:26">    lastNode = curr.getPrev();</li>
+        <li class="walkline frag" data-step="8" data-sid="07b-walk-dllremove:27">    lastNode.setNext(<span class="tok-key" data-sid="07b-walk-dllremove:28">null</span>);</li>
+        <li data-sid="07b-walk-dllremove:29">  } <span class="tok-key" data-sid="07b-walk-dllremove:30">else</span> {</li>
+        <li class="walkline frag" data-step="9" data-sid="07b-walk-dllremove:31">    curr.getPrevious().setNext(curr.getNext());</li>
+        <li class="walkline frag" data-step="10" data-sid="07b-walk-dllremove:32">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07b-walk-dllremove:33">  }</li>
+        <li data-sid="07b-walk-dllremove:34">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk dr__right" data-sid="07b-walk-dllremove:35">
+      <svg class="dr__fig" viewBox="0 0 644 282" role="img" aria-label="A doubly linked list with firstNode, lastNode and curr, shown in four runs of option E: only A, then removing A, C and B from A, B, C" data-sid="07b-walk-dllremove:36">
+        <defs data-sid="07b-walk-dllremove:37">
+          <marker id="w9d2-07b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07b-walk-dllremove:38"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="07b-walk-dllremove:39"/></marker>
+          <marker id="w9d2-07b-head-o" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07b-walk-dllremove:40"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-3)" data-sid="07b-walk-dllremove:41"/></marker>
+        </defs>
+
+        <g class="pill" data-sid="07b-walk-dllremove:42"><rect x="8" y="0" width="176" height="40" rx="8" data-sid="07b-walk-dllremove:43"/><text x="96" y="29" data-sid="07b-walk-dllremove:44">firstNode</text></g>
+        <text class="pnull" x="196" y="29" data-sid="07b-walk-dllremove:45">null</text>
+        <g class="pill" data-sid="07b-walk-dllremove:46"><rect x="470" y="0" width="160" height="40" rx="8" data-sid="07b-walk-dllremove:47"/><text x="550" y="29" data-sid="07b-walk-dllremove:48">lastNode</text></g>
+        <text class="pnull" x="376" y="29" data-sid="07b-walk-dllremove:49">null</text>
+
+        <g class="dn dn--a" data-sid="07b-walk-dllremove:50">
+          <rect class="dn__box" x="0" y="100" width="192" height="76" rx="10" data-sid="07b-walk-dllremove:51"/>
+          <path class="dn__div" d="M68 100v76M124 100v76" data-sid="07b-walk-dllremove:52"/>
+          <text class="dn__nl" x="34" y="148" data-sid="07b-walk-dllremove:53">null</text>
+          <text class="dn__v" x="96" y="150" data-sid="07b-walk-dllremove:54">A</text>
+          <text class="dn__nl dn__nl--anext" x="158" y="148" data-sid="07b-walk-dllremove:55">null</text>
+          <path class="lnk arc arc--anext" data-swing='[[9,"M158 102 C 158 22, 486 22, 486 94"]]' d="M158 102 C 158 62, 260 62, 260 94" data-sid="07b-walk-dllremove:56"/>
+        </g>
+        <g class="dn dn--b" data-sid="07b-walk-dllremove:57">
+          <rect class="dn__box" x="226" y="100" width="192" height="76" rx="10" data-sid="07b-walk-dllremove:58"/>
+          <path class="dn__div" d="M294 100v76M350 100v76" data-sid="07b-walk-dllremove:59"/>
+          <text class="dn__nl dn__nl--bprev" x="260" y="148" data-sid="07b-walk-dllremove:60">null</text>
+          <text class="dn__v" x="322" y="150" data-sid="07b-walk-dllremove:61">B</text>
+          <text class="dn__nl dn__nl--bnext" x="384" y="148" data-sid="07b-walk-dllremove:62">null</text>
+          <path class="lnk arc arc--bnext" d="M384 102 C 384 62, 486 62, 486 94" data-sid="07b-walk-dllremove:63"/>
+          <path class="lnk arc arc--bprev" d="M260 174 C 260 214, 158 214, 158 182" data-sid="07b-walk-dllremove:64"/>
+        </g>
+        <g class="dn dn--c" data-sid="07b-walk-dllremove:65">
+          <rect class="dn__box" x="452" y="100" width="192" height="76" rx="10" data-sid="07b-walk-dllremove:66"/>
+          <path class="dn__div" d="M520 100v76M576 100v76" data-sid="07b-walk-dllremove:67"/>
+          <text class="dn__v" x="548" y="150" data-sid="07b-walk-dllremove:68">C</text>
+          <text class="dn__nl" x="610" y="148" data-sid="07b-walk-dllremove:69">null</text>
+          <path class="lnk arc arc--cprev" data-swing='[[10,"M486 174 C 486 250, 158 250, 158 182"]]' d="M486 174 C 486 214, 384 214, 384 182" data-sid="07b-walk-dllremove:70"/>
+        </g>
+
+        <path class="ref ref--first" data-swing='[[5,"M96 40 C 96 76, 322 56, 322 96"],[7,"M96 40 C 96 60, 96 76, 96 96"]]' d="M96 40 C 96 60, 96 76, 96 96" data-sid="07b-walk-dllremove:71"/>
+        <path class="ref ref--last" data-swing='[[3,"M550 40 C 550 60, 548 76, 548 96"],[8,"M550 40 C 550 76, 336 56, 336 96"],[9,"M550 40 C 550 60, 548 76, 548 96"]]' d="M550 40 C 550 84, 110 52, 110 96" data-sid="07b-walk-dllremove:72"/>
+
+        <g class="cur" data-sid="07b-walk-dllremove:73"><rect x="36" y="240" width="120" height="40" rx="8" data-sid="07b-walk-dllremove:74"/><text x="96" y="269" data-sid="07b-walk-dllremove:75">curr</text><path class="cur__ref" d="M96 240 C 96 220, 96 202, 96 182" data-sid="07b-walk-dllremove:76"/></g>
+      </svg>
+
+      <div class="codewalk__caps dr__caps" data-sid="07b-walk-dllremove:77">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="07b-walk-dllremove:78">Run 1. The list holds only A, so firstNode == lastNode is true.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="07b-walk-dllremove:79">firstNode and lastNode are set to null, and the list is empty.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-dllremove:80">Run 2 removes A from A, B, C. firstNode == lastNode is false.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="07b-walk-dllremove:81">curr == firstNode is true.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="07b-walk-dllremove:82">firstNode is set to curr.getNext(), which is B.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="07b-walk-dllremove:83">B&rsquo;s prev is set to null. No node in the list refers to A.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="07b-walk-dllremove:84">Run 3 removes C from A, B, C. curr == firstNode is false and curr == lastNode is true.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="07b-walk-dllremove:85">lastNode is set to B and B&rsquo;s next is set to null.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="07b-walk-dllremove:86">Run 4 removes B. All three tests are false, so A&rsquo;s next is set to C.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="07b-walk-dllremove:87">C&rsquo;s prev is set to A. No node in the list refers to B.</p>
+        <p class="walkcap cap--11 frag" data-step="11" data-sid="07b-walk-dllremove:88">A is the general lines alone, so it throws on the first node and on the last node.</p>
+        <p class="walkcap cap--12 frag" data-step="12" data-sid="07b-walk-dllremove:89">B still calls methods on the null prev and next of the only node. C and D do not compile without the () after getPrevious.</p>
+        <ol class="verdict frag" data-step="13" data-sid="07b-walk-dllremove:90">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-dllremove:91"><span class="verdict__txt" data-sid="07b-walk-dllremove:92">No checks</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07b-walk-dllremove:93"><span class="verdict__txt" data-sid="07b-walk-dllremove:94">Tests size 1</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07b-walk-dllremove:95"><span class="verdict__txt" data-sid="07b-walk-dllremove:96">Missing ()</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="07b-walk-dllremove:97"><span class="verdict__txt" data-sid="07b-walk-dllremove:98">Tests size 0</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-dllremove:99"><span class="verdict__txt" data-sid="07b-walk-dllremove:100">Only E handles the only node, the first node and the last node before the general case</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-dllremove:101"></div>
+  <aside class="notes" data-sid="07b-walk-dllremove:102">Answer: E &mdash; it tests the only node, then the first node, then the last node, and runs the general lines only for a node with a node on each side [key assumed from the PrairieLearn twin u11q06_dll_d; confirm in Runestone&rsquo;s results view]. The code is E with its braces moved so it fits; the statements are the same. E calls getPrev and setPrev, which the stem does not list; every option does the same, so read them as getPrevious and setPrevious. Step 1. Only A: firstNode and lastNode both refer to A, so the first test is true. Step 2. Both are set to null and the list is empty. This is the case 04b did not cover. Step 3. Run 2, removing A from A, B, C: the first test is false. Step 4. curr is the first node. Step 5. firstNode is set to B. Step 6. B&rsquo;s prev is set to null, so nothing in the list refers to A. Step 7. Run 3, removing C: the first two tests are false, and curr is the last node. Step 8. lastNode is set to B and B&rsquo;s next to null. Step 9. Run 4, removing B: all three tests are false, so the general lines run, and A&rsquo;s next is set to C. Step 10. C&rsquo;s prev is set to A. Step 11. A is just the general lines, so it throws a NullPointerException on the first node and on the last node, as on 04b. Step 12. B checks for one node, but inside the if it still calls curr.getPrevious().setNext(...), and the only node&rsquo;s prev is null, so it throws too; it also never clears the references. C and D do not compile: curr.getPrevious without parentheses is a field access, and there is no such field. Even fixed, they test getSize() == 0, which is never true for a non-empty list. Step 13. The answer is E. If anyone checked the PrairieLearn version: its correct option has if where Runestone&rsquo;s E has else if, and that version throws on the first node of a longer list. Next is Vote 2.</aside>
+
+  <style data-sid="07b-walk-dllremove:103">
+    /* Slide-local: the editor at --t-code, 972 px (line 12 is 47 characters:
+       47 × 19.2 + 70 = 972) with a line-height of 1.2 so the 15 lines fit
+       (about 630 px); on the right one 644 × 282 SVG at 1:1 and the caption cell
+       under it, where the verdict replaces the captions. DLNode boxes 192 ×
+       76 on a 226 px pitch, compartments prev 68 | data 56 | next 68, no
+       field labels (04 and 04b name the parts; "null" is 67 px at --t-micro
+       and fits the end compartments). Motion: a node that leaves the list
+       fades with its own arrows and fades back when the next run rebuilds the
+       list; firstNode, lastNode, A's next and C's prev swing (CSS d plus
+       data-swing for Safari); curr moves by translateX (a real move) and
+       fades when its node is removed. The verdict is in the body face at
+       --t-small: A to D as short labels on one or two lines, E's sentence on
+       its own line, wrapping (one option per line ran 16 px past the body). States keyed to the caption frags with
+       :has(), in step order. Used by this slide only, all values from
+       tokens. */
+    #slide-07b .dr { grid-template-columns: 972px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-07b .dr__editor { width: 972px; }
+    #slide-07b .dr__editor .editor__code li { line-height: 1.2; }
+    #slide-07b .dr__fig { display: block; width: 644px; height: 282px; overflow: visible; }
+    #slide-07b .dr__right { gap: var(--s-2); }
+    #slide-07b .dr__caps { min-height: 250px; }
+    #slide-07b .dr__caps .verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); column-gap: var(--s-4); }
+    #slide-07b .dr__caps .verdict__opt--right { white-space: normal; flex-basis: 100%; }
+
+    #slide-07b .pill rect { fill: var(--accent-2); }
+    #slide-07b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-07b .pnull { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-07b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d2-07b-head); transition: d .7s var(--ease-smooth), opacity .3s ease; }
+
+    #slide-07b .dn { transition: opacity .4s ease; }
+    #slide-07b .dn--b, #slide-07b .dn--c { opacity: 0; }
+    #slide-07b .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .dn__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-07b .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-07b .dn__nl--bprev, #slide-07b .dn__nl--bnext { opacity: 0; }
+    #slide-07b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-07b-head); transition: d .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-07b .arc--anext { opacity: 0; }
+
+    #slide-07b .cur { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-07b .cur rect { fill: var(--bg-0); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-07b .cur text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-07b .cur__ref { fill: none; stroke: var(--accent-3); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-07b-head-o); }
+
+    /* ---- states, in step order ---- */
+    /* run 1: only A */
+    #slide-07b .dr:has(.cap--2:not(.is-pending)) .ref { opacity: 0; }
+    #slide-07b .dr:has(.cap--2:not(.is-pending)) .pnull { opacity: 1; transition-delay: .3s; }
+    #slide-07b .dr:has(.cap--2:not(.is-pending)) .dn--a { opacity: 0; transition-delay: .5s; }
+    #slide-07b .dr:has(.cap--2:not(.is-pending)) .cur { opacity: 0; transition-delay: .5s; }
+    /* run 2: A, B, C; remove A */
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .ref { opacity: 1; }
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .pnull { opacity: 0; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .dn { opacity: 1; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .arc--anext { opacity: 1; }
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .dn__nl--anext { opacity: 0; }
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .ref--last { d: path("M550 40 C 550 60, 548 76, 548 96"); }
+    #slide-07b .dr:has(.cap--3:not(.is-pending)) .cur { opacity: 1; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--5:not(.is-pending)) .ref--first { d: path("M96 40 C 96 76, 322 56, 322 96"); }
+    #slide-07b .dr:has(.cap--6:not(.is-pending)) .arc--bprev { opacity: 0; }
+    #slide-07b .dr:has(.cap--6:not(.is-pending)) .dn__nl--bprev { opacity: 1; transition-delay: .3s; }
+    #slide-07b .dr:has(.cap--6:not(.is-pending)) .dn--a { opacity: 0; transition-delay: .6s; }
+    #slide-07b .dr:has(.cap--6:not(.is-pending)) .cur { opacity: 0; transition-delay: .6s; }
+    /* run 3: A, B, C again; remove C */
+    #slide-07b .dr:has(.cap--7:not(.is-pending)) .dn--a { opacity: 1; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--7:not(.is-pending)) .arc--bprev { opacity: 1; }
+    #slide-07b .dr:has(.cap--7:not(.is-pending)) .dn__nl--bprev { opacity: 0; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--7:not(.is-pending)) .ref--first { d: path("M96 40 C 96 60, 96 76, 96 96"); }
+    #slide-07b .dr:has(.cap--7:not(.is-pending)) .cur { opacity: 1; transform: translateX(452px); transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--8:not(.is-pending)) .ref--last { d: path("M550 40 C 550 76, 336 56, 336 96"); }
+    #slide-07b .dr:has(.cap--8:not(.is-pending)) .arc--bnext { opacity: 0; }
+    #slide-07b .dr:has(.cap--8:not(.is-pending)) .dn__nl--bnext { opacity: 1; transition-delay: .3s; }
+    #slide-07b .dr:has(.cap--8:not(.is-pending)) .dn--c { opacity: 0; transition-delay: .6s; }
+    #slide-07b .dr:has(.cap--8:not(.is-pending)) .cur { opacity: 0; transition-delay: .6s; }
+    /* run 4: A, B, C again; remove B */
+    #slide-07b .dr:has(.cap--9:not(.is-pending)) .ref--last { d: path("M550 40 C 550 60, 548 76, 548 96"); }
+    #slide-07b .dr:has(.cap--9:not(.is-pending)) .arc--bnext { opacity: 1; }
+    #slide-07b .dr:has(.cap--9:not(.is-pending)) .dn__nl--bnext { opacity: 0; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--9:not(.is-pending)) .dn--c { opacity: 1; transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--9:not(.is-pending)) .cur { opacity: 1; transform: translateX(226px); transition-delay: 0s; }
+    #slide-07b .dr:has(.cap--9:not(.is-pending)) .arc--anext { d: path("M158 102 C 158 22, 486 22, 486 94"); transition-delay: .5s; }
+    #slide-07b .dr:has(.cap--10:not(.is-pending)) .arc--cprev { d: path("M486 174 C 486 250, 158 250, 158 182"); }
+    #slide-07b .dr:has(.cap--10:not(.is-pending)) .dn--b { opacity: 0; transition-delay: .8s; }
+    #slide-07b .dr:has(.cap--10:not(.is-pending)) .cur { opacity: 0; transition-delay: .8s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .pnull, #slide-07b .ref, #slide-07b .dn, #slide-07b .dn__nl, #slide-07b .lnk, #slide-07b .cur { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

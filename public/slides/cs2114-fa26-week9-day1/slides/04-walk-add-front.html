@@ -1,0 +1,161 @@
+<section class="slide slide--warmup" id="slide-04" data-sid="04-walk-add-front:1">
+  <header class="slide__head" data-sid="04-walk-add-front:2">
+    <p class="slide__kicker" data-sid="04-walk-add-front:3">A LINKED LIST &middot; WALKTHROUGH</p>
+    <h2 data-sid="04-walk-add-front:4">Adding at position 0 changes firstNode</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-walk-add-front:5">A walkthrough of a list's add method under a program-counter bar: void add of int p and T x; Node newNode equals new Node of x; if p equals 0, newNode dot next equals firstNode, then firstNode equals newNode; else Node nodeBefore equals getNodeAt of p minus 1, newNode dot next equals nodeBefore dot next, nodeBefore dot next equals newNode; then numberOfEntries plus plus. On the right, a blue firstNode pill with the word null beside it, above an empty row where nodes will appear. Each node is a box with a data part and a next part. Step one: add of 0 and B on an empty list; a node holding B, next null, appears on the right, tinted orange and labelled newNode. Step two: p is 0, so the first branch runs. Step three: newNode dot next equals firstNode; B's next part is washed orange and stays null, because firstNode is null. Step four: firstNode equals newNode; the null beside firstNode is removed and an arrow from firstNode to B appears; the caption says a list that also keeps lastNode must set lastNode here too. Step five: add of 0 and A; a node holding A appears to the left of B. Step six: p is 0 again. Step seven: A's next part is washed orange, its null is removed and an arrow is drawn from A to B. Step eight: firstNode's arrow re-points from B to A; the list is A, B. Step nine: adding at position 0 writes two references, whatever the length of the list.</p>
+
+  <!-- Concept intro for Part 1: add(newPosition, newEntry) with positions
+       from 0 as the videos count them (Carrano's LList method, 0-based, field
+       notation; newPosition shortened to p, newEntry to x). This slide walks
+       the first branch twice: on an empty list (firstNode only; the caption
+       says a list with lastNode must set it too, which is Vote 1's case, not
+       answered here) and on a one-node list. W8D1 04's grammar: a blue pill,
+       null in stone beside it until assigned, a reference fades in and then
+       swings, a written next Creates (head after), a write washes its
+       compartment, newNode is the orange tint and label.
+       steps 1–4: add(0, B) on an empty list.
+       steps 5–8: add(0, A).
+       step 9: the rule. -->
+  <div class="slide__body grid grid--code code-mid af" data-sid="04-walk-add-front:6">
+    <div class="editor af__editor" data-sid="04-walk-add-front:7">
+      <div class="editor__pc" data-sid="04-walk-add-front:8"></div>
+      <ol class="editor__code" data-sid="04-walk-add-front:9">
+        <li data-sid="04-walk-add-front:10"><span class="tok-key" data-sid="04-walk-add-front:11">void</span> add(<span class="tok-key" data-sid="04-walk-add-front:12">int</span> p, T x) {</li>
+        <li class="walkline frag" data-step="1" data-also="5" data-sid="04-walk-add-front:13">    Node newNode = <span class="tok-key" data-sid="04-walk-add-front:14">new</span> Node(x);</li>
+        <li class="walkline frag" data-step="2" data-also="6" data-sid="04-walk-add-front:15">    <span class="tok-key" data-sid="04-walk-add-front:16">if</span> (p == <span class="tok-num" data-sid="04-walk-add-front:17">0</span>) {</li>
+        <li class="walkline frag" data-step="3" data-also="7" data-sid="04-walk-add-front:18">        newNode.next = firstNode;</li>
+        <li class="walkline frag" data-step="4" data-also="8" data-sid="04-walk-add-front:19">        firstNode = newNode;</li>
+        <li data-sid="04-walk-add-front:20">    } <span class="tok-key" data-sid="04-walk-add-front:21">else</span> {</li>
+        <li data-sid="04-walk-add-front:22">        Node nodeBefore = getNodeAt(p - <span class="tok-num" data-sid="04-walk-add-front:23">1</span>);</li>
+        <li data-sid="04-walk-add-front:24">        newNode.next = nodeBefore.next;</li>
+        <li data-sid="04-walk-add-front:25">        nodeBefore.next = newNode;</li>
+        <li data-sid="04-walk-add-front:26">    }</li>
+        <li data-sid="04-walk-add-front:27">    numberOfEntries++;</li>
+        <li class="walkline frag" data-step="9" data-sid="04-walk-add-front:28">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk af__right" data-sid="04-walk-add-front:29">
+      <svg class="af__fig" viewBox="0 0 720 300" role="img" aria-label="A firstNode pill above a row of nodes; add at position 0 creates B on an empty list, then A in front of it, and firstNode's arrow swings from B to A" data-sid="04-walk-add-front:30" >
+        <defs data-sid="04-walk-add-front:31">
+          <marker id="w9d1-04-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04-walk-add-front:32"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="04-walk-add-front:33"/></marker>
+        </defs>
+
+        <g class="pill pill--first" data-sid="04-walk-add-front:34"><rect x="0" y="0" width="176" height="48" rx="8" data-sid="04-walk-add-front:35"/><text x="88" y="34" data-sid="04-walk-add-front:36">firstNode</text></g>
+        <text class="pnull" x="192" y="34" data-sid="04-walk-add-front:37">null</text>
+
+        <!-- A, created second, at position 0 -->
+        <g class="nd nd--a frag" data-step="5" data-sid="04-walk-add-front:38">
+          <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="04-walk-add-front:39"/>
+          <rect class="nd__wash" x="113" y="153" width="74" height="84" rx="7" data-sid="04-walk-add-front:40"/>
+          <path class="nd__div" d="M110 150v90" data-sid="04-walk-add-front:41"/>
+          <text class="nd__f" x="10" y="178" data-sid="04-walk-add-front:42">data</text><text class="nd__f" x="116" y="178" data-sid="04-walk-add-front:43">next</text>
+          <text class="nd__v" x="55" y="224" data-sid="04-walk-add-front:44">A</text>
+          <text class="nd__nl" x="150" y="224" data-sid="04-walk-add-front:45">null</text>
+          <text class="nd__new" x="95" y="276" data-sid="04-walk-add-front:46">newNode</text>
+        </g>
+        <!-- B, created first -->
+        <g class="nd nd--b frag" data-step="1" data-sid="04-walk-add-front:47">
+          <rect class="nd__box" x="280" y="150" width="190" height="90" rx="10" data-sid="04-walk-add-front:48"/>
+          <rect class="nd__wash" x="393" y="153" width="74" height="84" rx="7" data-sid="04-walk-add-front:49"/>
+          <path class="nd__div" d="M390 150v90" data-sid="04-walk-add-front:50"/>
+          <text class="nd__f" x="290" y="178" data-sid="04-walk-add-front:51">data</text><text class="nd__f" x="396" y="178" data-sid="04-walk-add-front:52">next</text>
+          <text class="nd__v" x="335" y="224" data-sid="04-walk-add-front:53">B</text>
+          <text class="nd__nl" x="430" y="224" data-sid="04-walk-add-front:54">null</text>
+          <text class="nd__new" x="375" y="276" data-sid="04-walk-add-front:55">newNode</text>
+        </g>
+
+        <!-- A's next, written by newNode.next = firstNode -->
+        <path class="lnk frag" data-step="7" pathLength="100" d="M150 205 C 190 205, 230 205, 268 205" data-sid="04-walk-add-front:56"/>
+        <path class="lnkh frag" data-step="7" data-anim="fade" d="M280 205 L266 198 L266 212 Z" data-sid="04-walk-add-front:57"/>
+
+        <!-- firstNode: fades in on step 4, swings to A on step 8 -->
+        <path class="ref ref--first" data-swing='[[8,"M88 48 C 88 90, 88 110, 88 146"]]' d="M88 48 C 88 100, 375 90, 375 146" data-sid="04-walk-add-front:58"/>
+      </svg>
+      <div class="codewalk__caps" data-sid="04-walk-add-front:59">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-add-front:60">add(0, B) on an empty list creates a node holding B, with next null.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-add-front:61">p is 0, so the first branch runs.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-add-front:62">newNode.next = firstNode. firstNode is null, so B&rsquo;s next stays null.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-add-front:63">firstNode = newNode. A list that also keeps lastNode must set lastNode here too.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-add-front:64">add(0, A) creates a node holding A.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04-walk-add-front:65">p is 0 again, so the same branch runs.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04-walk-add-front:66">newNode.next = firstNode sets A&rsquo;s next to B, the node that was first.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04-walk-add-front:67">firstNode = newNode, so firstNode now refers to A. The list is A, B.</p>
+        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="04-walk-add-front:68">Adding at position 0 writes two references, whatever the length of the list.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04-walk-add-front:69"></div>
+  <aside class="notes" data-sid="04-walk-add-front:70">This is add with a position, the method from the LinkedList Add video. The video draws it; the code is Carrano&rsquo;s, with positions counted from 0 as the videos count them, and with newPosition shortened to p and newEntry to x. The list has one reference, firstNode. Step 1. add(0, B) runs on an empty list. The constructor makes a node with data B and next null. The orange tint marks newNode. Step 2. p is 0, so the first branch runs. Step 3. newNode.next = firstNode. firstNode is null, so B&rsquo;s next is set to null, which it already was. Step 4. firstNode = newNode, so B is the first node, and the only one. Ask: if this class also kept a lastNode, what would lastNode have to be now? It has to refer to B as well. Keep that in mind for Vote 1. Step 5. add(0, A) creates a second node. Step 6. p is 0 again. Step 7. newNode.next = firstNode sets A&rsquo;s next to B, the node that was first until now. Step 8. firstNode = newNode, so firstNode refers to A. The list is A, B. The order of steps 7 and 8 matters: if firstNode were set first, A&rsquo;s next would be set to A. Step 9. Adding at position 0 writes two references and does not walk the chain, so its cost does not depend on the length. Next is a position in the middle, the else branch.</aside>
+
+  <style data-sid="04-walk-add-front:71">
+    /* Slide-local: the editor at --t-code with no bar (12 lines: with the
+       bar it runs past the floor), 896 px wide: the getNodeAt line is 43
+       characters, 43 × 19.2 + 70 = 896. On the right one 720 × 300 SVG at 1:1
+       and the captions under it (three lines reserved). W8D1 04's Node boxes
+       (190 × 90, data 110 | next 80) on a 280 px pitch; B is created first in
+       the right slot so that A can be added in front of it. Motion: a node
+       GrowsFromCenter on its call; firstNode FadesIn on its first
+       assignment and swings on the second (d transition, same-shaped
+       cubics, data-swing for Safari); A's next Creates with its head after; a
+       written next washes orange for its step; the pill being written takes
+       an orange edge for its step; newNode is the orange 18% tint and label,
+       cleared when the next call starts. States keyed to the caption frags
+       with :has(), in step order. Used by this slide only, all values from
+       tokens. */
+    #slide-04 .af { grid-template-columns: 896px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-04 .af__editor { width: 896px; }
+    #slide-04 .af__fig { display: block; width: 720px; height: 300px; overflow: visible; }
+    #slide-04 .codewalk__caps { min-height: 150px; }
+    #slide-04 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-04 .pill rect { fill: var(--accent-2); stroke: transparent; stroke-width: 5; transition: stroke .3s ease; }
+    #slide-04 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04 .pnull { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); transition: opacity .3s ease; }
+
+    #slide-04 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-04 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04 .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-04 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04 .nd__new { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-04 .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-04 .nd { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04 .frag.nd.is-pending { opacity: 0; transform: scale(0.4); }
+
+    #slide-04 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-04 .frag.lnk.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-04 .frag.lnk.is-current, #slide-04 .frag.lnk.is-past { stroke-dashoffset: 0; transition-delay: .2s; }
+    #slide-04 .lnkh { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-04 .frag.lnkh.is-current, #slide-04 .frag.lnkh.is-past { transition-delay: .6s; }
+
+    #slide-04 .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d1-04-head); opacity: 0; transition: d .7s var(--ease-smooth), opacity .3s ease; }
+
+    /* ---- states, in step order ---- */
+    /* add(0, B) on an empty list */
+    #slide-04 .af:has(.cap--1:not(.is-pending)) .nd--b .nd__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-04 .af:has(.cap--1:not(.is-pending)) .nd--b .nd__new { opacity: 1; }
+    #slide-04 .af:has(.cap--3.is-current) .nd--b .nd__wash { opacity: 1; }
+    #slide-04 .af:has(.cap--4.is-current) .pill--first rect { stroke: var(--accent-3); }
+    #slide-04 .af:has(.cap--4:not(.is-pending)) .pnull { opacity: 0; }
+    #slide-04 .af:has(.cap--4:not(.is-pending)) .ref--first { opacity: 1; transition-delay: .2s; }
+    /* add(0, A) */
+    #slide-04 .af:has(.cap--5:not(.is-pending)) .nd--b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-04 .af:has(.cap--5:not(.is-pending)) .nd--b .nd__new { opacity: 0; }
+    #slide-04 .af:has(.cap--5:not(.is-pending)) .nd--a .nd__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-04 .af:has(.cap--5:not(.is-pending)) .nd--a .nd__new { opacity: 1; }
+    #slide-04 .af:has(.cap--7.is-current) .nd--a .nd__wash { opacity: 1; }
+    #slide-04 .af:has(.cap--7:not(.is-pending)) .nd--a .nd__nl { opacity: 0; }
+    #slide-04 .af:has(.cap--8.is-current) .pill--first rect { stroke: var(--accent-3); }
+    #slide-04 .af:has(.cap--8:not(.is-pending)) .ref--first { d: path("M88 48 C 88 90, 88 110, 88 146"); }
+    /* the call has returned */
+    #slide-04 .af:has(.cap--9:not(.is-pending)) .nd--a .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-04 .af:has(.cap--9:not(.is-pending)) .nd--a .nd__new { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .pill rect, #slide-04 .pnull, #slide-04 .nd, #slide-04 .nd__box, #slide-04 .nd__nl, #slide-04 .nd__new, #slide-04 .nd__wash,
+      #slide-04 .lnk, #slide-04 .lnkh, #slide-04 .ref { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,153 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-walk-remove-middle:1">
+  <header class="slide__head" data-sid="06-walk-remove-middle:2">
+    <p class="slide__kicker" data-sid="06-walk-remove-middle:3">A LINKED LIST &middot; WALKTHROUGH</p>
+    <h2 data-sid="06-walk-remove-middle:4">remove(p) changes the next of the node before</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06-walk-remove-middle:5">A walkthrough of a list's remove method for a position greater than 0, under a program-counter bar: T remove of int p; Node nodeBefore equals getNodeAt of p minus 1; Node nodeToRemove equals nodeBefore dot next; nodeBefore dot next equals nodeToRemove dot next; numberOfEntries minus minus; return nodeToRemove dot data. On the right, a list of four nodes holding A, B, C and D, linked left to right, with a blue firstNode pill referring to A. Step one: remove of 2; getNodeAt of 1 starts at A, and a blue ring labelled nodeBefore appears around A. Step two: the ring moves to B. Step three: an orange ring labelled nodeToRemove grows around C. Step four: B's next part is washed orange and its arrow re-points from C, over C, to D; C turns grey. Step five: the method returns C; C's node, its arrow and both rings fade out; the list is A, B, D. Step six: position 0 has no node before it, so removing at position 0 is a separate case, which the video writes as firstNode equals firstNode dot next.</p>
+
+  <!-- Concept intro for Part 2: the video's "Removing non-first nodes"
+       (LinkedListRemove.pdf slides 3 and 6: nodeBefore, nodeToRemove) as
+       code, the p > 0 branch of Carrano's LList remove, 0-based. The rings
+       are the two locals: nodeBefore blue (a reference the walk moves),
+       nodeToRemove orange (the node this call works on). W8D1's Node grammar
+       at 160 × 84 so four nodes fit 776 px.
+       steps 1–2: getNodeAt(1) walks to B.
+       step 3: nodeToRemove is C.
+       step 4: B's next swings over C to D.
+       step 5: return; C fades.
+       step 6: the rule. -->
+  <div class="slide__body grid grid--code code-mid rm" data-sid="06-walk-remove-middle:6">
+    <div class="editor rm__editor" data-sid="06-walk-remove-middle:7">
+      <p class="editor__bar" data-sid="06-walk-remove-middle:8">LinkedList: remove, the case p &gt; 0</p>
+      <div class="editor__pc" data-sid="06-walk-remove-middle:9"></div>
+      <ol class="editor__code" data-sid="06-walk-remove-middle:10">
+        <li data-sid="06-walk-remove-middle:11">T remove(<span class="tok-key" data-sid="06-walk-remove-middle:12">int</span> p) {</li>
+        <li class="walkline frag" data-step="1" data-hold="2" data-sid="06-walk-remove-middle:13">    Node nodeBefore = getNodeAt(p - <span class="tok-num" data-sid="06-walk-remove-middle:14">1</span>);</li>
+        <li class="walkline frag" data-step="3" data-sid="06-walk-remove-middle:15">    Node nodeToRemove = nodeBefore.next;</li>
+        <li class="walkline frag" data-step="4" data-sid="06-walk-remove-middle:16">    nodeBefore.next = nodeToRemove.next;</li>
+        <li data-sid="06-walk-remove-middle:17">    numberOfEntries--;</li>
+        <li class="walkline frag" data-step="5" data-sid="06-walk-remove-middle:18">    <span class="tok-key" data-sid="06-walk-remove-middle:19">return</span> nodeToRemove.data;</li>
+        <li class="walkline frag" data-step="6" data-sid="06-walk-remove-middle:20">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk rm__right" data-sid="06-walk-remove-middle:21">
+      <svg class="rm__fig" viewBox="0 0 776 250" role="img" aria-label="A list A, B, C, D with firstNode; a nodeBefore ring moves from A to B, a nodeToRemove ring marks C, B's arrow swings over C to D, and C fades" data-sid="06-walk-remove-middle:22">
+        <defs data-sid="06-walk-remove-middle:23">
+          <marker id="w9d1-06-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="06-walk-remove-middle:24"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="06-walk-remove-middle:25"/></marker>
+        </defs>
+
+        <g class="pill" data-sid="06-walk-remove-middle:26"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="06-walk-remove-middle:27"/><text x="88" y="31" data-sid="06-walk-remove-middle:28">firstNode</text></g>
+        <path class="lnk" d="M80 44 C 80 64, 80 76, 80 94" data-sid="06-walk-remove-middle:29"/>
+
+        <g class="nd" data-sid="06-walk-remove-middle:30">
+          <rect class="nd__box" x="0" y="100" width="160" height="84" rx="10" data-sid="06-walk-remove-middle:31"/><path class="nd__div" d="M85 100v84" data-sid="06-walk-remove-middle:32"/>
+          <text class="nd__f" x="8" y="126" data-sid="06-walk-remove-middle:33">data</text><text class="nd__f" x="89" y="126" data-sid="06-walk-remove-middle:34">next</text>
+          <text class="nd__v" x="42" y="170" data-sid="06-walk-remove-middle:35">A</text>
+        </g>
+        <path class="lnk" d="M122 142 C 160 142, 175 142, 194 142" data-sid="06-walk-remove-middle:36"/>
+        <g class="nd nd--b" data-sid="06-walk-remove-middle:37">
+          <rect class="nd__box" x="200" y="100" width="160" height="84" rx="10" data-sid="06-walk-remove-middle:38"/>
+          <rect class="nd__wash" x="288" y="103" width="69" height="78" rx="7" data-sid="06-walk-remove-middle:39"/>
+          <path class="nd__div" d="M285 100v84" data-sid="06-walk-remove-middle:40"/>
+          <text class="nd__f" x="208" y="126" data-sid="06-walk-remove-middle:41">data</text><text class="nd__f" x="289" y="126" data-sid="06-walk-remove-middle:42">next</text>
+          <text class="nd__v" x="242" y="170" data-sid="06-walk-remove-middle:43">B</text>
+        </g>
+        <g class="nd nd--c" data-sid="06-walk-remove-middle:44">
+          <rect class="nd__box" x="400" y="100" width="160" height="84" rx="10" data-sid="06-walk-remove-middle:45"/><path class="nd__div" d="M485 100v84" data-sid="06-walk-remove-middle:46"/>
+          <text class="nd__f" x="408" y="126" data-sid="06-walk-remove-middle:47">data</text><text class="nd__f" x="489" y="126" data-sid="06-walk-remove-middle:48">next</text>
+          <text class="nd__v" x="442" y="170" data-sid="06-walk-remove-middle:49">C</text>
+          <path class="lnk" d="M522 142 C 560 142, 575 142, 594 142" data-sid="06-walk-remove-middle:50"/>
+        </g>
+        <g class="nd" data-sid="06-walk-remove-middle:51">
+          <rect class="nd__box" x="600" y="100" width="160" height="84" rx="10" data-sid="06-walk-remove-middle:52"/><path class="nd__div" d="M685 100v84" data-sid="06-walk-remove-middle:53"/>
+          <text class="nd__f" x="608" y="126" data-sid="06-walk-remove-middle:54">data</text><text class="nd__f" x="689" y="126" data-sid="06-walk-remove-middle:55">next</text>
+          <text class="nd__v" x="642" y="170" data-sid="06-walk-remove-middle:56">D</text>
+          <text class="nd__nl" x="722" y="170" data-sid="06-walk-remove-middle:57">null</text>
+        </g>
+
+        <!-- B's next: to C, swings over C to D on step 4 -->
+        <path class="ref ref--b" data-swing='[[4,"M322 142 C 340 40, 640 40, 660 94"]]' d="M322 142 C 360 142, 375 142, 394 142" data-sid="06-walk-remove-middle:58"/>
+
+        <!-- the two locals -->
+        <g class="ring ring--before frag" data-step="1" data-sid="06-walk-remove-middle:59">
+          <rect x="-10" y="90" width="180" height="104" rx="14" data-sid="06-walk-remove-middle:60"/>
+          <text x="-6" y="222" data-sid="06-walk-remove-middle:61">nodeBefore</text>
+        </g>
+        <g class="ring ring--remove frag" data-step="3" data-sid="06-walk-remove-middle:62">
+          <rect x="390" y="90" width="180" height="104" rx="14" data-sid="06-walk-remove-middle:63"/>
+          <text x="394" y="222" data-sid="06-walk-remove-middle:64">nodeToRemove</text>
+        </g>
+      </svg>
+      <div class="codewalk__caps" data-sid="06-walk-remove-middle:65">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06-walk-remove-middle:66">remove(2) on A, B, C, D. getNodeAt(1) starts at firstNode, at A.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06-walk-remove-middle:67">It moves one node along, so nodeBefore refers to B.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06-walk-remove-middle:68">nodeToRemove = nodeBefore.next, so nodeToRemove refers to C.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06-walk-remove-middle:69">nodeBefore.next = nodeToRemove.next sets B&rsquo;s next to D. The chain no longer includes C.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06-walk-remove-middle:70">The method returns C. After the return, nothing refers to C&rsquo;s node. The list is A, B, D.</p>
+        <p class="walkcap walkcap--plant cap--6 frag" data-step="6" data-sid="06-walk-remove-middle:71">Position 0 has no node before it, so remove(0) is a separate case, which the video writes as firstNode = firstNode.next.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-walk-remove-middle:72"></div>
+  <aside class="notes" data-sid="06-walk-remove-middle:73">This is remove from the LinkedList Remove video. The video splits it into two cases, the first node and any other node, and draws the second with nodeBefore and nodeToRemove. This is the code for the second case, with positions from 0. Step 1. remove(2) on A, B, C, D. getNodeAt(p - 1) is getNodeAt(1), the same walk as in add. It starts at A. Step 2. One move: nodeBefore refers to B. Step 3. nodeToRemove = nodeBefore.next, so nodeToRemove refers to C. Step 4. nodeBefore.next = nodeToRemove.next. C&rsquo;s next is D, so B&rsquo;s next is set to D, and walking the chain from firstNode now goes A, B, D. C&rsquo;s own next still refers to D, which does no harm. Step 5. numberOfEntries goes down by one and the method returns C&rsquo;s data. Once the method returns, nothing refers to C&rsquo;s node, and the garbage collector reclaims it. Step 6. This code needs a node before position p. Position 0 has none, so remove(0) is its own case, the one the video writes as firstNode = firstNode.next. Removing the last node works with this code, because the last node&rsquo;s next is null and B&rsquo;s next becomes null. With a lastNode reference that changes, which is Vote 2. Next is the peer-instruction routine.</aside>
+
+  <style data-sid="06-walk-remove-middle:74">
+    /* Slide-local: the editor at --t-code with its bar (7 lines), 840 px: the
+       nodeToRemove lines are 40 characters, 40 × 19.2 + 70 = 838. On the
+       right one 776 × 250 SVG at 1:1, the captions under it (three lines
+       reserved). Node boxes 160 × 84 (data 85 | next 75) on a 200 px pitch.
+       The rings are rounded rects 20 px outside a node with the local's name
+       under them: nodeBefore blue, nodeToRemove orange. Motion: the
+       nodeBefore ring FadesIn on A and moves one pitch (translateX(200px), a
+       real move); the nodeToRemove ring GrowsFromCenter; B's next swings over
+       C (d transition, same-shaped cubics, data-swing for Safari) with an
+       orange wash for its step; C turns stone, then fades with its link and
+       both rings on the return. States keyed to the caption frags with
+       :has(), in step order. Used by this slide only, all values from
+       tokens. */
+    #slide-06 .rm { grid-template-columns: 840px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-06 .rm__editor { width: 840px; }
+    #slide-06 .rm__fig { display: block; width: 776px; height: 250px; overflow: visible; }
+    #slide-06 .codewalk__caps { min-height: 150px; }
+    #slide-06 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-06 .pill rect { fill: var(--accent-2); }
+    #slide-06 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-06 .nd { transition: opacity .4s ease; }
+    #slide-06 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-06 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; transition: stroke .3s ease; }
+    #slide-06 .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-06 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: fill .3s ease; }
+    #slide-06 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-06 .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-06 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-06-head); transition: stroke .3s ease; }
+    #slide-06 .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-06-head); transition: d .7s var(--ease-smooth); }
+
+    #slide-06 .ring rect { fill: none; stroke-width: 5; }
+    #slide-06 .ring text { font-family: var(--font-mono); font-size: var(--t-micro); text-anchor: start; }
+    #slide-06 .ring--before rect { stroke: var(--accent-2); }
+    #slide-06 .ring--before text { fill: var(--accent-2); }
+    #slide-06 .ring--remove rect { stroke: var(--accent-3); }
+    #slide-06 .ring--remove text { fill: var(--accent-3); }
+    #slide-06 .ring--before { transition: opacity .3s ease, transform .6s var(--ease-smooth); }
+    #slide-06 .ring--remove { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06 .frag.ring--remove.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-06 .rm:has(.cap--2:not(.is-pending)) .ring--before { transform: translateX(200px); }
+    #slide-06 .rm:has(.cap--4.is-current) .nd--b .nd__wash { opacity: 1; }
+    #slide-06 .rm:has(.cap--4:not(.is-pending)) .ref--b { d: path("M322 142 C 340 40, 640 40, 660 94"); }
+    #slide-06 .rm:has(.cap--4:not(.is-pending)) .nd--c .nd__box { fill: var(--bg-0); stroke: var(--stone); }
+    #slide-06 .rm:has(.cap--4:not(.is-pending)) .nd--c .nd__div { stroke: var(--stone); }
+    #slide-06 .rm:has(.cap--4:not(.is-pending)) .nd--c .nd__v { fill: var(--stone); }
+    #slide-06 .rm:has(.cap--4:not(.is-pending)) .nd--c .lnk { stroke: var(--stone); }
+    #slide-06 .rm:has(.cap--5:not(.is-pending)) .nd--c { opacity: 0; transition-delay: .3s; }
+    #slide-06 .rm:has(.cap--5:not(.is-pending)) .ring { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06 .nd, #slide-06 .nd__box, #slide-06 .nd__div, #slide-06 .nd__v, #slide-06 .nd__wash, #slide-06 .lnk,
+      #slide-06 .ref, #slide-06 .ring--before, #slide-06 .ring--remove { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

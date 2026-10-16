@@ -31,6 +31,68 @@
   font-display: block;
 }
 
+/* Liberation Sans / Serif (OFL 1.1), bundled 2026-10-11 so that body and heading text
+   render with the same metrics in every browser on every OS: they are metric-compatible
+   with the Nimbus Sans / Nimbus Roman that stood in for Verdana / Georgia on the authoring
+   machine, where every layout was measured. The system fonts remain as fallbacks. */
+@font-face {
+  font-family: "Liberation Sans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSans-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Sans";
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSans-Bold.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Sans";
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSans-Italic.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Sans";
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSans-BoldItalic.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Serif";
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSerif-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Serif";
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSerif-Bold.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Serif";
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSerif-Italic.woff') format('woff');
+}
+@font-face {
+  font-family: "Liberation Serif";
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+  src: url('../assets/fonts/LiberationSerif-BoldItalic.woff') format('woff');
+}
+
+
 :root {
   /* text */
   --fg-0: #2c1a1f;              /* primary text — near-black, maroon cast */
@@ -57,8 +119,8 @@
 
   /* fonts — body/display are the day 1 system stacks, so the two decks set the
      same text; mono is the bundled face. */
-  --font-body: Verdana, Geneva, sans-serif;
-  --font-display: Georgia, "Times New Roman", serif;   /* headings */
+  --font-body: 'Liberation Sans', Verdana, Geneva, sans-serif;
+  --font-display: 'Liberation Serif', Georgia, "Times New Roman", serif;   /* headings */
   --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
 
   /* spacing scale */

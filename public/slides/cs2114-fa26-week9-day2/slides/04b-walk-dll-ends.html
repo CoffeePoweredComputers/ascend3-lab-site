@@ -1,0 +1,173 @@
+<section class="slide slide--warmup" id="slide-04b" data-sid="04b-walk-dll-ends:1">
+  <header class="slide__head" data-sid="04b-walk-dll-ends:2">
+    <p class="slide__kicker" data-sid="04b-walk-dll-ends:3">A DOUBLY LINKED LIST &middot; WALKTHROUGH</p>
+    <h2 data-sid="04b-walk-dll-ends:4">The first node and the last node need their own lines</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04b-walk-dll-ends:5">A walkthrough under a program-counter bar. At first the editor shows only the two statements from the previous slide, inside an else. On the right, the doubly linked list A, B, C with firstNode on A, lastNode on C, and an orange pill labelled curr pointing at A. Step one: the first statement runs on A; A's prev part is ringed, because curr dot getPrevious is null. Step two: calling setNext on null throws a NullPointerException, shown in maroon, and the program-counter bar fades. Step three: the lines above the else appear: if curr equals firstNode, firstNode equals curr dot getNext, firstNode dot setPrevious of null; else if curr equals lastNode, lastNode equals curr dot getPrevious, lastNode dot setNext of null. The test curr equals firstNode is true. Step four: firstNode's arrow swings to B. Step five: B's prev part is washed orange, its arrow back to A is removed and B's prev reads null; A fades out. Step six: curr moves to C, the last node; curr equals lastNode is true. Step seven: lastNode's arrow swings to B. Step eight: B's next part is washed orange, its arrow to C is removed and B's next reads null; C fades out, and B is the only node. Step nine: the general statements need a node on each side of curr, so the first node and the last node each need their own lines.</p>
+
+  <!-- The same two statements on the first node, where getPrevious() is
+       null and setNext throws; then the guarded method that handles the first
+       and the last node before the general case. The guard lines are hidden
+       until step 3 (they take space from the start, so the general lines do
+       not move). The one-node case is left to Vote 1's walk (07b).
+       steps 1–2: the general lines on A throw.  steps 3–5: curr == firstNode.
+       steps 6–8: curr == lastNode on B ⇄ C.  step 9: the plant. -->
+  <div class="slide__body grid grid--code code-mid de" data-sid="04b-walk-dll-ends:6">
+    <div class="editor de__editor" data-sid="04b-walk-dll-ends:7">
+      <p class="editor__bar" data-sid="04b-walk-dll-ends:8">remove curr, with the first and the last node</p>
+      <div class="editor__pc" data-sid="04b-walk-dll-ends:9"></div>
+      <ol class="editor__code" data-sid="04b-walk-dll-ends:10">
+        <li class="walkline frag de__guard" data-step="3" data-sid="04b-walk-dll-ends:11"><span class="tok-key" data-sid="04b-walk-dll-ends:12">if</span> (curr == firstNode) {</li>
+        <li class="walkline frag de__guard" data-step="4" data-sid="04b-walk-dll-ends:13">  firstNode = curr.getNext();</li>
+        <li class="walkline frag de__guard" data-step="5" data-sid="04b-walk-dll-ends:14">  firstNode.setPrevious(<span class="tok-key" data-sid="04b-walk-dll-ends:15">null</span>);</li>
+        <li class="walkline frag de__guard" data-step="6" data-sid="04b-walk-dll-ends:16">} <span class="tok-key" data-sid="04b-walk-dll-ends:17">else if</span> (curr == lastNode) {</li>
+        <li class="walkline frag de__guard" data-step="7" data-sid="04b-walk-dll-ends:18">  lastNode = curr.getPrevious();</li>
+        <li class="walkline frag de__guard" data-step="8" data-sid="04b-walk-dll-ends:19">  lastNode.setNext(<span class="tok-key" data-sid="04b-walk-dll-ends:20">null</span>);</li>
+        <li class="de__guard" data-sid="04b-walk-dll-ends:21">} <span class="tok-key" data-sid="04b-walk-dll-ends:22">else</span> {</li>
+        <li class="walkline frag" data-step="1" data-sid="04b-walk-dll-ends:23">  curr.getPrevious()</li>
+        <li class="walkline frag" data-step="1" data-sid="04b-walk-dll-ends:24">    .setNext(curr.getNext());</li>
+        <li data-sid="04b-walk-dll-ends:25">  curr.getNext()</li>
+        <li data-sid="04b-walk-dll-ends:26">    .setPrevious(curr.getPrevious());</li>
+        <li class="de__guard" data-sid="04b-walk-dll-ends:27">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk de__right" data-sid="04b-walk-dll-ends:28">
+      <svg class="de__fig" viewBox="0 0 836 330" role="img" aria-label="A doubly linked list A, B, C with firstNode, lastNode and curr; the general statements throw on A; then firstNode moves to B and B's prev is set to null; then lastNode moves to B and B's next is set to null" data-sid="04b-walk-dll-ends:29">
+        <defs data-sid="04b-walk-dll-ends:30">
+          <marker id="w9d2-04b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04b-walk-dll-ends:31"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="04b-walk-dll-ends:32"/></marker>
+          <marker id="w9d2-04b-head-o" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04b-walk-dll-ends:33"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-3)" data-sid="04b-walk-dll-ends:34"/></marker>
+        </defs>
+
+        <g class="pill pill--first" data-sid="04b-walk-dll-ends:35"><rect x="32" y="0" width="176" height="44" rx="8" data-sid="04b-walk-dll-ends:36"/><text x="120" y="31" data-sid="04b-walk-dll-ends:37">firstNode</text></g>
+        <g class="pill pill--last" data-sid="04b-walk-dll-ends:38"><rect x="636" y="0" width="160" height="44" rx="8" data-sid="04b-walk-dll-ends:39"/><text x="716" y="31" data-sid="04b-walk-dll-ends:40">lastNode</text></g>
+
+        <g class="dn dn--a" data-sid="04b-walk-dll-ends:41">
+          <rect class="dn__box" x="0" y="110" width="240" height="80" rx="10" data-sid="04b-walk-dll-ends:42"/>
+          <path class="dn__div" d="M80 110v80M160 110v80" data-sid="04b-walk-dll-ends:43"/>
+          <text class="dn__f" x="40" y="136" data-sid="04b-walk-dll-ends:44">prev</text><text class="dn__f" x="120" y="136" data-sid="04b-walk-dll-ends:45">data</text><text class="dn__f" x="200" y="136" data-sid="04b-walk-dll-ends:46">next</text>
+          <text class="dn__nl" x="40" y="178" data-sid="04b-walk-dll-ends:47">null</text>
+          <text class="dn__v" x="120" y="178" data-sid="04b-walk-dll-ends:48">A</text>
+          <rect class="dn__read" x="4" y="114" width="72" height="72" rx="6" data-sid="04b-walk-dll-ends:49"/>
+          <path class="lnk" d="M200 112 C 200 66, 338 66, 338 104" data-sid="04b-walk-dll-ends:50"/>
+        </g>
+        <g class="dn dn--b" data-sid="04b-walk-dll-ends:51">
+          <rect class="dn__box" x="298" y="110" width="240" height="80" rx="10" data-sid="04b-walk-dll-ends:52"/>
+          <rect class="dn__wash dn__wash--prev" x="301" y="113" width="74" height="74" rx="6" data-sid="04b-walk-dll-ends:53"/>
+          <rect class="dn__wash dn__wash--next" x="461" y="113" width="74" height="74" rx="6" data-sid="04b-walk-dll-ends:54"/>
+          <path class="dn__div" d="M378 110v80M458 110v80" data-sid="04b-walk-dll-ends:55"/>
+          <text class="dn__f" x="338" y="136" data-sid="04b-walk-dll-ends:56">prev</text><text class="dn__f" x="418" y="136" data-sid="04b-walk-dll-ends:57">data</text><text class="dn__f" x="498" y="136" data-sid="04b-walk-dll-ends:58">next</text>
+          <text class="dn__v" x="418" y="178" data-sid="04b-walk-dll-ends:59">B</text>
+          <text class="dn__nl dn__nl--bprev" x="338" y="178" data-sid="04b-walk-dll-ends:60">null</text>
+          <text class="dn__nl dn__nl--bnext" x="498" y="178" data-sid="04b-walk-dll-ends:61">null</text>
+          <path class="lnk lnk--bnext" d="M498 112 C 498 66, 636 66, 636 104" data-sid="04b-walk-dll-ends:62"/>
+          <path class="lnk lnk--bprev" d="M338 188 C 338 236, 200 236, 200 196" data-sid="04b-walk-dll-ends:63"/>
+        </g>
+        <g class="dn dn--c" data-sid="04b-walk-dll-ends:64">
+          <rect class="dn__box" x="596" y="110" width="240" height="80" rx="10" data-sid="04b-walk-dll-ends:65"/>
+          <path class="dn__div" d="M676 110v80M756 110v80" data-sid="04b-walk-dll-ends:66"/>
+          <text class="dn__f" x="636" y="136" data-sid="04b-walk-dll-ends:67">prev</text><text class="dn__f" x="716" y="136" data-sid="04b-walk-dll-ends:68">data</text><text class="dn__f" x="796" y="136" data-sid="04b-walk-dll-ends:69">next</text>
+          <text class="dn__v" x="716" y="178" data-sid="04b-walk-dll-ends:70">C</text>
+          <text class="dn__nl" x="796" y="178" data-sid="04b-walk-dll-ends:71">null</text>
+          <path class="lnk" d="M636 188 C 636 236, 498 236, 498 196" data-sid="04b-walk-dll-ends:72"/>
+        </g>
+
+        <path class="ref ref--first" data-swing='[[4,"M120 44 C 120 84, 400 56, 400 104"]]' d="M120 44 C 120 70, 120 84, 120 104" data-sid="04b-walk-dll-ends:73"/>
+        <path class="ref ref--last" data-swing='[[7,"M716 44 C 716 84, 436 56, 436 104"]]' d="M716 44 C 716 70, 716 84, 716 104" data-sid="04b-walk-dll-ends:74"/>
+
+        <g class="cur" data-sid="04b-walk-dll-ends:75"><rect x="60" y="230" width="120" height="44" rx="8" data-sid="04b-walk-dll-ends:76"/><text x="120" y="261" data-sid="04b-walk-dll-ends:77">curr</text><path class="cur__ref" d="M120 230 C 120 220, 120 212, 120 196" data-sid="04b-walk-dll-ends:78"/></g>
+
+        <g class="exc frag" data-step="2" data-sid="04b-walk-dll-ends:79"><rect x="330" y="252" width="490" height="64" rx="10" data-sid="04b-walk-dll-ends:80"/><text x="575" y="296" data-sid="04b-walk-dll-ends:81">NullPointerException</text></g>
+      </svg>
+      <div class="codewalk__caps de__caps" data-sid="04b-walk-dll-ends:82">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-dll-ends:83">curr refers to A, the first node. curr.getPrevious() is A&rsquo;s prev, which is null.</p>
+        <p class="walkcap walkcap--fail cap--2 frag" data-step="2" data-sid="04b-walk-dll-ends:84">Calling setNext on null throws a NullPointerException, and the list is not changed.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-dll-ends:85">The first node gets its own case, tested before the general lines. curr == firstNode is true.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-dll-ends:86">firstNode is set to curr.getNext(), which is B.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-dll-ends:87">B&rsquo;s prev is set to null. No node in the list refers to A now.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-dll-ends:88">The method runs again with curr on C, the last node. curr == firstNode is false and curr == lastNode is true.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-walk-dll-ends:89">lastNode is set to curr.getPrevious(), which is B.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04b-walk-dll-ends:90">B&rsquo;s next is set to null. B is the only node left.</p>
+        <p class="walkcap walkcap--plant cap--9 frag" data-step="9" data-sid="04b-walk-dll-ends:91">The general lines need a node on each side of curr. The first node and the last node each need their own lines.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04b-walk-dll-ends:92"></div>
+  <aside class="notes" data-sid="04b-walk-dll-ends:93">The same two statements, now inside an else, with nothing above them yet. Step 1. curr refers to A, the first node. curr.getPrevious() returns A&rsquo;s prev, and the first node has no node before it, so it is null. Step 2. The line calls setNext on null, which throws a NullPointerException before anything is written. On the last node the second statement fails the same way, because curr.getNext() is null. Step 3. The fix tests for the two ends first. curr == firstNode is true. Step 4. firstNode is set to B, the node after curr. Step 5. B is the new first node, so its prev is set to null. Nothing in the list refers to A now. Two references changed, the same number as in the middle. Step 6. Run it again with curr on C, which is now the last node of B, C. The first test is false and the second is true. Step 7. lastNode is set to B, the node before curr. Step 8. B&rsquo;s next is set to null, and B is the only node. Step 9. The general statements read curr&rsquo;s prev and curr&rsquo;s next, so they need a node on each side. Ask what this code does when curr is the only node. That is Vote 1.</aside>
+
+  <style data-sid="04b-walk-dll-ends:94">
+    /* Slide-local: the editor at --t-code, 780 px (twelve lines; the longest
+       is 37 characters: 37 × 19.2 + 70 = 780) at line-height 1.4, because at
+       the shared 1.5 the twelve lines ran 1 px past the body; on the right one 836 × 330
+       SVG at 1:1 in 04's grammar, the captions under it. The guard lines
+       (if / else if / else and the closing brace) are hidden until step 3 but
+       keep their space, so the general lines do not move. Motion: the read
+       of A's null prev is a blue ring for step 1; the exception plate
+       GrowsFromCenter in maroon on step 2 and fades on step 3; firstNode and
+       lastNode swing to B (CSS d plus data-swing), their pill taking an
+       orange edge while written; a written compartment washes orange for its
+       step; a removed arrow fades and its stone null fades in; a node nothing
+       in the list refers to fades; curr moves from A to C by translateX (a
+       real move). States keyed to the caption frags with :has(), in step
+       order. Used by this slide only, all values from tokens. */
+    #slide-04b .de { grid-template-columns: 780px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-04b .de__editor { width: 780px; }
+    #slide-04b .de__editor .editor__code li { line-height: 1.4; }
+    #slide-04b .de__fig { display: block; width: 836px; height: 330px; overflow: visible; }
+    #slide-04b .de__caps { min-height: 150px; }
+    #slide-04b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-04b .walkcap--fail { color: var(--accent-1); }
+
+    /* the guard lines: hidden until step 3, whatever their own step */
+    #slide-04b .editor__code li.de__guard { opacity: 0; transition: opacity .35s ease; }
+    #slide-04b .de:has(.cap--3:not(.is-pending)) .editor__code li.de__guard { opacity: 1; }
+
+    #slide-04b .pill rect { fill: var(--accent-2); stroke: transparent; stroke-width: 5; transition: stroke .3s ease; }
+    #slide-04b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d2-04b-head); transition: d .7s var(--ease-smooth); }
+
+    #slide-04b .dn { transition: opacity .4s ease; }
+    #slide-04b .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04b .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04b .dn__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04b .dn__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04b .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04b .dn__nl--bprev, #slide-04b .dn__nl--bnext { opacity: 0; }
+    #slide-04b .dn__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .dn__read { fill: none; stroke: var(--accent-2); stroke-width: 5; opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-04b-head); transition: opacity .3s ease; }
+
+    #slide-04b .cur { transition: transform .7s var(--ease-smooth); }
+    #slide-04b .cur rect { fill: var(--bg-0); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-04b .cur text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04b .cur__ref { fill: none; stroke: var(--accent-3); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-04b-head-o); }
+
+    #slide-04b .exc rect { fill: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0)); stroke: var(--accent-1); stroke-width: 4; stroke-dasharray: 12 8; }
+    #slide-04b .exc text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-04b .exc { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04b .frag.exc.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-04b .de:has(.cap--1.is-current) .dn__read { opacity: 1; }
+    #slide-04b .de:has(.cap--3:not(.is-pending)) .exc { opacity: 0; }
+    #slide-04b .de:has(.cap--4.is-current) .pill--first rect { stroke: var(--accent-3); }
+    #slide-04b .de:has(.cap--4:not(.is-pending)) .ref--first { d: path("M120 44 C 120 84, 400 56, 400 104"); }
+    #slide-04b .de:has(.cap--5.is-current) .dn__wash--prev { opacity: 1; }
+    #slide-04b .de:has(.cap--5:not(.is-pending)) .lnk--bprev { opacity: 0; }
+    #slide-04b .de:has(.cap--5:not(.is-pending)) .dn__nl--bprev { opacity: 1; transition-delay: .3s; }
+    #slide-04b .de:has(.cap--5:not(.is-pending)) .dn--a { opacity: 0; transition-delay: .6s; }
+    #slide-04b .de:has(.cap--6:not(.is-pending)) .cur { transform: translateX(596px); }
+    #slide-04b .de:has(.cap--7.is-current) .pill--last rect { stroke: var(--accent-3); }
+    #slide-04b .de:has(.cap--7:not(.is-pending)) .ref--last { d: path("M716 44 C 716 84, 436 56, 436 104"); }
+    #slide-04b .de:has(.cap--8.is-current) .dn__wash--next { opacity: 1; }
+    #slide-04b .de:has(.cap--8:not(.is-pending)) .lnk--bnext { opacity: 0; }
+    #slide-04b .de:has(.cap--8:not(.is-pending)) .dn__nl--bnext { opacity: 1; transition-delay: .3s; }
+    #slide-04b .de:has(.cap--8:not(.is-pending)) .dn--c { opacity: 0; transition-delay: .6s; }
+    #slide-04b .de:has(.cap--8:not(.is-pending)) .cur { opacity: 0; transition: opacity .4s ease .6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04b .editor__code li.de__guard, #slide-04b .pill rect, #slide-04b .ref, #slide-04b .dn, #slide-04b .dn__nl, #slide-04b .dn__wash,
+      #slide-04b .dn__read, #slide-04b .lnk, #slide-04b .cur, #slide-04b .exc { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

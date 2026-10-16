@@ -1,0 +1,257 @@
+<section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-addlast:1">
+  <header class="slide__head" data-sid="08b-walk-addlast:2">
+    <p class="slide__kicker" data-sid="08b-walk-addlast:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="08b-walk-addlast:4">An empty list gets one node that is both the first and the last</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08b-walk-addlast:5">A walkthrough of the vote's addLast under a program-counter bar, run once for each option with line 19 replaced by that option's code. On the right, two blue pills, head and tail, each with the word null beside it, and a row where nodes with a value part and a next part appear. Option A, steps one to five: addLast of 5 on an empty list creates a node holding 5; head is null, so head equals newNode, and head refers to 5 while tail stays null; addLast of 7 creates a node holding 7; head is not null, so the else runs, and tail dot next throws a NullPointerException, shown in maroon; the bar stops. Option B, steps six to nine: the picture is cleared; addLast of 5; tail equals newNode, and tail refers to 5 while head stays null; addLast of 7; head is still null, so the if runs again and tail re-points to 7; the node holding 5 turns grey, because nothing refers to it. Option D, steps ten and eleven: addLast of 5; newNode dot next equals newNode, and an arrow loops from 5 back to itself; head and tail are still null. Option C, steps twelve to sixteen: addLast of 5; head and tail both refer to 5; addLast of 7; the else runs, and 5's next is set to 7; tail re-points to 7. Step seventeen: the four options, with A, B and D struck through and C, head equals newNode; tail equals newNode, not struck.</p>
+
+  <!-- The answer as a walk of the vote's own method (lines 16–24, gutter
+       from 16), run four times: line 19's text is a stack of five spans that
+       crossfade (a replaced value, so no roll) from the question's comment to
+       the option being run. Each run has its own nodes in the same places,
+       cleared when the next run starts; head and tail are one pill each, with
+       their arrows faded in and out by step. The order A, B, D, C keeps the
+       right answer for last.
+       steps 1–5: A (NullPointerException; step 5 has no walkline, so the PC
+                  fades).
+       steps 6–9: B (5 is lost).  steps 10–11: D.  steps 12–16: C.
+       step 17: the verdict. -->
+  <div class="slide__body grid grid--code code-mid al" data-sid="08b-walk-addlast:6">
+    <div class="editor al__editor" data-sid="08b-walk-addlast:7">
+      <div class="editor__pc" data-sid="08b-walk-addlast:8"></div>
+      <ol class="editor__code" data-sid="08b-walk-addlast:9">
+        <li data-sid="08b-walk-addlast:10">    <span class="tok-key" data-sid="08b-walk-addlast:11">public void</span> addLast(<span class="tok-key" data-sid="08b-walk-addlast:12">int</span> value) {</li>
+        <li class="walkline frag" data-step="1" data-also="3 6 8 10 12 14" data-sid="08b-walk-addlast:13">        Node newNode = <span class="tok-key" data-sid="08b-walk-addlast:14">new</span> Node(value);</li>
+        <li class="walkline frag" data-step="2" data-also="7 9 11 13" data-sid="08b-walk-addlast:15">        <span class="tok-key" data-sid="08b-walk-addlast:16">if</span> (head == <span class="tok-key" data-sid="08b-walk-addlast:17">null</span>) {</li>
+        <li class="walkline frag" data-step="2" data-also="7 9 11 13" data-sid="08b-walk-addlast:18">            <span class="l19" data-sid="08b-walk-addlast:19"><span class="l19__t l19__t--q" data-sid="08b-walk-addlast:20">// &hellip; what goes here?</span><span class="l19__t l19__t--a" data-sid="08b-walk-addlast:21">head = newNode;</span><span class="l19__t l19__t--b" data-sid="08b-walk-addlast:22">tail = newNode;</span><span class="l19__t l19__t--d" data-sid="08b-walk-addlast:23">newNode.next = newNode;</span><span class="l19__t l19__t--c" data-sid="08b-walk-addlast:24">head = newNode; tail = newNode;</span></span></li>
+        <li data-sid="08b-walk-addlast:25">        } <span class="tok-key" data-sid="08b-walk-addlast:26">else</span> {</li>
+        <li class="walkline frag" data-step="4" data-also="15" data-sid="08b-walk-addlast:27">            tail.next = newNode;</li>
+        <li class="walkline frag" data-step="16" data-sid="08b-walk-addlast:28">            tail      = newNode;</li>
+        <li data-sid="08b-walk-addlast:29">        }</li>
+        <li data-sid="08b-walk-addlast:30">    }</li>
+      </ol>
+    </div>
+
+    <div class="codewalk al__right" data-sid="08b-walk-addlast:31">
+      <svg class="al__fig" viewBox="0 0 720 360" role="img" aria-label="head and tail pills above a row of nodes; each option is run with addLast of 5 and addLast of 7 on an empty list, and only option C leaves head and tail correct" data-sid="08b-walk-addlast:32">
+        <defs data-sid="08b-walk-addlast:33">
+          <marker id="w9d1-08b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08b-walk-addlast:34"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08b-walk-addlast:35"/></marker>
+        </defs>
+
+        <g class="pill pill--head" data-sid="08b-walk-addlast:36"><rect x="0" y="0" width="120" height="48" rx="8" data-sid="08b-walk-addlast:37"/><text x="60" y="34" data-sid="08b-walk-addlast:38">head</text></g>
+        <text class="pnull pnull--head" x="134" y="34" data-sid="08b-walk-addlast:39">null</text>
+        <g class="pill pill--tail" data-sid="08b-walk-addlast:40"><rect x="300" y="0" width="120" height="48" rx="8" data-sid="08b-walk-addlast:41"/><text x="360" y="34" data-sid="08b-walk-addlast:42">tail</text></g>
+        <text class="pnull pnull--tail" x="434" y="34" data-sid="08b-walk-addlast:43">null</text>
+
+        <!-- run A -->
+        <g class="nd nd--a5 frag" data-step="1" data-sid="08b-walk-addlast:44">
+          <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:45"/><path class="nd__div" d="M110 150v90" data-sid="08b-walk-addlast:46"/>
+          <text class="nd__f" x="10" y="178" data-sid="08b-walk-addlast:47">value</text><text class="nd__f" x="116" y="178" data-sid="08b-walk-addlast:48">next</text>
+          <text class="nd__v" x="55" y="224" data-sid="08b-walk-addlast:49">5</text><text class="nd__nl" x="150" y="224" data-sid="08b-walk-addlast:50">null</text>
+          <text class="nd__new" x="95" y="276" data-sid="08b-walk-addlast:51">newNode</text>
+        </g>
+        <g class="nd nd--a7 frag" data-step="3" data-sid="08b-walk-addlast:52">
+          <rect class="nd__box" x="280" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:53"/><path class="nd__div" d="M390 150v90" data-sid="08b-walk-addlast:54"/>
+          <text class="nd__f" x="290" y="178" data-sid="08b-walk-addlast:55">value</text><text class="nd__f" x="396" y="178" data-sid="08b-walk-addlast:56">next</text>
+          <text class="nd__v" x="335" y="224" data-sid="08b-walk-addlast:57">7</text><text class="nd__nl" x="430" y="224" data-sid="08b-walk-addlast:58">null</text>
+          <text class="nd__new" x="375" y="276" data-sid="08b-walk-addlast:59">newNode</text>
+        </g>
+        <g class="exc frag" data-step="4" data-sid="08b-walk-addlast:60"><rect x="0" y="292" width="500" height="64" rx="10" data-sid="08b-walk-addlast:61"/><text x="250" y="336" data-sid="08b-walk-addlast:62">NullPointerException</text></g>
+
+        <!-- run B -->
+        <g class="nd nd--b5 frag" data-step="6" data-sid="08b-walk-addlast:63">
+          <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:64"/><path class="nd__div" d="M110 150v90" data-sid="08b-walk-addlast:65"/>
+          <text class="nd__f" x="10" y="178" data-sid="08b-walk-addlast:66">value</text><text class="nd__f" x="116" y="178" data-sid="08b-walk-addlast:67">next</text>
+          <text class="nd__v" x="55" y="224" data-sid="08b-walk-addlast:68">5</text><text class="nd__nl" x="150" y="224" data-sid="08b-walk-addlast:69">null</text>
+          <text class="nd__new" x="95" y="276" data-sid="08b-walk-addlast:70">newNode</text>
+          <text class="nd__lost" x="95" y="276" data-sid="08b-walk-addlast:71">unreachable</text>
+        </g>
+        <g class="nd nd--b7 frag" data-step="8" data-sid="08b-walk-addlast:72">
+          <rect class="nd__box" x="280" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:73"/><path class="nd__div" d="M390 150v90" data-sid="08b-walk-addlast:74"/>
+          <text class="nd__f" x="290" y="178" data-sid="08b-walk-addlast:75">value</text><text class="nd__f" x="396" y="178" data-sid="08b-walk-addlast:76">next</text>
+          <text class="nd__v" x="335" y="224" data-sid="08b-walk-addlast:77">7</text><text class="nd__nl" x="430" y="224" data-sid="08b-walk-addlast:78">null</text>
+          <text class="nd__new" x="375" y="276" data-sid="08b-walk-addlast:79">newNode</text>
+        </g>
+
+        <!-- run D -->
+        <g class="nd nd--d5 frag" data-step="10" data-sid="08b-walk-addlast:80">
+          <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:81"/>
+          <rect class="nd__wash" x="113" y="153" width="74" height="84" rx="7" data-sid="08b-walk-addlast:82"/>
+          <path class="nd__div" d="M110 150v90" data-sid="08b-walk-addlast:83"/>
+          <text class="nd__f" x="10" y="178" data-sid="08b-walk-addlast:84">value</text><text class="nd__f" x="116" y="178" data-sid="08b-walk-addlast:85">next</text>
+          <text class="nd__v" x="55" y="224" data-sid="08b-walk-addlast:86">5</text><text class="nd__nl nd__nl--d" x="150" y="224" data-sid="08b-walk-addlast:87">null</text>
+          <text class="nd__new" x="95" y="276" data-sid="08b-walk-addlast:88">newNode</text>
+        </g>
+        <path class="xl xl--loop frag" data-step="11" pathLength="100" d="M168 205 C 270 205, 150 80, 150 138" data-sid="08b-walk-addlast:89"/>
+        <path class="xh xh--loop frag" data-step="11" data-anim="fade" d="M150 150 L143 136 L157 136 Z" data-sid="08b-walk-addlast:90"/>
+
+        <!-- run C -->
+        <g class="nd nd--c5 frag" data-step="12" data-sid="08b-walk-addlast:91">
+          <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:92"/>
+          <rect class="nd__wash" x="113" y="153" width="74" height="84" rx="7" data-sid="08b-walk-addlast:93"/>
+          <path class="nd__div" d="M110 150v90" data-sid="08b-walk-addlast:94"/>
+          <text class="nd__f" x="10" y="178" data-sid="08b-walk-addlast:95">value</text><text class="nd__f" x="116" y="178" data-sid="08b-walk-addlast:96">next</text>
+          <text class="nd__v" x="55" y="224" data-sid="08b-walk-addlast:97">5</text><text class="nd__nl nd__nl--c" x="150" y="224" data-sid="08b-walk-addlast:98">null</text>
+          <text class="nd__new" x="95" y="276" data-sid="08b-walk-addlast:99">newNode</text>
+        </g>
+        <g class="nd nd--c7 frag" data-step="14" data-sid="08b-walk-addlast:100">
+          <rect class="nd__box" x="280" y="150" width="190" height="90" rx="10" data-sid="08b-walk-addlast:101"/><path class="nd__div" d="M390 150v90" data-sid="08b-walk-addlast:102"/>
+          <text class="nd__f" x="290" y="178" data-sid="08b-walk-addlast:103">value</text><text class="nd__f" x="396" y="178" data-sid="08b-walk-addlast:104">next</text>
+          <text class="nd__v" x="335" y="224" data-sid="08b-walk-addlast:105">7</text><text class="nd__nl" x="430" y="224" data-sid="08b-walk-addlast:106">null</text>
+          <text class="nd__new" x="375" y="276" data-sid="08b-walk-addlast:107">newNode</text>
+        </g>
+        <path class="xl xl--c frag" data-step="15" pathLength="100" d="M150 205 C 190 205, 230 205, 268 205" data-sid="08b-walk-addlast:108"/>
+        <path class="xh xh--c frag" data-step="15" data-anim="fade" d="M280 205 L266 198 L266 212 Z" data-sid="08b-walk-addlast:109"/>
+
+        <!-- the two references -->
+        <path class="ref ref--head" d="M60 48 C 60 90, 60 110, 60 146" data-sid="08b-walk-addlast:110"/>
+        <path class="ref ref--tail" data-swing='[[9,"M360 48 C 360 100, 375 100, 375 146"],[10,"M360 48 C 360 100, 120 90, 120 146"],[16,"M360 48 C 360 100, 375 100, 375 146"]]' d="M360 48 C 360 100, 120 90, 120 146" data-sid="08b-walk-addlast:111"/>
+      </svg>
+      <div class="codewalk__caps al__caps" data-sid="08b-walk-addlast:112">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="08b-walk-addlast:113">Option A. addLast(5) on an empty list creates a node holding 5.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="08b-walk-addlast:114">head is null, so the if runs. head = newNode. tail is still null.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="08b-walk-addlast:115">addLast(7) creates a node holding 7.</p>
+        <p class="walkcap walkcap--fail cap--4 frag" data-step="4" data-sid="08b-walk-addlast:116">head is not null, so the else runs. tail is null, so tail.next throws a NullPointerException.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="08b-walk-addlast:117">A sets head but not tail, so the second call fails.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="08b-walk-addlast:118">Option B. addLast(5) on an empty list creates a node holding 5.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="08b-walk-addlast:119">head is null, so the if runs. tail = newNode. head is still null.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="08b-walk-addlast:120">addLast(7) creates a node holding 7.</p>
+        <p class="walkcap walkcap--fail cap--9 frag" data-step="9" data-sid="08b-walk-addlast:121">head is still null, so the if runs again. tail now refers to 7, and nothing refers to 5.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="08b-walk-addlast:122">Option D. addLast(5) on an empty list creates a node holding 5.</p>
+        <p class="walkcap walkcap--fail cap--11 frag" data-step="11" data-sid="08b-walk-addlast:123">newNode.next = newNode sets 5&rsquo;s next to 5. head and tail are still null, so the list is empty.</p>
+        <p class="walkcap cap--12 frag" data-step="12" data-sid="08b-walk-addlast:124">Option C. addLast(5) on an empty list creates a node holding 5.</p>
+        <p class="walkcap cap--13 frag" data-step="13" data-sid="08b-walk-addlast:125">head = newNode; tail = newNode. Both refer to the one node.</p>
+        <p class="walkcap cap--14 frag" data-step="14" data-sid="08b-walk-addlast:126">addLast(7) creates a node holding 7.</p>
+        <p class="walkcap cap--15 frag" data-step="15" data-sid="08b-walk-addlast:127">head is not null, so the else runs. tail.next = newNode sets 5&rsquo;s next to 7.</p>
+        <p class="walkcap cap--16 frag" data-step="16" data-sid="08b-walk-addlast:128">tail = newNode, so tail now refers to 7. The list is 5, 7.</p>
+        <ol class="verdict frag" data-step="17" data-sid="08b-walk-addlast:129">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="08b-walk-addlast:130"><span class="verdict__txt" data-sid="08b-walk-addlast:131">head = newNode;</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="08b-walk-addlast:132"><span class="verdict__txt" data-sid="08b-walk-addlast:133">tail = newNode;</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="08b-walk-addlast:134"><span class="verdict__txt" data-sid="08b-walk-addlast:135">head = newNode; tail = newNode;</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="08b-walk-addlast:136"><span class="verdict__txt" data-sid="08b-walk-addlast:137">newNode.next = newNode;</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="08b-walk-addlast:138"></div>
+  <aside class="notes" data-sid="08b-walk-addlast:139">Answer: C &mdash; head = newNode; tail = newNode; [ASSUMED, by tracing; confirm in Runestone&rsquo;s results view]. Each option goes into line 19, and each is run the same way: addLast(5) on an empty list, then addLast(7). Step 1. Option A. The node 5 is created. Step 2. head is null, so the if runs and head refers to 5. tail is still null. Step 3. addLast(7). Step 4. head is not null now, so the else runs, and tail.next dereferences a null tail: NullPointerException. Step 5. A fails on the second call. Step 6. Option B, starting again from an empty list. Step 7. tail refers to 5, head is still null. Step 8. addLast(7). Step 9. head is still null, so the test is true again and tail is set to 7. Nothing refers to 5 any more. Every call takes the if branch, and the list never has more than the last node, through tail. Step 10. Option D. Step 11. D sets the new node&rsquo;s next to itself and sets neither head nor tail. After the call, nothing refers to the node, and the list is still empty. Step 12. Option C. Step 13. head and tail both refer to 5. A one-node list has one node that is the first and the last. Step 14. addLast(7). Step 15. The else runs, and tail.next sets 5&rsquo;s next to 7. Step 16. tail refers to 7. This is the same state as the Week 8 enqueue on a queue with two entries. Step 17. The answer is C. Next is Vote 2.</aside>
+
+  <style data-sid="08b-walk-addlast:140">
+    /* Slide-local: the editor at --t-code with no bar, 896 px: line 19
+       with option C is 43 characters, 43 × 19.2 + 70 = 896. Line 19 holds
+       five spans stacked in one inline grid cell that crossfade. On the right
+       one 720 × 360 SVG at 1:1 (Node boxes 190 × 90, value 110 | next 80, the
+       vote's field names), the captions under it with the verdict in the same
+       cell: four mono rows at --t-code, the longest 33 characters (634 px),
+       about 190 px, so the cell reserves 195. Motion: a node GrowsFromCenter
+       on its call and is the orange tint while its call runs; head and tail
+       fade in and out by step and tail swings (d transition, same-shaped
+       cubics, data-swing for Safari); a run's nodes fade when the next run
+       starts; the lost node turns stone with an "unreachable" label; links
+       and the loop Create, head after; the exception plate GrowsFromCenter
+       in maroon. States keyed to the caption frags with :has(), in step
+       order. Used by this slide only, all values from tokens. */
+    #slide-08b .al { grid-template-columns: 896px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-08b .al__editor { width: 896px; }
+    #slide-08b .al__editor .editor__code { counter-reset: line 15; }
+    #slide-08b .al__fig { display: block; width: 720px; height: 360px; overflow: visible; }
+    #slide-08b .al__caps { min-height: 195px; }
+    #slide-08b .al__caps .verdict { grid-area: 1 / 1; flex-direction: column; align-self: start; font-size: var(--t-code); }
+    #slide-08b .walkcap--fail { color: var(--accent-1); }
+
+    /* line 19: the comment, then each option in turn */
+    #slide-08b .l19 { display: inline-grid; }
+    #slide-08b .l19__t { grid-area: 1 / 1; opacity: 0; transition: opacity .35s ease; }
+    #slide-08b .l19__t--q { opacity: 1; }
+    #slide-08b .al:has(.cap--1:not(.is-pending)) .l19__t--q { opacity: 0; }
+    #slide-08b .al:has(.cap--1:not(.is-pending)) .l19__t--a { opacity: 1; }
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .l19__t--a { opacity: 0; }
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .l19__t--b { opacity: 1; }
+    #slide-08b .al:has(.cap--10:not(.is-pending)) .l19__t--b { opacity: 0; }
+    #slide-08b .al:has(.cap--10:not(.is-pending)) .l19__t--d { opacity: 1; }
+    #slide-08b .al:has(.cap--12:not(.is-pending)) .l19__t--d { opacity: 0; }
+    #slide-08b .al:has(.cap--12:not(.is-pending)) .l19__t--c { opacity: 1; }
+
+    #slide-08b .pill rect { fill: var(--accent-2); stroke: transparent; stroke-width: 5; transition: stroke .3s ease; }
+    #slide-08b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08b .pnull { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); transition: opacity .3s ease; }
+
+    #slide-08b .nd__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-08b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; transition: stroke .3s ease; }
+    #slide-08b .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-08b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: fill .3s ease; }
+    #slide-08b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-08b .nd__new { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-08b .nd__lost { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-08b .nd__wash { fill: color-mix(in srgb, var(--accent-3) 32%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-08b .nd { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .3s ease, transform .5s var(--ease-smooth); }
+    #slide-08b .frag.nd.is-pending { opacity: 0; transform: scale(0.4); }
+
+    #slide-08b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d1-08b-head); opacity: 0; transition: d .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-08b .xl { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth), opacity .3s ease; }
+    #slide-08b .frag.xl.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-08b .frag.xl.is-current, #slide-08b .frag.xl.is-past { stroke-dashoffset: 0; transition-delay: .2s; }
+    #slide-08b .xh { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-08b .frag.xh.is-current, #slide-08b .frag.xh.is-past { transition-delay: .6s; }
+
+    #slide-08b .exc rect { fill: color-mix(in srgb, var(--accent-1) 8%, var(--bg-0)); stroke: var(--accent-1); stroke-width: 4; stroke-dasharray: 12 8; }
+    #slide-08b .exc text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-1); text-anchor: middle; }
+    #slide-08b .exc { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08b .frag.exc.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    /* run A */
+    #slide-08b .al:has(.cap--2.is-current) .pill--head rect { stroke: var(--accent-3); }
+    #slide-08b .al:has(.cap--2:not(.is-pending)) .pnull--head { opacity: 0; }
+    #slide-08b .al:has(.cap--2:not(.is-pending)) .ref--head { opacity: 1; transition-delay: .2s; }
+    #slide-08b .al:has(.cap--3:not(.is-pending)) .nd--a5 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-08b .al:has(.cap--3:not(.is-pending)) .nd--a5 .nd__new { opacity: 0; }
+    /* run B: clear A */
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .nd--a5,
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .nd--a7,
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .exc { opacity: 0; }
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .ref--head { opacity: 0; transition-delay: 0s; }
+    #slide-08b .al:has(.cap--6:not(.is-pending)) .pnull--head { opacity: 1; }
+    #slide-08b .al:has(.cap--7.is-current) .pill--tail rect { stroke: var(--accent-3); }
+    #slide-08b .al:has(.cap--7:not(.is-pending)) .pnull--tail { opacity: 0; }
+    #slide-08b .al:has(.cap--7:not(.is-pending)) .ref--tail { opacity: 1; transition-delay: .2s; }
+    #slide-08b .al:has(.cap--8:not(.is-pending)) .nd--b5 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-08b .al:has(.cap--8:not(.is-pending)) .nd--b5 .nd__new { opacity: 0; }
+    #slide-08b .al:has(.cap--9.is-current) .pill--tail rect { stroke: var(--accent-3); }
+    #slide-08b .al:has(.cap--9:not(.is-pending)) .ref--tail { d: path("M360 48 C 360 100, 375 100, 375 146"); }
+    #slide-08b .al:has(.cap--9:not(.is-pending)) .nd--b5 .nd__box { fill: var(--bg-0); stroke: var(--stone); }
+    #slide-08b .al:has(.cap--9:not(.is-pending)) .nd--b5 .nd__div { stroke: var(--stone); }
+    #slide-08b .al:has(.cap--9:not(.is-pending)) .nd--b5 .nd__v { fill: var(--stone); }
+    #slide-08b .al:has(.cap--9:not(.is-pending)) .nd--b5 .nd__lost { opacity: 1; transition-delay: .5s; }
+    /* run D: clear B */
+    #slide-08b .al:has(.cap--10:not(.is-pending)) .nd--b5,
+    #slide-08b .al:has(.cap--10:not(.is-pending)) .nd--b7 { opacity: 0; }
+    #slide-08b .al:has(.cap--10:not(.is-pending)) .ref--tail { opacity: 0; transition-delay: 0s; d: path("M360 48 C 360 100, 120 90, 120 146"); }
+    #slide-08b .al:has(.cap--10:not(.is-pending)) .pnull--tail { opacity: 1; }
+    #slide-08b .al:has(.cap--11.is-current) .nd--d5 .nd__wash { opacity: 1; }
+    #slide-08b .al:has(.cap--11:not(.is-pending)) .nd__nl--d { opacity: 0; }
+    /* run C: clear D */
+    #slide-08b .al:has(.cap--12:not(.is-pending)) .nd--d5,
+    #slide-08b .al:has(.cap--12:not(.is-pending)) .xl--loop,
+    #slide-08b .al:has(.cap--12:not(.is-pending)) .xh--loop { opacity: 0; }
+    #slide-08b .al:has(.cap--13.is-current) .pill--head rect,
+    #slide-08b .al:has(.cap--13.is-current) .pill--tail rect { stroke: var(--accent-3); }
+    #slide-08b .al:has(.cap--13:not(.is-pending)) .pnull--head,
+    #slide-08b .al:has(.cap--13:not(.is-pending)) .pnull--tail { opacity: 0; }
+    #slide-08b .al:has(.cap--13:not(.is-pending)) .ref--head,
+    #slide-08b .al:has(.cap--13:not(.is-pending)) .ref--tail { opacity: 1; transition-delay: .2s; }
+    #slide-08b .al:has(.cap--14:not(.is-pending)) .nd--c5 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-08b .al:has(.cap--14:not(.is-pending)) .nd--c5 .nd__new { opacity: 0; }
+    #slide-08b .al:has(.cap--15.is-current) .nd--c5 .nd__wash { opacity: 1; }
+    #slide-08b .al:has(.cap--15:not(.is-pending)) .nd__nl--c { opacity: 0; }
+    #slide-08b .al:has(.cap--16.is-current) .pill--tail rect { stroke: var(--accent-3); }
+    #slide-08b .al:has(.cap--16:not(.is-pending)) .ref--tail { d: path("M360 48 C 360 100, 375 100, 375 146"); }
+    #slide-08b .al:has(.verdict:not(.is-pending)) .nd--c7 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-08b .al:has(.verdict:not(.is-pending)) .nd--c7 .nd__new { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .l19__t, #slide-08b .pill rect, #slide-08b .pnull, #slide-08b .nd, #slide-08b .nd__box, #slide-08b .nd__div, #slide-08b .nd__v, #slide-08b .nd__nl, #slide-08b .nd__new, #slide-08b .nd__lost, #slide-08b .nd__wash,
+      #slide-08b .ref, #slide-08b .xl, #slide-08b .xh, #slide-08b .exc { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,191 @@
+<section class="slide slide--warmup" id="slide-04b" data-sid="04b-walk-add-middle:1">
+  <header class="slide__head" data-sid="04b-walk-add-middle:2">
+    <p class="slide__kicker" data-sid="04b-walk-add-middle:3">A LINKED LIST &middot; WALKTHROUGH</p>
+    <h2 data-sid="04b-walk-add-middle:4">Adding in the middle starts at the node before</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04b-walk-add-middle:5">The same add method under a program-counter bar. On the right, a list of three nodes holding A, B and C, linked left to right, with a blue firstNode pill referring to A. Step one: add of 2 and X; a node holding X, next null, appears below the chain between B and C, tinted orange and labelled newNode. Step two: p is 2, not 0, so the else branch runs. Step three: getNodeAt of 1 starts at firstNode; a blue ring labelled nodeBefore appears around A. Step four: the ring moves one node along to B. Step five: newNode dot next equals nodeBefore dot next; X's next part is washed orange and an arrow is drawn from X up to C. Step six: nodeBefore dot next equals newNode; B's arrow re-points from C down to X; the list is A, B, X, C. Step seven: lines 8 and 9 trade places in the editor, and the picture goes back to its state after step four: X's arrow is removed and B's arrow points at C again. Step eight: the line now in row 8, nodeBefore dot next equals newNode, runs first; B's arrow re-points to X, and C turns grey and is labelled unreachable, because nothing refers to it. Step nine: the line now in row 9, newNode dot next equals nodeBefore dot next, sets X's next to X itself; an arrow loops from X back to X. Step ten: set newNode dot next before nodeBefore dot next changes.</p>
+
+  <!-- Concept intro, part 2: the else branch of the same add (04's editor).
+       The ring is getNodeAt walking to the node before position p (the
+       video's "prev"; LinkedListAdd.pdf slide 4). The order of lines 8 and 9
+       is shown to matter by W7D2 04b's line move: the two code spans trade
+       places by translateY(±48px) on step 7 while the li elements (and the
+       gutter numbers) stay; the PC bar follows the li, so row 8 also runs on
+       step 8 and row 9 on step 9. The picture returns to its step-4 state on
+       step 7 and the wrong order runs on it.
+       steps 1–6: add(2, X) on A, B, C.
+       step 7: the lines trade places; the picture resets.
+       steps 8–9: the wrong order loses C.
+       step 10: the rule. -->
+  <div class="slide__body grid grid--code code-mid am" data-sid="04b-walk-add-middle:6">
+    <div class="editor am__editor" data-sid="04b-walk-add-middle:7">
+      <div class="editor__pc" data-sid="04b-walk-add-middle:8"></div>
+      <ol class="editor__code" data-sid="04b-walk-add-middle:9">
+        <li data-sid="04b-walk-add-middle:10"><span class="tok-key" data-sid="04b-walk-add-middle:11">void</span> add(<span class="tok-key" data-sid="04b-walk-add-middle:12">int</span> p, T x) {</li>
+        <li class="walkline frag" data-step="1" data-sid="04b-walk-add-middle:13">    Node newNode = <span class="tok-key" data-sid="04b-walk-add-middle:14">new</span> Node(x);</li>
+        <li class="walkline frag" data-step="2" data-sid="04b-walk-add-middle:15">    <span class="tok-key" data-sid="04b-walk-add-middle:16">if</span> (p == <span class="tok-num" data-sid="04b-walk-add-middle:17">0</span>) {</li>
+        <li data-sid="04b-walk-add-middle:18">        newNode.next = firstNode;</li>
+        <li data-sid="04b-walk-add-middle:19">        firstNode = newNode;</li>
+        <li data-sid="04b-walk-add-middle:20">    } <span class="tok-key" data-sid="04b-walk-add-middle:21">else</span> {</li>
+        <li class="walkline frag" data-step="3" data-hold="4" data-sid="04b-walk-add-middle:22">        Node nodeBefore = getNodeAt(p - <span class="tok-num" data-sid="04b-walk-add-middle:23">1</span>);</li>
+        <li class="walkline frag" data-step="5" data-also="8" data-sid="04b-walk-add-middle:24"><span class="mv mv--dn" data-sid="04b-walk-add-middle:25">        newNode.next = nodeBefore.next;</span></li>
+        <li class="walkline frag" data-step="6" data-also="9" data-sid="04b-walk-add-middle:26"><span class="mv mv--up" data-sid="04b-walk-add-middle:27">        nodeBefore.next = newNode;</span></li>
+        <li data-sid="04b-walk-add-middle:28">    }</li>
+        <li data-sid="04b-walk-add-middle:29">    numberOfEntries++;</li>
+        <li class="walkline frag" data-step="10" data-sid="04b-walk-add-middle:30">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk am__right" data-sid="04b-walk-add-middle:31">
+      <svg class="am__fig" viewBox="0 0 720 390" role="img" aria-label="A list A, B, C with firstNode; a new node X below it; a nodeBefore ring moves from A to B; X is linked to C and B to X; then, with the two lines swapped, B is linked to X first, C becomes unreachable and X's next refers to X" data-sid="04b-walk-add-middle:32">
+        <defs data-sid="04b-walk-add-middle:33">
+          <marker id="w9d1-04b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04b-walk-add-middle:34"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="04b-walk-add-middle:35"/></marker>
+        </defs>
+
+        <g class="pill" data-sid="04b-walk-add-middle:36"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="04b-walk-add-middle:37"/><text x="88" y="31" data-sid="04b-walk-add-middle:38">firstNode</text></g>
+        <path class="lnk" d="M88 44 C 88 64, 88 76, 88 94" data-sid="04b-walk-add-middle:39"/>
+
+        <g class="nd nd--a" data-sid="04b-walk-add-middle:40">
+          <rect class="nd__box" x="0" y="100" width="170" height="84" rx="10" data-sid="04b-walk-add-middle:41"/><path class="nd__div" d="M95 100v84" data-sid="04b-walk-add-middle:42"/>
+          <text class="nd__f" x="10" y="126" data-sid="04b-walk-add-middle:43">data</text><text class="nd__f" x="99" y="126" data-sid="04b-walk-add-middle:44">next</text>
+          <text class="nd__v" x="47" y="170" data-sid="04b-walk-add-middle:45">A</text>
+        </g>
+        <path class="lnk" d="M132 142 C 180 142, 220 142, 254 142" data-sid="04b-walk-add-middle:46"/>
+        <g class="nd nd--b" data-sid="04b-walk-add-middle:47">
+          <rect class="nd__box" x="260" y="100" width="170" height="84" rx="10" data-sid="04b-walk-add-middle:48"/>
+          <rect class="nd__wash" x="358" y="103" width="69" height="78" rx="7" data-sid="04b-walk-add-middle:49"/>
+          <path class="nd__div" d="M355 100v84" data-sid="04b-walk-add-middle:50"/>
+          <text class="nd__f" x="270" y="126" data-sid="04b-walk-add-middle:51">data</text><text class="nd__f" x="359" y="126" data-sid="04b-walk-add-middle:52">next</text>
+          <text class="nd__v" x="307" y="170" data-sid="04b-walk-add-middle:53">B</text>
+        </g>
+        <g class="nd nd--c" data-sid="04b-walk-add-middle:54">
+          <rect class="nd__box" x="520" y="100" width="170" height="84" rx="10" data-sid="04b-walk-add-middle:55"/><path class="nd__div" d="M615 100v84" data-sid="04b-walk-add-middle:56"/>
+          <text class="nd__f" x="530" y="126" data-sid="04b-walk-add-middle:57">data</text><text class="nd__f" x="619" y="126" data-sid="04b-walk-add-middle:58">next</text>
+          <text class="nd__v" x="567" y="170" data-sid="04b-walk-add-middle:59">C</text>
+          <text class="nd__nl" x="652" y="170" data-sid="04b-walk-add-middle:60">null</text>
+          <text class="nd__lost" x="605" y="222" data-sid="04b-walk-add-middle:61">unreachable</text>
+        </g>
+
+        <!-- the new node, below the gap between B and C -->
+        <g class="nd nd--x frag" data-step="1" data-sid="04b-walk-add-middle:62">
+          <rect class="nd__box" x="390" y="270" width="170" height="84" rx="10" data-sid="04b-walk-add-middle:63"/>
+          <rect class="nd__wash" x="488" y="273" width="69" height="78" rx="7" data-sid="04b-walk-add-middle:64"/>
+          <path class="nd__div" d="M485 270v84" data-sid="04b-walk-add-middle:65"/>
+          <text class="nd__f" x="400" y="296" data-sid="04b-walk-add-middle:66">data</text><text class="nd__f" x="489" y="296" data-sid="04b-walk-add-middle:67">next</text>
+          <text class="nd__v" x="437" y="340" data-sid="04b-walk-add-middle:68">X</text>
+          <text class="nd__nl nd__nl--x" x="522" y="340" data-sid="04b-walk-add-middle:69">null</text>
+          <text class="nd__new" x="475" y="384" data-sid="04b-walk-add-middle:70">newNode</text>
+        </g>
+
+        <!-- B's next: to C, swings to X (6), back to C (7), to X (8) -->
+        <path class="ref ref--b" data-swing='[[6,"M392 142 C 392 200, 450 220, 450 264"],[7,"M392 142 C 440 142, 480 142, 514 142"],[8,"M392 142 C 392 200, 450 220, 450 264"]]' d="M392 142 C 440 142, 480 142, 514 142" data-sid="04b-walk-add-middle:71"/>
+
+        <!-- X's next to C (right order) -->
+        <path class="xl xl--c frag" data-step="5" pathLength="100" d="M522 312 C 600 312, 605 260, 605 198" data-sid="04b-walk-add-middle:72"/>
+        <path class="xh xh--c frag" data-step="5" data-anim="fade" d="M605 186 L598 200 L612 200 Z" data-sid="04b-walk-add-middle:73"/>
+        <!-- X's next to X (wrong order) -->
+        <path class="xl xl--self frag" data-step="9" pathLength="100" d="M548 312 C 640 312, 480 200, 480 256" data-sid="04b-walk-add-middle:74"/>
+        <path class="xh xh--self frag" data-step="9" data-anim="fade" d="M480 268 L473 254 L487 254 Z" data-sid="04b-walk-add-middle:75"/>
+
+        <!-- nodeBefore, the local getNodeAt returns -->
+        <g class="ring frag" data-step="3" data-sid="04b-walk-add-middle:76">
+          <rect x="-10" y="90" width="190" height="104" rx="14" data-sid="04b-walk-add-middle:77"/>
+          <text x="-6" y="222" data-sid="04b-walk-add-middle:78">nodeBefore</text>
+        </g>
+      </svg>
+      <div class="codewalk__caps" data-sid="04b-walk-add-middle:79">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04b-walk-add-middle:80">add(2, X) on A, B, C creates a node holding X.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04b-walk-add-middle:81">p is 2, not 0, so the else branch runs.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04b-walk-add-middle:82">getNodeAt(p - 1) is getNodeAt(1). It starts at firstNode, which is A.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04b-walk-add-middle:83">It moves one node along. nodeBefore refers to B, the node at position 1.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04b-walk-add-middle:84">newNode.next = nodeBefore.next sets X&rsquo;s next to C.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04b-walk-add-middle:85">nodeBefore.next = newNode sets B&rsquo;s next to X. The list is A, B, X, C.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="04b-walk-add-middle:86">Lines 8 and 9 trade places, and the same call runs again from step 4.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="04b-walk-add-middle:87">nodeBefore.next = newNode runs first and sets B&rsquo;s next to X. Nothing refers to C now.</p>
+        <p class="walkcap walkcap--fail cap--9 frag" data-step="9" data-sid="04b-walk-add-middle:88">newNode.next = nodeBefore.next sets X&rsquo;s next to X itself. C is lost.</p>
+        <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="04b-walk-add-middle:89">Set newNode.next before nodeBefore.next changes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04b-walk-add-middle:90"></div>
+  <aside class="notes" data-sid="04b-walk-add-middle:91">The same add method, now the else branch. This is the drawing from the video&rsquo;s &ldquo;Adding a Node Between Adjacent Nodes&rdquo;, where the video calls the two nodes prev and curr. Step 1. add(2, X) on A, B, C. X should end up at position 2, between B and C. Step 2. p is not 0, so the else runs. Step 3. getNodeAt(p - 1) is getNodeAt(1). It starts at firstNode, at A, and moves once per position. Step 4. One move, and it returns B. That is nodeBefore, the node at position 1. Step 5. newNode.next = nodeBefore.next. B&rsquo;s next is C, so X&rsquo;s next is set to C. Nothing in the list has changed yet. Step 6. nodeBefore.next = newNode sets B&rsquo;s next to X. The list is A, B, X, C. Two writes, after the walk. Step 7. Now swap lines 8 and 9 and run the same call again from the point where nodeBefore is B. Step 8. nodeBefore.next = newNode runs first. B&rsquo;s next is X now, and nothing refers to C any more. Step 9. newNode.next = nodeBefore.next reads B&rsquo;s next, which is X, so X&rsquo;s next is set to X. C and every node after it are lost, and anything that walks this list goes round X forever. Step 10. Set the new node&rsquo;s next while nodeBefore.next still refers to the rest of the chain. This is also the homework problem Insert After Node. Next is the end of the list.</aside>
+
+  <style data-sid="04b-walk-add-middle:92">
+    /* Slide-local: 04's editor (896 px, no bar) and on the right one 720 ×
+       390 SVG at 1:1 with the captions under it (three lines reserved). Node
+       boxes 170 × 84 (data 95 | next 75, so the 67 px labels fit) on a 260 px
+       pitch; X sits below the gap between B and C, as the video draws it.
+       Motion: X GrowsFromCenter; the nodeBefore ring FadesIn on A and then
+       moves one pitch (translateX(260px), a real move); X's next Creates
+       (shaft, then head) and fades at the reset; B's next swings (d
+       transition, same-shaped cubics, data-swing for Safari) to X, back to C,
+       to X; the code spans trade places by translateY(±48px) on step 7; C
+       turns stone with an "unreachable" label; the self-loop Creates. Writes
+       wash their compartment for one step; newNode is the orange tint and
+       label. States keyed to the caption frags with :has(), in step order.
+       Used by this slide only, all values from tokens. */
+    #slide-04b .am { grid-template-columns: 896px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-04b .am__editor { width: 896px; }
+    #slide-04b .am__fig { display: block; width: 720px; height: 390px; overflow: visible; }
+    #slide-04b .codewalk__caps { min-height: 150px; }
+    #slide-04b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-04b .walkcap--fail { color: var(--accent-1); }
+
+    /* the line move */
+    #slide-04b .mv { display: inline-block; transition: transform .7s var(--ease-smooth); }
+    #slide-04b .am:has(.cap--7:not(.is-pending)) .mv--dn { transform: translateY(48px); }
+    #slide-04b .am:has(.cap--7:not(.is-pending)) .mv--up { transform: translateY(-48px); }
+
+    #slide-04b .pill rect { fill: var(--accent-2); }
+    #slide-04b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-04b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; transition: stroke .3s ease; }
+    #slide-04b .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-04b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: fill .3s ease; }
+    #slide-04b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04b .nd__new { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; }
+    #slide-04b .nd__lost { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-04b .nd--x .nd__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-04b .nd--x { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04b .frag.nd--x.is-pending { opacity: 0; transform: scale(0.4); }
+
+    #slide-04b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-04b-head); }
+    #slide-04b .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-04b-head); transition: d .7s var(--ease-smooth); }
+    #slide-04b .xl { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth), opacity .3s ease; }
+    #slide-04b .frag.xl.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-04b .frag.xl.is-current, #slide-04b .frag.xl.is-past { stroke-dashoffset: 0; transition-delay: .2s; }
+    #slide-04b .xh { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-04b .frag.xh.is-current, #slide-04b .frag.xh.is-past { transition-delay: .6s; }
+
+    #slide-04b .ring { transition: opacity .3s ease, transform .6s var(--ease-smooth); }
+    #slide-04b .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-04b .ring text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: start; }
+
+    /* ---- states, in step order ---- */
+    #slide-04b .am:has(.cap--4:not(.is-pending)) .ring { transform: translateX(260px); }
+    #slide-04b .am:has(.cap--5.is-current) .nd--x .nd__wash { opacity: 1; }
+    #slide-04b .am:has(.cap--5:not(.is-pending)) .nd__nl--x { opacity: 0; }
+    #slide-04b .am:has(.cap--6.is-current) .nd--b .nd__wash { opacity: 1; }
+    #slide-04b .am:has(.cap--6:not(.is-pending)) .ref--b { d: path("M392 142 C 392 200, 450 220, 450 264"); }
+    /* step 7: back to the state after step 4 */
+    #slide-04b .am:has(.cap--7:not(.is-pending)) .ref--b { d: path("M392 142 C 440 142, 480 142, 514 142"); }
+    #slide-04b .am:has(.cap--7:not(.is-pending)) .xl--c,
+    #slide-04b .am:has(.cap--7:not(.is-pending)) .xh--c { opacity: 0; transition-delay: 0s; }
+    #slide-04b .am:has(.cap--7:not(.is-pending)) .nd__nl--x { opacity: 1; }
+    /* the other order */
+    #slide-04b .am:has(.cap--8.is-current) .nd--b .nd__wash { opacity: 1; }
+    #slide-04b .am:has(.cap--8:not(.is-pending)) .ref--b { d: path("M392 142 C 392 200, 450 220, 450 264"); }
+    #slide-04b .am:has(.cap--8:not(.is-pending)) .nd--c .nd__box { fill: var(--bg-0); stroke: var(--stone); }
+    #slide-04b .am:has(.cap--8:not(.is-pending)) .nd--c .nd__div { stroke: var(--stone); }
+    #slide-04b .am:has(.cap--8:not(.is-pending)) .nd--c .nd__v { fill: var(--stone); }
+    #slide-04b .am:has(.cap--8:not(.is-pending)) .nd--c .nd__lost { opacity: 1; }
+    #slide-04b .am:has(.cap--9.is-current) .nd--x .nd__wash { opacity: 1; }
+    #slide-04b .am:has(.cap--9:not(.is-pending)) .nd__nl--x { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04b .mv, #slide-04b .nd--x, #slide-04b .nd__box, #slide-04b .nd__div, #slide-04b .nd__v, #slide-04b .nd__nl, #slide-04b .nd__lost, #slide-04b .nd__wash,
+      #slide-04b .ref, #slide-04b .xl, #slide-04b .xh, #slide-04b .ring { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

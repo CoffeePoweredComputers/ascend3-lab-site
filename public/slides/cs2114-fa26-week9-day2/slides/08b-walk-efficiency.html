@@ -1,0 +1,182 @@
+<section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-efficiency:1">
+  <header class="slide__head" data-sid="08b-walk-efficiency:2">
+    <p class="slide__kicker" data-sid="08b-walk-efficiency:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="08b-walk-efficiency:4">Removing the last node needs the node before it</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08b-walk-efficiency:5">A walkthrough of remove of p on a singly linked list, under a program-counter bar: if p equals 0, firstNode equals firstNode dot getNext; else Node b equals getNodeAt of p minus 1, b dot setNext of b dot getNext dot getNext, and if p equals n minus 1, lastNode equals b. On the right, a list of five nodes, A to E, with firstNode on A and lastNode on E, and a counter of nodes visited. Under the code, a table with columns first, middle and last, and rows singly linked and doubly linked. Step one: remove of 0; firstNode swings to B and A fades; one node visited; the singly linked first cell reads O of 1. Step two: remove of 2 on the same five nodes; a ring labelled currentNode starts on A and moves to B; two nodes visited. Step three: B's next swings over C to D and C fades; the middle cell reads O of n. Step four: remove of 4; the ring starts on A and moves to D; four nodes visited, because lastNode refers to E and the method needs D. Step five: D's next arrow is removed and reads null, lastNode swings to D, and E fades; the last cell reads O of n. Step six: the doubly linked row fills: O of 1, O of n, O of 1, because lastNode's prev is the node before it. Step seven: the five options with A, B, D and E struck through and C not struck: lastNode makes adding at the end O of 1, not removing from it.</p>
+
+  <!-- The answer as a walk of a remove(p) on the vote's list: the deck's own
+       code with short names, 0-based like the video's getNodeAt. A counter
+       (deck.css .moves; the roll is allowed, it counts) of nodes visited to
+       find the node before. Each case starts from the same five nodes: a
+       removed node fades to a ghost and comes back for the next case, and a
+       moved reference swings back. A cost table fills one cell per case,
+       then the doubly linked row as the contrast (twin u11q07_..._b; no video
+       has that column).
+       step 1: first.  steps 2–3: middle.  steps 4–5: last.
+       step 6: the doubly linked row.  step 7: verdict C. -->
+  <div class="slide__body grid grid--code code-mid ef" data-sid="08b-walk-efficiency:6">
+    <div class="editor ef__editor" data-sid="08b-walk-efficiency:7">
+      <p class="editor__bar" data-sid="08b-walk-efficiency:8">remove(p), singly linked (short names)</p>
+      <div class="editor__pc" data-sid="08b-walk-efficiency:9"></div>
+      <ol class="editor__code" data-sid="08b-walk-efficiency:10">
+        <li data-sid="08b-walk-efficiency:11"><span class="tok-key" data-sid="08b-walk-efficiency:12">void</span> remove(<span class="tok-key" data-sid="08b-walk-efficiency:13">int</span> p) {</li>
+        <li class="walkline frag" data-step="1" data-sid="08b-walk-efficiency:14">  <span class="tok-key" data-sid="08b-walk-efficiency:15">if</span> (p == <span class="tok-num" data-sid="08b-walk-efficiency:16">0</span>) {</li>
+        <li class="walkline frag" data-step="1" data-sid="08b-walk-efficiency:17">    firstNode = firstNode.getNext();</li>
+        <li data-sid="08b-walk-efficiency:18">  } <span class="tok-key" data-sid="08b-walk-efficiency:19">else</span> {</li>
+        <li class="walkline frag" data-step="2" data-also="4" data-sid="08b-walk-efficiency:20">    Node b = getNodeAt(p - <span class="tok-num" data-sid="08b-walk-efficiency:21">1</span>);</li>
+        <li class="walkline frag" data-step="3" data-also="5" data-sid="08b-walk-efficiency:22">    b.setNext(b.getNext().getNext());</li>
+        <li class="walkline frag" data-step="5" data-sid="08b-walk-efficiency:23">    <span class="tok-key" data-sid="08b-walk-efficiency:24">if</span> (p == n - <span class="tok-num" data-sid="08b-walk-efficiency:25">1</span>)</li>
+        <li class="walkline frag" data-step="5" data-sid="08b-walk-efficiency:26">      lastNode = b;</li>
+        <li data-sid="08b-walk-efficiency:27">  }</li>
+        <li data-sid="08b-walk-efficiency:28">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk ef__right" data-sid="08b-walk-efficiency:29">
+      <svg class="ef__fig" viewBox="0 0 836 220" role="img" aria-label="A singly linked list of five nodes, A to E, with firstNode on A and lastNode on E, and a ring that walks from A toward the node before the one being removed" data-sid="08b-walk-efficiency:30">
+        <defs data-sid="08b-walk-efficiency:31">
+          <marker id="w9d2-08b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08b-walk-efficiency:32"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08b-walk-efficiency:33"/></marker>
+        </defs>
+        <g class="pill" data-sid="08b-walk-efficiency:34"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="08b-walk-efficiency:35"/><text x="88" y="31" data-sid="08b-walk-efficiency:36">firstNode</text></g>
+        <g class="pill" data-sid="08b-walk-efficiency:37"><rect x="669" y="0" width="160" height="44" rx="8" data-sid="08b-walk-efficiency:38"/><text x="749" y="31" data-sid="08b-walk-efficiency:39">lastNode</text></g>
+
+        <g class="nd nd--a" data-sid="08b-walk-efficiency:40"><rect class="nd__box" x="20" y="104" width="130" height="76" rx="10" data-sid="08b-walk-efficiency:41"/><path class="nd__div" d="M76 104v76" data-sid="08b-walk-efficiency:42"/><text class="nd__v" x="48" y="154" data-sid="08b-walk-efficiency:43">A</text><path class="lnk" d="M113 142 H 182" data-sid="08b-walk-efficiency:44"/></g>
+        <g class="nd nd--b" data-sid="08b-walk-efficiency:45"><rect class="nd__box" x="186" y="104" width="130" height="76" rx="10" data-sid="08b-walk-efficiency:46"/><path class="nd__div" d="M242 104v76" data-sid="08b-walk-efficiency:47"/><text class="nd__v" x="214" y="154" data-sid="08b-walk-efficiency:48">B</text></g>
+        <g class="nd nd--c" data-sid="08b-walk-efficiency:49"><rect class="nd__box" x="352" y="104" width="130" height="76" rx="10" data-sid="08b-walk-efficiency:50"/><path class="nd__div" d="M408 104v76" data-sid="08b-walk-efficiency:51"/><text class="nd__v" x="380" y="154" data-sid="08b-walk-efficiency:52">C</text><path class="lnk" d="M445 142 H 514" data-sid="08b-walk-efficiency:53"/></g>
+        <g class="nd nd--d" data-sid="08b-walk-efficiency:54"><rect class="nd__box" x="518" y="104" width="130" height="76" rx="10" data-sid="08b-walk-efficiency:55"/><path class="nd__div" d="M574 104v76" data-sid="08b-walk-efficiency:56"/><text class="nd__v" x="546" y="154" data-sid="08b-walk-efficiency:57">D</text><text class="nd__nl nd__nl--d" x="611" y="152" data-sid="08b-walk-efficiency:58">null</text><path class="lnk lnk--de" d="M611 142 H 680" data-sid="08b-walk-efficiency:59"/></g>
+        <g class="nd nd--e" data-sid="08b-walk-efficiency:60"><rect class="nd__box" x="684" y="104" width="130" height="76" rx="10" data-sid="08b-walk-efficiency:61"/><path class="nd__div" d="M740 104v76" data-sid="08b-walk-efficiency:62"/><text class="nd__v" x="712" y="154" data-sid="08b-walk-efficiency:63">E</text><text class="nd__nl" x="777" y="152" data-sid="08b-walk-efficiency:64">null</text></g>
+        <!-- B's next, which the middle case re-points over C -->
+        <path class="lnk lnk--bc" data-swing='[[3,"M279 132 C 300 56, 560 56, 583 100"],[4,"M279 142 C 300 142, 326 142, 348 142"]]' d="M279 142 C 300 142, 326 142, 348 142" data-sid="08b-walk-efficiency:65"/>
+
+        <path class="ref ref--first" data-swing='[[1,"M85 44 C 85 80, 251 60, 251 100"],[2,"M85 44 C 85 66, 85 80, 85 100"]]' d="M85 44 C 85 66, 85 80, 85 100" data-sid="08b-walk-efficiency:66"/>
+        <path class="ref ref--last" data-swing='[[5,"M749 44 C 749 80, 583 60, 583 100"]]' d="M749 44 C 749 66, 749 80, 749 100" data-sid="08b-walk-efficiency:67"/>
+
+        <g class="ring" data-sid="08b-walk-efficiency:68"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="08b-walk-efficiency:69"/><text x="85" y="214" data-sid="08b-walk-efficiency:70">currentNode</text></g>
+      </svg>
+
+      <div class="ef__row" data-sid="08b-walk-efficiency:71">
+        <div class="moves ef__moves" data-sid="08b-walk-efficiency:72">
+          <p class="moves__label" data-sid="08b-walk-efficiency:73">nodes<br data-sid="08b-walk-efficiency:74">visited</p>
+          <div class="moves__stack" data-sid="08b-walk-efficiency:75">
+            <div class="heap-obj__field" data-sid="08b-walk-efficiency:76"><p class="heap-val heap-val--old frag" data-step="1" data-sid="08b-walk-efficiency:77">0</p><p class="heap-val frag" data-step="1" data-sid="08b-walk-efficiency:78">1</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-efficiency:79"><p class="heap-val heap-val--old frag" data-step="2" data-sid="08b-walk-efficiency:80">0</p><p class="heap-val frag" data-step="2" data-sid="08b-walk-efficiency:81">2</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-efficiency:82"><p class="heap-val heap-val--old frag" data-step="4" data-sid="08b-walk-efficiency:83">0</p><p class="heap-val frag" data-step="4" data-sid="08b-walk-efficiency:84">4</p></div>
+          </div>
+        </div>
+        <div class="codewalk__caps ef__caps" data-sid="08b-walk-efficiency:85">
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="08b-walk-efficiency:86">remove(0) sets firstNode to B. It visits only A, so the first position is O(1).</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="08b-walk-efficiency:87">remove(2) on the same five nodes. getNodeAt(1) visits A and B to find B, the node before C.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="08b-walk-efficiency:88">B&rsquo;s next is set to D. The walk grows with the position, so the middle is O(n).</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="08b-walk-efficiency:89">remove(4) needs D. lastNode refers to E, not D, so getNodeAt(3) visits A, B, C and D.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="08b-walk-efficiency:90">D&rsquo;s next is set to null and lastNode to D. That is n &minus; 1 visits, so the last is O(n).</p>
+          <p class="walkcap cap--6 frag" data-step="6" data-sid="08b-walk-efficiency:91">In a doubly linked list, lastNode.getPrevious() is D, so the last is O(1).</p>
+        </div>
+        <ol class="verdict frag ef__verdict" data-step="7" data-sid="08b-walk-efficiency:92">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="08b-walk-efficiency:93"><span class="verdict__txt" data-sid="08b-walk-efficiency:94">O(1); O(1); O(1);</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="08b-walk-efficiency:95"><span class="verdict__txt" data-sid="08b-walk-efficiency:96">O(1); O(n); O(1)</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="08b-walk-efficiency:97"><span class="verdict__txt" data-sid="08b-walk-efficiency:98">lastNode makes adding at the end O(1), not removing from it</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="08b-walk-efficiency:99"><span class="verdict__txt" data-sid="08b-walk-efficiency:100">O(1); O(1); O(n);</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="08b-walk-efficiency:101"><span class="verdict__txt" data-sid="08b-walk-efficiency:102">O(n); O(n); O(n);</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <table class="ef__t" data-sid="08b-walk-efficiency:103">
+      <thead data-sid="08b-walk-efficiency:104"><tr data-sid="08b-walk-efficiency:105"><th data-sid="08b-walk-efficiency:106"></th><th data-sid="08b-walk-efficiency:107">first</th><th data-sid="08b-walk-efficiency:108">middle</th><th data-sid="08b-walk-efficiency:109">last</th></tr></thead>
+      <tbody data-sid="08b-walk-efficiency:110">
+        <tr data-sid="08b-walk-efficiency:111"><td class="ef__n" data-sid="08b-walk-efficiency:112">singly linked</td>
+          <td data-sid="08b-walk-efficiency:113"><span class="ef__b ef__b--ok frag" data-step="1" data-sid="08b-walk-efficiency:114">O(1)</span></td>
+          <td data-sid="08b-walk-efficiency:115"><span class="ef__b frag" data-step="3" data-sid="08b-walk-efficiency:116">O(n)</span></td>
+          <td data-sid="08b-walk-efficiency:117"><span class="ef__b frag" data-step="5" data-sid="08b-walk-efficiency:118">O(n)</span></td></tr>
+        <tr class="ef__dll" data-sid="08b-walk-efficiency:119"><td class="ef__n" data-sid="08b-walk-efficiency:120">doubly linked</td>
+          <td data-sid="08b-walk-efficiency:121"><span class="ef__b ef__b--ok frag" data-step="6" style="--i: 0" data-sid="08b-walk-efficiency:122">O(1)</span></td>
+          <td data-sid="08b-walk-efficiency:123"><span class="ef__b frag" data-step="6" style="--i: 1" data-sid="08b-walk-efficiency:124">O(n)</span></td>
+          <td data-sid="08b-walk-efficiency:125"><span class="ef__b ef__b--ok frag" data-step="6" style="--i: 2" data-sid="08b-walk-efficiency:126">O(1)</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide__number" data-sid="08b-walk-efficiency:127"></div>
+  <aside class="notes" data-sid="08b-walk-efficiency:128">Answer: C &mdash; O(1); O(n); O(n); [key assumed from the PrairieLearn twin u11q07_list_lastnoderef_c; confirm in Runestone&rsquo;s results view]. The code is the deck&rsquo;s own remove, with short names: p is givenPosition, b is the node before, n is numberOfEntries. Positions start at 0, as in the video&rsquo;s getNodeAt. It leaves out the return value and the case where the list becomes empty. The counter counts the nodes visited to find the node the method has to change. Step 1. Removing the first node only moves firstNode. One visit, for any length, so O(1). Step 2. For the middle, the method needs the node before, B, and the only way to reach B is to walk from firstNode. Step 3. B&rsquo;s next is set to D. The walk is about n/2 visits for a middle position, which is O(n). Step 4. This is the trap that gives B as an answer. lastNode refers to E, but removing E means changing D&rsquo;s next, and a singly linked node has no reference back to D. So the walk is from A to D, n &minus; 1 visits. Step 5. D&rsquo;s next is set to null and lastNode to D. O(n). Step 6. In a doubly linked list with firstNode and lastNode, the last node&rsquo;s prev is the node before it, so the last position is O(1); that is the sister question in PrairieLearn. The middle is still O(n) in both, because something has to walk to the position. Step 7. The answer is C. lastNode makes add at the end O(1), because adding needs only the last node. Removing needs the node before it. Next is the video&rsquo;s table of all the list costs.</aside>
+
+  <style data-sid="08b-walk-efficiency:129">
+    /* Slide-local: the editor at --t-code, 780 px (the setNext line is 37
+       characters: 37 × 19.2 + 70 = 780) at line-height 1.2 (10 lines,
+       about 420 px); on the right one 836 × 220 SVG at 1:1 (Link boxes 130 × 76 on
+       a 166 px pitch, value 56 | next 74), then a row with the counter
+       (deck.css .moves) beside the captions, where the verdict replaces both
+       on step 7 (body face at --t-small, two options to a line, C on its own
+       line). Under the editor the cost table (it ran 2 px past the body when it
+       spanned both columns under the right column's verdict): row names
+       at --t-small, costs as badges in mono at --t-small (blue O(1), maroon
+       O(n), W5D1 12's colours). Motion: firstNode, lastNode and B's next
+       swing (CSS d plus data-swing); a removed node fades to a ghost (0.25)
+       and comes back for the next case; the currentNode ring appears on A and
+       travels by translateX (a real move), then fades and returns to A while
+       invisible; badges fade in, the doubly linked row on a stagger. States
+       keyed to the caption frags with :has(), in step order. Used by this
+       slide only, all values from tokens. */
+    #slide-08b .ef { grid-template-columns: 780px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--s-5); row-gap: var(--s-2); align-items: start; }
+    #slide-08b .ef__editor { width: 780px; grid-column: 1; grid-row: 1; }
+    #slide-08b .ef__editor .editor__code li { line-height: 1.2; }
+    #slide-08b .ef__right { grid-column: 2; grid-row: 1 / 3; }
+    #slide-08b .ef__fig { display: block; width: 836px; height: 220px; overflow: visible; }
+
+    #slide-08b .ef__row { display: grid; grid-template-columns: 170px minmax(0, 1fr); column-gap: var(--s-3); min-height: 150px; align-items: start; }
+    #slide-08b .ef__moves { grid-column: 1; grid-row: 1; grid-template-columns: max-content; row-gap: var(--s-1); transition: opacity .3s ease; }
+    #slide-08b .ef__moves .moves__label { line-height: 1.25; }
+    #slide-08b .ef__caps { grid-column: 2; grid-row: 1; }
+    #slide-08b .ef__verdict { grid-column: 1 / -1; grid-row: 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); column-gap: var(--s-5); }
+    #slide-08b .ef__verdict .verdict__opt--right { white-space: normal; flex-basis: 100%; }
+    #slide-08b .ef:has(.ef__verdict:not(.is-pending)) .ef__moves { opacity: 0; }
+    #slide-08b .ef:has(.ef__verdict:not(.is-pending)) .ef__caps { opacity: 0; }
+
+    #slide-08b .pill rect { fill: var(--accent-2); }
+    #slide-08b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d2-08b-head); transition: d .7s var(--ease-smooth); }
+    #slide-08b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-08b-head); transition: d .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-08b .nd { transition: opacity .4s ease; }
+    #slide-08b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-08b .nd__nl--d { opacity: 0; }
+
+    #slide-08b .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .ring text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+    #slide-08b .ring { opacity: 0; transition: opacity .3s ease, transform 0s linear .3s; }
+
+    /* the cost table */
+    #slide-08b .ef__t { grid-column: 1; grid-row: 2; width: 100%; border-collapse: collapse; font-size: var(--t-small); line-height: 1.3; }
+    #slide-08b .ef__t th { font-family: var(--font-mono); font-weight: 400; color: var(--fg-1); text-align: center; padding: 0 0 var(--s-1); border-bottom: 3px solid var(--fg-1); }
+    #slide-08b .ef__t td { padding: 4px 0; border-bottom: 2px solid var(--bg-1); text-align: center; }
+    #slide-08b .ef__t th:first-child, #slide-08b .ef__t td:first-child { width: 250px; text-align: left; }
+    #slide-08b .ef__t td.ef__n { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-08b .ef__b { display: inline-block; min-width: 3.5em; padding: 0 var(--s-2); border-radius: var(--r-3); font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.4; color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition: opacity .3s ease; }
+    #slide-08b .ef__b--ok { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 14%, var(--bg-0)); }
+    #slide-08b .frag.ef__b.is-current, #slide-08b .frag.ef__b.is-past { transition-delay: .8s; }
+    #slide-08b .ef__dll .frag.ef__b.is-current, #slide-08b .ef__dll .frag.ef__b.is-past { transition-delay: calc(.4s + var(--i) * .2s); }
+
+    /* ---- states, in step order ---- */
+    #slide-08b .ef:has(.cap--1:not(.is-pending)) .ref--first { d: path("M85 44 C 85 80, 251 60, 251 100"); }
+    #slide-08b .ef:has(.cap--1:not(.is-pending)) .nd--a { opacity: .25; transition-delay: .6s; }
+    #slide-08b .ef:has(.cap--2:not(.is-pending)) .ref--first { d: path("M85 44 C 85 66, 85 80, 85 100"); }
+    #slide-08b .ef:has(.cap--2:not(.is-pending)) .nd--a { opacity: 1; transition-delay: 0s; }
+    #slide-08b .ef:has(.cap--2:not(.is-pending)) .ring { opacity: 1; transform: translateX(166px); transition: opacity .2s ease, transform .8s var(--ease-smooth) .5s; }
+    #slide-08b .ef:has(.cap--3:not(.is-pending)) .lnk--bc { d: path("M279 132 C 300 56, 560 56, 583 100"); }
+    #slide-08b .ef:has(.cap--3:not(.is-pending)) .nd--c { opacity: .25; transition-delay: .6s; }
+    #slide-08b .ef:has(.cap--3:not(.is-pending)) .ring { opacity: 0; transform: translateX(0); transition: opacity .3s ease, transform 0s linear .3s; }
+    #slide-08b .ef:has(.cap--4:not(.is-pending)) .lnk--bc { d: path("M279 142 C 300 142, 326 142, 348 142"); }
+    #slide-08b .ef:has(.cap--4:not(.is-pending)) .nd--c { opacity: 1; transition-delay: 0s; }
+    #slide-08b .ef:has(.cap--4:not(.is-pending)) .ring { opacity: 1; transform: translateX(498px); transition: opacity .2s ease, transform 1.2s var(--ease-smooth) .5s; }
+    #slide-08b .ef:has(.cap--5:not(.is-pending)) .lnk--de { opacity: 0; }
+    #slide-08b .ef:has(.cap--5:not(.is-pending)) .nd__nl--d { opacity: 1; transition-delay: .3s; }
+    #slide-08b .ef:has(.cap--5:not(.is-pending)) .ref--last { d: path("M749 44 C 749 80, 583 60, 583 100"); }
+    #slide-08b .ef:has(.cap--5:not(.is-pending)) .nd--e { opacity: .25; transition-delay: .6s; }
+    #slide-08b .ef:has(.cap--5:not(.is-pending)) .ring { opacity: 0; transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .ref, #slide-08b .lnk, #slide-08b .nd, #slide-08b .nd__nl, #slide-08b .ring, #slide-08b .ef__b, #slide-08b .ef__moves, #slide-08b .ef__caps { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

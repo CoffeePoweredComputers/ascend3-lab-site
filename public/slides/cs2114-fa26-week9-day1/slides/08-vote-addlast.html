@@ -1,0 +1,100 @@
+<section class="slide slide--warmup" id="slide-08" data-sid="08-vote-addlast:1">
+  <header class="slide__head" data-sid="08-vote-addlast:2">
+    <p class="slide__kicker" data-sid="08-vote-addlast:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="08-vote-addlast:4">What belongs in addLast&rsquo;s empty-list branch?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="08-vote-addlast:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="08-vote-addlast:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="08-vote-addlast:7"/><g class="timer__ticks" data-sid="08-vote-addlast:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="08-vote-addlast:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="08-vote-addlast:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="08-vote-addlast:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="08-vote-addlast:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="08-vote-addlast:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="08-vote-addlast:14"/><g class="timer__hand" data-sid="08-vote-addlast:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="08-vote-addlast:16"/></g><text class="timer__time" x="75" y="88" data-sid="08-vote-addlast:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="08-vote-addlast:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="08-vote-addlast:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="08-vote-addlast:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="08-vote-addlast:21"/><g class="timer__ticks" data-sid="08-vote-addlast:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="08-vote-addlast:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="08-vote-addlast:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="08-vote-addlast:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="08-vote-addlast:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="08-vote-addlast:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="08-vote-addlast:28"/><g class="timer__hand" data-sid="08-vote-addlast:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="08-vote-addlast:30"/></g><text class="timer__time" x="75" y="88" data-sid="08-vote-addlast:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="08-vote-addlast:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="08-vote-addlast:33">A peer-instruction question. Left, the stem in muted type: consider the following class and method. Under it, an editor with lines 16 to 24 of the class: public void addLast of int value; Node newNode equals new Node of value; if head equals null, a comment, what goes here; else tail dot next equals newNode, tail equals newNode; closing braces. Under the editor, the question: what code belongs at the comment what goes here. Right, a second editor with the rest of the class, two parts folded: line 1, public class SinglyLinkedList; lines 2 to 10, the private static class Node, folded; line 11, private Node head; line 12, private Node tail; lines 13 to 15, the comment that the method appends a new element to the end of the list, folded; line 25, the closing brace. Under it, four options, each led by a maroon disc with its letter. A: head equals newNode. B: tail equals newNode. C: head equals newNode; tail equals newNode. D: newNode dot next equals newNode. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The Runestone question (Peer Instruction W09D1, question 1 of 2) has
+       25 lines of code. At the type floor they do not fit beside the options
+       (PLAN.md, 08), so: left, the stem lede, lines 16–24 (the method the
+       question is about) at --t-code with the gutter numbered from 16, and
+       the question sentence; right, the rest of the class at --t-code with
+       the Node class (lines 2–10) and the javadoc (lines 13–15) folded, then
+       the four options in mono. Code and option text are quoted from the
+       paste, quirks kept (the double space in "tail      = newNode;", the
+       question's "? ?"). Static: only the clocks build; 08b walks it. -->
+  <div class="slide__body code-mid vm" data-sid="08-vote-addlast:34">
+    <div class="vm__left" data-sid="08-vote-addlast:35">
+      <p class="vote__stem vm__stem" data-sid="08-vote-addlast:36">Consider the following class and method:</p>
+      <div class="editor vm__main" data-sid="08-vote-addlast:37">
+        <ol class="editor__code" data-sid="08-vote-addlast:38">
+          <li data-sid="08-vote-addlast:39">    <span class="tok-key" data-sid="08-vote-addlast:40">public void</span> addLast(<span class="tok-key" data-sid="08-vote-addlast:41">int</span> value) {</li>
+          <li data-sid="08-vote-addlast:42">        Node newNode = <span class="tok-key" data-sid="08-vote-addlast:43">new</span> Node(value);</li>
+          <li data-sid="08-vote-addlast:44">        <span class="tok-key" data-sid="08-vote-addlast:45">if</span> (head == <span class="tok-key" data-sid="08-vote-addlast:46">null</span>) {</li>
+          <li data-sid="08-vote-addlast:47">            // &hellip; what goes here?</li>
+          <li data-sid="08-vote-addlast:48">        } <span class="tok-key" data-sid="08-vote-addlast:49">else</span> {</li>
+          <li data-sid="08-vote-addlast:50">            tail.next = newNode;</li>
+          <li data-sid="08-vote-addlast:51">            tail      = newNode;</li>
+          <li data-sid="08-vote-addlast:52">        }</li>
+          <li data-sid="08-vote-addlast:53">    }</li>
+        </ol>
+      </div>
+      <p class="vote__stem vm__q" data-sid="08-vote-addlast:54">What code belongs at the // &hellip; what goes here? ?</p>
+    </div>
+    <div class="vm__right" data-sid="08-vote-addlast:55">
+      <div class="editor vm__ctx" data-sid="08-vote-addlast:56">
+        <ol class="editor__code" data-sid="08-vote-addlast:57">
+          <li data-n="1" data-sid="08-vote-addlast:58"><span class="tok-key" data-sid="08-vote-addlast:59">public class</span> SinglyLinkedList {</li>
+          <li class="vm__fold" data-n="2–10" data-sid="08-vote-addlast:60">    <span class="tok-key" data-sid="08-vote-addlast:61">private static class</span> Node { &hellip; }</li>
+          <li data-n="11" data-sid="08-vote-addlast:62">    <span class="tok-key" data-sid="08-vote-addlast:63">private</span> Node head;</li>
+          <li data-n="12" data-sid="08-vote-addlast:64">    <span class="tok-key" data-sid="08-vote-addlast:65">private</span> Node tail;</li>
+          <li class="vm__fold" data-n="13–15" data-sid="08-vote-addlast:66">    /** &hellip; */</li>
+          <li data-n="25" data-sid="08-vote-addlast:67">}</li>
+        </ol>
+      </div>
+      <ol class="vote__opts vm__opts" data-sid="08-vote-addlast:68">
+        <li class="vote__opt" data-sid="08-vote-addlast:69"><span class="vote__key" data-sid="08-vote-addlast:70">A</span><p class="vote__text" data-sid="08-vote-addlast:71">head = newNode;</p></li>
+        <li class="vote__opt" data-sid="08-vote-addlast:72"><span class="vote__key" data-sid="08-vote-addlast:73">B</span><p class="vote__text" data-sid="08-vote-addlast:74">tail = newNode;</p></li>
+        <li class="vote__opt" data-sid="08-vote-addlast:75"><span class="vote__key" data-sid="08-vote-addlast:76">C</span><p class="vote__text" data-sid="08-vote-addlast:77">head = newNode; tail = newNode;</p></li>
+        <li class="vote__opt" data-sid="08-vote-addlast:78"><span class="vote__key" data-sid="08-vote-addlast:79">D</span><p class="vote__text" data-sid="08-vote-addlast:80">newNode.next = newNode;</p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="08-vote-addlast:81"></div>
+  <aside class="notes" data-sid="08-vote-addlast:82">Answer: C &mdash; head = newNode; tail = newNode; [ASSUMED, by tracing; the PL twin u11q02_linkedlist_addnode is a different question; confirm in Runestone&rsquo;s results view]. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. The class has a Node with an int value and a next that the constructor sets to null, and two references, head and tail. The folded lines are the Node class and the javadoc, &ldquo;Appends a new element to the end of the list.&rdquo; Everyone has the full code open in Runestone. Notice that tail = newNode is inside the else here, unlike the add at the end on slide 04c. Ask the groups to run addLast twice on an empty list with their choice in the gap. Runestone: Peer Instruction W09D1, question 1 of 2.</aside>
+
+  <style data-sid="08-vote-addlast:83">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js). Copied from W8D1 08. */
+    #slide-08 .timer { top: var(--s-6); }
+    #slide-08 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-08 .frag.timer.is-past { opacity: .55; }
+    #slide-08 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-08 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-08 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: two columns. Left 820 px: the stem, the main editor at
+       --t-code (line 17 is 39 characters, 39 × 19.2 + 70 = 819), gutter
+       counted from 16, and the question sentence (790 px at --t-small by
+       PIL). Right: the rest of the class in a second --t-code editor whose
+       gutter prints each row's line number or folded range from data-n
+       (80 px wide for "13–15"; the fold row is 35 characters, 672 px), the
+       folded rows in stone; then the four options in mono at --t-code with
+       48 px discs (C, 31 characters, is 595 px). All values from tokens; used
+       by this slide only. */
+    #slide-08 .vm { display: grid; grid-template-columns: 820px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-08 .vm__left, #slide-08 .vm__right { display: flex; flex-direction: column; }
+    #slide-08 .vm__stem { margin-bottom: var(--s-3); }
+    #slide-08 .vm__main { width: 820px; }
+    #slide-08 .vm__main .editor__code { counter-reset: line 15; }
+    #slide-08 .vm__q { margin: var(--s-3) 0 0; color: var(--fg-0); }
+    #slide-08 .vm__ctx .editor__code {
+      background: linear-gradient(90deg,
+        color-mix(in srgb, var(--stone) 20%, var(--bg-1)) 0 calc(80px + var(--s-1)),
+        transparent calc(80px + var(--s-1)));
+    }
+    #slide-08 .vm__ctx .editor__code li::before { content: attr(data-n); width: 80px; margin-right: var(--s-2); }
+    #slide-08 .vm__fold { color: var(--stone); }
+    #slide-08 .vm__fold .tok-key { color: var(--stone); }
+    #slide-08 .vm__opts { margin-top: var(--s-3); }
+    #slide-08 .vm__opts .vote__opt { padding: var(--s-1) 0; }
+    #slide-08 .vm__opts .vote__key { width: 48px; height: 48px; font-size: var(--t-small); }
+    #slide-08 .vm__opts .vote__text { font-family: var(--font-mono); font-size: var(--t-code); }
+  </style>
+</section>

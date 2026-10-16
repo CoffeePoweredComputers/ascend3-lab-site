@@ -1,0 +1,140 @@
+<section class="slide slide--warmup" id="slide-04c" data-sid="04c-walk-add-end:1">
+  <header class="slide__head" data-sid="04c-walk-add-end:2">
+    <p class="slide__kicker" data-sid="04c-walk-add-end:3">A LINKED LIST &middot; WALKTHROUGH</p>
+    <h2 data-sid="04c-walk-add-end:4">With lastNode, adding at the end needs no walk</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04c-walk-add-end:5">A walkthrough of add at the end of a list that keeps a lastNode reference, under a program-counter bar: void add of T x; Node newNode equals new Node of x; if isEmpty, firstNode equals newNode; else lastNode dot next equals newNode; then lastNode equals newNode; numberOfEntries plus plus. On the right, a list of three nodes, A, B and C, with a blue firstNode pill referring to A and a blue lastNode pill referring to C. Step one: add of D; a node holding D appears after C, tinted orange and labelled newNode. Step two: isEmpty is false, so the else runs. Step three: lastNode dot next equals newNode; C's next part is washed orange, its null is removed and an arrow is drawn from C to D. Step four: lastNode equals newNode; lastNode's arrow re-points from C to D; firstNode is unchanged. Step five: lastNode makes adding at the end two writes with no walk; an empty list takes the if branch, and Vote 1 asks about that case.</p>
+
+  <!-- Concept intro, part 3: the end of the list with a tail reference
+       (LinkedListMoreDetails.pdf: "LastNode reference"). The code is the Week
+       8 enqueue in list form (Carrano's LList2 add). Only the non-empty run is
+       walked: the empty branch is Vote 1's question in another arrangement,
+       so it is in the editor but not run (PLAN.md, "Vote 1 vs. 04c"). W8D1
+       04's grammar.
+       steps 1–4: add(D) on A, B, C.  step 5: the rule. -->
+  <div class="slide__body grid grid--code code-mid ae" data-sid="04c-walk-add-end:6">
+    <div class="editor ae__editor" data-sid="04c-walk-add-end:7">
+      <p class="editor__bar" data-sid="04c-walk-add-end:8">LinkedList with lastNode: add(x) at the end</p>
+      <div class="editor__pc" data-sid="04c-walk-add-end:9"></div>
+      <ol class="editor__code" data-sid="04c-walk-add-end:10">
+        <li data-sid="04c-walk-add-end:11"><span class="tok-key" data-sid="04c-walk-add-end:12">void</span> add(T x) {</li>
+        <li class="walkline frag" data-step="1" data-sid="04c-walk-add-end:13">    Node newNode = <span class="tok-key" data-sid="04c-walk-add-end:14">new</span> Node(x);</li>
+        <li class="walkline frag" data-step="2" data-sid="04c-walk-add-end:15">    <span class="tok-key" data-sid="04c-walk-add-end:16">if</span> (isEmpty()) {</li>
+        <li data-sid="04c-walk-add-end:17">        firstNode = newNode;</li>
+        <li data-sid="04c-walk-add-end:18">    } <span class="tok-key" data-sid="04c-walk-add-end:19">else</span> {</li>
+        <li class="walkline frag" data-step="3" data-sid="04c-walk-add-end:20">        lastNode.next = newNode;</li>
+        <li data-sid="04c-walk-add-end:21">    }</li>
+        <li class="walkline frag" data-step="4" data-sid="04c-walk-add-end:22">    lastNode = newNode;</li>
+        <li data-sid="04c-walk-add-end:23">    numberOfEntries++;</li>
+        <li class="walkline frag" data-step="5" data-sid="04c-walk-add-end:24">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk ae__right" data-sid="04c-walk-add-end:25">
+      <svg class="ae__fig" viewBox="0 0 916 300" role="img" aria-label="A list A, B, C with firstNode and lastNode pills; add at the end creates D, links C to D, and lastNode's arrow swings from C to D" data-sid="04c-walk-add-end:26">
+        <defs data-sid="04c-walk-add-end:27">
+          <marker id="w9d1-04c-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="04c-walk-add-end:28"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="04c-walk-add-end:29"/></marker>
+        </defs>
+
+        <g class="pill" data-sid="04c-walk-add-end:30"><rect x="0" y="0" width="176" height="48" rx="8" data-sid="04c-walk-add-end:31"/><text x="88" y="34" data-sid="04c-walk-add-end:32">firstNode</text></g>
+        <g class="pill pill--last" data-sid="04c-walk-add-end:33"><rect x="560" y="0" width="160" height="48" rx="8" data-sid="04c-walk-add-end:34"/><text x="640" y="34" data-sid="04c-walk-add-end:35">lastNode</text></g>
+        <path class="lnk" d="M88 48 C 88 90, 88 110, 88 146" data-sid="04c-walk-add-end:36"/>
+
+        <g class="nd" data-sid="04c-walk-add-end:37">
+          <rect class="nd__box" x="0" y="150" width="190" height="90" rx="10" data-sid="04c-walk-add-end:38"/><path class="nd__div" d="M110 150v90" data-sid="04c-walk-add-end:39"/>
+          <text class="nd__f" x="10" y="178" data-sid="04c-walk-add-end:40">data</text><text class="nd__f" x="116" y="178" data-sid="04c-walk-add-end:41">next</text>
+          <text class="nd__v" x="55" y="224" data-sid="04c-walk-add-end:42">A</text>
+        </g>
+        <path class="lnk" d="M150 205 C 180 205, 205 205, 228 205" data-sid="04c-walk-add-end:43"/>
+        <g class="nd" data-sid="04c-walk-add-end:44">
+          <rect class="nd__box" x="240" y="150" width="190" height="90" rx="10" data-sid="04c-walk-add-end:45"/><path class="nd__div" d="M350 150v90" data-sid="04c-walk-add-end:46"/>
+          <text class="nd__f" x="250" y="178" data-sid="04c-walk-add-end:47">data</text><text class="nd__f" x="356" y="178" data-sid="04c-walk-add-end:48">next</text>
+          <text class="nd__v" x="295" y="224" data-sid="04c-walk-add-end:49">B</text>
+        </g>
+        <path class="lnk" d="M390 205 C 420 205, 445 205, 468 205" data-sid="04c-walk-add-end:50"/>
+        <g class="nd nd--c" data-sid="04c-walk-add-end:51">
+          <rect class="nd__box" x="480" y="150" width="190" height="90" rx="10" data-sid="04c-walk-add-end:52"/>
+          <rect class="nd__wash" x="593" y="153" width="74" height="84" rx="7" data-sid="04c-walk-add-end:53"/>
+          <path class="nd__div" d="M590 150v90" data-sid="04c-walk-add-end:54"/>
+          <text class="nd__f" x="490" y="178" data-sid="04c-walk-add-end:55">data</text><text class="nd__f" x="596" y="178" data-sid="04c-walk-add-end:56">next</text>
+          <text class="nd__v" x="535" y="224" data-sid="04c-walk-add-end:57">C</text>
+          <text class="nd__nl" x="630" y="224" data-sid="04c-walk-add-end:58">null</text>
+        </g>
+        <g class="nd nd--d frag" data-step="1" data-sid="04c-walk-add-end:59">
+          <rect class="nd__box" x="720" y="150" width="190" height="90" rx="10" data-sid="04c-walk-add-end:60"/><path class="nd__div" d="M830 150v90" data-sid="04c-walk-add-end:61"/>
+          <text class="nd__f" x="730" y="178" data-sid="04c-walk-add-end:62">data</text><text class="nd__f" x="836" y="178" data-sid="04c-walk-add-end:63">next</text>
+          <text class="nd__v" x="775" y="224" data-sid="04c-walk-add-end:64">D</text>
+          <text class="nd__nl" x="870" y="224" data-sid="04c-walk-add-end:65">null</text>
+          <text class="nd__new" x="815" y="276" data-sid="04c-walk-add-end:66">newNode</text>
+        </g>
+
+        <path class="xl frag" data-step="3" pathLength="100" d="M630 205 C 670 205, 690 205, 708 205" data-sid="04c-walk-add-end:67"/>
+        <path class="xh frag" data-step="3" data-anim="fade" d="M720 205 L706 198 L706 212 Z" data-sid="04c-walk-add-end:68"/>
+
+        <path class="ref ref--last" data-swing='[[4,"M660 48 C 660 100, 815 100, 815 146"]]' d="M620 48 C 620 100, 575 100, 575 146" data-sid="04c-walk-add-end:69"/>
+      </svg>
+      <div class="codewalk__caps" data-sid="04c-walk-add-end:70">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-walk-add-end:71">add(D) on A, B, C creates a node holding D.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-walk-add-end:72">isEmpty() is false, so the else runs.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-walk-add-end:73">lastNode.next = newNode sets C&rsquo;s next to D.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-walk-add-end:74">lastNode = newNode, so lastNode now refers to D. firstNode is unchanged.</p>
+        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="04c-walk-add-end:75">lastNode makes adding at the end two writes with no walk. An empty list takes the if branch, and Vote 1 asks about that case.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04c-walk-add-end:76"></div>
+  <aside class="notes" data-sid="04c-walk-add-end:77">The LinkedList Details and Options video adds one field to the list: a reference to the last node. Without it, adding at the end is the middle case at position numberOfEntries, and getNodeAt has to walk to the last node first. With it, add at the end is last week&rsquo;s enqueue. Step 1. add(D) on A, B, C creates a node holding D. Step 2. The list is not empty, so the else runs. Step 3. lastNode.next = newNode sets C&rsquo;s next to D. No walk: lastNode already refers to C. Step 4. lastNode = newNode, so lastNode refers to D. firstNode did not change. Step 5. Two writes, whatever the length. The if branch is the empty list, and that is the case in the first peer-instruction question, in a slightly different arrangement of these lines. The video also mentions the cost of the extra field: every method that can change the last node now has to keep lastNode correct. That comes back in Vote 2. Next is removing.</aside>
+
+  <style data-sid="04c-walk-add-end:78">
+    /* Slide-local: the editor at --t-code with its bar (10 lines), 700 px:
+       the lastNode.next line is 32 characters, 32 × 19.2 + 70 = 684. On the
+       right one 916 × 300 SVG at 1:1, the captions under it (three lines
+       reserved). W8D1 04's Node boxes (190 × 90) on a 240 px pitch, four
+       nodes. Motion: D GrowsFromCenter; C's next Creates (head after) with
+       an orange wash for its step and its null fading; lastNode swings (d
+       transition, same-shaped cubics, data-swing for Safari) with an orange
+       edge on its pill for its step; newNode is the orange tint and label,
+       cleared on the closing step. States keyed to the caption frags with
+       :has(), in step order. Used by this slide only, all values from
+       tokens. */
+    #slide-04c .ae { grid-template-columns: 700px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-04c .ae__editor { width: 700px; }
+    #slide-04c .ae__fig { display: block; width: 916px; height: 300px; overflow: visible; }
+    #slide-04c .codewalk__caps { min-height: 150px; }
+    #slide-04c .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-04c .pill rect { fill: var(--accent-2); stroke: transparent; stroke-width: 5; transition: stroke .3s ease; }
+    #slide-04c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04c .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-04c .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04c .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-04c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04c .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04c .nd__new { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-04c .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-04c .nd--d .nd__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-04c .nd--d { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04c .frag.nd--d.is-pending { opacity: 0; transform: scale(0.4); }
+
+    #slide-04c .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-04c-head); }
+    #slide-04c .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w9d1-04c-head); transition: d .7s var(--ease-smooth); }
+    #slide-04c .xl { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-04c .frag.xl.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-04c .frag.xl.is-current, #slide-04c .frag.xl.is-past { stroke-dashoffset: 0; transition-delay: .2s; }
+    #slide-04c .xh { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-04c .frag.xh.is-current, #slide-04c .frag.xh.is-past { transition-delay: .6s; }
+
+    /* ---- states, in step order ---- */
+    #slide-04c .ae:has(.cap--3.is-current) .nd--c .nd__wash { opacity: 1; }
+    #slide-04c .ae:has(.cap--3:not(.is-pending)) .nd--c .nd__nl { opacity: 0; }
+    #slide-04c .ae:has(.cap--4.is-current) .pill--last rect { stroke: var(--accent-3); }
+    #slide-04c .ae:has(.cap--4:not(.is-pending)) .ref--last { d: path("M660 48 C 660 100, 815 100, 815 146"); }
+    #slide-04c .ae:has(.cap--5:not(.is-pending)) .nd--d .nd__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-04c .ae:has(.cap--5:not(.is-pending)) .nd--d .nd__new { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04c .pill rect, #slide-04c .nd--d, #slide-04c .nd__box, #slide-04c .nd__nl, #slide-04c .nd__new, #slide-04c .nd__wash,
+      #slide-04c .ref, #slide-04c .xl, #slide-04c .xh { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,55 @@
+<section class="slide slide--warmup" id="slide-02b" data-sid="02b-ssd:1">
+  <header class="slide__head" data-sid="02b-ssd:2">
+    <p class="slide__kicker" data-sid="02b-ssd:3">TEST 2 &middot; TESTING ACCOMMODATIONS</p>
+    <h2 data-sid="02b-ssd:4">If you test with SSD accommodations, book your Test 2 seat now.</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02b-ssd:5">The same slide as last class. Two cards arriving in turn. Card one, your letter: request your Course Accessibility Letter for CS 2114 in AIM at elbert.accessiblelearning.com/VT, once a semester; SSD emails it to the instructor; accommodations are not retroactive. Card two, your seat: in Canvas, the Testing Accommodations link opens RegisterBlast; book at least three business days before the test, by Friday October 23 for the MW section, whose test is Wednesday October 28, and by Monday October 26 for the TR section, whose test is Thursday October 29; the test is taken at the Werth Testing Center, 310 Lavery Hall. A line under the cards reads: if the course or the link is missing, email me today; questions about accommodations go to SSD, 310 Lavery Hall, ssd@vt.edu, 540-231-3788.</p>
+
+  <!-- W4D1's 02b-ssd retitled for Test 2. Services for Students with
+       Disabilities runs two systems and a student has to act in both: AIM
+       for the semester's accommodation letter, RegisterBlast (through the
+       Canvas "Testing Accommodations" link) to book the seat for one test,
+       at least three business days ahead. Facts from ssd.vt.edu as recorded
+       in DECK-PROMPT §11 (2026-09-13); the dates are exam minus three
+       business days: Wed Oct 28 -> Fri Oct 23, Thu Oct 29 -> Mon Oct 26.
+       The heading says "now" rather than "this week" because the TR
+       deadline is Monday of next week. Two cards, one per press. Day 2 copy: derived from the Day 1 deck's
+       file by a script substitution (only the desc, this comment and the
+       notes differ); edit Day 1's first, then re-derive. -->
+  <div class="slide__body sd" data-sid="02b-ssd:6">
+    <div class="tile tile--a2 frag" data-step="1" data-sid="02b-ssd:7">
+      <h3 data-sid="02b-ssd:8">1 &middot; Your letter</h3>
+      <p data-sid="02b-ssd:9">Request your <b data-sid="02b-ssd:10">Course Accessibility Letter</b> for CS 2114 in AIM (elbert.accessiblelearning.com/VT). You request it once a semester, and SSD emails it to me. Accommodations are not retroactive, so a letter that arrives after the test does not apply to it.</p>
+    </div>
+    <div class="tile tile--a3 frag" data-step="2" data-sid="02b-ssd:11">
+      <h3 data-sid="02b-ssd:12">2 &middot; Your seat</h3>
+      <p data-sid="02b-ssd:13">In Canvas, the <b data-sid="02b-ssd:14">Testing Accommodations</b> link opens RegisterBlast. Book your seat at least three business days before the test.<br data-sid="02b-ssd:15"><b data-sid="02b-ssd:16">by Fri Oct 23</b> (MW, test Wed Oct 28)<br data-sid="02b-ssd:17"><b data-sid="02b-ssd:18">by Mon Oct 26</b> (TR, test Thu Oct 29)<br data-sid="02b-ssd:19">You take the test at the Werth Testing Center, 310 Lavery Hall.</p>
+    </div>
+    <p class="note sd__foot frag" data-step="2" data-anim="fade" data-sid="02b-ssd:20">If the course or the link is missing, email me today. Questions about accommodations go to SSD, 310 Lavery Hall, ssd@vt.edu, 540-231-3788.</p>
+  </div>
+  <div class="slide__number" data-sid="02b-ssd:21"></div>
+  <aside class="notes" data-sid="02b-ssd:22">Last class we said that students registered with Services for Students with Disabilities have two things to do before Test 2, and this is the reminder. The MW deadline for the seat is this Friday, Oct 23. There are two things to do, and the student starts both. Step 1. The letter. In AIM, select CS 2114 and the accommodations you want to use, and SSD emails me the Course Accessibility Letter. You request it once a semester. Accommodations are not retroactive, so a letter that arrives after the test does not apply to it. Step 2. The seat. In our Canvas course, the Testing Accommodations link opens RegisterBlast. Book Test 2 there at least three business days before the test. For the MW section, whose test is Wednesday Oct 28, that is Friday Oct 23. For the TR section, whose test is Thursday Oct 29, that is Monday Oct 26. The test is taken at the Werth Testing Center, 310 Lavery Hall. If the course or the link is not there, email me today. Questions about the accommodations themselves go to SSD at ssd@vt.edu or 540-231-3788. [Instructor to-do, not for the room: create the Test 2 exam submission block in RegisterBlast at least five business days before the test, by Wednesday Oct 21 for the MW date and Thursday Oct 22 for the TR date; upload the LockDown Browser instructions at least two business days before, by Monday Oct 26 and Tuesday Oct 27, or the reservations are cancelled; confirm with SSD that LockDown Browser runs on the testing center machines.]</aside>
+
+  <style data-sid="02b-ssd:23">
+    /* Slide-local: two cards side by side, the letter in the tool blue (a
+       portal) and the seat in the orange of a thing the student does, and a
+       line under them. Card text at the small size with the words to find in
+       bold; the two dates are the point of the slide. Cards GrowFromCenter,
+       the line FadeIns with the second. All values from tokens; used by this
+       slide only. */
+    #slide-02b .sd { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s-5); row-gap: var(--s-4); align-content: start; }
+    #slide-02b .sd .tile { grid-row: 1; }
+    #slide-02b .sd .tile--a2 { grid-column: 1; }
+    #slide-02b .sd .tile--a3 { grid-column: 2; }
+    #slide-02b .sd .tile h3 { font-size: var(--t-small); margin: 0 0 var(--s-2); color: var(--edge); }
+    #slide-02b .sd .tile p { margin: 0; font-size: var(--t-small); line-height: 1.35; }
+    #slide-02b .sd .tile b { color: var(--edge); }
+    #slide-02b .sd .tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02b .sd .frag.tile.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-02b .sd__foot { grid-column: 1 / -1; grid-row: 2; margin: 0; transition: opacity .3s ease; }
+    #slide-02b .frag.sd__foot.is-current, #slide-02b .frag.sd__foot.is-past { transition-delay: .5s; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02b .sd .tile, #slide-02b .sd__foot { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

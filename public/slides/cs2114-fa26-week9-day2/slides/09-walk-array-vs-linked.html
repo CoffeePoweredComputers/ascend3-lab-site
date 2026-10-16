@@ -1,0 +1,57 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-walk-array-vs-linked:1">
+  <header class="slide__head" data-sid="09-walk-array-vs-linked:2">
+    <p class="slide__kicker" data-sid="09-walk-array-vs-linked:3">LIST COSTS &middot; THE 9.1 VIDEO&rsquo;S TABLE</p>
+    <h2 data-sid="09-walk-array-vs-linked:4">Each position&rsquo;s cost depends on the references the list keeps</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09-walk-array-vs-linked:5">The efficiency table from the 9.1 module's video, built one row per press. Columns: operation; array implementation; singly linked chain with a head reference; singly linked chain with head and tail references. Where three costs are given, they are for the first, middle and last position. Row one, add of newEntry: O of 1; O of n; O of 1. Row two, add of newPosition and newEntry: O of n, O of n, O of 1 for the array; O of 1, O of n, O of n for head only; O of 1, O of n, O of 1 for head and tail. Row three, toArray: O of n in all three. Row four, remove of givenPosition, tinted orange: O of n, O of n, O of 1 for the array; O of 1, O of n, O of n for head only; O of 1, O of n, O of n for head and tail. Row five, replace of givenPosition and newEntry: O of 1 for the array; O of 1, O of n, O of n for head only; O of 1, O of n, O of 1 for head and tail. Row six, getEntry of givenPosition: the same as replace. Row seven, contains of anEntry: O of n in all three. Row eight, clear, getLength and isEmpty: O of 1 in all three. A note under the table says that three efficiencies are given for first, middle and last positions when givenPosition is a parameter.</p>
+
+  <!-- The summary of Part 2: the video's table (ListEfficiency.pdf), quoted
+       cell for cell, one row per press. The column heads are shortened to fit
+       321 px columns at --t-small (the video's heads are in the notes and the
+       desc); the stray spaces in the video's remove cells ("O(n) ;O(n)") are
+       normalised. The remove row takes the orange 18% tint: it is Vote 2's
+       row, and its last column is Vote 2's answer. The video's side note is
+       the footnote.
+       steps 1–8: the rows, top to bottom. -->
+  <div class="slide__body lt" data-sid="09-walk-array-vs-linked:6">
+    <table class="lt__t" data-sid="09-walk-array-vs-linked:7">
+      <thead data-sid="09-walk-array-vs-linked:8"><tr data-sid="09-walk-array-vs-linked:9"><th data-sid="09-walk-array-vs-linked:10">Operation</th><th data-sid="09-walk-array-vs-linked:11">Array</th><th data-sid="09-walk-array-vs-linked:12">Singly linked, head only</th><th data-sid="09-walk-array-vs-linked:13">Singly linked, head and tail</th></tr></thead>
+      <tbody data-sid="09-walk-array-vs-linked:14">
+        <tr class="frag" data-step="1" data-sid="09-walk-array-vs-linked:15"><td data-sid="09-walk-array-vs-linked:16">add(newEntry)</td><td data-sid="09-walk-array-vs-linked:17">O(1)</td><td data-sid="09-walk-array-vs-linked:18">O(n)</td><td data-sid="09-walk-array-vs-linked:19">O(1)</td></tr>
+        <tr class="frag" data-step="2" data-sid="09-walk-array-vs-linked:20"><td data-sid="09-walk-array-vs-linked:21">add(newPosition, newEntry)</td><td data-sid="09-walk-array-vs-linked:22">O(n); O(n); O(1)</td><td data-sid="09-walk-array-vs-linked:23">O(1); O(n); O(n)</td><td data-sid="09-walk-array-vs-linked:24">O(1); O(n); O(1)</td></tr>
+        <tr class="frag" data-step="3" data-sid="09-walk-array-vs-linked:25"><td data-sid="09-walk-array-vs-linked:26">toArray()</td><td data-sid="09-walk-array-vs-linked:27">O(n)</td><td data-sid="09-walk-array-vs-linked:28">O(n)</td><td data-sid="09-walk-array-vs-linked:29">O(n)</td></tr>
+        <tr class="frag lt__hot" data-step="4" data-sid="09-walk-array-vs-linked:30"><td data-sid="09-walk-array-vs-linked:31">remove(givenPosition)</td><td data-sid="09-walk-array-vs-linked:32">O(n); O(n); O(1)</td><td data-sid="09-walk-array-vs-linked:33">O(1); O(n); O(n)</td><td data-sid="09-walk-array-vs-linked:34">O(1); O(n); O(n)</td></tr>
+        <tr class="frag" data-step="5" data-sid="09-walk-array-vs-linked:35"><td data-sid="09-walk-array-vs-linked:36">replace(givenPosition, newEntry)</td><td data-sid="09-walk-array-vs-linked:37">O(1)</td><td data-sid="09-walk-array-vs-linked:38">O(1); O(n); O(n)</td><td data-sid="09-walk-array-vs-linked:39">O(1); O(n); O(1)</td></tr>
+        <tr class="frag" data-step="6" data-sid="09-walk-array-vs-linked:40"><td data-sid="09-walk-array-vs-linked:41">getEntry(givenPosition)</td><td data-sid="09-walk-array-vs-linked:42">O(1)</td><td data-sid="09-walk-array-vs-linked:43">O(1); O(n); O(n)</td><td data-sid="09-walk-array-vs-linked:44">O(1); O(n); O(1)</td></tr>
+        <tr class="frag" data-step="7" data-sid="09-walk-array-vs-linked:45"><td data-sid="09-walk-array-vs-linked:46">contains(anEntry)</td><td data-sid="09-walk-array-vs-linked:47">O(n)</td><td data-sid="09-walk-array-vs-linked:48">O(n)</td><td data-sid="09-walk-array-vs-linked:49">O(n)</td></tr>
+        <tr class="frag" data-step="8" data-sid="09-walk-array-vs-linked:50"><td data-sid="09-walk-array-vs-linked:51">clear(), getLength(), isEmpty()</td><td data-sid="09-walk-array-vs-linked:52">O(1)</td><td data-sid="09-walk-array-vs-linked:53">O(1)</td><td data-sid="09-walk-array-vs-linked:54">O(1)</td></tr>
+      </tbody>
+    </table>
+    <p class="lt__note" data-sid="09-walk-array-vs-linked:55">Three efficiencies are given for first; middle; last positions when givenPosition is a parameter.</p>
+  </div>
+  <div class="slide__number" data-sid="09-walk-array-vs-linked:56"></div>
+  <aside class="notes" data-sid="09-walk-array-vs-linked:57">This is the table from the Efficiency of List Implementations video. Its column heads are &ldquo;Array Implementation&rdquo;, &ldquo;Singly-Linked Chain Implementation with Head Reference&rdquo; and &ldquo;Singly-Linked Chain Implementation with Head and Tail Reference&rdquo;. Where a cell has three costs, they are for the first, middle and last position. Step 1. add at the end: the array writes into the next free slot; a chain with only a head walks to the last node; the tail reference makes it one step. Step 2. add at a position: the array shifts every entry after the position, so it is cheap only at the end; the chain is cheap only where it already holds a reference. Step 3. toArray visits every entry in every design. Step 4. remove at a position, Vote 2&rsquo;s row: the array shifts entries left, so only the last position is O(1). Both chains are O(1) only at the front. The tail reference does not help, because removing the last node needs the node before it. Step 5 and step 6. replace and getEntry: the array reads any index in one step; a chain walks to the position, except the head, and the tail when there is one. Step 7. contains searches in every design. Step 8. clear, getLength and isEmpty are one step everywhere. A doubly linked list with a tail reference would change the last cost of remove to O(1), as the doubly linked row on the last slide showed; the video has no such column. Next is Part 3.</aside>
+
+  <style data-sid="09-walk-array-vs-linked:58">
+    /* Slide-local: one table filling the body width: the operation column
+       712 px in mono at --t-small with 8 px side padding (the longest name,
+       "replace(givenPosition, newEntry)", is 691 px), three 317 px cost columns in the body face at
+       --t-small ("O(1); O(n); O(n)" is 256 px), the heads on two lines; the
+       remove row in the orange 18% tint; the video's note under it in muted
+       --t-small. Rows fade in one per press (FadeIn only). Used by this slide
+       only, all values from tokens. */
+    #slide-09 .lt { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-09 .lt__t { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: var(--t-small); line-height: 1.3; }
+    #slide-09 .lt__t th { font-weight: 400; color: var(--fg-1); text-align: left; vertical-align: bottom; padding: 0 var(--s-1) var(--s-1); border-bottom: 3px solid var(--fg-1); }
+    #slide-09 .lt__t th:first-child { width: 712px; }
+    #slide-09 .lt__t td { padding: 6px var(--s-1); border-bottom: 2px solid var(--bg-1); color: var(--fg-0); white-space: nowrap; }
+    #slide-09 .lt__t td:first-child { font-family: var(--font-mono); }
+    #slide-09 .lt__t tr.frag { transition: opacity .3s ease; }
+    #slide-09 .lt__hot td { background: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    #slide-09 .slide__body p.lt__note { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09 .lt__t tr.frag { transition-duration: 0s !important; }
+    }
+  </style>
+</section>

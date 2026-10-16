@@ -1,0 +1,133 @@
+<section class="slide slide--warmup" id="slide-11b" data-sid="11b-walk-wildcard:1">
+  <header class="slide__head" data-sid="11b-walk-wildcard:2">
+    <p class="slide__kicker" data-sid="11b-walk-wildcard:3">GENERICS WITH BOUNDS &middot; THE VIDEO&rsquo;S WILDCARD</p>
+    <h2 data-sid="11b-walk-wildcard:4">One Comparator&lt;Number&gt; sorts an Integer[] and a Double[]</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11b-walk-wildcard:5">A walkthrough under a program-counter bar of the 9.2 video's declaration, static T void sort of T array items and Comparator of question mark super T comp, followed by our own code: class ByNum implements Comparator of Number; Integer array a equals 5, 2, 9; Double array d equals 2.5, 0.5; sort of a and a new ByNum; sort of d and a new ByNum. On the right, a small type tree with Number on top and Integer and Double under it, and the two arrays as cells. Step one: the declaration; Comparator of question mark super T accepts a Comparator for T or for any superclass of T. Step two: a pill reading Comparator of Number appears beside Number; ByNum compares any two Numbers by their double values. Step three: the two arrays appear: a holds 5, 2, 9 and d holds 2.5 and 0.5. Step four: in the first call T is Integer, and the path from Integer up to Number turns orange, because Number is a superclass of Integer. Step five: a is sorted; 5 and 2 trade places, and a holds 2, 5, 9. Step six: in the second call T is Double, and the path from Double up to Number turns orange. Step seven: d is sorted; its two values trade places. Step eight: question mark super T lets one Comparator of Number sort both arrays, because Number is a superclass of Integer and of Double.</p>
+
+  <!-- The 9.2 video's wildcard example (MoreOnGenerics.pdf pp. 10–13):
+       sort(T[] items, Comparator<? super T> comp) and its callout "you can
+       define a class that implements Comparator<Number> and use it to sort an
+       array of Integer objects or an array of Double objects", walked with
+       our own ByNum and two concrete arrays. The tree is the video's Number
+       hierarchy (p. 2) reduced to Number, Integer and Double. Values really
+       move into sorted order (translateX by one pitch). The slide does not
+       claim that Comparator<T> would fail here: with a T[] parameter Java
+       would infer T = Number. PLAN.md records why.
+       steps 1–3: the declaration, ByNum, the arrays.  steps 4–5: T = Integer.
+       steps 6–7: T = Double.  step 8: the plant. -->
+  <div class="slide__body grid grid--code code-mid wc" data-sid="11b-walk-wildcard:6">
+    <div class="editor wc__editor" data-sid="11b-walk-wildcard:7">
+      <p class="editor__bar" data-sid="11b-walk-wildcard:8">sort from the 9.2 video, with our ByNum</p>
+      <div class="editor__pc" data-sid="11b-walk-wildcard:9"></div>
+      <ol class="editor__code" data-sid="11b-walk-wildcard:10">
+        <li class="walkline frag" data-step="1" data-sid="11b-walk-wildcard:11"><span class="tok-key" data-sid="11b-walk-wildcard:12">static</span> &lt;T&gt; <span class="tok-key" data-sid="11b-walk-wildcard:13">void</span> sort(T[] items,</li>
+        <li class="walkline frag" data-step="1" data-sid="11b-walk-wildcard:14">    Comparator&lt;<span class="wc__w" data-sid="11b-walk-wildcard:15">? super T</span>&gt; comp)</li>
+        <li class="walkline frag" data-step="2" data-sid="11b-walk-wildcard:16"><span class="tok-key" data-sid="11b-walk-wildcard:17">class</span> ByNum</li>
+        <li class="walkline frag" data-step="2" data-sid="11b-walk-wildcard:18">    <span class="tok-key" data-sid="11b-walk-wildcard:19">implements</span> Comparator&lt;Number&gt; { &hellip; }</li>
+        <li class="walkline frag" data-step="3" data-sid="11b-walk-wildcard:20">Integer[] a = {<span class="tok-num" data-sid="11b-walk-wildcard:21">5</span>, <span class="tok-num" data-sid="11b-walk-wildcard:22">2</span>, <span class="tok-num" data-sid="11b-walk-wildcard:23">9</span>};</li>
+        <li class="walkline frag" data-step="3" data-sid="11b-walk-wildcard:24">Double[] d = {<span class="tok-num" data-sid="11b-walk-wildcard:25">2.5</span>, <span class="tok-num" data-sid="11b-walk-wildcard:26">0.5</span>};</li>
+        <li class="walkline frag" data-step="4" data-hold="5" data-sid="11b-walk-wildcard:27">sort(a, <span class="tok-key" data-sid="11b-walk-wildcard:28">new</span> ByNum());</li>
+        <li class="walkline frag" data-step="6" data-hold="7" data-sid="11b-walk-wildcard:29">sort(d, <span class="tok-key" data-sid="11b-walk-wildcard:30">new</span> ByNum());</li>
+      </ol>
+    </div>
+
+    <div class="codewalk wc__right" data-sid="11b-walk-wildcard:31">
+      <svg class="wc__fig" viewBox="0 0 796 320" role="img" aria-label="A type tree with Number above Integer and Double, a Comparator of Number pill beside Number, and two arrays, a holding 5, 2, 9 and d holding 2.5, 0.5, which are sorted in turn" data-sid="11b-walk-wildcard:32">
+        <!-- the tree -->
+        <g class="tree" data-sid="11b-walk-wildcard:33">
+          <path class="tree__ln" d="M470 56 V 88 H 320 V 120 M470 88 H 620 V 120" data-sid="11b-walk-wildcard:34"/>
+          <path class="tree__hot tree__hot--int" d="M320 120 V 88 H 470 V 60" data-sid="11b-walk-wildcard:35"/>
+          <path class="tree__hot tree__hot--dbl" d="M620 120 V 88 H 470 V 60" data-sid="11b-walk-wildcard:36"/>
+          <g class="tbox tbox--num" data-sid="11b-walk-wildcard:37"><rect x="380" y="0" width="180" height="56" rx="8" data-sid="11b-walk-wildcard:38"/><text x="470" y="38" data-sid="11b-walk-wildcard:39">Number</text></g>
+          <g class="tbox tbox--int" data-sid="11b-walk-wildcard:40"><rect x="230" y="120" width="180" height="56" rx="8" data-sid="11b-walk-wildcard:41"/><text x="320" y="158" data-sid="11b-walk-wildcard:42">Integer</text></g>
+          <g class="tbox tbox--dbl" data-sid="11b-walk-wildcard:43"><rect x="530" y="120" width="180" height="56" rx="8" data-sid="11b-walk-wildcard:44"/><text x="620" y="158" data-sid="11b-walk-wildcard:45">Double</text></g>
+        </g>
+        <g class="cmp" data-sid="11b-walk-wildcard:46"><rect x="0" y="6" width="340" height="44" rx="8" data-sid="11b-walk-wildcard:47"/><text x="170" y="37" data-sid="11b-walk-wildcard:48">Comparator&lt;Number&gt;</text><path d="M340 28 H 376" data-sid="11b-walk-wildcard:49"/></g>
+        <text class="tlab tlab--int" x="320" y="208" data-sid="11b-walk-wildcard:50">T is Integer</text>
+        <text class="tlab tlab--dbl" x="620" y="208" data-sid="11b-walk-wildcard:51">T is Double</text>
+
+        <!-- the arrays -->
+        <g class="arr" data-sid="11b-walk-wildcard:52">
+          <text class="arr__n" x="0" y="230" data-sid="11b-walk-wildcard:53">a</text>
+          <rect x="0" y="238" width="96" height="80" rx="8" data-sid="11b-walk-wildcard:54"/><rect x="108" y="238" width="96" height="80" rx="8" data-sid="11b-walk-wildcard:55"/><rect x="216" y="238" width="96" height="80" rx="8" data-sid="11b-walk-wildcard:56"/>
+          <text class="arr__v mv mv--a5" x="48" y="290" data-sid="11b-walk-wildcard:57">5</text>
+          <text class="arr__v mv mv--a2" x="156" y="290" data-sid="11b-walk-wildcard:58">2</text>
+          <text class="arr__v" x="264" y="290" data-sid="11b-walk-wildcard:59">9</text>
+          <text class="arr__n" x="420" y="230" data-sid="11b-walk-wildcard:60">d</text>
+          <rect x="420" y="238" width="120" height="80" rx="8" data-sid="11b-walk-wildcard:61"/><rect x="552" y="238" width="120" height="80" rx="8" data-sid="11b-walk-wildcard:62"/>
+          <text class="arr__v mv mv--d25" x="480" y="290" data-sid="11b-walk-wildcard:63">2.5</text>
+          <text class="arr__v mv mv--d05" x="612" y="290" data-sid="11b-walk-wildcard:64">0.5</text>
+        </g>
+      </svg>
+
+      <div class="codewalk__caps wc__caps" data-sid="11b-walk-wildcard:65">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="11b-walk-wildcard:66">Comparator&lt;? super T&gt; accepts a Comparator for T or for any superclass of T.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="11b-walk-wildcard:67">ByNum is a Comparator&lt;Number&gt;. It compares any two Numbers by their doubleValue().</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="11b-walk-wildcard:68">a is an Integer[] and d is a Double[].</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="11b-walk-wildcard:69">In sort(a, new ByNum()), T is Integer. Number is a superclass of Integer, so ByNum fits Comparator&lt;? super Integer&gt;.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="11b-walk-wildcard:70">sort compares the Integers with ByNum, and a becomes 2, 5, 9.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="11b-walk-wildcard:71">In sort(d, new ByNum()), T is Double. Number is a superclass of Double too.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="11b-walk-wildcard:72">The same ByNum sorts d, which becomes 0.5, 2.5.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="11b-walk-wildcard:73">? super T lets one Comparator&lt;Number&gt; sort both arrays, because Number is a superclass of Integer and of Double.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="11b-walk-wildcard:74"></div>
+  <aside class="notes" data-sid="11b-walk-wildcard:75">The 9.2 video ends with this declaration: public static &lt;T&gt; void sort(T[] items, Comparator&lt;? super T&gt; comp). Its callouts say that T should also appear in the parameter list, and that comp must implement Comparator for type T or for a superclass of type T, &ldquo;for example, you can define a class that implements Comparator&lt;Number&gt; and use it to sort an array of Integer objects or an array of Double objects.&rdquo; ByNum and the two arrays are ours. Comparator is next week&rsquo;s topic; for today, a Comparator has one method, compare(x, y), that returns a negative number, zero or a positive number, like compareTo. Step 1. ? is a placeholder for a class, and super T makes T its lower bound. Step 2. ByNum compares two Numbers by their double values. Step 3. Two arrays of different element types. Step 4. In the first call T is Integer, and Number is above Integer in the tree, so a Comparator&lt;Number&gt; is allowed. Step 5. sort uses it and a becomes 2, 5, 9. Steps 6 and 7. The same comparator sorts the Double array. Step 8. The video also shows ? extends Number, which means Number or any subclass of it, with Number as the upper bound; it has no code example for that one. If a student asks why not just Comparator&lt;T&gt;: for this array version, Java could pick T = Number and the call would still compile; the difference shows with List&lt;T&gt;, where a List&lt;Integer&gt; is not a List&lt;Number&gt;. Next week sorts with compareTo and with Comparators.</aside>
+
+  <style data-sid="11b-walk-wildcard:76">
+    /* Slide-local: the editor at --t-code, 820 px (the implements line is 39
+       characters: 39 × 19.2 + 70 = 819); on the right one 796 × 320 SVG at
+       1:1 and the captions under it. The tree is the video's Number
+       hierarchy cut to three boxes (labels at --t-micro), the Comparator
+       pill beside Number in blue (a tool), "? super T" in the code and the
+       path from T up to Number in orange when it is in use. Array cells 96 or
+       120 px with values at --t-small; on a sort the two values that trade
+       places really move (translateX by one pitch, 108 or 132 px). Motion:
+       the pill, the arrays and the T labels fade in; the orange path draws on
+       over the ink line (Create). States keyed to the caption frags with
+       :has(), in step order. Used by this slide only, all values from
+       tokens. */
+    #slide-11b .wc { grid-template-columns: 820px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-11b .wc__editor { width: 820px; }
+    #slide-11b .wc__fig { display: block; width: 796px; height: 320px; overflow: visible; }
+    #slide-11b .wc__caps { min-height: 150px; margin-top: var(--s-3); }
+    #slide-11b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-11b .wc__w { color: var(--accent-3); font-weight: 700; }
+
+    #slide-11b .tree__ln { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linejoin: round; }
+    #slide-11b .tree__hot { fill: none; stroke: var(--accent-3); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset .6s var(--ease-smooth); }
+    #slide-11b .tbox rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-11b .tbox text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11b .cmp { opacity: 0; transition: opacity .3s ease; }
+    #slide-11b .cmp rect { fill: var(--accent-2); }
+    #slide-11b .cmp text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-11b .cmp path { fill: none; stroke: var(--accent-2); stroke-width: 4; }
+    #slide-11b .tlab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+
+    #slide-11b .arr { opacity: 0; transition: opacity .3s ease; }
+    #slide-11b .arr rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-11b .arr__n { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-11b .arr__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11b .mv { transition: transform .7s var(--ease-smooth); }
+
+    /* ---- states, in step order ---- */
+    #slide-11b .wc:has(.cap--2:not(.is-pending)) .cmp { opacity: 1; }
+    #slide-11b .wc:has(.cap--3:not(.is-pending)) .arr { opacity: 1; }
+    #slide-11b .wc:has(.cap--4:not(.is-pending)) .tree__hot--int { stroke-dashoffset: 0; }
+    #slide-11b .wc:has(.cap--4:not(.is-pending)) .tlab--int { opacity: 1; }
+    #slide-11b .wc:has(.cap--5:not(.is-pending)) .mv--a5 { transform: translateX(108px); }
+    #slide-11b .wc:has(.cap--5:not(.is-pending)) .mv--a2 { transform: translateX(-108px); }
+    #slide-11b .wc:has(.cap--6:not(.is-pending)) .tree__hot--int { stroke-dashoffset: 400; }
+    #slide-11b .wc:has(.cap--6:not(.is-pending)) .tlab--int { opacity: 0; }
+    #slide-11b .wc:has(.cap--6:not(.is-pending)) .tree__hot--dbl { stroke-dashoffset: 0; transition-delay: .3s; }
+    #slide-11b .wc:has(.cap--6:not(.is-pending)) .tlab--dbl { opacity: 1; }
+    #slide-11b .wc:has(.cap--7:not(.is-pending)) .mv--d25 { transform: translateX(132px); }
+    #slide-11b .wc:has(.cap--7:not(.is-pending)) .mv--d05 { transform: translateX(-132px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11b .tree__hot, #slide-11b .cmp, #slide-11b .tlab, #slide-11b .arr, #slide-11b .mv { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

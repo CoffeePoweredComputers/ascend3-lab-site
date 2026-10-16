@@ -1,0 +1,64 @@
+<section class="slide slide--warmup" id="slide-07a2" data-sid="07a2-vote-dllremove-e:1">
+  <header class="slide__head" data-sid="07a2-vote-dllremove-e:2">
+    <p class="slide__kicker" data-sid="07a2-vote-dllremove-e:3">PEER INSTRUCTION &middot; VOTE 1 &middot; OPTION E</p>
+    <h2 data-sid="07a2-vote-dllremove-e:4">Option E for Vote 1</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07a2-vote-dllremove-e:5">The third of three slides with the options of Vote 1. Left, option E: if firstNode equals lastNode, firstNode equals null and lastNode equals null; else, inside it: if curr equals firstNode, firstNode equals curr dot getNext and firstNode dot setPrev of null; else if curr equals lastNode, lastNode equals curr dot getPrev and lastNode dot setNext of null; else curr dot getPrevious dot setNext of curr dot getNext, and curr dot getNext dot setPrev of curr dot getPrev. Right, the stem again: which of the following would remove the Node referenced by the non-null variable curr from items, a non-empty doubly linked list with references firstNode and lastNode without sentinel nodes? Assume that curr has access to methods getPrevious, setPrevious of Node n, getNext, and setNext of Node n. Also, items has access to getSize. Nothing builds.</p>
+
+  <!-- Vote 1, option E, in 07's card, with the stem repeated on the right so
+       that the last screen of the vote carries the question. E is 19 lines:
+       at --t-code it would be about 730 px and does not fit, so it stays at
+       --t-micro like the other options. Static. -->
+  <div class="slide__body vo" data-sid="07a2-vote-dllremove-e:6">
+    <div class="vc" data-sid="07a2-vote-dllremove-e:7">
+      <p class="vc__key" data-sid="07a2-vote-dllremove-e:8">E</p>
+      <ol class="editor__code vc__code" data-sid="07a2-vote-dllremove-e:9">
+        <li data-sid="07a2-vote-dllremove-e:10"><span class="tok-key" data-sid="07a2-vote-dllremove-e:11">if</span> (firstNode == lastNode) {</li>
+        <li data-sid="07a2-vote-dllremove-e:12">    firstNode = <span class="tok-key" data-sid="07a2-vote-dllremove-e:13">null</span>;</li>
+        <li data-sid="07a2-vote-dllremove-e:14">    lastNode = <span class="tok-key" data-sid="07a2-vote-dllremove-e:15">null</span>;</li>
+        <li data-sid="07a2-vote-dllremove-e:16">}</li>
+        <li data-sid="07a2-vote-dllremove-e:17"><span class="tok-key" data-sid="07a2-vote-dllremove-e:18">else</span> {</li>
+        <li data-sid="07a2-vote-dllremove-e:19">    <span class="tok-key" data-sid="07a2-vote-dllremove-e:20">if</span> (curr == firstNode)</li>
+        <li data-sid="07a2-vote-dllremove-e:21">    {</li>
+        <li data-sid="07a2-vote-dllremove-e:22">        firstNode = curr.getNext();</li>
+        <li data-sid="07a2-vote-dllremove-e:23">        firstNode.setPrev(<span class="tok-key" data-sid="07a2-vote-dllremove-e:24">null</span>);</li>
+        <li data-sid="07a2-vote-dllremove-e:25">    }</li>
+        <li data-sid="07a2-vote-dllremove-e:26">    <span class="tok-key" data-sid="07a2-vote-dllremove-e:27">else if</span> (curr == lastNode) {</li>
+        <li data-sid="07a2-vote-dllremove-e:28">        lastNode = curr.getPrev();</li>
+        <li data-sid="07a2-vote-dllremove-e:29">        lastNode.setNext(<span class="tok-key" data-sid="07a2-vote-dllremove-e:30">null</span>);</li>
+        <li data-sid="07a2-vote-dllremove-e:31">    }</li>
+        <li data-sid="07a2-vote-dllremove-e:32">    <span class="tok-key" data-sid="07a2-vote-dllremove-e:33">else</span> {</li>
+        <li data-sid="07a2-vote-dllremove-e:34">        curr.getPrevious().setNext(curr.getNext());</li>
+        <li data-sid="07a2-vote-dllremove-e:35">        curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07a2-vote-dllremove-e:36">    }</li>
+        <li data-sid="07a2-vote-dllremove-e:37">}</li>
+      </ol>
+    </div>
+    <p class="vote__stem vo__stem" data-sid="07a2-vote-dllremove-e:38">Which of the following would remove the Node referenced by the non-null variable curr from items, a non-empty doubly linked list with references firstNode and lastNode without sentinel nodes? Assume that curr has access to methods getPrevious(), setPrevious(Node n), getNext(), and setNext(Node n). Also, items has access to getSize().</p>
+  </div>
+  <div class="slide__number" data-sid="07a2-vote-dllremove-e:39"></div>
+  <aside class="notes" data-sid="07a2-vote-dllremove-e:40">Answer: E &mdash; [key assumed from the PrairieLearn twin u11q06_dll_d; confirm in Runestone]. Option E, quoted as it appears in Runestone. The twin in PrairieLearn has if (curr == lastNode) where Runestone has else if; the slide follows Runestone. After this slide, go back to the vote slide for the clocks if they are still running, then to the answer.</aside>
+
+  <style data-sid="07a2-vote-dllremove-e:41">
+    /* Slide-local: 07's card for E (881 px: the 51-character lines are 857 px
+       at --t-micro plus 12 px side padding), with the 48 px key disc to the
+       LEFT of the pane rather than above it (above, the 19 lines ran to
+       737 px, past the body), and the stem at --t-small in the remaining
+       671 px on the right, top-aligned. Pane: --t-micro mono, line-height
+       1.25, no line numbers (about 681 px). Static; used by this slide only,
+       all values from tokens. */
+    #slide-07a2 .vo { display: grid; grid-template-columns: 945px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-07a2 .slide__body p.vo__stem { margin: 0; max-width: none; color: var(--fg-0); }
+    #slide-07a2 .vc { display: grid; grid-template-columns: 48px 881px; column-gap: var(--s-2); align-items: start; }
+    #slide-07a2 .slide__body p.vc__key {
+      display: grid; place-items: center; width: 48px; height: 48px; margin: 0; box-sizing: border-box;
+      border: 3px solid var(--accent-1); border-radius: 50%;
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 1; color: var(--accent-1);
+    }
+    #slide-07a2 .slide__body .vc__code {
+      padding: 4px 12px; border-radius: var(--r-2);
+      background: var(--bg-1); font-size: var(--t-micro); line-height: 1.25;
+    }
+    #slide-07a2 .vc__code li::before { content: none; }
+  </style>
+</section>

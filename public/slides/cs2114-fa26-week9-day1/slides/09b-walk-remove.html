@@ -1,0 +1,182 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-remove:1">
+  <header class="slide__head" data-sid="09b-walk-remove:2">
+    <p class="slide__kicker" data-sid="09b-walk-remove:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="09b-walk-remove:4">With a tail reference, removing the last node also has to move tail</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09b-walk-remove:5">A walkthrough of remove with head and tail references under a program-counter bar: void remove of int p; if p equals 0, head equals head dot next; else Node nodeBefore equals getNodeAt of p minus 1, Node nodeToRemove equals nodeBefore dot next, nodeBefore dot next equals nodeToRemove dot next, and if nodeToRemove equals tail, tail equals nodeBefore. On the right, four nodes holding A, B, C and D, linked left to right, with a blue head pill referring to A and a blue tail pill referring to D. Steps one to five, remove of 2: a blue nodeBefore ring appears on A and moves to B; an orange nodeToRemove ring grows on C; B's arrow re-points over C to D and C turns grey; C is not tail, so the if is skipped; C and the rings fade. Step six, remove of 0: p is 0, so head re-points from A to B and A fades. Steps seven to eleven, remove of 1, the last node: the nodeBefore ring appears on B and the nodeToRemove ring on D; B's next arrow is removed and B's next reads null, while tail still refers to D, which turns grey; nodeToRemove equals tail is true; tail re-points from D to B, and D fades. Step twelve: C is ruled out, because the first node has no node before it. Step thirteen: D is ruled out, because it points a node backwards and loses the rest of the chain. Step fourteen: the four options as short labels, with A, C and D struck through and B, the first and last nodes are special cases, not struck.</p>
+
+  <!-- The answer as a walk of remove with the vote's head and tail (06's
+       method plus the p == 0 branch and the tail test; positions from 0),
+       three calls on one list: the middle (C), the first (A), the last (D).
+       Option A's missing case is the state after press 9: the chain is
+       right, tail is not. The long options come back in the verdict as short
+       labels.
+       steps 1–5: remove(2).  step 6: remove(0).  steps 7–11: remove(1).
+       steps 12–13: C and D ruled out.  step 14: the verdict. -->
+  <div class="slide__body grid grid--code code-mid rt" data-sid="09b-walk-remove:6">
+    <div class="editor rt__editor" data-sid="09b-walk-remove:7">
+      <div class="editor__pc" data-sid="09b-walk-remove:8"></div>
+      <ol class="editor__code" data-sid="09b-walk-remove:9">
+        <li data-sid="09b-walk-remove:10"><span class="tok-key" data-sid="09b-walk-remove:11">void</span> remove(<span class="tok-key" data-sid="09b-walk-remove:12">int</span> p) {</li>
+        <li class="walkline frag" data-step="6" data-sid="09b-walk-remove:13">    <span class="tok-key" data-sid="09b-walk-remove:14">if</span> (p == <span class="tok-num" data-sid="09b-walk-remove:15">0</span>) {</li>
+        <li class="walkline frag" data-step="6" data-sid="09b-walk-remove:16">        head = head.next;</li>
+        <li data-sid="09b-walk-remove:17">    } <span class="tok-key" data-sid="09b-walk-remove:18">else</span> {</li>
+        <li class="walkline frag" data-step="1" data-hold="2" data-also="7" data-sid="09b-walk-remove:19">        Node nodeBefore = getNodeAt(p - <span class="tok-num" data-sid="09b-walk-remove:20">1</span>);</li>
+        <li class="walkline frag" data-step="3" data-also="8" data-sid="09b-walk-remove:21">        Node nodeToRemove = nodeBefore.next;</li>
+        <li class="walkline frag" data-step="4" data-also="9" data-sid="09b-walk-remove:22">        nodeBefore.next = nodeToRemove.next;</li>
+        <li class="walkline frag" data-step="5" data-also="10" data-sid="09b-walk-remove:23">        <span class="tok-key" data-sid="09b-walk-remove:24">if</span> (nodeToRemove == tail)</li>
+        <li class="walkline frag" data-step="11" data-sid="09b-walk-remove:25">            tail = nodeBefore;</li>
+        <li data-sid="09b-walk-remove:26">    }</li>
+        <li data-sid="09b-walk-remove:27">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk rt__right" data-sid="09b-walk-remove:28">
+      <svg class="rt__fig" viewBox="0 0 701 240" role="img" aria-label="A list A, B, C, D with head and tail pills; C, then A, then D are removed, and when D is removed tail swings back to B" data-sid="09b-walk-remove:29">
+        <defs data-sid="09b-walk-remove:30">
+          <marker id="w9d1-09b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="09b-walk-remove:31"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="09b-walk-remove:32"/></marker>
+        </defs>
+
+        <g class="pill pill--head" data-sid="09b-walk-remove:33"><rect x="0" y="0" width="120" height="44" rx="8" data-sid="09b-walk-remove:34"/><text x="60" y="31" data-sid="09b-walk-remove:35">head</text></g>
+        <g class="pill pill--tail" data-sid="09b-walk-remove:36"><rect x="520" y="0" width="120" height="44" rx="8" data-sid="09b-walk-remove:37"/><text x="580" y="31" data-sid="09b-walk-remove:38">tail</text></g>
+
+        <g class="nd nd--a" data-sid="09b-walk-remove:39">
+          <rect class="nd__box" x="0" y="100" width="140" height="80" rx="10" data-sid="09b-walk-remove:40"/><path class="nd__div" d="M75 100v80" data-sid="09b-walk-remove:41"/>
+          <text class="nd__v" x="37" y="152" data-sid="09b-walk-remove:42">A</text>
+          <path class="lnk" d="M107 140 C 140 140, 160 140, 179 140" data-sid="09b-walk-remove:43"/>
+        </g>
+        <g class="nd nd--b" data-sid="09b-walk-remove:44">
+          <rect class="nd__box" x="185" y="100" width="140" height="80" rx="10" data-sid="09b-walk-remove:45"/>
+          <rect class="nd__wash" x="263" y="103" width="59" height="74" rx="7" data-sid="09b-walk-remove:46"/>
+          <path class="nd__div" d="M260 100v80" data-sid="09b-walk-remove:47"/>
+          <text class="nd__v" x="222" y="152" data-sid="09b-walk-remove:48">B</text>
+          <text class="nd__nl nd__nl--b" x="292" y="150" data-sid="09b-walk-remove:49">null</text>
+        </g>
+        <g class="nd nd--c" data-sid="09b-walk-remove:50">
+          <rect class="nd__box" x="370" y="100" width="140" height="80" rx="10" data-sid="09b-walk-remove:51"/><path class="nd__div" d="M445 100v80" data-sid="09b-walk-remove:52"/>
+          <text class="nd__v" x="407" y="152" data-sid="09b-walk-remove:53">C</text>
+          <path class="lnk" d="M477 140 C 510 140, 530 140, 549 140" data-sid="09b-walk-remove:54"/>
+        </g>
+        <g class="nd nd--d" data-sid="09b-walk-remove:55">
+          <rect class="nd__box" x="555" y="100" width="140" height="80" rx="10" data-sid="09b-walk-remove:56"/><path class="nd__div" d="M630 100v80" data-sid="09b-walk-remove:57"/>
+          <text class="nd__v" x="592" y="152" data-sid="09b-walk-remove:58">D</text>
+          <text class="nd__nl" x="662" y="150" data-sid="09b-walk-remove:59">null</text>
+        </g>
+
+        <!-- B's next: to C, over C to D (4), gone (9) -->
+        <path class="ref ref--b" data-swing='[[4,"M292 140 C 310 50, 600 50, 610 94"]]' d="M292 140 C 325 140, 345 140, 364 140" data-sid="09b-walk-remove:60"/>
+        <!-- head: A, then B (6); tail: D, then B (11) -->
+        <path class="ref ref--head" data-swing='[[6,"M60 44 C 60 70, 222 66, 222 96"]]' d="M60 44 C 60 64, 37 76, 37 96" data-sid="09b-walk-remove:61"/>
+        <path class="ref ref--tail" data-swing='[[11,"M580 44 C 580 80, 240 60, 240 96"]]' d="M580 44 C 580 64, 592 76, 592 96" data-sid="09b-walk-remove:62"/>
+
+        <!-- the locals: one pair per call -->
+        <g class="ring ring--before ring--1 frag" data-step="1" data-sid="09b-walk-remove:63"><rect x="-10" y="90" width="160" height="100" rx="14" data-sid="09b-walk-remove:64"/><text x="-6" y="216" data-sid="09b-walk-remove:65">nodeBefore</text></g>
+        <g class="ring ring--remove ring--3 frag" data-step="3" data-sid="09b-walk-remove:66"><rect x="360" y="90" width="160" height="100" rx="14" data-sid="09b-walk-remove:67"/><text x="364" y="216" data-sid="09b-walk-remove:68">nodeToRemove</text></g>
+        <g class="ring ring--before ring--7 frag" data-step="7" data-sid="09b-walk-remove:69"><rect x="175" y="90" width="160" height="100" rx="14" data-sid="09b-walk-remove:70"/><text x="179" y="216" data-sid="09b-walk-remove:71">nodeBefore</text></g>
+        <g class="ring ring--remove ring--8 frag" data-step="8" data-sid="09b-walk-remove:72"><rect x="547" y="90" width="154" height="100" rx="14" data-sid="09b-walk-remove:73"/><text x="701" y="216" style="text-anchor: end" data-sid="09b-walk-remove:74">nodeToRemove</text></g>
+      </svg>
+      <div class="codewalk__caps rt__caps" data-sid="09b-walk-remove:75">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="09b-walk-remove:76">remove(2) on A, B, C, D. p is not 0, so getNodeAt(1) starts at head, at A.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="09b-walk-remove:77">It moves one node along, so nodeBefore refers to B.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="09b-walk-remove:78">nodeToRemove = nodeBefore.next, so nodeToRemove refers to C.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="09b-walk-remove:79">B&rsquo;s next is set to D. The chain no longer includes C.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="09b-walk-remove:80">C is not tail, so the if is skipped. The list is A, B, D.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="09b-walk-remove:81">remove(0) removes A. A has no node before it, so head = head.next.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="09b-walk-remove:82">remove(1) removes D, the last node. getNodeAt(0) returns B.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="09b-walk-remove:83">nodeToRemove refers to D.</p>
+        <p class="walkcap walkcap--fail cap--9 frag" data-step="9" data-sid="09b-walk-remove:84">B&rsquo;s next is set to D&rsquo;s next, which is null. tail still refers to D. Option A stops here.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="09b-walk-remove:85">nodeToRemove == tail is true, because D was the last node.</p>
+        <p class="walkcap cap--11 frag" data-step="11" data-sid="09b-walk-remove:86">tail = nodeBefore, so tail now refers to B. The list is B.</p>
+        <p class="walkcap cap--12 frag" data-step="12" data-sid="09b-walk-remove:87">C treats the first node like the others, but the first node has no node before it.</p>
+        <p class="walkcap cap--13 frag" data-step="13" data-sid="09b-walk-remove:88">D sets a node&rsquo;s next to the node before it. That points backwards and loses the rest of the chain.</p>
+        <ol class="verdict frag" data-step="14" data-sid="09b-walk-remove:89">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="09b-walk-remove:90"><span class="verdict__txt" data-sid="09b-walk-remove:91">the first node is special</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="09b-walk-remove:92"><span class="verdict__txt" data-sid="09b-walk-remove:93">the first and last are special</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="09b-walk-remove:94"><span class="verdict__txt" data-sid="09b-walk-remove:95">the last node is special</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="09b-walk-remove:96"><span class="verdict__txt" data-sid="09b-walk-remove:97">next set to the node before</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-remove:98"></div>
+  <aside class="notes" data-sid="09b-walk-remove:99">Answer: B &mdash; If it&rsquo;s not the first or last node, &hellip; Removing the first or last node would each be a special case. [ASSUMED from the PL twin u11q05_sll_removenode_d; confirm in Runestone&rsquo;s results view]. This is slide 06&rsquo;s remove with the vote&rsquo;s names, head and tail, and two additions: the branch for position 0 and the test for the last node. Three calls on one list. Steps 1 to 5. remove(2), the middle. getNodeAt walks to B, nodeToRemove is C, B&rsquo;s next is set to D, and C is not tail, so nothing else changes. Step 6. remove(0), the first node. There is no node before A, so the general steps cannot run; head moves to the next node instead. That is the first special case, and A, B and D all name it. Steps 7 and 8. remove(1) on B, D: D is the last node. nodeBefore is B, nodeToRemove is D. Step 9. B&rsquo;s next is set to null, so the chain is right. But tail still refers to D, a node that is no longer in the list, and the next addLast would link the new node after D. This is where option A&rsquo;s steps end. Steps 10 and 11. Because the list keeps a tail, removing the last node also has to move tail back to the node before it. That is the second special case, and only B names it. Step 12. C names the last node and not the first, but the first node has no node before it to reset. Step 13. D sets the found node&rsquo;s next to point backwards. Nothing skips the node, and the nodes after it are lost. Step 14. The answer is B. One more case the code leaves out: removing the only node, where head becomes null and tail has to become null as well. Next is this week&rsquo;s work.</aside>
+
+  <style data-sid="09b-walk-remove:100">
+    /* Slide-local: the editor at --t-code with no bar (11 lines), 915 px:
+       the nodeToRemove lines are 44 characters, 44 × 19.2 + 70 = 915. On the
+       right one 701 × 240 SVG at 1:1, the captions under it with the verdict
+       in the same cell (four rows in the body face at --t-small, the longest
+       label 32 characters, about 640 px; the cell reserves 205). Node boxes
+       140 × 80 with values only (06 names the parts) on a 185 px pitch. The
+       rings are 06's: nodeBefore blue, nodeToRemove orange, one pair per
+       call. Motion: the first nodeBefore ring moves one pitch
+       (translateX(185px)); rings GrowFromCenter or FadeIn and fade on the
+       return; B's next, head and tail swing (d transition, same-shaped
+       cubics, data-swing for Safari); B's next fades at step 9 and its null
+       fades in; removed nodes turn stone, then fade. States keyed to the
+       caption frags with :has(), in step order. Used by this slide only, all
+       values from tokens. */
+    #slide-09b .rt { grid-template-columns: 915px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-09b .rt__editor { width: 915px; }
+    #slide-09b .rt__fig { display: block; width: 701px; height: 240px; overflow: visible; }
+    #slide-09b .rt__caps { min-height: 205px; }
+    #slide-09b .rt__caps .verdict { grid-area: 1 / 1; flex-direction: column; align-self: start; font-family: var(--font-body); font-size: var(--t-small); }
+    #slide-09b .walkcap--fail { color: var(--accent-1); }
+
+    #slide-09b .pill rect { fill: var(--accent-2); stroke: transparent; stroke-width: 5; transition: stroke .3s ease; }
+    #slide-09b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-09b .nd { transition: opacity .4s ease; }
+    #slide-09b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-09b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; transition: stroke .3s ease; }
+    #slide-09b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; transition: fill .3s ease; }
+    #slide-09b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; transition: opacity .3s ease; }
+    #slide-09b .nd__nl--b { opacity: 0; }
+    #slide-09b .nd__wash { fill: color-mix(in srgb, var(--accent-3) 22%, var(--bg-1)); opacity: 0; transition: opacity .3s ease; }
+    #slide-09b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-09b-head); }
+    #slide-09b .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-09b-head); transition: d .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-09b .ref--head, #slide-09b .ref--tail { stroke-width: 5; }
+
+    #slide-09b .ring rect { fill: none; stroke-width: 5; }
+    #slide-09b .ring text { font-family: var(--font-mono); font-size: var(--t-micro); text-anchor: start; }
+    #slide-09b .ring--before rect { stroke: var(--accent-2); }
+    #slide-09b .ring--before text { fill: var(--accent-2); }
+    #slide-09b .ring--remove rect { stroke: var(--accent-3); }
+    #slide-09b .ring--remove text { fill: var(--accent-3); }
+    #slide-09b .ring { transition: opacity .3s ease, transform .6s var(--ease-smooth); }
+    #slide-09b .ring--remove { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-09b .frag.ring--remove.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    /* remove(2) */
+    #slide-09b .rt:has(.cap--2:not(.is-pending)) .ring--1 { transform: translateX(185px); }
+    #slide-09b .rt:has(.cap--4.is-current) .nd--b .nd__wash { opacity: 1; }
+    #slide-09b .rt:has(.cap--4:not(.is-pending)) .ref--b { d: path("M292 140 C 310 50, 600 50, 610 94"); }
+    #slide-09b .rt:has(.cap--4:not(.is-pending)) .nd--c .nd__box { fill: var(--bg-0); stroke: var(--stone); }
+    #slide-09b .rt:has(.cap--4:not(.is-pending)) .nd--c .nd__div { stroke: var(--stone); }
+    #slide-09b .rt:has(.cap--4:not(.is-pending)) .nd--c .nd__v { fill: var(--stone); }
+    #slide-09b .rt:has(.cap--5:not(.is-pending)) .nd--c,
+    #slide-09b .rt:has(.cap--5:not(.is-pending)) .ring--1,
+    #slide-09b .rt:has(.cap--5:not(.is-pending)) .ring--3 { opacity: 0; transition-delay: .3s; }
+    /* remove(0) */
+    #slide-09b .rt:has(.cap--6.is-current) .pill--head rect { stroke: var(--accent-3); }
+    #slide-09b .rt:has(.cap--6:not(.is-pending)) .ref--head { d: path("M60 44 C 60 70, 222 66, 222 96"); }
+    #slide-09b .rt:has(.cap--6:not(.is-pending)) .nd--a { opacity: 0; transition-delay: .6s; }
+    /* remove(1): the last node */
+    #slide-09b .rt:has(.cap--9.is-current) .nd--b .nd__wash { opacity: 1; }
+    #slide-09b .rt:has(.cap--9:not(.is-pending)) .ref--b { opacity: 0; }
+    #slide-09b .rt:has(.cap--9:not(.is-pending)) .nd__nl--b { opacity: 1; transition-delay: .3s; }
+    #slide-09b .rt:has(.cap--9:not(.is-pending)) .nd--d .nd__box { fill: var(--bg-0); stroke: var(--stone); }
+    #slide-09b .rt:has(.cap--9:not(.is-pending)) .nd--d .nd__div { stroke: var(--stone); }
+    #slide-09b .rt:has(.cap--9:not(.is-pending)) .nd--d .nd__v { fill: var(--stone); }
+    #slide-09b .rt:has(.cap--11.is-current) .pill--tail rect { stroke: var(--accent-3); }
+    #slide-09b .rt:has(.cap--11:not(.is-pending)) .ref--tail { d: path("M580 44 C 580 80, 240 60, 240 96"); }
+    #slide-09b .rt:has(.cap--11:not(.is-pending)) .nd--d,
+    #slide-09b .rt:has(.cap--11:not(.is-pending)) .ring--7,
+    #slide-09b .rt:has(.cap--11:not(.is-pending)) .ring--8 { opacity: 0; transition-delay: .6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .pill rect, #slide-09b .nd, #slide-09b .nd__box, #slide-09b .nd__div, #slide-09b .nd__v, #slide-09b .nd__nl, #slide-09b .nd__wash,
+      #slide-09b .ref, #slide-09b .ring, #slide-09b .ring--remove { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

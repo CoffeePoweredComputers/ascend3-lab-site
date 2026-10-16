@@ -1,0 +1,84 @@
+<section class="slide slide--warmup" id="slide-07" data-sid="07-vote-dllremove:1">
+  <header class="slide__head" data-sid="07-vote-dllremove:2">
+    <p class="slide__kicker" data-sid="07-vote-dllremove:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="07-vote-dllremove:4">Which code removes curr from a doubly linked list?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="07-vote-dllremove:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="07-vote-dllremove:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="07-vote-dllremove:7"/><g class="timer__ticks" data-sid="07-vote-dllremove:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="07-vote-dllremove:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="07-vote-dllremove:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="07-vote-dllremove:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="07-vote-dllremove:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="07-vote-dllremove:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="07-vote-dllremove:14"/><g class="timer__hand" data-sid="07-vote-dllremove:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="07-vote-dllremove:16"/></g><text class="timer__time" x="75" y="88" data-sid="07-vote-dllremove:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="07-vote-dllremove:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="07-vote-dllremove:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="07-vote-dllremove:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="07-vote-dllremove:21"/><g class="timer__ticks" data-sid="07-vote-dllremove:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="07-vote-dllremove:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="07-vote-dllremove:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="07-vote-dllremove:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="07-vote-dllremove:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="07-vote-dllremove:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="07-vote-dllremove:28"/><g class="timer__hand" data-sid="07-vote-dllremove:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="07-vote-dllremove:30"/></g><text class="timer__time" x="75" y="88" data-sid="07-vote-dllremove:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="07-vote-dllremove:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="07-vote-dllremove:33">A peer-instruction question, the first of three slides that show its five options. Left, the stem: which of the following would remove the Node referenced by the non-null variable curr from items, a non-empty doubly linked list with references firstNode and lastNode without sentinel nodes? Assume that curr has access to methods getPrevious, setPrevious of Node n, getNext, and setNext of Node n. Also, items has access to getSize. Under the stem, option A, two lines: curr dot getPrevious dot setNext of curr dot getNext; curr dot getNext dot setPrev of curr dot getPrev. Right, option B: if list dot getSize equals 1, then the same two lines followed by lastNode equals firstNode; else the same two lines. Options C, D and E are on the next two slides. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- Vote 1 is five code options, 57 lines in all. At --t-micro mono the
+       47-character lines are 790 px, so two cards fit side by side only
+       without line numbers, and A–D with the stem would be about 1090 px
+       tall. The vote is therefore three slides: this one (the stem, A under
+       it, B beside them), 07a (C and D) and 07a2 (E, with the stem again).
+       The clocks are here only. The code is quoted from the Runestone paste
+       with every quirk (getPrev/setPrev, which the stem does not list;
+       list.getSize() though the list is items). Static: only the clocks
+       build; 07b walks E. Runestone: Peer Instruction W09D2, question 1. -->
+  <div class="slide__body vo" data-sid="07-vote-dllremove:34">
+    <div class="vo__left" data-sid="07-vote-dllremove:35">
+      <p class="vote__stem vo__stem" data-sid="07-vote-dllremove:36">Which of the following would remove the Node referenced by the non-null variable curr from items, a non-empty doubly linked list with references firstNode and lastNode without sentinel nodes? Assume that curr has access to methods getPrevious(), setPrevious(Node n), getNext(), and setNext(Node n). Also, items has access to getSize().</p>
+      <div class="vc" data-sid="07-vote-dllremove:37">
+        <p class="vc__key" data-sid="07-vote-dllremove:38">A</p>
+        <ol class="editor__code vc__code" data-sid="07-vote-dllremove:39">
+          <li data-sid="07-vote-dllremove:40">curr.getPrevious().setNext(curr.getNext());</li>
+          <li data-sid="07-vote-dllremove:41">curr.getNext().setPrev(curr.getPrev());</li>
+        </ol>
+      </div>
+    </div>
+    <div class="vc" data-sid="07-vote-dllremove:42">
+      <p class="vc__key" data-sid="07-vote-dllremove:43">B</p>
+      <ol class="editor__code vc__code" data-sid="07-vote-dllremove:44">
+        <li data-sid="07-vote-dllremove:45"><span class="tok-key" data-sid="07-vote-dllremove:46">if</span>(list.getSize() == <span class="tok-num" data-sid="07-vote-dllremove:47">1</span>)</li>
+        <li data-sid="07-vote-dllremove:48">{</li>
+        <li data-sid="07-vote-dllremove:49">    curr.getPrevious().setNext(curr.getNext());</li>
+        <li data-sid="07-vote-dllremove:50">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07-vote-dllremove:51">    lastNode = firstNode;</li>
+        <li data-sid="07-vote-dllremove:52">}</li>
+        <li data-sid="07-vote-dllremove:53"><span class="tok-key" data-sid="07-vote-dllremove:54">else</span> {</li>
+        <li data-sid="07-vote-dllremove:55">    curr.getPrevious().setNext(curr.getNext());</li>
+        <li data-sid="07-vote-dllremove:56">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07-vote-dllremove:57">}</li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07-vote-dllremove:58"></div>
+  <aside class="notes" data-sid="07-vote-dllremove:59">Answer: E &mdash; the option that tests firstNode == lastNode, then curr == firstNode, then curr == lastNode, before the general lines [key assumed from the PrairieLearn twin u11q06_dll_d; confirm in Runestone&rsquo;s results view before class]. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. The five options do not fit one screen: this slide has the stem, A and B; the next two have C and D, then E. Students have all five on their laptops. Show the next two slides during the vote, then come back here or go on. Ask the groups to try each option on three lists: one node, curr on the first node, curr on the last node. Note for the room if asked: the stem lists getPrevious and setPrevious, but the options also call getPrev and setPrev; treat them as the same methods. Runestone: Peer Instruction W09D2, question 1 of 2.</aside>
+
+  <style data-sid="07-vote-dllremove:60">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js). Copied from W8D1 08. */
+    #slide-07 .timer { top: var(--s-6); }
+    #slide-07 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-07 .frag.timer.is-past { opacity: .55; }
+    #slide-07 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-07 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-07 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: two 820 px columns with a 24 px gap. Left, the stem at
+       --t-small (8 lines at 806 px, PIL) and card A under it; right, card B.
+       A card is a 48 px maroon key disc above a tinted code pane at
+       --t-micro mono, line-height 1.25, 12 px side padding and no line
+       numbers: B's 47-character lines are 790 px, so a gutter would push
+       the second column past the body. The same card on 07a and 07a2. Static;
+       used by this slide only, all values from tokens. */
+    #slide-07 .vo { display: grid; grid-template-columns: 820px 820px; column-gap: var(--s-3); align-items: start; }
+    #slide-07 .vo__left { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-07 .slide__body p.vo__stem { margin: 0; max-width: none; color: var(--fg-0); }
+    #slide-07 .vc { display: grid; row-gap: var(--s-1); justify-items: start; }
+    #slide-07 .slide__body p.vc__key {
+      display: grid; place-items: center; width: 48px; height: 48px; margin: 0; box-sizing: border-box;
+      border: 3px solid var(--accent-1); border-radius: 50%;
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 1; color: var(--accent-1);
+    }
+    #slide-07 .slide__body .vc__code {
+      justify-self: stretch; padding: var(--s-1) 12px; border-radius: var(--r-2);
+      background: var(--bg-1); font-size: var(--t-micro); line-height: 1.25;
+    }
+    #slide-07 .vc__code li::before { content: none; }
+  </style>
+</section>

@@ -1,0 +1,131 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-queue:1">
+  <header class="slide__head" data-sid="02c-bridge-queue:2">
+    <p class="slide__kicker" data-sid="02c-bridge-queue:3">FROM WEEK 8 TO WEEK 9</p>
+    <h2 data-sid="02c-bridge-queue:4">A list can add and remove at any position</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-queue:5">A bridge from last week to this week, built in four presses. Press one: on the left, Week 8's linked queue: three nodes holding A, B and C, each with a data part and a next part, linked left to right, C's next null; a blue firstNode pill refers to A and a blue lastNode pill refers to C; under A the words dequeue removes here, under C the words enqueue adds here. Press two: on the right, the same chain as a list, with only a firstNode pill, and the position numbers 0, 1 and 2 under the three nodes. Press three: a new orange node X appears below the list, under the gap between positions 0 and 1, labelled add of 1 and x. Press four: the list's operations in two rows. At a position: add of newPosition and newEntry, remove of givenPosition, replace of givenPosition and newEntry, getEntry of givenPosition. On the whole list: add of newEntry, contains of anEntry, getLength, isEmpty, clear and toArray. The caption says that most list operations take a position, and that a queue is a list that only uses two of the positions.</p>
+
+  <!-- Bridge from Week 8 (LinkedQueue) to Part 1 (a linked list). One SVG in
+       canvas px (1664 × 310), the caption row under it, the operations under
+       that. The queue and the list are the same chain in W8D1 11's Node boxes
+       (150 × 76, data | next); the list has positions 0, 1, 2 as the videos
+       number them (ListIntro24.pdf slide 3, LinkedListRemove.pdf slide 4).
+       step 1: the queue grows in.
+       step 2: the list grows in.
+       step 3: a new node X grows in under the gap at position 1.
+       step 4: the operations (ListInterface UML, 11.2 module page; Carrano's
+               parameter names) fade in. -->
+  <div class="slide__body br" data-sid="02c-bridge-queue:6">
+    <svg class="br__fig" viewBox="0 0 1664 310" role="img" aria-label="Left, a linked queue A, B, C with firstNode and lastNode pills, labelled dequeue removes here under A and enqueue adds here under C. Right, the same chain as a list with firstNode and positions 0, 1 and 2, and a new node X below the gap at position 1" data-sid="02c-bridge-queue:7" >
+      <defs data-sid="02c-bridge-queue:8">
+        <marker id="w9d1-02c-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02c-bridge-queue:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02c-bridge-queue:10"/></marker>
+      </defs>
+
+      <!-- Week 8: the linked queue -->
+      <g class="br__q frag" data-step="1" data-sid="02c-bridge-queue:11">
+        <g class="pill" data-sid="02c-bridge-queue:12"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-queue:13"/><text x="88" y="31" data-sid="02c-bridge-queue:14">firstNode</text></g>
+        <g class="pill" data-sid="02c-bridge-queue:15"><rect x="395" y="0" width="160" height="44" rx="8" data-sid="02c-bridge-queue:16"/><text x="475" y="31" data-sid="02c-bridge-queue:17">lastNode</text></g>
+        <path class="ref" d="M88 44 C 88 64, 75 74, 75 90" data-sid="02c-bridge-queue:18"/>
+        <path class="ref" d="M475 44 C 475 64, 475 74, 475 90" data-sid="02c-bridge-queue:19"/>
+        <g class="nd" data-sid="02c-bridge-queue:20"><rect x="0" y="96" width="150" height="76" rx="8" data-sid="02c-bridge-queue:21"/><path d="M75 96v76" data-sid="02c-bridge-queue:22"/><text class="nd__f" x="37" y="120" data-sid="02c-bridge-queue:23">data</text><text class="nd__f" x="112" y="120" data-sid="02c-bridge-queue:24">next</text><text class="nd__v" x="37" y="162" data-sid="02c-bridge-queue:25">A</text></g>
+        <path class="lnk" d="M112 140 C 150 140, 170 140, 194 140" data-sid="02c-bridge-queue:26"/>
+        <g class="nd" data-sid="02c-bridge-queue:27"><rect x="200" y="96" width="150" height="76" rx="8" data-sid="02c-bridge-queue:28"/><path d="M275 96v76" data-sid="02c-bridge-queue:29"/><text class="nd__f" x="237" y="120" data-sid="02c-bridge-queue:30">data</text><text class="nd__f" x="312" y="120" data-sid="02c-bridge-queue:31">next</text><text class="nd__v" x="237" y="162" data-sid="02c-bridge-queue:32">B</text></g>
+        <path class="lnk" d="M312 140 C 350 140, 370 140, 394 140" data-sid="02c-bridge-queue:33"/>
+        <g class="nd" data-sid="02c-bridge-queue:34"><rect x="400" y="96" width="150" height="76" rx="8" data-sid="02c-bridge-queue:35"/><path d="M475 96v76" data-sid="02c-bridge-queue:36"/><text class="nd__f" x="437" y="120" data-sid="02c-bridge-queue:37">data</text><text class="nd__f" x="512" y="120" data-sid="02c-bridge-queue:38">next</text><text class="nd__v" x="437" y="162" data-sid="02c-bridge-queue:39">C</text><text class="nd__nl" x="512" y="160" data-sid="02c-bridge-queue:40">null</text></g>
+        <text class="br__end" x="0" y="214" data-sid="02c-bridge-queue:41">dequeue() removes here</text>
+        <text class="br__end br__end--r" x="550" y="252" data-sid="02c-bridge-queue:42">enqueue(x) adds here</text>
+      </g>
+
+      <!-- Week 9: the same chain as a list -->
+      <g class="br__l frag" data-step="2" data-sid="02c-bridge-queue:43">
+        <g class="pill" data-sid="02c-bridge-queue:44"><rect x="900" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-queue:45"/><text x="988" y="31" data-sid="02c-bridge-queue:46">firstNode</text></g>
+        <path class="ref" d="M988 44 C 988 64, 975 74, 975 90" data-sid="02c-bridge-queue:47"/>
+        <g class="nd" data-sid="02c-bridge-queue:48"><rect x="900" y="96" width="150" height="76" rx="8" data-sid="02c-bridge-queue:49"/><path d="M975 96v76" data-sid="02c-bridge-queue:50"/><text class="nd__f" x="937" y="120" data-sid="02c-bridge-queue:51">data</text><text class="nd__f" x="1012" y="120" data-sid="02c-bridge-queue:52">next</text><text class="nd__v" x="937" y="162" data-sid="02c-bridge-queue:53">A</text></g>
+        <path class="lnk" d="M1012 140 C 1050 140, 1070 140, 1094 140" data-sid="02c-bridge-queue:54"/>
+        <g class="nd" data-sid="02c-bridge-queue:55"><rect x="1100" y="96" width="150" height="76" rx="8" data-sid="02c-bridge-queue:56"/><path d="M1175 96v76" data-sid="02c-bridge-queue:57"/><text class="nd__f" x="1137" y="120" data-sid="02c-bridge-queue:58">data</text><text class="nd__f" x="1212" y="120" data-sid="02c-bridge-queue:59">next</text><text class="nd__v" x="1137" y="162" data-sid="02c-bridge-queue:60">B</text></g>
+        <path class="lnk" d="M1212 140 C 1250 140, 1270 140, 1294 140" data-sid="02c-bridge-queue:61"/>
+        <g class="nd" data-sid="02c-bridge-queue:62"><rect x="1300" y="96" width="150" height="76" rx="8" data-sid="02c-bridge-queue:63"/><path d="M1375 96v76" data-sid="02c-bridge-queue:64"/><text class="nd__f" x="1337" y="120" data-sid="02c-bridge-queue:65">data</text><text class="nd__f" x="1412" y="120" data-sid="02c-bridge-queue:66">next</text><text class="nd__v" x="1337" y="162" data-sid="02c-bridge-queue:67">C</text><text class="nd__nl" x="1412" y="160" data-sid="02c-bridge-queue:68">null</text></g>
+        <text class="br__pos" x="975" y="208" data-sid="02c-bridge-queue:69">0</text>
+        <text class="br__pos" x="1175" y="208" data-sid="02c-bridge-queue:70">1</text>
+        <text class="br__pos" x="1375" y="208" data-sid="02c-bridge-queue:71">2</text>
+      </g>
+
+      <!-- a new entry at position 1 -->
+      <g class="br__x frag" data-step="3" data-sid="02c-bridge-queue:72">
+        <rect class="br__xbox" x="1000" y="228" width="150" height="76" rx="8" data-sid="02c-bridge-queue:73"/><path class="br__xdiv" d="M1075 228v76" data-sid="02c-bridge-queue:74"/>
+        <text class="nd__v" x="1037" y="278" data-sid="02c-bridge-queue:75">X</text>
+        <text class="br__xlab" x="1166" y="276" data-sid="02c-bridge-queue:76">add(1, x)</text>
+      </g>
+    </svg>
+
+    <div class="br__caps" data-sid="02c-bridge-queue:77">
+      <p class="br__cap cap--1 frag" data-step="1" data-sid="02c-bridge-queue:78">In Week 8, a linked queue removed at the front through firstNode and added at the back through lastNode.</p>
+      <p class="br__cap cap--2 frag" data-step="2" data-sid="02c-bridge-queue:79">A list keeps the same kind of chain. The videos number its entries from position 0.</p>
+      <p class="br__cap cap--3 frag" data-step="3" data-sid="02c-bridge-queue:80">A list can add or remove at any position k. On a chain, that needs the node before position k.</p>
+      <p class="br__cap cap--4 frag" data-step="4" data-sid="02c-bridge-queue:81">Most list operations take a position. A queue is a list that only uses two of the positions.</p>
+    </div>
+
+    <div class="br__t frag" data-step="4" data-sid="02c-bridge-queue:82">
+      <table data-sid="02c-bridge-queue:83">
+        <tbody data-sid="02c-bridge-queue:84">
+          <tr data-sid="02c-bridge-queue:85"><td class="br__n" data-sid="02c-bridge-queue:86">at a position</td><td data-sid="02c-bridge-queue:87"><span class="op" data-sid="02c-bridge-queue:88">add(newPosition, newEntry)</span> &middot; <span class="op" data-sid="02c-bridge-queue:89">remove(givenPosition)</span> &middot; <span class="op" data-sid="02c-bridge-queue:90">replace(givenPosition, newEntry)</span> &middot; <span class="op" data-sid="02c-bridge-queue:91">getEntry(givenPosition)</span></td></tr>
+          <tr data-sid="02c-bridge-queue:92"><td class="br__n" data-sid="02c-bridge-queue:93">the whole list</td><td data-sid="02c-bridge-queue:94"><span class="op" data-sid="02c-bridge-queue:95">add(newEntry)</span> &middot; <span class="op" data-sid="02c-bridge-queue:96">contains(anEntry)</span> &middot; <span class="op" data-sid="02c-bridge-queue:97">getLength()</span> &middot; <span class="op" data-sid="02c-bridge-queue:98">isEmpty()</span> &middot; <span class="op" data-sid="02c-bridge-queue:99">clear()</span> &middot; <span class="op" data-sid="02c-bridge-queue:100">toArray()</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-queue:101"></div>
+  <aside class="notes" data-sid="02c-bridge-queue:102">Last week was the queue. This week we keep the same chain and allow changes anywhere in it. Step 1. In Week 8, a linked queue kept two references. dequeue removed the node at the front through firstNode, and enqueue added a node at the back through lastNode. Nothing in the middle of the chain was ever touched. Step 2. A list keeps the same kind of chain, but every entry has a position. The 9.1 videos count positions from 0, the way an array does, so A is at position 0. Step 3. A list can add or remove at any position. To put X at position 1, the node at position 0 has to change its next. That is today&rsquo;s idea: on a singly linked chain, you work through the node before the position. Step 4. These are the list&rsquo;s operations, from the ListInterface in the module. Four of them take a position. add with one argument adds at the end. contains, getLength, isEmpty, clear and toArray work on the whole list. A queue adds only at the end and removes only at position 0, so it is a list that only uses two of the positions. Part 1 starts with add at position 0.</aside>
+
+  <style data-sid="02c-bridge-queue:103">
+    /* Slide-local: a bridge from Week 8 to Part 1. One SVG at 1:1 (1664 ×
+       310): left, the linked queue; right, the same chain as a list with its
+       positions; W8D1 11's Node boxes (150 × 76, data | next, labels at
+       --t-micro) on a 200 px pitch with blue pills, references and links.
+       Under it one caption at a time at --t-small (two lines reserved), then
+       the operations as a two-row table, code at --t-code with each operation
+       kept on one line. Motion: the two drawings and the new node
+       GrowFromCenter; the table fades in. Used by this slide only, all values
+       from tokens. */
+    #slide-02c .br { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-3); align-content: start; }
+    #slide-02c .br__fig { display: block; width: 1664px; height: 310px; overflow: visible; }
+
+    #slide-02c .pill rect { fill: var(--accent-2); }
+    #slide-02c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-02c .nd rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd path { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__f { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-02c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02c .lnk, #slide-02c .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-02c-head); }
+    #slide-02c .ref { stroke-width: 5; }
+    #slide-02c .br__end { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); }
+    #slide-02c .br__end--r { text-anchor: end; }
+    #slide-02c .br__pos { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-02c .br__xbox { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; }
+    #slide-02c .br__xdiv { fill: none; stroke: var(--accent-3); stroke-width: 4; }
+    #slide-02c .br__xlab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); }
+
+    /* GrowFromCenter: the two drawings and the new node */
+    #slide-02c .br__q, #slide-02c .br__l, #slide-02c .br__x { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.br__q.is-pending, #slide-02c .frag.br__l.is-pending, #slide-02c .frag.br__x.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* captions: one at a time */
+    #slide-02c .br__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02c .br__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.br__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.br__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.br__cap.is-past { opacity: 0; transition-delay: 0s; }
+
+    /* the operations */
+    #slide-02c .br__t { transition: opacity .3s ease; }
+    #slide-02c .br__t table { width: 100%; border-collapse: collapse; }
+    #slide-02c .br__t td { padding: var(--s-1) var(--s-3) var(--s-1) 0; border-top: 2px solid var(--bg-1); vertical-align: top; font-family: var(--font-mono); font-size: var(--t-code); line-height: 1.35; color: var(--fg-1); }
+    #slide-02c .br__t td.br__n { width: 300px; font-family: var(--font-display); font-size: var(--t-small); color: var(--accent-1); }
+    #slide-02c .br__t .op { white-space: nowrap; color: var(--fg-0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .br__q, #slide-02c .br__l, #slide-02c .br__x, #slide-02c .br__cap, #slide-02c .br__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

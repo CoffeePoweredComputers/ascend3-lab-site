@@ -1,0 +1,68 @@
+<section class="slide slide--warmup" id="slide-07a" data-sid="07a-vote-dllremove-cd:1">
+  <header class="slide__head" data-sid="07a-vote-dllremove-cd:2">
+    <p class="slide__kicker" data-sid="07a-vote-dllremove-cd:3">PEER INSTRUCTION &middot; VOTE 1 &middot; OPTIONS C AND D</p>
+    <h2 data-sid="07a-vote-dllremove-cd:4">Options C and D for Vote 1</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07a-vote-dllremove-cd:5">The second of three slides with the options of Vote 1, which code removes curr from a doubly linked list. Left, option C: curr dot getPrevious dot setNext of curr dot getNext, written without parentheses after getPrevious; curr dot getNext dot setPrev of curr dot getPrev; a blank line; then if list dot getSize equals 0, the same two lines, again without parentheses after getPrevious, followed by lastNode equals firstNode; else curr dot getPrevious with parentheses dot setNext of curr dot getNext, and curr dot getNext dot setPrev of curr dot getPrev. Right, option D: the if and else of option C without its first two lines. Nothing builds.</p>
+
+  <!-- Vote 1, options C and D, in 07's cards. Both are quoted with the
+       quirks: curr.getPrevious.setNext(...) without parentheses, and
+       list.getSize() == 0 for a list the stem says is non-empty. Static. -->
+  <div class="slide__body vo" data-sid="07a-vote-dllremove-cd:6">
+    <div class="vc" data-sid="07a-vote-dllremove-cd:7">
+      <p class="vc__key" data-sid="07a-vote-dllremove-cd:8">C</p>
+      <ol class="editor__code vc__code" data-sid="07a-vote-dllremove-cd:9">
+        <li data-sid="07a-vote-dllremove-cd:10">curr.getPrevious.setNext(curr.getNext());</li>
+        <li data-sid="07a-vote-dllremove-cd:11">curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07a-vote-dllremove-cd:12"> </li>
+        <li data-sid="07a-vote-dllremove-cd:13"><span class="tok-key" data-sid="07a-vote-dllremove-cd:14">if</span>(list.getSize() == <span class="tok-num" data-sid="07a-vote-dllremove-cd:15">0</span>)</li>
+        <li data-sid="07a-vote-dllremove-cd:16">{</li>
+        <li data-sid="07a-vote-dllremove-cd:17">    curr.getPrevious.setNext(curr.getNext());</li>
+        <li data-sid="07a-vote-dllremove-cd:18">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07a-vote-dllremove-cd:19">    lastNode = firstNode;</li>
+        <li data-sid="07a-vote-dllremove-cd:20">}</li>
+        <li data-sid="07a-vote-dllremove-cd:21"><span class="tok-key" data-sid="07a-vote-dllremove-cd:22">else</span> {</li>
+        <li data-sid="07a-vote-dllremove-cd:23">    curr.getPrevious().setNext(curr.getNext());</li>
+        <li data-sid="07a-vote-dllremove-cd:24">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07a-vote-dllremove-cd:25">}</li>
+      </ol>
+    </div>
+    <div class="vc" data-sid="07a-vote-dllremove-cd:26">
+      <p class="vc__key" data-sid="07a-vote-dllremove-cd:27">D</p>
+      <ol class="editor__code vc__code" data-sid="07a-vote-dllremove-cd:28">
+        <li data-sid="07a-vote-dllremove-cd:29"><span class="tok-key" data-sid="07a-vote-dllremove-cd:30">if</span>(list.getSize() == <span class="tok-num" data-sid="07a-vote-dllremove-cd:31">0</span>)</li>
+        <li data-sid="07a-vote-dllremove-cd:32">{</li>
+        <li data-sid="07a-vote-dllremove-cd:33">    curr.getPrevious.setNext(curr.getNext());</li>
+        <li data-sid="07a-vote-dllremove-cd:34">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07a-vote-dllremove-cd:35">    lastNode = firstNode;</li>
+        <li data-sid="07a-vote-dllremove-cd:36">}</li>
+        <li data-sid="07a-vote-dllremove-cd:37"><span class="tok-key" data-sid="07a-vote-dllremove-cd:38">else</span> {</li>
+        <li data-sid="07a-vote-dllremove-cd:39">    curr.getPrevious().setNext(curr.getNext());</li>
+        <li data-sid="07a-vote-dllremove-cd:40">    curr.getNext().setPrev(curr.getPrev());</li>
+        <li data-sid="07a-vote-dllremove-cd:41">}</li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07a-vote-dllremove-cd:42"></div>
+  <aside class="notes" data-sid="07a-vote-dllremove-cd:43">Answer: E &mdash; [key assumed from the PrairieLearn twin u11q06_dll_d; confirm in Runestone]. Options C and D of Vote 1, quoted as they appear in Runestone. Do not point out the missing parentheses after getPrevious during the vote; the walk does. The clocks are on the previous slide. Next is option E.</aside>
+
+  <style data-sid="07a-vote-dllremove-cd:44">
+    /* Slide-local: 07's two 820 px columns and cards (a 48 px key disc over a
+       tinted code pane at --t-micro mono, line-height 1.25, no line numbers),
+       C on the left and D on the right. C is 13 lines, including the blank
+       line Runestone shows. Static; used by this slide only, all values from
+       tokens. */
+    #slide-07a .vo { display: grid; grid-template-columns: 820px 820px; column-gap: var(--s-3); align-items: start; }
+    #slide-07a .vc { display: grid; row-gap: var(--s-1); justify-items: start; }
+    #slide-07a .slide__body p.vc__key {
+      display: grid; place-items: center; width: 48px; height: 48px; margin: 0; box-sizing: border-box;
+      border: 3px solid var(--accent-1); border-radius: 50%;
+      font-family: var(--font-display); font-size: var(--t-small); line-height: 1; color: var(--accent-1);
+    }
+    #slide-07a .slide__body .vc__code {
+      justify-self: stretch; padding: var(--s-1) 12px; border-radius: var(--r-2);
+      background: var(--bg-1); font-size: var(--t-micro); line-height: 1.25;
+    }
+    #slide-07a .vc__code li::before { content: none; }
+  </style>
+</section>

@@ -1,0 +1,124 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-singly:1">
+  <header class="slide__head" data-sid="02c-bridge-singly:2">
+    <p class="slide__kicker" data-sid="02c-bridge-singly:3">FROM DAY 1 TO DAY 2</p>
+    <h2 data-sid="02c-bridge-singly:4">The node before the last one is one prev reference away</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-singly:5">A bridge from Day 1 to Day 2, built in three presses. Press one: on the left, last class's singly linked list of four nodes, A, B, C and D, each with data and next, D's next null, with a blue pill labelled firstNode pointing at A and a blue pill labelled lastNode pointing at D. A blue ring labelled curr appears on A and moves to B and then to C, the node before D. The caption says that last class, removing the last node meant walking the chain to find the node before it. Press two: on the right, the same four values in a doubly linked list grow in, each node with prev, data and next, next arrows above the chain and prev arrows below it, with firstNode on A and lastNode on D. D's prev arrow, from D back to C, turns orange. The caption says a prev reference makes that node one step away. Press three: the question for Part 1, in maroon: with prev and next on every node, which references change when curr is removed?</p>
+
+  <!-- Bridge from Day 1 (a list on a singly linked chain) to Day 2 (doubly
+       linked). One SVG in canvas px (1664 × 260): left, four Link boxes
+       130 × 76 (value 56 | next 74, W8D2 02b's grammar) with both pills and a
+       curr ring that really moves A → B → C (two pitches of 166 px); right,
+       four DLNode boxes 190 × 76 (prev 68 | data 54 | next 68, no field
+       labels: 04 names the parts) on a 214 px pitch, next arrows above and
+       prev arrows below, D's prev washed orange on press 2.
+       step 1: the singly linked chain and the walk.
+       step 2: the doubly linked chain; D's prev turns orange.
+       step 3: the question for Part 1. -->
+  <div class="slide__body bs" data-sid="02c-bridge-singly:6">
+    <svg class="bs__fig" viewBox="0 0 1664 260" role="img" aria-label="Left, a singly linked list A, B, C, D with firstNode and lastNode, and a ring labelled curr that moves from A to C. Right, the same values in a doubly linked list with firstNode and lastNode, D's prev arrow pointing back to C in orange" data-sid="02c-bridge-singly:7">
+      <defs data-sid="02c-bridge-singly:8">
+        <marker id="w9d2-02c-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02c-bridge-singly:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02c-bridge-singly:10"/></marker>
+        <marker id="w9d2-02c-head-o" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02c-bridge-singly:11"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-3)" data-sid="02c-bridge-singly:12"/></marker>
+      </defs>
+
+      <!-- Day 1: singly linked -->
+      <g class="bs__left frag" data-step="1" data-sid="02c-bridge-singly:13">
+        <g class="pill" data-sid="02c-bridge-singly:14"><rect x="1" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-singly:15"/><text x="89" y="31" data-sid="02c-bridge-singly:16">firstNode</text></g>
+        <g class="pill" data-sid="02c-bridge-singly:17"><rect x="499" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-singly:18"/><text x="587" y="31" data-sid="02c-bridge-singly:19">lastNode</text></g>
+        <path class="ref" d="M89 44 C 89 70, 89 90, 89 114" data-sid="02c-bridge-singly:20"/>
+        <path class="ref" d="M587 44 C 587 70, 587 90, 587 114" data-sid="02c-bridge-singly:21"/>
+        <g class="nd" data-sid="02c-bridge-singly:22"><rect class="nd__box" x="24" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-singly:23"/><path class="nd__div" d="M80 120v76" data-sid="02c-bridge-singly:24"/><text class="nd__v" x="52" y="170" data-sid="02c-bridge-singly:25">A</text></g>
+        <path class="lnk" d="M117 158 C 140 158, 158 158, 186 158" data-sid="02c-bridge-singly:26"/>
+        <g class="nd" data-sid="02c-bridge-singly:27"><rect class="nd__box" x="190" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-singly:28"/><path class="nd__div" d="M246 120v76" data-sid="02c-bridge-singly:29"/><text class="nd__v" x="218" y="170" data-sid="02c-bridge-singly:30">B</text></g>
+        <path class="lnk" d="M283 158 C 306 158, 324 158, 352 158" data-sid="02c-bridge-singly:31"/>
+        <g class="nd" data-sid="02c-bridge-singly:32"><rect class="nd__box" x="356" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-singly:33"/><path class="nd__div" d="M412 120v76" data-sid="02c-bridge-singly:34"/><text class="nd__v" x="384" y="170" data-sid="02c-bridge-singly:35">C</text></g>
+        <path class="lnk" d="M449 158 C 472 158, 490 158, 518 158" data-sid="02c-bridge-singly:36"/>
+        <g class="nd" data-sid="02c-bridge-singly:37"><rect class="nd__box" x="522" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-singly:38"/><path class="nd__div" d="M578 120v76" data-sid="02c-bridge-singly:39"/><text class="nd__v" x="550" y="170" data-sid="02c-bridge-singly:40">D</text><text class="nd__nl" x="615" y="168" data-sid="02c-bridge-singly:41">null</text></g>
+        <g class="ring" data-sid="02c-bridge-singly:42"><rect x="18" y="112" width="142" height="92" rx="14" data-sid="02c-bridge-singly:43"/><text x="89" y="240" data-sid="02c-bridge-singly:44">curr</text></g>
+      </g>
+
+      <!-- Day 2: doubly linked -->
+      <g class="bs__right frag" data-step="2" data-sid="02c-bridge-singly:45">
+        <g class="pill" data-sid="02c-bridge-singly:46"><rect x="839" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-singly:47"/><text x="927" y="31" data-sid="02c-bridge-singly:48">firstNode</text></g>
+        <g class="pill" data-sid="02c-bridge-singly:49"><rect x="1481" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-singly:50"/><text x="1569" y="31" data-sid="02c-bridge-singly:51">lastNode</text></g>
+        <path class="ref" d="M927 44 C 927 70, 927 90, 927 114" data-sid="02c-bridge-singly:52"/>
+        <path class="ref" d="M1569 44 C 1569 70, 1569 90, 1569 114" data-sid="02c-bridge-singly:53"/>
+        <g class="dn" data-sid="02c-bridge-singly:54"><rect class="dn__box" x="832" y="120" width="190" height="76" rx="10" data-sid="02c-bridge-singly:55"/><path class="dn__div" d="M900 120v76M954 120v76" data-sid="02c-bridge-singly:56"/><text class="dn__nl" x="866" y="168" data-sid="02c-bridge-singly:57">null</text><text class="nd__v" x="927" y="170" data-sid="02c-bridge-singly:58">A</text></g>
+        <g class="dn" data-sid="02c-bridge-singly:59"><rect class="dn__box" x="1046" y="120" width="190" height="76" rx="10" data-sid="02c-bridge-singly:60"/><path class="dn__div" d="M1114 120v76M1168 120v76" data-sid="02c-bridge-singly:61"/><text class="nd__v" x="1141" y="170" data-sid="02c-bridge-singly:62">B</text></g>
+        <g class="dn" data-sid="02c-bridge-singly:63"><rect class="dn__box" x="1260" y="120" width="190" height="76" rx="10" data-sid="02c-bridge-singly:64"/><path class="dn__div" d="M1328 120v76M1382 120v76" data-sid="02c-bridge-singly:65"/><text class="nd__v" x="1355" y="170" data-sid="02c-bridge-singly:66">C</text></g>
+        <g class="dn" data-sid="02c-bridge-singly:67"><rect class="dn__box" x="1474" y="120" width="190" height="76" rx="10" data-sid="02c-bridge-singly:68"/><path class="dn__div" d="M1542 120v76M1596 120v76" data-sid="02c-bridge-singly:69"/><text class="nd__v" x="1569" y="170" data-sid="02c-bridge-singly:70">D</text><text class="dn__nl" x="1630" y="168" data-sid="02c-bridge-singly:71">null</text></g>
+        <!-- next, above -->
+        <path class="lnk" d="M988 122 C 988 84, 1080 84, 1080 116" data-sid="02c-bridge-singly:72"/>
+        <path class="lnk" d="M1202 122 C 1202 84, 1294 84, 1294 116" data-sid="02c-bridge-singly:73"/>
+        <path class="lnk" d="M1416 122 C 1416 84, 1508 84, 1508 116" data-sid="02c-bridge-singly:74"/>
+        <!-- prev, below -->
+        <path class="lnk" d="M1080 194 C 1080 232, 988 232, 988 200" data-sid="02c-bridge-singly:75"/>
+        <path class="lnk" d="M1294 194 C 1294 232, 1202 232, 1202 200" data-sid="02c-bridge-singly:76"/>
+        <path class="lnk lnk--hot" d="M1508 194 C 1508 232, 1416 232, 1416 200" data-sid="02c-bridge-singly:77"/>
+        <text class="bs__step" x="1462" y="254" data-sid="02c-bridge-singly:78">D&rsquo;s prev</text>
+      </g>
+    </svg>
+
+    <div class="bs__caps" data-sid="02c-bridge-singly:79">
+      <p class="bs__cap cap--1 frag" data-step="1" data-sid="02c-bridge-singly:80">Last class, removing the last node meant walking the chain to find the node before it.</p>
+      <p class="bs__cap bs__cap--keep cap--2 frag" data-step="2" data-sid="02c-bridge-singly:81">A prev reference makes that node one step away.</p>
+    </div>
+    <p class="bs__q frag" data-step="3" data-sid="02c-bridge-singly:82">With prev and next on every node, which references change when curr is removed?</p>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-singly:83"></div>
+  <aside class="notes" data-sid="02c-bridge-singly:84">Last class put a list on a singly linked chain. Step 1. This is that chain, with firstNode and lastNode. To remove D, the last node, the method has to set C&rsquo;s next to null and set lastNode to C. lastNode refers to D, not to C, so the method walks from firstNode: A, then B, then C. With n nodes that is n &minus; 1 visits. Step 2. Today every node also has a prev reference, so each link is two references: next arrows are drawn above the chain and prev arrows below it. D&rsquo;s prev refers to C. The node before D is one step away, with no walk. Step 3. Ask the room which references change when curr is removed from the middle, from the front and from the back. Part 1 walks it.</aside>
+
+  <style data-sid="02c-bridge-singly:85">
+    /* Slide-local: a bridge from Day 1 to Day 2. One SVG at 1:1 (1664 × 260)
+       with the two chains side by side: the singly linked chain (Link boxes
+       130 × 76, W8D2 02b's grammar) and the doubly linked chain (DLNode boxes
+       190 × 76 with three compartments of 68 | 54 | 68, so "null" at
+       --t-micro, 67 px, fits the end compartments; no field labels). Labels
+       at --t-micro, values at --t-small. Under it the narration (two
+       captions, the second stays) and the question in display maroon, both
+       at --t-small. Motion: each chain GrowsFromCenter on its press; the curr
+       ring travels A → C by translateX after the chain is in (a real move);
+       D's prev arrow turns orange after the right chain is in. Used by this
+       slide only, all values from tokens. */
+    #slide-02c .bs { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-02c .bs__fig { display: block; width: 1664px; height: 260px; overflow: visible; }
+
+    #slide-02c .pill rect { fill: var(--accent-2); }
+    #slide-02c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-02c .nd__box, #slide-02c .dn__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__div, #slide-02c .dn__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .nd__nl, #slide-02c .dn__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02c .lnk, #slide-02c .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d2-02c-head); transition: stroke .3s ease; }
+    #slide-02c .ref { stroke-width: 5; }
+    #slide-02c .bs__step { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-3); text-anchor: middle; opacity: 0; transition: opacity .3s ease; }
+
+    #slide-02c .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-02c .ring text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+    #slide-02c .ring { transition: transform 1.1s var(--ease-smooth); }
+
+    /* GrowFromCenter: the two chains */
+    #slide-02c .bs__left, #slide-02c .bs__right { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.bs__left.is-pending, #slide-02c .frag.bs__right.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-02c .bs:has(.cap--1:not(.is-pending)) .ring { transform: translateX(332px); transition-delay: .7s; }
+    #slide-02c .bs:has(.cap--2:not(.is-pending)) .lnk--hot { stroke: var(--accent-3); stroke-width: 6; marker-end: url(#w9d2-02c-head-o); transition-delay: .7s; }
+    #slide-02c .bs:has(.cap--2:not(.is-pending)) .bs__step { opacity: 1; transition-delay: .9s; }
+
+    /* narration: caption 1 is replaced by caption 2, which stays */
+    #slide-02c .bs__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02c .bs__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.bs__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.bs__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.bs__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02c .frag.bs__cap--keep.is-past { opacity: 1; }
+    #slide-02c .slide__body p.bs__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .bs__left, #slide-02c .bs__right, #slide-02c .ring, #slide-02c .lnk, #slide-02c .bs__step,
+      #slide-02c .bs__cap, #slide-02c .bs__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

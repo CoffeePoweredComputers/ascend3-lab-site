@@ -1,0 +1,111 @@
+<section class="slide slide--warmup" id="slide-11" data-sid="11-hw-insertionsort:1">
+  <header class="slide__head" data-sid="11-hw-insertionsort:2">
+    <p class="slide__kicker" data-sid="11-hw-insertionsort:3">WEEK 9 HOMEWORK &middot; DUE FRI OCT 23, 11:59 PM</p>
+    <h2 data-sid="11-hw-insertionsort:4">The homework sorts a linked list in four steps</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-hw-insertionsort:5">On the left, the example list from the Find Node Before problem: a firstNode pill that refers to a node holding 3, which links to 5, 8, 9 and 10, whose next is null. Under it a card listing what the homework's LinkedList class already has: the fields firstNode and size; the methods getFirstNode, getLength and isEmpty; add of T, add of int and T, and remove of int; and the Node methods getData, next and setNext. Under the card, the signpost: PrairieLearn, Week 9: Lists and Generics, Coding Practice; best 2 of 4 count; due Friday. On the right, four cards arriving one per press. LinkedList Insertion Sort: Split In Two, void split of LinkedList of T wholeList: the given list must stay unchanged. LinkedList Insertion Sort: Find Node Before, Node of T findNodeBefore of T value: the first node has no node before it, so return null. LinkedList Insertion Sort: Insert After Node, void insertAfter of Node of T node and T value: set the new node's next first. LinkedList Insertion Sort, void insertionSort and void insertIntoSorted of Node of T nodeToInsert: change links, not the data in the nodes.</p>
+
+  <!-- W8D1 11's homework-card grammar for the four problems (x708–x711, in
+       the assessment's order). Left: x709's own example list, drawn in the
+       Node grammar at 120 × 66 (values only), the class card (the homework
+       Node has next(), not getNext()), the signpost as briefed. Right: one
+       card per problem: the PL title (info.json), the signature without
+       "public", and the part to think hardest about from the problem
+       statement. No solution code: these are graded. Cards grow from centre;
+       the signpost fades in with the fourth.
+       steps 1–4: x708, x709, x710, x711. -->
+  <div class="slide__body hw" data-sid="11-hw-insertionsort:6">
+    <div class="stack hw__left" data-sid="11-hw-insertionsort:7">
+      <svg class="hw__fig" viewBox="0 0 760 150" role="img" aria-label="The example list from the Find Node Before problem: firstNode refers to 3, which links to 5, 8, 9 and 10" data-sid="11-hw-insertionsort:8">
+        <defs data-sid="11-hw-insertionsort:9">
+          <marker id="w9d1-11-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="11-hw-insertionsort:10"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="11-hw-insertionsort:11"/></marker>
+        </defs>
+        <g class="hw__pill" data-sid="11-hw-insertionsort:12"><rect x="0" y="0" width="176" height="40" rx="8" data-sid="11-hw-insertionsort:13"/><text x="88" y="29" data-sid="11-hw-insertionsort:14">firstNode</text></g>
+        <path class="hw__arr" d="M60 40 C 60 46, 60 50, 60 54" data-sid="11-hw-insertionsort:15"/>
+        <g class="hw__node" data-sid="11-hw-insertionsort:16"><rect x="0" y="58" width="120" height="66" rx="8" data-sid="11-hw-insertionsort:17"/><path d="M60 58v66" data-sid="11-hw-insertionsort:18"/><text class="hw__v" x="30" y="103" data-sid="11-hw-insertionsort:19">3</text></g>
+        <path class="hw__arr" d="M90 91 C 115 91, 130 91, 144 91" data-sid="11-hw-insertionsort:20"/>
+        <g class="hw__node" data-sid="11-hw-insertionsort:21"><rect x="150" y="58" width="120" height="66" rx="8" data-sid="11-hw-insertionsort:22"/><path d="M210 58v66" data-sid="11-hw-insertionsort:23"/><text class="hw__v" x="180" y="103" data-sid="11-hw-insertionsort:24">5</text></g>
+        <path class="hw__arr" d="M240 91 C 265 91, 280 91, 294 91" data-sid="11-hw-insertionsort:25"/>
+        <g class="hw__node" data-sid="11-hw-insertionsort:26"><rect x="300" y="58" width="120" height="66" rx="8" data-sid="11-hw-insertionsort:27"/><path d="M360 58v66" data-sid="11-hw-insertionsort:28"/><text class="hw__v" x="330" y="103" data-sid="11-hw-insertionsort:29">8</text></g>
+        <path class="hw__arr" d="M390 91 C 415 91, 430 91, 444 91" data-sid="11-hw-insertionsort:30"/>
+        <g class="hw__node" data-sid="11-hw-insertionsort:31"><rect x="450" y="58" width="120" height="66" rx="8" data-sid="11-hw-insertionsort:32"/><path d="M510 58v66" data-sid="11-hw-insertionsort:33"/><text class="hw__v" x="480" y="103" data-sid="11-hw-insertionsort:34">9</text></g>
+        <path class="hw__arr" d="M540 91 C 565 91, 580 91, 594 91" data-sid="11-hw-insertionsort:35"/>
+        <g class="hw__node" data-sid="11-hw-insertionsort:36"><rect x="600" y="58" width="120" height="66" rx="8" data-sid="11-hw-insertionsort:37"/><path d="M660 58v66" data-sid="11-hw-insertionsort:38"/><text class="hw__v" x="630" y="103" data-sid="11-hw-insertionsort:39">10</text><text class="hw__null" x="690" y="100" data-sid="11-hw-insertionsort:40">null</text></g>
+        <text class="hw__tag" x="0" y="148" data-sid="11-hw-insertionsort:41">the example in Find Node Before</text>
+      </svg>
+      <div class="tile tile--a2" data-sid="11-hw-insertionsort:42">
+        <p class="tile__label" data-sid="11-hw-insertionsort:43">class LinkedList&lt;T&gt;, already written</p>
+        <ul class="hw__api" data-sid="11-hw-insertionsort:44">
+          <li data-sid="11-hw-insertionsort:45">Node&lt;T&gt; firstNode &middot; int size</li>
+          <li data-sid="11-hw-insertionsort:46">getFirstNode() &middot; getLength() &middot; isEmpty()</li>
+          <li data-sid="11-hw-insertionsort:47">add(T) &middot; add(int, T) &middot; remove(int)</li>
+          <li data-sid="11-hw-insertionsort:48">Node: getData() &middot; next() &middot; setNext()</li>
+        </ul>
+      </div>
+      <p class="note hw__sign frag" data-step="4" data-anim="fade" data-sid="11-hw-insertionsort:49">PrairieLearn &rsaquo; <b data-sid="11-hw-insertionsort:50">Week 9: Lists &amp; Generics &mdash; Coding Practice</b> &middot; best 2 of 4 count &middot; due Friday</p>
+    </div>
+    <div class="stack hw__cards" data-sid="11-hw-insertionsort:51">
+      <div class="tile tile--a3 frag" data-step="1" data-sid="11-hw-insertionsort:52">
+        <h3 data-sid="11-hw-insertionsort:53">LinkedList Insertion Sort: Split In Two</h3>
+        <p class="hw__sig" data-sid="11-hw-insertionsort:54">void split(LinkedList&lt;T&gt; wholeList)</p>
+        <p class="hw__hard" data-sid="11-hw-insertionsort:55">The given list must stay unchanged.</p>
+      </div>
+      <div class="tile tile--a3 frag" data-step="2" data-sid="11-hw-insertionsort:56">
+        <h3 data-sid="11-hw-insertionsort:57">LinkedList Insertion Sort: Find Node Before</h3>
+        <p class="hw__sig" data-sid="11-hw-insertionsort:58">Node&lt;T&gt; findNodeBefore(T value)</p>
+        <p class="hw__hard" data-sid="11-hw-insertionsort:59">The first node has none, so return null.</p>
+      </div>
+      <div class="tile tile--a3 frag" data-step="3" data-sid="11-hw-insertionsort:60">
+        <h3 data-sid="11-hw-insertionsort:61">LinkedList Insertion Sort: Insert After Node</h3>
+        <p class="hw__sig" data-sid="11-hw-insertionsort:62">void insertAfter(Node&lt;T&gt; node, T value)</p>
+        <p class="hw__hard" data-sid="11-hw-insertionsort:63">Set the new node&rsquo;s next first.</p>
+      </div>
+      <div class="tile tile--a3 frag" data-step="4" data-sid="11-hw-insertionsort:64">
+        <h3 data-sid="11-hw-insertionsort:65">LinkedList Insertion Sort</h3>
+        <p class="hw__sig" data-sid="11-hw-insertionsort:66">void insertionSort()<br data-sid="11-hw-insertionsort:67">void insertIntoSorted(Node&lt;T&gt; nodeToInsert)</p>
+        <p class="hw__hard" data-sid="11-hw-insertionsort:68">Change links, not the data in the nodes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="11-hw-insertionsort:69"></div>
+  <aside class="notes" data-sid="11-hw-insertionsort:70">This week&rsquo;s homework on PrairieLearn has four problems at 10 points each, and your best two count. It is due Friday October 23 at 11:59 PM. The four problems are the steps of one algorithm, insertion sort on a linked list, and the last one puts them together. The class is a little different from the module&rsquo;s: it keeps firstNode and size, and its Node has next(), not getNext(). Step 1. Split In Two. Make two new lists: one with the first value of the given list, one with everything else. The given list must not change. Check a one-item list and an empty list. Step 2. Find Node Before. Given a value in a sorted list, return the node before the node holding it. In the example, findNodeBefore(9) returns the node holding 8. The first value has no node before it, so the answer is null, and a value that is not in the list throws IndexOutOfBoundsException. This is the first half of remove from today: the node before is the one whose next changes. Step 3. Insert After Node. Link a new node in after a given node. This is slide 04b: set the new node&rsquo;s next before you change the given node&rsquo;s next. Step 4. Insertion Sort. Take each node from the unsorted part and insert it where it belongs in the sorted part, by changing links. Swapping the data in the nodes does not count. Also due this week: Challenge Exercise 09, Linked List Debug, on Friday; and Project 2 Deliverable 4, the final build, writeup and presentation, at the start of your lab this week. Project 3, Queue plus MVC, starts this week with new teams; its Deliverable 1, the scope, is due at your Week 10 lab. Next are the deadlines again.</aside>
+
+  <style data-sid="11-hw-insertionsort:71">
+    /* Slide-local: W8D1 11's two columns: left 760 px (x709's example list in
+       one 760 × 150 SVG at 1:1, Node boxes 120 × 66 with values only, then
+       the class card, then the signpost), right the four cards stacked
+       (title at --t-small, signature in mono at --t-micro, the hint on one
+       line at --t-small: the longest, "Change links, not the data in the
+       nodes.", is 634 px by PIL in a 776 px inner width). The class card and
+       the signatures stay mono at --t-micro, as on W8D1 11. Cards in the
+       orange of "yours to write", GrowFromCenter one per press; the signpost
+       fades in with the fourth. All values from tokens; used by this slide
+       only. */
+    #slide-11 .hw { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    #slide-11 .hw__left { gap: var(--s-1); }
+    #slide-11 .hw__cards { gap: var(--s-1); }
+    #slide-11 .hw__fig { display: block; width: 760px; height: 150px; overflow: visible; }
+    #slide-11 .hw__tag { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-11 .hw__pill rect { fill: var(--accent-2); }
+    #slide-11 .hw__pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-11 .hw__arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w9d1-11-head); }
+    #slide-11 .hw__node rect { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-11 .hw__node path { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-11 .hw__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-11 .hw__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-11 .hw__api { list-style: none; margin: 0; padding: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.5; color: var(--fg-0); }
+    #slide-11 .hw__api li { margin: 0; line-height: 1.5; }
+    #slide-11 .hw__sign { margin: 0; transition: opacity .3s ease; }
+    #slide-11 .hw__sign b { color: var(--accent-1); }
+    #slide-11 .frag.hw__sign.is-current, #slide-11 .frag.hw__sign.is-past { transition-delay: .5s; }
+    #slide-11 .hw__cards .tile { padding: var(--s-1) var(--s-4); }
+    #slide-11 .hw__cards h3 { margin: 0; font-size: var(--t-small); line-height: 1.1; color: var(--fg-0); }
+    #slide-11 .hw__sig { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1.2; color: var(--fg-0); }
+    #slide-11 .hw__hard { margin: 0; font-size: var(--t-small); line-height: 1.3; color: var(--fg-1); }
+    #slide-11 .hw__cards .tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-11 .hw__cards .frag.tile.is-pending { opacity: 0; transform: scale(0.4); }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .hw__cards .tile, #slide-11 .hw__sign { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
