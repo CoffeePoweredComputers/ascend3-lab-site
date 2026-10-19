@@ -29,7 +29,7 @@
     {% for j in jottings %}
       <div class="note">
         <p class="pre">{{ j.body }}</p>
-        <p class="meta"><a class="id" href="{{ root }}/t/{{ track.id }}/items/{{ j.token }}">{{ j.token[:6] }}</a> · {{ j.created_at[:10] }}</p>
+        <p class="meta"><a class="id" href="{{ root }}/t/{{ track.id }}/items/{{ j.token }}">{{ j.token[:6] }}</a>{% if j.part %} · the {{ j.part }}{% endif %} · {{ j.created_at[:10] }}</p>
       </div>
     {% else %}
       <p class="muted">None yet. Add them from an item.</p>

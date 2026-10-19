@@ -4,7 +4,7 @@ Each card is one submission from an introductory programming course: the diagram
 
 - Four assignments across a semester: functions, dictionaries, data tables, classes.
 - Students used a template: each step has an input, an output and a description.
-- The diagram and the reflection are shown together and coded as separate questions.
+- The diagram, the approach and the challenges are shown together, each takes its own jot, and each is coded with its own questions.
 - Background: *Planning on Paper* (ICER 2026) and *Drawing Your Programs* (arXiv 2602.10529).
 
 ## The trail

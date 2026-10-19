@@ -21,6 +21,8 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from typing import Iterable, Optional
 
+from annotate import studies
+
 KEY_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,39}$")
 STATUSES = ("untriaged", "pii_hold", "cleared", "excluded")
 
@@ -527,7 +529,9 @@ def feet(conn: sqlite3.Connection, track_id: int, roster_id: Optional[int] = Non
     total = FEET["triaged"] * (read + cleaned) + FEET["coded"] * coded
     mine = " AND roster_id = ?" if roster_id else ""
     for row in conn.execute(
-        f"SELECT kind, COUNT(*) AS n FROM memo WHERE track_id = ?{mine} GROUP BY kind",
+        # Jotting earns once per card, however many sources it was split over.
+        "SELECT kind, CASE WHEN kind = 'jotting' THEN COUNT(DISTINCT roster_id || ':' || item_id) ELSE COUNT(*) END AS n"
+        f" FROM memo WHERE track_id = ?{mine} GROUP BY kind",
         (track_id, roster_id) if roster_id else (track_id,),
     ):
         total += FEET.get(row["kind"], 0) * row["n"]
@@ -568,29 +572,33 @@ def add_memo(
     item_id: Optional[int] = None,
     batch_id: Optional[int] = None,
     code_key: Optional[str] = None,
+    part: Optional[str] = None,
 ) -> None:
     body = body.strip()
     if not body:
         raise Refused("Nothing to save: the text is empty.")
     conn.execute(
-        "INSERT INTO memo (track_id, roster_id, kind, item_id, batch_id, code_key, body, created_at)"
-        " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-        (track_id, roster_id, kind, item_id, batch_id, code_key or None, body[:10000], now()),
+        "INSERT INTO memo (track_id, roster_id, kind, item_id, batch_id, code_key, body, created_at, part)"
+        " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (track_id, roster_id, kind, item_id, batch_id, code_key or None, body[:10000], now(), part or None),
     )
 
 
-def set_jotting(conn: sqlite3.Connection, track_id: int, roster_id: int, item_id: int, body: str) -> bool:
-    """One jot per person per card, written in place. Returns True when this
-    is the card's first jot by them. Earlier separate jots on the card fold
-    into the one being written."""
+def set_jotting(
+    conn: sqlite3.Connection, track_id: int, roster_id: int, item_id: int, body: str, part: Optional[str] = None
+) -> bool:
+    """One jot per person per card, or per source on the card when `part` is
+    given, written in place. Returns True when it is their first one there.
+    Earlier separate jots in the same place fold into the one being written."""
     body = body.strip()
     if not body:
         raise Refused("Nothing to save: the text is empty.")
     rows = conn.execute(
-        "SELECT id FROM memo WHERE roster_id = ? AND item_id = ? AND kind = 'jotting' ORDER BY id", (roster_id, item_id)
+        "SELECT id FROM memo WHERE roster_id = ? AND item_id = ? AND kind = 'jotting' AND part IS ? ORDER BY id",
+        (roster_id, item_id, part or None),
     ).fetchall()
     if not rows:
-        add_memo(conn, track_id, roster_id, "jotting", body, item_id=item_id)
+        add_memo(conn, track_id, roster_id, "jotting", body, item_id=item_id, part=part)
         return True
     conn.execute("UPDATE memo SET body = ? WHERE id = ?", (body[:10000], rows[0]["id"]))
     conn.executemany("DELETE FROM memo WHERE id = ?", [(r["id"],) for r in rows[1:]])
@@ -598,8 +606,21 @@ def set_jotting(conn: sqlite3.Connection, track_id: int, roster_id: int, item_id
 
 
 def my_jot(conn: sqlite3.Connection, roster_id: int, item_id: int) -> str:
-    """What this person has jotted on a card, as the text of one box."""
-    return "\n\n".join(r["body"] for r in reversed(my_jottings(conn, roster_id, item_id)))
+    """What this person has jotted on a card as a whole, as the text of one box."""
+    return "\n\n".join(r["body"] for r in reversed(my_jottings(conn, roster_id, item_id)) if not r["part"])
+
+
+def my_part_jots(conn: sqlite3.Connection, roster_id: int, item_id: int) -> dict[str, str]:
+    """This person's jot on each source of a card: {part: text}."""
+    out: dict[str, str] = {}
+    for r in reversed(my_jottings(conn, roster_id, item_id)):
+        if r["part"]:
+            out[r["part"]] = (out[r["part"]] + "\n\n" + r["body"]) if r["part"] in out else r["body"]
+    return out
+
+
+# A jot as the model and the merge read it: a jot about one source says which.
+JOT_TEXT = "CASE WHEN m.part IS NULL THEN m.body ELSE 'On the ' || m.part || ': ' || m.body END"
 
 
 def shared_memos(conn: sqlite3.Connection, track_id: int, kind: str) -> list[sqlite3.Row]:
@@ -883,7 +904,7 @@ def candidate_inputs(conn: sqlite3.Connection, track_id: int, roster_id: int) ->
     """What the model is given for one person: their own jots, each with the
     item it is about, and the questions the team has shared. Nobody else's work."""
     jots = conn.execute(
-        "SELECT m.body, m.item_id FROM memo m JOIN item_state st ON st.item_id = m.item_id"
+        f"SELECT {JOT_TEXT} AS body, m.item_id FROM memo m JOIN item_state st ON st.item_id = m.item_id"
         " WHERE m.track_id = ? AND m.roster_id = ? AND m.kind = 'jotting' AND st.status = 'cleared'"
         " ORDER BY m.id DESC LIMIT 200",
         (track_id, roster_id),
@@ -941,7 +962,7 @@ def merge_inputs(conn: sqlite3.Connection, track_id: int) -> dict:
         done.setdefault(a["roster_id"], set()).add(a["item_id"])
     texts = _texts(conn, {i for c in codes for i in c["items"]})
     jots: dict[tuple[int, int], list[str]] = {}
-    for j in conn.execute("SELECT roster_id, item_id, body FROM memo WHERE track_id = ? AND kind = 'jotting' AND item_id IS NOT NULL", (track_id,)):
+    for j in conn.execute(f"SELECT m.roster_id, m.item_id, {JOT_TEXT} AS body FROM memo m WHERE m.track_id = ? AND m.kind = 'jotting' AND m.item_id IS NOT NULL ORDER BY m.id", (track_id,)):
         jots.setdefault((j["roster_id"], j["item_id"]), []).append(j["body"])
     return {"codes": codes, "done": done, "texts": texts, "jots": jots}
 
@@ -962,11 +983,11 @@ def merge_view(conn: sqlite3.Connection, track_id: int) -> dict:
     then the undecided and the dropped. Each personal code carries its owner,
     how many cards it is on, an example and its owner's jots on those cards."""
     _closed_starter(conn, track_id)
-    sources = [dict(r) for r in conn.execute(
+    sources = studies.by_part([dict(r) for r in conn.execute(
         "SELECT p.*, r.email, (SELECT COUNT(*) FROM pcode_use u WHERE u.pcode_id = p.id) AS uses"
         " FROM pcode p JOIN roster r ON r.id = p.roster_id WHERE p.track_id = ? AND p.status = 'own' ORDER BY p.part, p.id",
         (track_id,),
-    )]
+    )])
     used: dict[int, list[int]] = {}
     for u in conn.execute(
         "SELECT u.pcode_id, u.item_id FROM pcode_use u JOIN pcode p ON p.id = u.pcode_id JOIN item i ON i.id = u.item_id"
@@ -982,14 +1003,14 @@ def merge_view(conn: sqlite3.Connection, track_id: int) -> dict:
         " WHERE i.track_id = ? AND i.raw_path IS NOT NULL AND st.status = 'cleared'", (track_id,)
     )}
     jots: dict[tuple[int, int], list[str]] = {}
-    for j in conn.execute("SELECT roster_id, item_id, body FROM memo WHERE track_id = ? AND kind = 'jotting' AND item_id IS NOT NULL", (track_id,)):
+    for j in conn.execute(f"SELECT m.roster_id, m.item_id, {JOT_TEXT} AS body FROM memo m WHERE m.track_id = ? AND m.kind = 'jotting' AND m.item_id IS NOT NULL ORDER BY m.id", (track_id,)):
         jots.setdefault((j["roster_id"], j["item_id"]), []).append(j["body"])
     for s in sources:
         s["who"] = s["email"].split("@")[0]
         s["example"] = texts.get(examples[s["id"]], "")
         s["photo"] = photos.get(examples[s["id"]])
         s["jots"] = [body for item_id in used.get(s["id"], []) for body in jots.get((s["roster_id"], item_id), [])][:6]
-    proposed = [dict(m) for m in conn.execute("SELECT * FROM mcode WHERE track_id = ? ORDER BY part, ord, id", (track_id,))]
+    proposed = studies.by_part([dict(m) for m in conn.execute("SELECT * FROM mcode WHERE track_id = ? ORDER BY part, ord, id", (track_id,))])
     for m in proposed:
         m["sources"] = [s for s in sources if s["mcode_id"] == m["id"] and not s["dropped"]]
     return {
@@ -1123,10 +1144,10 @@ def draft(conn: sqlite3.Connection, track_id: int) -> Optional[sqlite3.Row]:
 
 def version_tree(conn: sqlite3.Connection, version_id: int) -> list[dict]:
     """Dimensions in order, each with its codes."""
-    dims = [
+    dims = studies.by_part([
         dict(d)
         for d in conn.execute("SELECT * FROM dimension WHERE version_id = ? ORDER BY part, ord, id", (version_id,))
-    ]
+    ])
     for d in dims:
         d["codes"] = conn.execute(
             "SELECT * FROM code WHERE dimension_id = ? ORDER BY ord, id", (d["id"],)

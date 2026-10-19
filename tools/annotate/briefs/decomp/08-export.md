@@ -16,7 +16,7 @@ One zip of CSVs for the whole study. It contains the hashed student ids, so do n
 | `final_codes.csv` | code on a submission | From the final pass. `source` is `single`, `agreed` or `consensus`. A row with no code means nothing applied. |
 | `themes.csv` | code in a theme | The team's themes with their statements. |
 
-Every file identifies a submission by `token`, `hash`, `homework` and `project`. `hash` is the student. `part` says whether a code is about the diagram or the reflection.
+Every file identifies a submission by `token`, `hash`, `homework` and `project`. `hash` is the student. `part` says which source a code or a jot is about: the diagram, the approach or the challenges.
 
 ## Using it
 

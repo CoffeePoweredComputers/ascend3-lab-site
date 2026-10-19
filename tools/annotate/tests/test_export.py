@@ -51,7 +51,7 @@ def test_export_is_tidy_and_joinable(client):
 
     # Diagram and reflection codes sit on the same item, told apart by `part`.
     assert {r["part"] for r in codes} == {"diagram"}
-    assert {r["part"] for r in out["codebook.csv"]} == {"diagram", "reflection"}
+    assert {r["part"] for r in out["codebook.csv"]} == {"diagram", "challenges"}
 
     # Coded-with-nothing is visible: the assignment is done but has no issue rows.
     done = [r for r in out["assignments.csv"] if r["coder"] == "C02" and r["done_at"]]

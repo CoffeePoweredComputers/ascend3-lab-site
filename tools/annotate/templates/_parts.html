@@ -86,14 +86,29 @@
   {% endif %}
 {% endmacro %}
 
-{# The written parts of a submission. #}
-{% macro texts(item) %}
+{# The written parts of a submission. In a study that takes a jot per
+   source, `jots` ({part: text}) and `needs` (the sources that take one) put
+   each part's jot box straight under it. #}
+{% macro texts(item, jots=none, needs=(), form=none, required=false, frozen=false) %}
   {% for t in item.texts %}
     <figure class="item-text">
       <figcaption class="eyebrow">{{ t.part }}</figcaption>
       <blockquote>{{ t.text }}</blockquote>
     </figure>
+    {% if jots is not none and t.part in needs %}{{ jot_box(t.part, jots.get(t.part, ''), form, required, frozen) }}{% endif %}
   {% endfor %}
+{% endmacro %}
+
+{# One source's jot, under that source: its first letter puts the cursor in it.
+   Once jotting has closed, what was written, without a box. #}
+{% macro jot_box(part, value, form=none, required=false, frozen=false) %}
+  {% if frozen %}
+    {% if value %}<div class="note jot-part"><p class="pre">{{ value }}</p><p class="meta">your jot on the {{ part }}</p></div>{% endif %}
+  {% else %}
+    <label class="jot jot-part" data-key="{{ part[0] }}"><span><kbd>{{ part[0] | upper }}</kbd> Jot on the {{ part }} <small>private until the merge</small></span>
+      <textarea name="jot_{{ part }}" rows="3" {% if form %}form="{{ form }}"{% endif %} {% if required %}required{% endif %}>{{ value }}</textarea>
+    </label>
+  {% endif %}
 {% endmacro %}
 
 {# One group per codebook dimension, as big choices. `selected` is a set of

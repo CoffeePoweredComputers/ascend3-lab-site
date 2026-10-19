@@ -214,6 +214,11 @@ details > summary { cursor: pointer; }
 .prompt__body table { border-collapse: collapse; font-size: 0.8rem; display: block; overflow-x: auto; }
 .prompt__body th, .prompt__body td { border: 1px solid var(--border); padding: 0.2rem 0.4rem; text-align: left; vertical-align: top; }
 /* The diagram: a click, or +, opens it big over the page. */
+/* A jot under each source, in a study that takes one per source. */
+.jot-part { display: block; margin: 0.5rem 0 1rem; font-size: 0.85rem; }
+.jot-part > span { display: block; margin-bottom: 0.3rem; font-weight: 600; }
+.jot-part small { font-weight: 400; color: var(--text-muted); }
+.jot-part textarea { width: 100%; }
 .zoom { display: block; margin: 0 auto; padding: 0; border: 0; background: none; cursor: zoom-in; max-width: 100%; }
 .zoom:hover { background: none; }
 .zoom:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }

@@ -87,7 +87,8 @@ def test_the_trail_shows_where_the_team_is(client, study):
 
 
 def asked(conn) -> list[tuple]:
-    return [tuple(r) for r in conn.execute("SELECT * FROM memo WHERE kind = 'rq' ORDER BY id")]
+    columns = "id, track_id, roster_id, kind, item_id, batch_id, code_key, body, created_at"
+    return [tuple(r) for r in conn.execute(f"SELECT {columns} FROM memo WHERE kind = 'rq' ORDER BY id")]
 
 
 def test_the_team_settles_one_question_set_and_no_wording_is_lost(client, study):
@@ -161,7 +162,8 @@ def test_questions_asked_before_they_could_be_edited_come_through_untouched(clie
     post(client, f"/t/{study}/memos", CODER1, kind="rq", body="What general concerns do students express?")
     conn = db.connect()
     conn.execute("DROP TABLE question_edit")
-    conn.execute(f"PRAGMA user_version = {len(db.MIGRATIONS) - 1}")
+    conn.execute("ALTER TABLE memo DROP COLUMN part")
+    conn.execute(f"PRAGMA user_version = {len(db.MIGRATIONS) - 2}")
     before = asked(conn)
     conn.close()
 
@@ -635,9 +637,9 @@ def test_anyone_can_restructure_the_draft(client):
 # ------------------------------------------------------------ the diagram study
 
 
-def test_the_diagram_study_runs_the_same_way_with_two_parts(client):
+def test_the_diagram_study_runs_the_same_way_with_three_parts(client):
     """Photos are cleaned on the way through, and a code is about the diagram
-    or the reflection: the two are never merged into one."""
+    or the challenges: the two are never merged into one."""
     track = track_id()
     relock(track)
     # The team cannot move on while a photo is still uncleaned.
@@ -654,10 +656,10 @@ def test_the_diagram_study_runs_the_same_way_with_two_parts(client):
     cards = batch_tokens(batch)
 
     card = client.get(f"/b/{batch}/code/{cards[0]}", headers=CODER1).text
-    assert '<select name="new_part">' in card and "The diagram" in card and "The reflection" in card
+    assert '<select name="new_part">' in card and "The diagram" in card and "The approach" in card and "The challenges" in card
     code(client, batch, CODER1, cards[0], new_name="Boxes are steps", new_definition="Each box is one step.", new_part="diagram", action="add")
     code(client, batch, CODER1, cards[0], code=str(my_code_ids(track, "coder1@example.edu")["Boxes are steps"]),
-         new_name="Says it was hard", new_definition="Names a difficulty.", new_part="reflection")
+         new_name="Says it was hard", new_definition="Names a difficulty.", new_part="challenges")
     code(client, batch, CODER2, cards[0], new_name="boxes are steps", new_definition="A box per step.", new_part="diagram", action="add")
     code(client, batch, CODER2, cards[0], code=str(my_code_ids(track, "coder2@example.edu")["boxes are steps"]),
          new_name="Says it was hard", new_definition="Same words, about the drawing.", new_part="diagram")
@@ -675,7 +677,7 @@ def test_the_diagram_study_runs_the_same_way_with_two_parts(client):
         mcode = conn.execute("SELECT id FROM mcode").fetchone()["id"]
         has_photo = bool(repo.item_by_token(conn, cards[0])["raw_path"])
     assert ('class="thumb"' in page) == has_photo  # the example diagram is shown beside the code
-    # A reflection code cannot be put into a diagram code.
+    # A challenges code cannot be put into a diagram code.
     assert "about%20the%20diagram" in post(client, f"/t/{track}/merge/move", CODER1, pcode=str(ids[("coder1", "Says it was hard")]), to=str(mcode))
     for who in ("coder1", "coder2"):
         post(client, f"/t/{track}/merge/move", CODER1, pcode=str(ids[(who, "Says it was hard")]), to="own")
@@ -683,8 +685,8 @@ def test_the_diagram_study_runs_the_same_way_with_two_parts(client):
     with db.db() as conn:
         tree = {d["key"]: d for d in repo.version_tree(conn, repo.draft(conn, track)["id"])}
     assert [c["label"] for c in tree["diagram-codes"]["codes"]] == ["Boxes are steps", "Says it was hard"]
-    assert [c["label"] for c in tree["reflection-codes"]["codes"]] == ["Says it was hard"]
-    assert tree["diagram-codes"]["part"] == "diagram" and tree["reflection-codes"]["part"] == "reflection"
+    assert [c["label"] for c in tree["challenges-codes"]["codes"]] == ["Says it was hard"]
+    assert tree["diagram-codes"]["part"] == "diagram" and tree["challenges-codes"]["part"] == "challenges"
 
 
 # ------------------------------------------------- locking the team, cleaning

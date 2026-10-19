@@ -10,9 +10,24 @@
     </section>
 
     <section class="deck__play">
-      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {% if study.has_image %}
+        <div class="submission__texts">
+          {% if study.jot_parts %}
+            {% if 'diagram' in needs %}{{ parts.jot_box('diagram', part_jots.get('diagram', ''), 'jotform', frozen=frozen) }}{% endif %}
+            {{ parts.texts(item, part_jots, needs, 'jotform', frozen=frozen) }}
+          {% else %}{{ parts.texts(item) }}{% endif %}
+        </div>
+      {% endif %}
       {{ parts.deck_nav('/t/' ~ track.id ~ '/items/' ~ previous if previous, '/t/' ~ track.id ~ '/items/' ~ following if following) }}
-      {% if frozen %}
+      {% if study.jot_parts %}
+        {% if frozen %}
+          <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+        {% elif needs %}
+          <form method="post" id="jotform" action="{{ root }}/t/{{ track.id }}/items/{{ item.token }}/jot">
+            <button data-key="Enter">Save jots <kbd>Ctrl+Enter</kbd></button>
+          </form>
+        {% endif %}
+      {% elif frozen %}
         <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
         {% if jot %}<div class="note"><p class="pre">{{ jot }}</p><p class="meta">your jot</p></div>{% endif %}
       {% else %}

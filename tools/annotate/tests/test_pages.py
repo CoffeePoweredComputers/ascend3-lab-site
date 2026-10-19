@@ -8,6 +8,9 @@ from helpers import tokens, track_id
 
 from annotate import config
 
+# A jot on each source of a diagram-study card, which reading one needs.
+JOTS = {"jot_diagram": "boxes in a line", "jot_approach": "works backwards", "jot_challenges": "naming steps"}
+
 
 def lead_pages() -> list[str]:
     track = track_id()
@@ -88,7 +91,7 @@ def test_an_item_shows_the_whole_submission(client):
         assert html.count('class="item-text"') == 2 and ">approach<" in html and ">challenges<" in html, path
     # The coding form keeps the two apart: diagram questions, then reflection questions.
     form = client.get(views[-1], headers=CODER1).text
-    assert form.index('part">diagram') < form.index("dim-relation") < form.index('part">reflection') < form.index("dim-challenge")
+    assert form.index('part">diagram') < form.index("dim-relation") < form.index('part">challenges') < form.index("dim-challenge")
     # One seeded student handed in no diagram; their reflections still show.
     pages = [client.get(f"/t/{track}/items/{t}", headers=CODER1).text for t in tokens(track, "cleared")]
     missing = [p for p in pages if "No diagram submitted." in p]
@@ -128,7 +131,9 @@ def test_a_photo_nobody_has_cleaned_has_the_tools_to_clean_it(client):
         c = repo.item_by_token(conn, third)
     assert (c["status"], c["crop_w"]) == ("cleared", 0.5)
     read = client.get(f"/t/{track}/triage/{third}", headers=CODER2).text
-    assert "data-crop" not in read and "Next card" in read and 'name="turn"' not in read and 'name="jot"' in read
+    assert "data-crop" not in read and "Save and next" in read and 'name="turn"' not in read
+    # A jot box under each source: the diagram, then each written part.
+    assert read.index('name="jot_diagram"') < read.index('name="jot_approach"') < read.index('name="jot_challenges"')
     assert read.index('class="item-image"') < read.index('class="deck__play"') < read.index('class="item-text"')
 
 
@@ -175,15 +180,15 @@ def test_the_trail_and_elevation(client):
         client.post(f"/t/{track}/triage/{token}", headers=CODER1)
     assert trail(CODER1)[0] == 1.5
     # Then each card you read moves it on.
-    client.post(f"/t/{track}/triage/{tokens(track, 'cleared')[0]}", headers=CODER1)
+    client.post(f"/t/{track}/triage/{tokens(track, 'cleared')[0]}", headers=CODER1, data=JOTS)
     further, more = trail(CODER1)
     assert further == 1.542 and more > filled
     assert trail(CODER2)[0] == 0  # someone else has not started
     # Doing the work counts as starting, with or without the button. Their pass is their own.
-    client.post(f"/t/{track}/triage/{tokens(track, 'cleared')[0]}", headers=CODER2)
+    client.post(f"/t/{track}/triage/{tokens(track, 'cleared')[0]}", headers=CODER2, data=JOTS)
     assert trail(CODER2)[0] == 1.542
     item = tokens(track, "cleared")[0]
-    client.post(f"/t/{track}/items/{item}/jot", headers=CODER1, data={"body": "arrows mean order here"})
+    client.post(f"/t/{track}/items/{item}/jot", headers=CODER1, data={"jot_diagram": "arrows mean order here"})
     relock(track, done=(1,))  # the lead has opened Questions
     client.post(f"/t/{track}/memos", headers=CODER1, data={"kind": "rq", "body": "How do arrows change?"})
     page = client.get(f"/t/{track}/triage", headers=CODER1).text
@@ -195,8 +200,9 @@ def test_the_trail_and_elevation(client):
     assert sorted(who for _, who in mates) == ["coder2", "lead"] and all(0 <= float(at) <= 1 for at, _ in mates)
     # Another coder sees the team's total, never this coder's figure.
     other = client.get(f"/t/{track}/triage", headers=CODER2).text
-    assert "<b>▲ 10 ft</b>" in other and "team ▲ 105 ft" in other
-    assert "in the foothills" in other and "85 ft to Rocher Clipperton" in other
+    # Coder 2 read one card, which in this study takes its jots: 10 + 5.
+    assert "<b>▲ 15 ft</b>" in other and "team ▲ 110 ft" in other
+    assert "in the foothills" in other and "80 ft to Rocher Clipperton" in other
     # Climbing past a landmark says so: a memo takes this coder from 95 ft to 145, past Monte Testaccio at 115.
     said = client.post(f"/t/{track}/memos", headers=CODER1, data={"kind": "memo", "body": "arrows again"}).headers["location"]
     assert "past Monte Testaccio" in unquote_plus(said)
@@ -252,7 +258,7 @@ def test_photos_are_cleaned_first_then_everyone_reads_and_jots(client):
     for headers in (CODER1, CODER2):
         assert "12 to read" in client.get(f"/t/{track}/triage", headers=headers).text
     first = tokens(track, "cleared")[0]
-    read = client.post(f"/t/{track}/triage/{first}", headers=CODER1, data={"jot": "arrows loop back here"})
+    read = client.post(f"/t/{track}/triage/{first}", headers=CODER1, data=dict(JOTS, jot_diagram="arrows loop back here"))
     assert "%2B15%20ft" in read.headers["location"]  # 10 for the card, 5 for the jotting
     # The jotting is on the item afterwards, for its author only.
     assert "arrows loop back here" in client.get(f"/t/{track}/items/{first}", headers=CODER1).text

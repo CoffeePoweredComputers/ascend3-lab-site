@@ -40,12 +40,24 @@
       {# Either side of this card, saved or not: a card passed by mistake is one key away. #}
       {% if mode != 'resolve' %}{{ parts.deck_nav(back, forward) }}{% endif %}
       {# With a photo on the left, what the student wrote goes here on the right. #}
-      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {% if study.has_image %}
+        <div class="submission__texts">
+          {# The diagram's jot heads the column beside it, so all three boxes are in one place. #}
+          {% if study.jot_parts and mode == 'read' %}
+            {% if 'diagram' in needs %}{{ parts.jot_box('diagram', part_jots.get('diagram', ''), required=study.jot_required, frozen=frozen) }}{% endif %}
+            {{ parts.texts(item, part_jots, needs, required=study.jot_required, frozen=frozen) }}
+          {% else %}{{ parts.texts(item) }}{% endif %}
+        </div>
+      {% endif %}
       {% if mode == 'clean' %}
         <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Keep and next</b><small>upright, cropped, nothing identifying left</small></button>
       {% elif mode == 'read' %}
-        {# Your jot on this card, in the box, to change as you like. #}
-        {% if frozen %}
+        {# Your jot on this card, in the box, to change as you like. A study
+           that takes a jot per source has its boxes under the sources instead. #}
+        {% if study.jot_parts %}
+          {% if frozen %}<p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+          {% else %}<p class="hint">A jot on each source: {% for p in needs %}<kbd>{{ p[0] | upper }}</kbd> {{ p }}{{ ', ' if not loop.last }}{% endfor %}.</p>{% endif %}
+        {% elif frozen %}
           <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
           {% if jot %}<div class="note"><p class="pre">{{ jot }}</p><p class="meta">your jot</p></div>{% endif %}
         {% else %}
@@ -53,7 +65,7 @@
             <textarea name="jot" rows="3" {% if study.jot_required and mode == 'read' %}required{% endif %}>{{ jot }}</textarea>
           </label>
         {% endif %}
-        <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Next card</b><small>Ctrl+Enter from the box</small></button>
+        <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>{{ 'Save and next' if study.jot_parts else 'Next card' }}</b><small>{{ 'every source needs a jot' if study.jot_parts and study.jot_required and not frozen else 'Ctrl+Enter from the box' }}</small></button>
       {% else %}
         <button name="action" value="clear" class="big big--go" data-key="k"><kbd>K</kbd><b>Keep</b><small>{{ 'readable, on task, nothing identifying left' if study.has_image else 'it belongs in the data' }}</small></button>
       {% endif %}
