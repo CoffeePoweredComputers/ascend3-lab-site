@@ -57,6 +57,9 @@
       sec.querySelectorAll('[data-step]').forEach((e) => {
         const n = parseInt(e.getAttribute('data-step'), 10);
         if (!isNaN(n) && n > max) max = n;
+        const h = parseInt(e.getAttribute('data-hold') || '', 10);   // a held frag may reach past the last data-step
+        if (!isNaN(h) && h > max) max = h;
+        (e.getAttribute('data-also') || '').split(/\s+/).forEach((a) => { const k = parseInt(a, 10); if (!isNaN(k) && k > max) max = k; });
       });
       const num = sec.querySelector('.slide__number');
       if (num && !num.textContent.trim()) num.textContent = (i + 1) + ' / ' + total;
@@ -82,11 +85,38 @@
     for (let i = 0; i < secs.length; i++) secs[i].classList.toggle('is-active', i === state.slide - 1);
     const active = secs[state.slide - 1];
     if (!active) return;
+    // data-hold="M" (W5D1) keeps a frag is-current from its data-step through
+    // step M — a loop body that stays under the program-counter bar while the
+    // right-hand side plays one iteration per press. Without it a line can be
+    // current on exactly one step.
+    // data-also="7 8" (W5D1) lists further steps at which the frag is current
+    // again — a code line that a second run of the walkthrough revisits. It is
+    // never pending at those steps; between them it is past.
     active.querySelectorAll('.frag').forEach((f) => {
       const v = parseInt(f.getAttribute('data-step') || '0', 10) || 0;
+      const h = parseInt(f.getAttribute('data-hold') || '', 10) || v;
+      const also = (f.getAttribute('data-also') || '').split(/\s+/).map(Number).filter(Boolean);
       f.classList.remove('is-pending', 'is-current', 'is-past');
-      f.classList.add(v > state.step ? 'is-pending' : v === state.step ? 'is-current' : 'is-past');
+      const cur = (state.step >= v && state.step <= h) || also.indexOf(state.step) !== -1;
+      f.classList.add(v > state.step ? 'is-pending' : cur ? 'is-current' : 'is-past');
     });
+
+    // Safari has no CSS `d` property, so the arrow swings written as
+    // `:has(.cap--k:not(.is-pending)) .ref { d: path(...) }` never apply there.
+    // Each swung arrow also carries data-swing='[[k,"path"],…]' (the same paths,
+    // keyed by the step they take effect from). When the CSS property is
+    // unsupported, set the attribute from it: the picture is right, without
+    // the motion. Other browsers ignore this block.
+    if (!(window.CSS && CSS.supports && CSS.supports('d', 'path("M0 0 L1 1")'))) {
+      active.querySelectorAll('[data-swing]').forEach((el) => {
+        if (!el.hasAttribute('data-d0')) el.setAttribute('data-d0', el.getAttribute('d'));
+        let d = el.getAttribute('data-d0');
+        try {
+          JSON.parse(el.getAttribute('data-swing')).forEach((pair) => { if (pair[0] <= state.step) d = pair[1]; });
+        } catch (e) { /* malformed data-swing: leave the arrow where it is */ }
+        if (el.getAttribute('d') !== d) el.setAttribute('d', d);
+      });
+    }
   }
 
   // ---------------------------------------------------------------- moves
