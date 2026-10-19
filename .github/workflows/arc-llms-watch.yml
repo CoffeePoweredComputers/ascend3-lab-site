@@ -1,0 +1,41 @@
+# Daily check that the ARC LLM guide (/wiki/computing/arc-llms) still matches
+# ARC's public docs. It never commits — a push to master is a deploy — it opens
+# one GitHub issue for a human, and keeps that issue's body current on later
+# runs instead of adding a comment a day. See scripts/check-arc-llms.mjs.
+#
+# Runs off campus on GitHub's runners, which is fine: it reads only public
+# docs pages, never ARC's API.
+name: ARC LLM guide watch
+
+on:
+  schedule:
+    - cron: '17 11 * * *' # daily, ~7am Eastern
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Exit 1 means "review needed", not a broken job; the next step acts on
+      # the report file instead.
+      - run: node scripts/check-arc-llms.mjs --report review.md || true
+      - name: Open or update the review issue
+        if: hashFiles('review.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: 'ARC LLM guide needs review'
+        run: |
+          n=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number --jq '.[0].number')
+          if [ -n "$n" ]; then
+            gh issue edit "$n" --body-file review.md
+          else
+            gh issue create --title "$TITLE" --body-file review.md
+          fi

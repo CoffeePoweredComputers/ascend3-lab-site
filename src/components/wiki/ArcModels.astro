@@ -1,0 +1,102 @@
+---
+/**
+ * ArcModels — the volatile parts of the ARC LLM guide, rendered from
+ * src/data/arc-llms.json so a model rename is a one-file edit.
+ *
+ *   <ArcModels show="table" />     model table
+ *   <ArcModels show="opencode" />  ready-to-paste opencode.json (agent models only)
+ *   <ArcModels show="reviewed" />  "last reviewed" line + a banner once it's stale
+ *
+ * The staleness banner is decided in the browser, not at build time: the site
+ * only rebuilds on a push, so a build-time check would never notice the page
+ * going stale on its own. scripts/check-arc-llms.mjs watches ARC's docs daily.
+ */
+import arc from '../../data/arc-llms.json';
+
+interface Props {
+  show: 'table' | 'opencode' | 'reviewed';
+}
+const { show } = Astro.props;
+
+const STALE_DAYS = 120; // about a semester
+
+const contextLabel = (n: number) => (n >= 1_000_000 ? `${Math.round(n / 1_048_576)}M` : `${Math.round(n / 1024)}k`);
+
+const opencode = JSON.stringify(
+  {
+    $schema: 'https://opencode.ai/config.json',
+    provider: {
+      ARC: {
+        name: 'ARC',
+        npm: '@ai-sdk/openai-compatible',
+        options: {
+          baseURL: arc.apiBase,
+          apiKey: '{env:ARC_API_KEY}',
+          timeout: 1800000,
+          headerTimeout: 1800000,
+        },
+        models: Object.fromEntries(
+          arc.models
+            .filter((m) => m.agent)
+            .map((m) => [m.id, { name: m.id, limit: { context: m.context, output: 16384 } }]),
+        ),
+      },
+    },
+    model: `ARC/${arc.defaultModel}`,
+  },
+  null,
+  2,
+);
+---
+
+{show === 'table' && (
+  <table>
+    <thead>
+      <tr><th>Model</th><th>Use it for</th><th>Memory</th></tr>
+    </thead>
+    <tbody>
+      {arc.models.map((m) => (
+        <tr>
+          <td><code>{m.id}</code>{m.id === arc.defaultModel && <strong> (default)</strong>}</td>
+          <td>{m.use}</td>
+          <td>{contextLabel(m.context)} tokens</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)}
+
+{show === 'opencode' && <pre><code>{opencode}</code></pre>}
+
+{show === 'reviewed' && (
+  <>
+    <p class="arc-reviewed" data-reviewed={arc.reviewedAt} data-stale-days={STALE_DAYS}>
+      Last checked against ARC's docs on <strong>{arc.reviewedAt}</strong>.
+    </p>
+    <p class="arc-stale" hidden>
+      ⚠ This guide hasn't been reviewed in over {STALE_DAYS} days. Model names or setup steps may
+      have changed; if something doesn't match, ARC's own <a href="https://docs.arc.vt.edu/ai/040_coding_agents.html">coding agents page</a> is the source of truth.
+    </p>
+  </>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.arc-reviewed').forEach((el) => {
+    const days = (Date.now() - Date.parse(el.dataset.reviewed ?? '')) / 86_400_000;
+    const banner = el.nextElementSibling as HTMLElement | null;
+    if (banner && days > Number(el.dataset.staleDays)) banner.hidden = false;
+  });
+</script>
+
+<style>
+  .arc-reviewed {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+  .arc-stale {
+    border: 1px solid var(--color-accent);
+    border-left-width: 4px;
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.9rem;
+  }
+</style>

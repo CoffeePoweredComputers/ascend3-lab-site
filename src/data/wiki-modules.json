@@ -51,5 +51,12 @@
     "icon": "📐",
     "blurb": "Building tools and studying them: prototyping, iteration, and design studies in real classrooms.",
     "underConstruction": true
+  },
+  {
+    "slug": "computing",
+    "title": "Computing & Tools",
+    "order": 8,
+    "icon": "🖥️",
+    "blurb": "Free AI for coding and research through Virginia Tech ARC — browser chat and a Claude-Code-style terminal agent, no subscription."
   }
 ]

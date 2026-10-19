@@ -21,6 +21,8 @@ on:
       - 'src/data/wiki-modules.json'
       - 'src/content.config.ts'
       - 'src/data/references.json'
+      - 'src/data/arc-llms.json'
+      - 'src/components/wiki/**'
       - 'src/lib/wiki.ts'
       # Lab tools: a bad tool.json is skipped by the build on purpose (so it can
       # never stall the server's autodeploy), which makes this the only place

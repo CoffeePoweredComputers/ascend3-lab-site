@@ -1,0 +1,138 @@
+---
+title: Free AI with VT ARC
+module: computing
+order: 1
+description: Use Virginia Tech's own hosted AI models for chat and coding — free for every student, no subscription.
+estMinutes: 10
+---
+
+import Callout from '@wiki/Callout.astro';
+import Steps from '@wiki/Steps.astro';
+import Reveal from '@wiki/Reveal.astro';
+import ArcModels from '@wiki/ArcModels.astro';
+
+Virginia Tech's Advanced Research Computing (ARC) runs large AI models on its own hardware and
+gives **every VT student, undergrad or grad, free access**. You don't need an ARC account, a
+faculty sponsor, or a credit card, and it works off campus without the VPN. You can use it two ways:
+
+- **In the browser**, like ChatGPT.
+- **In your terminal**, as a coding agent that reads and edits your project, like Claude Code.
+
+<ArcModels show="reviewed" />
+
+## 1. Chat in the browser
+
+Go to **[llm.arc.vt.edu](https://llm.arc.vt.edu)** and sign in with your VT login. That's it.
+
+It can search the web and read images (with `DeepSeek-V4.1-Flash`). Pick a model from the menu at the top; the table in [step 4](#4-pick-a-model)
+says which one to use for what.
+
+## 2. Get an API key
+
+Coding tools need a key so ARC knows it's you.
+
+<Steps>
+1. At [llm.arc.vt.edu](https://llm.arc.vt.edu), click your name → **Settings** → **Account** → **API keys**, and create a key. It starts with `sk-`.
+2. Save it where your tools can find it. On macOS (or Linux, using `~/.bashrc` instead):
+
+   ```bash
+   echo 'export ARC_API_KEY="sk-paste-your-key-here"' >> ~/.zshrc
+   ```
+
+   Then **open a new terminal window**. On Windows, do all of this inside
+   [WSL](https://learn.microsoft.com/windows/wsl/install).
+3. Check that it works. You should see a list of model names, not an error:
+
+   ```bash
+   curl -s https://llm-api.arc.vt.edu/api/v1/models -H "Authorization: Bearer $ARC_API_KEY"
+   ```
+</Steps>
+
+<Callout type="warning" title="Treat the key like a password">
+Never paste it into code you commit, a shared doc, or a chat. If it leaks, delete it on the same
+settings page and make a new one.
+</Callout>
+
+## 3. Code with OpenCode
+
+**[OpenCode](https://opencode.ai)** is a free, open-source coding agent for your terminal. You
+describe what you want ("add a test for the parser", "why does this crash?"), and it reads your
+files, proposes edits, and runs commands, asking you before it does anything. If you've seen
+Claude Code, it works the same way. ARC supports it officially.
+
+<Steps>
+1. Install it:
+
+   ```bash
+   curl -fsSL https://opencode.ai/install | bash
+   ```
+
+   (Or `npm install -g opencode-ai`, or `brew install anomalyco/tap/opencode`.)
+2. Create the file `~/.config/opencode/opencode.json` and paste this in. It reads your key from
+   `ARC_API_KEY`, so the file itself has no secrets:
+
+   <ArcModels show="opencode" />
+3. In a terminal, `cd` into your project and run `opencode`. Type what you want in plain English.
+</Steps>
+
+A few commands worth knowing, typed inside OpenCode:
+
+| Command | What it does |
+| --- | --- |
+| `/init` | Writes an `AGENTS.md` describing your project, so the agent understands it in later sessions. |
+| `/models` | Switch models, e.g. to `DeepSeek-V4.1-Flash` when `GLM-5.3` is slow. |
+| `/compact` | Summarizes a long conversation when it runs out of memory. |
+
+<Callout type="tip" title="Already use Claude Code?">
+OpenCode reads `AGENTS.md`, and falls back to your `CLAUDE.md`, so your project instructions carry over.
+</Callout>
+
+<Callout type="warning" title="Read before you approve">
+The agent asks before running commands. Don't approve anything that deletes files, rewrites git
+history, or that you don't understand. Commit your work before a big change so you can undo it.
+</Callout>
+
+<Reveal summary="Prefer VS Code?">
+VS Code's built-in Chat can use ARC directly, with no extension and no Copilot subscription.
+Follow the **VS Code** section of ARC's
+[Coding Agents and IDEs](https://docs.arc.vt.edu/ai/040_coding_agents.html) page, and use the
+same key and model names as above.
+</Reveal>
+
+## 4. Pick a model
+
+<ArcModels show="table" />
+
+"Memory" (the context window) is how much of your conversation and code the model can hold at
+once. When a long session gets confused, run `/compact` or start fresh.
+
+## What's allowed
+
+- **Data:** ARC runs entirely on VT hardware, and VT has approved it for sensitive data. Two exceptions:
+  - Nothing export-controlled (ITAR) or CUI goes into any AI tool.
+  - **Research study data** goes in only if your IRB protocol says this tool may be used. Ask your advisor first.
+- **Privacy:** ARC logs your conversations under VT's security policies. Don't type anything you
+  wouldn't put in a VT email.
+- **Limits:** up to 20 requests at once per person. That's plenty for one agent; running many in
+  parallel will hit it.
+
+## When something goes wrong
+
+| You see | Fix |
+| --- | --- |
+| `401` / "unauthorized" | The key is wrong or deleted. Run `echo $ARC_API_KEY` to check it's set, or make a new key. |
+| `429` / "too many requests" | Too many requests at once. Wait a minute, or close other sessions. |
+| A long wait before any answer | `GLM-5.3` is queued behind other users. Switch to `DeepSeek-V4.1-Flash` with `/models`. |
+| The agent forgets things or loops | Its memory is full. Run `/compact`, or start a new session. |
+| Answers aren't as good as Claude or ChatGPT | Expected. These are strong open models, not the newest commercial ones. Give smaller, clearer tasks. |
+
+<Reveal summary="Can I use Claude Code itself with ARC?">
+Technically yes: ARC accepts Claude Code's request format. But ARC itself calls it "not an ideal
+client". Sub-agents, web search, and extended thinking don't work, and it can break midway on
+long sessions. Use OpenCode. If you still want to try, the setup is under **Claude Code** on
+ARC's [Coding Agents and IDEs](https://docs.arc.vt.edu/ai/040_coding_agents.html) page.
+</Reveal>
+
+**Help:** ARC's own docs are at [docs.arc.vt.edu/ai](https://docs.arc.vt.edu/zz_ai.html). For
+account or service problems, use [VT 4Help](https://arc.vt.edu/help.html). If this page is out of date, use
+**Edit this page** below, or tell a lab member.

@@ -1,0 +1,71 @@
+{
+  "reviewedAt": "2026-10-19",
+  "chatUrl": "https://llm.arc.vt.edu",
+  "apiBase": "https://llm-api.arc.vt.edu/api/v1",
+  "defaultModel": "GLM-5.3",
+  "models": [
+    {
+      "id": "GLM-5.3",
+      "use": "Default for coding and reasoning. Shared queue: when ARC is busy it can wait a few minutes before starting.",
+      "context": 131072,
+      "agent": true
+    },
+    {
+      "id": "DeepSeek-V4.1-Flash",
+      "use": "Switch to this when GLM-5.3 is slow, or for huge codebases and long sessions. Also reads images.",
+      "context": 1048576,
+      "agent": true
+    },
+    {
+      "id": "GLM-5.3-thinking-high",
+      "use": "Thinks longer before answering. For hard bugs and design questions; slower.",
+      "context": 131072,
+      "agent": true
+    },
+    {
+      "id": "gpt-oss-120b",
+      "use": "Fast for quick questions in chat. Less reliable at running tools, so not for coding agents.",
+      "context": 131072,
+      "agent": false
+    }
+  ],
+  "otherIds": [
+    "gpt-oss-120b-thinking-low",
+    "gpt-oss-120b-thinking-high",
+    "DeepSeek-V4.1-Flash-thinking-low",
+    "DeepSeek-V4.1-Flash-thinking-max",
+    "Qwen3-Embedding-4B"
+  ],
+  "changelogSeen": [
+    "2026/10/17: Updated DeepSeek-V4.1-Flash to the 1017 checkpoint, see model card on Hugging Face."
+  ],
+  "watch": [
+    {
+      "url": "https://docs.arc.vt.edu/ai/011_llm_api_arc_vt_edu.html",
+      "expect": [
+        "llm-api.arc.vt.edu/api/v1"
+      ],
+      "modelList": true
+    },
+    {
+      "url": "https://docs.arc.vt.edu/ai/040_coding_agents.html",
+      "expect": [
+        "OpenCode",
+        "@ai-sdk/openai-compatible"
+      ]
+    },
+    {
+      "url": "https://docs.arc.vt.edu/ai/010_llm_arc_vt_edu.html",
+      "expect": [
+        "llm.arc.vt.edu"
+      ]
+    },
+    {
+      "url": "https://opencode.ai/docs/providers/",
+      "expect": [
+        "@ai-sdk/openai-compatible"
+      ]
+    }
+  ],
+  "ignoreTokens": []
+}

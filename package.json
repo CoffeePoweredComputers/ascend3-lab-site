@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check:citations": "node scripts/check-citations.mjs",
-    "check:irb-links": "node scripts/check-vt-hrpp-links.mjs"
+    "check:irb-links": "node scripts/check-vt-hrpp-links.mjs",
+    "check:arc-llms": "node scripts/check-arc-llms.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",

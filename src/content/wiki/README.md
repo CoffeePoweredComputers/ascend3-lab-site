@@ -135,6 +135,16 @@ It HTTP-checks every registry URL **and** any VT links in the IRB lesson prose, 
 breaks, find the current file on <https://www.research.vt.edu/sirc/hrpp/> and update
 `vt-hrpp-links.json`.
 
+### ARC LLM guide
+
+`computing/arc-llms.mdx` reads its model table and OpenCode config from
+`src/data/arc-llms.json`, so a model rename is a one-file edit. A daily GitHub Action
+(`.github/workflows/arc-llms-watch.yml`) runs `npm run check:arc-llms` against ARC's
+public docs and opens an issue titled **"ARC LLM guide needs review"** when a model
+disappears, a new one appears, or ARC posts a changelog entry. To resolve it: update the
+JSON (and the lesson if the steps changed), set `reviewedAt` to today, push, and close
+the issue. The page shows a staleness banner once `reviewedAt` is 120 days old.
+
 Prev/next links are added automatically; you don't need to include them in the lesson.
 
 > The interactive components themselves are code (`src/components/wiki/`). To add a new
