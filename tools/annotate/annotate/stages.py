@@ -7,6 +7,8 @@ briefs/, shown on the page where the work happens.
 
 from __future__ import annotations
 
+import re
+
 from annotate import config
 
 # (number, brief file stem, title, key, page where the work happens)
@@ -32,6 +34,16 @@ def brief(stage: int, kind: str) -> str:
     own = config.APP_DIR / "briefs" / kind / f"{stem}.md"
     shared = config.APP_DIR / "briefs" / f"{stem}.md"
     return (own if own.exists() else shared).read_text(encoding="utf-8")
+
+
+def prompt(kind: str, project: str) -> str:
+    """The task a project's students were given, as markdown, from
+    briefs/<kind>/prompts/<project>.md. Empty when there is none. The project
+    name comes from imported data, so only a plain name is looked up."""
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", project or ""):
+        return ""
+    path = config.APP_DIR / "briefs" / kind / "prompts" / f"{project}.md"
+    return path.read_text(encoding="utf-8") if path.is_file() else ""
 
 
 def sections(text: str) -> tuple[str, list[tuple[str, str]]]:

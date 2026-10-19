@@ -2,7 +2,7 @@ Turn everyone's own codes into one codebook two people would apply the same way.
 
 ## Structure
 
-A **dimension** is one question asked of every item. Each is about either the diagram or the reflection, and the coding form groups them that way.
+A **dimension** is one question asked of every item. Each is about one source: the diagram, the approach or the challenges. The coding form groups them that way.
 
 - **Single choice**: exactly one code applies. Include an "unclear" option.
 - **Multi-label**: any number apply, including none.
@@ -11,7 +11,7 @@ Each code has a label, a definition, include when, exclude when, and an example 
 
 ## The merge
 
-1. The lead runs the merge, once. It groups codes that mean the same thing and proposes a name and definition for each group. Diagram codes and reflection codes are never grouped together.
+1. The lead runs the merge, once. It groups codes that mean the same thing and proposes a name and definition for each group. Codes about different sources are never grouped together.
 2. Meet, with one screen shared. For each personal code, choose where it goes: into a proposed code, a code of its own, or dropped.
 3. Rewrite names and definitions until everyone would apply them the same way.
 4. When nothing is undecided, write the result to the codebook draft.

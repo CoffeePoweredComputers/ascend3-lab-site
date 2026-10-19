@@ -2,9 +2,13 @@
 {% import "_parts.html" as parts with context %}
 {% block title %}{{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
+  {# Once a card is clean, the question it answered heads it. #}
+  {% if mode != 'clean' %}{{ parts.prompt(item) }}{% endif %}
   {# mode is clean (a photo nobody has turned and cropped yet), read (a card
      in the data) or resolve (a lead settling one that was flagged). #}
-  <form method="post" class="deck {{ 'deck--photo' if study.has_image }}">
+  {# A card read for a study that takes a jot per source has the sources side by side, each over its jot. #}
+  {% set side_by_side = mode == 'read' and study.jot_parts %}
+  <form method="post" class="deck {{ 'deck--sources' if side_by_side else ('deck--photo' if study.has_image) }}">
     {% if mode == 'clean' %}<input type="hidden" name="mode" value="clean">{% endif %}
     <section class="deck__card submission">
       <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {{ item.project | replace('_', ' ') }} · {{ item.homework }}
@@ -28,24 +32,30 @@
           <span class="hint">Turn first, then drag a box round the diagram.</span>
           <button type="button" class="link" data-crop-clear>Remove crop</button>
         </p>
-      {% elif item.raw_path %}
-        <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
-      {% elif study.has_image %}
-        <p class="item-missing">No diagram submitted.</p>
+      {% elif side_by_side %}
+        {{ parts.sources(item, part_jots, needs, required=study.jot_required, frozen=frozen) }}
+      {% else %}
+        {{ parts.picture(item) }}
       {% endif %}
-      {% if not study.has_image %}{{ parts.texts(item) }}{% endif %}
+      {% if not study.has_image and not side_by_side %}{{ parts.texts(item) }}{% endif %}
     </section>
 
     <section class="deck__play">
       {# Either side of this card, saved or not: a card passed by mistake is one key away. #}
       {% if mode != 'resolve' %}{{ parts.deck_nav(back, forward) }}{% endif %}
       {# With a photo on the left, what the student wrote goes here on the right. #}
-      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {% if study.has_image and not side_by_side %}
+        <div class="submission__texts">{{ parts.texts(item) }}</div>
+      {% endif %}
       {% if mode == 'clean' %}
         <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Keep and next</b><small>upright, cropped, nothing identifying left</small></button>
       {% elif mode == 'read' %}
-        {# Your jot on this card, in the box, to change as you like. #}
-        {% if frozen %}
+        {# Your jot on this card, in the box, to change as you like. A study
+           that takes a jot per source has its boxes under the sources instead. #}
+        {% if study.jot_parts %}
+          {% if frozen %}<p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+          {% else %}<p class="hint">A jot on each source: {% for p in needs %}<kbd>{{ p[0] | upper }}</kbd> {{ p }}{{ ', ' if not loop.last }}{% endfor %}.</p>{% endif %}
+        {% elif frozen %}
           <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
           {% if jot %}<div class="note"><p class="pre">{{ jot }}</p><p class="meta">your jot</p></div>{% endif %}
         {% else %}
@@ -53,7 +63,7 @@
             <textarea name="jot" rows="3" {% if study.jot_required and mode == 'read' %}required{% endif %}>{{ jot }}</textarea>
           </label>
         {% endif %}
-        <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Next card</b><small>Ctrl+Enter from the box</small></button>
+        <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>{{ 'Save and next' if study.jot_parts else 'Next card' }}</b><small>{{ 'every source needs a jot' if study.jot_parts and study.jot_required and not frozen else 'Ctrl+Enter from the box' }}</small></button>
       {% else %}
         <button name="action" value="clear" class="big big--go" data-key="k"><kbd>K</kbd><b>Keep</b><small>{{ 'readable, on task, nothing identifying left' if study.has_image else 'it belongs in the data' }}</small></button>
       {% endif %}

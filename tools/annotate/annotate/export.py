@@ -62,7 +62,7 @@ QUERIES = {
     """,
     "memos.csv": """
         SELECT m.kind, r.coder_code AS coder, i.token, s.hash, s.homework, s.project,
-               m.batch_id, m.code_key, m.body, m.created_at
+               m.batch_id, m.code_key, m.part, m.body, m.created_at
         FROM memo m
         JOIN track t ON t.id = m.track_id
         JOIN roster r ON r.id = m.roster_id

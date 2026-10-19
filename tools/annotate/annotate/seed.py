@@ -51,7 +51,7 @@ CODEBOOK = [
         ("code-on-paper", "Code on paper", "The description is code or near-code, not intent."),
         ("no-io", "Missing input or output", "A step with no stated input or output."),
     ]),
-    ("challenge", "Challenge named", "multi", "reflection", [
+    ("challenge", "Challenge named", "multi", "challenges", [
         ("granularity", "Step granularity", "Deciding what should be one step."),
         ("abstraction", "Abstraction", "Describing without writing code."),
         ("relations", "Relations", "Deciding how steps connect."),

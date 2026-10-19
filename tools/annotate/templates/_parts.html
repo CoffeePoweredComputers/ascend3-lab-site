@@ -42,6 +42,14 @@
    row at all (see ITEM_COLUMNS in repo.py), so they cannot be rendered here. #}
 {% macro show(item) %}
   <p class="task">{{ item.project | replace('_', ' ') }} · {{ item.homework }}</p>
+  {# In a list of cards the prompt stays folded; one card on its own gets prompt() at the top. #}
+  {% set p = task_prompt(study.kind, item.project) %}
+  {% if p %}
+    <details class="fold prompt-fold">
+      <summary>The prompt</summary>
+      <div class="prompt__body">{{ p.lead }}{{ p.rest }}</div>
+    </details>
+  {% endif %}
   {# With a photo: the photo on the left, what the student wrote on the right. #}
   <div class="submission {{ 'submission--photo' if study.has_image }}">
     {{ picture(item) }}
@@ -51,20 +59,74 @@
 
 {% macro picture(item) %}
   {% if item.raw_path %}
-    <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
+    {# Clicking it, or +, opens it big (deck.js). #}
+    <button type="button" class="zoom" data-zoom data-key="+" aria-label="Enlarge the diagram (+)">
+      <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
+    </button>
   {% elif study.has_image %}
     <p class="item-missing">No diagram submitted.</p>
   {% endif %}
 {% endmacro %}
 
-{# The written parts of a submission. #}
-{% macro texts(item) %}
+{# The prompt the student was answering, across the top of a single card:
+   the problem and what was asked for in full, the rest in a fold. #}
+{% macro prompt(item) %}
+  {% set p = task_prompt(study.kind, item.project) %}
+  {% if p %}
+    <section class="prompt" aria-label="The prompt the student answered">
+      <p class="eyebrow">The prompt the student answered · {{ item.project | replace('_', ' ') }} · {{ item.homework }}</p>
+      <div class="prompt__lead">{{ p.lead }}</div>
+      {% if p.rest %}
+        <details class="fold">
+          <summary>Full prompt: examples, the example diagram, the reflection questions</summary>
+          <div class="prompt__body">{{ p.rest }}</div>
+        </details>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endmacro %}
+
+{# The written parts of a submission. In a study that takes a jot per
+   source, `jots` ({part: text}) and `needs` (the sources that take one) put
+   each part's jot box straight under it. #}
+{% macro texts(item, jots=none, needs=(), form=none, required=false, frozen=false) %}
   {% for t in item.texts %}
     <figure class="item-text">
       <figcaption class="eyebrow">{{ t.part }}</figcaption>
       <blockquote>{{ t.text }}</blockquote>
     </figure>
+    {% if jots is not none and t.part in needs %}{{ jot_box(t.part, jots.get(t.part, ''), form, required, frozen) }}{% endif %}
   {% endfor %}
+{% endmacro %}
+
+{# A study that takes a jot per source, laid out as the sources side by side:
+   the diagram, then each written part, each with its jot straight under it. #}
+{% macro sources(item, jots, needs, form=none, required=false, frozen=false) %}
+  {% set written = {} %}
+  {% for t in item.texts %}{% set _ = written.update({t.part: t.text}) %}{% endfor %}
+  <div class="sources">
+    {% for part in study.jot_parts %}
+      <section class="sourcecol" aria-label="The {{ part }}">
+        <h2 class="eyebrow">{{ part }}</h2>
+        {% if part == 'diagram' %}{{ picture(item) }}
+        {% elif (written.get(part) or '').strip() %}<figure class="item-text"><blockquote>{{ written[part] }}</blockquote></figure>
+        {% else %}<p class="item-missing">Left blank.</p>{% endif %}
+        {% if part in needs %}{{ jot_box(part, jots.get(part, ''), form, required, frozen) }}{% endif %}
+      </section>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{# One source's jot, under that source: its first letter puts the cursor in it.
+   Once jotting has closed, what was written, without a box. #}
+{% macro jot_box(part, value, form=none, required=false, frozen=false) %}
+  {% if frozen %}
+    {% if value %}<div class="note jot-part"><p class="pre">{{ value }}</p><p class="meta">your jot on the {{ part }}</p></div>{% endif %}
+  {% else %}
+    <label class="jot jot-part" data-key="{{ part[0] }}"><span><kbd>{{ part[0] | upper }}</kbd> Jot on the {{ part }} <small>private until the merge</small></span>
+      <textarea name="jot_{{ part }}" rows="3" {% if form %}form="{{ form }}"{% endif %} {% if required %}required{% endif %}>{{ value }}</textarea>
+    </label>
+  {% endif %}
 {% endmacro %}
 
 {# One group per codebook dimension, as big choices. `selected` is a set of

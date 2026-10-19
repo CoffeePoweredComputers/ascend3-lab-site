@@ -2,16 +2,28 @@
 {% import "_parts.html" as parts with context %}
 {% block title %}Item {{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
-  <div class="deck {{ 'deck--photo' if study.has_image }}">
+  {{ parts.prompt(item) }}
+  <div class="deck {{ 'deck--sources' if study.jot_parts else ('deck--photo' if study.has_image) }}">
     <section class="deck__card">
       <p class="deck__id"><span class="id">{{ item.token[:6] }}</span></p>
-      {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+      {% if study.jot_parts %}{{ parts.sources(item, part_jots, needs, 'jotform', frozen=frozen) }}
+      {% elif study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
     </section>
 
     <section class="deck__play">
-      {% if study.has_image %}<div class="submission__texts">{{ parts.texts(item) }}</div>{% endif %}
+      {% if study.has_image and not study.jot_parts %}
+        <div class="submission__texts">{{ parts.texts(item) }}</div>
+      {% endif %}
       {{ parts.deck_nav('/t/' ~ track.id ~ '/items/' ~ previous if previous, '/t/' ~ track.id ~ '/items/' ~ following if following) }}
-      {% if frozen %}
+      {% if study.jot_parts %}
+        {% if frozen %}
+          <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
+        {% elif needs %}
+          <form method="post" id="jotform" action="{{ root }}/t/{{ track.id }}/items/{{ item.token }}/jot">
+            <button data-key="Enter">Save jots <kbd>Ctrl+Enter</kbd></button>
+          </form>
+        {% endif %}
+      {% elif frozen %}
         <p class="muted">Your jots are closed: you have generated your candidate codes.</p>
         {% if jot %}<div class="note"><p class="pre">{{ jot }}</p><p class="meta">your jot</p></div>{% endif %}
       {% else %}

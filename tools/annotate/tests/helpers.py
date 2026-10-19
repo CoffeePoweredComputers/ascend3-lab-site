@@ -19,11 +19,14 @@ def roster_ids(track: int, *emails: str) -> list[str]:
         ]
 
 
-def tokens(track: int, status: str) -> list[str]:
+def tokens(track: int, status: str, drawn: bool = False) -> list[str]:
+    """In shuffled order, which differs from run to run. With drawn, only
+    cards that have a diagram (one seeded student handed in none)."""
     with db.db() as conn:
         rows = conn.execute(
             "SELECT i.token FROM item i JOIN item_state st ON st.item_id = i.id"
-            " WHERE i.track_id = ? AND st.status = ? ORDER BY i.shuffle_key",
+            " WHERE i.track_id = ? AND st.status = ?" + (" AND i.raw_path IS NOT NULL" if drawn else "")
+            + " ORDER BY i.shuffle_key",
             (track, status),
         ).fetchall()
     return [r["token"] for r in rows]

@@ -347,6 +347,12 @@ MIGRATIONS = [
 
     CREATE INDEX question_edit_memo ON question_edit(memo_id);
     """,
+    """
+    -- Which source a jotting is about, in a study whose cards take one jot
+    -- per source (studies.Study.jot_parts): diagram, approach, challenges.
+    -- Empty for a jot about the card as a whole.
+    ALTER TABLE memo ADD COLUMN part TEXT;
+    """,
 ]
 
 

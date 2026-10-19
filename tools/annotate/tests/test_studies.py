@@ -87,7 +87,7 @@ def test_a_dimension_must_be_about_one_of_the_studys_parts(client):
     assert "error=" in add(ethics, "diagram")
     assert "error=" not in add(ethics, "question")
     assert "error=" in add(decomp, "question")
-    assert "error=" not in add(decomp, "reflection")
+    assert "error=" not in add(decomp, "approach")
     # The ethics draft form has no part picker; the diagram study's does.
     assert '<select name="part"' not in client.get(f"/t/{ethics}/codebook/draft", headers=LEAD).text
     assert '<select name="part"' in client.get(f"/t/{decomp}/codebook/draft", headers=LEAD).text

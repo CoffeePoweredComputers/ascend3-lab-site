@@ -43,6 +43,20 @@ templates.env.filters["who"] = lambda email: str(email).split("@")[0]
 templates.env.globals.update(passed=peaks.passed, ahead=peaks.ahead)
 
 
+def task_prompt(kind: str, project: str) -> dict | None:
+    """The prompt a submission answered, rendered in two pieces: `lead`, the
+    problem and what was asked for, always shown at the top of a card, and
+    `rest`, the examples and reflection questions, kept in a fold."""
+    text = stages.prompt(kind, project)
+    if not text:
+        return None
+    lead, cut, rest = text.partition("\n**Example")
+    return {"lead": Markup(markdown.render(lead)), "rest": Markup(markdown.render(cut.lstrip("\n") + rest)) if cut else Markup("")}
+
+
+templates.env.globals["task_prompt"] = task_prompt
+
+
 def page(request: Request, name: str, status_code: int = 200, **context) -> Response:
     """Render a template. On a track's pages this also builds the sidebar (the
     stages, with progress) and, for the stage named by `at`, its guide."""
@@ -419,6 +433,7 @@ def triage_item(request: Request, tid: int, token: str):
         item = own_item(conn, tid, token, me["role"])
         counts = repo.triage_counts(conn, tid)
         jot = repo.my_jot(conn, me["id"], item["id"])
+        part_jots = repo.my_part_jots(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
         read = len(repo.seen_ids(conn, tid, me["id"]))
         back, forward = repo.neighbours(conn, tid, me["id"], item)
@@ -431,7 +446,8 @@ def triage_item(request: Request, tid: int, token: str):
         deck.update(title="Clean", value=counts["cleared"])
     return page(
         request, "triage_item.html", user=user, track=track, me=me, item=item, at="triage", deck=deck,
-        mode=mode, jot=jot, frozen=frozen,
+        mode=mode, jot=jot, frozen=frozen, part_jots=part_jots,
+        needs=studies.get(track["dataset_kind"]).jots_needed(item) if mode == "read" else (),
         back=f"/t/{tid}/triage/{back}" if back else None, forward=f"/t/{tid}/triage/{forward}" if forward else None,
     )
 
@@ -506,12 +522,29 @@ async def triage_save(request: Request, tid: int, token: str):
 
         # One card of a person's own pass: jot, and move on or flag it.
         auth.on_team(me)
-        jot = str(form.get("jot") or "").strip()
-        if jot and repo.jots_frozen(conn, tid, me["id"]):
-            raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
-        fresh = bool(jot) and repo.set_jotting(conn, tid, me["id"], item["id"], jot)
-        if not jot and study.jot_required and not reason and not repo.jots_frozen(conn, tid, me["id"]):
-            raise repo.Refused("Jot what you notice before moving on.")
+        frozen = repo.jots_frozen(conn, tid, me["id"])
+        if study.jot_parts:
+            # One jot per source, each under its source. What was typed is
+            # kept even when the card cannot be passed yet.
+            needs = study.jots_needed(item)
+            typed = {p: str(form.get(f"jot_{p}") or "").strip() for p in needs}
+            if any(typed.values()) and frozen:
+                raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
+            fresh = False
+            for p, text in typed.items():
+                if text:
+                    fresh = repo.set_jotting(conn, tid, me["id"], item["id"], text, part=p) or fresh
+            have = repo.my_part_jots(conn, me["id"], item["id"])
+            missing = [p for p in needs if not have.get(p)]
+            if missing and study.jot_required and not reason and not frozen:
+                return go(f"/t/{tid}/triage/{token}", error="Jot on the " + " and the ".join(missing) + " before moving on.")
+        else:
+            jot = str(form.get("jot") or "").strip()
+            if jot and frozen:
+                raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
+            fresh = bool(jot) and repo.set_jotting(conn, tid, me["id"], item["id"], jot)
+            if not jot and study.jot_required and not reason and not frozen:
+                raise repo.Refused("Jot what you notice before moving on.")
         said = ""
         if reason:
             repo.flag_item(conn, item, user.email, reason, f"{label}. {note}".strip())
@@ -552,7 +585,16 @@ def items(request: Request, tid: int):
     with db.db() as conn:
         user, track, me = auth.require(conn, request, tid)
         rows = repo.items_with_status(conn, tid, ["cleared"])
-        jotted = {j["item_id"] for j in repo.my_jottings(conn, me["id"])}
+        mine = repo.my_jottings(conn, me["id"])
+        study = studies.get(track["dataset_kind"])
+        if study.jot_parts:
+            # Jotted means a jot on every source the card has.
+            done: dict[int, set] = {}
+            for j in mine:
+                done.setdefault(j["item_id"], set()).add(j["part"])
+            jotted = {i["id"] for i in rows if i["id"] in done and set(study.jots_needed(i)) <= done[i["id"]]}
+        else:
+            jotted = {j["item_id"] for j in mine}
     return page(request, "items.html", user=user, track=track, me=me, items=rows, jotted=jotted, at="items")
 
 
@@ -565,12 +607,14 @@ def item_view(request: Request, tid: int, token: str):
             raise HTTPException(403, "This item has not been cleared for reading yet.")
         cleared = repo.items_with_status(conn, tid, ["cleared"])
         jot = repo.my_jot(conn, me["id"], item["id"])
+        part_jots = repo.my_part_jots(conn, me["id"], item["id"])
         frozen = repo.jots_frozen(conn, tid, me["id"])
     tokens = [i["token"] for i in cleared]
     at = tokens.index(token) if token in tokens else -1
     deck = {"back": f"/t/{tid}/items", "title": "Items", "value": at + 1, "max": len(tokens)}
     return page(
         request, "item.html", user=user, track=track, me=me, item=item, jot=jot, frozen=frozen, at="items", deck=deck,
+        part_jots=part_jots, needs=studies.get(track["dataset_kind"]).jots_needed(item),
         previous=tokens[at - 1] if at > 0 else None,
         following=tokens[at + 1] if 0 <= at < len(tokens) - 1 else None,
     )
@@ -580,13 +624,23 @@ def item_view(request: Request, tid: int, token: str):
 async def jot(request: Request, tid: int, token: str):
     form = await form_of(request)
     with db.db() as conn:
-        _, _, me = auth.require(conn, request, tid)
+        _, track, me = auth.require(conn, request, tid)
         item = own_item(conn, tid, token, me["role"])
         auth.on_team(me)
         if repo.jots_frozen(conn, tid, me["id"]):
             raise repo.Refused("You have generated your candidate codes, so your jots are closed.")
         before = repo.feet(conn, tid, me["id"], me["email"])
-        fresh = repo.set_jotting(conn, tid, me["id"], item["id"], str(form.get("body") or ""))
+        study = studies.get(track["dataset_kind"])
+        if study.jot_parts:
+            typed = {p: str(form.get(f"jot_{p}") or "").strip() for p in study.jots_needed(item)}
+            if not any(typed.values()):
+                raise repo.Refused("Nothing to save: every box is empty.")
+            fresh = False
+            for p, text in typed.items():
+                if text:
+                    fresh = repo.set_jotting(conn, tid, me["id"], item["id"], text, part=p) or fresh
+        else:
+            fresh = repo.set_jotting(conn, tid, me["id"], item["id"], str(form.get("body") or ""))
         said = f"Jotted · +{repo.FEET['jotting']} ft" + passing(conn, tid, me, before) if fresh else "Jot saved"
     return go(f"/t/{tid}/items/{token}", ok=said)
 
