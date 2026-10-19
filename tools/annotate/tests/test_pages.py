@@ -134,7 +134,9 @@ def test_a_photo_nobody_has_cleaned_has_the_tools_to_clean_it(client):
     assert "data-crop" not in read and "Save and next" in read and 'name="turn"' not in read
     # A jot box under each source: the diagram, then each written part.
     assert read.index('name="jot_diagram"') < read.index('name="jot_approach"') < read.index('name="jot_challenges"')
-    assert read.index('class="item-image"') < read.index('class="deck__play"') < read.index('class="item-text"')
+    # Side by side, as in the mockup: each source with its jot straight under it, the buttons beneath all three.
+    assert 'class="deck deck--sources"' in read
+    assert read.index('class="item-image"') < read.index('name="jot_diagram"') < read.index('class="item-text') < read.index('name="jot_approach"') < read.index('class="deck__play"')
 
 
 def test_coding_card_has_a_key_for_every_choice(client):
@@ -257,7 +259,7 @@ def test_photos_are_cleaned_first_then_everyone_reads_and_jots(client):
     # Cleaning is shared: it is done for everyone. Reading is each person's own.
     for headers in (CODER1, CODER2):
         assert "12 to read" in client.get(f"/t/{track}/triage", headers=headers).text
-    first = tokens(track, "cleared")[0]
+    first = tokens(track, "cleared", drawn=True)[0]
     read = client.post(f"/t/{track}/triage/{first}", headers=CODER1, data=dict(JOTS, jot_diagram="arrows loop back here"))
     assert "%2B15%20ft" in read.headers["location"]  # 10 for the card, 5 for the jotting
     # The jotting is on the item afterwards, for its author only.

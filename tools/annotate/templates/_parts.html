@@ -99,6 +99,24 @@
   {% endfor %}
 {% endmacro %}
 
+{# A study that takes a jot per source, laid out as the sources side by side:
+   the diagram, then each written part, each with its jot straight under it. #}
+{% macro sources(item, jots, needs, form=none, required=false, frozen=false) %}
+  {% set written = {} %}
+  {% for t in item.texts %}{% set _ = written.update({t.part: t.text}) %}{% endfor %}
+  <div class="sources">
+    {% for part in study.jot_parts %}
+      <section class="sourcecol" aria-label="The {{ part }}">
+        <h2 class="eyebrow">{{ part }}</h2>
+        {% if part == 'diagram' %}{{ picture(item) }}
+        {% elif (written.get(part) or '').strip() %}<figure class="item-text"><blockquote>{{ written[part] }}</blockquote></figure>
+        {% else %}<p class="item-missing">Left blank.</p>{% endif %}
+        {% if part in needs %}{{ jot_box(part, jots.get(part, ''), form, required, frozen) }}{% endif %}
+      </section>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
 {# One source's jot, under that source: its first letter puts the cursor in it.
    Once jotting has closed, what was written, without a box. #}
 {% macro jot_box(part, value, form=none, required=false, frozen=false) %}

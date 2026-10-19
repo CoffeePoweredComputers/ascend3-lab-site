@@ -3,20 +3,16 @@
 {% block title %}Item {{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
   {{ parts.prompt(item) }}
-  <div class="deck {{ 'deck--photo' if study.has_image }}">
+  <div class="deck {{ 'deck--sources' if study.jot_parts else ('deck--photo' if study.has_image) }}">
     <section class="deck__card">
       <p class="deck__id"><span class="id">{{ item.token[:6] }}</span></p>
-      {% if study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
+      {% if study.jot_parts %}{{ parts.sources(item, part_jots, needs, 'jotform', frozen=frozen) }}
+      {% elif study.has_image %}{{ parts.picture(item) }}{% else %}{{ parts.show(item) }}{% endif %}
     </section>
 
     <section class="deck__play">
-      {% if study.has_image %}
-        <div class="submission__texts">
-          {% if study.jot_parts %}
-            {% if 'diagram' in needs %}{{ parts.jot_box('diagram', part_jots.get('diagram', ''), 'jotform', frozen=frozen) }}{% endif %}
-            {{ parts.texts(item, part_jots, needs, 'jotform', frozen=frozen) }}
-          {% else %}{{ parts.texts(item) }}{% endif %}
-        </div>
+      {% if study.has_image and not study.jot_parts %}
+        <div class="submission__texts">{{ parts.texts(item) }}</div>
       {% endif %}
       {{ parts.deck_nav('/t/' ~ track.id ~ '/items/' ~ previous if previous, '/t/' ~ track.id ~ '/items/' ~ following if following) }}
       {% if study.jot_parts %}

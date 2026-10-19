@@ -22,7 +22,7 @@ def test_only_plain_project_names_are_looked_up():
 
 def test_a_card_is_headed_by_its_prompt(client):
     track = track_id()
-    html = client.get(f"/t/{track}/items/{tokens(track, 'cleared')[0]}", headers=LEAD).text
+    html = client.get(f"/t/{track}/items/{tokens(track, 'cleared', drawn=True)[0]}", headers=LEAD).text
     assert '<section class="prompt"' in html
     # The problem itself is shown; the examples wait in a fold.
     assert "Problem Decomposition" in html and "Full prompt" in html
@@ -31,7 +31,7 @@ def test_a_card_is_headed_by_its_prompt(client):
 
 def test_the_diagram_opens_big(client):
     track = track_id()
-    html = client.get(f"/t/{track}/items/{tokens(track, 'cleared')[0]}", headers=LEAD).text
+    html = client.get(f"/t/{track}/items/{tokens(track, 'cleared', drawn=True)[0]}", headers=LEAD).text
     assert 'class="zoom" data-zoom data-key="+"' in html
 
 

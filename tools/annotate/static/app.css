@@ -219,6 +219,19 @@ details > summary { cursor: pointer; }
 .jot-part > span { display: block; margin-bottom: 0.3rem; font-weight: 600; }
 .jot-part small { font-weight: 400; color: var(--text-muted); }
 .jot-part textarea { width: 100%; }
+/* The sources side by side, each over its jot; the buttons in a row beneath. */
+.deck.deck--sources { grid-template-columns: minmax(0, 1fr); }
+.sources { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 3fr); gap: 1rem; align-items: start; }
+@media (max-width: 1000px) { .sources { grid-template-columns: minmax(0, 1fr); } }
+.sourcecol { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; padding: 0.75rem; border: 1px solid var(--border); border-top: 4px solid var(--primary); border-radius: var(--radius-md); }
+.sourcecol > h2.eyebrow { margin: 0; }
+.sourcecol .item-text { padding: 0.6rem 0.8rem; }
+.sourcecol .item-text blockquote { margin: 0; }
+/* A tall photo stays short enough that its jot is in view; + opens it big. */
+.deck__card .sourcecol .item-image { max-height: 55vh; }
+.sourcecol .jot-part { margin: 0.25rem 0 0; padding-top: 0.6rem; border-top: 1px solid var(--border); }
+.deck--sources .deck__play { position: static; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); align-items: start; }
+.deck--sources .deck__play > .hint, .deck--sources .deck__play > .muted { grid-column: 1 / -1; margin: 0; }
 .zoom { display: block; margin: 0 auto; padding: 0; border: 0; background: none; cursor: zoom-in; max-width: 100%; }
 .zoom:hover { background: none; }
 .zoom:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }

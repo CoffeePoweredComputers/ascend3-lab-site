@@ -6,7 +6,9 @@
   {% if mode != 'clean' %}{{ parts.prompt(item) }}{% endif %}
   {# mode is clean (a photo nobody has turned and cropped yet), read (a card
      in the data) or resolve (a lead settling one that was flagged). #}
-  <form method="post" class="deck {{ 'deck--photo' if study.has_image }}">
+  {# A card read for a study that takes a jot per source has the sources side by side, each over its jot. #}
+  {% set side_by_side = mode == 'read' and study.jot_parts %}
+  <form method="post" class="deck {{ 'deck--sources' if side_by_side else ('deck--photo' if study.has_image) }}">
     {% if mode == 'clean' %}<input type="hidden" name="mode" value="clean">{% endif %}
     <section class="deck__card submission">
       <p class="deck__id"><span class="id">{{ item.token[:6] }}</span> · {{ item.project | replace('_', ' ') }} · {{ item.homework }}
@@ -30,24 +32,20 @@
           <span class="hint">Turn first, then drag a box round the diagram.</span>
           <button type="button" class="link" data-crop-clear>Remove crop</button>
         </p>
+      {% elif side_by_side %}
+        {{ parts.sources(item, part_jots, needs, required=study.jot_required, frozen=frozen) }}
       {% else %}
         {{ parts.picture(item) }}
       {% endif %}
-      {% if not study.has_image %}{{ parts.texts(item) }}{% endif %}
+      {% if not study.has_image and not side_by_side %}{{ parts.texts(item) }}{% endif %}
     </section>
 
     <section class="deck__play">
       {# Either side of this card, saved or not: a card passed by mistake is one key away. #}
       {% if mode != 'resolve' %}{{ parts.deck_nav(back, forward) }}{% endif %}
       {# With a photo on the left, what the student wrote goes here on the right. #}
-      {% if study.has_image %}
-        <div class="submission__texts">
-          {# The diagram's jot heads the column beside it, so all three boxes are in one place. #}
-          {% if study.jot_parts and mode == 'read' %}
-            {% if 'diagram' in needs %}{{ parts.jot_box('diagram', part_jots.get('diagram', ''), required=study.jot_required, frozen=frozen) }}{% endif %}
-            {{ parts.texts(item, part_jots, needs, required=study.jot_required, frozen=frozen) }}
-          {% else %}{{ parts.texts(item) }}{% endif %}
-        </div>
+      {% if study.has_image and not side_by_side %}
+        <div class="submission__texts">{{ parts.texts(item) }}</div>
       {% endif %}
       {% if mode == 'clean' %}
         <button name="action" value="next" class="big big--go" data-key="Enter"><kbd>Enter</kbd><b>Keep and next</b><small>upright, cropped, nothing identifying left</small></button>
