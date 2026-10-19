@@ -10,8 +10,8 @@ test('the real survey file loads and hashes deterministically', () => {
   assert.ok(s);
   assert.equal(s.config.id, 'irb-26-817');
   assert.equal(s.config.waves.length, 3);
-  for (const w of s.config.waves) assert.equal(w.starters.length, 5);
-  assert.equal(s.config.probing.maxTurnsPerSession, 10);
+  assert.deepEqual(s.config.waves.map((w) => w.starters.length), [5, 6, 5]); // w2 gained views-shifted on 2026-10-19
+  assert.equal(s.config.probing.maxTurnsPerSession, 12);
   assert.match(s.version, /^[0-9a-f]{64}$/);
   assert.equal(s.version, versionOf(s.raw));
   assert.match(s.sheetHtml, /<h2[^>]*>Title of research study/);
