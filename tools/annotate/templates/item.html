@@ -2,6 +2,7 @@
 {% import "_parts.html" as parts with context %}
 {% block title %}Item {{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
+  {{ parts.prompt(item) }}
   <div class="deck {{ 'deck--photo' if study.has_image }}">
     <section class="deck__card">
       <p class="deck__id"><span class="id">{{ item.token[:6] }}</span></p>

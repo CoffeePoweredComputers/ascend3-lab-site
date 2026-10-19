@@ -2,6 +2,8 @@
 {% import "_parts.html" as parts with context %}
 {% block title %}{{ item.token[:6] }} · Annotation bench{% endblock %}
 {% block main %}
+  {# Once a card is clean, the question it answered heads it. #}
+  {% if mode != 'clean' %}{{ parts.prompt(item) }}{% endif %}
   {# mode is clean (a photo nobody has turned and cropped yet), read (a card
      in the data) or resolve (a lead settling one that was flagged). #}
   <form method="post" class="deck {{ 'deck--photo' if study.has_image }}">
@@ -28,10 +30,8 @@
           <span class="hint">Turn first, then drag a box round the diagram.</span>
           <button type="button" class="link" data-crop-clear>Remove crop</button>
         </p>
-      {% elif item.raw_path %}
-        <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
-      {% elif study.has_image %}
-        <p class="item-missing">No diagram submitted.</p>
+      {% else %}
+        {{ parts.picture(item) }}
       {% endif %}
       {% if not study.has_image %}{{ parts.texts(item) }}{% endif %}
     </section>

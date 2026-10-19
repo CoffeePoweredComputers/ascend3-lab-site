@@ -42,6 +42,14 @@
    row at all (see ITEM_COLUMNS in repo.py), so they cannot be rendered here. #}
 {% macro show(item) %}
   <p class="task">{{ item.project | replace('_', ' ') }} · {{ item.homework }}</p>
+  {# In a list of cards the prompt stays folded; one card on its own gets prompt() at the top. #}
+  {% set p = task_prompt(study.kind, item.project) %}
+  {% if p %}
+    <details class="fold prompt-fold">
+      <summary>The prompt</summary>
+      <div class="prompt__body">{{ p.lead }}{{ p.rest }}</div>
+    </details>
+  {% endif %}
   {# With a photo: the photo on the left, what the student wrote on the right. #}
   <div class="submission {{ 'submission--photo' if study.has_image }}">
     {{ picture(item) }}
@@ -51,9 +59,30 @@
 
 {% macro picture(item) %}
   {% if item.raw_path %}
-    <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
+    {# Clicking it, or +, opens it big (deck.js). #}
+    <button type="button" class="zoom" data-zoom data-key="+" aria-label="Enlarge the diagram (+)">
+      <img class="item-image" alt="Student diagram" src="{{ root }}/img/{{ item.token }}?rev={{ item.rev }}">
+    </button>
   {% elif study.has_image %}
     <p class="item-missing">No diagram submitted.</p>
+  {% endif %}
+{% endmacro %}
+
+{# The prompt the student was answering, across the top of a single card:
+   the problem and what was asked for in full, the rest in a fold. #}
+{% macro prompt(item) %}
+  {% set p = task_prompt(study.kind, item.project) %}
+  {% if p %}
+    <section class="prompt" aria-label="The prompt the student answered">
+      <p class="eyebrow">The prompt the student answered · {{ item.project | replace('_', ' ') }} · {{ item.homework }}</p>
+      <div class="prompt__lead">{{ p.lead }}</div>
+      {% if p.rest %}
+        <details class="fold">
+          <summary>Full prompt: examples, the example diagram, the reflection questions</summary>
+          <div class="prompt__body">{{ p.rest }}</div>
+        </details>
+      {% endif %}
+    </section>
   {% endif %}
 {% endmacro %}
 

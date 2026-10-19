@@ -43,6 +43,20 @@ templates.env.filters["who"] = lambda email: str(email).split("@")[0]
 templates.env.globals.update(passed=peaks.passed, ahead=peaks.ahead)
 
 
+def task_prompt(kind: str, project: str) -> dict | None:
+    """The prompt a submission answered, rendered in two pieces: `lead`, the
+    problem and what was asked for, always shown at the top of a card, and
+    `rest`, the examples and reflection questions, kept in a fold."""
+    text = stages.prompt(kind, project)
+    if not text:
+        return None
+    lead, cut, rest = text.partition("\n**Example")
+    return {"lead": Markup(markdown.render(lead)), "rest": Markup(markdown.render(cut.lstrip("\n") + rest)) if cut else Markup("")}
+
+
+templates.env.globals["task_prompt"] = task_prompt
+
+
 def page(request: Request, name: str, status_code: int = 200, **context) -> Response:
     """Render a template. On a track's pages this also builds the sidebar (the
     stages, with progress) and, for the stage named by `at`, its guide."""

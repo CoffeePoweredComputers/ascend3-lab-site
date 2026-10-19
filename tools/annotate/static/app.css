@@ -200,6 +200,32 @@ details > summary { cursor: pointer; }
 .fold > summary { font-weight: 600; font-size: 0.9rem; }
 .question .fold { border: 0; padding: 0; margin-top: 0.35rem; font-size: 0.85rem; color: var(--text-muted); }
 .question .fold > summary { font-weight: 500; font-size: inherit; }
+/* The prompt a submission answered, across the top of a card. */
+.prompt { background: var(--surface-base); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 0.75rem 1rem 0.25rem; margin: 0 0 1rem; }
+.prompt .eyebrow { margin: 0 0 0.25rem; }
+.prompt__lead { font-size: 0.95rem; line-height: 1.5; }
+.prompt__lead h3 { font-size: 1.05rem; margin: 0 0 0.4rem; }
+.prompt__lead p, .prompt__lead ul { margin: 0.35rem 0; }
+.prompt__lead code, .prompt__body code { font-family: var(--font-mono); font-size: 0.85em; background: var(--surface); padding: 0 0.25rem; border-radius: var(--radius-sm); }
+.prompt-fold { margin: 0 0 0.75rem; }
+.prompt__body { font-size: 0.875rem; max-height: 28rem; overflow: auto; padding: 0.25rem 0.25rem 0.5rem; }
+.prompt__body h3 { font-size: 1rem; margin: 0.25rem 0 0.5rem; }
+.prompt__body p, .prompt__body ul, .prompt__body ol { margin: 0.4rem 0; }
+.prompt__body table { border-collapse: collapse; font-size: 0.8rem; display: block; overflow-x: auto; }
+.prompt__body th, .prompt__body td { border: 1px solid var(--border); padding: 0.2rem 0.4rem; text-align: left; vertical-align: top; }
+/* The diagram: a click, or +, opens it big over the page. */
+.zoom { display: block; margin: 0 auto; padding: 0; border: 0; background: none; cursor: zoom-in; max-width: 100%; }
+.zoom:hover { background: none; }
+.zoom:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+.zoomed { width: 96vw; height: 94vh; max-width: none; max-height: none; padding: 0; border: 0; border-radius: var(--radius-lg); background: var(--surface-base); color: var(--text); overflow: hidden; }
+.zoomed[open] { display: flex; flex-direction: column; }
+.zoomed::backdrop { background: rgba(15, 23, 42, 0.82); }
+.zoomed__stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: grab; touch-action: none; }
+.zoomed__stage.is-dragging { cursor: grabbing; }
+.zoomed__stage img { max-width: 100%; max-height: 100%; transform-origin: center; user-select: none; }
+.zoomed__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; margin: 0; padding: 0.6rem 1rem; border-top: 1px solid var(--border); }
+.zoomed__bar button { margin: 0; }
+.prompt__body pre { font-family: var(--font-mono); font-size: 0.72rem; background: var(--surface); padding: 0.5rem 0.6rem; border-radius: var(--radius-sm); overflow-x: auto; }
 .definition { margin: 0.3rem 0 0; font-size: 0.875rem; }
 .definition dt { font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .definition dd { margin: 0 0 0.4rem; white-space: pre-wrap; }
