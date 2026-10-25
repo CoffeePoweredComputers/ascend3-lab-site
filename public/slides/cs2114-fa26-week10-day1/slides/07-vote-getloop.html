@@ -1,0 +1,82 @@
+<section class="slide slide--warmup" id="slide-07" data-sid="07-vote-getloop:1">
+  <header class="slide__head" data-sid="07-vote-getloop:2">
+    <p class="slide__kicker" data-sid="07-vote-getloop:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="07-vote-getloop:4">What does a loop of get(i) calls cost on a linked list?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="07-vote-getloop:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="07-vote-getloop:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="07-vote-getloop:7"/><g class="timer__ticks" data-sid="07-vote-getloop:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="07-vote-getloop:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="07-vote-getloop:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="07-vote-getloop:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="07-vote-getloop:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="07-vote-getloop:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="07-vote-getloop:14"/><g class="timer__hand" data-sid="07-vote-getloop:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="07-vote-getloop:16"/></g><text class="timer__time" x="75" y="88" data-sid="07-vote-getloop:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="07-vote-getloop:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="07-vote-getloop:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="07-vote-getloop:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="07-vote-getloop:21"/><g class="timer__ticks" data-sid="07-vote-getloop:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="07-vote-getloop:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="07-vote-getloop:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="07-vote-getloop:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="07-vote-getloop:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="07-vote-getloop:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="07-vote-getloop:28"/><g class="timer__hand" data-sid="07-vote-getloop:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="07-vote-getloop:30"/></g><text class="timer__time" x="75" y="88" data-sid="07-vote-getloop:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="07-vote-getloop:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="07-vote-getloop:33">A peer-instruction question. Under the title, the stem: if a singly linked list only lets you access elements via an index-based get of i call, what is the time complexity of traversing the list using a loop that visits every element by calling get of 0, get of 1, and so on up to get of n? Left, a drawing of a singly linked chain of four nodes, A to D, each with data and next, D's next null, with a blue pill labelled firstNode pointing at A; the calls get of 0, get of 1, get of 2 and get of 3 stand under A, B, C and D. Right, four options, each led by a maroon disc with its letter. A: O of 1. B: O of log n. C: O of n. D: O of n squared. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The deck's vote layout (deck.css .vote): the verbatim stem as the lede
+       (Runestone's "what’s" and "get(0), get(1), …, get(n)" kept), the chain
+       drawn on the left (Link boxes 130 × 76 on a 166 px pitch, W9D2 08's
+       grammar), the four options on the right in mono with 56 px discs. The
+       calls under the nodes point at the list, not at an option. Static: only
+       the clocks build; 07b walks it. Runestone: Peer Instruction W10D1,
+       question 1 (vtcs2_efficiency_nestedMethods_202507). -->
+  <div class="slide__body" data-sid="07-vote-getloop:34">
+    <p class="vote__stem" data-sid="07-vote-getloop:35">If a singly linked list only lets you access elements via an index-based get(i) call, what&rsquo;s the time complexity of traversing the list using a loop that visits every element by calling get(0), get(1), &hellip;, get(n)?</p>
+    <div class="vote__panels" data-sid="07-vote-getloop:36">
+      <svg class="gl__fig" viewBox="0 0 870 260" role="img" aria-label="A singly linked chain of four nodes, A to D, with firstNode on A; the calls get(0) to get(3) under A to D" data-sid="07-vote-getloop:37">
+        <defs data-sid="07-vote-getloop:38">
+          <marker id="w10d1-07-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07-vote-getloop:39"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="07-vote-getloop:40"/></marker>
+        </defs>
+        <g class="pill" data-sid="07-vote-getloop:41"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="07-vote-getloop:42"/><text x="88" y="31" data-sid="07-vote-getloop:43">firstNode</text></g>
+        <path class="ref" d="M66 44 C 66 70, 66 86, 66 106" data-sid="07-vote-getloop:44"/>
+        <g class="nd" data-sid="07-vote-getloop:45"><rect class="nd__box" x="38" y="110" width="130" height="76" rx="10" data-sid="07-vote-getloop:46"/><path class="nd__div" d="M94 110v76" data-sid="07-vote-getloop:47"/><text class="nd__v" x="66" y="160" data-sid="07-vote-getloop:48">A</text></g>
+        <g class="nd" data-sid="07-vote-getloop:49"><rect class="nd__box" x="204" y="110" width="130" height="76" rx="10" data-sid="07-vote-getloop:50"/><path class="nd__div" d="M260 110v76" data-sid="07-vote-getloop:51"/><text class="nd__v" x="232" y="160" data-sid="07-vote-getloop:52">B</text></g>
+        <g class="nd" data-sid="07-vote-getloop:53"><rect class="nd__box" x="370" y="110" width="130" height="76" rx="10" data-sid="07-vote-getloop:54"/><path class="nd__div" d="M426 110v76" data-sid="07-vote-getloop:55"/><text class="nd__v" x="398" y="160" data-sid="07-vote-getloop:56">C</text></g>
+        <g class="nd" data-sid="07-vote-getloop:57"><rect class="nd__box" x="536" y="110" width="130" height="76" rx="10" data-sid="07-vote-getloop:58"/><path class="nd__div" d="M592 110v76" data-sid="07-vote-getloop:59"/><text class="nd__v" x="564" y="160" data-sid="07-vote-getloop:60">D</text><text class="nd__nl" x="629" y="158" data-sid="07-vote-getloop:61">null</text></g>
+        <path class="lnk" d="M131 148 H 200" data-sid="07-vote-getloop:62"/>
+        <path class="lnk" d="M297 148 H 366" data-sid="07-vote-getloop:63"/>
+        <path class="lnk" d="M463 148 H 532" data-sid="07-vote-getloop:64"/>
+        <text class="gl__call" x="103" y="236" data-sid="07-vote-getloop:65">get(0)</text>
+        <text class="gl__call" x="269" y="236" data-sid="07-vote-getloop:66">get(1)</text>
+        <text class="gl__call" x="435" y="236" data-sid="07-vote-getloop:67">get(2)</text>
+        <text class="gl__call" x="601" y="236" data-sid="07-vote-getloop:68">get(3)</text>
+      </svg>
+      <ol class="vote__opts gl__opts" data-sid="07-vote-getloop:69">
+        <li class="vote__opt" data-sid="07-vote-getloop:70"><span class="vote__key" data-sid="07-vote-getloop:71">A</span><p class="vote__text" data-sid="07-vote-getloop:72">O(1)</p></li>
+        <li class="vote__opt" data-sid="07-vote-getloop:73"><span class="vote__key" data-sid="07-vote-getloop:74">B</span><p class="vote__text" data-sid="07-vote-getloop:75">O(log n)</p></li>
+        <li class="vote__opt" data-sid="07-vote-getloop:76"><span class="vote__key" data-sid="07-vote-getloop:77">C</span><p class="vote__text" data-sid="07-vote-getloop:78">O(n)</p></li>
+        <li class="vote__opt" data-sid="07-vote-getloop:79"><span class="vote__key" data-sid="07-vote-getloop:80">D</span><p class="vote__text" data-sid="07-vote-getloop:81">O(n&sup2;)</p></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07-vote-getloop:82"></div>
+  <aside class="notes" data-sid="07-vote-getloop:83">Answer: D &mdash; O(n&sup2;) [key from the PrairieLearn twin u11q08_iterator_efficiency_a; confirm in Runestone&rsquo;s results view before class]. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. The chain is singly linked, and firstNode is the only reference into it. Ask the groups how get(3) reaches D, and whether get(3) can start where get(2) stopped. Runestone: Peer Instruction W10D1, question 1 of 3.</aside>
+
+  <style data-sid="07-vote-getloop:84">
+    /* two clocks at the top right: the vote ring (1:30) and the discussion
+       ring (2:30), side by side with a label under each; the first press
+       starts the vote, the second starts the discussion and finishes the vote
+       (this deck's timer.js). Copied from W9D2 08. */
+    #slide-07 .timer { top: var(--s-6); }
+    #slide-07 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-07 .frag.timer.is-past { opacity: .55; }
+    #slide-07 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-07 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-07 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the chain in the shared 870 px left panel as one SVG at
+       1:1 (Link boxes 130 × 76 on a 166 px pitch, labels at --t-micro,
+       values at --t-small, the calls in stone); the options in mono at
+       --t-body with 56 px key discs and 16 px row padding (four rows of the
+       default 24 px padding left 24 px of slack under the three-line stem).
+       All values from tokens; used by this slide only. */
+    #slide-07 .gl__fig { display: block; width: 870px; height: 260px; overflow: visible; }
+    #slide-07 .pill rect { fill: var(--accent-2); }
+    #slide-07 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-07 .ref, #slide-07 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w10d1-07-head); }
+    #slide-07 .ref { stroke-width: 5; }
+    #slide-07 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-07 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-07 .gl__call { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-07 .gl__opts .vote__opt { padding: var(--s-2) 0; }
+    #slide-07 .slide__body .gl__opts .vote__text { font-family: var(--font-mono); font-size: var(--t-body); }
+    #slide-07 .vote__key { width: 56px; height: 56px; font-size: var(--t-small); }
+  </style>
+</section>

@@ -1,0 +1,144 @@
+<section class="slide slide--warmup" id="slide-16b" data-sid="16b-mvc-click:1">
+  <header class="slide__head" data-sid="16b-mvc-click:2">
+    <p class="slide__kicker" data-sid="16b-mvc-click:3">PROJECT 3 &middot; ONE CLICK</p>
+    <h2 data-sid="16b-mvc-click:4">One click changes the model, and the model updates every view</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="16b-mvc-click:5">A walkthrough under a program-counter bar. The editor's title bar holds the view's one line, e arrow controller dot onIncrementClicked. The code: the controller's onIncrementClicked, which calls model dot increment; the model's increment, which does data plus plus and calls notifyObservers; and notifyObservers, a for loop over observers calling o dot update of data. On the right, a card for the model reading Counter, data equals 0; two windows side by side, each titled Counter MVC Example with a label Counter colon 0 and an Increment button; and a console panel. Step one: an orange ring appears on the first window's button. Step two: the bar covers the controller. Step three: the bar covers increment and the model's data changes to 1. Step four: the bar covers notifyObservers; both window labels change to Counter colon 1 and the console prints Console View, Counter colon 1. Step five: the caption says the model never names a window or a console, and that this separation is what Project 3's Deliverable 2 has to show.</p>
+
+  <!-- One click traced through the instructor's counter example. The
+       editor holds the controller and the model, in the files' own code
+       (the for loop's braces are dropped so it fits); the view's one line,
+       the button's listener, is the editor bar. On the right, the three
+       objects the click reaches: the model card with its data value, two
+       WindowViews drawn as windows (the real title, label and button), the
+       console. Values are replaced by a plain crossfade, never rolled.
+       step 1: the click (orange ring on window 1's button, PC off).
+       step 2: the controller.  step 3: increment, data 0 → 1.
+       step 4: notifyObservers, all three views change (held on step 5).
+       step 5: the plant. -->
+  <div class="slide__body grid grid--code code-mid mc" data-sid="16b-mvc-click:6">
+    <div class="stack mc__left" data-sid="16b-mvc-click:7">
+      <div class="editor mc__editor" data-sid="16b-mvc-click:8">
+        <p class="editor__bar" data-sid="16b-mvc-click:9">WindowView: e -&gt; controller.onIncrementClicked()</p>
+        <div class="editor__pc" data-sid="16b-mvc-click:10"></div>
+        <ol class="editor__code" data-sid="16b-mvc-click:11">
+          <li class="cm" data-sid="16b-mvc-click:12">// CounterController</li>
+          <li class="walkline frag" data-step="2" data-sid="16b-mvc-click:13"><span class="tok-key" data-sid="16b-mvc-click:14">public</span> <span class="tok-key" data-sid="16b-mvc-click:15">void</span> onIncrementClicked() {</li>
+          <li class="walkline frag" data-step="2" data-sid="16b-mvc-click:16">    model.increment();</li>
+          <li class="walkline frag" data-step="2" data-sid="16b-mvc-click:17">}</li>
+          <li class="cm" data-sid="16b-mvc-click:18">// Counter, the model</li>
+          <li class="walkline frag" data-step="3" data-sid="16b-mvc-click:19"><span class="tok-key" data-sid="16b-mvc-click:20">public</span> <span class="tok-key" data-sid="16b-mvc-click:21">void</span> increment() {</li>
+          <li class="walkline frag" data-step="3" data-sid="16b-mvc-click:22">    data++;</li>
+          <li class="walkline frag" data-step="3" data-sid="16b-mvc-click:23">    notifyObservers();</li>
+          <li class="walkline frag" data-step="3" data-sid="16b-mvc-click:24">}</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="16b-mvc-click:25"><span class="tok-key" data-sid="16b-mvc-click:26">private</span> <span class="tok-key" data-sid="16b-mvc-click:27">void</span> notifyObservers() {</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="16b-mvc-click:28">    <span class="tok-key" data-sid="16b-mvc-click:29">for</span> (Observer o : observers)</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="16b-mvc-click:30">        o.update(data);</li>
+          <li class="walkline frag" data-step="4" data-hold="5" data-sid="16b-mvc-click:31">}</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="codewalk mc__right" data-sid="16b-mvc-click:32">
+      <svg class="mc__fig" viewBox="0 0 752 402" role="img" aria-label="The model card with its data value, two windows each with a Counter label and an Increment button, and a console panel" data-sid="16b-mvc-click:33">
+        <!-- model -->
+        <rect class="md" x="0" y="0" width="746" height="60" rx="10" data-sid="16b-mvc-click:34"/>
+        <text class="md__name" x="24" y="42" data-sid="16b-mvc-click:35">Counter</text>
+        <text class="md__k" x="548" y="42" data-sid="16b-mvc-click:36">data =</text>
+        <text class="md__v v--0" x="706" y="42" data-sid="16b-mvc-click:37">0</text>
+        <text class="md__v v--1" x="706" y="42" data-sid="16b-mvc-click:38">1</text>
+
+        <!-- window 1 -->
+        <g class="win" data-sid="16b-mvc-click:39">
+          <rect class="win__r" x="0" y="76" width="364" height="200" rx="10" data-sid="16b-mvc-click:40"/>
+          <path class="win__bar" d="M10 76 H 354 A 10 10 0 0 1 364 86 V 112 H 0 V 86 A 10 10 0 0 1 10 76 Z" data-sid="16b-mvc-click:41"/>
+          <text class="win__title" x="182" y="102" data-sid="16b-mvc-click:42">Counter MVC Example</text>
+          <text class="win__lbl v--0" x="182" y="168" data-sid="16b-mvc-click:43">Counter: 0</text>
+          <text class="win__lbl v--1" x="182" y="168" data-sid="16b-mvc-click:44">Counter: 1</text>
+          <rect class="win__btn" x="82" y="196" width="200" height="48" rx="8" data-sid="16b-mvc-click:45"/>
+          <text class="win__btxt" x="182" y="229" data-sid="16b-mvc-click:46">Increment</text>
+          <rect class="win__ring" x="74" y="188" width="216" height="64" rx="12" data-sid="16b-mvc-click:47"/>
+        </g>
+        <!-- window 2 -->
+        <g class="win" data-sid="16b-mvc-click:48">
+          <rect class="win__r" x="388" y="76" width="358" height="200" rx="10" data-sid="16b-mvc-click:49"/>
+          <path class="win__bar" d="M398 76 H 736 A 10 10 0 0 1 746 86 V 112 H 388 V 86 A 10 10 0 0 1 398 76 Z" data-sid="16b-mvc-click:50"/>
+          <text class="win__title" x="567" y="102" data-sid="16b-mvc-click:51">Counter MVC Example</text>
+          <text class="win__lbl v--0" x="567" y="168" data-sid="16b-mvc-click:52">Counter: 0</text>
+          <text class="win__lbl v--1" x="567" y="168" data-sid="16b-mvc-click:53">Counter: 1</text>
+          <rect class="win__btn" x="467" y="196" width="200" height="48" rx="8" data-sid="16b-mvc-click:54"/>
+          <text class="win__btxt" x="567" y="229" data-sid="16b-mvc-click:55">Increment</text>
+        </g>
+
+        <!-- console -->
+        <rect class="con" x="0" y="292" width="746" height="110" rx="10" data-sid="16b-mvc-click:56"/>
+        <text class="con__t con__t--dim" x="24" y="334" data-sid="16b-mvc-click:57">&gt; java Runner</text>
+        <text class="con__t con__out" x="24" y="376" data-sid="16b-mvc-click:58">Console View - Counter: 1</text>
+      </svg>
+
+      <div class="codewalk__caps mc__caps" data-sid="16b-mvc-click:59">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="16b-mvc-click:60">The Increment button in the first window is clicked. Its listener calls controller.onIncrementClicked(). The view does not change the number.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="16b-mvc-click:61">The controller makes one call on the model, increment().</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="16b-mvc-click:62">The model adds one to data, then calls notifyObservers().</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="16b-mvc-click:63">The model calls update(1) on each of its three observers. Both windows and the console change. The second window was never clicked.</p>
+        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="16b-mvc-click:64">The model never names a window or a console. In Project 3, that separation is what Deliverable 2&rsquo;s spec has to show.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="16b-mvc-click:65"></div>
+  <aside class="notes" data-sid="16b-mvc-click:66">One click, traced through the code. The editor bar is the view&rsquo;s one line: the button&rsquo;s listener in WindowView calls controller.onIncrementClicked. The code under it is the controller and the model, as written in the files; the for loop&rsquo;s braces are left out so it fits. Step 1. The Increment button in the first window is clicked. The view does not add one to anything. It calls the controller. Step 2. onIncrementClicked makes one call, model.increment. Step 3. increment adds one to data, so data is 1, and then calls notifyObservers. Step 4. notifyObservers loops over the observers list. Runner added three: the two windows and the console. Each one&rsquo;s update runs with 1. The first window&rsquo;s label changes to Counter: 1, the second window&rsquo;s label changes too, and the console prints Console View - Counter: 1. The second window was never clicked. It changes because it observes the same model. Step 5. The model has no reference to a JFrame, a label or System.out. It only knows the Observer interface. In Project 3 the model is your queue and the data around it, and the views show it. Deliverable 2, the spec, has to show that separation: which classes hold the data and which ones draw it. Next is the calendar.</aside>
+
+  <style data-sid="16b-mvc-click:67">
+    /* Slide-local: the editor at --t-code, 880 px wide (the bar is 48
+       characters, 806 px) at line-height 1.2 (13 lines, about 560 px with
+       the bar). On the right (752 px) one 752 × 402 SVG at 1:1 (the right edge inset 6 px for the strokes): the model
+       card (mono --t-small), two windows 364 × 200 with a stone title bar,
+       a label at --t-small and a button, and the console (fg-0 panel,
+       bg-0 text at --t-micro). Then the captions. Motion: the orange ring
+       on window 1's button fades in on step 1; the values swap by a plain
+       crossfade on steps 3 and 4; the console line fades in on step 4.
+       States keyed to the caption frags with :has(). Used by this slide
+       only, all values from tokens. */
+    #slide-16b .mc { grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-16b .mc__editor { width: 880px; }
+    #slide-16b .mc__editor .editor__code li { line-height: 1.2; }
+    #slide-16b .editor__code .cm { color: var(--fg-1); }
+    #slide-16b .mc__fig { display: block; width: 752px; height: 402px; overflow: visible; }
+    #slide-16b .mc__caps { min-height: 150px; }
+    #slide-16b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-16b .md { fill: var(--bg-1); stroke: var(--accent-1); stroke-width: 4; }
+    #slide-16b .md__name { font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; fill: var(--fg-0); }
+    #slide-16b .md__k { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); }
+    #slide-16b .md__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--accent-3); text-anchor: middle; }
+
+    #slide-16b .win__r { fill: var(--bg-0); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-16b .win__bar { fill: color-mix(in srgb, var(--stone) 35%, var(--bg-1)); }
+    #slide-16b .win__title { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-16b .win__lbl { font-family: var(--font-body); font-size: var(--t-small); font-weight: 700; fill: var(--fg-0); text-anchor: middle; }
+    #slide-16b .win__btn { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-16b .win__btxt { font-family: var(--font-body); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-16b .win__ring { fill: none; stroke: var(--accent-3); stroke-width: 5; opacity: 0; transition: opacity .3s ease; }
+
+    #slide-16b .con { fill: var(--fg-0); }
+    #slide-16b .con__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); }
+    #slide-16b .con__t--dim { fill: var(--stone); }
+    #slide-16b .con__out { opacity: 0; transition: opacity .3s ease; }
+
+    /* value swaps: a plain crossfade, never a roll */
+    #slide-16b .v--0, #slide-16b .v--1 { transition: opacity .3s ease; }
+    #slide-16b .v--1 { opacity: 0; }
+
+    /* ---- states, in step order ---- */
+    #slide-16b .mc:has(.cap--1:not(.is-pending)) .win__ring { opacity: 1; }
+    #slide-16b .mc:has(.cap--3:not(.is-pending)) .md__v.v--0 { opacity: 0; }
+    #slide-16b .mc:has(.cap--3:not(.is-pending)) .md__v.v--1 { opacity: 1; }
+    #slide-16b .mc:has(.cap--4:not(.is-pending)) .win__lbl.v--0 { opacity: 0; }
+    #slide-16b .mc:has(.cap--4:not(.is-pending)) .win__lbl.v--1 { opacity: 1; transition-delay: .4s; }
+    #slide-16b .mc:has(.cap--4:not(.is-pending)) .con__out { opacity: 1; transition-delay: .8s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-16b .win__ring, #slide-16b .con__out, #slide-16b .v--0, #slide-16b .v--1 { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

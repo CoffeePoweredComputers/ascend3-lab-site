@@ -1,0 +1,203 @@
+<section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-sortedinsert:1">
+  <header class="slide__head" data-sid="08b-walk-sortedinsert:2">
+    <p class="slide__kicker" data-sid="08b-walk-sortedinsert:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="08b-walk-sortedinsert:4">The loop has to stop on the node before the new one</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08b-walk-sortedinsert:5">A walkthrough under a program-counter bar of inserting x equals 10 into the sorted chain 3, 7, 12, 20. The code, the runner version: Node previousNode equals null; Node currentNode equals firstNode; while currentNode is not null and currentNode dot getData is less than x, previousNode equals currentNode and currentNode equals currentNode dot getNext; then Node newNode equals new Node of x and currentNode; previousNode dot setNext of newNode. On the right, the chain with firstNode on 3, and a key: an orange ring is previousNode, a blue ring is currentNode. Step one: previousNode is null and the blue ring is on 3. Step two: 3 is less than 10, so the orange ring appears on 3 and the blue ring moves to 7. Step three: 7 is less than 10, so the orange ring moves to 7 and the blue ring to 12. Step four: 12 is less than 10 is false and the loop stops. Step five: a new node holding 10 grows under the gap between 7 and 12, and its next arrow draws on to 12. Step six: 7's next arrow moves from 12 to the new node; the caption names this the runner technique, two references in one walk. Step seven: three new lines appear, the look-ahead version: while currentNode dot getNext is not null and currentNode dot getNext dot getData is less than x, currentNode equals currentNode dot getNext; the orange ring fades, the blue ring on 12 fades, and a second blue ring starts on 3 and walks to 7, because the look-ahead test stops currentNode itself on the node before. Step eight: one more line appears, for int d colon list; a pill reading d equals 7 appears above 7, and the caption says the foreach loop gives values, never a node, so there is no next reference to set. Step nine: a dashed stone arrow from 20 back to 12 appears and is crossed out in maroon; a singly linked node has no reference to the node before it. Step ten: the four options, with A and D struck through and B and C not struck.</p>
+
+  <!-- The answer as a walk of the runner technique with the course's
+       full-word names (previousNode / currentNode, as in the 10.2 slides'
+       insertion sort; getNodeBefore uses nodeBefore), on the vote's chain.
+       Then the look-ahead loop as three answer lines (walkline--new), then
+       the foreach line, then the reverse walk shown as an arrow that does not
+       exist. Values are ints, so the test is getData() < x where the course
+       code calls compareTo. The front case (previousNode still null, so
+       firstNode = newNode) is left out; the notes say so. The rings carry no
+       labels: two labels side by side overlap at a 166 px pitch, so a key at
+       the top right names them.
+       The look-ahead loop is a second walk from firstNode, so step 7 does not
+       move the first blue ring back from 12 to 7 (a singly linked chain has no
+       way back, which step 9 says): that ring fades and a second blue ring
+       starts on 3 and walks to 7.
+       step 1: start.  steps 2–4: the loop.  step 5: new node.  step 6: the
+       swing (runner).  step 7: look-ahead.  step 8: foreach.  step 9: reverse.
+       step 10: verdict B and C. -->
+  <div class="slide__body grid grid--code code-mid si" data-sid="08b-walk-sortedinsert:6">
+    <div class="editor si__editor" data-sid="08b-walk-sortedinsert:7">
+      <p class="editor__bar" data-sid="08b-walk-sortedinsert:8">insert(x) on a sorted chain, x = 10</p>
+      <div class="editor__pc" data-sid="08b-walk-sortedinsert:9"></div>
+      <ol class="editor__code" data-sid="08b-walk-sortedinsert:10">
+        <li class="walkline frag" data-step="1" data-sid="08b-walk-sortedinsert:11">Node previousNode = <span class="tok-key" data-sid="08b-walk-sortedinsert:12">null</span>;</li>
+        <li class="walkline frag" data-step="1" data-sid="08b-walk-sortedinsert:13">Node currentNode = firstNode;</li>
+        <li class="walkline frag" data-step="2" data-hold="4" data-sid="08b-walk-sortedinsert:14"><span class="tok-key" data-sid="08b-walk-sortedinsert:15">while</span> (currentNode != <span class="tok-key" data-sid="08b-walk-sortedinsert:16">null</span> &amp;&amp;</li>
+        <li class="walkline frag" data-step="2" data-hold="4" data-sid="08b-walk-sortedinsert:17">       currentNode.getData() &lt; x) {</li>
+        <li class="walkline frag" data-step="2" data-hold="3" data-sid="08b-walk-sortedinsert:18">  previousNode = currentNode;</li>
+        <li class="walkline frag" data-step="2" data-hold="3" data-sid="08b-walk-sortedinsert:19">  currentNode = currentNode.getNext();</li>
+        <li data-sid="08b-walk-sortedinsert:20">}</li>
+        <li class="walkline frag" data-step="5" data-sid="08b-walk-sortedinsert:21">Node newNode = <span class="tok-key" data-sid="08b-walk-sortedinsert:22">new</span> Node(x, currentNode);</li>
+        <li class="walkline frag" data-step="6" data-sid="08b-walk-sortedinsert:23">previousNode.setNext(newNode);</li>
+        <li class="walkline walkline--new frag" data-step="7" data-sid="08b-walk-sortedinsert:24"><span class="tok-key" data-sid="08b-walk-sortedinsert:25">while</span> (currentNode.getNext() != <span class="tok-key" data-sid="08b-walk-sortedinsert:26">null</span> &amp;&amp;</li>
+        <li class="walkline walkline--new frag" data-step="7" data-sid="08b-walk-sortedinsert:27">       currentNode.getNext().getData() &lt; x)</li>
+        <li class="walkline walkline--new frag" data-step="7" data-sid="08b-walk-sortedinsert:28">  currentNode = currentNode.getNext();</li>
+        <li class="walkline walkline--new frag" data-step="8" data-sid="08b-walk-sortedinsert:29"><span class="tok-key" data-sid="08b-walk-sortedinsert:30">for</span> (<span class="tok-key" data-sid="08b-walk-sortedinsert:31">int</span> d : list)</li>
+      </ol>
+    </div>
+
+    <div class="codewalk si__right" data-sid="08b-walk-sortedinsert:32">
+      <svg class="si__fig" viewBox="0 0 736 340" role="img" aria-label="The sorted chain 3, 7, 12, 20 with firstNode on 3; an orange ring for previousNode and a blue ring for currentNode walk along it, the node holding 10 is linked in between 7 and 12, and a crossed-out dashed arrow from 20 back to 12" data-sid="08b-walk-sortedinsert:33">
+        <defs data-sid="08b-walk-sortedinsert:34">
+          <marker id="w10d1-08b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08b-walk-sortedinsert:35"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08b-walk-sortedinsert:36"/></marker>
+        </defs>
+        <g class="pill" data-sid="08b-walk-sortedinsert:37"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="08b-walk-sortedinsert:38"/><text x="88" y="31" data-sid="08b-walk-sortedinsert:39">firstNode</text></g>
+        <path class="ref" d="M85 44 C 85 66, 85 80, 85 100" data-sid="08b-walk-sortedinsert:40"/>
+
+        <!-- the key: which ring is which reference -->
+        <rect class="lg__sw lg__sw--p" x="400" y="8" width="40" height="28" rx="6" data-sid="08b-walk-sortedinsert:41"/>
+        <text class="lg__t lg__t--p" x="452" y="32" data-sid="08b-walk-sortedinsert:42">previousNode</text>
+        <text class="lg__null frag" data-step="1" x="666" y="32" data-sid="08b-walk-sortedinsert:43">null</text>
+        <rect class="lg__sw lg__sw--c" x="400" y="48" width="40" height="28" rx="6" data-sid="08b-walk-sortedinsert:44"/>
+        <text class="lg__t lg__t--c" x="452" y="72" data-sid="08b-walk-sortedinsert:45">currentNode</text>
+
+        <g class="nd" data-sid="08b-walk-sortedinsert:46"><rect class="nd__box" x="20" y="104" width="130" height="76" rx="10" data-sid="08b-walk-sortedinsert:47"/><path class="nd__div" d="M76 104v76" data-sid="08b-walk-sortedinsert:48"/><text class="nd__v" x="48" y="154" data-sid="08b-walk-sortedinsert:49">3</text></g>
+        <g class="nd" data-sid="08b-walk-sortedinsert:50"><rect class="nd__box" x="186" y="104" width="130" height="76" rx="10" data-sid="08b-walk-sortedinsert:51"/><path class="nd__div" d="M242 104v76" data-sid="08b-walk-sortedinsert:52"/><text class="nd__v" x="214" y="154" data-sid="08b-walk-sortedinsert:53">7</text></g>
+        <g class="nd" data-sid="08b-walk-sortedinsert:54"><rect class="nd__box" x="352" y="104" width="130" height="76" rx="10" data-sid="08b-walk-sortedinsert:55"/><path class="nd__div" d="M408 104v76" data-sid="08b-walk-sortedinsert:56"/><text class="nd__v" x="380" y="154" data-sid="08b-walk-sortedinsert:57">12</text></g>
+        <g class="nd" data-sid="08b-walk-sortedinsert:58"><rect class="nd__box" x="518" y="104" width="130" height="76" rx="10" data-sid="08b-walk-sortedinsert:59"/><path class="nd__div" d="M574 104v76" data-sid="08b-walk-sortedinsert:60"/><text class="nd__v" x="546" y="154" data-sid="08b-walk-sortedinsert:61">20</text><text class="nd__nl" x="611" y="152" data-sid="08b-walk-sortedinsert:62">null</text></g>
+        <path class="lnk" d="M113 142 H 182" data-sid="08b-walk-sortedinsert:63"/>
+        <!-- 7's next, which previousNode.setNext(newNode) re-points to the new node -->
+        <path class="lnk lnk--7" data-swing='[[6,"M279 142 C 279 196, 300 210, 300 252"]]' d="M279 142 C 300 142, 326 142, 348 142" data-sid="08b-walk-sortedinsert:64"/>
+        <path class="lnk" d="M445 142 H 514" data-sid="08b-walk-sortedinsert:65"/>
+
+        <!-- the new node, created on step 5, and its next arrow to 12 (Create: shaft, then head) -->
+        <g class="nd nd--new frag" data-step="5" data-sid="08b-walk-sortedinsert:66"><rect class="nd__box" x="269" y="256" width="130" height="76" rx="10" data-sid="08b-walk-sortedinsert:67"/><path class="nd__div" d="M325 256v76" data-sid="08b-walk-sortedinsert:68"/><text class="nd__v" x="297" y="306" data-sid="08b-walk-sortedinsert:69">10</text></g>
+        <path class="arr frag" data-step="5" pathLength="100" d="M362 294 C 362 240, 417 250, 417 196" data-sid="08b-walk-sortedinsert:70"/>
+        <path class="head frag" data-step="5" data-anim="fade" d="M417 184 L411 196 L423 196 Z" data-sid="08b-walk-sortedinsert:71"/>
+
+        <!-- foreach: d holds a copy of a value, not a node -->
+        <g class="dpill frag" data-step="8" data-sid="08b-walk-sortedinsert:72"><rect x="197" y="48" width="108" height="44" rx="22" data-sid="08b-walk-sortedinsert:73"/><text x="251" y="79" data-sid="08b-walk-sortedinsert:74">d = 7</text></g>
+
+        <!-- reverse traversal: an arrow a singly linked node does not have -->
+        <g class="rev frag" data-step="9" data-sid="08b-walk-sortedinsert:75"><path class="rev__shaft" d="M583 184 C 583 250, 470 250, 470 196" data-sid="08b-walk-sortedinsert:76"/><path class="rev__head" d="M470 184 L464 196 L476 196 Z" data-sid="08b-walk-sortedinsert:77"/></g>
+        <path class="cross frag" data-step="9" d="M510 219 L542 251 M542 219 L510 251" data-sid="08b-walk-sortedinsert:78"/>
+
+        <g class="ring ring--p" data-sid="08b-walk-sortedinsert:79"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="08b-walk-sortedinsert:80"/></g>
+        <g class="ring ring--c" data-sid="08b-walk-sortedinsert:81"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="08b-walk-sortedinsert:82"/></g>
+        <!-- the look-ahead walk is a second walk from firstNode: its own blue ring, drawn on 3 -->
+        <g class="ring ring--c2" data-sid="08b-walk-sortedinsert:105"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="08b-walk-sortedinsert:106"/></g>
+      </svg>
+
+      <div class="codewalk__caps si__caps" data-sid="08b-walk-sortedinsert:83">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="08b-walk-sortedinsert:84">previousNode starts as null, and currentNode starts at firstNode, the node holding 3.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="08b-walk-sortedinsert:85">3 &lt; 10, so previousNode is set to 3 and currentNode to 7.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="08b-walk-sortedinsert:86">7 &lt; 10, so previousNode is set to 7 and currentNode to 12.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="08b-walk-sortedinsert:87">12 &lt; 10 is false, so the loop stops. previousNode is on 7, the node before 12.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="08b-walk-sortedinsert:88">The new node holding 10 is created with its next set to currentNode, the node holding 12.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="08b-walk-sortedinsert:89">7&rsquo;s next is set to the new node. The runner technique uses two references in one walk, so it is O(n).</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="08b-walk-sortedinsert:90">The look-ahead technique tests currentNode.getNext(), so currentNode itself stops on 7. It uses one reference in one walk.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="08b-walk-sortedinsert:91">A foreach loop sets d to 3, then 7, then 12, then 20. It never gives you a node, so there is no next reference to set.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="08b-walk-sortedinsert:92">A singly linked node has no reference to the node before it. There is no reference from 20 back to 12.</p>
+        <ol class="verdict frag si__verdict" data-step="10" data-sid="08b-walk-sortedinsert:93">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="08b-walk-sortedinsert:94"><span class="verdict__txt" data-sid="08b-walk-sortedinsert:95">The foreach loop technique</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="08b-walk-sortedinsert:96"><span class="verdict__txt" data-sid="08b-walk-sortedinsert:97">The look-ahead technique</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="08b-walk-sortedinsert:98"><span class="verdict__txt" data-sid="08b-walk-sortedinsert:99">The runner technique</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="08b-walk-sortedinsert:100"><span class="verdict__txt" data-sid="08b-walk-sortedinsert:101">The reverse transversal technique</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="08b-walk-sortedinsert:102"></div>
+  <aside class="notes" data-sid="08b-walk-sortedinsert:103">Answer: B and C [keys from the PrairieLearn twin u12q07_insertnode_b; confirm in Runestone&rsquo;s results view]. The code uses the names from the 10.2 slides: previousNode and currentNode in the insertion sort, and the textbook&rsquo;s getNodeBefore does the same walk with nodeBefore. The values are ints, so the test is getData() &lt; x; the course code calls compareTo. The code leaves out the front case: if 10 were smaller than 3, previousNode would still be null after the loop, and the method would set firstNode to the new node instead. Step 1. previousNode is null and currentNode is on 3. Step 2. 3 &lt; 10, so both references move one node. Step 3. 7 &lt; 10, so both move again. Step 4. 12 &lt; 10 is false and the loop stops. currentNode is on the first node that is not smaller, and previousNode is on the node before it, which is the node whose next has to change. Step 5. The new node is created with its next set to 12. Step 6. 7&rsquo;s next is set to the new node. One walk, so O(n). This is the runner technique, option C. Step 7. The look-ahead technique, option B, is a second walk from firstNode. It keeps one reference and tests the node after it, so the loop stops with currentNode on 7. The insert is then currentNode.setNext(new Node(x, currentNode.getNext())). Also one walk, so O(n). The homework problem x709, Find Node Before, writes findNodeBefore with either technique, and x734 names both. Step 8. Option A. A foreach loop over the list gives you the values, 3, 7, 12, 20, one at a time. It never gives you a node, so there is no next to change. Step 9. Option D. Walking backwards needs a reference to the previous node, which a singly linked node does not have. Runestone spells it &ldquo;transversal&rdquo;. Step 10. B and C. Next is Vote 3.</aside>
+
+  <style data-sid="08b-walk-sortedinsert:104">
+    /* Slide-local: the editor at --t-code, 896 px (line 11 is 43 characters:
+       43 × 19.2 + 70 = 896) at line-height 1.2 (13 lines, about 590 px with
+       the bar); on the right (736 px) one 736 × 340 SVG at 1:1 (Link boxes
+       130 × 76 on a 166 px pitch, W9D2 08b's grammar), then the caption cell,
+       where the verdict replaces the captions on step 10 (body face at
+       --t-small, one option to a line). Colours: currentNode is the blue of a
+       reference; previousNode is orange, the reference the insert is done
+       through (W9D2 04's rule); a key at the top right names the two rings.
+       Motion: the rings travel by translateX (real moves) and fade; the
+       look-ahead walk (step 7) is a second blue ring that appears on 3 and
+       walks to 7, as in 07b, because a ring sliding back from 12 would show
+       a move the chain cannot make; the new
+       node grows from its centre and its next arrow is Created (the shaft
+       draws on, then the head fades in); 7's next swings to the new node (CSS
+       d plus the same path in data-swing for Safari); the d pill fades in and
+       out; the reverse arrow is dashed, so it fades in (a dash pattern cannot
+       also carry the draw-on offset), then the maroon cross grows. States
+       keyed to the caption frags with :has(), in step order. Used by this
+       slide only, all values from tokens. */
+    #slide-08b .si { grid-template-columns: 896px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-08b .si__editor { width: 896px; }
+    #slide-08b .si__editor .editor__code li { line-height: 1.2; }
+    #slide-08b .si__fig { display: block; width: 736px; height: 340px; overflow: visible; }
+    #slide-08b .si__right { gap: var(--s-2); }
+    #slide-08b .si__caps { min-height: 190px; }
+    #slide-08b .si__caps .verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); flex-direction: column; }
+
+    #slide-08b .pill rect { fill: var(--accent-2); }
+    #slide-08b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w10d1-08b-head); }
+    #slide-08b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w10d1-08b-head); transition: d .7s var(--ease-smooth); }
+    #slide-08b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    /* the key */
+    #slide-08b .lg__sw { fill: none; stroke-width: 5; }
+    #slide-08b .lg__sw--p { stroke: var(--accent-3); }
+    #slide-08b .lg__sw--c { stroke: var(--accent-2); }
+    #slide-08b .lg__t { font-family: var(--font-mono); font-size: var(--t-micro); }
+    #slide-08b .lg__t--p { fill: var(--accent-3); }
+    #slide-08b .lg__t--c { fill: var(--accent-2); }
+    #slide-08b .lg__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); transition: opacity .3s ease; }
+
+    /* the rings */
+    #slide-08b .ring rect { fill: none; stroke-width: 5; }
+    #slide-08b .ring--c rect, #slide-08b .ring--c2 rect { stroke: var(--accent-2); }
+    #slide-08b .ring--p rect { stroke: var(--accent-3); }
+    #slide-08b .ring { opacity: 0; transition: opacity .3s ease, transform .8s var(--ease-smooth); }
+    #slide-08b .ring--c2 { transition: opacity .3s ease, transform 0s linear .3s; }   /* returns to 3 only while invisible */
+
+    /* the new node grows; its arrow is Created */
+    #slide-08b .nd--new { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08b .frag.nd--new.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-08b .arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-08b .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-08b .frag.arr.is-current, #slide-08b .frag.arr.is-past { transition-delay: .5s; }
+    #slide-08b .head { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-08b .frag.head.is-current, #slide-08b .frag.head.is-past { transition-delay: .9s; }
+
+    /* foreach's d: a copy of a value, a stone outline with no node box */
+    #slide-08b .dpill { transition: opacity .3s ease; }
+    #slide-08b .dpill rect { fill: var(--bg-0); stroke: var(--stone); stroke-width: 4; }
+    #slide-08b .dpill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+
+    /* reverse traversal: a dashed stone arrow that takes a maroon cross */
+    #slide-08b .rev { transition: opacity .3s ease; }
+    #slide-08b .rev__shaft { fill: none; stroke: var(--stone); stroke-width: 4; stroke-dasharray: 10 8; stroke-linecap: round; }
+    #slide-08b .rev__head { fill: var(--stone); }
+    #slide-08b .cross { fill: none; stroke: var(--accent-1); stroke-width: 8; stroke-linecap: round; transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08b .frag.cross.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-08b .frag.cross.is-current, #slide-08b .frag.cross.is-past { transition-delay: .5s; }
+
+    /* ---- states, in step order ---- */
+    #slide-08b .si:has(.cap--1:not(.is-pending)) .ring--c { opacity: 1; transform: translateX(0); }
+    #slide-08b .si:has(.cap--2:not(.is-pending)) .lg__null { opacity: 0; }
+    #slide-08b .si:has(.cap--2:not(.is-pending)) .ring--p { opacity: 1; transform: translateX(0); }
+    #slide-08b .si:has(.cap--2:not(.is-pending)) .ring--c { transform: translateX(166px); }
+    #slide-08b .si:has(.cap--3:not(.is-pending)) .ring--p { transform: translateX(166px); }
+    #slide-08b .si:has(.cap--3:not(.is-pending)) .ring--c { transform: translateX(332px); }
+    #slide-08b .si:has(.cap--6:not(.is-pending)) .lnk--7 { d: path("M279 142 C 279 196, 300 210, 300 252"); }
+    #slide-08b .si:has(.cap--7:not(.is-pending)) .ring--p { opacity: 0; }
+    #slide-08b .si:has(.cap--7:not(.is-pending)) .ring--c { opacity: 0; }
+    #slide-08b .si:has(.cap--7:not(.is-pending)) .ring--c2 { opacity: 1; transform: translateX(166px); transition: opacity .2s ease .3s, transform .8s var(--ease-smooth) .6s; }
+    #slide-08b .si:has(.cap--8:not(.is-pending)) .ring--c2 { opacity: 0; transition: opacity .3s ease; }
+    #slide-08b .si:has(.cap--9:not(.is-pending)) .dpill { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .lnk, #slide-08b .ring, #slide-08b .nd--new, #slide-08b .arr, #slide-08b .head, #slide-08b .dpill, #slide-08b .rev, #slide-08b .cross, #slide-08b .lg__null { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

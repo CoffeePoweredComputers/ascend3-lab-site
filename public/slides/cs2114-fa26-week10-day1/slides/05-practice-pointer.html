@@ -1,0 +1,47 @@
+<section class="slide" id="slide-05" data-sid="05-practice-pointer:1">
+  <header class="slide__head" data-sid="05-practice-pointer:2">
+    <h2 data-sid="05-practice-pointer:3">Practice on PrairieLearn</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="05-practice-pointer:4">A blue-edged signpost card: PrairieLearn, then Assessments, then Test #2 Practice. Under the path, four facts: it is open now until December 31; it has a 45-minute limit, the same as the test; each attempt has a new set of 19 questions; it is not for credit. Under the card a sentence in maroon: take it once tonight, and if a question takes a long time, study its topic again. Nothing builds.</p>
+
+  <!-- One pointer slide, no in-class run (instructor, 2026-10-24). The
+       signpost is W4D2 11's card: the PrairieLearn path in the tool's blue
+       with the assessment name in the heading maroon, then the four facts a
+       student needs before opening it, at the small size because they are
+       read as sentences. The plant under it ties the practice back to the
+       topics on 04. Facts from
+       practiceExams/test2/infoAssessment.json: open 2026-10-23 to
+       2026-12-31, timeLimitMin 45, multipleInstance, 19 slots; "not for
+       credit" is from the shared brief. Static. -->
+  <div class="slide__body pp" data-sid="05-practice-pointer:5">
+    <div class="tile tile--a2 pp__sign" data-sid="05-practice-pointer:6">
+      <p class="tile__label" data-sid="05-practice-pointer:7">where</p>
+      <p class="pp__path" data-sid="05-practice-pointer:8">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="05-practice-pointer:9">Test #2 Practice</b></p>
+      <ul class="pp__facts" data-sid="05-practice-pointer:10">
+        <li data-sid="05-practice-pointer:11">Open now, until December 31.</li>
+        <li data-sid="05-practice-pointer:12">A 45-minute limit, the same as the test.</li>
+        <li data-sid="05-practice-pointer:13">Each attempt has a new set of 19 questions.</li>
+        <li data-sid="05-practice-pointer:14">Not for credit.</li>
+      </ul>
+    </div>
+    <p class="pp__plant" data-sid="05-practice-pointer:15">Take it once tonight. If a question takes you a long time, study its topic again.</p>
+  </div>
+  <div class="slide__number" data-sid="05-practice-pointer:16"></div>
+  <aside class="notes" data-sid="05-practice-pointer:17">The practice test is on PrairieLearn: Assessments, then Test #2 Practice. It opened on Friday and stays open until December 31. It has a 45-minute limit, the same as Test 2, so one attempt takes as long as the test. Each attempt gives you a new set of 19 questions from the six topics on the map. It is not for credit. The practice has the same shape as the test. It is not the test, and the questions on Wednesday and Thursday are different ones. We are not running it in class today. Take it once tonight. If a question takes you a long time, find its topic on the map and study that topic again. Next is Part 2, the votes.</aside>
+
+  <style data-sid="05-practice-pointer:18">
+    /* Slide-local: the signpost card across the body (W4D2 11's card, one
+       column because nothing else shares the slide), the path at the body
+       size with the assessment name in the heading maroon, the four facts at
+       --t-small as a ruled list (they are sentences), and the plant under
+       the card in display maroon at --t-small. Static. Used by this slide
+       only, all values from tokens. */
+    #slide-05 .pp { display: grid; row-gap: var(--s-5); align-content: start; }
+    #slide-05 .pp__sign { padding: var(--s-4) var(--s-5); }
+    #slide-05 .slide__body p.pp__path { margin: 0 0 var(--s-4); font-size: var(--t-body); line-height: 1.25; color: var(--fg-0); }
+    #slide-05 .pp__path b { color: var(--accent-1); }
+    #slide-05 .pp__facts { list-style: none; margin: 0; padding: 0; }
+    #slide-05 .pp__facts li { margin: 0; padding: var(--s-2) 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); border-top: 2px solid color-mix(in srgb, var(--accent-2) 30%, var(--bg-0)); }
+    #slide-05 .slide__body p.pp__plant { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); }
+  </style>
+</section>

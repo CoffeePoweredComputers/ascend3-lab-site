@@ -1,0 +1,148 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-getloop:1">
+  <header class="slide__head" data-sid="07b-walk-getloop:2">
+    <p class="slide__kicker" data-sid="07b-walk-getloop:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-getloop:4">Every get(i) starts again at firstNode</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-getloop:5">A walkthrough under a program-counter bar. The code: a client loop, for i from 0 while i is less than n, x equals list dot get of i; then the method get of givenPosition: Node currentNode equals firstNode; for counter from 0 while counter is less than givenPosition, currentNode equals currentNode dot getNext; return currentNode dot getData. On the right, a singly linked chain of four nodes, A to D, with firstNode on A, a tally line and a counter labelled nodes visited. Step one: get of 0; a blue ring labelled currentNode appears on A; the tally reads 1 and the counter 1. Step two: get of 1; a new ring appears on A and moves to B; the tally reads 1 plus 2 and the counter 3. Step three: get of 2; a ring starts on A and moves to C; plus 3, and the counter reads 6. Step four: get of 3; a ring starts on A and moves to D; plus 4, and the counter reads 10. Step five: the bar moves to the client loop; the tally ends at 10, and the caption says each call starts at firstNode again, so four calls visit 1 plus 2 plus 3 plus 4 equals 10 nodes. Step six: the caption says that for n nodes that is n times n plus 1 over 2 visits, which grows like n squared, and under the code the four options appear with A, B and C struck through and D not struck: n calls, each a walk of up to n nodes.</p>
+
+  <!-- The answer as a walk of the code the room saw in 9.1: the client loop
+       from the stem, then get with the course's getNodeAt loop inside it
+       (LinkedListRemove.pdf slide 4: currentNode, counter, givenPosition,
+       0-based). The for header is split over two lines so the editor fits
+       beside the chain; the bar says so. The get body stays under the bar for
+       four presses (data-hold), one call per press. Each call has its own
+       ring: it appears on A and travels to the node it returns (a real move),
+       and the previous call's ring fades. A tally line and a counter (deck.css
+       .moves; the roll is allowed because it counts) add the visits.
+       steps 1–4: get(0) to get(3).  step 5: the client loop, = 10.
+       step 6: n(n + 1)/2 and the verdict D. -->
+  <div class="slide__body grid grid--code code-mid gw" data-sid="07b-walk-getloop:6">
+    <div class="stack gw__left" data-sid="07b-walk-getloop:7">
+      <div class="editor gw__editor" data-sid="07b-walk-getloop:8">
+        <p class="editor__bar" data-sid="07b-walk-getloop:9">client loop, then get(i) with the 9.1 getNodeAt loop</p>
+        <div class="editor__pc" data-sid="07b-walk-getloop:10"></div>
+        <ol class="editor__code" data-sid="07b-walk-getloop:11">
+          <li class="walkline frag" data-step="5" data-hold="6" data-sid="07b-walk-getloop:12"><span class="tok-key" data-sid="07b-walk-getloop:13">for</span> (<span class="tok-key" data-sid="07b-walk-getloop:14">int</span> i = <span class="tok-num" data-sid="07b-walk-getloop:15">0</span>; i &lt; n; i++)</li>
+          <li class="walkline frag" data-step="5" data-hold="6" data-sid="07b-walk-getloop:16">  x = list.get(i);</li>
+          <li data-sid="07b-walk-getloop:17"> </li>
+          <li data-sid="07b-walk-getloop:18">T get(<span class="tok-key" data-sid="07b-walk-getloop:19">int</span> givenPosition) {</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-sid="07b-walk-getloop:20">  Node currentNode = firstNode;</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-sid="07b-walk-getloop:21">  <span class="tok-key" data-sid="07b-walk-getloop:22">for</span> (<span class="tok-key" data-sid="07b-walk-getloop:23">int</span> counter = <span class="tok-num" data-sid="07b-walk-getloop:24">0</span>;</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-sid="07b-walk-getloop:25">       counter &lt; givenPosition; counter++)</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-sid="07b-walk-getloop:26">    currentNode = currentNode.getNext();</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-sid="07b-walk-getloop:27">  <span class="tok-key" data-sid="07b-walk-getloop:28">return</span> currentNode.getData();</li>
+          <li data-sid="07b-walk-getloop:29">}</li>
+        </ol>
+      </div>
+      <ol class="verdict frag gw__verdict" data-step="6" data-sid="07b-walk-getloop:30">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-getloop:31"><span class="verdict__txt" data-sid="07b-walk-getloop:32">O(1)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07b-walk-getloop:33"><span class="verdict__txt" data-sid="07b-walk-getloop:34">O(log n)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07b-walk-getloop:35"><span class="verdict__txt" data-sid="07b-walk-getloop:36">O(n)</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-getloop:37"><span class="verdict__txt" data-sid="07b-walk-getloop:38">n calls, each a walk of up to n nodes</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk gw__right" data-sid="07b-walk-getloop:39">
+      <svg class="gw__fig" viewBox="0 0 752 224" role="img" aria-label="A singly linked chain of four nodes, A to D, with firstNode on A; for each call a ring labelled currentNode starts on A and moves to the node the call returns" data-sid="07b-walk-getloop:40">
+        <defs data-sid="07b-walk-getloop:41">
+          <marker id="w10d1-07b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07b-walk-getloop:42"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="07b-walk-getloop:43"/></marker>
+        </defs>
+        <g class="pill" data-sid="07b-walk-getloop:44"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="07b-walk-getloop:45"/><text x="88" y="31" data-sid="07b-walk-getloop:46">firstNode</text></g>
+        <path class="ref" d="M85 44 C 85 66, 85 80, 85 100" data-sid="07b-walk-getloop:47"/>
+        <g class="nd" data-sid="07b-walk-getloop:48"><rect class="nd__box" x="20" y="104" width="130" height="76" rx="10" data-sid="07b-walk-getloop:49"/><path class="nd__div" d="M76 104v76" data-sid="07b-walk-getloop:50"/><text class="nd__v" x="48" y="154" data-sid="07b-walk-getloop:51">A</text></g>
+        <g class="nd" data-sid="07b-walk-getloop:52"><rect class="nd__box" x="186" y="104" width="130" height="76" rx="10" data-sid="07b-walk-getloop:53"/><path class="nd__div" d="M242 104v76" data-sid="07b-walk-getloop:54"/><text class="nd__v" x="214" y="154" data-sid="07b-walk-getloop:55">B</text></g>
+        <g class="nd" data-sid="07b-walk-getloop:56"><rect class="nd__box" x="352" y="104" width="130" height="76" rx="10" data-sid="07b-walk-getloop:57"/><path class="nd__div" d="M408 104v76" data-sid="07b-walk-getloop:58"/><text class="nd__v" x="380" y="154" data-sid="07b-walk-getloop:59">C</text></g>
+        <g class="nd" data-sid="07b-walk-getloop:60"><rect class="nd__box" x="518" y="104" width="130" height="76" rx="10" data-sid="07b-walk-getloop:61"/><path class="nd__div" d="M574 104v76" data-sid="07b-walk-getloop:62"/><text class="nd__v" x="546" y="154" data-sid="07b-walk-getloop:63">D</text><text class="nd__nl" x="611" y="152" data-sid="07b-walk-getloop:64">null</text></g>
+        <path class="lnk" d="M113 142 H 182" data-sid="07b-walk-getloop:65"/>
+        <path class="lnk" d="M279 142 H 348" data-sid="07b-walk-getloop:66"/>
+        <path class="lnk" d="M445 142 H 514" data-sid="07b-walk-getloop:67"/>
+        <!-- one ring per call, each drawn on A; the states below move it -->
+        <g class="ring ring--1" data-sid="07b-walk-getloop:68"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="07b-walk-getloop:69"/><text x="85" y="216" data-sid="07b-walk-getloop:70">currentNode</text></g>
+        <g class="ring ring--2" data-sid="07b-walk-getloop:71"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="07b-walk-getloop:72"/><text x="85" y="216" data-sid="07b-walk-getloop:73">currentNode</text></g>
+        <g class="ring ring--3" data-sid="07b-walk-getloop:74"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="07b-walk-getloop:75"/><text x="85" y="216" data-sid="07b-walk-getloop:76">currentNode</text></g>
+        <g class="ring ring--4" data-sid="07b-walk-getloop:77"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="07b-walk-getloop:78"/><text x="85" y="216" data-sid="07b-walk-getloop:79">currentNode</text></g>
+      </svg>
+
+      <div class="gw__row" data-sid="07b-walk-getloop:80">
+        <div class="moves gw__moves" data-sid="07b-walk-getloop:81">
+          <p class="moves__label" data-sid="07b-walk-getloop:82">nodes<br data-sid="07b-walk-getloop:83">visited</p>
+          <div class="moves__stack" data-sid="07b-walk-getloop:84">
+            <div class="heap-obj__field" data-sid="07b-walk-getloop:85"><p class="heap-val heap-val--old frag" data-step="1" data-sid="07b-walk-getloop:86">0</p><p class="heap-val frag" data-step="1" data-sid="07b-walk-getloop:87">1</p></div>
+            <div class="heap-obj__field" data-sid="07b-walk-getloop:88"><p class="heap-val heap-val--old frag" data-step="2" data-sid="07b-walk-getloop:89">1</p><p class="heap-val frag" data-step="2" data-sid="07b-walk-getloop:90">3</p></div>
+            <div class="heap-obj__field" data-sid="07b-walk-getloop:91"><p class="heap-val heap-val--old frag" data-step="3" data-sid="07b-walk-getloop:92">3</p><p class="heap-val frag" data-step="3" data-sid="07b-walk-getloop:93">6</p></div>
+            <div class="heap-obj__field" data-sid="07b-walk-getloop:94"><p class="heap-val heap-val--old frag" data-step="4" data-sid="07b-walk-getloop:95">6</p><p class="heap-val frag" data-step="4" data-sid="07b-walk-getloop:96">10</p></div>
+          </div>
+        </div>
+        <p class="gw__tally" data-sid="07b-walk-getloop:97"><span class="gw__t frag" data-step="1" data-sid="07b-walk-getloop:98">1</span><span class="gw__t frag" data-step="2" data-sid="07b-walk-getloop:99"> + 2</span><span class="gw__t frag" data-step="3" data-sid="07b-walk-getloop:100"> + 3</span><span class="gw__t frag" data-step="4" data-sid="07b-walk-getloop:101"> + 4</span><span class="gw__t gw__t--sum frag" data-step="5" data-sid="07b-walk-getloop:102"> = 10</span></p>
+      </div>
+
+      <div class="codewalk__caps gw__caps" data-sid="07b-walk-getloop:103">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="07b-walk-getloop:104">get(0) starts at firstNode and visits A. The for loop body does not run.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="07b-walk-getloop:105">get(1) starts at firstNode again and visits A and B.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="07b-walk-getloop:106">get(2) starts at firstNode again and visits A, B and C.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="07b-walk-getloop:107">get(3) starts at firstNode again and visits A, B, C and D.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="07b-walk-getloop:108">Each call starts at firstNode again. Four calls visit 1 + 2 + 3 + 4 = 10 nodes.</p>
+        <p class="walkcap walkcap--plant cap--6 frag" data-step="6" data-sid="07b-walk-getloop:109">For n nodes that is n(n + 1)/2 visits, which grows like n&sup2;.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-getloop:110"></div>
+  <aside class="notes" data-sid="07b-walk-getloop:111">Answer: D &mdash; O(n&sup2;) [key from the PrairieLearn twin u11q08_iterator_efficiency_a; confirm in Runestone&rsquo;s results view]. The code is the client loop from the stem and a get method with the getNodeAt loop from the 9.1 video: currentNode, counter and givenPosition, positions from 0. In the course code the public method is getEntry and the loop is in the private getNodeAt; here they are one method so it fits. The for header is split over two lines for the same reason. Step 1. get(0) sets currentNode to firstNode, and counter &lt; 0 is false, so the loop body does not run. One node visited. Step 2. get(1) starts at firstNode again. It does not remember where get(0) stopped. Two visits, three in all. Step 3. get(2), three visits, six in all. Step 4. get(3), four visits, ten in all. Step 5. The client loop made four calls, and each one walked from firstNode. 1 + 2 + 3 + 4 = 10. Step 6. For n nodes the sum is 1 + 2 + &hellip; + n = n(n + 1)/2, which is about n&sup2;/2, and that grows like n&sup2;. The answer is D. C is a common wrong answer. The loop runs n times, but each pass visits up to n nodes, not one. The stem says get(n), which is one past the last index on a 0-based list; the walk uses get(0) to get(n &minus; 1), and the cost is the same. Next is Vote 2.</aside>
+
+  <style data-sid="07b-walk-getloop:112">
+    /* Slide-local: the editor at --t-code, 880 px (line 7 is 42 characters:
+       42 × 19.2 + 70 = 876) at line-height 1.2 (10 lines, about 474 px with
+       the bar), the verdict under it in the body face at --t-small. On the
+       right (752 px) one 752 × 224 SVG at 1:1 (Link boxes 130 × 76 on a
+       166 px pitch, W9D2 08b's grammar), then a row with the counter
+       (deck.css .moves) beside the tally line in mono at --t-small, then the
+       captions. Motion: four rings, one per call, each drawn on A; on its
+       step a ring fades in on A and then travels (k − 1) × 166 px by
+       translateX, a real move; the previous ring fades where it stopped. A
+       ring that loses its state fades first and returns to A while invisible,
+       so back-steps reverse. Tally terms fade in one per press. States keyed
+       to the caption frags with :has(), in step order. Used by this slide
+       only, all values from tokens. */
+    #slide-07b .gw { grid-template-columns: 880px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-07b .gw__editor { width: 880px; }
+    #slide-07b .gw__editor .editor__code li { line-height: 1.2; }
+    #slide-07b .gw__verdict { font-family: var(--font-body); font-size: var(--t-small); column-gap: var(--s-5); }
+    #slide-07b .gw__fig { display: block; width: 752px; height: 224px; overflow: visible; }
+
+    #slide-07b .gw__row { display: flex; align-items: center; gap: var(--s-5); }
+    #slide-07b .gw__moves { grid-template-columns: max-content max-content; }
+    #slide-07b .gw__moves .moves__label { line-height: 1.25; }
+    #slide-07b .gw__tally { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); white-space: pre; }
+    #slide-07b .gw__t { transition: opacity .3s ease; }
+    #slide-07b .frag.gw__t.is-current, #slide-07b .frag.gw__t.is-past { transition-delay: .6s; }
+    #slide-07b .gw__t--sum { color: var(--accent-1); }
+    #slide-07b .gw__caps { min-height: 98px; }
+    #slide-07b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-07b .pill rect { fill: var(--accent-2); }
+    #slide-07b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-07b .ref, #slide-07b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w10d1-07b-head); }
+    #slide-07b .ref { stroke-width: 5; }
+    #slide-07b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-07b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    #slide-07b .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-07b .ring text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+    #slide-07b .ring { opacity: 0; transition: opacity .3s ease, transform 0s linear .3s; }
+
+    /* ---- states, in step order ---- */
+    #slide-07b .gw:has(.cap--1:not(.is-pending)) .ring--1 { opacity: 1; transition: opacity .3s ease; }
+    #slide-07b .gw:has(.cap--2:not(.is-pending)) .ring--1 { opacity: 0; }
+    #slide-07b .gw:has(.cap--2:not(.is-pending)) .ring--2 { opacity: 1; transform: translateX(166px); transition: opacity .2s ease .3s, transform .8s var(--ease-smooth) .6s; }
+    #slide-07b .gw:has(.cap--3:not(.is-pending)) .ring--2 { opacity: 0; transition: opacity .3s ease; }
+    #slide-07b .gw:has(.cap--3:not(.is-pending)) .ring--3 { opacity: 1; transform: translateX(332px); transition: opacity .2s ease .3s, transform 1s var(--ease-smooth) .6s; }
+    #slide-07b .gw:has(.cap--4:not(.is-pending)) .ring--3 { opacity: 0; transition: opacity .3s ease; }
+    #slide-07b .gw:has(.cap--4:not(.is-pending)) .ring--4 { opacity: 1; transform: translateX(498px); transition: opacity .2s ease .3s, transform 1.2s var(--ease-smooth) .6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .ring, #slide-07b .gw__t { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

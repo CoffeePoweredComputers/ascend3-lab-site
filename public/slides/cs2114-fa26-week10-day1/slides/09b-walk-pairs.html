@@ -1,0 +1,139 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-pairs:1">
+  <header class="slide__head" data-sid="09b-walk-pairs:2">
+    <p class="slide__kicker" data-sid="09b-walk-pairs:3">VOTE 3 &middot; THE ANSWER</p>
+    <h2 data-sid="09b-walk-pairs:4">The inner loop runs n, then n &minus; 1, &hellip;, then 1 times</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09b-walk-pairs:5">A walkthrough of the vote's program under a program-counter bar, re-indented at two spaces: for i from 0 while i is less than arr dot length; inside it, for j from i while j is less than arr dot length; inside that, print arr at i plus arr at j. On the right, a four-by-four grid of the pairs i, j for an array of four entries, with rows for i and columns for j, where only the cells on and above the diagonal are drawn, and a large counter labelled prints. Step one: the four cells in row 0 light in maroon one after another and the counter changes to 4. Step two: row 1's three cells; the counter reads 7. Step three: row 2's two cells; 9. Step four: row 3's one cell, on the diagonal; 10, and the caption says four entries print 4 plus 3 plus 2 plus 1 equals 10 lines. Step five: the grid grows in place to eight by eight, the cells shrinking and four more rows and columns appearing, and the counter resets to 0. Step six: row 0's eight cells light; the counter reads 8. Step seven: the remaining twenty-eight cells light one after another; 36. Step eight: the caption says 4 entries print 10 lines and 8 print 36, that is n times n plus 1 over 2, the same sum as in Vote 1, and it grows like n squared; under the code the four options appear with A, B and C struck through and D not struck.</p>
+
+  <!-- W5D1 04c copied and changed: the vote's own five lines (re-indented at
+       2 spaces so the editor fits beside the grid; the bar says so) and a
+       grid that includes the diagonal, because the inner loop starts at
+       j = i, not i + 1. One press per outer iteration on the first run;
+       then the grid GROWS IN PLACE (the four hidden rows and columns open,
+       the cells shrink) and the same lines run again (data-also) in two
+       presses, row 0 and then the rest. The counter (deck.css .moves) counts
+       prints, so it rolls; the reset to 0 is a crossfade (data-roll off).
+       steps 1–4: rows 0–3 of the four-grid.  step 5: grow to eight.
+       step 6: row 0.  step 7: rows 1–7.  step 8: the plant and verdict D. -->
+  <div class="slide__body grid grid--code code-mid pw" data-sid="09b-walk-pairs:6">
+    <div class="stack pw__left" data-sid="09b-walk-pairs:7">
+      <div class="editor" data-sid="09b-walk-pairs:8">
+        <p class="editor__bar" data-sid="09b-walk-pairs:9">the program, re-indented at 2 spaces</p>
+        <div class="editor__pc" data-sid="09b-walk-pairs:10"></div>
+        <ol class="editor__code" data-sid="09b-walk-pairs:11">
+          <li class="walkline frag" data-step="1" data-hold="4" data-also="6 7" data-sid="09b-walk-pairs:12"><span class="tok-key" data-sid="09b-walk-pairs:13">for</span> (<span class="tok-key" data-sid="09b-walk-pairs:14">int</span> i = <span class="tok-num" data-sid="09b-walk-pairs:15">0</span>; i &lt; arr.length; i++) {</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-also="6 7" data-sid="09b-walk-pairs:16">  <span class="tok-key" data-sid="09b-walk-pairs:17">for</span> (<span class="tok-key" data-sid="09b-walk-pairs:18">int</span> j = i; j &lt; arr.length; j++) {</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-also="6 7" data-sid="09b-walk-pairs:19">    System.out.println(arr[i] + arr[j]);</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-also="6 7" data-sid="09b-walk-pairs:20">  }</li>
+          <li class="walkline frag" data-step="1" data-hold="4" data-also="6 7" data-sid="09b-walk-pairs:21">}</li>
+        </ol>
+      </div>
+      <ol class="verdict frag pw__verdict" data-step="8" data-sid="09b-walk-pairs:22">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="09b-walk-pairs:23"><span class="verdict__txt" data-sid="09b-walk-pairs:24">O(log n)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="09b-walk-pairs:25"><span class="verdict__txt" data-sid="09b-walk-pairs:26">O(n)</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="09b-walk-pairs:27"><span class="verdict__txt" data-sid="09b-walk-pairs:28">O(n log n)</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="09b-walk-pairs:29"><span class="verdict__txt" data-sid="09b-walk-pairs:30">n(n + 1)/2 prints, which grows like n&sup2;</span></li>
+      </ol>
+    </div>
+
+    <div class="codewalk pw__right" data-sid="09b-walk-pairs:31">
+      <p class="pw__call" data-sid="09b-walk-pairs:32">arr.length = <span class="pw__nv" data-sid="09b-walk-pairs:33"><span class="pw__n pw__n--4" data-sid="09b-walk-pairs:34">4</span><span class="pw__n pw__n--8" data-sid="09b-walk-pairs:35">8</span></span> &nbsp;&middot;&nbsp; row i, column j</p>
+      <div class="pw__mid" data-sid="09b-walk-pairs:36">
+        <div class="pg" role="img" aria-label="A grid of the pairs i, j; the cells on and above the diagonal light row by row; it grows from four by four to eight by eight" data-sid="09b-walk-pairs:37">
+          <span class="pg__h" data-sid="09b-walk-pairs:38"></span><span class="pg__h" data-sid="09b-walk-pairs:39">0</span><span class="pg__h" data-sid="09b-walk-pairs:40">1</span><span class="pg__h" data-sid="09b-walk-pairs:41">2</span><span class="pg__h" data-sid="09b-walk-pairs:42">3</span><span class="pg__h pg__h--x" data-sid="09b-walk-pairs:43">4</span><span class="pg__h pg__h--x" data-sid="09b-walk-pairs:44">5</span><span class="pg__h pg__h--x" data-sid="09b-walk-pairs:45">6</span><span class="pg__h pg__h--x" data-sid="09b-walk-pairs:46">7</span>
+          <span class="pg__h" data-sid="09b-walk-pairs:47">0</span><span class="pg__c r0 f" style="--i: 0" data-sid="09b-walk-pairs:48"></span><span class="pg__c r0 f" style="--i: 1" data-sid="09b-walk-pairs:49"></span><span class="pg__c r0 f" style="--i: 2" data-sid="09b-walk-pairs:50"></span><span class="pg__c r0 f" style="--i: 3" data-sid="09b-walk-pairs:51"></span><span class="pg__c r0 cx" style="--i: 4" data-sid="09b-walk-pairs:52"></span><span class="pg__c r0 cx" style="--i: 5" data-sid="09b-walk-pairs:53"></span><span class="pg__c r0 cx" style="--i: 6" data-sid="09b-walk-pairs:54"></span><span class="pg__c r0 cx" style="--i: 7" data-sid="09b-walk-pairs:55"></span>
+          <span class="pg__h" data-sid="09b-walk-pairs:56">1</span><span class="pg__x" data-sid="09b-walk-pairs:57"></span><span class="pg__c r1 f" style="--i: 0; --k: 0" data-sid="09b-walk-pairs:58"></span><span class="pg__c r1 f" style="--i: 1; --k: 1" data-sid="09b-walk-pairs:59"></span><span class="pg__c r1 f" style="--i: 2; --k: 2" data-sid="09b-walk-pairs:60"></span><span class="pg__c r1 cx" style="--i: 3; --k: 3" data-sid="09b-walk-pairs:61"></span><span class="pg__c r1 cx" style="--i: 4; --k: 4" data-sid="09b-walk-pairs:62"></span><span class="pg__c r1 cx" style="--i: 5; --k: 5" data-sid="09b-walk-pairs:63"></span><span class="pg__c r1 cx" style="--i: 6; --k: 6" data-sid="09b-walk-pairs:64"></span>
+          <span class="pg__h" data-sid="09b-walk-pairs:65">2</span><span class="pg__x" data-sid="09b-walk-pairs:66"></span><span class="pg__x" data-sid="09b-walk-pairs:67"></span><span class="pg__c r2 f" style="--i: 0; --k: 7" data-sid="09b-walk-pairs:68"></span><span class="pg__c r2 f" style="--i: 1; --k: 8" data-sid="09b-walk-pairs:69"></span><span class="pg__c r2 cx" style="--i: 2; --k: 9" data-sid="09b-walk-pairs:70"></span><span class="pg__c r2 cx" style="--i: 3; --k: 10" data-sid="09b-walk-pairs:71"></span><span class="pg__c r2 cx" style="--i: 4; --k: 11" data-sid="09b-walk-pairs:72"></span><span class="pg__c r2 cx" style="--i: 5; --k: 12" data-sid="09b-walk-pairs:73"></span>
+          <span class="pg__h" data-sid="09b-walk-pairs:74">3</span><span class="pg__x" data-sid="09b-walk-pairs:75"></span><span class="pg__x" data-sid="09b-walk-pairs:76"></span><span class="pg__x" data-sid="09b-walk-pairs:77"></span><span class="pg__c r3 f" style="--i: 0; --k: 13" data-sid="09b-walk-pairs:78"></span><span class="pg__c r3 cx" style="--i: 1; --k: 14" data-sid="09b-walk-pairs:79"></span><span class="pg__c r3 cx" style="--i: 2; --k: 15" data-sid="09b-walk-pairs:80"></span><span class="pg__c r3 cx" style="--i: 3; --k: 16" data-sid="09b-walk-pairs:81"></span><span class="pg__c r3 cx" style="--i: 4; --k: 17" data-sid="09b-walk-pairs:82"></span>
+          <span class="pg__h pg__h--x" data-sid="09b-walk-pairs:83">4</span><span class="pg__x rx" data-sid="09b-walk-pairs:84"></span><span class="pg__x rx" data-sid="09b-walk-pairs:85"></span><span class="pg__x rx" data-sid="09b-walk-pairs:86"></span><span class="pg__x rx" data-sid="09b-walk-pairs:87"></span><span class="pg__c r4 cx rx" style="--i: 0; --k: 18" data-sid="09b-walk-pairs:88"></span><span class="pg__c r4 cx rx" style="--i: 1; --k: 19" data-sid="09b-walk-pairs:89"></span><span class="pg__c r4 cx rx" style="--i: 2; --k: 20" data-sid="09b-walk-pairs:90"></span><span class="pg__c r4 cx rx" style="--i: 3; --k: 21" data-sid="09b-walk-pairs:91"></span>
+          <span class="pg__h pg__h--x" data-sid="09b-walk-pairs:92">5</span><span class="pg__x rx" data-sid="09b-walk-pairs:93"></span><span class="pg__x rx" data-sid="09b-walk-pairs:94"></span><span class="pg__x rx" data-sid="09b-walk-pairs:95"></span><span class="pg__x rx" data-sid="09b-walk-pairs:96"></span><span class="pg__x rx" data-sid="09b-walk-pairs:97"></span><span class="pg__c r5 cx rx" style="--i: 0; --k: 22" data-sid="09b-walk-pairs:98"></span><span class="pg__c r5 cx rx" style="--i: 1; --k: 23" data-sid="09b-walk-pairs:99"></span><span class="pg__c r5 cx rx" style="--i: 2; --k: 24" data-sid="09b-walk-pairs:100"></span>
+          <span class="pg__h pg__h--x" data-sid="09b-walk-pairs:101">6</span><span class="pg__x rx" data-sid="09b-walk-pairs:102"></span><span class="pg__x rx" data-sid="09b-walk-pairs:103"></span><span class="pg__x rx" data-sid="09b-walk-pairs:104"></span><span class="pg__x rx" data-sid="09b-walk-pairs:105"></span><span class="pg__x rx" data-sid="09b-walk-pairs:106"></span><span class="pg__x rx" data-sid="09b-walk-pairs:107"></span><span class="pg__c r6 cx rx" style="--i: 0; --k: 25" data-sid="09b-walk-pairs:108"></span><span class="pg__c r6 cx rx" style="--i: 1; --k: 26" data-sid="09b-walk-pairs:109"></span>
+          <span class="pg__h pg__h--x" data-sid="09b-walk-pairs:110">7</span><span class="pg__x rx" data-sid="09b-walk-pairs:111"></span><span class="pg__x rx" data-sid="09b-walk-pairs:112"></span><span class="pg__x rx" data-sid="09b-walk-pairs:113"></span><span class="pg__x rx" data-sid="09b-walk-pairs:114"></span><span class="pg__x rx" data-sid="09b-walk-pairs:115"></span><span class="pg__x rx" data-sid="09b-walk-pairs:116"></span><span class="pg__x rx" data-sid="09b-walk-pairs:117"></span><span class="pg__c r7 cx rx" style="--i: 0; --k: 27" data-sid="09b-walk-pairs:118"></span>
+        </div>
+        <div class="moves" data-sid="09b-walk-pairs:119">
+          <p class="moves__label" data-sid="09b-walk-pairs:120">prints</p>
+          <div class="moves__stack" data-sid="09b-walk-pairs:121">
+            <div class="heap-obj__field" data-sid="09b-walk-pairs:122"><p class="heap-val heap-val--old frag" data-step="1" data-sid="09b-walk-pairs:123">0</p><p class="heap-val frag" data-step="1" data-sid="09b-walk-pairs:124">4</p></div>
+            <div class="heap-obj__field" data-sid="09b-walk-pairs:125"><p class="heap-val heap-val--old frag" data-step="2" data-sid="09b-walk-pairs:126">4</p><p class="heap-val frag" data-step="2" data-sid="09b-walk-pairs:127">7</p></div>
+            <div class="heap-obj__field" data-sid="09b-walk-pairs:128"><p class="heap-val heap-val--old frag" data-step="3" data-sid="09b-walk-pairs:129">7</p><p class="heap-val frag" data-step="3" data-sid="09b-walk-pairs:130">9</p></div>
+            <div class="heap-obj__field" data-sid="09b-walk-pairs:131"><p class="heap-val heap-val--old frag" data-step="4" data-sid="09b-walk-pairs:132">9</p><p class="heap-val frag" data-step="4" data-sid="09b-walk-pairs:133">10</p></div>
+            <div class="heap-obj__field" data-roll="off" data-sid="09b-walk-pairs:134"><p class="heap-val heap-val--old frag" data-step="5" data-sid="09b-walk-pairs:135">10</p><p class="heap-val frag" data-step="5" data-sid="09b-walk-pairs:136">0</p></div>
+            <div class="heap-obj__field" data-sid="09b-walk-pairs:137"><p class="heap-val heap-val--old frag" data-step="6" data-sid="09b-walk-pairs:138">0</p><p class="heap-val frag" data-step="6" data-sid="09b-walk-pairs:139">8</p></div>
+            <div class="heap-obj__field" data-sid="09b-walk-pairs:140"><p class="heap-val heap-val--old frag" data-step="7" data-sid="09b-walk-pairs:141">8</p><p class="heap-val frag" data-step="7" data-sid="09b-walk-pairs:142">36</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="codewalk__caps pw__caps" data-sid="09b-walk-pairs:143">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="09b-walk-pairs:144">When i is 0, j runs from 0 to 3, so four lines are printed.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="09b-walk-pairs:145">When i is 1, j runs from 1 to 3, so three more lines are printed.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="09b-walk-pairs:146">When i is 2, j runs from 2 to 3, so two more lines are printed.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="09b-walk-pairs:147">When i is 3, j is 3 only. Four entries print 4 + 3 + 2 + 1 = 10 lines.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="09b-walk-pairs:148">The same program runs on an array of eight entries, and the count starts again at 0.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="09b-walk-pairs:149">When i is 0, j runs from 0 to 7, so eight lines are printed.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="09b-walk-pairs:150">When i runs from 1 to 7, the rows print 7 + 6 + 5 + 4 + 3 + 2 + 1 = 28 more lines, 36 in all.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8" data-sid="09b-walk-pairs:151">Four entries print 10 lines and eight print 36. That is n(n + 1)/2, the sum from Vote 1, and it grows like n&sup2;.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-pairs:152"></div>
+  <aside class="notes" data-sid="09b-walk-pairs:153">Answer: D &mdash; O(n&sup2;) [no PrairieLearn twin; by counting; confirm in Runestone&rsquo;s results view]. The code is the vote&rsquo;s program with 2-space indentation so it fits beside the grid. The grid has a cell for each pair i, j that the program prints: a row for each value of i and a column for each value of j. The difference from W5D1&rsquo;s hasDuplicate is that j starts at i, not at i + 1, so the diagonal is printed too. Step 1. When i is 0, the inner loop runs four times. Step 2. When i is 1, three times. Step 3. Two times. Step 4. Once, for the pair 3, 3. Four entries, 10 prints. Step 5. The array has eight entries and the count starts again. Step 6. Row 0, eight prints. Step 7. The other rows, 28 more, 36 in all. Step 8. Ask what doubling the entries did to the count. 10 became 36, more than three times as many, and the ratio moves towards four as n grows. The count is n + (n &minus; 1) + &hellip; + 1 = n(n + 1)/2, the same sum as the get loop in Vote 1, which is about n&sup2;/2. Constant factors are dropped, so it is O(n&sup2;). C, O(n log n), is the answer for students who see the inner loop getting shorter; it gets shorter by one each time, not by half. The next slide is Part 3.</aside>
+
+  <style data-sid="09b-walk-pairs:154">
+    /* Slide-local: the editor at --t-code (838 px clears the 40-character
+       inner lines: 40 × 19.2 + 70), the verdict under it in the body face at
+       --t-small; the pair grid and the counter side by side on the right
+       (794 px column). The grid is one CSS grid of nine columns and nine rows
+       from the start, as in W5D1 04c: the four extra tracks are 0 px until
+       step 5, when grid-template-columns and grid-template-rows animate to
+       nine even tracks (where a browser does not interpolate track lists,
+       they jump to the end state) and the cells shrink from 56 px to 40; the
+       hidden cells have no border and no opacity until then. Headers at
+       --t-micro (the type floor; 04c used the tag size). Cells below the
+       diagonal are blank (never printed). A row's cells take the cost's
+       maroon in a stagger on that iteration's press; step 5 resets them;
+       steps 6 and 7 relight row 0 and then the rest (--k is the cell's order
+       in rows 1–7). arr.length crossfades 4 → 8 (a replaced value). All
+       values from tokens; used by this slide only. */
+    #slide-09b .pw { grid-template-columns: 838px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-09b .pw__verdict { font-family: var(--font-body); font-size: var(--t-small); column-gap: var(--s-5); }
+    #slide-09b .pw__right { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-09b .pw__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }   /* read as a line of text, so the small size (32 mono characters, 691 px of the 794 px column) */
+    #slide-09b .pw__nv { display: inline-grid; vertical-align: baseline; }
+    #slide-09b .pw__n { grid-area: 1 / 1; transition: opacity .25s ease; }
+    #slide-09b .pw__n--8 { opacity: 0; }
+    #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .pw__n--4 { opacity: 0; }
+    #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .pw__n--8 { opacity: 1; }
+    #slide-09b .pw__mid { display: flex; align-items: flex-start; gap: var(--s-5); }
+    #slide-09b .pg {
+      display: grid; gap: 4px;
+      grid-template-columns: 44px 56px 56px 56px 56px 0px 0px 0px 0px;
+      grid-template-rows: 44px 56px 56px 56px 56px 0px 0px 0px 0px;
+      transition: grid-template-columns .7s var(--ease-smooth), grid-template-rows .7s var(--ease-smooth);
+    }
+    #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .pg { grid-template-columns: 36px repeat(8, 40px); grid-template-rows: 36px repeat(8, 40px); }
+    #slide-09b .pg__h { display: flex; align-items: center; justify-content: center; min-width: 0; overflow: hidden; font-family: var(--font-mono); font-size: var(--t-micro); line-height: 1; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-09b .pg__h--x { opacity: 0; }
+    #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .pg__h--x { opacity: 1; transition-delay: .4s; }
+    #slide-09b .pg__c, #slide-09b .pg__x { box-sizing: border-box; min-width: 0; min-height: 0; overflow: hidden; border-radius: var(--r-1); transition: border-color .3s ease, background-color .3s ease, opacity .3s ease; }
+    #slide-09b .pg__c { --k: 0; border: 2px solid var(--stone); background: var(--bg-1); }
+    #slide-09b .pg__x { border: 2px dashed color-mix(in srgb, var(--stone) 40%, transparent); }
+    #slide-09b .cx, #slide-09b .rx { opacity: 0; border-width: 0; }
+    #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .cx, #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .rx { opacity: 1; border-width: 2px; transition-delay: .4s; }
+    /* the first run: rows 0–3 of the four-grid, one press each */
+    #slide-09b .pw__right:has(.cap--1:not(.is-pending)) .pg__c.r0.f,
+    #slide-09b .pw__right:has(.cap--2:not(.is-pending)) .pg__c.r1.f,
+    #slide-09b .pw__right:has(.cap--3:not(.is-pending)) .pg__c.r2.f,
+    #slide-09b .pw__right:has(.cap--4:not(.is-pending)) .pg__c.r3.f { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--i) * .18s); }
+    /* step 5 resets; steps 6 and 7 relight row 0, then rows 1–7 */
+    #slide-09b .pw__right:has(.cap--5:not(.is-pending)) .pg__c { border-color: var(--stone); background: var(--bg-1); transition-delay: 0s; }
+    #slide-09b .pw__right:has(.cap--6:not(.is-pending)) .pg__c.r0 { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--i) * .1s); }
+    #slide-09b .pw__right:has(.cap--7:not(.is-pending)) .pg__c { border-color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); transition-delay: calc(var(--k) * .05s); }
+
+    #slide-09b .pw__caps { min-height: 150px; }
+    #slide-09b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .pg, #slide-09b .pg__c, #slide-09b .pg__x, #slide-09b .pg__h, #slide-09b .pw__n { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

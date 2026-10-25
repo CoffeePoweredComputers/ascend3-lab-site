@@ -1,0 +1,113 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-lists:1">
+  <header class="slide__head" data-sid="02c-bridge-lists:2">
+    <p class="slide__kicker" data-sid="02c-bridge-lists:3">FROM WEEK 9 TO WEEK 10</p>
+    <h2 data-sid="02c-bridge-lists:4">Every get(i) call runs last week&rsquo;s getNodeAt loop</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-lists:5">A bridge from Week 9 to Week 10, shown in three steps. Step one: on the left, last week's singly linked list of five nodes, A to E, each with data and next, E's next null, with a blue pill labelled firstNode pointing at A and a blue pill labelled lastNode pointing at E. A blue ring labelled currentNode appears on A and moves to D. The caption says that last week getNodeAt walked from firstNode, and that getNodeAt of 3 visits four nodes. Step two: on the right, a card grows in with the line get of i, and under it, calls getNodeAt of i. The caption says that every get call walks from firstNode. Step three: a question in maroon: a loop calls get of 0, get of 1, and so on, on this chain; what does the whole loop cost?</p>
+
+  <!-- Bridge from Week 9 (lists on a singly linked chain; remove(givenPosition)
+       and getEntry use the private getNodeAt walk, LinkedListRemove.pdf
+       slide 4: currentNode = firstNode, then counter steps) to Week 10's
+       Vote 1 (a loop of get(i) calls). One SVG in canvas px (1664 × 260):
+       left, five Link boxes 130 × 76 (value 56 | next 74, W9D2 02c's
+       grammar) on a 166 px pitch with both pills and a currentNode ring that
+       really moves A → D (three pitches, 498 px); right, a stone card with
+       get(i) over "calls getNodeAt(i)". Nothing on the slide answers the
+       question; Vote 1 asks it.
+       step 1: the chain and the walk to D.
+       step 2: the card: get(i) calls getNodeAt(i).
+       step 3: the question for Vote 1. -->
+  <div class="slide__body bl" data-sid="02c-bridge-lists:6">
+    <svg class="bl__fig" viewBox="0 0 1664 260" role="img" aria-label="Left, a singly linked list A to E with firstNode and lastNode, and a ring labelled currentNode that moves from A to D. Right, a card that reads get of i, calls getNodeAt of i" data-sid="02c-bridge-lists:7">
+      <defs data-sid="02c-bridge-lists:8">
+        <marker id="w10d1-02c-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02c-bridge-lists:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02c-bridge-lists:10"/></marker>
+      </defs>
+
+      <!-- Week 9: the singly linked list and the getNodeAt(3) walk -->
+      <g class="bl__left frag" data-step="1" data-sid="02c-bridge-lists:11">
+        <g class="pill" data-sid="02c-bridge-lists:12"><rect x="1" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-lists:13"/><text x="89" y="31" data-sid="02c-bridge-lists:14">firstNode</text></g>
+        <g class="pill" data-sid="02c-bridge-lists:15"><rect x="665" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-lists:16"/><text x="753" y="31" data-sid="02c-bridge-lists:17">lastNode</text></g>
+        <path class="ref" d="M89 44 C 89 70, 89 90, 89 114" data-sid="02c-bridge-lists:18"/>
+        <path class="ref" d="M753 44 C 753 70, 753 90, 753 114" data-sid="02c-bridge-lists:19"/>
+        <g class="nd" data-sid="02c-bridge-lists:20"><rect class="nd__box" x="24" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-lists:21"/><path class="nd__div" d="M80 120v76" data-sid="02c-bridge-lists:22"/><text class="nd__v" x="52" y="170" data-sid="02c-bridge-lists:23">A</text></g>
+        <path class="lnk" d="M117 158 C 140 158, 158 158, 186 158" data-sid="02c-bridge-lists:24"/>
+        <g class="nd" data-sid="02c-bridge-lists:25"><rect class="nd__box" x="190" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-lists:26"/><path class="nd__div" d="M246 120v76" data-sid="02c-bridge-lists:27"/><text class="nd__v" x="218" y="170" data-sid="02c-bridge-lists:28">B</text></g>
+        <path class="lnk" d="M283 158 C 306 158, 324 158, 352 158" data-sid="02c-bridge-lists:29"/>
+        <g class="nd" data-sid="02c-bridge-lists:30"><rect class="nd__box" x="356" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-lists:31"/><path class="nd__div" d="M412 120v76" data-sid="02c-bridge-lists:32"/><text class="nd__v" x="384" y="170" data-sid="02c-bridge-lists:33">C</text></g>
+        <path class="lnk" d="M449 158 C 472 158, 490 158, 518 158" data-sid="02c-bridge-lists:34"/>
+        <g class="nd" data-sid="02c-bridge-lists:35"><rect class="nd__box" x="522" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-lists:36"/><path class="nd__div" d="M578 120v76" data-sid="02c-bridge-lists:37"/><text class="nd__v" x="550" y="170" data-sid="02c-bridge-lists:38">D</text></g>
+        <path class="lnk" d="M615 158 C 638 158, 656 158, 684 158" data-sid="02c-bridge-lists:39"/>
+        <g class="nd" data-sid="02c-bridge-lists:40"><rect class="nd__box" x="688" y="120" width="130" height="76" rx="10" data-sid="02c-bridge-lists:41"/><path class="nd__div" d="M744 120v76" data-sid="02c-bridge-lists:42"/><text class="nd__v" x="716" y="170" data-sid="02c-bridge-lists:43">E</text><text class="nd__nl" x="781" y="168" data-sid="02c-bridge-lists:44">null</text></g>
+        <g class="ring" data-sid="02c-bridge-lists:45"><rect x="18" y="112" width="142" height="92" rx="14" data-sid="02c-bridge-lists:46"/><text x="89" y="240" data-sid="02c-bridge-lists:47">currentNode</text></g>
+      </g>
+
+      <!-- Week 10: the public get(i) runs the same walk -->
+      <g class="bl__right frag" data-step="2" data-sid="02c-bridge-lists:48">
+        <rect class="card" x="980" y="40" width="620" height="180" rx="18" data-sid="02c-bridge-lists:49"/>
+        <text class="card__code" x="1290" y="112" data-sid="02c-bridge-lists:50">get(i)</text>
+        <text class="card__calls" x="1290" y="176" data-sid="02c-bridge-lists:51"><tspan class="card__word" data-sid="02c-bridge-lists:52">calls</tspan> getNodeAt(i)</text>
+      </g>
+    </svg>
+
+    <div class="bl__caps" data-sid="02c-bridge-lists:53">
+      <p class="bl__cap cap--1 frag" data-step="1" data-sid="02c-bridge-lists:54">Last week, getNodeAt started at firstNode and moved one node per pass. getNodeAt(3) visits four nodes, A to D.</p>
+      <p class="bl__cap bl__cap--keep cap--2 frag" data-step="2" data-sid="02c-bridge-lists:55">A list&rsquo;s get(i) calls getNodeAt(i), so every get call starts again at firstNode.</p>
+    </div>
+    <p class="bl__q frag" data-step="3" data-sid="02c-bridge-lists:56">A loop calls get(0), get(1), &hellip; on this chain. What does the whole loop cost?</p>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-lists:57"></div>
+  <aside class="notes" data-sid="02c-bridge-lists:58">Last week we put a list on a singly linked chain. Step 1. This is that chain, with firstNode and lastNode. remove(givenPosition) and getEntry both use the private method getNodeAt. getNodeAt sets currentNode to firstNode and then moves currentNode one node per pass of its loop, givenPosition times. getNodeAt(3) visits A, B, C and D, which is four nodes. Step 2. In the vote, the list method is called get(i). It does the same thing: it calls getNodeAt(i), so every call starts again at firstNode. Step 3. Do not answer the question yet. It is Vote 1 in Part 2. Next is Part 1, what Test 2 asks.</aside>
+
+  <style data-sid="02c-bridge-lists:59">
+    /* Slide-local: a bridge from Week 9 to Week 10. One SVG at 1:1
+       (1664 × 260) with last week's singly linked chain on the left (Link
+       boxes 130 × 76, W9D2 02c's grammar, five nodes so the ring can walk
+       three pitches) and a stone card on the right naming the call the vote
+       uses. Labels at --t-micro, values and the card at --t-small. Under it
+       the narration (two captions, the second stays) and the question in
+       display maroon, both at --t-small. Motion: the chain and the card
+       GrowFromCenter on their presses; the currentNode ring travels A → D by
+       translateX after the chain is in (a real move). Used by this slide
+       only, all values from tokens. */
+    #slide-02c .bl { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-02c .bl__fig { display: block; width: 1664px; height: 260px; overflow: visible; }
+
+    #slide-02c .pill rect { fill: var(--accent-2); }
+    #slide-02c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-02c .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02c .lnk, #slide-02c .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w10d1-02c-head); }
+    #slide-02c .ref { stroke-width: 5; }
+
+    #slide-02c .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-02c .ring text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+    #slide-02c .ring { transition: transform 1.4s var(--ease-smooth); }
+
+    #slide-02c .card { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-02c .card__code, #slide-02c .card__calls { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .card__word { font-family: var(--font-body); fill: var(--fg-1); }
+
+    /* GrowFromCenter: the chain and the card */
+    #slide-02c .bl__left, #slide-02c .bl__right { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.bl__left.is-pending, #slide-02c .frag.bl__right.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-02c .bl:has(.cap--1:not(.is-pending)) .ring { transform: translateX(498px); transition-delay: .7s; }
+
+    /* narration: caption 1 is replaced by caption 2, which stays */
+    #slide-02c .bl__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02c .bl__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.bl__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.bl__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.bl__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02c .frag.bl__cap--keep.is-past { opacity: 1; }
+    #slide-02c .slide__body p.bl__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .bl__left, #slide-02c .bl__right, #slide-02c .ring,
+      #slide-02c .bl__cap, #slide-02c .bl__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

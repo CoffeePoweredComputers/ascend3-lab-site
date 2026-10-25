@@ -1,0 +1,139 @@
+<section class="slide slide--warmup" id="slide-16" data-sid="16-mvc-parts:1">
+  <header class="slide__head" data-sid="16-mvc-parts:2">
+    <p class="slide__kicker" data-sid="16-mvc-parts:3">PROJECT 3 &middot; QUEUE + MVC</p>
+    <h2 data-sid="16-mvc-parts:4">MVC in six files: one model, two views and one controller</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="16-mvc-parts:5">A class diagram built in four steps. Step one: in the middle, the model, a box named Counter with the members int data, List of Observer observers, increment, getData, addObserver and notifyObservers. Step two: on the right, two view boxes, ConsoleView and WindowView, each marked implements Observer with an update of int data method; WindowView also has an incrementButton. Step three: on the left, the controller, a box named CounterController with a Counter model field and onIncrementClicked. Step four: the arrows are drawn. A blue arrow from the controller to the model labelled increment. Two blue arrows from the model to the two views labelled update of data. An orange arrow from the WindowView button down and across to the controller labelled a click on the button calls onIncrementClicked. The caption says Project 3, Queue plus MVC, uses this structure, and that Deliverable 2, the spec, has to show the model and view separation.</p>
+
+  <!-- The instructor's six-file counter example (Counter, Observer,
+       ConsoleView, WindowView, CounterController, Runner) drawn as a UML
+       class diagram in canvas px (inset 8 px at both edges for Firefox's stroke boxes): three columns, the model in the middle.
+       The gaps between columns (216 and 232 px) are sized to hold the
+       mono micro arrow labels (increment() 185 px, update(data) 202 px)
+       with slack on both sides, so the views and controller are narrower
+       than the model.
+       Member lists are the real members of each class. Colour: the method
+       calls are blue arrows (a reference from one object to another), the
+       user's click is the orange arrow (the one action that is the user's).
+       Arrows draw on by dash offset with separate heads (no marker on a
+       dashed path). One caption per step; step 4's caption is the plant.
+       step 1: the model.  step 2: the views.  step 3: the controller.
+       step 4: the arrows and the Project 3 line. -->
+  <div class="slide__body mv" data-sid="16-mvc-parts:6">
+    <svg class="mv__fig" viewBox="0 0 1664 540" role="img" aria-label="A class diagram: CounterController on the left, Counter in the middle, ConsoleView and WindowView on the right, with arrows for increment, update and the button click" data-sid="16-mvc-parts:7">
+      <!-- model -->
+      <g class="box box--model frag" data-step="1" data-sid="16-mvc-parts:8">
+        <rect class="box__r" x="624" y="60" width="440" height="320" rx="10" data-sid="16-mvc-parts:9"/>
+        <path class="box__d" d="M624 120 H 1064" data-sid="16-mvc-parts:10"/>
+        <text class="box__name" x="844" y="102" data-sid="16-mvc-parts:11">Counter</text>
+        <text class="box__m" x="648" y="164" data-sid="16-mvc-parts:12">int data</text>
+        <text class="box__m" x="648" y="202" data-sid="16-mvc-parts:13">List&lt;Observer&gt; observers</text>
+        <text class="box__m" x="648" y="240" data-sid="16-mvc-parts:14">increment()</text>
+        <text class="box__m" x="648" y="278" data-sid="16-mvc-parts:15">getData()</text>
+        <text class="box__m" x="648" y="316" data-sid="16-mvc-parts:16">addObserver(o)</text>
+        <text class="box__m" x="648" y="354" data-sid="16-mvc-parts:17">notifyObservers()</text>
+        <text class="box__tag" x="844" y="38" data-sid="16-mvc-parts:18">model</text>
+      </g>
+      <!-- views -->
+      <g class="box box--view frag" data-step="2" data-sid="16-mvc-parts:19">
+        <rect class="box__r" x="1296" y="60" width="360" height="168" rx="10" data-sid="16-mvc-parts:20"/>
+        <path class="box__d" d="M1296 120 H 1656" data-sid="16-mvc-parts:21"/>
+        <text class="box__name" x="1476" y="102" data-sid="16-mvc-parts:22">ConsoleView</text>
+        <text class="box__m box__m--iface" x="1320" y="164" data-sid="16-mvc-parts:23">implements Observer</text>
+        <text class="box__m" x="1320" y="202" data-sid="16-mvc-parts:24">update(int data)</text>
+        <text class="box__tag" x="1476" y="38" data-sid="16-mvc-parts:25">views</text>
+
+        <rect class="box__r" x="1296" y="280" width="360" height="206" rx="10" data-sid="16-mvc-parts:26"/>
+        <path class="box__d" d="M1296 340 H 1656" data-sid="16-mvc-parts:27"/>
+        <text class="box__name" x="1476" y="322" data-sid="16-mvc-parts:28">WindowView</text>
+        <text class="box__m box__m--iface" x="1320" y="384" data-sid="16-mvc-parts:29">implements Observer</text>
+        <text class="box__m" x="1320" y="422" data-sid="16-mvc-parts:30">update(int data)</text>
+        <text class="box__m" x="1320" y="460" data-sid="16-mvc-parts:31">incrementButton</text>
+      </g>
+      <!-- controller -->
+      <g class="box box--ctrl frag" data-step="3" data-sid="16-mvc-parts:32">
+        <rect class="box__r" x="8" y="160" width="400" height="168" rx="10" data-sid="16-mvc-parts:33"/>
+        <path class="box__d" d="M8 220 H 408" data-sid="16-mvc-parts:34"/>
+        <text class="box__name" x="208" y="202" data-sid="16-mvc-parts:35">CounterController</text>
+        <text class="box__m" x="32" y="264" data-sid="16-mvc-parts:36">Counter model</text>
+        <text class="box__m" x="32" y="302" data-sid="16-mvc-parts:37">onIncrementClicked()</text>
+        <text class="box__tag" x="208" y="138" data-sid="16-mvc-parts:38">controller</text>
+      </g>
+      <!-- arrows, step 4 -->
+      <g class="arrows" data-sid="16-mvc-parts:39">
+        <path class="arr arr--call" pathLength="100" d="M408 244 H 610" data-sid="16-mvc-parts:40"/>
+        <path class="hd hd--call" d="M610 236 L 622 244 L 610 252 Z" data-sid="16-mvc-parts:41"/>
+        <text class="lbl lbl--call" x="516" y="226" data-sid="16-mvc-parts:42">increment()</text>
+
+        <path class="arr arr--call" pathLength="100" d="M1064 144 H 1282" data-sid="16-mvc-parts:43"/>
+        <path class="hd hd--call" d="M1282 136 L 1294 144 L 1282 152 Z" data-sid="16-mvc-parts:44"/>
+        <text class="lbl lbl--call" x="1180" y="126" data-sid="16-mvc-parts:45">update(data)</text>
+
+        <path class="arr arr--call" pathLength="100" d="M1064 364 H 1282" data-sid="16-mvc-parts:46"/>
+        <path class="hd hd--call" d="M1282 356 L 1294 364 L 1282 372 Z" data-sid="16-mvc-parts:47"/>
+        <text class="lbl lbl--call" x="1180" y="346" data-sid="16-mvc-parts:48">update(data)</text>
+
+        <path class="arr arr--click" pathLength="100" d="M1476 486 V 530 H 208 V 342" data-sid="16-mvc-parts:49"/>
+        <path class="hd hd--click" d="M200 342 L 208 330 L 216 342 Z" data-sid="16-mvc-parts:50"/>
+        <text class="lbl lbl--click" x="842" y="518" data-sid="16-mvc-parts:51">a click on the button calls onIncrementClicked()</text>
+      </g>
+    </svg>
+
+    <div class="mv__caps" data-sid="16-mvc-parts:52">
+      <p class="mv__cap cap--1 frag" data-step="1" data-sid="16-mvc-parts:53">Counter is the model. It holds the number, increment(), and a list of Observers. It has no window and no println.</p>
+      <p class="mv__cap cap--2 frag" data-step="2" data-sid="16-mvc-parts:54">ConsoleView and WindowView are views. Each implements Observer, so the model can call update(data) on it without knowing which kind it is.</p>
+      <p class="mv__cap cap--3 frag" data-step="3" data-sid="16-mvc-parts:55">CounterController is the controller. The button calls onIncrementClicked(), and the controller calls model.increment().</p>
+      <p class="mv__cap mv__cap--plant cap--4 frag" data-step="4" data-sid="16-mvc-parts:56">Project 3, Queue + MVC, uses this structure. Deliverable 2, the spec due at your Week 11 lab, has to show the model/view separation.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="16-mvc-parts:57"></div>
+  <aside class="notes" data-sid="16-mvc-parts:58">Before the calendar, a short look at MVC, because Project 3 is Queue + MVC and the scope is due at your lab this week. This is a six-file example: Counter, Observer, ConsoleView, WindowView, CounterController and Runner. Step 1. Counter is the model. It has an int called data, a list of Observers, increment, getData, addObserver and notifyObservers. increment adds one to data and then calls notifyObservers, which calls update on every observer in the list. Counter has no window and no println. Step 2. The two views. ConsoleView prints the number. WindowView extends JFrame and shows the number on a label, with an Increment button under it. Both implement the Observer interface, which has one method, update of int data. The model calls update on an Observer, so it does not know or care whether that observer is a window or a console. Step 3. CounterController holds the model. Its one method, onIncrementClicked, calls model.increment. The button in WindowView calls controller.onIncrementClicked when it is clicked. Step 4. The arrows. A click goes to the controller, the controller calls increment on the model, and the model calls update on every view. In Runner, one Counter, one controller, two WindowViews and one ConsoleView are created, and all three views are added to the same model as observers. Project 3 uses this structure with a queue. Deliverable 1, the scope, is due at your lab this week. Deliverable 2, the spec, is due at your Week 11 lab, and it has to show which classes are the model and which are the views. Next, one click traced through the code.</aside>
+
+  <style data-sid="16-mvc-parts:59">
+    /* Slide-local: one 1664 × 540 SVG at 1:1, then the captions. Boxes are
+       UML class boxes: the name compartment (mono --t-small, centred) over
+       the member list (mono --t-micro, 38 px pitch, drawing labels); the
+       role word above each column in the display face at --t-micro, stone.
+       Arrows: 4 px, blue for method calls, orange for the user's click;
+       they draw on by dash offset (pathLength 100) and the heads fade in
+       after the stroke; the labels fade in with the heads. Boxes
+       GrowFromCenter per step. Captions crossfade in one grid cell, two
+       lines reserved; the last is the plant in display maroon. Used by
+       this slide only, all values from tokens. */
+    #slide-16 .mv { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-16 .mv__fig { display: block; width: 1664px; height: 540px; overflow: visible; }
+
+    #slide-16 .box { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-16 .frag.box.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-16 .box__r { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-16 .box--model .box__r { stroke: var(--accent-1); }
+    #slide-16 .box__d { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-16 .box--model .box__d { stroke: var(--accent-1); }
+    #slide-16 .box__name { font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; fill: var(--fg-0); text-anchor: middle; }
+    #slide-16 .box__m { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-16 .box__m--iface { fill: var(--accent-2); }
+    #slide-16 .box__tag { font-family: var(--font-display); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    #slide-16 .arr { fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .7s var(--ease-smooth); }
+    #slide-16 .arr--call { stroke: var(--accent-2); }
+    #slide-16 .arr--click { stroke: var(--accent-3); }
+    #slide-16 .hd, #slide-16 .lbl { opacity: 0; transition: opacity .3s ease; }
+    #slide-16 .hd--call { fill: var(--accent-2); }
+    #slide-16 .hd--click { fill: var(--accent-3); }
+    #slide-16 .lbl { font-family: var(--font-mono); font-size: var(--t-micro); text-anchor: middle; }
+    #slide-16 .lbl--call { fill: var(--accent-2); }
+    #slide-16 .lbl--click { fill: var(--accent-3); }
+    #slide-16 .mv:has(.cap--4:not(.is-pending)) .arr { stroke-dashoffset: 0; }
+    #slide-16 .mv:has(.cap--4:not(.is-pending)) .hd,
+    #slide-16 .mv:has(.cap--4:not(.is-pending)) .lbl { opacity: 1; transition-delay: .6s; }
+
+    #slide-16 .mv__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-16 .slide__body p.mv__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-16 .slide__body p.mv__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-16 .frag.mv__cap.is-pending, #slide-16 .frag.mv__cap.is-past { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-16 .box, #slide-16 .arr, #slide-16 .hd, #slide-16 .lbl, #slide-16 .mv__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
