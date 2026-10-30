@@ -14,9 +14,16 @@
  * produce 'doi-not-found'. Timeouts, 429-exhaustion, 5xx, network errors →
  * 'check-failed', rendered neutrally. A checker that calls a citation
  * hallucinated because of a rate limit has no credibility.
+ *
+ * Two fabrication shapes are distinguished once a DOI resolves:
+ *   mismatch          the title disagrees — the DOI belongs to another work
+ *   details-mismatch  the title agrees but authors / year / pages don't —
+ *                     a real paper whose details the model made up. This is
+ *                     the common LLM failure and the one a title+year check
+ *                     can never see.
  */
-import { familyMatch, titlesMatch } from './similarity';
-import type { BibEntry, RegistryRecord, Verification } from './types';
+import { bestTitleMatch, familyMatch, givenMatch, normalizePages, titleTokens } from './similarity';
+import type { BibAuthor, BibEntry, RegistryAuthor, RegistryRecord, Verification } from './types';
 
 // Identifies the tool's operator to Crossref's polite pool (lab public contact).
 const MAILTO = 'dhsmith4@vt.edu';
@@ -78,23 +85,42 @@ async function fetchPaced(url: string, gapMs: number, signal: AbortSignal): Prom
 
 // ── Registry adapters: reduce each API's shape to a RegistryRecord ────────
 
+const CROSSREF_SELECT = 'DOI,title,subtitle,author,issued,page,container-title';
+
 function fromCrossref(message: any): RegistryRecord {
+  const bare: string | undefined = message?.title?.[0];
+  const subtitle: string | undefined = message?.subtitle?.[0]?.trim() || undefined;
+  const authors: RegistryAuthor[] = (message?.author ?? []).map((a: any) => ({
+    family: a?.family,
+    given: a?.given,
+    suffix: a?.suffix,
+    name: a?.name,
+  }));
   return {
-    title: message?.title?.[0],
-    firstAuthor: message?.author?.find((a: any) => a.sequence === 'first')?.family ?? message?.author?.[0]?.family,
+    title: bare && subtitle ? `${bare}: ${subtitle}` : bare,
+    titleBare: subtitle ? bare : undefined,
+    firstAuthor: message?.author?.find((a: any) => a.sequence === 'first')?.family ?? authors[0]?.family,
+    authors,
     year:
       message?.issued?.['date-parts']?.[0]?.[0] ??
       message?.['published-print']?.['date-parts']?.[0]?.[0] ??
       message?.['published-online']?.['date-parts']?.[0]?.[0],
     doi: message?.DOI,
+    pages: message?.page || undefined,
+    container: message?.['container-title']?.[0],
   };
 }
 
 function fromDataCite(attributes: any): RegistryRecord {
-  const creator = attributes?.creators?.[0];
+  const authors: RegistryAuthor[] = (attributes?.creators ?? []).map((c: any) => ({
+    family: c?.familyName ?? (c?.nameType === 'Personal' ? c?.name?.split(',')[0]?.trim() : undefined),
+    given: c?.givenName,
+    name: c?.familyName ? undefined : c?.name,
+  }));
   return {
     title: attributes?.titles?.[0]?.title,
-    firstAuthor: creator?.familyName ?? creator?.name?.split(',')[0],
+    firstAuthor: authors[0]?.family,
+    authors,
     year: attributes?.publicationYear,
     doi: attributes?.doi,
   };
@@ -161,7 +187,69 @@ async function lookupDoi(doi: string, signal: AbortSignal): Promise<RegistryLook
   return result;
 }
 
-// ── Comparison ────────────────────────────────────────────────────────────
+// ── Field-level comparison ────────────────────────────────────────────────
+
+const isTruncationMarker = (a: BibAuthor) => a.family.trim().toLowerCase() === 'others';
+
+const displayAuthor = (family?: string, given?: string) =>
+  [given, family].filter(Boolean).join(' ') || '(unnamed)';
+
+/**
+ * Positional author comparison. Returns one problem string per disagreement,
+ * or [] when the lists agree or can't be compared (either side empty, or an
+ * organisation name with no family on either side — not worth a false alarm).
+ * 'and others' in the entry truncates the comparison to the listed prefix.
+ */
+function compareAuthors(entry: BibAuthor[], registry: RegistryAuthor[]): string[] {
+  const truncated = entry.some(isTruncationMarker);
+  const ours = entry.filter((a) => !isTruncationMarker(a));
+  if (!ours.length || !registry.length) return [];
+  if (ours.some((a) => !a.family.trim()) || registry.some((a) => !a.family?.trim())) return [];
+
+  const problems: string[] = [];
+  if (!truncated && ours.length !== registry.length) {
+    problems.push(
+      `author list has ${ours.length} name${ours.length === 1 ? '' : 's'}, the registry has ${registry.length} (${registry
+        .map((a) => a.family)
+        .join(', ')})`,
+    );
+  }
+  const n = Math.min(ours.length, registry.length);
+  for (let i = 0; i < n; i++) {
+    const a = ours[i];
+    const b = registry[i];
+    if (!familyMatch(a.family, b.family)) {
+      problems.push(`author ${i + 1}: “${displayAuthor(a.family, a.given)}” vs “${displayAuthor(b.family, b.given)}” on the registry`);
+    } else if (!givenMatch(a.given, b.given)) {
+      problems.push(`author ${i + 1}: given name “${a.given}” vs “${b.given}” on the registry`);
+    }
+  }
+  return problems;
+}
+
+/** Registry authors as a BibTeX author field ('Smith, IV, David H. and …'). */
+function formatAuthors(authors: RegistryAuthor[]): string {
+  return authors
+    .map((a) => {
+      if (!a.family) return `{${a.name ?? ''}}`;
+      const parts = [a.family];
+      if (a.suffix) parts.push(a.suffix);
+      parts.push(a.given ?? '');
+      return parts.join(', ').replace(/, $/, '');
+    })
+    .join(' and ');
+}
+
+function comparePages(entryPages: string | undefined, registryPages: string | undefined): string | undefined {
+  const ours = normalizePages(entryPages);
+  const theirs = normalizePages(registryPages);
+  if (!ours || !theirs) return undefined; // missing or not a plain range: lint's job
+  const [ourStart] = ours.split('-');
+  const [theirStart] = theirs.split('-');
+  if (ours === theirs) return undefined;
+  if (!ours.includes('-') && ourStart === theirStart) return undefined; // start page only
+  return `pages ${entryPages?.trim()} vs ${registryPages} on the registry`;
+}
 
 function compare(entry: BibEntry, via: 'crossref' | 'datacite', record: RegistryRecord): Verification {
   const entryTitle = entry.fields.title;
@@ -191,24 +279,54 @@ function compare(entry: BibEntry, via: 'crossref' | 'datacite', record: Registry
     };
   }
 
-  const { ok: titleOk, score } = titlesMatch(entryTitle, record.title);
-  const authorOk = familyMatch(entryFamily, record.firstAuthor);
-  const yearOk =
-    entry.year !== undefined && record.year !== undefined && Math.abs(entry.year - record.year) <= 1;
-
-  if (titleOk && (authorOk || yearOk)) {
-    return { key: entry.key, verdict: 'verified', via, score, found: record, detail: 'Registry metadata matches' };
+  const { ok: titleOk, score } = bestTitleMatch(entryTitle, record);
+  if (!titleOk) {
+    return {
+      key: entry.key,
+      verdict: 'mismatch',
+      via,
+      score,
+      found: record,
+      detail: 'The DOI resolves to a different work',
+    };
   }
-  return {
-    key: entry.key,
-    verdict: 'mismatch',
-    via,
-    score,
-    found: record,
-    detail: titleOk
-      ? 'Title matches but author and year both disagree with the registry'
-      : 'The DOI resolves to a different work',
-  };
+
+  // Title agrees: now every other field has to agree too. Year tolerates ±1
+  // (online-first vs print); authors and pages must match outright.
+  const problems: string[] = [];
+  const suggested: Record<string, string> = {};
+
+  const authorProblems = compareAuthors(entry.authors, record.authors ?? []);
+  if (authorProblems.length) {
+    problems.push(...authorProblems);
+    if (record.authors?.length) suggested.author = formatAuthors(record.authors);
+  }
+
+  if (entry.year !== undefined && record.year !== undefined && Math.abs(entry.year - record.year) > 1) {
+    problems.push(`year ${entry.year} vs ${record.year} on the registry`);
+    suggested.year = String(record.year);
+  }
+
+  const pageProblem = comparePages(entry.fields.pages, record.pages);
+  if (pageProblem) {
+    problems.push(pageProblem);
+    suggested.pages = normalizePages(record.pages)!.replace('-', '--');
+  }
+
+  if (problems.length) {
+    return {
+      key: entry.key,
+      verdict: 'details-mismatch',
+      via,
+      score,
+      found: record,
+      problems,
+      suggested,
+      detail: `The title matches the registry, but ${problems.length === 1 ? 'a detail disagrees' : `${problems.length} details disagree`} — real paper, invented details?`,
+    };
+  }
+
+  return { key: entry.key, verdict: 'verified', via, score, found: record, detail: 'Registry metadata matches' };
 }
 
 // ── No-DOI search ─────────────────────────────────────────────────────────
@@ -225,7 +343,7 @@ async function searchCrossref(entry: BibEntry, signal: AbortSignal): Promise<Ver
   }
 
   const q = encodeURIComponent(`${title} ${family} ${entry.year}`);
-  const url = `https://api.crossref.org/works?query.bibliographic=${q}&rows=3&select=DOI,title,author,issued&mailto=${MAILTO}`;
+  const url = `https://api.crossref.org/works?query.bibliographic=${q}&rows=3&select=${CROSSREF_SELECT}&mailto=${MAILTO}`;
 
   const cacheKey = `${title}|${family}|${entry.year}`;
   let best = searchCache.get(cacheKey);
@@ -235,17 +353,19 @@ async function searchCrossref(entry: BibEntry, signal: AbortSignal): Promise<Ver
       throw new CheckFailed('bad Crossref response');
     });
     best = { score: 0 };
+    const longTitle = titleTokens(title).length >= 5;
     for (const item of body?.message?.items ?? []) {
       const record = fromCrossref(item);
       if (!record.title) continue;
       // Stricter than the DOI path — here we're *choosing* a candidate, so
-      // require title (Dice ≥ 0.9 or containment) AND author AND year.
-      const { score, containment } = titlesMatch(title, record.title);
-      const accept =
-        (score >= 0.9 || containment) &&
-        familyMatch(family, record.firstAuthor) &&
-        record.year !== undefined &&
-        Math.abs(entry.year - record.year) <= 1;
+      // require title (Dice ≥ 0.9 or containment) AND year, plus either the
+      // first author or a near-exact long title (so "real title, invented
+      // authors" is surfaced as details-mismatch rather than hidden behind
+      // "not indexed").
+      const { score, containment } = bestTitleMatch(title, record);
+      const yearOk = record.year !== undefined && Math.abs(entry.year - record.year) <= 1;
+      const authorOk = familyMatch(family, record.firstAuthor);
+      const accept = (score >= 0.9 || containment) && yearOk && (authorOk || (longTitle && score >= 0.95));
       if (accept && (!best.record || score > best.score)) best = { record, score };
       else if (!best.record && score > best.score) best.score = score;
     }
@@ -253,6 +373,16 @@ async function searchCrossref(entry: BibEntry, signal: AbortSignal): Promise<Ver
   }
 
   if (best.record) {
+    // The candidate is the right work by title+year; now hold it to the same
+    // field-level standard as a DOI lookup before offering to add the DOI.
+    const cmp = compare(entry, 'crossref', best.record);
+    if (cmp.verdict === 'details-mismatch') {
+      return {
+        ...cmp,
+        suggested: { ...cmp.suggested, ...(best.record.doi ? { doi: best.record.doi } : {}) },
+        detail: `A paper with this title exists on Crossref (doi ${best.record.doi}), but ${cmp.problems!.length === 1 ? 'a detail disagrees' : `${cmp.problems!.length} details disagree`}`,
+      };
+    }
     return {
       key: entry.key,
       verdict: 'found-via-search',

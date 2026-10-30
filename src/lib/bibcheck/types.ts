@@ -58,19 +58,38 @@ export interface ParseResult {
  */
 export type VerdictCode =
   | 'verified'
+  /** DOI resolves to a different work (title disagrees). */
   | 'mismatch'
+  /** Right work (title agrees) but authors / year / pages disagree with the
+   * registry — the "real paper, hallucinated details" pattern. */
+  | 'details-mismatch'
   | 'doi-not-found'
   | 'found-via-search'
   | 'unverifiable'
   | 'skipped'
   | 'check-failed';
 
+export interface RegistryAuthor {
+  family?: string;
+  given?: string;
+  suffix?: string;
+  /** Organisation / single-string name when the registry has no family name. */
+  name?: string;
+}
+
 /** What a registry says about a work, reduced to the comparable core. */
 export interface RegistryRecord {
+  /** Main title plus subtitle when the registry stores them split. */
   title?: string;
+  /** Main title alone, when a subtitle was split off. */
+  titleBare?: string;
   firstAuthor?: string;
+  authors?: RegistryAuthor[];
   year?: number;
   doi?: string;
+  /** Page range as the registry gives it ('417-423'). */
+  pages?: string;
+  container?: string;
 }
 
 export interface Verification {
@@ -82,4 +101,9 @@ export interface Verification {
   found?: RegistryRecord;
   /** One-line human explanation shown in the row. */
   detail: string;
+  /** details-mismatch: each field-level disagreement, human-readable. */
+  problems?: string[];
+  /** details-mismatch: BibTeX field values from the registry that would
+   * resolve `problems` (author, year, pages, and doi on the search path). */
+  suggested?: Record<string, string>;
 }

@@ -2,6 +2,7 @@
 
 - `check-citations.mjs` — validates wiki lesson `<Cite>` usage against `references.json` (`npm run check:citations`).
 - `check-vt-hrpp-links.mjs` — checks VT HRPP links in the IRB module (`npm run check:irb-links`).
+- `bibcheck-adversarial.test.ts` — offline adversarial suite for the wiki bib checker's registry verification (`npm run test:bibcheck`); add a case whenever a bad citation slips through.
 - `generate-quant-data.mjs` — regenerates the synthetic CSVs in `public/templates/` for the quantitative module.
 - `publish-slides.mjs` — copies a Slide Studio deck export into `public/slides/<slug>/`.
 

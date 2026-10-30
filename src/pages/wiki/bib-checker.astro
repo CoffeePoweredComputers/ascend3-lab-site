@@ -164,6 +164,7 @@ const STEPS = [
   const VERDICT_META: Record<string, { label: string; color: string }> = {
     verified: { label: '✓ verified', color: 'var(--color-secondary)' },
     mismatch: { label: '✗ DOI points elsewhere', color: 'var(--color-danger)' },
+    'details-mismatch': { label: '△ right paper, wrong details', color: 'var(--color-danger)' },
     'doi-not-found': { label: '✗ DOI not registered', color: 'var(--color-danger)' },
     'found-via-search': { label: '◆ found — add DOI', color: 'var(--color-primary)' },
     unverifiable: { label: '? needs manual review', color: 'var(--color-accent)' },
@@ -195,7 +196,9 @@ const STEPS = [
   const groups = () => ({
     dois: entries().filter((e) => verdictOf(e) === 'found-via-search'),
     fab: entries().filter(
-      (e) => (verdictOf(e) === 'doi-not-found' || verdictOf(e) === 'mismatch') && !kept.has(e.key),
+      (e) =>
+        (verdictOf(e) === 'doi-not-found' || verdictOf(e) === 'mismatch' || verdictOf(e) === 'details-mismatch') &&
+        !kept.has(e.key),
     ),
     data: entries().filter((e) => dataProblems(e).length > 0 || fixableIssues(e).length > 0),
     review: entries().filter((e) => verdictOf(e) === 'unverifiable' && !reviewed.has(e.key)),
@@ -223,6 +226,9 @@ const STEPS = [
     <p class="wiki-bibcheck__title">${esc(e.fields.title ?? '(no title)')}</p>`;
   }
 
+  const authorsLine = (list: { family?: string; given?: string; name?: string }[]) =>
+    list.map((a) => a.name ?? [a.given, a.family].filter(Boolean).join(' ')).join('; ');
+
   const diffTable = (v: Verification, e: BibEntry) => {
     if (!v.found) return '';
     const row = (label: string, yours?: string, registry?: string | number) =>
@@ -231,8 +237,9 @@ const STEPS = [
       <thead><tr><th></th><th>Your entry</th><th>Registry (${esc(v.via ?? '')})</th></tr></thead>
       <tbody>
         ${row('title', e.fields.title, v.found.title)}
-        ${row('first author', e.authors[0]?.family, v.found.firstAuthor)}
+        ${row('authors', authorsLine(e.authors), v.found.authors?.length ? authorsLine(v.found.authors) : v.found.firstAuthor)}
         ${row('year', e.fields.year, v.found.year)}
+        ${row('pages', e.fields.pages, v.found.pages)}
         ${row('doi', e.doi, v.found.doi)}
       </tbody>
     </table>${v.score !== undefined ? `<p class="wiki-bibcheck__score">title similarity ${(v.score * 100).toFixed(0)}%</p>` : ''}</div>`;
@@ -272,12 +279,39 @@ const STEPS = [
 
   function renderFab(): string {
     const g = groups().fab;
-    if (!g.length) return `<p class="wiki-bibcheck__done">No suspect DOIs remaining. ✓</p>`;
+    if (!g.length) return `<p class="wiki-bibcheck__done">No suspect entries remaining. ✓</p>`;
+    const hard = g.filter((e) => verdictOf(e) !== 'details-mismatch');
+    const soft = g.filter((e) => verdictOf(e) === 'details-mismatch');
+    const softList = soft.length
+      ? `<p><strong>Right paper, wrong details (${soft.length})</strong></p>
+      <p>The title matches a registered work, but the authors, year, or pages don't. This is the most
+      common way a generated citation goes wrong: the paper is real, the details were made up. Take the
+      registry's values, or keep yours only if you've checked the paper itself.</p>
+      <ul class="wiki-bibcheck__list" role="list">${soft
+        .map((e) => {
+          const v = verif.get(e.key)!;
+          const n = Object.keys(v.suggested ?? {}).length;
+          return `<li class="wiki-bibcheck__item">
+            ${entryHeader(e)}
+            <ul class="wiki-bibcheck__issues">${(v.problems ?? [])
+              .map((p) => `<li style="--s:var(--color-danger)">${esc(p)}</li>`)
+              .join('')}</ul>
+            ${diffTable(v, e)}
+            <div class="wiki-bibcheck__actions">
+              ${n ? `<button type="button" class="wiki-bibcheck__btn wiki-bibcheck__btn--primary" data-action="apply-registry" data-eidx="${eidxOf(e)}">Use registry ${Object.keys(v.suggested!).join(' + ')}</button>` : ''}
+              <button type="button" class="wiki-bibcheck__btn" data-action="fab-keep" data-eidx="${eidxOf(e)}">Keep this entry…</button>
+            </div>
+          </li>`;
+        })
+        .join('')}</ul>`
+      : '';
+    if (!hard.length) return softList;
     return `
+      ${hard.length && soft.length ? `<p><strong>Unregistered or wrong DOI (${hard.length})</strong></p>` : ''}
       <p>These DOIs are unregistered or resolve to a <em>different</em> paper — the classic signs of a
       fabricated or mistyped citation. For each: find the right DOI, remove the entry, or keep it only
       if you've verified it yourself.</p>
-      <ul class="wiki-bibcheck__list" role="list">${g
+      <ul class="wiki-bibcheck__list" role="list">${hard
         .map((e) => {
           const v = verif.get(e.key)!;
           return `<li class="wiki-bibcheck__item">
@@ -292,7 +326,8 @@ const STEPS = [
             <p class="wiki-bibcheck__detail" data-slot hidden></p>
           </li>`;
         })
-        .join('')}</ul>`;
+        .join('')}</ul>
+      ${softList}`;
   }
 
   function renderData(): string {
@@ -529,6 +564,22 @@ const STEPS = [
     recompute(libs.edit.replaceEntryBlock(source, e.raw, newRaw), `${e.key}: added doi = {${doi}}`);
   }
 
+  /** Overwrite the disagreeing fields with the registry's values, then
+   * re-verify so the entry earns its ✓ rather than being stamped. */
+  function applyRegistry(e: BibEntry) {
+    if (!libs) return;
+    const suggested = verif.get(e.key)?.suggested;
+    if (!suggested || !Object.keys(suggested).length) return;
+    let raw = e.raw;
+    for (const [field, value] of Object.entries(suggested)) raw = libs.edit.setField(raw, field, value);
+    verif.delete(e.key);
+    recompute(
+      libs.edit.replaceEntryBlock(source, e.raw, raw),
+      `${e.key}: ${Object.keys(suggested).join(', ')} replaced with registry values`,
+    );
+    void reverifyEntry(e.key);
+  }
+
   function applyAllAuto() {
     if (!libs) return;
     let src = source;
@@ -690,6 +741,9 @@ const STEPS = [
         void reverifyEntry(entry.key);
         break;
       }
+      case 'apply-registry':
+        if (entry) applyRegistry(entry);
+        break;
       case 'fab-remove':
         if (entry && libs) {
           verif.delete(entry.key);

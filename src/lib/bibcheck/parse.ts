@@ -31,9 +31,12 @@ const ARXIV_NEW = /^\d{4}\.\d{4,5}(?:v\d+)?$/;
 const ARXIV_OLD = /^[a-z-]+(?:\.[A-Z]{2})?\/\d{7}(?:v\d+)?$/i;
 
 function extractArxivId(fields: Record<string, string>): string | undefined {
+  // Version suffixes (2605.13532v2) are dropped everywhere: the DataCite DOI
+  // 10.48550/arXiv.<id> is registered for the unversioned id only, so keeping
+  // the version would turn a real preprint into a false "not registered".
   const eprint = fields.eprint?.trim();
   if (eprint) {
-    const id = eprint.replace(/^arxiv:/i, '');
+    const id = eprint.replace(/^arxiv:/i, '').replace(/v\d+$/i, '');
     if (ARXIV_NEW.test(id) || ARXIV_OLD.test(id)) return id;
   }
   // Google Scholar's signature mangling: journal = {arXiv preprint arXiv:1706.03762}
@@ -41,7 +44,7 @@ function extractArxivId(fields: Record<string, string>): string | undefined {
     `${fields.journal ?? ''} ${fields.note ?? ''} ${fields.howpublished ?? ''}`,
   );
   if (inline) {
-    const id = inline[1].replace(/[.,;]+$/, '');
+    const id = inline[1].replace(/[.,;]+$/, '').replace(/v\d+$/i, '');
     if (ARXIV_NEW.test(id) || ARXIV_OLD.test(id)) return id;
   }
   const url = /arxiv\.org\/(?:abs|pdf)\/([^\s{}]+?)(?:\.pdf)?$/i.exec(fields.url ?? '');

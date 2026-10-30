@@ -9,7 +9,8 @@
     "astro": "astro",
     "check:citations": "node scripts/check-citations.mjs",
     "check:irb-links": "node scripts/check-vt-hrpp-links.mjs",
-    "check:arc-llms": "node scripts/check-arc-llms.mjs"
+    "check:arc-llms": "node scripts/check-arc-llms.mjs",
+    "test:bibcheck": "esbuild scripts/bibcheck-adversarial.test.ts --bundle --platform=node --format=esm --alias:@lib=./src/lib --log-level=warning --outfile=node_modules/.cache/bibcheck-adversarial.mjs && node node_modules/.cache/bibcheck-adversarial.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",
