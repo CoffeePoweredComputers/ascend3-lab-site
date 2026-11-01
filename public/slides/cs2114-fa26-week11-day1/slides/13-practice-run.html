@@ -1,0 +1,44 @@
+<section class="slide" id="slide-13" data-sid="13-practice-run:1">
+  <header class="slide__head" data-sid="13-practice-run:2">
+    <h2 data-sid="13-practice-run:3">Test #2 Practice, in class: 20 minutes</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="13-practice-run:4">On the left, three numbered steps: one, PrairieLearn, Assessments, Test #2 Practice, start a new instance; two, work on your own, pen and paper allowed, as on the Redo; three, when the clock ends, note the numbers of the questions that took longest, which are the rows on the results chart. Under the steps, a note: the practice has a 45-minute limit, so the instance stays open after class. On the right, the deck's timer ring at twenty minutes; one press starts it.</p>
+
+  <!-- The in-class practice run (instructor, 2026-11-01: "end lecture with a
+       20 minute in class taking of the practice test on PrairieLearn"). W4D2
+       14's slide: a signpost and a clock and nothing else, because everyone
+       is looking at a laptop. The three moves, then the deck's timer ring at
+       twenty minutes, four times its vote size and centred. The ring is a
+       .frag on step 1, so one press starts it; timer.js resets it when the
+       slide is left, which the notes say out loud. A normal browser, not
+       LockDown: the practice is on PrairieLearn. -->
+  <div class="slide__body pr" data-sid="13-practice-run:5">
+    <div class="stack" data-sid="13-practice-run:6">
+      <ol class="steps pr__steps" data-sid="13-practice-run:7">
+        <li data-sid="13-practice-run:8">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="13-practice-run:9">Test #2 Practice</b> &rsaquo; start a new instance</li>
+        <li data-sid="13-practice-run:10">Work on your own. Pen and paper are allowed, as on the Redo.</li>
+        <li data-sid="13-practice-run:11">When the clock ends, note the numbers of the questions that took longest; those are your rows on the results chart.</li>
+      </ol>
+      <p class="note pr__cap" data-sid="13-practice-run:12">The practice has a 45-minute limit, so your instance stays open after class.</p>
+    </div>
+    <div class="timer frag" data-step="1" data-timer="1200" data-state="idle" role="timer" aria-label="Twenty-minute practice-test timer; it starts on the slide's step" data-sid="13-practice-run:13"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="13-practice-run:14"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="13-practice-run:15"/><g class="timer__ticks" data-sid="13-practice-run:16"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="13-practice-run:17"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="13-practice-run:18"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="13-practice-run:19"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="13-practice-run:20"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="13-practice-run:21"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="13-practice-run:22"/><g class="timer__hand" data-sid="13-practice-run:23"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="13-practice-run:24"/></g><text class="timer__time" x="75" y="88" data-sid="13-practice-run:25">20:00</text></svg></div>
+  </div>
+  <div class="slide__number" data-sid="13-practice-run:26"></div>
+  <aside class="notes" data-sid="13-practice-run:27">Read the three steps, then press once to start the clock. The next press leaves the slide and resets the clock, so do not press anything for twenty minutes. Step 1: PrairieLearn, Assessments, Test #2 Practice, start a new instance. Each instance is a new set of 19 questions in the same 19 slots as the test. Step 2: work on your own, as on the Redo; pen and paper are allowed. Step 3: when the clock ends, write down the numbers of the questions that took longest; those numbers are the rows on the results chart, and the same slot in every later attempt is the same kind of question. The practice has a 45-minute limit, so an instance started now stays open for 25 minutes after class. You do not need to finish in class. After the clock comes the calendar, and then we are done.</aside>
+
+  <style data-sid="13-practice-run:28">
+    /* Slide-local: W4D2 14's layout. The steps and the caption on the left
+       (760 px), the deck's timer ring on the right at 400 px, position static
+       instead of the vote-slide corner pin, centred in its cell; the digits
+       scale with the SVG. The name to find takes the heading maroon. Twenty
+       minutes: data-timer 1200, seed text 20:00 (timer.js rewrites it). All
+       values from tokens; used by this slide only. */
+    #slide-13 .pr { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-6); align-items: center; }
+    #slide-13 .pr__steps { margin: 0; font-size: var(--t-small); line-height: 1.35; }
+    #slide-13 .pr__steps li { margin: 0 0 var(--s-4); }
+    #slide-13 .pr__steps b { color: var(--accent-1); }
+    #slide-13 .pr__cap { margin: 0; color: var(--accent-1); }
+    #slide-13 .timer { position: static; top: auto; right: auto; justify-self: center; }
+    #slide-13 .timer__arc { width: 400px; height: 400px; }
+  </style>
+</section>
