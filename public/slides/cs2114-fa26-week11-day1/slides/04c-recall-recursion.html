@@ -1,0 +1,74 @@
+<section class="slide slide--warmup" id="slide-04c" data-sid="04c-recall-recursion:1">
+  <header class="slide__head" data-sid="04c-recall-recursion:2">
+    <p class="slide__kicker" data-sid="04c-recall-recursion:3">RECALL &middot; WEEK 7 &middot; RECURSION</p>
+    <h2 data-sid="04c-recall-recursion:4">In which order does displayChain print the chain?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04c-recall-recursion:5">A recall of a Week 7 peer-instruction question, quoted in reading order. Left, two editors. The first is headed given fields and holds two lines: private Node firstNode, with the comment reference to first node, and private int numberOfEntries. The second is headed and the following code and holds six lines: private void displayChain of Node curr; if curr is not null, call displayChain of curr's next, then print curr's data; two closing braces. Right, the question: indicate how the private helper member method would print a non-empty chain. Then three options, each led by a maroon disc with its letter: A, in order; B, in reverse order; C, neither. On the one step, three short verdicts appear under both columns, A and C struck through in turn and B, the last node prints first, left standing.</p>
+
+  <!-- W7D2 10 (Peer Instruction W07D2, question 3 of 3; PL twins
+       questions/dataStructures/recursion/u09q03_recursion_linkedchain_*)
+       re-shown as an ungraded recall, the W4D2 recipe: the two editors with
+       the stem's lead-ins as their bars, the question sentence and the three
+       options copied, the two clocks removed, the verdict strip under both
+       columns. For the type floor the editors move from the dense size (28)
+       to --t-code (32): the field line with its comment is 51 characters,
+       51 × 19.2 + 70 = 1,049 px, so the left column is 1,072 px (2% slack for
+       WebKit's whole-pixel mono advance). The right column (544 px) holds the
+       question at the small size and the three short options at the body
+       size; the clock padding is gone.
+       step 1: the verdict; A, C struck in turn, B left in maroon. -->
+  <div class="slide__body code-mid rr" data-sid="04c-recall-recursion:6">
+    <div class="vote__panels rr__panels" data-sid="04c-recall-recursion:7">
+      <div class="stack rr__left" data-sid="04c-recall-recursion:8">
+        <div class="editor rr__editor" data-sid="04c-recall-recursion:9">
+          <p class="editor__bar" data-sid="04c-recall-recursion:10">Given fields:</p>
+          <ol class="editor__code" data-sid="04c-recall-recursion:11">
+            <li data-sid="04c-recall-recursion:12"><span class="tok-key" data-sid="04c-recall-recursion:13">private</span> Node firstNode;  // Reference to first node</li>
+            <li data-sid="04c-recall-recursion:14"><span class="tok-key" data-sid="04c-recall-recursion:15">private int</span> numberOfEntries;</li>
+          </ol>
+        </div>
+        <div class="editor rr__editor" data-sid="04c-recall-recursion:16">
+          <p class="editor__bar" data-sid="04c-recall-recursion:17">And the following code:</p>
+          <ol class="editor__code" data-sid="04c-recall-recursion:18">
+            <li data-sid="04c-recall-recursion:19"><span class="tok-key" data-sid="04c-recall-recursion:20">private void</span> displayChain(Node curr) {</li>
+            <li data-sid="04c-recall-recursion:21">    <span class="tok-key" data-sid="04c-recall-recursion:22">if</span> (curr != <span class="tok-key" data-sid="04c-recall-recursion:23">null</span>) {</li>
+            <li data-sid="04c-recall-recursion:24">        displayChain(curr.getNext());</li>
+            <li data-sid="04c-recall-recursion:25">        System.out.println(curr.getData());</li>
+            <li data-sid="04c-recall-recursion:26">    }</li>
+            <li data-sid="04c-recall-recursion:27">}</li>
+          </ol>
+        </div>
+      </div>
+      <div class="rr__right" data-sid="04c-recall-recursion:28">
+        <p class="vote__stem rr__q" data-sid="04c-recall-recursion:29">Indicate how the private helper member method would print a non-empty chain</p>
+        <ol class="vote__opts" data-sid="04c-recall-recursion:30">
+          <li class="vote__opt" data-sid="04c-recall-recursion:31"><span class="vote__key" data-sid="04c-recall-recursion:32">A</span><p class="vote__text" data-sid="04c-recall-recursion:33">In order</p></li>
+          <li class="vote__opt" data-sid="04c-recall-recursion:34"><span class="vote__key" data-sid="04c-recall-recursion:35">B</span><p class="vote__text" data-sid="04c-recall-recursion:36">In reverse order</p></li>
+          <li class="vote__opt" data-sid="04c-recall-recursion:37"><span class="vote__key" data-sid="04c-recall-recursion:38">C</span><p class="vote__text" data-sid="04c-recall-recursion:39">Neither</p></li>
+        </ol>
+      </div>
+    </div>
+    <ol class="verdict frag" data-step="1" data-sid="04c-recall-recursion:40">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="04c-recall-recursion:41"><span class="verdict__txt" data-sid="04c-recall-recursion:42">print after the call</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="04c-recall-recursion:43"><span class="verdict__txt" data-sid="04c-recall-recursion:44">last node first</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="04c-recall-recursion:45"><span class="verdict__txt" data-sid="04c-recall-recursion:46">always reversed</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="04c-recall-recursion:47"></div>
+  <aside class="notes" data-sid="04c-recall-recursion:48">Answer: B &mdash; in reverse order [ASSUMED by tracing in the source deck W7D2 10; the key is not in the Runestone paste; confirm in Runestone&rsquo;s results view. The PL twin u09q03_recursion_linkedchain_c, with the print above the call, is keyed &ldquo;In order&rdquo;, which agrees]. Show of hands, then the answer. The recursive call comes before the print. displayChain(A) calls displayChain(B) before it prints A, B calls C before it prints B, and so on to the null after the last node, which returns without printing. Then the calls return in the opposite order: the last node prints first and A prints last. A is the answer for the other version, with the print above the call. C is wrong because the order is the same every time: every node prints once, last to first. This topic had two questions on Test 2. Next: queues and deques.</aside>
+
+  <style data-sid="04c-recall-recursion:49">
+    /* Slide-local: W7D2 10's vote pane re-shown as recall with the clocks
+       removed. Two editors at --t-code (code-mid on the body; W7D2 had the
+       dense size, under the type floor) in a 1,072 px left column; the
+       question and the three short options in the 544 px right column at
+       the small and body sizes; the verdict strip under both columns. All
+       values from tokens; used by this slide only. */
+    #slide-04c .rr { display: grid; align-content: start; row-gap: var(--s-2); }   /* 16, not 32: the strip at the sentence size needs the 16 px */
+    #slide-04c .verdict { font-size: var(--t-small); }   /* read from the back row: the sentence size (type floor); 56 characters, one line */
+    #slide-04c .rr__panels { grid-template-columns: 1072px minmax(0, 1fr); align-items: start; }
+    #slide-04c .rr__editor { width: 1072px; }
+    #slide-04c .rr__q { margin-bottom: var(--s-2); }
+    #slide-04c .rr__editor .editor__code li { line-height: 1.35; }   /* eight code lines at 43 px, not 48, so the strip fits under both columns */
+  </style>
+</section>

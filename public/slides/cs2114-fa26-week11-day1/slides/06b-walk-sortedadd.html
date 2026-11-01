@@ -1,0 +1,208 @@
+<section class="slide slide--warmup" id="slide-06b" data-sid="06b-walk-sortedadd:1">
+  <header class="slide__head" data-sid="06b-walk-sortedadd:2">
+    <p class="slide__kicker" data-sid="06b-walk-sortedadd:3">VOTE 1 &middot; THE ANSWER</p>
+    <h2 data-sid="06b-walk-sortedadd:4">Only add(newEntry) decides where an entry goes</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06b-walk-sortedadd:5">A walkthrough under a program-counter bar. The code: client code sorted dot add of 2, 25, then sorted dot add of 10, then the method add of T newEntry from the linked SortedList: Node newNode equals new Node of newEntry; Node nodeBefore equals getNodeBefore of newEntry; Node nodeAfter equals nodeBefore dot getNextNode; newNode dot setNextNode of nodeAfter; nodeBefore dot setNextNode of newNode; numberOfEntries plus plus. On the right, the sorted chain 3, 7, 12, 20 with firstNode on 3. Step one: the line add of 2, 25 is current; the caption says that a SortedList that extended LList unchanged would inherit this method. Step two: a node holding 25 grows under the gap between 3 and 7, its next arrow draws on to 7, and 3's next arrow moves to 25. Step three: a maroon ring appears round 25, which comes before 7 although it is larger. Step four: the line add of 2, 25 is struck through, the node 25 and its ring fade, and 3's next arrow moves back to 7; SortedListInterface has no such method. Step five: the line add of 10 is current. Step six: newNode, holding 10, grows under 20 with a null next. Steps seven to nine: getNodeBefore walks the chain with a blue ring for currentNode and an orange ring for nodeBefore; 10 is greater than 3 and than 7. Step ten: 10 is not greater than 12, so getNodeBefore returns the node holding 7; newNode moves left under the gap between 7 and 12 and its next arrow draws on to 12. Step eleven: 7's next arrow moves to newNode; the chain reads 3, 7, 10, 12, 20. Step twelve: the four options, each with a short reason, A, B and D struck through and C not struck.</p>
+
+  <!-- The answer as two runs on one sorted chain (3, 7, 12, 20; the W10D1
+       08b grammar, Link boxes 130 × 76 on a 156 px pitch). First, the List
+       method the vote names: add(2, 25) puts 25 at position 2 and the order
+       breaks (the 11.2 inheritance slides: "two methods that a client can
+       use to destroy the order of a sorted list"); then the line is struck,
+       because SortedListInterface (Listing 16-1) leaves the method out, and
+       the chain goes back. Second, SortedList's own add(newEntry), the
+       course's iterative linked add (LinkedImplementationofSortedList.pdf)
+       with getNodeBefore's loop walked under its call line (data-hold):
+       currentNode the blue ring, nodeBefore the orange one (the reference the
+       insert is done through, W10D1 08b's rule). The code shows the else
+       branch of the course's add; the if branch (nodeBefore null, so newNode
+       goes first) is in the notes. Values are ints, so the captions compare
+       with > where the code calls compareTo.
+       step 1: add(2, 25).  2: 25 goes in.  3: maroon ring.  4: struck, back.
+       5: add(10).  6: newNode.  7–9: getNodeBefore.  10: the loop stops at
+       12; newNode moves into the gap, next to 12.  11: 7's next swings.
+       12: the verdict, one reason per option (review 2026-11-01: the
+       caption-only presses, the loop's stop and the A/B/D caption, were
+       folded into 10 and 12). -->
+  <div class="slide__body grid grid--code code-mid sa" data-sid="06b-walk-sortedadd:6">
+    <div class="editor sa__editor" data-sid="06b-walk-sortedadd:7">
+      <p class="editor__bar" data-sid="06b-walk-sortedadd:8">client code, then add(T newEntry) in the linked SortedList</p>
+      <div class="editor__pc" data-sid="06b-walk-sortedadd:9"></div>
+      <ol class="editor__code" data-sid="06b-walk-sortedadd:10">
+        <li class="walkline frag sa__l1" data-step="1" data-hold="4" data-sid="06b-walk-sortedadd:11">sorted.add(2, 25);</li>
+        <li class="walkline frag" data-step="5" data-sid="06b-walk-sortedadd:12">sorted.add(10);</li>
+        <li data-sid="06b-walk-sortedadd:13">&nbsp;</li>
+        <li data-sid="06b-walk-sortedadd:14"><span class="tok-key" data-sid="06b-walk-sortedadd:15">public void</span> add(T newEntry) {</li>
+        <li class="walkline frag" data-step="6" data-sid="06b-walk-sortedadd:16">  Node newNode = <span class="tok-key" data-sid="06b-walk-sortedadd:17">new</span> Node(newEntry);</li>
+        <li class="walkline frag" data-step="7" data-hold="9" data-sid="06b-walk-sortedadd:18">  Node nodeBefore = getNodeBefore(newEntry);</li>
+        <li class="walkline frag" data-step="10" data-sid="06b-walk-sortedadd:19">  Node nodeAfter = nodeBefore.getNextNode();</li>
+        <li class="walkline frag" data-step="10" data-sid="06b-walk-sortedadd:20">  newNode.setNextNode(nodeAfter);</li>
+        <li class="walkline frag" data-step="11" data-sid="06b-walk-sortedadd:21">  nodeBefore.setNextNode(newNode);</li>
+        <li data-sid="06b-walk-sortedadd:22">  numberOfEntries++;</li>
+        <li data-sid="06b-walk-sortedadd:23">}</li>
+      </ol>
+    </div>
+
+    <div class="codewalk sa__right" data-sid="06b-walk-sortedadd:24">
+      <svg class="sa__fig" viewBox="0 0 690 344" role="img" aria-label="The sorted chain 3, 7, 12, 20 with firstNode on 3; a node holding 25 is put in at position 2 and taken out again, then a node holding 10 is linked in between 7 and 12 by getNodeBefore, with an orange ring for nodeBefore and a blue ring for currentNode" data-sid="06b-walk-sortedadd:25">
+        <defs data-sid="06b-walk-sortedadd:26">
+          <marker id="w11d1-06b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="06b-walk-sortedadd:27"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="06b-walk-sortedadd:28"/></marker>
+        </defs>
+        <g class="pill" data-sid="06b-walk-sortedadd:29"><rect x="0" y="0" width="176" height="44" rx="8" data-sid="06b-walk-sortedadd:30"/><text x="88" y="31" data-sid="06b-walk-sortedadd:31">firstNode</text></g>
+        <path class="ref" d="M85 44 C 85 66, 85 80, 85 100" data-sid="06b-walk-sortedadd:32"/>
+
+        <!-- the key, from step 7: which ring is which reference -->
+        <g class="lg frag" data-step="7" data-sid="06b-walk-sortedadd:33">
+          <rect class="lg__sw lg__sw--p" x="380" y="8" width="40" height="28" rx="6" data-sid="06b-walk-sortedadd:34"/>
+          <text class="lg__t lg__t--p" x="432" y="32" data-sid="06b-walk-sortedadd:35">nodeBefore</text>
+          <rect class="lg__sw lg__sw--c" x="380" y="48" width="40" height="28" rx="6" data-sid="06b-walk-sortedadd:36"/>
+          <text class="lg__t lg__t--c" x="432" y="72" data-sid="06b-walk-sortedadd:37">currentNode</text>
+        </g>
+        <text class="lg__null" x="612" y="32" data-sid="06b-walk-sortedadd:38">null</text>
+
+        <g class="nd" data-sid="06b-walk-sortedadd:39"><rect class="nd__box" x="20" y="104" width="130" height="76" rx="10" data-sid="06b-walk-sortedadd:40"/><path class="nd__div" d="M76 104v76" data-sid="06b-walk-sortedadd:41"/><text class="nd__v" x="48" y="154" data-sid="06b-walk-sortedadd:42">3</text></g>
+        <g class="nd" data-sid="06b-walk-sortedadd:43"><rect class="nd__box" x="176" y="104" width="130" height="76" rx="10" data-sid="06b-walk-sortedadd:44"/><path class="nd__div" d="M232 104v76" data-sid="06b-walk-sortedadd:45"/><text class="nd__v" x="204" y="154" data-sid="06b-walk-sortedadd:46">7</text></g>
+        <g class="nd" data-sid="06b-walk-sortedadd:47"><rect class="nd__box" x="332" y="104" width="130" height="76" rx="10" data-sid="06b-walk-sortedadd:48"/><path class="nd__div" d="M388 104v76" data-sid="06b-walk-sortedadd:49"/><text class="nd__v" x="360" y="154" data-sid="06b-walk-sortedadd:50">12</text></g>
+        <g class="nd" data-sid="06b-walk-sortedadd:51"><rect class="nd__box" x="488" y="104" width="130" height="76" rx="10" data-sid="06b-walk-sortedadd:52"/><path class="nd__div" d="M544 104v76" data-sid="06b-walk-sortedadd:53"/><text class="nd__v" x="516" y="154" data-sid="06b-walk-sortedadd:54">20</text><text class="nd__nl" x="581" y="152" data-sid="06b-walk-sortedadd:55">null</text></g>
+        <!-- 3's next: to 25 on step 2, back to 7 on step 4 -->
+        <path class="lnk lnk--3" data-swing='[[2,"M113 142 C 113 196, 126 210, 126 252"],[4,"M113 142 C 133 142, 152 142, 172 142"]]' d="M113 142 C 133 142, 152 142, 172 142" data-sid="06b-walk-sortedadd:56"/>
+        <!-- 7's next: to newNode on step 11 -->
+        <path class="lnk lnk--7" data-swing='[[11,"M269 142 C 269 196, 282 210, 282 252"]]' d="M269 142 C 289 142, 308 142, 328 142" data-sid="06b-walk-sortedadd:57"/>
+        <path class="lnk" d="M425 142 H 484" data-sid="06b-walk-sortedadd:58"/>
+
+        <!-- add(2, 25): the node grows under the gap after 3, its next is Created to 7 -->
+        <g class="x25" data-sid="06b-walk-sortedadd:59">
+          <g class="nd nd--new frag" data-step="2" data-sid="06b-walk-sortedadd:60"><rect class="nd__box" x="98" y="256" width="130" height="76" rx="10" data-sid="06b-walk-sortedadd:61"/><path class="nd__div" d="M154 256v76" data-sid="06b-walk-sortedadd:62"/><text class="nd__v" x="126" y="306" data-sid="06b-walk-sortedadd:63">25</text></g>
+          <path class="arr frag" data-step="2" pathLength="100" d="M191 294 C 191 240, 241 250, 241 196" data-sid="06b-walk-sortedadd:64"/>
+          <path class="head frag" data-step="2" data-anim="fade" d="M241 184 L235 196 L247 196 Z" data-sid="06b-walk-sortedadd:65"/>
+          <g class="bad frag" data-step="3" data-sid="06b-walk-sortedadd:66"><rect x="92" y="248" width="142" height="92" rx="14" data-sid="06b-walk-sortedadd:67"/></g>
+        </g>
+
+        <!-- add(10): newNode grows under 20 with a null next, then moves into the gap after 7 -->
+        <g class="mv10" data-sid="06b-walk-sortedadd:68">
+          <g class="nd nd--new frag" data-step="6" data-sid="06b-walk-sortedadd:69"><rect class="nd__box" x="488" y="256" width="130" height="76" rx="10" data-sid="06b-walk-sortedadd:70"/><path class="nd__div" d="M544 256v76" data-sid="06b-walk-sortedadd:71"/><text class="nd__v" x="516" y="306" data-sid="06b-walk-sortedadd:72">10</text><text class="nd__nl nl10" x="581" y="304" data-sid="06b-walk-sortedadd:73">null</text></g>
+        </g>
+        <path class="arr arr--10 frag" data-step="10" pathLength="100" d="M347 294 C 347 240, 397 250, 397 196" data-sid="06b-walk-sortedadd:74"/>
+        <path class="head head--10 frag" data-step="10" data-anim="fade" d="M397 184 L391 196 L403 196 Z" data-sid="06b-walk-sortedadd:75"/>
+
+        <g class="ring ring--p" data-sid="06b-walk-sortedadd:76"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="06b-walk-sortedadd:77"/></g>
+        <g class="ring ring--c" data-sid="06b-walk-sortedadd:78"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="06b-walk-sortedadd:79"/></g>
+      </svg>
+
+      <div class="codewalk__caps sa__caps" data-sid="06b-walk-sortedadd:80">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06b-walk-sortedadd:81">If SortedList extended LList unchanged, it would inherit add(newPosition, newEntry). Client code could then call add(2, 25).</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06b-walk-sortedadd:82">25 goes in at position 2, after 3. The list now reads 3, 25, 7, 12, 20.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06b-walk-sortedadd:83">25 is larger than 7 but comes before it, so the list is no longer in sorted order.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06b-walk-sortedadd:84">SortedListInterface has no add(newPosition, newEntry), so client code cannot choose a position. The list stays 3, 7, 12, 20.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="06b-walk-sortedadd:85">The client passes only the entry. SortedList&rsquo;s add(newEntry) finds the position for 10.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="06b-walk-sortedadd:86">newNode holds 10. Its next is null.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="06b-walk-sortedadd:87">getNodeBefore(10) starts with currentNode at firstNode, the node holding 3, and nodeBefore at null.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="06b-walk-sortedadd:88">10 &gt; 3, so nodeBefore is set to 3 and currentNode to 7.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="06b-walk-sortedadd:89">10 &gt; 7, so nodeBefore is set to 7 and currentNode to 12.</p>
+        <p class="walkcap cap--10 frag" data-step="10" data-sid="06b-walk-sortedadd:90">10 &gt; 12 is false, so getNodeBefore returns the node holding 7. nodeAfter is the node holding 12, and newNode&rsquo;s next is set to it.</p>
+        <p class="walkcap cap--11 frag" data-step="11" data-sid="06b-walk-sortedadd:92">7&rsquo;s next is set to newNode. The list reads 3, 7, 10, 12, 20 and is still in sorted order.</p>
+        <ol class="verdict frag sa__verdict" data-step="12" data-sid="06b-walk-sortedadd:94">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06b-walk-sortedadd:95"><span class="verdict__txt" data-sid="06b-walk-sortedadd:96">contains adds nothing</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06b-walk-sortedadd:97"><span class="verdict__txt" data-sid="06b-walk-sortedadd:98">no method takes a position</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="06b-walk-sortedadd:99"><span class="verdict__txt" data-sid="06b-walk-sortedadd:100">add(newEntry) keeps the order</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06b-walk-sortedadd:101"><span class="verdict__txt" data-sid="06b-walk-sortedadd:102">line count is not a reason</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06b-walk-sortedadd:103"></div>
+  <aside class="notes" data-sid="06b-walk-sortedadd:104">Answer: C &mdash; SortedList&rsquo;s add(newEntry) is responsible for putting each entry in sorted order, so client code is neither required nor allowed to choose a position [key from the PrairieLearn twin sortedlists_add; confirm in Runestone&rsquo;s results view]. Step 1. Suppose SortedList extended LList and changed nothing. It would inherit add(newPosition, newEntry) and replace(givenPosition, newEntry), the two methods the 11.2 slides say a client can use to destroy the order of a sorted list. Step 2. add(2, 25) puts 25 at position 2, right after 3. Step 3. Now 25 comes before 7, so the list is not sorted, and every method that relies on the order, getPosition, contains and add itself, gives wrong answers from here on. Step 4. SortedListInterface, Listing 16-1, has add(newEntry), remove(anEntry) and getPosition(anEntry), plus getEntry, contains, remove(givenPosition), clear, getLength, isEmpty and toArray from the list. It has no add(newPosition, newEntry) and no replace. So this line does not compile against a SortedList, and the chain stays sorted. Step 5. The client passes only the entry. Step 6. add creates newNode with a null next. Steps 7 to 9. getNodeBefore walks from firstNode while newEntry is greater than currentNode&rsquo;s data. The code calls compareTo; with ints that is the &gt; in the captions. It is the same walk as last week&rsquo;s sorted insert. Step 10. 10 is not greater than 12, so the loop stops and getNodeBefore returns the node holding 7. nodeAfter is 12, and newNode&rsquo;s next is set to it. Step 11. 7&rsquo;s next is set to newNode, and the list is still sorted. The slide shows the else branch of the course&rsquo;s add. If nodeBefore were null, because the list is empty or the entry is smallest, the if branch would set newNode&rsquo;s next to firstNode and firstNode to newNode. Step 12, the verdict. A: contains answers whether an entry is in the list; it adds nothing. B: no combination of SortedList methods puts an entry at a position the client chooses, and none should, because that is the behaviour that breaks the order. D: the number of lines of code is not why a method is in an interface or not. C is the answer. Next is Vote 2.</aside>
+
+  <style data-sid="06b-walk-sortedadd:105">
+    /* Slide-local: the editor at --t-code, 952 px (lines 6 and 7 are 45
+       characters: 45 × 19.2 = 864, plus 2% for WebKit's whole-pixel mono
+       advances, plus 70 = 952) at line-height 1.2 (11 lines); a 16 px gap;
+       on the right (696 px) one 690 × 344 SVG at 1:1 (Link boxes 130 × 76 on
+       a 156 px pitch), then the caption cell, where the verdict replaces the
+       captions on step 12 (body face at --t-small, one option to a line; the
+       longest label is about 560 px). Colours: currentNode is the blue of a
+       reference; nodeBefore is orange, the reference the insert is done
+       through; the order that breaks is ringed maroon (a failure); the struck
+       client line turns stone with a maroon line through it. Motion: 25 and
+       newNode grow from their centres; next arrows are Created (the shaft
+       draws on, then the head fades in); 3's next swings to 25 and back, 7's
+       next swings to newNode (CSS d plus the same paths in data-swing for
+       Safari); newNode moves left one pitch and a half (a real move, 234 px)
+       before its arrow draws; the rings travel by translateX and fade. States
+       keyed to the caption frags with :has(), in step order. Used by this
+       slide only, all values from tokens. */
+    #slide-06b .sa { grid-template-columns: 952px minmax(0, 1fr); column-gap: var(--s-2); align-items: start; }
+    #slide-06b .sa__editor { width: 952px; }
+    #slide-06b .sa__editor .editor__code li { line-height: 1.2; }
+    #slide-06b .sa__l1 { transition: color .3s ease; text-decoration: line-through; text-decoration-color: transparent; text-decoration-thickness: 3px; }
+    #slide-06b .sa:has(.cap--4:not(.is-pending)) .sa__l1 { color: var(--stone); text-decoration-color: var(--accent-1); }
+    #slide-06b .sa__fig { display: block; width: 690px; height: 344px; overflow: visible; }
+    #slide-06b .sa__right { gap: var(--s-2); }
+    #slide-06b .sa__caps .verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); flex-direction: column; }
+
+    #slide-06b .pill rect { fill: var(--accent-2); }
+    #slide-06b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-06b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w11d1-06b-head); }
+    #slide-06b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w11d1-06b-head); transition: d .7s var(--ease-smooth); }
+    #slide-06b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-06b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-06b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-06b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    /* the key */
+    #slide-06b .lg__sw { fill: none; stroke-width: 5; }
+    #slide-06b .lg__sw--p { stroke: var(--accent-3); }
+    #slide-06b .lg__sw--c { stroke: var(--accent-2); }
+    #slide-06b .lg__t { font-family: var(--font-mono); font-size: var(--t-micro); }
+    #slide-06b .lg__t--p { fill: var(--accent-3); }
+    #slide-06b .lg__t--c { fill: var(--accent-2); }
+    #slide-06b .lg__null { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+
+    /* new nodes grow; their next arrows are Created */
+    #slide-06b .nd--new { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06b .frag.nd--new.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-06b .arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-06b .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-06b .frag.arr.is-current, #slide-06b .frag.arr.is-past { transition-delay: .5s; }
+    #slide-06b .head { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-06b .frag.head.is-current, #slide-06b .frag.head.is-past { transition-delay: .9s; }
+    #slide-06b .frag.arr--10.is-current, #slide-06b .frag.arr--10.is-past { transition-delay: .9s; }
+    #slide-06b .frag.head--10.is-current, #slide-06b .frag.head--10.is-past { transition-delay: 1.3s; }
+
+    /* the broken order: a maroon ring that grows round 25 */
+    #slide-06b .bad rect { fill: none; stroke: var(--accent-1); stroke-width: 6; }
+    #slide-06b .bad { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06b .frag.bad.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-06b .x25 { transition: opacity .4s ease; }
+    #slide-06b .mv10 { transition: transform .8s var(--ease-smooth); }
+    #slide-06b .nl10 { transition: opacity .3s ease; }
+
+    /* the rings */
+    #slide-06b .ring rect { fill: none; stroke-width: 5; }
+    #slide-06b .ring--c rect { stroke: var(--accent-2); }
+    #slide-06b .ring--p rect { stroke: var(--accent-3); }
+    #slide-06b .ring { opacity: 0; transition: opacity .3s ease, transform .8s var(--ease-smooth); }
+
+    /* ---- states, in step order ---- */
+    #slide-06b .sa:has(.cap--2:not(.is-pending)) .lnk--3 { d: path("M113 142 C 113 196, 126 210, 126 252"); }
+    #slide-06b .sa:has(.cap--4:not(.is-pending)) .lnk--3 { d: path("M113 142 C 133 142, 152 142, 172 142"); }
+    #slide-06b .sa:has(.cap--4:not(.is-pending)) .x25 { opacity: 0; }
+    #slide-06b .sa:has(.cap--7:not(.is-pending)) .lg__null { opacity: 1; }
+    #slide-06b .sa:has(.cap--7:not(.is-pending)) .ring--c { opacity: 1; transform: translateX(0); }
+    #slide-06b .sa:has(.cap--8:not(.is-pending)) .lg__null { opacity: 0; }
+    #slide-06b .sa:has(.cap--8:not(.is-pending)) .ring--p { opacity: 1; transform: translateX(0); }
+    #slide-06b .sa:has(.cap--8:not(.is-pending)) .ring--c { transform: translateX(156px); }
+    #slide-06b .sa:has(.cap--9:not(.is-pending)) .ring--p { transform: translateX(156px); }
+    #slide-06b .sa:has(.cap--9:not(.is-pending)) .ring--c { transform: translateX(312px); }
+    #slide-06b .sa:has(.cap--10:not(.is-pending)) .ring--c { opacity: 0; }
+    #slide-06b .sa:has(.cap--10:not(.is-pending)) .mv10 { transform: translateX(-234px); }
+    #slide-06b .sa:has(.cap--10:not(.is-pending)) .nl10 { opacity: 0; }
+    #slide-06b .sa:has(.cap--11:not(.is-pending)) .lnk--7 { d: path("M269 142 C 269 196, 282 210, 282 252"); }
+    #slide-06b .sa:has(.sa__verdict:not(.is-pending)) .ring--p { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .lnk, #slide-06b .ring, #slide-06b .nd--new, #slide-06b .arr, #slide-06b .head, #slide-06b .bad, #slide-06b .x25, #slide-06b .mv10, #slide-06b .nl10, #slide-06b .lg__null, #slide-06b .sa__l1 { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

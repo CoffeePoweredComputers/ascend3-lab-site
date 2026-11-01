@@ -1,0 +1,188 @@
+<section class="slide slide--warmup" id="slide-07b" data-sid="07b-walk-designs:1">
+  <header class="slide__head" data-sid="07b-walk-designs:2">
+    <p class="slide__kicker" data-sid="07b-walk-designs:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="07b-walk-designs:4">Three designs keep the order; sorting on access does not</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07b-walk-designs:5">Four class pictures side by side, one per press, with a caption under them. A, from scratch: one class, SortedList of T, with the members Node firstNode, add of T, remove of T, getPosition of T and getEntry of int, and its own chain 3, 7, 12 under it. B, inheritance: a box LList of T with add of int and T, replace of int and T, and getEntry of int; under it a box SortedList of T with add of T, and add of int and T and replace of int and T in maroon, each marked throws; a generalisation arrow with a hollow triangle runs from SortedList up to LList. C, composition: a box SortedList of T with add of T, getPosition of T and getEntry of int, joined by a line with a filled diamond, labelled list, to a box LList of T with add of int and T and getEntry of int; the caption gives add as list dot add of Math dot abs of getPosition of newEntry, newEntry, O of n on an array list and O of n squared on a linked list. D, sort on access: a box SortedList of T with add of T and getEntry of int over an unsorted row 7, 20, 3, 12. Next press: three maroon lines appear under D, getEntry of 1, 2 and 3, each marked sorts first; the caption says every access pays for a sort and the list is not in order between accesses. Last, the four options, with D struck through and A, B and C not struck.</p>
+
+  <!-- The three valid designs as UML class pictures (W10D1 16's boxes:
+       name compartment in mono --t-small bold, members in mono --t-micro on a
+       36 px pitch; W6D1 06b's generalisation arrow with a hollow triangle)
+       and the invalid one beside them, one column per press. Members are
+       written with parameter types only (add(int, T)) so that every line
+       fits a 384–408 px box at --t-micro; the captions give the course's
+       parameter names. Sources: SortedListInterface (Listing 16-1);
+       ImplementationUsingInheritance.pdf (SortedList extends LList inherits
+       add(newPosition, newEntry) and replace(givenPosition, newEntry), "two
+       methods that a client can use to destroy the order"; option B's fix is
+       to override them to throw; the book's revised base class
+       LinkedChainBase is in the notes); ImplementationUsingComposition.pdf
+       (private ListInterface<T> list = new LList<>(); add = list.add(
+       Math.abs(getPosition(newEntry)), newEntry); Figure 16-9: add O(n) on an
+       array list, O(n²) on a linked one). D has no source drawing: an
+       unsorted list and the cost of a sort on every getEntry, as the brief
+       asks. Colour: maroon for the methods that throw and for the cost that
+       makes D fail; the generalisation and composition lines in the tool blue.
+       step 1: A.  2: B.  3: C.  4: D.  5: D's three accesses.  6: verdict.
+       SVG in canvas px, 1664 × 480, columns at x 8 / 416 / 856 / 1272 so
+       every stroke is at least 6 px inside the body. -->
+  <div class="slide__body dz" data-sid="07b-walk-designs:6">
+    <svg class="dz__fig" viewBox="0 0 1664 480" role="img" aria-label="Four designs for a SortedList: written from scratch with its own chain; a subclass of LList whose positional add and replace throw; a class with an LList field; and an unsorted list sorted on every getEntry" data-sid="07b-walk-designs:7">
+      <defs data-sid="07b-walk-designs:8">
+        <marker id="w11d1-07b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="07b-walk-designs:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="07b-walk-designs:10"/></marker>
+      </defs>
+      <!-- A: from scratch -->
+      <g class="col frag" data-step="1" data-sid="07b-walk-designs:11">
+        <circle class="hd__disc" cx="36" cy="28" r="24" data-sid="07b-walk-designs:12"/><text class="hd__k" x="36" y="40" data-sid="07b-walk-designs:13">A</text>
+        <text class="hd__t" x="72" y="40" data-sid="07b-walk-designs:14">from scratch</text>
+        <rect class="box" x="8" y="72" width="376" height="244" rx="10" data-sid="07b-walk-designs:15"/>
+        <path class="box__d" d="M8 124 H 384" data-sid="07b-walk-designs:16"/>
+        <text class="box__n" x="196" y="110" data-sid="07b-walk-designs:17">SortedList&lt;T&gt;</text>
+        <text class="box__m" x="22" y="156" data-sid="07b-walk-designs:18">Node firstNode</text>
+        <text class="box__m" x="22" y="192" data-sid="07b-walk-designs:19">add(T)</text>
+        <text class="box__m" x="22" y="228" data-sid="07b-walk-designs:20">remove(T)</text>
+        <text class="box__m" x="22" y="264" data-sid="07b-walk-designs:21">getPosition(T)</text>
+        <text class="box__m" x="22" y="300" data-sid="07b-walk-designs:22">getEntry(int)</text>
+        <path class="wire" d="M48 318 V 350" data-sid="07b-walk-designs:23"/>
+        <rect class="cell" x="16" y="356" width="64" height="44" rx="8" data-sid="07b-walk-designs:24"/><text class="cell__v" x="48" y="387" data-sid="07b-walk-designs:25">3</text>
+        <rect class="cell" x="116" y="356" width="64" height="44" rx="8" data-sid="07b-walk-designs:26"/><text class="cell__v" x="148" y="387" data-sid="07b-walk-designs:27">7</text>
+        <rect class="cell" x="216" y="356" width="64" height="44" rx="8" data-sid="07b-walk-designs:28"/><text class="cell__v" x="248" y="387" data-sid="07b-walk-designs:29">12</text>
+        <path class="wire" d="M80 378 H 110" data-sid="07b-walk-designs:30"/>
+        <path class="wire" d="M180 378 H 210" data-sid="07b-walk-designs:31"/>
+      </g>
+
+      <!-- B: inheritance, the unwanted methods overridden to throw -->
+      <g class="col frag" data-step="2" data-sid="07b-walk-designs:32">
+        <circle class="hd__disc" cx="444" cy="28" r="24" data-sid="07b-walk-designs:33"/><text class="hd__k" x="444" y="40" data-sid="07b-walk-designs:34">B</text>
+        <text class="hd__t" x="480" y="40" data-sid="07b-walk-designs:35">inheritance</text>
+        <rect class="box" x="416" y="72" width="408" height="172" rx="10" data-sid="07b-walk-designs:36"/>
+        <path class="box__d" d="M416 124 H 824" data-sid="07b-walk-designs:37"/>
+        <text class="box__n" x="620" y="110" data-sid="07b-walk-designs:38">LList&lt;T&gt;</text>
+        <text class="box__m" x="430" y="156" data-sid="07b-walk-designs:39">add(int, T)</text>
+        <text class="box__m" x="430" y="192" data-sid="07b-walk-designs:40">replace(int, T)</text>
+        <text class="box__m" x="430" y="228" data-sid="07b-walk-designs:41">getEntry(int)</text>
+        <rect class="box" x="416" y="300" width="408" height="172" rx="10" data-sid="07b-walk-designs:42"/>
+        <path class="box__d" d="M416 352 H 824" data-sid="07b-walk-designs:43"/>
+        <text class="box__n" x="620" y="338" data-sid="07b-walk-designs:44">SortedList&lt;T&gt;</text>
+        <text class="box__m" x="430" y="384" data-sid="07b-walk-designs:45">add(T)</text>
+        <text class="box__m box__m--bad" x="430" y="420" data-sid="07b-walk-designs:46">add(int, T)</text><text class="box__th" x="810" y="420" data-sid="07b-walk-designs:47">throws</text>
+        <text class="box__m box__m--bad" x="430" y="456" data-sid="07b-walk-designs:48">replace(int, T)</text><text class="box__th" x="810" y="456" data-sid="07b-walk-designs:49">throws</text>
+      </g>
+      <path class="arr frag" data-step="2" pathLength="100" d="M620 298 V 266" data-sid="07b-walk-designs:50"/>
+      <path class="tri frag" data-step="2" data-anim="fade" d="M620 247 L606 265 H 634 Z" data-sid="07b-walk-designs:51"/>
+
+      <!-- C: composition, an LList in the field list -->
+      <g class="col frag" data-step="3" data-sid="07b-walk-designs:52">
+        <circle class="hd__disc" cx="884" cy="28" r="24" data-sid="07b-walk-designs:53"/><text class="hd__k" x="884" y="40" data-sid="07b-walk-designs:54">C</text>
+        <text class="hd__t" x="920" y="40" data-sid="07b-walk-designs:55">composition</text>
+        <rect class="box" x="856" y="72" width="384" height="172" rx="10" data-sid="07b-walk-designs:56"/>
+        <path class="box__d" d="M856 124 H 1240" data-sid="07b-walk-designs:57"/>
+        <text class="box__n" x="1048" y="110" data-sid="07b-walk-designs:58">SortedList&lt;T&gt;</text>
+        <text class="box__m" x="870" y="156" data-sid="07b-walk-designs:59">add(T)</text>
+        <text class="box__m" x="870" y="192" data-sid="07b-walk-designs:60">getPosition(T)</text>
+        <text class="box__m" x="870" y="228" data-sid="07b-walk-designs:61">getEntry(int)</text>
+        <rect class="box" x="856" y="320" width="384" height="136" rx="10" data-sid="07b-walk-designs:62"/>
+        <path class="box__d" d="M856 372 H 1240" data-sid="07b-walk-designs:63"/>
+        <text class="box__n" x="1048" y="358" data-sid="07b-walk-designs:64">LList&lt;T&gt;</text>
+        <text class="box__m" x="870" y="404" data-sid="07b-walk-designs:65">add(int, T)</text>
+        <text class="box__m" x="870" y="440" data-sid="07b-walk-designs:66">getEntry(int)</text>
+        <text class="lbl" x="1068" y="306" data-sid="07b-walk-designs:67">list</text>
+      </g>
+      <path class="arr frag" data-step="3" pathLength="100" d="M1048 280 V 318" data-sid="07b-walk-designs:68"/>
+      <path class="dia frag" data-step="3" data-anim="fade" d="M1048 246 L1060 263 L1048 280 L1036 263 Z" data-sid="07b-walk-designs:69"/>
+
+      <!-- D: an unsorted list, sorted when an entry is accessed -->
+      <g class="col frag" data-step="4" data-sid="07b-walk-designs:70">
+        <circle class="hd__disc" cx="1300" cy="28" r="24" data-sid="07b-walk-designs:71"/><text class="hd__k" x="1300" y="40" data-sid="07b-walk-designs:72">D</text>
+        <text class="hd__t" x="1336" y="40" data-sid="07b-walk-designs:73">sort on access</text>
+        <rect class="box" x="1272" y="72" width="384" height="136" rx="10" data-sid="07b-walk-designs:74"/>
+        <path class="box__d" d="M1272 124 H 1656" data-sid="07b-walk-designs:75"/>
+        <text class="box__n" x="1464" y="110" data-sid="07b-walk-designs:76">SortedList&lt;T&gt;</text>
+        <text class="box__m" x="1286" y="156" data-sid="07b-walk-designs:77">add(T)</text>
+        <text class="box__m" x="1286" y="192" data-sid="07b-walk-designs:78">getEntry(int)</text>
+        <text class="lbl lbl--stone" x="1272" y="252" data-sid="07b-walk-designs:79">list, unsorted</text>
+        <rect class="cell" x="1272" y="268" width="72" height="56" rx="8" data-sid="07b-walk-designs:80"/><text class="cell__v" x="1308" y="305" data-sid="07b-walk-designs:81">7</text>
+        <rect class="cell" x="1356" y="268" width="72" height="56" rx="8" data-sid="07b-walk-designs:82"/><text class="cell__v" x="1392" y="305" data-sid="07b-walk-designs:83">20</text>
+        <rect class="cell" x="1440" y="268" width="72" height="56" rx="8" data-sid="07b-walk-designs:84"/><text class="cell__v" x="1476" y="305" data-sid="07b-walk-designs:85">3</text>
+        <rect class="cell" x="1524" y="268" width="72" height="56" rx="8" data-sid="07b-walk-designs:86"/><text class="cell__v" x="1560" y="305" data-sid="07b-walk-designs:87">12</text>
+      </g>
+      <!-- D's cost: each access sorts first -->
+      <g class="srt frag" data-step="5" style="--i: 0" data-sid="07b-walk-designs:88"><text class="box__m" x="1272" y="372" data-sid="07b-walk-designs:89">getEntry(1)</text><text class="box__th" x="1656" y="372" data-sid="07b-walk-designs:90">sorts first</text></g>
+      <g class="srt frag" data-step="5" style="--i: 1" data-sid="07b-walk-designs:91"><text class="box__m" x="1272" y="410" data-sid="07b-walk-designs:92">getEntry(2)</text><text class="box__th" x="1656" y="410" data-sid="07b-walk-designs:93">sorts first</text></g>
+      <g class="srt frag" data-step="5" style="--i: 2" data-sid="07b-walk-designs:94"><text class="box__m" x="1272" y="448" data-sid="07b-walk-designs:95">getEntry(3)</text><text class="box__th" x="1656" y="448" data-sid="07b-walk-designs:96">sorts first</text></g>
+    </svg>
+
+    <div class="dz__caps" data-sid="07b-walk-designs:97">
+      <p class="dz__cap frag" data-step="1" data-sid="07b-walk-designs:98">A writes SortedList from scratch with its own chain. Its add(newEntry) uses getNodeBefore to find the place, and it has no add(newPosition, newEntry).</p>
+      <p class="dz__cap frag" data-step="2" data-sid="07b-walk-designs:99">B extends LList. SortedList inherits getEntry, isEmpty and the rest, adds add(newEntry), and overrides add(newPosition, newEntry) and replace(givenPosition, newEntry) to throw an exception.</p>
+      <p class="dz__cap frag" data-step="3" data-sid="07b-walk-designs:100">C keeps an LList in a field named list. Its add(newEntry) calls list.add(Math.abs(getPosition(newEntry)), newEntry). That is O(n) on an array list and O(n&sup2;) on a linked list, where getPosition calls getEntry up to n times.</p>
+      <p class="dz__cap frag" data-step="4" data-sid="07b-walk-designs:101">D stores the entries in an unsorted list and sorts the list only when an entry is accessed.</p>
+      <p class="dz__cap frag" data-step="5" data-sid="07b-walk-designs:102">Every getEntry pays for a sort first, which costs more than putting each entry in place when it is added. Between accesses the list is not in sorted order.</p>
+      <ol class="verdict frag dz__verdict" data-step="6" data-sid="07b-walk-designs:103">
+        <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-designs:104"><span class="verdict__txt" data-sid="07b-walk-designs:105">from scratch</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-designs:106"><span class="verdict__txt" data-sid="07b-walk-designs:107">inheritance, unwanted methods throw</span></li>
+        <li class="verdict__opt verdict__opt--right" data-sid="07b-walk-designs:108"><span class="verdict__txt" data-sid="07b-walk-designs:109">composition, a List as a field</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07b-walk-designs:110"><span class="verdict__txt" data-sid="07b-walk-designs:111">unsorted, sorted on access</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07b-walk-designs:112"></div>
+  <aside class="notes" data-sid="07b-walk-designs:113">Answer: A, B and C [keys from the PrairieLearn twin sortedlists_designs, where these three are correct=&ldquo;true&rdquo;; confirm in Runestone&rsquo;s results view]. Step 1. A. SortedList is written from scratch. It has its own chain and firstNode, much of its code looks like the linked list&rsquo;s, its add(newEntry) finds the place with getNodeBefore as on the last slide, and there is no add(newPosition, newEntry) or replace. Step 2. B. SortedList extends LList, so it inherits getEntry, isEmpty, contains and the rest. It adds add(newEntry), and the two positional methods, add(newPosition, newEntry) and replace(givenPosition, newEntry), are overridden to throw an exception such as UnsupportedOperationException, so client code cannot use them to break the order. The book takes this one step further in 11.2: a revised base class, LinkedChainBase, keeps the chain and offers protected addFirstNode and addAfterNode instead of public positional methods, and LinkedSortedList extends it, so there is nothing to override with a throw. Step 3. C. SortedList holds a list, private ListInterface&lt;T&gt; list, created as new LList&lt;&gt;(). add(newEntry) asks getPosition where the entry belongs, takes the absolute value because getPosition returns a negative position for an entry that is not there, and calls list.add at that position. Figure 16-9: on an array-based list getEntry is O(1), so add is O(n); on a linked list getEntry is O(n) and getPosition calls it up to n times, so add is O(n&sup2;). Composition is the least code to write, and it is valid. Step 4. D. The entries go into an unsorted list, and the list is sorted when an entry is accessed. Step 5. Every getEntry has to sort first. A sort costs more than one add that keeps the order, and between accesses the list is not sorted, so getPosition, contains and remove(anEntry) cannot rely on the order. The twin&rsquo;s wrong options include the same idea, entries stored unsorted with a separate method to sort them. Step 6. A, B and C. That ends the votes; next is Part 3, the Test 2 results.</aside>
+
+  <style data-sid="07b-walk-designs:114">
+    /* Slide-local: one 1664 × 480 SVG at 1:1, then a caption cell under it
+       (three lines at --t-small, 1.35) where the verdict replaces the
+       captions on step 6 (body face at --t-small, wrapping to two rows).
+       Boxes: name in mono --t-small bold, members in mono --t-micro (drawing
+       labels, the type floor's micro use), the longest member line 15
+       characters; the column headings are a maroon letter disc and a
+       --t-small title. Motion: each column GrowsFromCenter on its step; the
+       generalisation and composition lines are Created (dash offset) after
+       their column has grown, and the hollow triangle and the filled diamond
+       fade in after the line; D's three accesses fade in one after another
+       (--i stagger); captions crossfade in one grid cell. Used by this slide
+       only, all values from tokens. */
+    #slide-07b .dz { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-07b .dz__fig { display: block; width: 1664px; height: 480px; overflow: visible; }
+
+    #slide-07b .col { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-07b .frag.col.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-07b .hd__disc { fill: var(--accent-1); }
+    #slide-07b .hd__k { font-family: var(--font-display); font-size: var(--t-small); fill: var(--paper); text-anchor: middle; }
+    #slide-07b .hd__t { font-family: var(--font-body); font-size: var(--t-small); fill: var(--fg-0); }
+    #slide-07b .box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .box__d { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .box__n { font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; fill: var(--fg-0); text-anchor: middle; }
+    #slide-07b .box__m { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-07b .box__m--bad { fill: var(--accent-1); }
+    #slide-07b .box__th { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-1); text-anchor: end; }
+    #slide-07b .lbl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); }
+    #slide-07b .lbl--stone { fill: var(--stone); }
+    #slide-07b .cell { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-07b .cell__v { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-07b .wire { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w11d1-07b-head); }
+
+    /* the generalisation and composition lines: Created after the column grows */
+    #slide-07b .arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-07b .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-07b .frag.arr.is-current, #slide-07b .frag.arr.is-past { transition-delay: .5s; }
+    #slide-07b .tri { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; stroke-linejoin: round; transition: opacity .2s ease; }
+    #slide-07b .dia { fill: var(--accent-2); stroke: var(--accent-2); stroke-width: 2; stroke-linejoin: round; transition: opacity .2s ease; }
+    #slide-07b .frag.tri.is-current, #slide-07b .frag.tri.is-past,
+    #slide-07b .frag.dia.is-current, #slide-07b .frag.dia.is-past { transition-delay: .9s; }
+
+    /* D's accesses, one after another */
+    #slide-07b .srt { transition: opacity .3s ease; }
+    #slide-07b .frag.srt.is-current, #slide-07b .frag.srt.is-past { transition-delay: calc(.2s + var(--i) * .35s); }
+
+    /* captions: one at a time in one cell; the verdict takes the cell last */
+    #slide-07b .dz__caps { display: grid; min-height: 146px; align-content: start; }
+    #slide-07b .slide__body p.dz__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-07b .frag.dz__cap.is-pending, #slide-07b .frag.dz__cap.is-past { opacity: 0; }
+    #slide-07b .dz__caps .verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07b .col, #slide-07b .arr, #slide-07b .tri, #slide-07b .dia, #slide-07b .srt, #slide-07b .dz__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

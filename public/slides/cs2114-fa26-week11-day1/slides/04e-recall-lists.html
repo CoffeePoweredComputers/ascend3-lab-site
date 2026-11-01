@@ -1,0 +1,47 @@
+<section class="slide slide--warmup" id="slide-04e" data-sid="04e-recall-lists:1">
+  <header class="slide__head" data-sid="04e-recall-lists:2">
+    <p class="slide__kicker" data-sid="04e-recall-lists:3">RECALL &middot; WEEK 9 &middot; LINKED CHAINS AND LISTS</p>
+    <h2 class="rl__stem" data-sid="04e-recall-lists:4">Select the most accurate steps to remove a node that contains a designated element from a singly linked list with a head and tail reference</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04e-recall-lists:5">A recall of a Week 9 peer-instruction question. The heading is the question: select the most accurate steps to remove a node that contains a designated element from a singly linked list with a head and tail reference. Below it, four long options, each led by a maroon disc with its letter. A: if it's not the first node, then find the node that contains the designated element, get a reference to the node before it, reset the next reference of the node before it to be the next reference of the node containing the designated element; removing the first node would be a special case. B: if it's not the first or last node, then the same steps; removing the first or last node would each be a special case. C: if it's not the last node, then the same steps, with no special case named. D: if it's not the first node, then find the node that contains the designated element, reset the next reference of that node to be the node before it. On the one step, four short verdicts appear under the options, A, C and D struck through in turn and B, both ends special, left standing.</p>
+
+  <!-- W9D1 09 (Peer Instruction W09D1, question 2 of 2, Runestone activity
+       vtcs2_linkedlists_remove; PL twin u11q05_sll_removenode_d) re-shown as
+       an ungraded recall, the W4D2 recipe: the verbatim stem as the heading
+       (curly apostrophes, no question mark), the four long options full
+       width at --t-small, copied; the two clocks removed; the verdict strip
+       under the options. Already at the type floor in W9D1; nothing
+       re-sized. The heading may now run the full width, since no clocks sit
+       at the top right. The verdict uses short labels so it stays one line.
+       step 1: the verdict; A, C, D struck in turn, B left in maroon. -->
+  <div class="slide__body rl" data-sid="04e-recall-lists:6">
+    <ol class="vote__opts vote__opts--long rl__opts" data-sid="04e-recall-lists:7">
+      <li class="vote__opt" data-sid="04e-recall-lists:8"><span class="vote__key" data-sid="04e-recall-lists:9">A</span><p class="vote__text" data-sid="04e-recall-lists:10">If it’s not the first node, then find the node that contains the designated element, get a reference to the node before it, reset the next reference of the node before it to be the next reference of the node containing the designated element. Removing the first node would be a special case.</p></li>
+      <li class="vote__opt" data-sid="04e-recall-lists:11"><span class="vote__key" data-sid="04e-recall-lists:12">B</span><p class="vote__text" data-sid="04e-recall-lists:13">If it’s not the first or last node, then find the node that contains the designated element, get a reference to the node before it, reset the next reference of the node before it to be the next reference of the node containing the designated element. Removing the first or last node would each be a special case.</p></li>
+      <li class="vote__opt" data-sid="04e-recall-lists:14"><span class="vote__key" data-sid="04e-recall-lists:15">C</span><p class="vote__text" data-sid="04e-recall-lists:16">If it’s not the last node, then find the node that contains the designated element, get a reference to the node before it, reset the next reference of the node before it to be the next reference of the node containing the designated element.</p></li>
+      <li class="vote__opt" data-sid="04e-recall-lists:17"><span class="vote__key" data-sid="04e-recall-lists:18">D</span><p class="vote__text" data-sid="04e-recall-lists:19">If it’s not the first node, then find the node that contains the designated element, reset the next reference of that node to be the node before it.</p></li>
+    </ol>
+    <ol class="verdict frag" data-step="1" data-sid="04e-recall-lists:20">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="04e-recall-lists:21"><span class="verdict__txt" data-sid="04e-recall-lists:22">tail not moved</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="04e-recall-lists:23"><span class="verdict__txt" data-sid="04e-recall-lists:24">both ends special</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="04e-recall-lists:25"><span class="verdict__txt" data-sid="04e-recall-lists:26">head not moved</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="04e-recall-lists:27"><span class="verdict__txt" data-sid="04e-recall-lists:28">loops the chain</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="04e-recall-lists:29"></div>
+  <aside class="notes" data-sid="04e-recall-lists:30">Answer: B &mdash; if it&rsquo;s not the first or last node, &hellip; removing the first or last node would each be a special case [ASSUMED from the PL twin u11q05_sll_removenode_d, which is this question word for word; confirm in Runestone&rsquo;s results view]. Show of hands, then the answer. A, B and C share the middle steps: find the node, get the node before it, and set that node&rsquo;s next to the removed node&rsquo;s next. The list has a head and a tail reference, and each end needs one more step. Removing the first node changes head, and there is no node before it. Removing the last node changes tail to the node before it. A names only the first node, so tail is left on the removed node. C names only the last node, so head is never changed and the first node has no node before it. D sets the found node&rsquo;s next back to the node before it, so the node is not unlinked and the chain gains a loop. This topic had four questions on Test 2. Next: the testing question from Week 2.</aside>
+
+  <style data-sid="04e-recall-lists:31">
+    /* Slide-local: W9D1 09's vote pane re-shown as recall with the clocks
+       removed. The stem is the heading at --t-small, now allowed the full
+       width; the four options full width at --t-small with line-height 1.25,
+       56 px discs and 8 px rows; the verdict strip under them. All values
+       from tokens; used by this slide only. */
+    #slide-04e h2.rl__stem { max-width: none; font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-04e .rl { display: grid; align-content: start; row-gap: var(--s-1); }   /* 8, not 16: the strip at the sentence size needs the 8 px */
+    #slide-04e .verdict { font-size: var(--t-small); }   /* read from the back row: the sentence size (type floor); 66 characters, one line (about 1,590 px of 1,664 at WebKit's 22 px advance) */
+    #slide-04e .rl__opts .vote__opt { padding: var(--s-1) 0; align-items: flex-start; }
+    #slide-04e .rl__opts .vote__key { width: 56px; height: 56px; font-size: var(--t-small); }
+    #slide-04e .rl__opts .vote__text { line-height: 1.2; }   /* 1.2, not W9D1's 1.25: the strip needs the 21 px */
+  </style>
+</section>

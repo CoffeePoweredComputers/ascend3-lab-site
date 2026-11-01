@@ -1,0 +1,79 @@
+<section class="slide slide--warmup" id="slide-04f" data-sid="04f-recall-tests:1">
+  <header class="slide__head" data-sid="04f-recall-tests:2">
+    <p class="slide__kicker" data-sid="04f-recall-tests:3">RECALL &middot; WEEK 2 &middot; ADTS AND TESTS</p>
+    <h2 data-sid="04f-recall-tests:4">Which test reaches 100% branch coverage?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04f-recall-tests:5">A recall of a Week 2 peer-instruction question. On the left, a method getSign that returns 1 for a positive number, minus 1 for a negative number and 0 otherwise: three branches. On the right, four candidate tests: A checks 5 and minus 3; B checks 10, 0 and 2; C checks minus 9 and 0; D checks 7, minus 2 and 0. On the one step, four short verdicts appear under both columns, A, B and C struck through in turn and D, all three branches, left standing.</p>
+
+  <!-- W2D2 08 (Peer Instruction W02D2, question 3) re-shown as an ungraded
+       recall, the W4D2 recipe: the method under test and the four tests
+       copied, the verdict strip under both columns. Chosen over W2D2 07 /
+       W4D2 06 (createHokie) because that vote's 49-character assertion
+       beside a 39-character signature does not fit two columns at --t-code;
+       this one is the same topic (a test that covers every case). For the
+       type floor the code moves from micro (28) to --t-code (32): the editor
+       is code-mid on the body, and the option lines are raised to --t-code
+       here (deck.css sets .opts__code at micro). Widths: the signature is 27
+       characters, 27 × 19.2 + 70 = 588 px in a 640 px column; the longest
+       assertion is 30 characters, 576 px in the 976 px option column.
+       step 1: the verdict; A, B, C struck in turn, D left in maroon. -->
+  <div class="slide__body grid grid--code code-mid rt" data-sid="04f-recall-tests:6">
+    <div class="editor" data-sid="04f-recall-tests:7">
+      <p class="editor__bar" data-sid="04f-recall-tests:8">the method under test</p>
+      <ol class="editor__code" data-sid="04f-recall-tests:9">
+        <li data-sid="04f-recall-tests:10"><span class="tok-key" data-sid="04f-recall-tests:11">public int</span> getSign(<span class="tok-key" data-sid="04f-recall-tests:12">int</span> x) {</li>
+        <li data-sid="04f-recall-tests:13">    <span class="tok-key" data-sid="04f-recall-tests:14">if</span> (x &gt; <span class="tok-num" data-sid="04f-recall-tests:15">0</span>) {</li>
+        <li data-sid="04f-recall-tests:16">        <span class="tok-key" data-sid="04f-recall-tests:17">return</span> <span class="tok-num" data-sid="04f-recall-tests:18">1</span>;</li>
+        <li data-sid="04f-recall-tests:19">    } <span class="tok-key" data-sid="04f-recall-tests:20">else if</span> (x &lt; <span class="tok-num" data-sid="04f-recall-tests:21">0</span>) {</li>
+        <li data-sid="04f-recall-tests:22">        <span class="tok-key" data-sid="04f-recall-tests:23">return</span> <span class="tok-num" data-sid="04f-recall-tests:24">-1</span>;</li>
+        <li data-sid="04f-recall-tests:25">    } <span class="tok-key" data-sid="04f-recall-tests:26">else</span> {</li>
+        <li data-sid="04f-recall-tests:27">        <span class="tok-key" data-sid="04f-recall-tests:28">return</span> <span class="tok-num" data-sid="04f-recall-tests:29">0</span>;</li>
+        <li data-sid="04f-recall-tests:30">    }</li>
+        <li data-sid="04f-recall-tests:31">}</li>
+      </ol>
+    </div>
+    <ol class="opts" data-sid="04f-recall-tests:32">
+      <li data-sid="04f-recall-tests:33">
+        <p class="opts__code" data-sid="04f-recall-tests:34">assertEquals(1, getSign(5));</p>
+        <p class="opts__code" data-sid="04f-recall-tests:35">assertEquals(-1, getSign(-3));</p>
+      </li>
+      <li data-sid="04f-recall-tests:36">
+        <p class="opts__code" data-sid="04f-recall-tests:37">assertEquals(1, getSign(10));</p>
+        <p class="opts__code" data-sid="04f-recall-tests:38">assertEquals(0, getSign(0));</p>
+        <p class="opts__code" data-sid="04f-recall-tests:39">assertEquals(-1, getSign(2));</p>
+      </li>
+      <li data-sid="04f-recall-tests:40">
+        <p class="opts__code" data-sid="04f-recall-tests:41">assertEquals(-1, getSign(-9));</p>
+        <p class="opts__code" data-sid="04f-recall-tests:42">assertEquals(0, getSign(0));</p>
+      </li>
+      <li data-sid="04f-recall-tests:43">
+        <p class="opts__code" data-sid="04f-recall-tests:44">assertEquals(1, getSign(7));</p>
+        <p class="opts__code" data-sid="04f-recall-tests:45">assertEquals(-1, getSign(-2));</p>
+        <p class="opts__code" data-sid="04f-recall-tests:46">assertEquals(1, getSign(0));</p>
+      </li>
+    </ol>
+    <ol class="verdict frag" data-step="1" data-sid="04f-recall-tests:47">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="04f-recall-tests:48"><span class="verdict__txt" data-sid="04f-recall-tests:49">else never runs</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="04f-recall-tests:50"><span class="verdict__txt" data-sid="04f-recall-tests:51">no negative</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="04f-recall-tests:52"><span class="verdict__txt" data-sid="04f-recall-tests:53">no positive</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="04f-recall-tests:54"><span class="verdict__txt" data-sid="04f-recall-tests:55">all three branches</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="04f-recall-tests:56"></div>
+  <aside class="notes" data-sid="04f-recall-tests:57">Answer: D &mdash; 7, minus 2 and 0 are the only set that runs all three branches [key from the source deck W2D2 08]. Show of hands, then the answer. getSign has three branches: x greater than 0, x less than 0, and the else. A tests 5 and minus 3, so the else never runs. B tests 10, 0 and 2; 10 and 2 are both positive, so the negative branch never runs. C tests minus 9 and 0, so the positive branch never runs. D tests 7, minus 2 and 0, one input per branch. D&rsquo;s last assertion expects 1 where getSign(0) returns 0, so that test fails, and it still has 100% branch coverage. Coverage says which lines ran, not whether the expected values are right. This topic had two questions on Test 2. Next is Part 2.</aside>
+
+  <style data-sid="04f-recall-tests:58">
+    /* Slide-local: W2D2 08's vote pane re-shown as recall with the verdict
+       strip under both columns on its one step. The editor is at --t-code
+       (code-mid on the body) in a 640 px column; the option lines take the
+       same size here, raised from deck.css's micro .opts__code for the type
+       floor, at line-height 1.35 so ten lines and four gaps fit beside the
+       nine-line editor. All values from tokens; used by this slide only. */
+    #slide-04f .rt { grid-template-columns: 640px minmax(0, 1fr); align-items: start; row-gap: var(--s-4); }
+    #slide-04f .rt .opts { margin: 0; }
+    #slide-04f .rt .opts > li:first-child { margin-top: 0; }
+    #slide-04f .rt .opts li { line-height: 1.2; }   /* 36 × 1.2 = 43.2, the same as the 32 px code lines at 1.35: the li's letter marker (A. B. C. D.) then adds no height. With the inherited line-height the marker's line box differed by engine (sweep slack 78 / 98 / 62 before this rule) */
+    #slide-04f .rt .opts li .opts__code { font-size: var(--t-code); line-height: 1.35; }
+    #slide-04f .verdict { grid-column: 1 / -1; font-size: var(--t-small); }   /* read from the back row: the sentence size (type floor); 60 characters, one line */
+  </style>
+</section>

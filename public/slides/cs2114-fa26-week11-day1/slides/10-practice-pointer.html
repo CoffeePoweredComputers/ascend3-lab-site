@@ -1,0 +1,46 @@
+<section class="slide" id="slide-10" data-sid="10-practice-pointer:1">
+  <header class="slide__head" data-sid="10-practice-pointer:2">
+    <h2 data-sid="10-practice-pointer:3">Practice on PrairieLearn</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10-practice-pointer:4">A blue-edged signpost card: PrairieLearn, then Assessments, then Test #2 Practice. Under the path, four facts: it is open until December 31; it has a 45-minute limit, the same as the test; each attempt has a new set of 19 questions; it is not for credit. Under the card a sentence in maroon: the number on each row of the chart is the question's number in the practice. Nothing builds.</p>
+
+  <!-- W10D1 05's signpost, one week on: the PrairieLearn path in the tool's
+       blue with the assessment name in the heading maroon, then the four
+       facts at the small size because they are read as sentences. The plant
+       under it ties the card to the chart on 09: the row numbers there are
+       the practice's slot numbers (the practice is not shuffled, so the
+       slot number is the number a student sees). Facts from
+       practiceExams/test2/infoAssessment.json: open 2026-10-23 to
+       2026-12-31, timeLimitMin 45, multipleInstance, 19 slots; "not for
+       credit" is from the shared brief. Static. -->
+  <div class="slide__body pp" data-sid="10-practice-pointer:5">
+    <div class="tile tile--a2 pp__sign" data-sid="10-practice-pointer:6">
+      <p class="tile__label" data-sid="10-practice-pointer:7">where</p>
+      <p class="pp__path" data-sid="10-practice-pointer:8">PrairieLearn &rsaquo; Assessments &rsaquo; <b data-sid="10-practice-pointer:9">Test #2 Practice</b></p>
+      <ul class="pp__facts" data-sid="10-practice-pointer:10">
+        <li data-sid="10-practice-pointer:11">Open until December 31.</li>
+        <li data-sid="10-practice-pointer:12">A 45-minute limit, the same as the test.</li>
+        <li data-sid="10-practice-pointer:13">Each attempt has a new set of 19 questions.</li>
+        <li data-sid="10-practice-pointer:14">Not for credit.</li>
+      </ul>
+    </div>
+    <p class="pp__plant" data-sid="10-practice-pointer:15">The number on each row of the chart is the question&rsquo;s number in the practice.</p>
+  </div>
+  <div class="slide__number" data-sid="10-practice-pointer:16"></div>
+  <aside class="notes" data-sid="10-practice-pointer:17">The practice test is on PrairieLearn: Assessments, then Test #2 Practice. It stays open until December 31, so you can use it before the Redo this week. It has a 45-minute limit, the same as Test 2. Each attempt gives you a new set of 19 questions, so you can take it more than once. It is not for credit. The number on each row of the chart is the question&rsquo;s number in the practice: if you lost points on the circular queue question, that row says 2, and question 2 of every practice attempt is a circular queue question. Find your own rows on the chart and practice those numbers. Next is the Redo.</aside>
+
+  <style data-sid="10-practice-pointer:18">
+    /* Slide-local: W10D1 05's signpost card across the body, the path at the
+       body size with the assessment name in the heading maroon, the four
+       facts at --t-small as a ruled list (they are sentences), and the plant
+       under the card in display maroon at --t-small. Static. Used by this
+       slide only, all values from tokens. */
+    #slide-10 .pp { display: grid; row-gap: var(--s-5); align-content: start; }
+    #slide-10 .pp__sign { padding: var(--s-4) var(--s-5); }
+    #slide-10 .slide__body p.pp__path { margin: 0 0 var(--s-4); font-size: var(--t-body); line-height: 1.25; color: var(--fg-0); }
+    #slide-10 .pp__path b { color: var(--accent-1); }
+    #slide-10 .pp__facts { list-style: none; margin: 0; padding: 0; }
+    #slide-10 .pp__facts li { margin: 0; padding: var(--s-2) 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); border-top: 2px solid color-mix(in srgb, var(--accent-2) 30%, var(--bg-0)); }
+    #slide-10 .slide__body p.pp__plant { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); }
+  </style>
+</section>

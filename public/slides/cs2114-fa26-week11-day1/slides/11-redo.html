@@ -1,0 +1,64 @@
+<section class="slide slide--warmup" id="slide-11" data-sid="11-redo:1">
+  <header class="slide__head" data-sid="11-redo:2">
+    <h2 data-sid="11-redo:3">Test 2 Redo: Wednesday (MW) &middot; Thursday (TR)</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-redo:4">On the left, a checklist: next class, in lecture; Wednesday November 4 for MW and Thursday November 5 for TR; optional. Under it, the sentence from the 10.1 Assessment 3 Info page: there will be an optional redo for test 2 in Week 11. On the right, one orange-edged card headed before the Redo: find the rows on the Test 2 chart for the questions you lost points on; take Test #2 Practice and work the questions with those numbers; each attempt has a new set of 19 questions, so take it more than once.</p>
+
+  <!-- W10D1 11's rules slide, for the Redo, saying only what a source
+       says. Checklist: the dates and "in lecture" (Canvas home page,
+       2026-10-16, in DECK-PROMPT §11; the schedule page prints only the TR
+       date, "Test 2 Redo Thu Nov 5 — in class"), "optional" (the one Redo
+       rule on the 10.1 Assessment 3 Info page, quoted under the checklist).
+       The one card holds the three study actions that follow from this
+       deck's chart and practice card (09, 10), not Redo rules: no source
+       states the Redo's platform, length, rules or scoring, so the slide
+       states none of them (review 2026-11-01: the DO/DON'T pair was cut,
+       since its DON'T items were unsourced advice). The card GrowsFromCenter
+       on one press; nothing else builds. -->
+  <div class="slide__body rd" data-sid="11-redo:5">
+    <ul class="checklist rd__rules" data-sid="11-redo:6">
+      <li data-sid="11-redo:7"><b data-sid="11-redo:8">Next class</b>, in lecture</li>
+      <li data-sid="11-redo:9"><b data-sid="11-redo:10">Wednesday November 4</b> (MW) &middot; <b data-sid="11-redo:11">Thursday November 5</b> (TR)</li>
+      <li data-sid="11-redo:12"><b data-sid="11-redo:13">Optional</b></li>
+    </ul>
+    <p class="note rd__src" data-sid="11-redo:14">The 10.1 Assessment 3 Info page: &ldquo;There will be an optional redo for test 2 in Week 11.&rdquo;</p>
+    <div class="stack rd__cards" data-sid="11-redo:15">
+      <div class="tile tile--a3 frag" data-step="1" data-sid="11-redo:16">
+        <h3 data-sid="11-redo:17">BEFORE THE REDO</h3>
+        <ul class="rd__list" data-sid="11-redo:18">
+          <li data-sid="11-redo:19">find the rows on the Test 2 chart for the questions you lost points on</li>
+          <li data-sid="11-redo:20">take <b data-sid="11-redo:21">Test #2 Practice</b> and work the questions with those numbers</li>
+          <li data-sid="11-redo:22">each attempt has a new set of 19 questions, so take it more than once</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="11-redo:28"></div>
+  <aside class="notes" data-sid="11-redo:29">The Test 2 Redo is next class, in lecture: Wednesday November 4 for MW and Thursday November 5 for TR. It is optional. That is the one rule the 10.1 Assessment 3 Info page states: &ldquo;There will be an optional redo for test 2 in Week 11.&rdquo; [NOT IN ANY SOURCE: whether the Redo&rsquo;s rules, length or scoring differ from Test 2.] [NOT IN ANY SOURCE: how the Redo score counts against the Test 2 score.] [NOT IN ANY SOURCE: who may take the Redo, and whether anyone must.] Step 1, the card: find the rows on the Test 2 chart for the questions you lost points on, take Test #2 Practice and work the questions with those numbers, and take it more than once, because each attempt has a new set of 19 questions. Those three come from the chart and the practice card, not from a Redo rule. Next is the clock for the rest of the week.</aside>
+
+  <style data-sid="11-redo:30">
+    /* Slide-local: W10D1 11's layout, the checklist at 760 px on the left
+       with the source sentence under it, the one card on the right.
+       Checklist and card items at the small size (they are read as
+       sentences: the Week 8 type floor), the words to find in bold. The
+       card GrowsFromCenter on its press. All values from tokens; used by this
+       slide only. */
+    #slide-11 .rd { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-5); row-gap: var(--s-4); align-items: start; }
+    #slide-11 .rd__rules { grid-column: 1; grid-row: 1; margin: 0; }
+    #slide-11 .rd__src { grid-column: 1; grid-row: 2; margin: 0; color: var(--accent-1); }
+    #slide-11 .rd__cards { grid-column: 2; grid-row: 1 / 3; }
+    #slide-11 .rd__rules li { margin: 0 0 var(--s-2); line-height: 1.3; }
+    #slide-11 .rd__rules b { color: var(--accent-1); }
+    #slide-11 .rd__cards .tile { padding: var(--s-3) var(--s-4); }
+    #slide-11 .rd__cards h3 { font-size: var(--t-small); margin: 0 0 var(--s-1); color: var(--edge); letter-spacing: .1em; }
+    #slide-11 .rd__list { list-style: none; margin: 0; padding: 0; font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-11 .rd__list li { margin: 0 0 var(--s-1); padding-left: var(--s-4); position: relative; line-height: 1.3; }
+    #slide-11 .rd__list li::before { content: ""; position: absolute; left: 0; top: .45em; width: 12px; height: 12px; border-radius: 50%; background: var(--edge); }
+    #slide-11 .rd__list b { color: var(--edge); }
+    #slide-11 .rd__cards .tile { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-11 .rd__cards .frag.tile.is-pending { opacity: 0; transform: scale(0.4); }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .rd__cards .tile { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
