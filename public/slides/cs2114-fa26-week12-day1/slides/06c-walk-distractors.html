@@ -1,0 +1,156 @@
+<section class="slide slide--warmup" id="slide-06c" data-sid="06c-walk-distractors:1">
+  <header class="slide__head" data-sid="06c-walk-distractors:2">
+    <p class="slide__kicker" data-sid="06c-walk-distractors:3">VOTE 1 &middot; THE OTHER OPTIONS</p>
+    <h2 data-sid="06c-walk-distractors:4">The other four options do not shorten a miss</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06c-walk-distractors:5">The four other options of Vote 1, run one per press on the same eight-cell array 3, 5, 8, 12, 15, 20, 24, 30, with a card naming the option and its call and a counter labelled compares. Step one, option B, exit when list at index dot compareTo of anEntry is less than 0, for contains of 12: 3 is less than 12 on the first compare, so the loop exits and returns false; a maroon cross is drawn on the cell holding 12, and the caption says B reports a present entry as absent. Step two, option D, the list in reverse order, for contains of 9: an index pill moves from slot 7 to slot 0 while all eight cells take maroon edges one after another; the counter reads 8. Step three, option E, both ends, for contains of 9: a pill labelled lo moves right from slot 0 and a pill labelled hi moves left from slot 7 until they meet in the middle; all eight cells are compared and the counter reads 8. Step four, option A, return whether indexOf of anEntry is at least 0: indexOf runs the same loop from slot 0 to the end, all eight cells take maroon edges, and the counter reads 8. Step five: the five options, with A, B, D and E struck through and C not struck.</p>
+
+  <!-- The four wrong options of Vote 1, each run on 06b's strip for the
+       call that shows what it does. B is run for a present entry, because
+       its failure is a wrong answer, not a cost; D, E and A for the miss
+       contains(9), because they give the right answer for the same eight
+       compares. Each run resets the strip (its states are keyed to that
+       caption being current); A's state stays through the verdict. The
+       counter starts again from 0 for every run (it counts each run's
+       compares). Pills: D's index pill appears on slot 7 and moves left;
+       E's lo pill above and hi pill below move towards each other (the hi
+       pill is below the strip, as the brief's lower pills are, because two
+       176 px pills cannot share a 108 px pitch); A reuses the index pill
+       from slot 0. A pill that ends a run fades first and returns to its
+       start while invisible, so back-steps reverse.
+       step 1: B · 2: D · 3: E · 4: A · 5: verdict -->
+  <div class="slide__body codewalk dx" data-sid="06c-walk-distractors:6">
+    <div class="dx__cards" data-sid="06c-walk-distractors:7">
+      <div class="dx__card frag" data-step="1" data-sid="06c-walk-distractors:8">
+        <p class="dx__h" data-sid="06c-walk-distractors:9"><span class="dx__k" data-sid="06c-walk-distractors:10">B</span><span class="dx__call" data-sid="06c-walk-distractors:11">contains(12)</span></p>
+        <p class="dx__rule" data-sid="06c-walk-distractors:12">exit when list[index].compareTo(anEntry) &lt; 0</p>
+      </div>
+      <div class="dx__card frag" data-step="2" data-sid="06c-walk-distractors:13">
+        <p class="dx__h" data-sid="06c-walk-distractors:14"><span class="dx__k" data-sid="06c-walk-distractors:15">D</span><span class="dx__call" data-sid="06c-walk-distractors:16">contains(9)</span></p>
+        <p class="dx__rule" data-sid="06c-walk-distractors:17">index runs from numberOfEntries - 1 down to 0</p>
+      </div>
+      <div class="dx__card frag" data-step="3" data-sid="06c-walk-distractors:18">
+        <p class="dx__h" data-sid="06c-walk-distractors:19"><span class="dx__k" data-sid="06c-walk-distractors:20">E</span><span class="dx__call" data-sid="06c-walk-distractors:21">contains(9)</span></p>
+        <p class="dx__rule" data-sid="06c-walk-distractors:22">check list[lo] and list[hi], then lo++ and hi--</p>
+      </div>
+      <div class="dx__card dx__card--keep frag" data-step="4" data-sid="06c-walk-distractors:23">
+        <p class="dx__h" data-sid="06c-walk-distractors:24"><span class="dx__k" data-sid="06c-walk-distractors:25">A</span><span class="dx__call" data-sid="06c-walk-distractors:26">contains(9)</span></p>
+        <p class="dx__rule" data-sid="06c-walk-distractors:27">return indexOf(anEntry) &gt;= 0;</p>
+      </div>
+    </div>
+
+    <div class="dx__right" data-sid="06c-walk-distractors:28">
+      <div class="moves" data-sid="06c-walk-distractors:29">
+        <p class="moves__label" data-sid="06c-walk-distractors:30">compares</p>
+        <div class="moves__stack" data-sid="06c-walk-distractors:31">
+          <div class="heap-obj__field" data-sid="06c-walk-distractors:32"><p class="heap-val heap-val--old frag" data-step="1" data-sid="06c-walk-distractors:33">0</p><p class="heap-val frag" data-step="1" data-sid="06c-walk-distractors:34">1</p></div>
+          <div class="heap-obj__field" data-sid="06c-walk-distractors:35"><p class="heap-val heap-val--old frag" data-step="2" data-sid="06c-walk-distractors:36">0</p><p class="heap-val frag" data-step="2" data-sid="06c-walk-distractors:37">8</p></div>
+          <div class="heap-obj__field" data-sid="06c-walk-distractors:38"><p class="heap-val heap-val--old frag" data-step="3" data-sid="06c-walk-distractors:39">0</p><p class="heap-val frag" data-step="3" data-sid="06c-walk-distractors:40">8</p></div>
+          <div class="heap-obj__field" data-sid="06c-walk-distractors:41"><p class="heap-val heap-val--old frag" data-step="4" data-sid="06c-walk-distractors:42">0</p><p class="heap-val frag" data-step="4" data-sid="06c-walk-distractors:43">8</p></div>
+        </div>
+      </div>
+      <div class="codewalk__caps dx__caps" data-sid="06c-walk-distractors:44">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="06c-walk-distractors:45">3 &lt; 12, so B exits on the first compare and reports a present entry as absent.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="06c-walk-distractors:46">From 30 down to 3, the reverse loop still makes eight compares for 9.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="06c-walk-distractors:47">Checking from both ends, the two indexes meet in the middle after eight compares.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="06c-walk-distractors:48">indexOf runs the same loop and returns the index. A still makes eight compares.</p>
+      </div>
+    </div>
+
+    <svg class="dx__fig" viewBox="-12 0 1056 234" role="img" aria-label="The eight-cell array 3, 5, 8, 12, 15, 20, 24, 30 with index pills above and below it; for each option the cells it compares take a maroon edge, and for option B a cross is drawn on 12" data-sid="06c-walk-distractors:49">
+      <g class="dx__cells" data-sid="06c-walk-distractors:50">
+        <rect class="c0" style="--d: 7; --e: 0; --a: 0" x="30" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:51"/>
+        <rect class="c1" style="--d: 6; --e: 2; --a: 1" x="138" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:52"/>
+        <rect class="c2" style="--d: 5; --e: 4; --a: 2" x="246" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:53"/>
+        <rect class="c3" style="--d: 4; --e: 6; --a: 3" x="354" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:54"/>
+        <rect class="c4" style="--d: 3; --e: 7; --a: 4" x="462" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:55"/>
+        <rect class="c5" style="--d: 2; --e: 5; --a: 5" x="570" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:56"/>
+        <rect class="c6" style="--d: 1; --e: 3; --a: 6" x="678" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:57"/>
+        <rect class="c7" style="--d: 0; --e: 1; --a: 7" x="786" y="50" width="96" height="96" rx="10" data-sid="06c-walk-distractors:58"/>
+      </g>
+      <g class="dx__idx" data-sid="06c-walk-distractors:59"><text x="78" y="176" data-sid="06c-walk-distractors:60">0</text><text x="186" y="176" data-sid="06c-walk-distractors:61">1</text><text x="294" y="176" data-sid="06c-walk-distractors:62">2</text><text x="402" y="176" data-sid="06c-walk-distractors:63">3</text><text x="510" y="176" data-sid="06c-walk-distractors:64">4</text><text x="618" y="176" data-sid="06c-walk-distractors:65">5</text><text x="726" y="176" data-sid="06c-walk-distractors:66">6</text><text x="834" y="176" data-sid="06c-walk-distractors:67">7</text></g>
+      <g class="dx__vals" data-sid="06c-walk-distractors:68"><text x="78" y="110" data-sid="06c-walk-distractors:69">3</text><text x="186" y="110" data-sid="06c-walk-distractors:70">5</text><text x="294" y="110" data-sid="06c-walk-distractors:71">8</text><text x="402" y="110" data-sid="06c-walk-distractors:72">12</text><text x="510" y="110" data-sid="06c-walk-distractors:73">15</text><text x="618" y="110" data-sid="06c-walk-distractors:74">20</text><text x="726" y="110" data-sid="06c-walk-distractors:75">24</text><text x="834" y="110" data-sid="06c-walk-distractors:76">30</text></g>
+      <!-- B: 12 is in the list, and B reports it absent -->
+      <g class="cross" data-sid="06c-walk-distractors:77"><path d="M370 66 L434 130 M434 66 L370 130" data-sid="06c-walk-distractors:78"/></g>
+      <!-- index (B and A), drawn on slot 0 -->
+      <g class="pill pi" data-sid="06c-walk-distractors:79"><rect x="-10" y="0" width="176" height="40" rx="20" data-sid="06c-walk-distractors:80"/><text x="78" y="30" data-sid="06c-walk-distractors:81">index</text><path d="M70 40 L86 40 L78 48 Z" data-sid="06c-walk-distractors:82"/></g>
+      <!-- D: index, drawn on slot 0, starts on slot 7 -->
+      <g class="pill pd" data-sid="06c-walk-distractors:83"><rect x="-10" y="0" width="176" height="40" rx="20" data-sid="06c-walk-distractors:84"/><text x="78" y="30" data-sid="06c-walk-distractors:85">index</text><path d="M70 40 L86 40 L78 48 Z" data-sid="06c-walk-distractors:86"/></g>
+      <!-- E: lo above from slot 0, hi below from slot 7 -->
+      <g class="pill pl" data-sid="06c-walk-distractors:87"><rect x="-10" y="0" width="176" height="40" rx="20" data-sid="06c-walk-distractors:88"/><text x="78" y="30" data-sid="06c-walk-distractors:89">lo</text><path d="M70 40 L86 40 L78 48 Z" data-sid="06c-walk-distractors:90"/></g>
+      <g class="pill ph" data-sid="06c-walk-distractors:91"><rect x="-10" y="190" width="176" height="40" rx="20" data-sid="06c-walk-distractors:92"/><text x="78" y="220" data-sid="06c-walk-distractors:93">hi</text><path d="M70 190 L86 190 L78 180 Z" data-sid="06c-walk-distractors:94"/></g>
+    </svg>
+
+    <ol class="verdict frag dx__verdict" data-step="5" data-sid="06c-walk-distractors:95">
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="06c-walk-distractors:96"><span class="verdict__txt" data-sid="06c-walk-distractors:97">indexOf runs the same loop</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="06c-walk-distractors:98"><span class="verdict__txt" data-sid="06c-walk-distractors:99">exits on the first compare</span></li>
+      <li class="verdict__opt verdict__opt--right" data-sid="06c-walk-distractors:100"><span class="verdict__txt" data-sid="06c-walk-distractors:101">stops past the entry&rsquo;s place</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="06c-walk-distractors:102"><span class="verdict__txt" data-sid="06c-walk-distractors:103">reverse, the same count</span></li>
+      <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="06c-walk-distractors:104"><span class="verdict__txt" data-sid="06c-walk-distractors:105">both ends, the same count</span></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06c-walk-distractors:106"></div>
+  <aside class="notes" data-sid="06c-walk-distractors:107">Answer: C (instructor-confirmed). The other four options, one per press. The counter starts again at 0 for every run. Step 1, B: exit when list[index].compareTo(anEntry) &lt; 0. Run it for 12, which is in the list. The first entry, 3, is smaller than 12, so compareTo is negative and the loop exits at once. contains returns false for an entry that is there. B has the test backwards: in a sorted list the entries before the position are smaller, so a smaller entry is the reason to keep going. Step 2, D: the same loop from the last index down to 0. For 9 it compares 30, 24, 20, 15, 12, 8, 5 and 3. Larger entries are found sooner, smaller ones later, and a miss is still eight compares. Step 3, E: check both ends and move inwards. Each pass compares two entries, so the four passes make eight compares. Step 4, A: indexOf is a helper that runs the same loop and returns the position, or a negative number when the entry is not there. Calling it changes where the loop is written, not how many compares it makes. Step 5: C is the only option that uses the order. Next is Part 2.</aside>
+
+  <style data-sid="06c-walk-distractors:108">
+    /* Slide-local: a card stack on the left (1,080 px: the option's letter
+       disc, the call, and the option's rule in mono at --t-small, the
+       longest 47 characters, 1,015 px), the compares counter and the
+       captions on the right (552 px, captions measured with PIL at three
+       lines or fewer), the strip under both (06b's, 234 px tall with a
+       second pill row below it for hi), and the verdict across the body
+       under the strip. Motion: cards and captions crossfade one per press;
+       compared cells take the maroon edge in each option's order (the --d,
+       --e and --a stagger indexes); pills fade in where a run starts, then
+       move in whole pitches (a real move), and fade before they return; the
+       cross grows from its centre. States keyed to the caption frags
+       through :has(). Used by this slide only, all values from tokens. */
+    #slide-06c .dx { display: grid; grid-template-columns: 1080px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: var(--s-4); row-gap: var(--s-3); align-content: start; align-items: start; }
+    #slide-06c .dx__cards { grid-column: 1; grid-row: 1; display: grid; }
+    #slide-06c .dx__right { grid-column: 2; grid-row: 1; display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-06c .dx__fig { grid-column: 1 / -1; grid-row: 2; display: block; width: 1056px; height: 234px; overflow: visible; }
+    #slide-06c .dx__verdict { grid-column: 1 / -1; grid-row: 3; font-family: var(--font-body); font-size: var(--t-small); column-gap: var(--s-5); }
+    #slide-06c .dx__caps { min-height: 147px; }
+
+    #slide-06c .dx__card { grid-area: 1 / 1; display: grid; row-gap: var(--s-2); padding: var(--s-3); border: 3px solid var(--stone); border-radius: var(--r-3); background: var(--bg-1); transition: opacity .4s ease; }
+    #slide-06c .frag.dx__card.is-past { opacity: 0; }
+    #slide-06c .frag.dx__card--keep.is-past { opacity: 1; }
+    #slide-06c .slide__body p.dx__h { margin: 0; display: flex; align-items: center; gap: var(--s-3); }
+    #slide-06c .dx__k { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--accent-1); color: var(--paper); font-family: var(--font-display); font-size: var(--t-small); }
+    #slide-06c .dx__call { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
+    #slide-06c .slide__body p.dx__rule { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); white-space: nowrap; }
+
+    #slide-06c .dx__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .2s ease; }
+    #slide-06c .dx__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-06c .dx__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-06c .cross path { fill: none; stroke: var(--accent-1); stroke-width: 8; stroke-linecap: round; }
+    #slide-06c .cross { transform-box: fill-box; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4); transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06c .pill rect, #slide-06c .pill path { fill: var(--accent-2); }
+    #slide-06c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    /* a pill at rest: it fades, then jumps back to its start while invisible */
+    #slide-06c .pill { transition: opacity .3s ease, transform 0s linear .3s; }
+    #slide-06c .pd { opacity: 0; transform: translateX(756px); }
+    #slide-06c .pl { opacity: 0; }
+    #slide-06c .ph { opacity: 0; transform: translateX(756px); }
+
+    /* ---- states, in step order ---- */
+    /* step 1: B, contains(12), one compare and the wrong answer */
+    #slide-06c .dx:has(.cap--1.is-current) .c0 { stroke: var(--accent-1); }
+    #slide-06c .dx:has(.cap--1.is-current) .cross { opacity: 1; transform: scale(1); transition-delay: .5s; }
+    /* step 2: D, from slot 7 down to slot 0 */
+    #slide-06c .dx:has(.cap--2:not(.is-pending)) .pi { opacity: 0; }
+    #slide-06c .dx:has(.cap--2.is-current) .pd { opacity: 1; transform: translateX(0); transition: opacity .3s ease, transform 2.1s var(--ease-smooth) .4s; }
+    #slide-06c .dx:has(.cap--2.is-current) .dx__cells rect { stroke: var(--accent-1); transition-delay: calc(.4s + var(--d) * .3s); }
+    /* step 3: E, lo and hi meet in the middle */
+    #slide-06c .dx:has(.cap--3.is-current) .pl { opacity: 1; transform: translateX(324px); transition: opacity .3s ease, transform 1.8s var(--ease-smooth) .4s; }
+    #slide-06c .dx:has(.cap--3.is-current) .ph { opacity: 1; transform: translateX(432px); transition: opacity .3s ease, transform 1.8s var(--ease-smooth) .4s; }
+    #slide-06c .dx:has(.cap--3.is-current) .dx__cells rect { stroke: var(--accent-1); transition-delay: calc(.4s + var(--e) * .25s); }
+    /* step 4 on: A, the List loop from slot 0 past the end */
+    #slide-06c .dx:has(.cap--4:not(.is-pending)) .pi { opacity: 1; transform: translateX(864px); transition: opacity .3s ease, transform 2.1s var(--ease-smooth) .4s; }
+    #slide-06c .dx:has(.cap--4:not(.is-pending)) .dx__cells rect { stroke: var(--accent-1); transition-delay: calc(.4s + var(--a) * .25s); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06c .dx__card, #slide-06c .dx__cells rect, #slide-06c .cross, #slide-06c .pill { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

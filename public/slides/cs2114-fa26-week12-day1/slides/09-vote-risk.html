@@ -1,0 +1,43 @@
+<section class="slide slide--warmup" id="slide-09" data-sid="09-vote-risk:1">
+  <header class="slide__head" data-sid="09-vote-risk:2">
+    <p class="slide__kicker" data-sid="09-vote-risk:3">PEER INSTRUCTION &middot; VOTE 2</p>
+    <h2 data-sid="09-vote-risk:4">What is the main risk of inheriting from List?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="09-vote-risk:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="09-vote-risk:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="09-vote-risk:7"/><g class="timer__ticks" data-sid="09-vote-risk:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="09-vote-risk:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="09-vote-risk:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="09-vote-risk:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="09-vote-risk:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="09-vote-risk:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="09-vote-risk:14"/><g class="timer__hand" data-sid="09-vote-risk:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="09-vote-risk:16"/></g><text class="timer__time" x="75" y="88" data-sid="09-vote-risk:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="09-vote-risk:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="09-vote-risk:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="09-vote-risk:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="09-vote-risk:21"/><g class="timer__ticks" data-sid="09-vote-risk:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="09-vote-risk:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="09-vote-risk:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="09-vote-risk:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="09-vote-risk:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="09-vote-risk:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="09-vote-risk:28"/><g class="timer__hand" data-sid="09-vote-risk:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="09-vote-risk:30"/></g><text class="timer__time" x="75" y="88" data-sid="09-vote-risk:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="09-vote-risk:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="09-vote-risk:33">A peer-instruction question. Under the title, the stem: what is the primary risk of implementing a SortedList by inheriting from the List class? Three options follow across the full width, each led by a maroon disc with its letter. A: inherited index-based mutators, for example add of int and T and set of int and T, allow out-of-order insertions. B: search methods, for example contains and indexOf, remain O of n, so you lose binary-search performance. C: the inherited remove of int index lets clients delete elements at arbitrary positions. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- W11D1 06's long-option layout with no drawing panel: a drawing of the
+       chain would point at the answer, and 09b draws it. The three options
+       are short, so they stay at the vote body size (two lines each). Quoted verbatim from the
+       Runestone paste without a "Q-1: " label. Static: only the clocks
+       build. Runestone: Peer Instruction W12D1, question 2
+       (vtcs2_sortedLists_risks_202507). -->
+  <div class="slide__body" data-sid="09-vote-risk:34">
+    <p class="vote__stem" data-sid="09-vote-risk:35">What is the primary risk of implementing a SortedList by inheriting from the List class?</p>
+    <ol class="vote__opts rk__opts" data-sid="09-vote-risk:36">
+      <li class="vote__opt" data-sid="09-vote-risk:37"><span class="vote__key" data-sid="09-vote-risk:38">A</span><p class="vote__text" data-sid="09-vote-risk:39">Inherited index-based mutators (e.g. add(int, T), set(int, T)) allow out-of-order insertions</p></li>
+      <li class="vote__opt" data-sid="09-vote-risk:40"><span class="vote__key" data-sid="09-vote-risk:41">B</span><p class="vote__text" data-sid="09-vote-risk:42">Search methods (e.g. contains, indexOf) remain O(n), so you lose binary-search performance</p></li>
+      <li class="vote__opt" data-sid="09-vote-risk:43"><span class="vote__key" data-sid="09-vote-risk:44">C</span><p class="vote__text" data-sid="09-vote-risk:45">The inherited remove(int index) lets clients delete elements at arbitrary positions</p></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="09-vote-risk:46"></div>
+  <aside class="notes" data-sid="09-vote-risk:47">Answer: A [PL twin sortedLists/sortedlists_inheritance; confirm in Runestone&rsquo;s results view before class]. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. Ask the groups to take the chain 3, 7, 12, 20 and try each option: which call can leave the list out of order? For B, ask whether a search on a chain could be anything other than O(n). For C, ask what the list looks like after remove(1). The vote says set(int, T); the textbook&rsquo;s name for that method is replace. The slide leaves out Runestone&rsquo;s &ldquo;Q-1:&rdquo; label. Runestone: Peer Instruction W12D1, question 2 of 2.</aside>
+
+  <style data-sid="09-vote-risk:48">
+    /* two clocks at the top right, copied from W11D1 06. */
+    #slide-09 .timer { top: var(--s-6); }
+    #slide-09 .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-09 .frag.timer.is-past { opacity: .55; }
+    #slide-09 .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-09 .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-09 .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the options alone across the body at the deck's vote
+       size (--t-body with the 80 px discs, not --long): at --t-small each
+       option is one line and the slide had 358 px of slack. Used by this
+       slide only, all values from tokens. */
+    #slide-09 .vote__stem { max-width: none; }
+  </style>
+</section>

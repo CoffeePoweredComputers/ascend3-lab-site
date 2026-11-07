@@ -1,0 +1,90 @@
+<section class="slide slide--warmup" id="slide-06b">
+  <header class="slide__head">
+    <p class="slide__kicker">VOTE 1 &middot; THE ANSWER</p>
+    <h2>Each row is the array after one insertInOrder</h2>
+  </header>
+  <p class="sr-only slide__desc">The answer to Vote 1, built in eight presses. On the left, the vote's five rows, labelled A. Press one: in row 2, 25 and 64 take blue edges and the first two cells are washed blue; the caption says row 2 is the array after insertInOrder of data and 1. Press two: in row 3, 12, 25 and 64 take blue edges and three cells are washed. Press three: in row 4, 22, 25 and 64 take blue edges and four cells are washed; 22 is at index 1. Press four: row 5 is washed; the caption says the sorted part grows by one entry per pass from the left. Presses five to seven: three more grids grow in beside it, each with five rows for the same input, and each has its label struck through and the cells of its first differing row edged in maroon. B, selection sort: 64 25 12 22 11, 11 25 12 22 64, 11 12 25 22 64, 11 12 22 25 64, 11 12 22 25 64. C, bubble sort: 64 25 12 22 11, 25 12 22 11 64, 12 22 11 25 64, 12 11 22 25 64, 11 12 22 25 64. D, merge sort: 64 25 12 22 11, 25 64 12 22 11, 12 25 64 22 11, 12 25 64 11 22, 11 12 22 25 64. Press eight: the four options, with B, C and D struck through and A in maroon.</p>
+
+  <!-- The answer walk for Vote 1. Left: the vote's rows (06's grid), one row
+       per press, the cells that moved edged blue and the sorted prefix
+       washed. Then the three wrong options as grids of the rows they would
+       produce on the same input, each growing in with its first row that
+       differs from the vote's edged maroon and its label struck. The outline
+       placed 22 at index 2 in row 4; the row has it at index 1. The outline's
+       merge sort split 64 25 | 12 22 11; the textbook's mergeSort splits at
+       mid = (first + last) / 2 = 2, which gives 64 25 12 | 22 11, and then
+       rows 2 and 3 match the vote's, so the walk says so and shows the
+       first row that differs.
+       steps 1-4: rows 2-5 · 5: selection sort · 6: bubble sort ·
+       7: merge sort · 8: verdict -->
+  <div class="slide__body wr">
+    <div class="wr__ps">
+      <div class="wr__p wr__p--a"><p class="wr__l"><span class="wr__lt">A &middot; the vote&rsquo;s rows</span></p><div class="rw" role="img" aria-label="The vote's five rows: 64 25 12 22 11; 25 64 12 22 11; 12 25 64 22 11; 12 22 25 64 11; 11 12 22 25 64"><span class="rw__c r0 s0">64</span><span class="rw__c r0 s1">25</span><span class="rw__c r0 s2">12</span><span class="rw__c r0 s3">22</span><span class="rw__c r0 s4">11</span><span class="rw__c r1 s0">25</span><span class="rw__c r1 s1">64</span><span class="rw__c r1 s2">12</span><span class="rw__c r1 s3">22</span><span class="rw__c r1 s4">11</span><span class="rw__c r2 s0">12</span><span class="rw__c r2 s1">25</span><span class="rw__c r2 s2">64</span><span class="rw__c r2 s3">22</span><span class="rw__c r2 s4">11</span><span class="rw__c r3 s0">12</span><span class="rw__c r3 s1">22</span><span class="rw__c r3 s2">25</span><span class="rw__c r3 s3">64</span><span class="rw__c r3 s4">11</span><span class="rw__c r4 s0">11</span><span class="rw__c r4 s1">12</span><span class="rw__c r4 s2">22</span><span class="rw__c r4 s3">25</span><span class="rw__c r4 s4">64</span></div></div>
+      <div class="wr__p wr__p--x frag" data-step="5"><p class="wr__l"><span class="wr__lt wr__lt--x">B &middot; selection sort</span></p><div class="rw" role="img" aria-label="Selection sort's rows on the same input: 64 25 12 22 11; 11 25 12 22 64; 11 12 25 22 64; 11 12 22 25 64; 11 12 22 25 64"><span class="rw__c r0 s0">64</span><span class="rw__c r0 s1">25</span><span class="rw__c r0 s2">12</span><span class="rw__c r0 s3">22</span><span class="rw__c r0 s4">11</span><span class="rw__c r1 s0 rw__c--bad">11</span><span class="rw__c r1 s1 rw__c--bad">25</span><span class="rw__c r1 s2">12</span><span class="rw__c r1 s3">22</span><span class="rw__c r1 s4 rw__c--bad">64</span><span class="rw__c r2 s0">11</span><span class="rw__c r2 s1">12</span><span class="rw__c r2 s2">25</span><span class="rw__c r2 s3">22</span><span class="rw__c r2 s4">64</span><span class="rw__c r3 s0">11</span><span class="rw__c r3 s1">12</span><span class="rw__c r3 s2">22</span><span class="rw__c r3 s3">25</span><span class="rw__c r3 s4">64</span><span class="rw__c r4 s0">11</span><span class="rw__c r4 s1">12</span><span class="rw__c r4 s2">22</span><span class="rw__c r4 s3">25</span><span class="rw__c r4 s4">64</span></div></div>
+      <div class="wr__p wr__p--x frag" data-step="6"><p class="wr__l"><span class="wr__lt wr__lt--x">C &middot; bubble sort</span></p><div class="rw" role="img" aria-label="Bubble sort's rows on the same input: 64 25 12 22 11; 25 12 22 11 64; 12 22 11 25 64; 12 11 22 25 64; 11 12 22 25 64"><span class="rw__c r0 s0">64</span><span class="rw__c r0 s1">25</span><span class="rw__c r0 s2">12</span><span class="rw__c r0 s3">22</span><span class="rw__c r0 s4">11</span><span class="rw__c r1 s0">25</span><span class="rw__c r1 s1 rw__c--bad">12</span><span class="rw__c r1 s2 rw__c--bad">22</span><span class="rw__c r1 s3 rw__c--bad">11</span><span class="rw__c r1 s4 rw__c--bad">64</span><span class="rw__c r2 s0">12</span><span class="rw__c r2 s1">22</span><span class="rw__c r2 s2">11</span><span class="rw__c r2 s3">25</span><span class="rw__c r2 s4">64</span><span class="rw__c r3 s0">12</span><span class="rw__c r3 s1">11</span><span class="rw__c r3 s2">22</span><span class="rw__c r3 s3">25</span><span class="rw__c r3 s4">64</span><span class="rw__c r4 s0">11</span><span class="rw__c r4 s1">12</span><span class="rw__c r4 s2">22</span><span class="rw__c r4 s3">25</span><span class="rw__c r4 s4">64</span></div></div>
+      <div class="wr__p wr__p--x frag" data-step="7"><p class="wr__l"><span class="wr__lt wr__lt--x">D &middot; merge sort</span></p><div class="rw" role="img" aria-label="Merge sort's rows on the same input: 64 25 12 22 11; 25 64 12 22 11; 12 25 64 22 11; 12 25 64 11 22; 11 12 22 25 64"><span class="rw__c r0 s0">64</span><span class="rw__c r0 s1">25</span><span class="rw__c r0 s2">12</span><span class="rw__c r0 s3">22</span><span class="rw__c r0 s4">11</span><span class="rw__c r1 s0">25</span><span class="rw__c r1 s1">64</span><span class="rw__c r1 s2">12</span><span class="rw__c r1 s3">22</span><span class="rw__c r1 s4">11</span><span class="rw__c r2 s0">12</span><span class="rw__c r2 s1">25</span><span class="rw__c r2 s2">64</span><span class="rw__c r2 s3">22</span><span class="rw__c r2 s4">11</span><span class="rw__c r3 s0">12</span><span class="rw__c r3 s1 rw__c--bad">25</span><span class="rw__c r3 s2 rw__c--bad">64</span><span class="rw__c r3 s3 rw__c--bad">11</span><span class="rw__c r3 s4 rw__c--bad">22</span><span class="rw__c r4 s0">11</span><span class="rw__c r4 s1">12</span><span class="rw__c r4 s2">22</span><span class="rw__c r4 s3">25</span><span class="rw__c r4 s4">64</span></div></div>
+    </div>
+    <div class="wr__caps">
+      <p class="wr__cap cap--1 frag" data-step="1">Row 2 is the array after insertInOrder(data, 1). 25 is now in front of 64 and nothing else moved, which is slide 04&rsquo;s result.</p>
+      <p class="wr__cap cap--2 frag" data-step="2">Row 3 is the array after insertInOrder(data, 2). 12 is at the front, and 25 and 64 each moved one slot to the right.</p>
+      <p class="wr__cap cap--3 frag" data-step="3">Row 4 is the array after insertInOrder(data, 3). 22 is at index 1, and 25 and 64 each moved one slot to the right.</p>
+      <p class="wr__cap cap--4 frag" data-step="4">The sorted part grows by one entry per pass from the left, and the entries to its right are not touched until their pass.</p>
+      <p class="wr__cap cap--5 frag" data-step="5">Selection sort&rsquo;s first pass puts the smallest entry, 11, in slot 0 and 64 where 11 was. Row 2 of the vote is not that.</p>
+      <p class="wr__cap cap--6 frag" data-step="6">A bubble sort pass compares neighbors and carries 64 to the end, so its second row would be 25 12 22 11 64.</p>
+      <p class="wr__cap cap--7 frag" data-step="7">Merge sort, splitting at (first + last) / 2, matches rows 2 and 3, but its next merge sorts 22 and 11 and gives 12 25 64 11 22.</p>
+      <ol class="verdict frag wr__verdict" data-step="8">
+        <li class="verdict__opt verdict__opt--right"><span class="verdict__txt">insertion sort</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0"><span class="verdict__txt">selection sort</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1"><span class="verdict__txt">bubble sort</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2"><span class="verdict__txt">merge sort</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+  <aside class="notes">Answer: A, insertion sort [twin sorting/u12q03_sorting_tracing_c; confirm in Runestone&rsquo;s results view]. Step 1: from row 1 to row 2, only 25 and 64 changed places. That is insertInOrder(data, 1), slide 04. Step 2: 12 went to the front and 25 and 64 moved right one slot each, slide 04b&rsquo;s second call. Step 3: 22 went into index 1, between 12 and 25. Step 4: 11 went to the front. Each row has one more entry in the sorted part on the left, and the entries on the right are still in their original order: 22 and 11 do not move until their own pass. Step 5: selection sort. Its first pass swaps the smallest entry, 11, into slot 0, so its second row starts with 11, and 64 is at the end. Step 6: bubble sort compares neighbors left to right and swaps them when they are out of order, so its first pass carries 64 to the end. Step 7: merge sort, splitting at the middle index, sorts 64 25 12 first, and its first two rows happen to match; its next step works on 22 and 11, which is not row 4. Step 8: A. In insertion sort the right part of the array is untouched until its pass; in selection sort the left part is final after each pass. That is the difference to remember.</aside>
+
+  <style>
+    /* Slide-local: four 5 x 5 grids in a row, slide 06's cells (64 px on a
+       72 px pitch, 352 px square, stone edge, values in mono at --t-small),
+       each under a label in the body face at --t-small; the captions under
+       them (two lines of the 1,664 px body) with the verdict in the same
+       cell. Motion: the vote's grid builds by colour only (blue edges for
+       the cells that moved, for their press; the sorted prefix washed blue,
+       kept); the other three grids GrowFromCenter, then their label's strike
+       is drawn left to right (a border scaled from 0, as in .verdict) and the
+       differing row is already edged maroon when the grid arrives. Used by
+       this slide only, all values from tokens. */
+    #slide-06b .wr { display: grid; grid-template-rows: auto auto; row-gap: var(--s-5); align-content: start; }
+    #slide-06b .wr__ps { display: flex; justify-content: space-between; }
+    #slide-06b .wr__p { display: grid; row-gap: var(--s-2); justify-items: start; }
+    #slide-06b .slide__body p.wr__l { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); }
+    #slide-06b .wr__lt { position: relative; display: inline-block; }
+    #slide-06b .wr__lt--x::after { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 0; border-top: 3px solid var(--accent-1); transform: scaleX(0); transform-origin: left center; transition: transform .35s var(--ease-smooth); }
+    #slide-06b .frag.wr__p--x:not(.is-pending) .wr__lt--x::after { transform: scaleX(1); transition-delay: .9s; }
+    #slide-06b .rw { display: grid; grid-template-columns: repeat(5, 64px); grid-auto-rows: 64px; gap: 8px; }
+    #slide-06b .rw__c { box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1); font-family: var(--font-mono); font-size: var(--t-small); line-height: 1; color: var(--fg-0); transition: border-color .3s ease, background-color .4s ease; }
+    #slide-06b .rw__c--bad { border-color: var(--accent-1); border-width: 4px; }
+    #slide-06b .wr__p--x { transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06b .frag.wr__p--x.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-06b .slide__body:has(.cap--1:not(.is-pending)) .wr__p--a .r1.s0, #slide-06b .slide__body:has(.cap--1:not(.is-pending)) .wr__p--a .r1.s1 { background: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-06b .slide__body:has(.cap--1.is-current) .wr__p--a .r1.s0, #slide-06b .slide__body:has(.cap--1.is-current) .wr__p--a .r1.s1 { border-color: var(--accent-2); }
+    #slide-06b .slide__body:has(.cap--2:not(.is-pending)) .wr__p--a .r2.s0, #slide-06b .slide__body:has(.cap--2:not(.is-pending)) .wr__p--a .r2.s1, #slide-06b .slide__body:has(.cap--2:not(.is-pending)) .wr__p--a .r2.s2 { background: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-06b .slide__body:has(.cap--2.is-current) .wr__p--a .r2.s0, #slide-06b .slide__body:has(.cap--2.is-current) .wr__p--a .r2.s1, #slide-06b .slide__body:has(.cap--2.is-current) .wr__p--a .r2.s2 { border-color: var(--accent-2); }
+    #slide-06b .slide__body:has(.cap--3:not(.is-pending)) .wr__p--a .r3.s0, #slide-06b .slide__body:has(.cap--3:not(.is-pending)) .wr__p--a .r3.s1, #slide-06b .slide__body:has(.cap--3:not(.is-pending)) .wr__p--a .r3.s2, #slide-06b .slide__body:has(.cap--3:not(.is-pending)) .wr__p--a .r3.s3 { background: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-06b .slide__body:has(.cap--3.is-current) .wr__p--a .r3.s1, #slide-06b .slide__body:has(.cap--3.is-current) .wr__p--a .r3.s2, #slide-06b .slide__body:has(.cap--3.is-current) .wr__p--a .r3.s3 { border-color: var(--accent-2); }
+    #slide-06b .slide__body:has(.cap--4:not(.is-pending)) .wr__p--a .r4.s0, #slide-06b .slide__body:has(.cap--4:not(.is-pending)) .wr__p--a .r4.s1, #slide-06b .slide__body:has(.cap--4:not(.is-pending)) .wr__p--a .r4.s2, #slide-06b .slide__body:has(.cap--4:not(.is-pending)) .wr__p--a .r4.s3, #slide-06b .slide__body:has(.cap--4:not(.is-pending)) .wr__p--a .r4.s4 { background: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-06b .slide__body:has(.cap--4.is-current) .wr__p--a .r4.s0, #slide-06b .slide__body:has(.cap--4.is-current) .wr__p--a .r4.s1, #slide-06b .slide__body:has(.cap--4.is-current) .wr__p--a .r4.s2, #slide-06b .slide__body:has(.cap--4.is-current) .wr__p--a .r4.s3, #slide-06b .slide__body:has(.cap--4.is-current) .wr__p--a .r4.s4 { border-color: var(--accent-2); }
+
+    /* captions: one at a time in one cell; the verdict takes the cell last */
+    #slide-06b .wr__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-06b .slide__body p.wr__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-06b .frag.wr__cap.is-pending, #slide-06b .frag.wr__cap.is-past { opacity: 0; }
+    #slide-06b .wr__caps .verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); column-gap: var(--s-6); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06b .rw__c, #slide-06b .wr__p--x, #slide-06b .wr__lt--x::after, #slide-06b .wr__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

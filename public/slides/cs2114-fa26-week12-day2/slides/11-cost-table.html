@@ -1,0 +1,52 @@
+<section class="slide" id="slide-11" data-sid="11-cost-table:1">
+  <header class="slide__head" data-sid="11-cost-table:2">
+    <h2 data-sid="11-cost-table:3">Both sorts are O(n&sup2;); they differ in what they move</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-cost-table:4">A table of costs, built one row per press, with the columns sort, compares, shifts or swaps, growth, and the counts from today's walks on five entries. Row one: insertion sort in the worst case, n times n minus 1 over 2 compares and as many shifts, O of n squared; on Vote 1's input the walk made 10 compares and 9 shifts. Row two: insertion sort on input already in order, n minus 1 compares and no shifts, O of n; 4 and 0. Row three: selection sort, in any order, n times n minus 1 over 2 compares and n swap calls, O of n squared; 10 and 5. Row four: the library sorts, Arrays dot sort and Collections dot sort, O of n log n. Last, a line in maroon: selection sort moves the least; insertion sort compares the least when the input is nearly in order.</p>
+
+  <!-- Part 3's one slide: the counts from the walks as a table (W5D1 12's
+       grammar: mono for the formulas, growth as badges, maroon for O(n²) and
+       blue for the slower-growing ones), one row per press (plain fade). The
+       last column ties each formula to the walk where the class counted it at
+       n = 5 (slide numbers in brackets). Every cell is one line: the five
+       columns are about 1,590 px at --t-small, measured with PIL. Library sorts: the brief's O(n log n), with no compare or move
+       formula (their algorithms are not taught this week).
+       step 1: insertion, worst case · 2: insertion, sorted input ·
+       3: selection · 4: library sorts · 5: the plant -->
+  <div class="slide__body ct" data-sid="11-cost-table:5">
+    <table class="ct__t" data-sid="11-cost-table:6">
+      <thead data-sid="11-cost-table:7"><tr data-sid="11-cost-table:8"><th data-sid="11-cost-table:9">sort</th><th data-sid="11-cost-table:10">compares</th><th data-sid="11-cost-table:11">shifts or swaps</th><th data-sid="11-cost-table:12">growth</th><th data-sid="11-cost-table:13">n = 5, walked</th></tr></thead>
+      <tbody data-sid="11-cost-table:14">
+        <tr class="frag" data-step="1" data-sid="11-cost-table:15"><td data-sid="11-cost-table:16">insertion sort, worst case</td><td class="ct__m" data-sid="11-cost-table:17">n(n &minus; 1)/2</td><td class="ct__m" data-sid="11-cost-table:18">n(n &minus; 1)/2</td><td data-sid="11-cost-table:19"><span class="ct__b ct__b--sq" data-sid="11-cost-table:20">O(n&sup2;)</span></td><td data-sid="11-cost-table:21">10 and 9 (04b)</td></tr>
+        <tr class="frag" data-step="2" data-sid="11-cost-table:22"><td data-sid="11-cost-table:23">insertion sort, sorted input</td><td class="ct__m" data-sid="11-cost-table:24">n &minus; 1</td><td class="ct__m" data-sid="11-cost-table:25">0</td><td data-sid="11-cost-table:26"><span class="ct__b ct__b--ok" data-sid="11-cost-table:27">O(n)</span></td><td data-sid="11-cost-table:28">4 and 0 (04c)</td></tr>
+        <tr class="frag" data-step="3" data-sid="11-cost-table:29"><td data-sid="11-cost-table:30">selection sort, any order</td><td class="ct__m" data-sid="11-cost-table:31">n(n &minus; 1)/2</td><td class="ct__m" data-sid="11-cost-table:32">n swap calls</td><td data-sid="11-cost-table:33"><span class="ct__b ct__b--sq" data-sid="11-cost-table:34">O(n&sup2;)</span></td><td data-sid="11-cost-table:35">10 and 5 (08b)</td></tr>
+        <tr class="frag" data-step="4" data-sid="11-cost-table:36"><td data-sid="11-cost-table:37">Arrays.sort, Collections.sort</td><td class="ct__m" data-sid="11-cost-table:38">&mdash;</td><td class="ct__m" data-sid="11-cost-table:39">&mdash;</td><td data-sid="11-cost-table:40"><span class="ct__b ct__b--ok" data-sid="11-cost-table:41">O(n log n)</span></td><td data-sid="11-cost-table:42">&mdash;</td></tr>
+      </tbody>
+    </table>
+    <p class="ct__plant frag" data-step="5" data-sid="11-cost-table:43">Selection sort moves the least. Insertion sort compares the least when the input is nearly in order.</p>
+  </div>
+  <div class="slide__number" data-sid="11-cost-table:44"></div>
+  <aside class="notes" data-sid="11-cost-table:45">This table collects the counts from the walks. Step 1: insertion sort&rsquo;s worst case is input in reverse order. Pass i then compares and shifts i times, so the total is 1 + 2 + &hellip; + (n &minus; 1) = n(n &minus; 1)/2 of each, which is O(n&sup2;). On Vote 1&rsquo;s input the walk made 10 compares and 9 shifts, close to the worst case of 10 and 10. Step 2: on input that is already in order, each pass makes one compare and no shift, n &minus; 1 compares in all, which is linear. Step 3: selection sort makes n(n &minus; 1)/2 compares whatever the order, because findSmallest always scans the whole unsorted part. It makes one swap call per pass, n in all, and each swap is three assignments. Step 4: Java&rsquo;s library sorts, Arrays.sort and Collections.sort, are O(n log n). The class writes these two sorts to see where the cost comes from. Step 5: if moving an entry is expensive, selection sort moves the least. If the input is almost sorted, insertion sort does the least work. Next: what is due next week.</aside>
+
+  <style data-sid="11-cost-table:46">
+    /* Slide-local: one table across the body, sort names in the body face
+       and formulas in mono, both at --t-small; growth as badges (W5D1 12:
+       maroon for O(n²), blue for O(n) and O(n log n)); a hairline under each
+       row. Rows fade in one per press; the plant is the display maroon line
+       under the table. Used by this slide only, all values from tokens. */
+    #slide-11 .ct { display: grid; row-gap: var(--s-5); align-content: start; }
+    #slide-11 .ct__t { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
+    #slide-11 .ct__t th { font-family: var(--font-body); font-size: var(--t-small); font-weight: 400; color: var(--fg-1); text-align: left; padding: 0 var(--s-3) var(--s-2) 0; border-bottom: 3px solid var(--fg-1); }
+    #slide-11 .ct__t td { padding: var(--s-3) var(--s-3) var(--s-3) 0; border-bottom: 2px solid var(--bg-1); color: var(--fg-0); line-height: 1.3; vertical-align: baseline; }
+    #slide-11 .ct__t td:last-child { color: var(--fg-1); }
+    #slide-11 .ct__m { font-family: var(--font-mono); white-space: nowrap; }
+    #slide-11 .ct__t tr.frag { transition: opacity .3s ease; }
+    #slide-11 .ct__b { display: inline-block; padding: 0 var(--s-2); border-radius: var(--r-3); font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.4; white-space: nowrap; }
+    #slide-11 .ct__b--sq { color: var(--accent-1); background: color-mix(in srgb, var(--accent-1) 14%, var(--bg-0)); }
+    #slide-11 .ct__b--ok { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 14%, var(--bg-0)); }
+    #slide-11 .slide__body p.ct__plant { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .ct__t tr.frag, #slide-11 .ct__plant { transition-duration: 0s !important; }
+    }
+  </style>
+</section>

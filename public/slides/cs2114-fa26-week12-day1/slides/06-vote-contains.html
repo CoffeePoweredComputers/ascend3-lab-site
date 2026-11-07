@@ -1,0 +1,58 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-vote-contains:1">
+  <header class="slide__head" data-sid="06-vote-contains:2">
+    <p class="slide__kicker" data-sid="06-vote-contains:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06-vote-contains:4">How can contains run faster on a SortedList?</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06-vote-contains:5">A peer-instruction question, the first of two slides. Under the title, the stem: both ListInterface and SortedListInterface include the method definition contains of anEntry. Consider the example implementation of the List contains of anEntry method presented below. Left, an editor with the method: public boolean contains of T anEntry; boolean found equals false; int index equals 0; while not found and index is less than numberOfEntries; if anEntry dot equals list at index, found equals true; index plus plus; return found. Right, the question: how could you improve contains of anEntry for a SortedList so that it still works correctly but may run faster in the average case? The five options and the clocks are on the next slide. Nothing builds.</p>
+
+  <!-- Vote 1 is a code question with five long options. The loop needs a
+       1,030 px editor at --t-code (the while line is 49 characters), and the
+       options at --t-small need the full body width (A 1 line, B 1, C 2, D 1,
+       E 2 at 1,584 px; 18 lines in the 586 px beside the editor; PIL on
+       Liberation Sans 36 px). The stem, the code and the options together
+       are about 1,100 px tall against a 685 px body, so the question is two
+       slides, as W9D2 07/07a split its five code options: this one (the stem
+       sentences, the code and the question sentence) and 06a (the question
+       sentence again, the five options and the two clocks). Quoted verbatim
+       from the Runestone paste, without a "Q-1: " label. Static: nothing
+       builds. Runestone: Peer Instruction W12D1, question 1
+       (vtcs2_sortedLists_contains_2_202507). -->
+  <div class="slide__body code-mid" data-sid="06-vote-contains:6">
+    <p class="vote__stem vc__stem" data-sid="06-vote-contains:7">Both ListInterface and SortedListInterface include the method definition contains(anEntry). Consider the example implementation of the List contains(anEntry) method presented below.</p>
+    <div class="vc__panels" data-sid="06-vote-contains:8">
+      <div class="editor vc__editor" data-sid="06-vote-contains:9">
+        <p class="editor__bar" data-sid="06-vote-contains:10">the List contains(anEntry)</p>
+        <ol class="editor__code" data-sid="06-vote-contains:11">
+          <li data-sid="06-vote-contains:12"><span class="tok-key" data-sid="06-vote-contains:13">public boolean</span> contains(T anEntry) {</li>
+          <li data-sid="06-vote-contains:14">    <span class="tok-key" data-sid="06-vote-contains:15">boolean</span> found = <span class="tok-key" data-sid="06-vote-contains:16">false</span>;</li>
+          <li data-sid="06-vote-contains:17">    <span class="tok-key" data-sid="06-vote-contains:18">int</span> index = <span class="tok-num" data-sid="06-vote-contains:19">0</span>;</li>
+          <li data-sid="06-vote-contains:20">    <span class="tok-key" data-sid="06-vote-contains:21">while</span> (!found &amp;&amp; (index &lt; numberOfEntries)) {</li>
+          <li data-sid="06-vote-contains:22">        <span class="tok-key" data-sid="06-vote-contains:23">if</span> (anEntry.equals(list[index])) {</li>
+          <li data-sid="06-vote-contains:24">            found = <span class="tok-key" data-sid="06-vote-contains:25">true</span>;</li>
+          <li data-sid="06-vote-contains:26">        }</li>
+          <li data-sid="06-vote-contains:27">        index++;</li>
+          <li data-sid="06-vote-contains:28">    }</li>
+          <li data-sid="06-vote-contains:29">    <span class="tok-key" data-sid="06-vote-contains:30">return</span> found;</li>
+          <li data-sid="06-vote-contains:31">}</li>
+        </ol>
+      </div>
+      <p class="vc__q" data-sid="06-vote-contains:32">How could you improve contains(anEntry) for a SortedList so that it still works correctly but may run faster in the average case?</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-vote-contains:33"></div>
+  <aside class="notes" data-sid="06-vote-contains:34">Answer: C (instructor-confirmed) &mdash; exit the loop when list[index].compareTo(anEntry) &gt; 0, because past that position the entry cannot appear. This slide shows the stem and the code; the options and the two clocks are on the next slide. The code is the loop the class walked on the last two slides. Give the room a moment to read the question, then move on to the options. The slide leaves out Runestone&rsquo;s &ldquo;Q-1:&rdquo; label. Runestone: Peer Instruction W12D1, question 1 of 2.</aside>
+
+  <style data-sid="06-vote-contains:35">
+    /* Slide-local: the stem across the full body, then the editor at
+       --t-code, 1,030 px (49 × 19.2 = 941, plus 2% for WebKit's whole-pixel
+       mono advances, plus 70 of chrome) at line-height 1.15, and the
+       question sentence beside it in the stem's type at --t-small (586 px,
+       four lines). The split into two slides is explained in the comment
+       above. Used by this slide only, all values from tokens. */
+    #slide-06 .vc__stem { max-width: none; margin-bottom: var(--s-3); }
+    #slide-06 .vc__panels { display: grid; grid-template-columns: 1030px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-06 .vc__editor { width: 1030px; }
+    #slide-06 .vc__editor .editor__code li { line-height: 1.15; }
+    #slide-06 .slide__body p.vc__q { margin: 0; font-size: var(--t-small); line-height: 1.45; color: var(--fg-0); }
+  </style>
+</section>

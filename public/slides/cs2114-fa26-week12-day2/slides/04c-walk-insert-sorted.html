@@ -1,0 +1,143 @@
+<section class="slide slide--warmup" id="slide-04c" data-sid="04c-walk-insert-sorted:1">
+  <header class="slide__head" data-sid="04c-walk-insert-sorted:2">
+    <h2 data-sid="04c-walk-insert-sorted:3">On sorted input, each pass makes one compare and no shift</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04c-walk-insert-sorted:4">The same insertion sort code, with the whole body of insertInOrder under the program-counter bar for each call. On the right, the call with i, the counters compares and shifts at 0, and an array already in order: 11, 12, 22, 25, 64. Steps one to four, one call each, for i from 1 to 4: the entry at i rises into the dashed cell, the entry to its left takes a maroon edge as it is compared and is not larger, and the held entry drops back into its own slot; compares rolls from 1 to 4 and shifts stays at 0. Step five: the caption says four compares and no shifts, and that insertion sort is cheap when the input is nearly in order.</p>
+
+  <!-- Concept intro, walk 3 of 3: the same code on the sorted output of 04b,
+       one call per press, the whole body of insertInOrder held under the bar.
+       Each call makes one compare, which is false, and no shift; the held
+       value rises and drops back into its own slot (data[j + 1] is data[i]).
+       steps 1-4: i = 1 to 4 · 5: the plant -->
+  <div class="slide__body codewalk code-mid is" data-sid="04c-walk-insert-sorted:5">
+    <div class="editor" data-sid="04c-walk-insert-sorted:6">
+      <p class="editor__bar" data-sid="04c-walk-insert-sorted:7">insertion sort, 10.2 reading</p>
+      <div class="editor__pc" data-sid="04c-walk-insert-sorted:8"></div>
+      <ol class="editor__code" data-sid="04c-walk-insert-sorted:9">
+        <li data-sid="04c-walk-insert-sorted:10"><span class="tok-key" data-sid="04c-walk-insert-sorted:11">void</span> insertionSort(<span class="tok-key" data-sid="04c-walk-insert-sorted:12">int</span>[] data) {</li>
+        <li data-sid="04c-walk-insert-sorted:13">    <span class="tok-key" data-sid="04c-walk-insert-sorted:14">for</span> (<span class="tok-key" data-sid="04c-walk-insert-sorted:15">int</span> i = <span class="tok-num" data-sid="04c-walk-insert-sorted:16">1</span>; i &lt; data.length; i++)</li>
+        <li data-sid="04c-walk-insert-sorted:17">        insertInOrder(data, i);</li>
+        <li data-sid="04c-walk-insert-sorted:18">}</li>
+        <li data-sid="04c-walk-insert-sorted:19"><span class="tok-key" data-sid="04c-walk-insert-sorted:20">void</span> insertInOrder(<span class="tok-key" data-sid="04c-walk-insert-sorted:21">int</span>[] data, <span class="tok-key" data-sid="04c-walk-insert-sorted:22">int</span> i) {</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:23">    <span class="tok-key" data-sid="04c-walk-insert-sorted:24">int</span> unsorted = data[i];</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:25">    <span class="tok-key" data-sid="04c-walk-insert-sorted:26">int</span> j = i - <span class="tok-num" data-sid="04c-walk-insert-sorted:27">1</span>;</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:28">    <span class="tok-key" data-sid="04c-walk-insert-sorted:29">while</span> (j &gt;= <span class="tok-num" data-sid="04c-walk-insert-sorted:30">0</span> &amp;&amp; data[j] &gt; unsorted) {</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:31">        data[j + <span class="tok-num" data-sid="04c-walk-insert-sorted:32">1</span>] = data[j];</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:33">        j--;</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:34">    }</li>
+        <li class="walkline frag" data-step="1" data-hold="4" data-sid="04c-walk-insert-sorted:35">    data[j + <span class="tok-num" data-sid="04c-walk-insert-sorted:36">1</span>] = unsorted;</li>
+        <li data-sid="04c-walk-insert-sorted:37">}</li>
+      </ol>
+    </div>
+
+    <div class="is__right" data-sid="04c-walk-insert-sorted:38">
+      <p class="is__call" data-sid="04c-walk-insert-sorted:39">insertInOrder(data, <span class="is__cv" data-sid="04c-walk-insert-sorted:40"><span class="is__cv__v is__cv__v--0" data-sid="04c-walk-insert-sorted:41">1</span><span class="is__cv__v is__cv__v--1" data-sid="04c-walk-insert-sorted:42"><span class="sr-only" data-sid="04c-walk-insert-sorted:43">now </span>2</span><span class="is__cv__v is__cv__v--2" data-sid="04c-walk-insert-sorted:44"><span class="sr-only" data-sid="04c-walk-insert-sorted:45">now </span>3</span><span class="is__cv__v is__cv__v--3" data-sid="04c-walk-insert-sorted:46"><span class="sr-only" data-sid="04c-walk-insert-sorted:47">now </span>4</span></span>)</p>
+      <div class="is__counts" data-sid="04c-walk-insert-sorted:48">
+        <div class="moves" data-sid="04c-walk-insert-sorted:49">
+          <p class="moves__label" data-sid="04c-walk-insert-sorted:50">compares</p>
+          <div class="moves__stack" data-sid="04c-walk-insert-sorted:51">
+            <div class="heap-obj__field" data-sid="04c-walk-insert-sorted:52"><p class="heap-val heap-val--old frag" data-step="1" data-sid="04c-walk-insert-sorted:53">0</p><p class="heap-val frag" data-step="1" data-sid="04c-walk-insert-sorted:54">1</p></div>
+            <div class="heap-obj__field" data-sid="04c-walk-insert-sorted:55"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04c-walk-insert-sorted:56">1</p><p class="heap-val frag" data-step="2" data-sid="04c-walk-insert-sorted:57">2</p></div>
+            <div class="heap-obj__field" data-sid="04c-walk-insert-sorted:58"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04c-walk-insert-sorted:59">2</p><p class="heap-val frag" data-step="3" data-sid="04c-walk-insert-sorted:60">3</p></div>
+            <div class="heap-obj__field" data-sid="04c-walk-insert-sorted:61"><p class="heap-val heap-val--old frag" data-step="4" data-sid="04c-walk-insert-sorted:62">3</p><p class="heap-val frag" data-step="4" data-sid="04c-walk-insert-sorted:63">4</p></div>
+          </div>
+        </div>
+        <div class="moves" data-sid="04c-walk-insert-sorted:64">
+          <p class="moves__label" data-sid="04c-walk-insert-sorted:65">shifts</p>
+          <div class="moves__stack" data-sid="04c-walk-insert-sorted:66">
+            <div class="heap-obj__field" data-sid="04c-walk-insert-sorted:67"><p class="heap-val" data-sid="04c-walk-insert-sorted:68">0</p></div>
+          </div>
+        </div>
+      </div>
+      <svg class="is__fig" viewBox="0 0 732 348" role="img" aria-label="A five-slot array already in order, 11, 12, 22, 25 and 64, with the i pill and the dashed unsorted cell above slot 1; in each pass the entry at i rises into the dashed cell, the entry to its left takes a maroon edge, and the held entry drops back into its own slot" data-sid="04c-walk-insert-sorted:69">
+        <g class="is__cells" data-sid="04c-walk-insert-sorted:70"><rect class="c0" x="148" y="164" width="96" height="96" rx="10" data-sid="04c-walk-insert-sorted:71"/><rect class="c1" x="256" y="164" width="96" height="96" rx="10" data-sid="04c-walk-insert-sorted:72"/><rect class="c2" x="364" y="164" width="96" height="96" rx="10" data-sid="04c-walk-insert-sorted:73"/><rect class="c3" x="472" y="164" width="96" height="96" rx="10" data-sid="04c-walk-insert-sorted:74"/><rect class="c4" x="580" y="164" width="96" height="96" rx="10" data-sid="04c-walk-insert-sorted:75"/></g>
+        <g class="is__idx" data-sid="04c-walk-insert-sorted:76"><text class="is__neg" x="88" y="290" data-sid="04c-walk-insert-sorted:77">&minus;1</text><text x="196" y="290" data-sid="04c-walk-insert-sorted:78">0</text><text x="304" y="290" data-sid="04c-walk-insert-sorted:79">1</text><text x="412" y="290" data-sid="04c-walk-insert-sorted:80">2</text><text x="520" y="290" data-sid="04c-walk-insert-sorted:81">3</text><text x="628" y="290" data-sid="04c-walk-insert-sorted:82">4</text></g>
+        <g class="held" data-sid="04c-walk-insert-sorted:83"><rect x="256" y="56" width="96" height="96" rx="10" data-sid="04c-walk-insert-sorted:84"/><text x="242" y="112" data-sid="04c-walk-insert-sorted:85">unsorted</text></g>
+        <g class="pill pi" data-sid="04c-walk-insert-sorted:86"><rect x="216" y="0" width="176" height="40" rx="20" data-sid="04c-walk-insert-sorted:87"/><text x="304" y="30" data-sid="04c-walk-insert-sorted:88">i</text><path d="M296 40 L312 40 L304 48 Z" data-sid="04c-walk-insert-sorted:89"/></g>
+        <g class="pill pj" data-sid="04c-walk-insert-sorted:90"><rect x="108" y="304" width="176" height="40" rx="20" data-sid="04c-walk-insert-sorted:91"/><text x="196" y="334" data-sid="04c-walk-insert-sorted:92">j</text><path d="M188 304 L204 304 L196 294 Z" data-sid="04c-walk-insert-sorted:93"/></g>
+        <g class="is__vals" data-sid="04c-walk-insert-sorted:94"><g class="up u11" data-sid="04c-walk-insert-sorted:95"><g class="dn d11" data-sid="04c-walk-insert-sorted:96"><text x="196" y="224" data-sid="04c-walk-insert-sorted:97">11</text></g></g><g class="up u12" data-sid="04c-walk-insert-sorted:98"><g class="dn d12" data-sid="04c-walk-insert-sorted:99"><text x="304" y="224" data-sid="04c-walk-insert-sorted:100">12</text></g></g><g class="up u22" data-sid="04c-walk-insert-sorted:101"><g class="dn d22" data-sid="04c-walk-insert-sorted:102"><text x="412" y="224" data-sid="04c-walk-insert-sorted:103">22</text></g></g><g class="up u25" data-sid="04c-walk-insert-sorted:104"><g class="dn d25" data-sid="04c-walk-insert-sorted:105"><text x="520" y="224" data-sid="04c-walk-insert-sorted:106">25</text></g></g><g class="up u64" data-sid="04c-walk-insert-sorted:107"><g class="dn d64" data-sid="04c-walk-insert-sorted:108"><text x="628" y="224" data-sid="04c-walk-insert-sorted:109">64</text></g></g></g>
+      </svg>
+      <div class="codewalk__caps" data-sid="04c-walk-insert-sorted:110">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04c-walk-insert-sorted:111">For i = 1, 12 is held and j is 0. data[0] &gt; unsorted compares 11 with 12, which is false, so 12 goes back into slot 1.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04c-walk-insert-sorted:112">For i = 2, 12 &gt; 22 is false after one compare, and 22 goes back into slot 2.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04c-walk-insert-sorted:113">For i = 3, 22 &gt; 25 is false, and 25 goes back into slot 3.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04c-walk-insert-sorted:114">For i = 4, 25 &gt; 64 is false, and 64 goes back into slot 4.</p>
+        <p class="walkcap walkcap--plant cap--5 frag" data-step="5" data-sid="04c-walk-insert-sorted:115">Four compares and no shifts. Insertion sort does little work when the input is nearly in order.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04c-walk-insert-sorted:116"></div>
+  <aside class="notes" data-sid="04c-walk-insert-sorted:117">Same code, new input: the sorted array from the last slide. Steps 1 to 4: each call holds the entry at i, compares it once with the entry to its left, finds that entry is not larger, and writes the held value back into the slot it came from. One compare per call, no shift. Step 5: for n entries in order, insertion sort makes n &minus; 1 compares and no shifts, which is linear. On the vote&rsquo;s input it made ten compares and nine shifts. If only a few entries are out of place, only those passes do any shifting. Next is the peer instruction routine, then Vote 1.</aside>
+
+  <style data-sid="04c-walk-insert-sorted:118">
+    /* Slide-local: slide 04's layout and strip. Here a value is two nested
+       groups, so that one press can raise it into the held cell and drop it
+       back: the outer group moves up 108 px after the pills arrive (0.7 s),
+       the inner group moves down 108 px after the compare (2 s), and each is
+       a single transition, so a back-step reverses it (the base rule delays
+       the outer group so the reverse runs in the opposite order). The
+       compared cell takes the maroon edge for its press; the sorted prefix
+       washes blue one slot per press. All values from tokens; used by this
+       slide only. */
+    #slide-04c .is { display: grid; grid-template-columns: 900px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04c .is__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-04c .is__call, #slide-04c .is__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-04c .is__meta { color: var(--fg-1); }
+    #slide-04c .is__counts { display: flex; column-gap: var(--s-6); }
+    #slide-04c .is__fig { display: block; width: 732px; height: 348px; overflow: visible; }
+
+    #slide-04c .is__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .4s ease; }
+    #slide-04c .is__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04c .is__idx .is__neg { fill: var(--stone); }
+    #slide-04c .held rect { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 8; }
+    #slide-04c .held text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; }
+    #slide-04c .held, #slide-04c .pill { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-04c .pill rect, #slide-04c .pill path { fill: var(--accent-2); }
+    #slide-04c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04c .is__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04c .mv, #slide-04c .up, #slide-04c .dn { transition: transform .6s var(--ease-smooth); }
+    #slide-04c .codewalk__caps { min-height: 146px; }
+    #slide-04c .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    /* ---- states, in step order ---- */
+    #slide-04c .pj { opacity: 0; }
+    #slide-04c .c0 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04c .slide__body:has(.cap--1:not(.is-pending)) .pj { opacity: 1; }
+    #slide-04c .slide__body:has(.cap--1:not(.is-pending)) .u12 { transform: translateY(-108px); transition-delay: .7s; }
+    #slide-04c .slide__body:has(.cap--1:not(.is-pending)) .d12 { transform: translateY(108px); transition-delay: 2s; }
+    #slide-04c .slide__body:has(.cap--1.is-current) .c0 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.4s; }
+    #slide-04c .slide__body:has(.cap--1:not(.is-pending)) .c1 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 2.4s; }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .pi, #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .held { transform: translateX(108px); }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .pj { transform: translateX(108px); }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .u22 { transform: translateY(-108px); transition-delay: .7s; }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .d22 { transform: translateY(108px); transition-delay: 2s; }
+    #slide-04c .slide__body:has(.cap--2.is-current) .c1 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.4s; }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .c2 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 2.4s; }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .pi, #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .held { transform: translateX(216px); }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .pj { transform: translateX(216px); }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .u25 { transform: translateY(-108px); transition-delay: .7s; }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .d25 { transform: translateY(108px); transition-delay: 2s; }
+    #slide-04c .slide__body:has(.cap--3.is-current) .c2 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.4s; }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .c3 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 2.4s; }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .pi, #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .held { transform: translateX(324px); }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .pj { transform: translateX(324px); }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .u64 { transform: translateY(-108px); transition-delay: .7s; }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .d64 { transform: translateY(108px); transition-delay: 2s; }
+    #slide-04c .slide__body:has(.cap--4.is-current) .c3 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.4s; }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .c4 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 2.4s; }
+    #slide-04c .up { transition-delay: .6s; }
+    #slide-04c .is__cv { display: inline-grid; vertical-align: baseline; }
+    #slide-04c .is__cv__v { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-04c .is__cv__v--1, #slide-04c .is__cv__v--2, #slide-04c .is__cv__v--3 { opacity: 0; }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .is__cv__v--0 { opacity: 0; }
+    #slide-04c .slide__body:has(.cap--2:not(.is-pending)) .is__cv__v--1 { opacity: 1; transition-delay: .25s; }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .is__cv__v--1 { opacity: 0; }
+    #slide-04c .slide__body:has(.cap--3:not(.is-pending)) .is__cv__v--2 { opacity: 1; transition-delay: .25s; }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .is__cv__v--2 { opacity: 0; }
+    #slide-04c .slide__body:has(.cap--4:not(.is-pending)) .is__cv__v--3 { opacity: 1; transition-delay: .25s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04c .is__cells rect, #slide-04c .held, #slide-04c .pill, #slide-04c .mv, #slide-04c .up, #slide-04c .dn, #slide-04c .is__xv__v, #slide-04c .is__jv__v, #slide-04c .is__cv__v { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

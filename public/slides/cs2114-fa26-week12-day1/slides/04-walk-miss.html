@@ -1,0 +1,137 @@
+<section class="slide slide--warmup" id="slide-04" data-sid="04-walk-miss:1">
+  <header class="slide__head" data-sid="04-walk-miss:2">
+    <h2 data-sid="04-walk-miss:3">For an absent entry, the List loop looks at every entry, sorted or not</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-walk-miss:4">A walkthrough of the List contains loop under a program-counter bar. The code: public boolean contains of T anEntry; boolean found equals false; int index equals 0; while not found and index is less than numberOfEntries; if anEntry dot equals list at index, found equals true; index plus plus; return found. On the right, the call sorted dot contains of 9, the values of numberOfEntries, index and found, and a large counter labelled compares. Under both, an eight-cell array holding 3, 5, 8, 12, 15, 20, 24 and 30 in slots 0 to 7, with a blue pill labelled index above slot 0. Step one: found is false and index is 0. Steps two to five: the bar stays on the loop while 9 is compared with 3, 5, 8 and 12 in turn; each compared cell takes a maroon edge, the index pill moves one slot to the right, and the counter rolls to 4. Step six: the last four compares in one press: 15, 20, 24 and 30 take maroon edges one after another, the pill moves past the last slot to index 8, and the counter reads 8. Step seven: return found returns false, and the caption says that eight entries cost eight compares and that the loop passed 12, 15, 20, 24 and 30, every one larger than 9.</p>
+
+  <!-- Part 1, walk 1 of 2: Vote 1's List contains loop, verbatim from the
+       Runestone stem (vtcs2_sortedLists_contains_2_202507), run on a sorted
+       array for an entry that is absent. The loop body is held under the bar
+       (data-hold) while one compare per press runs on the strip; the last
+       four compares share one press so the walk stays at seven presses. The
+       compares counter (deck.css .moves) counts calls to equals. The index
+       pill really moves one pitch per pass; after the eighth pass index is 8,
+       one pitch past the last slot, which is where the while test fails
+       (the outline had the pill end on slot 7; PLAN.md).
+       step 1: init · 2–5: 3, 5, 8, 12 · 6: 15, 20, 24, 30 · 7: return false, the plant -->
+  <div class="slide__body codewalk code-mid wm" data-sid="04-walk-miss:5">
+    <div class="editor wm__editor" data-sid="04-walk-miss:6">
+      <p class="editor__bar" data-sid="04-walk-miss:7">the List contains(anEntry) from Vote 1</p>
+      <div class="editor__pc" data-sid="04-walk-miss:8"></div>
+      <ol class="editor__code" data-sid="04-walk-miss:9">
+        <li data-sid="04-walk-miss:10"><span class="tok-key" data-sid="04-walk-miss:11">public boolean</span> contains(T anEntry) {</li>
+        <li class="walkline frag" data-step="1" data-sid="04-walk-miss:12">    <span class="tok-key" data-sid="04-walk-miss:13">boolean</span> found = <span class="tok-key" data-sid="04-walk-miss:14">false</span>;</li>
+        <li class="walkline frag" data-step="1" data-sid="04-walk-miss:15">    <span class="tok-key" data-sid="04-walk-miss:16">int</span> index = <span class="tok-num" data-sid="04-walk-miss:17">0</span>;</li>
+        <li class="walkline frag" data-step="2" data-hold="6" data-sid="04-walk-miss:18">    <span class="tok-key" data-sid="04-walk-miss:19">while</span> (!found &amp;&amp; (index &lt; numberOfEntries)) {</li>
+        <li class="walkline frag" data-step="2" data-hold="6" data-sid="04-walk-miss:20">        <span class="tok-key" data-sid="04-walk-miss:21">if</span> (anEntry.equals(list[index])) {</li>
+        <li class="walkline frag" data-step="2" data-hold="6" data-sid="04-walk-miss:22">            found = <span class="tok-key" data-sid="04-walk-miss:23">true</span>;</li>
+        <li class="walkline frag" data-step="2" data-hold="6" data-sid="04-walk-miss:24">        }</li>
+        <li class="walkline frag" data-step="2" data-hold="6" data-sid="04-walk-miss:25">        index++;</li>
+        <li class="walkline frag" data-step="2" data-hold="6" data-sid="04-walk-miss:26">    }</li>
+        <li class="walkline frag" data-step="7" data-sid="04-walk-miss:27">    <span class="tok-key" data-sid="04-walk-miss:28">return</span> found;</li>
+        <li data-sid="04-walk-miss:29">}</li>
+      </ol>
+    </div>
+
+    <div class="wm__right" data-sid="04-walk-miss:30">
+      <p class="wm__call" data-sid="04-walk-miss:31">sorted.contains(9)</p>
+      <p class="wm__meta" data-sid="04-walk-miss:32">numberOfEntries = 8<br data-sid="04-walk-miss:33">index = <span class="wm__vs" data-sid="04-walk-miss:34"><span class="wm__v wm__v--0" data-sid="04-walk-miss:35">0</span><span class="wm__v wm__v--1" data-sid="04-walk-miss:36">1</span><span class="wm__v wm__v--2" data-sid="04-walk-miss:37">2</span><span class="wm__v wm__v--3" data-sid="04-walk-miss:38">3</span><span class="wm__v wm__v--4" data-sid="04-walk-miss:39">4</span><span class="wm__v wm__v--8" data-sid="04-walk-miss:40">8</span></span> &middot; found = false</p>
+      <div class="moves" data-sid="04-walk-miss:41">
+        <p class="moves__label" data-sid="04-walk-miss:42">compares</p>
+        <div class="moves__stack" data-sid="04-walk-miss:43">
+          <div class="heap-obj__field" data-sid="04-walk-miss:44"><p class="heap-val heap-val--old frag" data-step="2" data-sid="04-walk-miss:45">0</p><p class="heap-val frag" data-step="2" data-sid="04-walk-miss:46">1</p></div>
+          <div class="heap-obj__field" data-sid="04-walk-miss:47"><p class="heap-val heap-val--old frag" data-step="3" data-sid="04-walk-miss:48">1</p><p class="heap-val frag" data-step="3" data-sid="04-walk-miss:49">2</p></div>
+          <div class="heap-obj__field" data-sid="04-walk-miss:50"><p class="heap-val heap-val--old frag" data-step="4" data-sid="04-walk-miss:51">2</p><p class="heap-val frag" data-step="4" data-sid="04-walk-miss:52">3</p></div>
+          <div class="heap-obj__field" data-sid="04-walk-miss:53"><p class="heap-val heap-val--old frag" data-step="5" data-sid="04-walk-miss:54">3</p><p class="heap-val frag" data-step="5" data-sid="04-walk-miss:55">4</p></div>
+          <div class="heap-obj__field" data-sid="04-walk-miss:56"><p class="heap-val heap-val--old frag" data-step="6" data-sid="04-walk-miss:57">4</p><p class="heap-val frag" data-step="6" data-sid="04-walk-miss:58">8</p></div>
+        </div>
+      </div>
+      <div class="codewalk__caps wm__caps" data-sid="04-walk-miss:59">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="04-walk-miss:60">The loop looks for 9. found is false and index is 0.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="04-walk-miss:61">index 0: 9 does not equal 3, and index becomes 1.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="04-walk-miss:62">index 1: 9 does not equal 5.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="04-walk-miss:63">index 2: 9 does not equal 8.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="04-walk-miss:64">index 3: 9 does not equal 12, and index becomes 4.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="04-walk-miss:65">index 4 to 7: 9 does not equal 15, 20, 24 or 30. index is 8, so the while test fails.</p>
+        <p class="walkcap walkcap--plant cap--7 frag" data-step="7" data-sid="04-walk-miss:66">Eight entries took eight compares, and the loop went past 12, 15, 20, 24 and 30, all of them larger than 9.</p>
+      </div>
+    </div>
+
+    <svg class="wm__fig" viewBox="-12 0 1056 186" role="img" aria-label="An eight-cell array holding 3, 5, 8, 12, 15, 20, 24 and 30 in slots 0 to 7, with a blue pill labelled index above it; during the walk every cell is compared with 9 and takes a maroon edge, and the pill moves one slot per compare until it is past the last slot" data-sid="04-walk-miss:67">
+      <g class="wm__cells" data-sid="04-walk-miss:68">
+        <rect class="c0" x="30" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:69"/><rect class="c1" x="138" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:70"/><rect class="c2" x="246" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:71"/><rect class="c3" x="354" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:72"/>
+        <rect class="c4" style="--i: 0" x="462" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:73"/><rect class="c5" style="--i: 1" x="570" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:74"/><rect class="c6" style="--i: 2" x="678" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:75"/><rect class="c7" style="--i: 3" x="786" y="50" width="96" height="96" rx="10" data-sid="04-walk-miss:76"/>
+      </g>
+      <g class="wm__idx" data-sid="04-walk-miss:77"><text x="78" y="176" data-sid="04-walk-miss:78">0</text><text x="186" y="176" data-sid="04-walk-miss:79">1</text><text x="294" y="176" data-sid="04-walk-miss:80">2</text><text x="402" y="176" data-sid="04-walk-miss:81">3</text><text x="510" y="176" data-sid="04-walk-miss:82">4</text><text x="618" y="176" data-sid="04-walk-miss:83">5</text><text x="726" y="176" data-sid="04-walk-miss:84">6</text><text x="834" y="176" data-sid="04-walk-miss:85">7</text></g>
+      <g class="wm__vals" data-sid="04-walk-miss:86"><text x="78" y="110" data-sid="04-walk-miss:87">3</text><text x="186" y="110" data-sid="04-walk-miss:88">5</text><text x="294" y="110" data-sid="04-walk-miss:89">8</text><text x="402" y="110" data-sid="04-walk-miss:90">12</text><text x="510" y="110" data-sid="04-walk-miss:91">15</text><text x="618" y="110" data-sid="04-walk-miss:92">20</text><text x="726" y="110" data-sid="04-walk-miss:93">24</text><text x="834" y="110" data-sid="04-walk-miss:94">30</text></g>
+      <!-- index above the strip, drawn on slot 0 and moved by translate in whole pitches -->
+      <g class="pill pi" data-sid="04-walk-miss:95"><rect x="-10" y="0" width="176" height="40" rx="20" data-sid="04-walk-miss:96"/><text x="78" y="30" data-sid="04-walk-miss:97">index</text><path d="M70 40 L86 40 L78 48 Z" data-sid="04-walk-miss:98"/></g>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="04-walk-miss:99"></div>
+  <aside class="notes" data-sid="04-walk-miss:100">This is the List contains from Vote 1, as Runestone shows it. list is the array and numberOfEntries is the count. It is the same loop as the contains the class chose in Week 3. Here the list happens to be sorted, and the loop does not know that. The counter counts calls to equals. Step 1: found is false and index is 0. Steps 2 to 5: press once per pass. 9 is compared with 3, 5, 8 and 12. None is equal, so found stays false and index goes up by one each pass. Step 6: the remaining four passes, 15, 20, 24 and 30, in one press. After the eighth pass index is 8, so index &lt; numberOfEntries is false and the loop ends. Step 7: return found returns false. Eight entries cost eight compares. Point at 12; from there on every entry is larger than 9. Do not say yet what to do about it; that is Vote 1. Next, the same loop for an entry that is in the list.</aside>
+
+  <style data-sid="04-walk-miss:101">
+    /* Slide-local: the editor at --t-code, 1,030 px (the while line is 49
+       characters: 49 × 19.2 = 941, plus 2% for WebKit's whole-pixel mono
+       advances, plus 70 of chrome) at line-height 1.15 (11 lines), beside
+       the call, the values, the compares counter and the captions (602 px);
+       the strip under both in one SVG at 1:1 (W8D2 04's grammar: cells 96 px
+       on a 108 px pitch, --bg-1 with a 3 px stone stroke, the index under
+       each cell at --t-micro, the index pill 176 × 40 above). No kicker, so
+       the 11-line editor and the strip fit the body. Compared cells keep the
+       cost's maroon edge (W5D1 04); the last four take it in a stagger. The
+       index pill moves by translateX in whole pitches (a real move); index
+       crossfades in the meta line (a replaced value). Every state is keyed
+       to the caption frags through :has(), so a back-step reverses it. Used
+       by this slide only, all values from tokens. */
+    #slide-04 .wm { display: grid; grid-template-columns: 1030px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--s-4); row-gap: var(--s-3); align-items: start; }
+    #slide-04 .wm__editor { grid-column: 1; grid-row: 1; width: 1030px; }
+    #slide-04 .wm__editor .editor__code li { line-height: 1.15; }
+    #slide-04 .wm__right { grid-column: 2; grid-row: 1; display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-04 .wm__fig { grid-column: 1 / -1; grid-row: 2; display: block; width: 1056px; height: 186px; overflow: visible; }
+    #slide-04 .wm__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-04 .wm__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-1); }
+    #slide-04 .wm__vs { display: inline-grid; vertical-align: baseline; }
+    #slide-04 .wm__v { grid-area: 1 / 1; opacity: 0; color: var(--fg-0); transition: opacity .25s ease; }
+    #slide-04 .wm__v--0 { opacity: 1; }
+    #slide-04 .wm__caps { min-height: 196px; }
+    #slide-04 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-04 .wm__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease; }
+    #slide-04 .wm__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04 .wm__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04 .pill rect, #slide-04 .pill path { fill: var(--accent-2); }
+    #slide-04 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04 .pi { transition: transform .7s var(--ease-smooth); }
+
+    /* ---- states, in step order ---- */
+    #slide-04 .wm:has(.cap--2:not(.is-pending)) .c0 { stroke: var(--accent-1); }
+    #slide-04 .wm:has(.cap--2:not(.is-pending)) .pi { transform: translateX(108px); transition-delay: .4s; }
+    #slide-04 .wm:has(.cap--2:not(.is-pending)) .wm__v--0 { opacity: 0; }
+    #slide-04 .wm:has(.cap--2:not(.is-pending)) .wm__v--1 { opacity: 1; }
+    #slide-04 .wm:has(.cap--3:not(.is-pending)) .c1 { stroke: var(--accent-1); }
+    #slide-04 .wm:has(.cap--3:not(.is-pending)) .pi { transform: translateX(216px); }
+    #slide-04 .wm:has(.cap--3:not(.is-pending)) .wm__v--1 { opacity: 0; }
+    #slide-04 .wm:has(.cap--3:not(.is-pending)) .wm__v--2 { opacity: 1; }
+    #slide-04 .wm:has(.cap--4:not(.is-pending)) .c2 { stroke: var(--accent-1); }
+    #slide-04 .wm:has(.cap--4:not(.is-pending)) .pi { transform: translateX(324px); }
+    #slide-04 .wm:has(.cap--4:not(.is-pending)) .wm__v--2 { opacity: 0; }
+    #slide-04 .wm:has(.cap--4:not(.is-pending)) .wm__v--3 { opacity: 1; }
+    #slide-04 .wm:has(.cap--5:not(.is-pending)) .c3 { stroke: var(--accent-1); }
+    #slide-04 .wm:has(.cap--5:not(.is-pending)) .pi { transform: translateX(432px); }
+    #slide-04 .wm:has(.cap--5:not(.is-pending)) .wm__v--3 { opacity: 0; }
+    #slide-04 .wm:has(.cap--5:not(.is-pending)) .wm__v--4 { opacity: 1; }
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .c4,
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .c5,
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .c6,
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .c7 { stroke: var(--accent-1); transition-delay: calc(.2s + var(--i) * .3s); }
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .pi { transform: translateX(864px); transition-duration: 1.4s; }
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .wm__v--4 { opacity: 0; }
+    #slide-04 .wm:has(.cap--6:not(.is-pending)) .wm__v--8 { opacity: 1; transition-delay: 1.2s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .wm__cells rect, #slide-04 .pi, #slide-04 .wm__v { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

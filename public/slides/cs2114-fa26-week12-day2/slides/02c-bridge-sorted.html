@@ -1,0 +1,106 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-sorted:1">
+  <header class="slide__head" data-sid="02c-bridge-sorted:2">
+    <p class="slide__kicker" data-sid="02c-bridge-sorted:3">FROM DAY 1 TO DAY 2</p>
+    <h2 data-sid="02c-bridge-sorted:4">Day 1 searched an array that was already in order</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-sorted:5">A bridge from Day 1 to Day 2, built in three presses. Press one: on the left, Day 1's sorted array of eight entries, 3, 5, 8, 12, 15, 20, 24 and 30, with indices 0 to 7 under the cells. The cells holding 3, 5 and 8 take a blue edge, the cell holding 12 takes a maroon edge, and a maroon bar stands after it; the entries after the bar are grey. The caption says that contains of 9 stopped at 12 because the entries were in order. Press two: on the right, today's array of five entries, 64, 25, 12, 22 and 11, grows in. The caption says that today's array is not in order, and that sorting is what puts it in order. Press three: the question for today, in maroon: how many compares and how many moves does it take to sort five entries?</p>
+
+  <!-- Bridge from Day 1 (a sorted list, whose contains can stop early) to
+       Day 2 (sorting an array). W9D2 02c's two-panel grammar in one SVG at
+       1:1 (1664 × 200): left, Day 1's sorted strip with the early-exit
+       contains(9) drawn on it (the cells it compared in the blue of a read,
+       the one that stopped it in maroon, a maroon stop bar, the entries it
+       never reached in stone); right, today's unsorted five entries in the
+       same cell grammar. Cells 84 px on a 96 px pitch so that eight fit in
+       the left half; values at --t-small mono, indices and panel labels at
+       --t-micro.
+       step 1: Day 1's strip and its stop.  step 2: today's strip.
+       step 3: the question for the day. -->
+  <div class="slide__body bs" data-sid="02c-bridge-sorted:6">
+    <svg class="bs__fig" viewBox="0 0 1664 200" role="img" aria-label="Left, a sorted array 3, 5, 8, 12, 15, 20, 24, 30 where a search for 9 compared 3, 5, 8 and stopped at 12. Right, the unsorted array 64, 25, 12, 22, 11" data-sid="02c-bridge-sorted:7">
+      <!-- Day 1: the sorted strip, contains(9) -->
+      <g class="bs__left frag" data-step="1" data-sid="02c-bridge-sorted:8">
+        <text class="lbl" x="4" y="28" data-sid="02c-bridge-sorted:9">Day 1: contains(9) on a sorted array</text>
+        <g class="cell cell--read" data-sid="02c-bridge-sorted:10">
+          <rect x="4" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:11"/><rect x="100" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:12"/><rect x="196" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:13"/>
+        </g>
+        <g class="cell cell--stop" data-sid="02c-bridge-sorted:14"><rect x="292" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:15"/></g>
+        <g class="cell" data-sid="02c-bridge-sorted:16">
+          <rect x="388" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:17"/><rect x="484" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:18"/><rect x="580" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:19"/><rect x="676" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:20"/>
+        </g>
+        <path class="stopbar" d="M382 44 V 144" data-sid="02c-bridge-sorted:21"/>
+        <g class="val" data-sid="02c-bridge-sorted:22">
+          <text x="46" y="106" data-sid="02c-bridge-sorted:23">3</text><text x="142" y="106" data-sid="02c-bridge-sorted:24">5</text><text x="238" y="106" data-sid="02c-bridge-sorted:25">8</text><text x="334" y="106" data-sid="02c-bridge-sorted:26">12</text>
+        </g>
+        <g class="val val--past" data-sid="02c-bridge-sorted:27">
+          <text x="430" y="106" data-sid="02c-bridge-sorted:28">15</text><text x="526" y="106" data-sid="02c-bridge-sorted:29">20</text><text x="622" y="106" data-sid="02c-bridge-sorted:30">24</text><text x="718" y="106" data-sid="02c-bridge-sorted:31">30</text>
+        </g>
+        <g class="idx" data-sid="02c-bridge-sorted:32">
+          <text x="46" y="172" data-sid="02c-bridge-sorted:33">0</text><text x="142" y="172" data-sid="02c-bridge-sorted:34">1</text><text x="238" y="172" data-sid="02c-bridge-sorted:35">2</text><text x="334" y="172" data-sid="02c-bridge-sorted:36">3</text><text x="430" y="172" data-sid="02c-bridge-sorted:37">4</text><text x="526" y="172" data-sid="02c-bridge-sorted:38">5</text><text x="622" y="172" data-sid="02c-bridge-sorted:39">6</text><text x="718" y="172" data-sid="02c-bridge-sorted:40">7</text>
+        </g>
+      </g>
+
+      <!-- Day 2: the unsorted strip -->
+      <g class="bs__right frag" data-step="2" data-sid="02c-bridge-sorted:41">
+        <text class="lbl" x="1012" y="28" data-sid="02c-bridge-sorted:42">Today: an array that is not in order</text>
+        <g class="cell" data-sid="02c-bridge-sorted:43">
+          <rect x="1012" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:44"/><rect x="1108" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:45"/><rect x="1204" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:46"/><rect x="1300" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:47"/><rect x="1396" y="52" width="84" height="84" rx="10" data-sid="02c-bridge-sorted:48"/>
+        </g>
+        <g class="val" data-sid="02c-bridge-sorted:49">
+          <text x="1054" y="106" data-sid="02c-bridge-sorted:50">64</text><text x="1150" y="106" data-sid="02c-bridge-sorted:51">25</text><text x="1246" y="106" data-sid="02c-bridge-sorted:52">12</text><text x="1342" y="106" data-sid="02c-bridge-sorted:53">22</text><text x="1438" y="106" data-sid="02c-bridge-sorted:54">11</text>
+        </g>
+        <g class="idx" data-sid="02c-bridge-sorted:55">
+          <text x="1054" y="172" data-sid="02c-bridge-sorted:56">0</text><text x="1150" y="172" data-sid="02c-bridge-sorted:57">1</text><text x="1246" y="172" data-sid="02c-bridge-sorted:58">2</text><text x="1342" y="172" data-sid="02c-bridge-sorted:59">3</text><text x="1438" y="172" data-sid="02c-bridge-sorted:60">4</text>
+        </g>
+      </g>
+    </svg>
+
+    <div class="bs__caps" data-sid="02c-bridge-sorted:61">
+      <p class="bs__cap frag" data-step="1" data-sid="02c-bridge-sorted:62">contains(9) stopped at 12 because the entries were in order.</p>
+      <p class="bs__cap bs__cap--keep frag" data-step="2" data-sid="02c-bridge-sorted:63">Today&rsquo;s array is not in order. Sorting is what puts it in order.</p>
+    </div>
+    <p class="bs__q frag" data-step="3" data-sid="02c-bridge-sorted:64">How many compares and how many moves does it take to sort five entries?</p>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-sorted:65"></div>
+  <aside class="notes" data-sid="02c-bridge-sorted:66">Day 1 was the sorted list. Step 1. This is a sorted array of eight entries. A sorted contains can stop early: contains(9) compares 3, 5 and 8, which are smaller than 9, and then 12. 12 is larger than 9, so 9 cannot be anywhere after it, and the search stops after four compares instead of eight. That only works because the entries are in order. Step 2. Today&rsquo;s array is 64, 25, 12, 22 and 11, in no order. Sorting is the step that puts an array in order, so that a search like Day 1&rsquo;s can rely on it. Both sorts today run on these five entries. Step 3. Ask the room for a guess: how many compares, and how many moves, does it take to sort five entries? Part 1 counts them for insertion sort.</aside>
+
+  <style data-sid="02c-bridge-sorted:67">
+    /* Slide-local: a bridge from Day 1 to Day 2. One SVG at 1:1 (1664 × 200)
+       with the two strips side by side, cells 84 px on a 96 px pitch with
+       W8D2 04's stone edge; Day 1's search drawn on its strip (blue edges for
+       the cells it read, maroon for the cell that stopped it and the stop
+       bar, stone for the values it never reached). Under it the narration
+       (two captions, the second stays) and the question in display maroon,
+       both at --t-small. Motion: each strip GrowsFromCenter on its press;
+       the captions crossfade in one grid cell. Used by this slide only, all
+       values from tokens. */
+    #slide-02c .bs { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-02c .bs__fig { display: block; width: 1664px; height: 200px; overflow: visible; }
+
+    #slide-02c .lbl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-02c .cell rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-02c .cell--read rect { stroke: var(--accent-2); stroke-width: 4; }
+    #slide-02c .cell--stop rect { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-02c .stopbar { fill: none; stroke: var(--accent-1); stroke-width: 8; stroke-linecap: round; }
+    #slide-02c .val text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .val--past text { fill: var(--stone); }
+    #slide-02c .idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+
+    /* GrowFromCenter: the two strips */
+    #slide-02c .bs__left, #slide-02c .bs__right { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.bs__left.is-pending, #slide-02c .frag.bs__right.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* narration: caption 1 is replaced by caption 2, which stays */
+    #slide-02c .bs__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02c .bs__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.bs__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.bs__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.bs__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02c .frag.bs__cap--keep.is-past { opacity: 1; }
+    #slide-02c .slide__body p.bs__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .bs__left, #slide-02c .bs__right, #slide-02c .bs__cap, #slide-02c .bs__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

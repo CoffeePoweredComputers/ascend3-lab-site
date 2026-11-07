@@ -1,0 +1,147 @@
+<section class="slide slide--warmup" id="slide-09b" data-sid="09b-walk-risk:1">
+  <header class="slide__head" data-sid="09b-walk-risk:2">
+    <p class="slide__kicker" data-sid="09b-walk-risk:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="09b-walk-risk:4">Inherited positional mutators are the risk; search cost and remove(int) are not</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="09b-walk-risk:5">A walkthrough of the three options of Vote 2 under a program-counter bar. The code is three client calls on a SortedList that extends LList: sorted dot add of 2, 25; sorted dot contains of 12; sorted dot remove of 2. On the right, the sorted chain 3, 7, 12, 20 with firstNode on 3, and on the left under the code a counter labelled nodes visited. Step one, option A: add of 2, 25 puts a node holding 25 after 3, and a maroon ring appears round it; the caption says that add of int and T and set of int and T arrive unchanged from List, and one call breaks the order. Step two, option B: the node 25 fades and 3's next arrow moves back to 7; a blue ring for currentNode walks from 3 to 7 to 12 and the counter rolls to 3; the caption says a search on a chain is O of n whether it is inherited or written from scratch, a chain has no binary search to lose, and binary search on an array is in Week 14. Step three, option C: remove of 2 takes out the node holding 7, and 3's next arrow moves to 12; the caption says the list 3, 12, 20 is still in order. Step four: the three options, with B and C struck through and A not struck.</p>
+
+  <!-- Vote 2's answer, A, with each option run on the chain from 08 (W11D1
+       06b's grammar and coordinates). A repeats 08's add(2, 25) in one
+       press. B walks contains(12) with a currentNode ring (W10D1 07b) and a
+       nodes visited counter: inherited or not, a search on a chain visits
+       nodes one at a time. C removes by position, and the order survives.
+       Positions are the textbook's, from 1, as on 08, so the call that
+       removes 7 is remove(2) (the outline's remove(1) assumed positions
+       from 0; PLAN.md).
+       step 1: A · 2: the chain reverts, B · 3: C · 4: verdict -->
+  <div class="slide__body codewalk code-mid rk" data-sid="09b-walk-risk:6">
+    <div class="rk__left" data-sid="09b-walk-risk:7">
+      <div class="editor rk__editor" data-sid="09b-walk-risk:8">
+        <p class="editor__bar" data-sid="09b-walk-risk:9">client code; SortedList extends LList</p>
+        <div class="editor__pc" data-sid="09b-walk-risk:10"></div>
+        <ol class="editor__code" data-sid="09b-walk-risk:11">
+          <li class="walkline frag" data-step="1" data-sid="09b-walk-risk:12">sorted.add(<span class="tok-num" data-sid="09b-walk-risk:13">2</span>, <span class="tok-num" data-sid="09b-walk-risk:14">25</span>);</li>
+          <li class="walkline frag" data-step="2" data-sid="09b-walk-risk:15">sorted.contains(<span class="tok-num" data-sid="09b-walk-risk:16">12</span>);</li>
+          <li class="walkline frag" data-step="3" data-sid="09b-walk-risk:17">sorted.remove(<span class="tok-num" data-sid="09b-walk-risk:18">2</span>);</li>
+        </ol>
+      </div>
+      <div class="moves" data-sid="09b-walk-risk:19">
+        <p class="moves__label" data-sid="09b-walk-risk:20">nodes<br data-sid="09b-walk-risk:21">visited</p>
+        <div class="moves__stack" data-sid="09b-walk-risk:22">
+          <div class="heap-obj__field" data-sid="09b-walk-risk:23"><p class="heap-val heap-val--old frag" data-step="2" data-sid="09b-walk-risk:24">0</p><p class="heap-val frag" data-step="2" data-sid="09b-walk-risk:25">3</p></div>
+        </div>
+      </div>
+      <ol class="verdict frag rk__verdict" data-step="4" data-sid="09b-walk-risk:26">
+        <li class="verdict__opt verdict__opt--right" data-sid="09b-walk-risk:27"><span class="verdict__txt" data-sid="09b-walk-risk:28">positional mutators break the order</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="09b-walk-risk:29"><span class="verdict__txt" data-sid="09b-walk-risk:30">a chain search is O(n) anyway</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="09b-walk-risk:31"><span class="verdict__txt" data-sid="09b-walk-risk:32">remove(int) keeps the order</span></li>
+      </ol>
+    </div>
+
+    <div class="rk__right" data-sid="09b-walk-risk:33">
+      <svg class="rk__fig" viewBox="0 0 690 344" role="img" aria-label="The sorted chain 3, 7, 12, 20 with firstNode on 3; a node holding 25 is linked in after 3 and ringed in maroon, then removed; a blue ring walks from 3 to 12; then the node holding 7 is removed and 3 links to 12" data-sid="09b-walk-risk:34">
+        <defs data-sid="09b-walk-risk:35">
+          <marker id="w12d1-09b-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="09b-walk-risk:36"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="09b-walk-risk:37"/></marker>
+        </defs>
+        <g class="pill" data-sid="09b-walk-risk:38"><rect x="6" y="0" width="176" height="44" rx="8" data-sid="09b-walk-risk:39"/><text x="94" y="31" data-sid="09b-walk-risk:40">firstNode</text></g>
+        <path class="ref" d="M85 44 C 85 66, 85 80, 85 100" data-sid="09b-walk-risk:41"/>
+        <g class="lg" data-sid="09b-walk-risk:42"><rect class="lg__sw" x="380" y="8" width="40" height="28" rx="6" data-sid="09b-walk-risk:43"/><text class="lg__t" x="432" y="32" data-sid="09b-walk-risk:44">currentNode</text></g>
+
+        <g class="nd" data-sid="09b-walk-risk:45"><rect class="nd__box" x="20" y="104" width="130" height="76" rx="10" data-sid="09b-walk-risk:46"/><path class="nd__div" d="M76 104v76" data-sid="09b-walk-risk:47"/><text class="nd__v" x="48" y="154" data-sid="09b-walk-risk:48">3</text></g>
+        <g class="n7" data-sid="09b-walk-risk:49">
+          <g class="nd" data-sid="09b-walk-risk:50"><rect class="nd__box" x="176" y="104" width="130" height="76" rx="10" data-sid="09b-walk-risk:51"/><path class="nd__div" d="M232 104v76" data-sid="09b-walk-risk:52"/><text class="nd__v" x="204" y="154" data-sid="09b-walk-risk:53">7</text></g>
+          <path class="lnk" d="M269 142 H 328" data-sid="09b-walk-risk:54"/>
+        </g>
+        <g class="nd" data-sid="09b-walk-risk:55"><rect class="nd__box" x="332" y="104" width="130" height="76" rx="10" data-sid="09b-walk-risk:56"/><path class="nd__div" d="M388 104v76" data-sid="09b-walk-risk:57"/><text class="nd__v" x="360" y="154" data-sid="09b-walk-risk:58">12</text></g>
+        <g class="nd" data-sid="09b-walk-risk:59"><rect class="nd__box" x="488" y="104" width="130" height="76" rx="10" data-sid="09b-walk-risk:60"/><path class="nd__div" d="M544 104v76" data-sid="09b-walk-risk:61"/><text class="nd__v" x="516" y="154" data-sid="09b-walk-risk:62">20</text><text class="nd__nl" x="581" y="152" data-sid="09b-walk-risk:63">null</text></g>
+        <!-- 3's next: to 25 on step 1, back to 7 on step 2, to 12 on step 3 -->
+        <path class="lnk lnk--3" data-swing='[[1,"M113 142 C 113 196, 126 210, 126 252"],[2,"M113 142 C 133 142, 152 142, 172 142"],[3,"M113 142 C 170 64, 270 64, 328 136"]]' d="M113 142 C 133 142, 152 142, 172 142" data-sid="09b-walk-risk:64"/>
+        <path class="lnk" d="M425 142 H 484" data-sid="09b-walk-risk:65"/>
+
+        <!-- A: add(2, 25), as on 08, in one press -->
+        <g class="x25" data-sid="09b-walk-risk:66">
+          <g class="nd nd--new frag" data-step="1" data-sid="09b-walk-risk:67"><rect class="nd__box" x="98" y="256" width="130" height="76" rx="10" data-sid="09b-walk-risk:68"/><path class="nd__div" d="M154 256v76" data-sid="09b-walk-risk:69"/><text class="nd__v" x="126" y="306" data-sid="09b-walk-risk:70">25</text></g>
+          <path class="arr frag" data-step="1" pathLength="100" d="M191 294 C 191 240, 241 250, 241 196" data-sid="09b-walk-risk:71"/>
+          <path class="head frag" data-step="1" data-anim="fade" d="M241 184 L235 196 L247 196 Z" data-sid="09b-walk-risk:72"/>
+          <g class="bad frag" data-step="1" data-sid="09b-walk-risk:73"><rect x="92" y="248" width="142" height="92" rx="14" data-sid="09b-walk-risk:74"/></g>
+        </g>
+
+        <!-- B: currentNode walks 3 → 7 → 12 -->
+        <g class="ring" data-sid="09b-walk-risk:75"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="09b-walk-risk:76"/></g>
+      </svg>
+
+      <div class="codewalk__caps rk__caps" data-sid="09b-walk-risk:77">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="09b-walk-risk:78">A: add(int, T) and set(int, T) arrive unchanged from List. One call puts 25 before 7, and the list is out of order.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="09b-walk-risk:79">B: a search on a chain visits nodes one at a time, so it is O(n) whether it is inherited or written from scratch. A chain has no binary search to lose. On an array the order allows binary search, which is in Week 14.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="09b-walk-risk:80">C: remove(int) deletes by position. After remove(2) the list reads 3, 12, 20, and it is still in order.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="09b-walk-risk:81"></div>
+  <aside class="notes" data-sid="09b-walk-risk:82">Answer: A [PL twin sortedLists/sortedlists_inheritance; confirm in Runestone&rsquo;s results view] &mdash; the inherited positional mutators let a client put an entry anywhere, so the list can lose its order. Step 1, A: the same add(2, 25) as on the slide before the vote. The vote&rsquo;s set(int, T) is the textbook&rsquo;s replace(givenPosition, newEntry). Both come from List unchanged, and neither compares anything. Step 2, B: put the chain back. contains(12) on a chain starts at firstNode and visits 3, 7 and 12, one node at a time. That is O(n) for an inherited contains and for one written from scratch, so inheriting loses nothing. Binary search needs to jump to the middle entry in one step, which an array allows and a chain does not. Binary search is Week 14&rsquo;s topic. Step 3, C: remove by position takes an entry out. Here remove(2) removes 7, the entry at position 2. What is left, 3, 12, 20, is still in order, because removing an entry never puts two entries in the wrong order. The textbook&rsquo;s LinkedSortedList keeps remove(givenPosition) for that reason. Step 4: A is the answer. Next is Part 3, the cost of each design.</aside>
+
+  <style data-sid="09b-walk-risk:83">
+    /* Slide-local: on the left (620 px) a three-line editor at --t-code (the
+       add line is 18 characters), the nodes visited counter (deck.css
+       .moves) and, on step 4, the verdict in the body face at --t-small,
+       one option to a line; on the right 08's chain at 1:1 (690 × 344) and
+       the captions under it (1,012 px, four lines or fewer). Motion: 25
+       grows and its next is Created, 3's next swings to 25, back to 7 and
+       over the removed 7 to 12 (CSS d plus the same paths in data-swing for
+       Safari); the maroon ring grows round 25; 25 and its arrows fade on
+       step 2; the blue ring fades in on 3 and travels two pitches (a real
+       move); 7 and its next arrow fade on step 3. States keyed to the
+       caption frags with :has(), in step order. Used by this slide only,
+       all values from tokens. */
+    #slide-09b .rk { display: grid; grid-template-columns: 620px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    #slide-09b .rk__left { display: grid; row-gap: var(--s-4); align-content: start; }
+    #slide-09b .rk__editor { width: 620px; }
+    #slide-09b .rk__moves, #slide-09b .rk__left .moves { justify-self: start; }
+    #slide-09b .rk__left .moves__label { line-height: 1.25; }
+    #slide-09b .rk__verdict { font-family: var(--font-body); font-size: var(--t-small); flex-direction: column; }
+    #slide-09b .rk__right { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-09b .rk__fig { display: block; width: 690px; height: 344px; overflow: visible; }
+    #slide-09b .rk__caps { min-height: 196px; }
+
+    #slide-09b .pill rect { fill: var(--accent-2); }
+    #slide-09b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-09b .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w12d1-09b-head); }
+    #slide-09b .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w12d1-09b-head); transition: d .7s var(--ease-smooth); }
+    #slide-09b .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-09b .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-09b .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-09b .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-09b .lg__sw { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-09b .lg__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); }
+    #slide-09b .lg { opacity: 0; transition: opacity .3s ease; }
+
+    #slide-09b .nd--new { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-09b .frag.nd--new.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-09b .arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-09b .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-09b .frag.arr.is-current, #slide-09b .frag.arr.is-past { transition-delay: .5s; }
+    #slide-09b .head { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-09b .frag.head.is-current, #slide-09b .frag.head.is-past { transition-delay: .9s; }
+    #slide-09b .bad rect { fill: none; stroke: var(--accent-1); stroke-width: 6; }
+    #slide-09b .bad { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-09b .frag.bad.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-09b .frag.bad.is-current, #slide-09b .frag.bad.is-past { transition-delay: 1.1s; }
+    #slide-09b .x25, #slide-09b .n7 { transition: opacity .4s ease; }
+
+    #slide-09b .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-09b .ring { opacity: 0; transition: opacity .3s ease, transform 0s linear .3s; }
+
+    /* ---- states, in step order ---- */
+    #slide-09b .rk:has(.cap--1:not(.is-pending)) .lnk--3 { d: path("M113 142 C 113 196, 126 210, 126 252"); }
+    #slide-09b .rk:has(.cap--2:not(.is-pending)) .lnk--3 { d: path("M113 142 C 133 142, 152 142, 172 142"); }
+    #slide-09b .rk:has(.cap--2:not(.is-pending)) .x25 { opacity: 0; }
+    #slide-09b .rk:has(.cap--2.is-current) .lg { opacity: 1; }
+    #slide-09b .rk:has(.cap--2.is-current) .ring { opacity: 1; transform: translateX(312px); transition: opacity .2s ease .7s, transform 1.4s var(--ease-smooth) 1s; }
+    #slide-09b .rk:has(.cap--3:not(.is-pending)) .n7 { opacity: 0; }
+    #slide-09b .rk:has(.cap--3:not(.is-pending)) .lnk--3 { d: path("M113 142 C 170 64, 270 64, 328 136"); transition-delay: .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .lnk, #slide-09b .ring, #slide-09b .lg, #slide-09b .nd--new, #slide-09b .arr, #slide-09b .head, #slide-09b .bad, #slide-09b .x25, #slide-09b .n7 { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,137 @@
+<section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-revised:1">
+  <header class="slide__head" data-sid="08b-walk-revised:2">
+    <h2 data-sid="08b-walk-revised:3">The revised base class keeps the chain and gives subclasses the insert, not clients</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08b-walk-revised:4">Three class boxes built one per press, with a caption under them. Step one: at the top centre, the abstract class LinkedChainBase of T, its name in italics, with the members protected firstNode, protected numberOfEntries, protected addFirstNode of Node, protected addAfterNode of Node and Node, public getEntry of int and public isEmpty; a stone line says the other members are omitted. Step two: on the left, LListRevised of T with public add of int and T and public replace of int and T; a generalisation arrow with a hollow triangle draws from it to the base class. Step three: on the right, LinkedSortedList of T with public add of T, remove of T and getPosition of T; a second generalisation arrow draws to the base class. Step four: a card at the top right with the client call sorted dot add of 2, 25 is struck through in maroon; the caption says LinkedSortedList has no add of int and T, and LListRevised is a sibling, not a parent. Step five: a code card under LinkedSortedList: nodeBefore equals getNodeBefore of newEntry; addAfterNode of nodeBefore, newNode. The caption says add of newEntry finds the node before, then calls the protected insert. Step six: the caption says nothing is overridden to throw, and the unwanted methods are never inherited.</p>
+
+  <!-- The textbook's fix (ch. 17, from the 11.2 inheritance slides): an
+       abstract base class LinkedChainBase<T> that keeps the chain and has
+       PROTECTED addFirstNode(Node) and addAfterNode(Node, Node) and no
+       public positional add or replace; LListRevised and LinkedSortedList
+       both extend it. The base's other members are in no course source, so
+       the box shows only the brief's six and says the rest is omitted.
+       W11D1 07b's UML grammar (name in mono --t-small bold, members in mono
+       --t-micro on a 36 px pitch; # protected, + public; W6D1 06b's
+       generalisation arrow with a hollow triangle), with the subclasses
+       beside the base's lower half and the arrows entering its sides, so
+       the whole picture fits above a two-line caption. The add(newEntry)
+       lines are the course's (getNodeBefore, nodeBefore, W11D1 06b), with
+       the protected insert in place of the setNextNode pair.
+       step 1: base · 2: LListRevised · 3: LinkedSortedList · 4: the client
+       call struck · 5: add(newEntry) calls addAfterNode · 6: the plant -->
+  <div class="slide__body rv" data-sid="08b-walk-revised:5">
+    <svg class="rv__fig" viewBox="0 0 1664 546" role="img" aria-label="An abstract class LinkedChainBase with protected chain fields and protected insert methods; LListRevised and LinkedSortedList both extend it; a client call to add at a position on the sorted list is struck through; the sorted add calls the protected insert" data-sid="08b-walk-revised:6">
+      <!-- 1: the abstract base -->
+      <g class="col frag" data-step="1" data-sid="08b-walk-revised:7">
+        <rect class="box" x="552" y="8" width="560" height="322" rx="10" data-sid="08b-walk-revised:8"/>
+        <path class="box__d" d="M552 64 H 1112" data-sid="08b-walk-revised:9"/>
+        <text class="box__n box__n--abs" x="832" y="46" data-sid="08b-walk-revised:10">LinkedChainBase&lt;T&gt;</text>
+        <text class="box__m" x="568" y="100" data-sid="08b-walk-revised:11"># firstNode</text>
+        <text class="box__m" x="568" y="136" data-sid="08b-walk-revised:12"># numberOfEntries</text>
+        <text class="box__m box__m--p" x="568" y="172" data-sid="08b-walk-revised:13"># addFirstNode(Node)</text>
+        <text class="box__m box__m--p" x="568" y="208" data-sid="08b-walk-revised:14"># addAfterNode(Node, Node)</text>
+        <text class="box__m" x="568" y="244" data-sid="08b-walk-revised:15">+ getEntry(int)</text>
+        <text class="box__m" x="568" y="280" data-sid="08b-walk-revised:16">+ isEmpty()</text>
+        <text class="box__o" x="568" y="316" data-sid="08b-walk-revised:17">other members omitted</text>
+      </g>
+
+      <!-- 2: LListRevised, the list with positions -->
+      <g class="col frag" data-step="2" data-sid="08b-walk-revised:18">
+        <rect class="box" x="8" y="228" width="480" height="144" rx="10" data-sid="08b-walk-revised:19"/>
+        <path class="box__d" d="M8 284 H 488" data-sid="08b-walk-revised:20"/>
+        <text class="box__n" x="248" y="266" data-sid="08b-walk-revised:21">LListRevised&lt;T&gt;</text>
+        <text class="box__m" x="24" y="320" data-sid="08b-walk-revised:22">+ add(int, T)</text>
+        <text class="box__m" x="24" y="356" data-sid="08b-walk-revised:23">+ replace(int, T)</text>
+      </g>
+      <path class="arr frag" data-step="2" pathLength="100" d="M248 226 V 170 H 530" data-sid="08b-walk-revised:24"/>
+      <path class="tri frag" data-step="2" data-anim="fade" d="M552 170 L530 157 V 183 Z" data-sid="08b-walk-revised:25"/>
+
+      <!-- 3: LinkedSortedList, the list in order -->
+      <g class="col frag" data-step="3" data-sid="08b-walk-revised:26">
+        <rect class="box" x="1176" y="228" width="480" height="180" rx="10" data-sid="08b-walk-revised:27"/>
+        <path class="box__d" d="M1176 284 H 1656" data-sid="08b-walk-revised:28"/>
+        <text class="box__n" x="1416" y="266" data-sid="08b-walk-revised:29">LinkedSortedList&lt;T&gt;</text>
+        <text class="box__m" x="1192" y="320" data-sid="08b-walk-revised:30">+ add(T)</text>
+        <text class="box__m" x="1192" y="356" data-sid="08b-walk-revised:31">+ remove(T)</text>
+        <text class="box__m" x="1192" y="392" data-sid="08b-walk-revised:32">+ getPosition(T)</text>
+      </g>
+      <path class="arr frag" data-step="3" pathLength="100" d="M1416 226 V 170 H 1134" data-sid="08b-walk-revised:33"/>
+      <path class="tri frag" data-step="3" data-anim="fade" d="M1112 170 L1134 157 V 183 Z" data-sid="08b-walk-revised:34"/>
+
+      <!-- 4: the client call that no longer compiles -->
+      <g class="col frag" data-step="4" data-sid="08b-walk-revised:35">
+        <rect class="card" x="1236" y="40" width="420" height="80" rx="18" data-sid="08b-walk-revised:36"/>
+        <text class="card__code" x="1446" y="92" data-sid="08b-walk-revised:37">sorted.add(2, 25);</text>
+      </g>
+      <path class="sk frag" data-step="4" pathLength="100" d="M1258 81 H 1634" data-sid="08b-walk-revised:38"/>
+
+      <!-- 5: add(newEntry) uses the protected insert -->
+      <g class="code frag" data-step="5" data-sid="08b-walk-revised:39">
+        <rect class="card" x="880" y="432" width="776" height="108" rx="18" data-sid="08b-walk-revised:40"/>
+        <text class="code__l" x="904" y="476" data-sid="08b-walk-revised:41">nodeBefore = getNodeBefore(newEntry);</text>
+        <text class="code__l" x="904" y="518" data-sid="08b-walk-revised:42">addAfterNode(nodeBefore, newNode);</text>
+      </g>
+    </svg>
+
+    <div class="rv__caps" data-sid="08b-walk-revised:43">
+      <p class="rv__cap frag" data-step="1" data-sid="08b-walk-revised:44">LinkedChainBase is abstract. Its two insert methods are protected, so subclasses can call them and client code cannot.</p>
+      <p class="rv__cap frag" data-step="2" data-sid="08b-walk-revised:45">LListRevised extends the base and adds the public positional methods add(newPosition, newEntry) and replace(givenPosition, newEntry).</p>
+      <p class="rv__cap frag" data-step="3" data-sid="08b-walk-revised:46">LinkedSortedList also extends the base. It adds add(newEntry), remove(anEntry) and getPosition(anEntry), and no positional add or replace.</p>
+      <p class="rv__cap frag" data-step="4" data-sid="08b-walk-revised:47">LinkedSortedList has no add(int, T), so this call does not compile. LListRevised is a sibling, not a parent.</p>
+      <p class="rv__cap frag" data-step="5" data-sid="08b-walk-revised:48">add(newEntry) finds the node before, then calls the protected insert.</p>
+      <p class="rv__cap rv__cap--plant frag" data-step="6" data-sid="08b-walk-revised:49">Nothing is overridden to throw. The unwanted methods are never inherited.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="08b-walk-revised:50"></div>
+  <aside class="notes" data-sid="08b-walk-revised:51">This is the textbook&rsquo;s revised design from the 11.2 inheritance material. Step 1: LinkedChainBase is an abstract class that holds the chain, firstNode and numberOfEntries, and the methods every chain-based list needs, such as getEntry and isEmpty. Its two insert methods, addFirstNode and addAfterNode, are protected. A subclass can call them; client code cannot. The slide shows only these members; the textbook&rsquo;s base has more. Step 2: LListRevised extends the base and adds the public positional methods, add(newPosition, newEntry) and replace(givenPosition, newEntry). It is the ordinary list. Step 3: LinkedSortedList extends the same base. It adds add(newEntry), remove(anEntry) and getPosition(anEntry), and it has no positional add or replace. Step 4: so the call that broke the order on the last slide does not compile against a LinkedSortedList. LListRevised has that method, but the sorted list does not inherit from it; they are siblings under the base. Step 5: inside LinkedSortedList, add(newEntry) finds nodeBefore with getNodeBefore, as last week, and then calls the protected addAfterNode to link the new node in. Step 6: compare last week&rsquo;s option B, where the subclass overrode add(int, T) and replace to throw an exception. Here there is nothing to override. Next is Vote 2.</aside>
+
+  <style data-sid="08b-walk-revised:52">
+    /* Slide-local: one 1664 × 546 SVG at 1:1, then a caption cell under it
+       (two lines at --t-small, 1.35). W11D1 07b's boxes: name in mono
+       --t-small bold (italic for the abstract class), members in mono
+       --t-micro on a 36 px pitch (drawing labels), the omitted note in
+       stone. The two protected inserts are in the reference blue (the
+       methods the subclasses call). The client call is a stone card with a
+       maroon strike that is Created; the code card is mono at --t-code.
+       Motion: each box GrowsFromCenter; each generalisation line is Created
+       after its box and its hollow triangle fades in after the line; the
+       code card fades in; captions crossfade in one grid cell. Every stroke
+       is at least 6 px inside the body. Used by this slide only, all values
+       from tokens. */
+    #slide-08b .rv { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-08b .rv__fig { display: block; width: 1664px; height: 546px; overflow: visible; }
+
+    #slide-08b .col { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08b .frag.col.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-08b .box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08b .box__d { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08b .box__n { font-family: var(--font-mono); font-size: var(--t-small); font-weight: 700; fill: var(--fg-0); text-anchor: middle; }
+    #slide-08b .box__n--abs { font-style: italic; }
+    #slide-08b .box__m { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-08b .box__m--p { fill: var(--accent-2); }
+    #slide-08b .box__o { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); }
+    #slide-08b .card { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-08b .card__code { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08b .code__l { font-family: var(--font-mono); font-size: var(--t-code); fill: var(--fg-0); }
+    #slide-08b .code { transition: opacity .4s ease; }
+
+    #slide-08b .arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-08b .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-08b .frag.arr.is-current, #slide-08b .frag.arr.is-past { transition-delay: .5s; }
+    #slide-08b .tri { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; stroke-linejoin: round; transition: opacity .2s ease; }
+    #slide-08b .frag.tri.is-current, #slide-08b .frag.tri.is-past { transition-delay: .9s; }
+    #slide-08b .sk { fill: none; stroke: var(--accent-1); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .4s var(--ease-smooth); }
+    #slide-08b .frag.sk.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-08b .frag.sk.is-current, #slide-08b .frag.sk.is-past { transition-delay: .6s; }
+
+    /* captions: one at a time in one cell */
+    #slide-08b .rv__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-08b .slide__body p.rv__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-08b .frag.rv__cap.is-pending, #slide-08b .frag.rv__cap.is-past { opacity: 0; }
+    #slide-08b .slide__body p.rv__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .col, #slide-08b .arr, #slide-08b .tri, #slide-08b .sk, #slide-08b .code, #slide-08b .rv__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

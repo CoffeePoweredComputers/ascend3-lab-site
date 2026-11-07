@@ -1,0 +1,125 @@
+<section class="slide slide--warmup" id="slide-09b">
+  <header class="slide__head">
+    <p class="slide__kicker">VOTE 2 &middot; THE ANSWER</p>
+    <h2>Selection sort compares inside the unsorted part and swaps once per pass</h2>
+  </header>
+  <p class="sr-only slide__desc">The answer to Vote 2, built in six presses. On the left, the array as slide 08 left it, 11, 25, 12, 22, 64, with slot 0 washed blue as sorted and the lh pill above slot 1. Press one: three maroon arcs draw on, from 25 to 12, from 12 to 22 and from 12 to 64, the compares that findSmallest makes, and the caption says B is right. Press two: a dashed temp cell appears, 25 and 12 exchange places, and slot 1 is washed as sorted; the caption says D is right. Press three: a dashed arc from 25 back to 11 appears and is crossed out in maroon; the caption says A is wrong, because no unsorted entry is compared with the sorted part. Press four: the caption says C is wrong, because comparing with the neighbor is insertInOrder's inner loop. Press five: on the right, an inset from slide 04 grows in, two cells labelled j and j plus 1, and 64 moves from the first into the second; the caption says E is wrong, because shifting sorted items is insertion sort's shift. Press six: the five options, with A, C and E struck through and B and D in maroon.</p>
+
+  <!-- The answer walk for Vote 2, on 08's strip at the start of 08b (no
+       editor: the slide points back at 08 and 08b). One option per press.
+       The outline drew B's arcs from 25 to 12, 22 and 64; findSmallest
+       compares each a[i] with the smallest so far, so after 12 < 25 the
+       compares are 22 with 12 and 64 with 12, and the arcs are drawn that way.
+       The swap of 25 and 12 uses 08's three-group move. A's arc is dashed
+       (a compare the code never makes) and takes a maroon cross; E's inset is
+       slide 04's shift, two cells at the same pitch.
+       step 1: B · 2: D · 3: A struck · 4: C struck · 5: E struck ·
+       6: verdict -->
+  <div class="slide__body wb">
+    <div class="wb__figs">
+      <svg class="ss__fig" viewBox="0 0 716 396" role="img" aria-label="The array 11, 25, 12, 22, 64 with slot 0 washed as sorted and the lh pill above slot 1; three maroon arcs mark the compares of findSmallest, 25 and 12 exchange places, and a dashed arc from 25 back to 11 is crossed out">
+        <g class="ss__cells"><rect class="c0" x="104" y="164" width="96" height="96" rx="10"/><rect class="c1" x="212" y="164" width="96" height="96" rx="10"/><rect class="c2" x="320" y="164" width="96" height="96" rx="10"/><rect class="c3" x="428" y="164" width="96" height="96" rx="10"/><rect class="c4" x="536" y="164" width="96" height="96" rx="10"/></g>
+        <g class="ss__idx"><text x="152" y="290">0</text><text x="260" y="290">1</text><text x="368" y="290">2</text><text x="476" y="290">3</text><text x="584" y="290">4</text></g>
+        <g class="temp"><rect x="212" y="56" width="96" height="96" rx="10"/><text x="198" y="112">temp</text></g>
+        <g class="pill plh"><rect x="172" y="0" width="176" height="40" rx="20"/><text x="260" y="30">lh</text><path d="M252 40 L268 40 L260 48 Z"/></g>
+        <g class="ss__vals"><g class="sx x11"><g class="s1 a11"><g class="s2 b11"><text x="152" y="224">11</text></g></g></g><g class="sx x25"><g class="s1 a25"><g class="s2 b25"><text x="260" y="224">25</text></g></g></g><g class="sx x12"><g class="s1 a12"><g class="s2 b12"><text x="368" y="224">12</text></g></g></g><g class="sx x22"><g class="s1 a22"><g class="s2 b22"><text x="476" y="224">22</text></g></g></g><g class="sx x64"><g class="s1 a64"><g class="s2 b64"><text x="584" y="224">64</text></g></g></g></g>
+        <path class="cmp arc" pathLength="100" style="--i: 0" d="M260 158 C 260 100, 368 100, 368 158"/><path class="cmp arc" pathLength="100" style="--i: 1" d="M368 158 C 368 100, 476 100, 476 158"/><path class="cmp arc" pathLength="100" style="--i: 2" d="M368 158 C 368 70, 584 70, 584 158"/>
+        <path class="back" d="M368 158 C 368 50, 152 50, 152 158"/>
+        <path class="cross" pathLength="100" d="M248 65 L272 89 M272 65 L248 89"/>
+      </svg>
+      <svg class="wb__inset" viewBox="0 0 560 396" role="img" aria-label="An inset from slide 04: two cells, data at j holding 64 and data at j plus 1 empty; 64 moves one cell right">
+        <g class="inset">
+          <text class="inset__lbl" x="40" y="30">insertInOrder, slide 04</text>
+          <text class="inset__lbl" x="40" y="70">data[j + 1] = data[j]</text>
+          <g class="ss__cells"><rect x="40" y="164" width="96" height="96" rx="10"/><rect x="148" y="164" width="96" height="96" rx="10"/></g>
+          <g class="ss__idx"><text x="88" y="290">j</text><text x="196" y="290">j + 1</text></g>
+          <g class="ss__vals"><text class="inset__mv" x="88" y="224">64</text></g>
+        </g>
+      </svg>
+    </div>
+    <div class="wb__caps">
+      <p class="wb__cap cap--1 frag" data-step="1">B is right. findSmallest compares each unsorted entry with the smallest so far to pick the next sorted entry. Here that is three compares, 12 &lt; 25, 22 &lt; 12 and 64 &lt; 12, and the pick is 12.</p>
+      <p class="wb__cap cap--2 frag" data-step="2">D is right. The pick is swapped straight into slot lh, its final slot, and 25 goes where 12 was.</p>
+      <p class="wb__cap cap--3 frag" data-step="3">A is wrong. No unsorted entry is compared with the sorted part, so 25 is never compared with 11.</p>
+      <p class="wb__cap cap--4 frag" data-step="4">C is wrong. Comparing with the neighbor until the destination is found is insertInOrder&rsquo;s inner loop (slide 04b).</p>
+      <p class="wb__cap cap--5 frag" data-step="5">E is wrong. Shifting sorted items above the insertion point is data[j + 1] = data[j], insertion sort&rsquo;s shift (slide 04).</p>
+      <ol class="verdict frag wb__verdict" data-step="6">
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 0"><span class="verdict__txt">compares with all sorted items</span></li>
+        <li class="verdict__opt verdict__opt--right"><span class="verdict__txt">compares to pick the next sorted item</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 1"><span class="verdict__txt">compares with neighbors until the destination</span></li>
+        <li class="verdict__opt verdict__opt--right"><span class="verdict__txt">swaps the item into its final destination</span></li>
+        <li class="verdict__opt verdict__opt--wrong" style="--i: 2"><span class="verdict__txt">shifts sorted items above the insertion point</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+  <aside class="notes">Answer: B and D [keys from the PrairieLearn twin sorting/u12q06_b; confirm in Runestone&rsquo;s results view]. The array is the one slide 08 left, at the start of the pass for lh = 1. Step 1: B. findSmallest compares each entry of the unsorted part with the smallest found so far: 12 with 25, then 22 with 12, then 64 with 12. That is how it determines the next sorted item. Step 2: D. One swap puts the pick, 12, into slot lh. It never moves again, so that is its final destination. Step 3: A. Selection sort never compares an unsorted entry with the sorted part; 11 is not looked at again. Comparing an unsorted item with the sorted items is what insertion sort does. Step 4: C. Comparing with the neighbor, one step at a time, until the destination is found is insertInOrder&rsquo;s while loop. Step 5: E. Moving sorted items up to open the insertion point is data[j + 1] = data[j], the shift from slide 04. C and E describe insertion sort; that is the distinction both votes test. Step 6: B and D. Next is Part 3, what the two sorts cost.</aside>
+
+  <style>
+    /* Slide-local: the strip in one SVG at 1:1 (716 x 396, slide 08's
+       geometry and styles) beside a 560 x 396 inset SVG, the captions under
+       both (two lines at --t-small) with the verdict in the same cell. The
+       compare arcs are Created one after another (dash offset, --i stagger)
+       in the maroon of a compare and fade on the next press; the dashed arc
+       to the sorted part fades in and its cross is Created after it. The
+       inset GrowsFromCenter, then its 64 moves one pitch right. All states
+       are :has(.cap--k) rules, so a back-step reverses them. All values from
+       tokens; used by this slide only. */
+    #slide-09b .wb { display: grid; grid-template-rows: auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-09b .wb__figs { display: flex; column-gap: var(--s-5); align-items: start; }
+    #slide-09b .ss__fig { display: block; width: 716px; height: 396px; flex: 0 0 auto; overflow: visible; }
+    #slide-09b .wb__inset { display: block; width: 560px; height: 396px; flex: 0 0 auto; overflow: visible; }
+    #slide-09b .ss__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .4s ease; }
+    #slide-09b .ss__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-09b .temp rect { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 8; }
+    #slide-09b .temp text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; }
+    #slide-09b .temp, #slide-09b .plh { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-09b .pill rect, #slide-09b .pill path { fill: var(--accent-2); }
+    #slide-09b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-09b .si, #slide-09b .rh { opacity: 0; transition: transform .7s var(--ease-smooth) .35s, opacity .3s ease 0s; }
+    #slide-09b .ss__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    /* a swap: each value leaves the row (s1), travels (sx) and comes back (s2), one transition each */
+    #slide-09b .sx { transition: transform .8s var(--ease-smooth) .45s; }
+    #slide-09b .s1 { transition: transform .45s var(--ease-smooth) 1.25s; }
+    #slide-09b .s2 { transition: transform .45s var(--ease-smooth) 0s; }
+    #slide-09b .arc { fill: none; stroke: var(--accent-1); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0; transition: stroke-dashoffset .45s var(--ease-smooth), opacity .3s ease; }
+    #slide-09b .slide__body:has(.cap--1:not(.is-pending)) .arc { stroke-dashoffset: 0; transition-delay: calc(.2s + var(--i) * .4s); }
+    #slide-09b .back { fill: none; stroke: var(--stone); stroke-width: 5; stroke-dasharray: 12 10; opacity: 0; transition: opacity .3s ease; }
+    #slide-09b .cross { fill: none; stroke: var(--accent-1); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .4s var(--ease-smooth); }
+    #slide-09b .inset { transform-box: fill-box; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4); transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-09b .inset__lbl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-09b .inset__mv { transition: transform .6s var(--ease-smooth); }
+
+    /* ---- states, in step order ---- */
+    #slide-09b .c0 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-09b .temp { opacity: 0; }
+    #slide-09b .slide__body:has(.cap--1:not(.is-pending)) .cmp { opacity: 1; }
+    #slide-09b .slide__body:has(.cap--1.is-current) .c2 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.0s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .cmp { opacity: 0; transition-delay: 0s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .temp { opacity: 1; }
+    #slide-09b .slide__body:has(.cap--2.is-current) .c1 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-09b .slide__body:has(.cap--2.is-current) .c2 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .x25 { transform: translateX(108px); transition-delay: 0.85s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .a25 { transform: translateY(-108px); transition-delay: 0.4s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .b25 { transform: translateY(108px); transition-delay: 1.65s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .x12 { transform: translateX(-108px); transition-delay: 0.85s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .a12 { transform: translateY(108px); transition-delay: 0.4s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .b12 { transform: translateY(-108px); transition-delay: 1.65s; }
+    #slide-09b .slide__body:has(.cap--2:not(.is-pending)) .c1 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 2.2s; }
+    #slide-09b .slide__body:has(.cap--3:not(.is-pending)) .temp { opacity: 0; }
+    #slide-09b .slide__body:has(.cap--3:not(.is-pending)) .back { opacity: 1; transition-delay: .3s; }
+    #slide-09b .slide__body:has(.cap--3:not(.is-pending)) .cross { stroke-dashoffset: 0; transition-delay: .8s; }
+    #slide-09b .slide__body:has(.cap--5:not(.is-pending)) .inset { opacity: 1; transform: scale(1); }
+    #slide-09b .slide__body:has(.cap--5:not(.is-pending)) .inset__mv { transform: translateX(108px); transition-delay: .7s; }
+
+    /* captions: one at a time in one cell; the verdict takes the cell last */
+    #slide-09b .wb__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-09b .slide__body p.wb__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-09b .frag.wb__cap.is-pending, #slide-09b .frag.wb__cap.is-past { opacity: 0; }
+    #slide-09b .wb__caps .verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-body); font-size: var(--t-small); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-09b .ss__cells rect, #slide-09b .temp, #slide-09b .pill, #slide-09b .sx, #slide-09b .s1, #slide-09b .s2, #slide-09b .arc, #slide-09b .back, #slide-09b .cross, #slide-09b .inset, #slide-09b .inset__mv, #slide-09b .wb__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

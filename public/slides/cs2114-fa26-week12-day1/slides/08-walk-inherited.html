@@ -1,0 +1,127 @@
+<section class="slide slide--warmup" id="slide-08" data-sid="08-walk-inherited:1">
+  <header class="slide__head" data-sid="08-walk-inherited:2">
+    <h2 data-sid="08-walk-inherited:3">Two inherited methods let a client break the order</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08-walk-inherited:4">A walkthrough under a program-counter bar. The code is two lines of client code on a SortedList that extends LList: sorted dot add of 2, 25, then sorted dot replace of 1, 30. On the right, the sorted chain 3, 7, 12, 20 with firstNode on 3. Step one: the line add of 2, 25 is current. Step two: a node holding 25 grows under the gap between 3 and 7, its next arrow draws on to 7, and 3's next arrow moves to 25; the list reads 3, 25, 7, 12, 20. Step three: a maroon ring appears round 25, which is larger than 7 but comes before it. Step four: the line replace of 1, 30 is current; the caption says that the vote calls this method set. Step five: the 3 in the first node is struck through and replaced by 30; the list reads 30, 25, 7, 12, 20. Step six: a maroon ring appears round 30, and the caption says that neither method reads the order, and that both come from LList unchanged, so a SortedList that extends LList has them.</p>
+
+  <!-- Part 2 opens with the two methods the 11.2 inheritance slides name
+       ("inherits two methods that a client can use to destroy the order":
+       add(newPosition, newEntry) and replace(givenPosition, newEntry)),
+       called from client code on a SortedList that extends LList unchanged.
+       Positions are the textbook's, from 1. W11D1 06b's chain grammar and
+       coordinates (Link boxes 130 × 76 on a 156 px pitch; 25 grows under
+       the gap after 3, its next is Created to 7, 3's next swings). The
+       replaced value is the strike variant: a maroon line is Created over
+       3, then 3 fades and 30 fades in (no roll). Order broken = a maroon
+       ring.
+       step 1: add(2, 25) · 2: 25 goes in · 3: ring on 25 · 4: replace(1, 30)
+       · 5: 3 becomes 30 · 6: ring on 30, the plant -->
+  <div class="slide__body grid code-mid wi" data-sid="08-walk-inherited:5">
+    <div class="stack codewalk wi__left" data-sid="08-walk-inherited:6">
+      <div class="editor wi__editor" data-sid="08-walk-inherited:7">
+        <p class="editor__bar" data-sid="08-walk-inherited:8">client code; SortedList extends LList</p>
+        <div class="editor__pc" data-sid="08-walk-inherited:9"></div>
+        <ol class="editor__code" data-sid="08-walk-inherited:10">
+          <li class="walkline frag" data-step="1" data-hold="3" data-sid="08-walk-inherited:11">sorted.add(<span class="tok-num" data-sid="08-walk-inherited:12">2</span>, <span class="tok-num" data-sid="08-walk-inherited:13">25</span>);</li>
+          <li class="walkline frag" data-step="4" data-hold="6" data-sid="08-walk-inherited:14">sorted.replace(<span class="tok-num" data-sid="08-walk-inherited:15">1</span>, <span class="tok-num" data-sid="08-walk-inherited:16">30</span>);</li>
+        </ol>
+      </div>
+      <div class="codewalk__caps wi__caps" data-sid="08-walk-inherited:17">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="08-walk-inherited:18">SortedList extends LList and changes nothing, so it inherits add(newPosition, newEntry). The client calls add(2, 25).</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="08-walk-inherited:19">add(2, 25) puts 25 at position 2, after 3. The list reads 3, 25, 7, 12, 20.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="08-walk-inherited:20">25 is larger than 7 but comes before it. The list is no longer in sorted order.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="08-walk-inherited:21">replace(1, 30) sets the entry at position 1 to 30. The vote calls this method set(int, T).</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="08-walk-inherited:22">The entry 3 is replaced by 30. The list reads 30, 25, 7, 12, 20.</p>
+        <p class="walkcap walkcap--plant cap--6 frag" data-step="6" data-sid="08-walk-inherited:23">Neither method reads the order. Both come from LList unchanged, so a SortedList that extends LList has them.</p>
+      </div>
+    </div>
+
+    <div class="wi__right" data-sid="08-walk-inherited:24">
+      <svg class="wi__fig" viewBox="0 0 690 344" role="img" aria-label="The sorted chain 3, 7, 12, 20 with firstNode on 3; a node holding 25 is linked in after 3 and ringed in maroon, then the 3 is replaced by 30 and ringed in maroon" data-sid="08-walk-inherited:25">
+        <defs data-sid="08-walk-inherited:26">
+          <marker id="w12d1-08-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="08-walk-inherited:27"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="08-walk-inherited:28"/></marker>
+        </defs>
+        <g class="pill" data-sid="08-walk-inherited:29"><rect x="6" y="0" width="176" height="44" rx="8" data-sid="08-walk-inherited:30"/><text x="94" y="31" data-sid="08-walk-inherited:31">firstNode</text></g>
+        <path class="ref" d="M85 44 C 85 66, 85 80, 85 100" data-sid="08-walk-inherited:32"/>
+
+        <g class="nd" data-sid="08-walk-inherited:33"><rect class="nd__box" x="20" y="104" width="130" height="76" rx="10" data-sid="08-walk-inherited:34"/><path class="nd__div" d="M76 104v76" data-sid="08-walk-inherited:35"/><text class="nd__v v3" x="48" y="154" data-sid="08-walk-inherited:36">3</text><text class="nd__v v30" x="48" y="154" data-sid="08-walk-inherited:37">30</text><path class="sk" pathLength="100" d="M34 143 H 62" data-sid="08-walk-inherited:38"/></g>
+        <g class="nd" data-sid="08-walk-inherited:39"><rect class="nd__box" x="176" y="104" width="130" height="76" rx="10" data-sid="08-walk-inherited:40"/><path class="nd__div" d="M232 104v76" data-sid="08-walk-inherited:41"/><text class="nd__v" x="204" y="154" data-sid="08-walk-inherited:42">7</text></g>
+        <g class="nd" data-sid="08-walk-inherited:43"><rect class="nd__box" x="332" y="104" width="130" height="76" rx="10" data-sid="08-walk-inherited:44"/><path class="nd__div" d="M388 104v76" data-sid="08-walk-inherited:45"/><text class="nd__v" x="360" y="154" data-sid="08-walk-inherited:46">12</text></g>
+        <g class="nd" data-sid="08-walk-inherited:47"><rect class="nd__box" x="488" y="104" width="130" height="76" rx="10" data-sid="08-walk-inherited:48"/><path class="nd__div" d="M544 104v76" data-sid="08-walk-inherited:49"/><text class="nd__v" x="516" y="154" data-sid="08-walk-inherited:50">20</text><text class="nd__nl" x="581" y="152" data-sid="08-walk-inherited:51">null</text></g>
+        <!-- 3's next: to 25 on step 2 -->
+        <path class="lnk lnk--3" data-swing='[[2,"M113 142 C 113 196, 126 210, 126 252"]]' d="M113 142 C 133 142, 152 142, 172 142" data-sid="08-walk-inherited:52"/>
+        <path class="lnk" d="M269 142 H 328" data-sid="08-walk-inherited:53"/>
+        <path class="lnk" d="M425 142 H 484" data-sid="08-walk-inherited:54"/>
+
+        <!-- add(2, 25): the node grows under the gap after 3, its next is Created to 7 -->
+        <g class="nd nd--new frag" data-step="2" data-sid="08-walk-inherited:55"><rect class="nd__box" x="98" y="256" width="130" height="76" rx="10" data-sid="08-walk-inherited:56"/><path class="nd__div" d="M154 256v76" data-sid="08-walk-inherited:57"/><text class="nd__v" x="126" y="306" data-sid="08-walk-inherited:58">25</text></g>
+        <path class="arr frag" data-step="2" pathLength="100" d="M191 294 C 191 240, 241 250, 241 196" data-sid="08-walk-inherited:59"/>
+        <path class="head frag" data-step="2" data-anim="fade" d="M241 184 L235 196 L247 196 Z" data-sid="08-walk-inherited:60"/>
+        <g class="bad frag" data-step="3" data-sid="08-walk-inherited:61"><rect x="92" y="248" width="142" height="92" rx="14" data-sid="08-walk-inherited:62"/></g>
+        <g class="bad frag" data-step="6" data-sid="08-walk-inherited:63"><rect x="14" y="96" width="142" height="92" rx="14" data-sid="08-walk-inherited:64"/></g>
+      </svg>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="08-walk-inherited:65"></div>
+  <aside class="notes" data-sid="08-walk-inherited:66">Suppose SortedList extends LList and adds nothing that blocks the inherited methods. The 11.2 module says such a class inherits two methods that a client can use to destroy the order of a sorted list. Positions in the textbook&rsquo;s LList start at 1. Step 1: the client calls add(2, 25). Step 2: LList&rsquo;s add puts 25 at position 2, right after 3, as it would in any list. Step 3: 25 now comes before 7, so the list is not sorted. getPosition, contains and the sorted add itself all assume the order, so their results are now wrong. Step 4: the client calls replace(1, 30). The vote calls this kind of method set(int, T); the textbook&rsquo;s name is replace(givenPosition, newEntry). Step 5: the entry at position 1, which was 3, is now 30. Step 6: 30 is larger than every entry after it. Neither method compares anything; they put the entry where the client says. Both are inherited from LList unchanged. Next: how the textbook keeps these methods away from clients.</aside>
+
+  <style data-sid="08-walk-inherited:67">
+    /* Slide-local: W11D1 06b's chain at 1:1 (690 × 344, Link boxes 130 × 76
+       on a 156 px pitch) on the right; on the left a two-line editor at
+       --t-code (620 px: the replace line is 22 characters, 22 × 19.2 + 2% +
+       70 = 501) with the captions under it (four lines or fewer at
+       --t-small). Colours: the struck line and the rings in maroon (the
+       order broken); the new arrow in the reference blue. Motion: 25 grows
+       from its centre; its next arrow is Created (the shaft draws on, then
+       the head fades in); 3's next swings to 25 (CSS d plus the same path in
+       data-swing for Safari); the strike line is Created over 3, then 3
+       fades and 30 fades in; the rings grow. States keyed to the caption
+       frags with :has(), in step order. Used by this slide only, all values
+       from tokens. */
+    #slide-08 .wi { grid-template-columns: 620px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    #slide-08 .wi__left { gap: var(--s-4); }
+    #slide-08 .wi__editor { width: 620px; }
+    #slide-08 .wi__caps { min-height: 196px; }
+    #slide-08 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-08 .wi__fig { display: block; width: 690px; height: 344px; overflow: visible; }
+
+    #slide-08 .pill rect { fill: var(--accent-2); }
+    #slide-08 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08 .ref { fill: none; stroke: var(--accent-2); stroke-width: 5; stroke-linecap: round; marker-end: url(#w12d1-08-head); }
+    #slide-08 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w12d1-08-head); transition: d .7s var(--ease-smooth); }
+    #slide-08 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-08 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-08 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+
+    /* the new node grows; its next arrow is Created */
+    #slide-08 .nd--new { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08 .frag.nd--new.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-08 .arr { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; transition: stroke-dashoffset .45s var(--ease-smooth); }
+    #slide-08 .frag.arr.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-08 .frag.arr.is-current, #slide-08 .frag.arr.is-past { transition-delay: .5s; }
+    #slide-08 .head { fill: var(--accent-2); transition: opacity .2s ease; }
+    #slide-08 .frag.head.is-current, #slide-08 .frag.head.is-past { transition-delay: .9s; }
+
+    /* the replaced value: strike, then crossfade */
+    #slide-08 .v3, #slide-08 .v30 { transition: opacity .3s ease; }
+    #slide-08 .v30 { opacity: 0; }
+    #slide-08 .sk { fill: none; stroke: var(--accent-1); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .35s var(--ease-smooth), opacity .3s ease; }
+
+    /* the broken order: maroon rings that grow */
+    #slide-08 .bad rect { fill: none; stroke: var(--accent-1); stroke-width: 6; }
+    #slide-08 .bad { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08 .frag.bad.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-08 .wi:has(.cap--2:not(.is-pending)) .lnk--3 { d: path("M113 142 C 113 196, 126 210, 126 252"); }
+    #slide-08 .wi:has(.cap--5:not(.is-pending)) .sk { stroke-dashoffset: 0; }
+    #slide-08 .wi:has(.cap--5:not(.is-pending)) .v3 { opacity: 0; transition-delay: .6s; }
+    #slide-08 .wi:has(.cap--5:not(.is-pending)) .sk { opacity: 0; transition: stroke-dashoffset .35s var(--ease-smooth), opacity .3s ease .6s; }
+    #slide-08 .wi:has(.cap--5:not(.is-pending)) .v30 { opacity: 1; transition-delay: .9s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08 .lnk, #slide-08 .nd--new, #slide-08 .arr, #slide-08 .head, #slide-08 .bad, #slide-08 .v3, #slide-08 .v30, #slide-08 .sk { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

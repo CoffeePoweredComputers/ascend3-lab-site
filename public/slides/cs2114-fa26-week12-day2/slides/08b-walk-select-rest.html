@@ -1,0 +1,187 @@
+<section class="slide slide--warmup" id="slide-08b">
+  <header class="slide__head">
+    <h2>The other passes make 3, 2, 1 and 0 compares and one swap call each</h2>
+  </header>
+  <p class="sr-only slide__desc">The same selection sort code under a program-counter bar, with the remaining four passes. On the right, the call to findSmallest, the counters compares and swaps starting at 4 and 1, and the array 11, 25, 12, 22, 64 with slot 0 washed blue, the lh pill and the dashed temp cell above slot 1. Steps one to three, lh = 1: a smallestIndex pill appears under slot 1 and moves to slot 2 for 12; 22 and 64 are compared with 12 and are not smaller; compares reaches 7 and the pill becomes rh. Step four: 25 and 12 exchange places, swaps reaches 2, and lh moves to slot 2: 11, 12, 25, 22, 64. Steps five and six, lh = 2: the pill moves to slot 3 for 22; 64 is not smaller; compares 9. Step seven: 25 and 22 exchange places, swaps 3, lh moves to 3: 11, 12, 22, 25, 64. Step eight, lh = 3: one compare, 64 with 25, and findSmallest returns 3; compares 10. Step nine: 25 rises into the temp cell and drops back, a swap of slot 3 with itself; swaps 4. Step ten, lh = 4: no compare, and 64 rises and drops back; swaps 5, and every slot is washed. Step eleven: the caption says ten compares, 4 plus 3 plus 2 plus 1, whatever the order, and one swap call per pass.</p>
+
+  <!-- Selection sort, walk 2 of 2: the same editor (see 08's comment) and
+       strip, starting where 08 ended. Each pass is its compares (findSmallest's
+       loop held under the bar), then one press for the swap and lh++ (lines
+       2-4 as one block). The pass for lh = 3 is one press (its one compare and
+       the return; the smallestIndex pill stays on slot 3, which is rh); lh = 4 is one press. A swap of a slot with itself is drawn
+       as the value rising into temp and dropping back, because
+       swapElements(a, 3, 3) still runs its three statements.
+       steps 1-3: lh = 1 · 4: swap, lh++ · 5-6: lh = 2 · 7: swap, lh++ ·
+       8: lh = 3 · 9: swap(3, 3) · 10: lh = 4 · 11: the plant -->
+  <div class="slide__body codewalk code-mid ss">
+    <div class="editor">
+      <p class="editor__bar">selection sort, array named a</p>
+      <div class="editor__pc"></div>
+      <ol class="editor__code">
+        <li><span class="tok-key">void</span> selectionSort(<span class="tok-key">int</span>[] a) {</li>
+        <li class="walkline frag" data-step="4" data-also="7 9 10">  <span class="tok-key">for</span> (<span class="tok-key">int</span> lh = <span class="tok-num">0</span>; lh &lt; a.length; lh++) {</li>
+        <li class="walkline frag" data-step="4" data-also="7 9 10">    <span class="tok-key">int</span> rh = findSmallest(a, lh, a.length);</li>
+        <li class="walkline frag" data-step="4" data-also="7 9 10">    swapElements(a, lh, rh);</li>
+        <li>  }</li>
+        <li>}</li>
+        <li><span class="tok-key">int</span> findSmallest(<span class="tok-key">int</span>[] a, <span class="tok-key">int</span> p1, <span class="tok-key">int</span> p2) {</li>
+        <li class="walkline frag" data-step="1" data-also="5 8">  <span class="tok-key">int</span> smallestIndex = p1;</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="5 6 8">  <span class="tok-key">for</span> (<span class="tok-key">int</span> i = p1 + <span class="tok-num">1</span>; i &lt; p2; i++)</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="5 6 8">    <span class="tok-key">if</span> (a[i] &lt; a[smallestIndex])</li>
+        <li class="walkline frag" data-step="1" data-hold="3" data-also="5 6 8">      smallestIndex = i;</li>
+        <li class="walkline frag" data-step="3" data-also="6 8">  <span class="tok-key">return</span> smallestIndex;</li>
+        <li>}</li>
+      </ol>
+    </div>
+
+    <div class="ss__right">
+      <p class="ss__call">findSmallest(a, <span class="ss__cv"><span class="ss__cv__v ss__cv__v--0">1</span><span class="ss__cv__v ss__cv__v--1"><span class="sr-only">now </span>2</span><span class="ss__cv__v ss__cv__v--2"><span class="sr-only">now </span>3</span><span class="ss__cv__v ss__cv__v--3"><span class="sr-only">now </span>4</span></span>, 5)</p>
+      <div class="ss__counts">
+        <div class="moves">
+          <p class="moves__label">compares</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="1">4</p><p class="heap-val frag" data-step="1">5</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="2">5</p><p class="heap-val frag" data-step="2">6</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="3">6</p><p class="heap-val frag" data-step="3">7</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="5">7</p><p class="heap-val frag" data-step="5">8</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="6">8</p><p class="heap-val frag" data-step="6">9</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="8">9</p><p class="heap-val frag" data-step="8">10</p></div>
+          </div>
+        </div>
+        <div class="moves moves--ok">
+          <p class="moves__label">swaps</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="4">1</p><p class="heap-val frag" data-step="4">2</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="7">2</p><p class="heap-val frag" data-step="7">3</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="9">3</p><p class="heap-val frag" data-step="9">4</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="10">4</p><p class="heap-val frag" data-step="10">5</p></div>
+          </div>
+        </div>
+      </div>
+      <svg class="ss__fig" viewBox="0 0 716 396" role="img" aria-label="The array as slide 08 left it, 11, 25, 12, 22 and 64, slot 0 washed as sorted, with the lh pill and the dashed temp cell above slot 1; during the walk 25 and 12 exchange places, then 25 and 22, and the passes for slots 3 and 4 swap each slot with itself, ending at 11, 12, 22, 25, 64">
+        <g class="ss__cells"><rect class="c0" x="104" y="164" width="96" height="96" rx="10"/><rect class="c1" x="212" y="164" width="96" height="96" rx="10"/><rect class="c2" x="320" y="164" width="96" height="96" rx="10"/><rect class="c3" x="428" y="164" width="96" height="96" rx="10"/><rect class="c4" x="536" y="164" width="96" height="96" rx="10"/></g>
+        <g class="ss__idx"><text x="152" y="290">0</text><text x="260" y="290">1</text><text x="368" y="290">2</text><text x="476" y="290">3</text><text x="584" y="290">4</text></g>
+        <g class="temp"><rect x="212" y="56" width="96" height="96" rx="10"/><text x="198" y="112">temp</text></g>
+        <g class="pill plh"><rect x="172" y="0" width="176" height="40" rx="20"/><text x="260" y="30">lh</text><path d="M252 40 L268 40 L260 48 Z"/></g>
+        <g class="pill si si1"><rect x="140" y="352" width="240" height="40" rx="20"/><text x="260" y="382">smallestIndex</text><path d="M252 352 L268 352 L260 342 Z"/></g>
+        <g class="pill si si2"><rect x="248" y="352" width="240" height="40" rx="20"/><text x="368" y="382">smallestIndex</text><path d="M360 352 L376 352 L368 342 Z"/></g>
+        <g class="pill si si3"><rect x="356" y="352" width="240" height="40" rx="20"/><text x="476" y="382">smallestIndex</text><path d="M468 352 L484 352 L476 342 Z"/></g>
+        <g class="pill rh rh1"><rect x="280" y="352" width="176" height="40" rx="20"/><text x="368" y="382">rh</text><path d="M360 352 L376 352 L368 342 Z"/></g>
+        <g class="pill rh rh2"><rect x="388" y="352" width="176" height="40" rx="20"/><text x="476" y="382">rh</text><path d="M468 352 L484 352 L476 342 Z"/></g>
+        <g class="ss__vals"><g class="sx x11"><g class="s1 a11"><g class="s2 b11"><text x="152" y="224">11</text></g></g></g><g class="sx x25"><g class="s1 a25"><g class="s2 b25"><text x="260" y="224">25</text></g></g></g><g class="sx x12"><g class="s1 a12"><g class="s2 b12"><text x="368" y="224">12</text></g></g></g><g class="sx x22"><g class="s1 a22"><g class="s2 b22"><text x="476" y="224">22</text></g></g></g><g class="sx x64"><g class="s1 a64"><g class="s2 b64"><text x="584" y="224">64</text></g></g></g></g>
+      </svg>
+      <div class="codewalk__caps">
+        <p class="walkcap cap--1 frag" data-step="1">findSmallest(a, 1, 5) starts with smallestIndex = 1. With i = 2, 12 &lt; 25 is true, so smallestIndex becomes 2.</p>
+        <p class="walkcap cap--2 frag" data-step="2">With i = 3, 22 &lt; 12 is false.</p>
+        <p class="walkcap cap--3 frag" data-step="3">With i = 4, 64 &lt; 12 is false. findSmallest returns 2, so rh is 2.</p>
+        <p class="walkcap cap--4 frag" data-step="4">swapElements(a, 1, 2) exchanges 25 and 12, and lh++ makes lh 2. The array reads 11 12 25 22 64.</p>
+        <p class="walkcap cap--5 frag" data-step="5">findSmallest(a, 2, 5) starts at 2. With i = 3, 22 &lt; 25 is true, so smallestIndex becomes 3.</p>
+        <p class="walkcap cap--6 frag" data-step="6">With i = 4, 64 &lt; 22 is false. findSmallest returns 3.</p>
+        <p class="walkcap cap--7 frag" data-step="7">swapElements(a, 2, 3) exchanges 25 and 22, and lh becomes 3. The array reads 11 12 22 25 64.</p>
+        <p class="walkcap cap--8 frag" data-step="8">findSmallest(a, 3, 5) makes one compare, 64 &lt; 25, which is false, and returns 3.</p>
+        <p class="walkcap cap--9 frag" data-step="9">swapElements(a, 3, 3) exchanges slot 3 with itself. The call still counts as a swap, and lh becomes 4.</p>
+        <p class="walkcap cap--10 frag" data-step="10">For lh = 4, findSmallest(a, 4, 5) makes no compare and returns 4. swapElements(a, 4, 4) is the fifth swap call.</p>
+        <p class="walkcap walkcap--plant cap--11 frag" data-step="11">Ten compares in all, 4 + 3 + 2 + 1, whatever order the entries were in, and one swap call per pass.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+  <aside class="notes">The other four passes on the same code. The counters start at four compares and one swap. Steps 1 to 3: lh = 1. findSmallest compares 12, 22 and 64 with the smallest so far: three compares, and it returns 2. Step 4: 25 and 12 swap, and lh moves on. Steps 5 and 6: lh = 2, two compares, return 3. Step 7: 25 and 22 swap. Step 8: lh = 3, one compare, return 3. Step 9: rh equals lh, and swapElements(a, 3, 3) still runs: temp gets 25, a[3] gets a[3], and a[3] gets temp. The course&rsquo;s code makes the call on every pass; it does not test rh == lh first. Step 10: lh = 4, findSmallest&rsquo;s loop does not run, and the last swap is slot 4 with itself. Step 11: 4 + 3 + 2 + 1 = 10 compares, which is n(n &minus; 1)/2 for n = 5. The count does not depend on the order of the entries: findSmallest always scans the whole unsorted part. One swap call per pass, n in all. Next is Vote 2.</aside>
+
+  <style>
+    /* Slide-local: slide 08's layout and strip (see 08's comment). Each pass
+       has its own smallestIndex and rh pills, drawn at their slots and faded
+       in and out, so no pill slides while it fades. Within a press, delays
+       order the compare edge, the pill move and the swap; the lh pill and the
+       temp cell move after the swap lands (1.9 s). Each value's three groups
+       hold their cumulative positions in step order. All values from tokens;
+       used by this slide only. */
+    #slide-08b .ss { display: grid; grid-template-columns: 916px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-08b .ss__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-08b .ss__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-08b .ss__counts { display: flex; column-gap: var(--s-6); }
+    #slide-08b .ss__fig { display: block; width: 716px; height: 396px; overflow: visible; }
+    #slide-08b .codewalk__caps { min-height: 146px; }
+    #slide-08b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-08b .ss__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .4s ease; }
+    #slide-08b .ss__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-08b .temp rect { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 8; }
+    #slide-08b .temp text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; }
+    #slide-08b .temp, #slide-08b .plh { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-08b .pill rect, #slide-08b .pill path { fill: var(--accent-2); }
+    #slide-08b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08b .si, #slide-08b .rh { opacity: 0; transition: transform .7s var(--ease-smooth) .35s, opacity .3s ease 0s; }
+    #slide-08b .ss__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    /* a swap: each value leaves the row (s1), travels (sx) and comes back (s2), one transition each */
+    #slide-08b .sx { transition: transform .8s var(--ease-smooth) .45s; }
+    #slide-08b .s1 { transition: transform .45s var(--ease-smooth) 1.25s; }
+    #slide-08b .s2 { transition: transform .45s var(--ease-smooth) 0s; }
+
+    /* ---- states, in step order ---- */
+    #slide-08b .c0 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-08b .slide__body:has(.cap--1:not(.is-pending)) .si1 { opacity: 1; transform: translateX(108px); transition-delay: 0.7s, 0s; }
+    #slide-08b .slide__body:has(.cap--1.is-current) .c2 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 0.4s; }
+    #slide-08b .slide__body:has(.cap--2.is-current) .c3 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--3.is-current) .c4 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--3:not(.is-pending)) .si1 { opacity: 0; transition-delay: .35s, 0.6s; }
+    #slide-08b .slide__body:has(.cap--3:not(.is-pending)) .rh1 { opacity: 1; transition-delay: .35s, 0.9s; }
+    #slide-08b .slide__body:has(.cap--4.is-current) .c1 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--4.is-current) .c2 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .x25 { transform: translateX(108px); transition-delay: 0.45s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .a25 { transform: translateY(-108px); transition-delay: 0.0s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .b25 { transform: translateY(108px); transition-delay: 1.25s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .x12 { transform: translateX(-108px); transition-delay: 0.45s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .a12 { transform: translateY(108px); transition-delay: 0.0s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .b12 { transform: translateY(-108px); transition-delay: 1.25s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .plh { transform: translateX(108px); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .temp { transform: translateX(108px); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .c1 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--4:not(.is-pending)) .rh1 { opacity: 0; transition-delay: .35s, 1.9s; }
+    #slide-08b .slide__body:has(.cap--5:not(.is-pending)) .si2 { opacity: 1; transform: translateX(108px); transition-delay: 0.7s, 0s; }
+    #slide-08b .slide__body:has(.cap--5.is-current) .c3 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 0.4s; }
+    #slide-08b .slide__body:has(.cap--6.is-current) .c4 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--6:not(.is-pending)) .si2 { opacity: 0; transition-delay: .35s, 0.6s; }
+    #slide-08b .slide__body:has(.cap--6:not(.is-pending)) .rh2 { opacity: 1; transition-delay: .35s, 0.9s; }
+    #slide-08b .slide__body:has(.cap--7.is-current) .c2 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--7.is-current) .c3 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .x25 { transform: translateX(216px); transition-delay: 0.45s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .a25 { transform: translateY(-216px); transition-delay: 0.0s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .b25 { transform: translateY(216px); transition-delay: 1.25s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .x22 { transform: translateX(-108px); transition-delay: 0.45s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .a22 { transform: translateY(108px); transition-delay: 0.0s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .b22 { transform: translateY(-108px); transition-delay: 1.25s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .plh { transform: translateX(216px); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .temp { transform: translateX(216px); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .c2 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--7:not(.is-pending)) .rh2 { opacity: 0; transition-delay: .35s, 1.9s; }
+    #slide-08b .slide__body:has(.cap--8:not(.is-pending)) .si3 { opacity: 1; transition-delay: .35s, 0s; }
+    #slide-08b .slide__body:has(.cap--8.is-current) .c4 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 0.4s; }
+    #slide-08b .slide__body:has(.cap--9.is-current) .c3 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .x25 { transform: translateX(216px); transition-delay: 0.45s; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .a25 { transform: translateY(-324px); transition-delay: 0.0s; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .b25 { transform: translateY(324px); transition-delay: 1.25s; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .plh { transform: translateX(324px); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .temp { transform: translateX(324px); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .c3 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--9:not(.is-pending)) .si3 { opacity: 0; transition-delay: .35s, 0s; }
+    #slide-08b .slide__body:has(.cap--10.is-current) .c4 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .x64 { transform: translateX(0px); transition-delay: 0.45s; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .a64 { transform: translateY(-108px); transition-delay: 0.0s; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .b64 { transform: translateY(108px); transition-delay: 1.25s; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .c4 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); transition-delay: 1.9s; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .plh { opacity: 0; transition-delay: .35s, 1.9s; }
+    #slide-08b .ss__cv { display: inline-grid; vertical-align: baseline; }
+    #slide-08b .ss__cv__v { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-08b .ss__cv__v--1, #slide-08b .ss__cv__v--2, #slide-08b .ss__cv__v--3 { opacity: 0; }
+    #slide-08b .slide__body:has(.cap--5:not(.is-pending)) .ss__cv__v--0 { opacity: 0; }
+    #slide-08b .slide__body:has(.cap--5:not(.is-pending)) .ss__cv__v--1 { opacity: 1; transition-delay: .25s; }
+    #slide-08b .slide__body:has(.cap--8:not(.is-pending)) .ss__cv__v--1 { opacity: 0; }
+    #slide-08b .slide__body:has(.cap--8:not(.is-pending)) .ss__cv__v--2 { opacity: 1; transition-delay: .25s; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .ss__cv__v--2 { opacity: 0; }
+    #slide-08b .slide__body:has(.cap--10:not(.is-pending)) .ss__cv__v--3 { opacity: 1; transition-delay: .25s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .ss__cells rect, #slide-08b .temp, #slide-08b .pill, #slide-08b .sx, #slide-08b .s1, #slide-08b .s2, #slide-08b .ss__cv__v { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

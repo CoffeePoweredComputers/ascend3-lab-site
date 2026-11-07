@@ -1,0 +1,143 @@
+<section class="slide slide--warmup" id="slide-04">
+  <header class="slide__head">
+    <h2>insertInOrder shifts 64 right, then puts 25 in the gap</h2>
+  </header>
+  <p class="sr-only slide__desc">A walkthrough of insertion sort's first pass under a program-counter bar. The editor holds insertionSort, whose loop calls insertInOrder of data and i for i from 1, and insertInOrder: unsorted gets data at i, j gets i minus 1, a while loop that runs while j is at least 0 and data at j is greater than unsorted, copying data at j into data at j plus 1 and decrementing j, and then data at j plus 1 gets unsorted. On the right, the call insertInOrder of data and 1, the values of unsorted and j, two large counters labelled compares and shifts, and a five-slot array holding 64, 25, 12, 22 and 11, with an i pill above slot 1, a dashed cell labelled unsorted above slot 1 and a j pill under the array. Step one: 25 rises out of slot 1 into the dashed cell. Step two: the j pill appears under slot 0. Step three: slot 0 takes a maroon edge, 64 is compared with 25, and compares rolls to 1. Step four: 64 moves one slot right into slot 1, and shifts rolls to 1. Step five: the j pill moves left of the array to minus 1, and the loop ends. Step six: 25 drops into slot 0; the caption says one compare and one shift, and the array reads 25, 64, 12, 22, 11.</p>
+
+  <!-- Concept intro, walk 1 of 3 (DECK-PROMPT 13: a new concept is walked in
+       code). The 10.2 reading's insertionSort and insertInOrder, names and
+       statements verbatim; the public/private static modifiers and the for
+       loop's braces are left out (the brief's form) so that the 42-character
+       while line fits a 900 px editor at --t-code. One line per press under the
+       bar. On the right: the call, unsorted and j (crossfades), two counters
+       (deck.css .moves; code-walk.js rolls every .heap-obj__field pair in the
+       section, so both roll), and the walk strip in one SVG at 1:1. The
+       outline put the strip under both columns; the 13-line editor is 704 px
+       tall, so the strip sits in the right column instead and the slide has
+       no kicker (PLAN.md).
+       step 1: unsorted = data[i] · 2: j = i - 1 · 3: the compare · 4: the
+       shift · 5: j-- · 6: data[j + 1] = unsorted and the plant -->
+  <div class="slide__body codewalk code-mid is">
+    <div class="editor">
+      <p class="editor__bar">insertion sort, 10.2 reading</p>
+      <div class="editor__pc"></div>
+      <ol class="editor__code">
+        <li><span class="tok-key">void</span> insertionSort(<span class="tok-key">int</span>[] data) {</li>
+        <li>    <span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">1</span>; i &lt; data.length; i++)</li>
+        <li>        insertInOrder(data, i);</li>
+        <li>}</li>
+        <li><span class="tok-key">void</span> insertInOrder(<span class="tok-key">int</span>[] data, <span class="tok-key">int</span> i) {</li>
+        <li class="walkline frag" data-step="1">    <span class="tok-key">int</span> unsorted = data[i];</li>
+        <li class="walkline frag" data-step="2">    <span class="tok-key">int</span> j = i - <span class="tok-num">1</span>;</li>
+        <li class="walkline frag" data-step="3">    <span class="tok-key">while</span> (j &gt;= <span class="tok-num">0</span> &amp;&amp; data[j] &gt; unsorted) {</li>
+        <li class="walkline frag" data-step="4">        data[j + <span class="tok-num">1</span>] = data[j];</li>
+        <li class="walkline frag" data-step="5">        j--;</li>
+        <li>    }</li>
+        <li class="walkline frag" data-step="6">    data[j + <span class="tok-num">1</span>] = unsorted;</li>
+        <li>}</li>
+      </ol>
+    </div>
+
+    <div class="is__right">
+      <p class="is__call">insertInOrder(data, 1)</p>
+      <p class="is__meta">unsorted = <span class="is__xv"><span class="is__xv__v is__xv__v--0">&mdash;</span><span class="is__xv__v is__xv__v--1"><span class="sr-only">now </span>25</span></span> &nbsp;&middot;&nbsp; j = <span class="is__jv"><span class="is__jv__v is__jv__v--0">&mdash;</span><span class="is__jv__v is__jv__v--1"><span class="sr-only">now </span>0</span><span class="is__jv__v is__jv__v--2"><span class="sr-only">now </span>&minus;1</span></span></p>
+      <div class="is__counts">
+        <div class="moves">
+          <p class="moves__label">compares</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="3">0</p><p class="heap-val frag" data-step="3">1</p></div>
+          </div>
+        </div>
+        <div class="moves">
+          <p class="moves__label">shifts</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="4">0</p><p class="heap-val frag" data-step="4">1</p></div>
+          </div>
+        </div>
+      </div>
+      <svg class="is__fig" viewBox="0 0 732 348" role="img" aria-label="A five-slot array holding 64, 25, 12, 22 and 11, with an i pill above slot 1, a dashed cell labelled unsorted above slot 1, and a j pill below the array; during the walk 25 rises into the dashed cell, 64 moves one slot right, and 25 drops into slot 0">
+        <g class="is__cells"><rect class="c0" x="148" y="164" width="96" height="96" rx="10"/><rect class="c1" x="256" y="164" width="96" height="96" rx="10"/><rect class="c2" x="364" y="164" width="96" height="96" rx="10"/><rect class="c3" x="472" y="164" width="96" height="96" rx="10"/><rect class="c4" x="580" y="164" width="96" height="96" rx="10"/></g>
+        <g class="is__idx"><text class="is__neg" x="88" y="290">&minus;1</text><text x="196" y="290">0</text><text x="304" y="290">1</text><text x="412" y="290">2</text><text x="520" y="290">3</text><text x="628" y="290">4</text></g>
+        <g class="held"><rect x="256" y="56" width="96" height="96" rx="10"/><text x="242" y="112">unsorted</text></g>
+        <g class="pill pi"><rect x="216" y="0" width="176" height="40" rx="20"/><text x="304" y="30">i</text><path d="M296 40 L312 40 L304 48 Z"/></g>
+        <g class="pill pj"><rect x="108" y="304" width="176" height="40" rx="20"/><text x="196" y="334">j</text><path d="M188 304 L204 304 L196 294 Z"/></g>
+        <g class="is__vals"><text class="mv m64" x="196" y="224">64</text><text class="mv m25" x="304" y="224">25</text><text class="mv m12" x="412" y="224">12</text><text class="mv m22" x="520" y="224">22</text><text class="mv m11" x="628" y="224">11</text></g>
+      </svg>
+      <div class="codewalk__caps">
+        <p class="walkcap cap--1 frag" data-step="1">int unsorted = data[i] copies 25 out of slot 1. Slot 1 can now take a larger entry.</p>
+        <p class="walkcap cap--2 frag" data-step="2">int j = i - 1 sets j to 0, the last slot of the sorted part.</p>
+        <p class="walkcap cap--3 frag" data-step="3">j &gt;= 0 is true, and data[0] &gt; unsorted compares 64 with 25. 64 is larger, so the loop body runs.</p>
+        <p class="walkcap cap--4 frag" data-step="4">data[j + 1] = data[j] copies 64 into slot 1, one slot to the right.</p>
+        <p class="walkcap cap--5 frag" data-step="5">j-- sets j to &minus;1, so j &gt;= 0 is false and the loop ends.</p>
+        <p class="walkcap walkcap--plant cap--6 frag" data-step="6">data[0] = unsorted puts 25 in slot 0. One compare and one shift, and the array reads 25 64 12 22 11.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+  <aside class="notes">This is the reading&rsquo;s insertion sort with the public and private static modifiers left out. insertionSort calls insertInOrder once for each i from 1 to the last index. Each call takes the entry at i and inserts it into the part to its left, which is already sorted. The two counters count compares of data[j] with unsorted, and shifts, the copies data[j + 1] = data[j]. Step 1: unsorted = data[i] copies 25 out of slot 1. The array still holds a 25 there, but it will be overwritten, so the slide draws it as moved. Step 2: j starts at the slot just left of i. Step 3: the loop test. j &gt;= 0 is true, and 64 is greater than 25: one compare. Step 4: 64 is copied one slot right: one shift. Step 5: j becomes &minus;1, so the first half of the test fails and the second half is not evaluated; that is why the count stays at 1. Step 6: 25 goes into slot j + 1, which is slot 0. The first two slots are now in order, and 12, 22 and 11 have not been touched. Ask: what does the next call, with i = 2, do with 12? The next slide runs the other three calls.</aside>
+
+  <style>
+    /* Slide-local: the editor at --t-code (900 px: 42 characters x 19.2 + 70 of
+       chrome = 876, plus the 2% WebKit margin) beside a 732 px column with the
+       call, the locals, two .moves counters side by side, the walk strip and
+       the captions. Strip in one SVG at 1:1: cells 96 px on a 108 px pitch
+       (the brief's grammar), a stone minus-one index left of slot 0 for j, a
+       dashed held cell one pitch above slot i, the i pill above it and the j
+       pill below the strip (176 x 40, W8D2 04b). A value is a plain text that
+       moves (a real move): it rises by translateY(-108px) into the held cell,
+       shifts right by +108, and drops back diagonally into slot j + 1; no
+       opaque boxes. The cell that is compared takes a maroon edge for its
+       step, the cell that is written a blue one; the sorted prefix is washed
+       blue. Every state is a :has(.cap--k) rule in step order, so a back-step
+       reverses it. All values from tokens; used by this slide only. */
+    #slide-04 .is { display: grid; grid-template-columns: 900px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04 .is__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-04 .is__call, #slide-04 .is__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-04 .is__meta { color: var(--fg-1); }
+    #slide-04 .is__counts { display: flex; column-gap: var(--s-6); }
+    #slide-04 .is__fig { display: block; width: 732px; height: 348px; overflow: visible; }
+
+    #slide-04 .is__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .4s ease; }
+    #slide-04 .is__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04 .is__idx .is__neg { fill: var(--stone); }
+    #slide-04 .held rect { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 8; }
+    #slide-04 .held text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; }
+    #slide-04 .held, #slide-04 .pill { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-04 .pill rect, #slide-04 .pill path { fill: var(--accent-2); }
+    #slide-04 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04 .is__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04 .mv, #slide-04 .up, #slide-04 .dn { transition: transform .6s var(--ease-smooth); }
+    #slide-04 .codewalk__caps { min-height: 146px; }
+    #slide-04 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    /* ---- states, in step order ---- */
+    #slide-04 .pj { opacity: 0; }
+    #slide-04 .c0 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04 .slide__body:has(.cap--1.is-current) .c1 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-04 .slide__body:has(.cap--1:not(.is-pending)) .m25 { transform: translate(0px, -108px); }
+    #slide-04 .slide__body:has(.cap--2:not(.is-pending)) .pj { opacity: 1; }
+    #slide-04 .slide__body:has(.cap--3.is-current) .c0 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-04 .slide__body:has(.cap--4.is-current) .c1 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-04 .slide__body:has(.cap--4:not(.is-pending)) .m64 { transform: translate(108px, 0px); }
+    #slide-04 .slide__body:has(.cap--5:not(.is-pending)) .pj { transform: translateX(-108px); }
+    #slide-04 .slide__body:has(.cap--6.is-current) .c0 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-04 .slide__body:has(.cap--6:not(.is-pending)) .m25 { transform: translate(-108px, 0px); }
+    #slide-04 .slide__body:has(.cap--6:not(.is-pending)) .c1 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04 .is__xv { display: inline-grid; vertical-align: baseline; }
+    #slide-04 .is__xv__v { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-04 .is__xv__v--1 { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--1:not(.is-pending)) .is__xv__v--0 { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--1:not(.is-pending)) .is__xv__v--1 { opacity: 1; transition-delay: .25s; }
+    #slide-04 .is__jv { display: inline-grid; vertical-align: baseline; }
+    #slide-04 .is__jv__v { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-04 .is__jv__v--1, #slide-04 .is__jv__v--2 { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--2:not(.is-pending)) .is__jv__v--0 { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--2:not(.is-pending)) .is__jv__v--1 { opacity: 1; transition-delay: .25s; }
+    #slide-04 .slide__body:has(.cap--5:not(.is-pending)) .is__jv__v--1 { opacity: 0; }
+    #slide-04 .slide__body:has(.cap--5:not(.is-pending)) .is__jv__v--2 { opacity: 1; transition-delay: .25s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .is__cells rect, #slide-04 .held, #slide-04 .pill, #slide-04 .mv, #slide-04 .up, #slide-04 .dn, #slide-04 .is__xv__v, #slide-04 .is__jv__v, #slide-04 .is__cv__v { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

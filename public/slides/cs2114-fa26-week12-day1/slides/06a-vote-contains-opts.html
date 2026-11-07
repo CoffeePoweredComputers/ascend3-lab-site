@@ -1,0 +1,50 @@
+<section class="slide slide--warmup" id="slide-06a" data-sid="06a-vote-contains-opts:1">
+  <header class="slide__head" data-sid="06a-vote-contains-opts:2">
+    <p class="slide__kicker" data-sid="06a-vote-contains-opts:3">PEER INSTRUCTION &middot; VOTE 1</p>
+    <h2 data-sid="06a-vote-contains-opts:4">How can contains run faster on a SortedList?</h2>
+  </header>
+  <div class="timer timer--vote frag" data-step="1" data-timer="90" data-state="idle" role="timer" aria-label="Ninety-second vote timer; it starts on the first press" data-sid="06a-vote-contains-opts:5"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06a-vote-contains-opts:6"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06a-vote-contains-opts:7"/><g class="timer__ticks" data-sid="06a-vote-contains-opts:8"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06a-vote-contains-opts:9"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06a-vote-contains-opts:10"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06a-vote-contains-opts:11"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06a-vote-contains-opts:12"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06a-vote-contains-opts:13"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06a-vote-contains-opts:14"/><g class="timer__hand" data-sid="06a-vote-contains-opts:15"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06a-vote-contains-opts:16"/></g><text class="timer__time" x="75" y="88" data-sid="06a-vote-contains-opts:17">1:30</text></svg></div>
+  <p class="tlabel tlabel--vote" data-sid="06a-vote-contains-opts:18">vote</p>
+  <div class="timer timer--discuss frag" data-step="2" data-timer="150" data-state="idle" role="timer" aria-label="Two-and-a-half-minute discussion timer; it starts on the second press and ends the vote timer" data-sid="06a-vote-contains-opts:19"><svg class="timer__arc" viewBox="0 0 150 150" aria-hidden="true" data-sid="06a-vote-contains-opts:20"><circle class="timer__track" cx="75" cy="75" r="62" data-sid="06a-vote-contains-opts:21"/><g class="timer__ticks" data-sid="06a-vote-contains-opts:22"><line class="timer__tick" x1="75.0" y1="25.0" x2="75.0" y2="19.0" data-sid="06a-vote-contains-opts:23"/><line class="timer__tick" x1="122.6" y1="59.5" x2="128.3" y2="57.7" data-sid="06a-vote-contains-opts:24"/><line class="timer__tick" x1="104.4" y1="115.5" x2="107.9" y2="120.3" data-sid="06a-vote-contains-opts:25"/><line class="timer__tick" x1="45.6" y1="115.5" x2="42.1" y2="120.3" data-sid="06a-vote-contains-opts:26"/><line class="timer__tick" x1="27.4" y1="59.5" x2="21.7" y2="57.7" data-sid="06a-vote-contains-opts:27"/></g><circle class="timer__ring" cx="75" cy="75" r="62" transform="rotate(-90 75 75)" data-sid="06a-vote-contains-opts:28"/><g class="timer__hand" data-sid="06a-vote-contains-opts:29"><circle class="timer__dot" cx="75" cy="13" r="7" data-sid="06a-vote-contains-opts:30"/></g><text class="timer__time" x="75" y="88" data-sid="06a-vote-contains-opts:31">2:30</text></svg></div>
+  <p class="tlabel tlabel--discuss" data-sid="06a-vote-contains-opts:32">discuss</p>
+  <p class="sr-only slide__desc" data-sid="06a-vote-contains-opts:33">A peer-instruction question, the second of two slides; the stem and the code are on the previous slide. Under the title, the question: how could you improve contains of anEntry for a SortedList so that it still works correctly but may run faster in the average case? Five options follow across the full width, each led by a maroon disc with its letter. A: have contains of anEntry call an existing helper like indexOf of anEntry and return whether it is greater than or equal to 0. B: exit the loop when list at index dot compareTo of anEntry is less than 0, since earlier elements are smaller. C: exit the loop when list at index dot compareTo of anEntry is greater than 0, because once you pass the possible position, the entry can't appear later. D: traverse the list in reverse order, so larger entries can be found faster. E: traverse the list from both ends, starting by checking the first and last elements and on each iteration moving inwards to check the next two, so that both large and small elements can be found quickly. Two clocks are in the top right corner: a ninety-second vote timer and a two-and-a-half-minute discussion timer. The first press starts the vote timer; the second starts the discussion timer and ends the vote timer. Nothing else builds.</p>
+
+  <!-- The second slide of Vote 1 (06 has the stem sentences and the code;
+       the reason for the split is in 06's comment). W11D1 06's long-option
+       layout: the question sentence as the lede, the five options across
+       the full body at --t-small with 56 px discs (A 1 line, B 1, C 2, D 1,
+       E 2, measured with PIL on Liberation Sans 36 px against the 1,584 px
+       text column). Quoted verbatim, including D's missing full stop.
+       Static: only the clocks build. Runestone: Peer Instruction W12D1,
+       question 1 (vtcs2_sortedLists_contains_2_202507). -->
+  <div class="slide__body" data-sid="06a-vote-contains-opts:34">
+    <p class="vote__stem" data-sid="06a-vote-contains-opts:35">How could you improve contains(anEntry) for a SortedList so that it still works correctly but may run faster in the average case?</p>
+    <ol class="vote__opts vote__opts--long ct__opts" data-sid="06a-vote-contains-opts:36">
+      <li class="vote__opt" data-sid="06a-vote-contains-opts:37"><span class="vote__key" data-sid="06a-vote-contains-opts:38">A</span><p class="vote__text" data-sid="06a-vote-contains-opts:39">Have contains(anEntry) call an existing helper like indexOf(anEntry) and return whether it&rsquo;s &ge; 0.</p></li>
+      <li class="vote__opt" data-sid="06a-vote-contains-opts:40"><span class="vote__key" data-sid="06a-vote-contains-opts:41">B</span><p class="vote__text" data-sid="06a-vote-contains-opts:42">Exit the loop when list[index].compareTo(anEntry) &lt; 0, since earlier elements are smaller.</p></li>
+      <li class="vote__opt" data-sid="06a-vote-contains-opts:43"><span class="vote__key" data-sid="06a-vote-contains-opts:44">C</span><p class="vote__text" data-sid="06a-vote-contains-opts:45">Exit the loop when list[index].compareTo(anEntry) &gt; 0, because once you pass the possible position, the entry can&rsquo;t appear later.</p></li>
+      <li class="vote__opt" data-sid="06a-vote-contains-opts:46"><span class="vote__key" data-sid="06a-vote-contains-opts:47">D</span><p class="vote__text" data-sid="06a-vote-contains-opts:48">Traverse the list in reverse order, so larger entries can be found faster</p></li>
+      <li class="vote__opt" data-sid="06a-vote-contains-opts:49"><span class="vote__key" data-sid="06a-vote-contains-opts:50">E</span><p class="vote__text" data-sid="06a-vote-contains-opts:51">Traverse the list from both ends (start by checking the first/last elements, and on each iteration move inwards to check the next two), so that both large and small elements can be found quickly.</p></li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="06a-vote-contains-opts:52"></div>
+  <aside class="notes" data-sid="06a-vote-contains-opts:53">Answer: C (instructor-confirmed) &mdash; once list[index] is larger than anEntry, every later entry is larger too, so the loop can stop and return false. Press once to start the 1:30 vote clock for silent first answers. Press again for the 2:30 discussion clock; the vote clock stops. Press again to move on. Ask the groups to run each option by hand on 3, 5, 8, 12, 15, 20, 24, 30, once for 9 and once for 12, and count the compares. For B, ask what happens on the very first compare. For A, ask what indexOf does inside. The slide leaves out Runestone&rsquo;s &ldquo;Q-1:&rdquo; label. Runestone: Peer Instruction W12D1, question 1 of 2.</aside>
+
+  <style data-sid="06a-vote-contains-opts:54">
+    /* two clocks at the top right, copied from W11D1 06. */
+    #slide-06a .timer { top: var(--s-6); }
+    #slide-06a .timer--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06a .frag.timer.is-past { opacity: .55; }
+    #slide-06a .tlabel { position: absolute; top: calc(var(--s-6) + 154px); width: 150px; margin: 0; font-family: var(--font-mono); font-size: var(--t-tag); color: var(--fg-1); text-align: center; }
+    #slide-06a .tlabel--vote { right: calc(var(--s-8) + 190px); }
+    #slide-06a .tlabel--discuss { right: var(--s-8); }
+    /* Slide-local: the options alone across the body, --long at --t-small
+       with 56 px key discs, 8 px row padding and line-height 1.3, as on
+       W11D1 07 (16 px padding left 29 px of slack in the sweep). Used by
+       this slide only, all values from tokens. */
+    #slide-06a .vote__stem { max-width: none; }
+    #slide-06a .ct__opts .vote__opt { padding: var(--s-1) 0; }
+    #slide-06a .slide__body .ct__opts .vote__text { line-height: 1.3; }
+    #slide-06a .vote__key { width: 56px; height: 56px; font-size: var(--t-small); }
+  </style>
+</section>

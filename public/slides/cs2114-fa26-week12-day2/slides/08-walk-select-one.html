@@ -1,0 +1,149 @@
+<section class="slide slide--warmup" id="slide-08">
+  <header class="slide__head">
+    <h2>findSmallest keeps the smallest so far, then one swap puts it in slot 0</h2>
+  </header>
+  <p class="sr-only slide__desc">A walkthrough of selection sort's first pass under a program-counter bar. The editor holds selectionSort, whose loop runs lh from 0, sets rh to findSmallest of a, lh and a dot length, and calls swapElements of a, lh and rh; and findSmallest, which sets smallestIndex to p1, then for i from p1 plus 1 below p2 sets smallestIndex to i if a at i is less than a at smallestIndex, and returns smallestIndex. On the right, the call findSmallest of a, 0 and 5, two large counters labelled compares and swaps, and a five-slot array holding 64, 25, 12, 22 and 11, with an lh pill above slot 0 and a dashed cell labelled temp above slot 0. Step one: a smallestIndex pill appears under slot 0. Steps two to five: the bar stays on the loop; slots 1 to 4 in turn take a maroon edge as they are compared, compares rolls from 1 to 4, and the smallestIndex pill moves to slot 1, then slot 2, stays at slot 2 for 22, and moves to slot 4 for 11. Step six: findSmallest returns 4 and the pill under slot 4 becomes rh. Step seven: 64 rises into the temp cell, travels right and drops into slot 4, while 11 dips under the array, travels left and rises into slot 0; swaps rolls to 1. Step eight: the lh pill moves to slot 1 and slot 0 is washed blue; the caption says four compares and one swap, and the array reads 11, 25, 12, 22, 64.</p>
+
+  <!-- Selection sort, walk 1 of 2. The course's SelectionSort slides:
+       selectionSort and findSmallest with the statements as written; the
+       array is renamed a (DECK-PROMPT 13: shorten names to make code larger),
+       the private modifiers and findSmallest's for braces are left out and
+       the code is re-indented at 2 spaces, so the 43-character lines fit a
+       916 px editor at --t-code beside the 716 px strip (with array, line 3
+       needs 1,070 px). swapElements (temp = a[p1]; a[p1] = a[p2];
+       a[p2] = temp;) is not in the editor: thirteen lines are the most that
+       fit at --t-code, so its three statements are the step-7 caption and the
+       dashed temp cell. findSmallest's loop is held under the bar for four
+       presses. The outline compared 11 with 22 on step 5; the smallest so
+       far is 12, so the compare is 11 < 12.
+       step 1: smallestIndex = p1 · 2-5: i = 1 to 4 · 6: return · 7: the swap
+       · 8: lh++ and the plant -->
+  <div class="slide__body codewalk code-mid ss">
+    <div class="editor">
+      <p class="editor__bar">selection sort, array named a</p>
+      <div class="editor__pc"></div>
+      <ol class="editor__code">
+        <li><span class="tok-key">void</span> selectionSort(<span class="tok-key">int</span>[] a) {</li>
+        <li class="walkline frag" data-step="8">  <span class="tok-key">for</span> (<span class="tok-key">int</span> lh = <span class="tok-num">0</span>; lh &lt; a.length; lh++) {</li>
+        <li>    <span class="tok-key">int</span> rh = findSmallest(a, lh, a.length);</li>
+        <li class="walkline frag" data-step="7">    swapElements(a, lh, rh);</li>
+        <li>  }</li>
+        <li>}</li>
+        <li><span class="tok-key">int</span> findSmallest(<span class="tok-key">int</span>[] a, <span class="tok-key">int</span> p1, <span class="tok-key">int</span> p2) {</li>
+        <li class="walkline frag" data-step="1">  <span class="tok-key">int</span> smallestIndex = p1;</li>
+        <li class="walkline frag" data-step="2" data-hold="5">  <span class="tok-key">for</span> (<span class="tok-key">int</span> i = p1 + <span class="tok-num">1</span>; i &lt; p2; i++)</li>
+        <li class="walkline frag" data-step="2" data-hold="5">    <span class="tok-key">if</span> (a[i] &lt; a[smallestIndex])</li>
+        <li class="walkline frag" data-step="2" data-hold="5">      smallestIndex = i;</li>
+        <li class="walkline frag" data-step="6">  <span class="tok-key">return</span> smallestIndex;</li>
+        <li>}</li>
+      </ol>
+    </div>
+
+    <div class="ss__right">
+      <p class="ss__call">findSmallest(a, 0, 5)</p>
+      <div class="ss__counts">
+        <div class="moves">
+          <p class="moves__label">compares</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="2">0</p><p class="heap-val frag" data-step="2">1</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="3">1</p><p class="heap-val frag" data-step="3">2</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="4">2</p><p class="heap-val frag" data-step="4">3</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="5">3</p><p class="heap-val frag" data-step="5">4</p></div>
+          </div>
+        </div>
+        <div class="moves moves--ok">
+          <p class="moves__label">swaps</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="7">0</p><p class="heap-val frag" data-step="7">1</p></div>
+          </div>
+        </div>
+      </div>
+      <svg class="ss__fig" viewBox="0 0 716 396" role="img" aria-label="A five-slot array holding 64, 25, 12, 22 and 11, with an lh pill above slot 0, a dashed cell labelled temp above slot 0, and a smallestIndex pill under the array that moves to slot 4; then 64 and 11 exchange places">
+        <g class="ss__cells"><rect class="c0" x="104" y="164" width="96" height="96" rx="10"/><rect class="c1" x="212" y="164" width="96" height="96" rx="10"/><rect class="c2" x="320" y="164" width="96" height="96" rx="10"/><rect class="c3" x="428" y="164" width="96" height="96" rx="10"/><rect class="c4" x="536" y="164" width="96" height="96" rx="10"/></g>
+        <g class="ss__idx"><text x="152" y="290">0</text><text x="260" y="290">1</text><text x="368" y="290">2</text><text x="476" y="290">3</text><text x="584" y="290">4</text></g>
+        <g class="temp"><rect x="104" y="56" width="96" height="96" rx="10"/><text x="90" y="112">temp</text></g>
+        <g class="pill plh"><rect x="64" y="0" width="176" height="40" rx="20"/><text x="152" y="30">lh</text><path d="M144 40 L160 40 L152 48 Z"/></g>
+        <g class="pill si si0"><rect x="32" y="352" width="240" height="40" rx="20"/><text x="152" y="382">smallestIndex</text><path d="M144 352 L160 352 L152 342 Z"/></g>
+        <g class="pill rh rh0"><rect x="496" y="352" width="176" height="40" rx="20"/><text x="584" y="382">rh</text><path d="M576 352 L592 352 L584 342 Z"/></g>
+        <g class="ss__vals"><g class="sx x64"><g class="s1 a64"><g class="s2 b64"><text x="152" y="224">64</text></g></g></g><g class="sx x25"><g class="s1 a25"><g class="s2 b25"><text x="260" y="224">25</text></g></g></g><g class="sx x12"><g class="s1 a12"><g class="s2 b12"><text x="368" y="224">12</text></g></g></g><g class="sx x22"><g class="s1 a22"><g class="s2 b22"><text x="476" y="224">22</text></g></g></g><g class="sx x11"><g class="s1 a11"><g class="s2 b11"><text x="584" y="224">11</text></g></g></g></g>
+      </svg>
+      <div class="codewalk__caps">
+        <p class="walkcap cap--1 frag" data-step="1">findSmallest(a, 0, 5) starts with smallestIndex = 0, the slot that lh names.</p>
+        <p class="walkcap cap--2 frag" data-step="2">With i = 1, a[1] &lt; a[0] compares 25 with 64. 25 is smaller, so smallestIndex becomes 1.</p>
+        <p class="walkcap cap--3 frag" data-step="3">With i = 2, 12 &lt; 25 is true, so smallestIndex becomes 2.</p>
+        <p class="walkcap cap--4 frag" data-step="4">With i = 3, 22 &lt; 12 is false, so smallestIndex stays 2.</p>
+        <p class="walkcap cap--5 frag" data-step="5">With i = 4, 11 &lt; 12 is true, so smallestIndex becomes 4.</p>
+        <p class="walkcap cap--6 frag" data-step="6">The loop ends at i = 5. findSmallest returns 4, so rh is 4.</p>
+        <p class="walkcap cap--7 frag" data-step="7">swapElements(a, 0, 4) copies 64 into temp, 11 into slot 0, and temp into slot 4.</p>
+        <p class="walkcap walkcap--plant cap--8 frag" data-step="8">Four compares and one swap. lh++ makes lh 1. 11 is in its final slot, and the array reads 11 25 12 22 64.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+  <aside class="notes">The selection sort from the course&rsquo;s SelectionSort slides. lh, the left hand, is the slot being filled; rh, the right hand, is the index of the smallest entry from lh to the end, which findSmallest returns. The array is named a here so that the lines fit. swapElements is three lines: temp = a[p1]; a[p1] = a[p2]; a[p2] = temp. Step 1: findSmallest starts by assuming the smallest is at p1, slot 0. Steps 2 to 5: i runs from 1 to 4. Each press is one compare, a[i] with the smallest found so far. 25 is smaller than 64, 12 is smaller than 25, 22 is not smaller than 12, and 11 is smaller than 12. Four compares. Step 6: the loop ends and findSmallest returns 4; that is rh. Step 7: one swap. 64 goes to temp, 11 to slot 0, temp to slot 4. Step 8: lh moves to 1. Slot 0 holds 11, the smallest entry, and nothing will move it again. Ask: how many compares will the pass for lh = 1 make? The next slide runs the remaining passes.</aside>
+
+  <style>
+    /* Slide-local: the editor at --t-code (916 px: 43 characters x 19.2 + 70,
+       plus the 2% WebKit margin) beside a 716 px column with the call, the
+       compares and swaps counters (swaps in the blue of a count that stays
+       small), the strip and the captions. Strip in one SVG at 1:1: cells 96
+       px on a 108 px pitch, the lh pill above, the dashed temp cell one pitch
+       above slot lh, the smallestIndex pill (240 x 40) below the indices, and
+       a free lane between them. A swap moves both values on one press, each
+       as three nested groups: the value leaves the row (up into the temp
+       cell, or down into the lane), travels the distance, and returns to the
+       row, so the two never cross and nothing passes over another value.
+       Each group is a single transition, so a back-step reverses it. The
+       compared cell takes the maroon edge for its press, the swapped cells
+       blue; slot lh is washed blue once it is final. All values from tokens;
+       used by this slide only. */
+    #slide-08 .ss { display: grid; grid-template-columns: 916px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-08 .ss__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-08 .ss__call { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-08 .ss__counts { display: flex; column-gap: var(--s-6); }
+    #slide-08 .ss__fig { display: block; width: 716px; height: 396px; overflow: visible; }
+    #slide-08 .codewalk__caps { min-height: 146px; }
+    #slide-08 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-08 .ss__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .4s ease; }
+    #slide-08 .ss__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-08 .temp rect { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 8; }
+    #slide-08 .temp text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; }
+    #slide-08 .temp, #slide-08 .plh { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-08 .pill rect, #slide-08 .pill path { fill: var(--accent-2); }
+    #slide-08 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-08 .si, #slide-08 .rh { opacity: 0; transition: transform .7s var(--ease-smooth) .35s, opacity .3s ease 0s; }
+    #slide-08 .ss__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    /* a swap: each value leaves the row (s1), travels (sx) and comes back (s2), one transition each */
+    #slide-08 .sx { transition: transform .8s var(--ease-smooth) .45s; }
+    #slide-08 .s1 { transition: transform .45s var(--ease-smooth) 1.25s; }
+    #slide-08 .s2 { transition: transform .45s var(--ease-smooth) 0s; }
+
+    /* ---- states, in step order ---- */
+    #slide-08 .slide__body:has(.cap--1:not(.is-pending)) .si0 { opacity: 1; }
+    #slide-08 .slide__body:has(.cap--2.is-current) .c1 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08 .slide__body:has(.cap--2:not(.is-pending)) .si0 { transform: translateX(108px); transition-delay: 0.4s; }
+    #slide-08 .slide__body:has(.cap--3.is-current) .c2 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08 .slide__body:has(.cap--3:not(.is-pending)) .si0 { transform: translateX(216px); transition-delay: 0.4s; }
+    #slide-08 .slide__body:has(.cap--4.is-current) .c3 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08 .slide__body:has(.cap--5.is-current) .c4 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-08 .slide__body:has(.cap--5:not(.is-pending)) .si0 { transform: translateX(432px); transition-delay: 0.4s; }
+    #slide-08 .slide__body:has(.cap--6:not(.is-pending)) .si0 { opacity: 0; transition-delay: .35s, 0s; }
+    #slide-08 .slide__body:has(.cap--6:not(.is-pending)) .rh0 { opacity: 1; transition-delay: .35s, 0.3s; }
+    #slide-08 .slide__body:has(.cap--7.is-current) .c0 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08 .slide__body:has(.cap--7.is-current) .c4 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-08 .slide__body:has(.cap--7:not(.is-pending)) .x64 { transform: translateX(432px); transition-delay: 0.45s; }
+    #slide-08 .slide__body:has(.cap--7:not(.is-pending)) .a64 { transform: translateY(-108px); transition-delay: 0.0s; }
+    #slide-08 .slide__body:has(.cap--7:not(.is-pending)) .b64 { transform: translateY(108px); transition-delay: 1.25s; }
+    #slide-08 .slide__body:has(.cap--7:not(.is-pending)) .x11 { transform: translateX(-432px); transition-delay: 0.45s; }
+    #slide-08 .slide__body:has(.cap--7:not(.is-pending)) .a11 { transform: translateY(108px); transition-delay: 0.0s; }
+    #slide-08 .slide__body:has(.cap--7:not(.is-pending)) .b11 { transform: translateY(-108px); transition-delay: 1.25s; }
+    #slide-08 .slide__body:has(.cap--8:not(.is-pending)) .plh { transform: translateX(108px); transition-delay: 0s; }
+    #slide-08 .slide__body:has(.cap--8:not(.is-pending)) .temp { transform: translateX(108px); transition-delay: 0s; }
+    #slide-08 .slide__body:has(.cap--8:not(.is-pending)) .c0 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-08 .slide__body:has(.cap--8:not(.is-pending)) .rh0 { opacity: 0; transition-delay: .35s, 0s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08 .ss__cells rect, #slide-08 .temp, #slide-08 .pill, #slide-08 .sx, #slide-08 .s1, #slide-08 .s2 { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

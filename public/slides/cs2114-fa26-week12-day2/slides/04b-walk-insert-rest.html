@@ -1,0 +1,188 @@
+<section class="slide slide--warmup" id="slide-04b">
+  <header class="slide__head">
+    <h2>Three more passes finish the sort</h2>
+  </header>
+  <p class="sr-only slide__desc">The same insertion sort code under a program-counter bar, with the three remaining calls of insertInOrder. On the right, the call with i, the counters compares and shifts starting at 1 and 1, and the array 25, 64, 12, 22, 11 with slots 0 and 1 washed blue as the sorted part. Step one: i moves to 2, 12 rises into the dashed cell and the j pill appears under slot 1. Steps two and three: 64 and then 25 are compared with 12 and each moves one slot right; the counters reach 3 and 3. Step four: 12 drops into slot 0, and the array reads 12, 25, 64, 22, 11. Step five: i moves to 3 and 22 rises. Steps six and seven: 64 and 25 move right; 5 and 5. Step eight: 12 is compared with 22 and is not larger, compares reaches 6, and 22 drops into slot 1: 12, 22, 25, 64, 11. Step nine: i moves to 4, 11 rises, and 64, 25, 22 and 12 are compared and move right one after another; compares reaches 10 and shifts 9. Step ten: 11 drops into slot 0, and the array reads 11, 12, 22, 25, 64. Step eleven: the caption says ten compares and nine shifts.</p>
+
+  <!-- Concept intro, walk 2 of 3. The same editor; the call for i = 2 is
+       walked one loop iteration per press with the while block held under
+       the bar (data-hold, then data-also for the later calls), i = 3 the
+       same way, and i = 4 in one staggered press (four compares and four
+       shifts). The counters continue from slide 04's 1 and 1. The rows after
+       each call are Vote 1's rows. The outline said 22 lands in slot 2; the
+       code puts it in slot 1 (12 22 25 64 11), as Vote 1's fourth row shows.
+       Steps: 1 i = 2 · 2-3 two shifts · 4 12 lands · 5 i = 3 · 6-7 two
+       shifts · 8 the failed compare, 22 lands · 9 i = 4, four shifts ·
+       10 11 lands · 11 the plant -->
+  <div class="slide__body codewalk code-mid is">
+    <div class="editor">
+      <p class="editor__bar">insertion sort, 10.2 reading</p>
+      <div class="editor__pc"></div>
+      <ol class="editor__code">
+        <li><span class="tok-key">void</span> insertionSort(<span class="tok-key">int</span>[] data) {</li>
+        <li>    <span class="tok-key">for</span> (<span class="tok-key">int</span> i = <span class="tok-num">1</span>; i &lt; data.length; i++)</li>
+        <li>        insertInOrder(data, i);</li>
+        <li>}</li>
+        <li><span class="tok-key">void</span> insertInOrder(<span class="tok-key">int</span>[] data, <span class="tok-key">int</span> i) {</li>
+        <li class="walkline frag" data-step="1" data-also="5 9">    <span class="tok-key">int</span> unsorted = data[i];</li>
+        <li class="walkline frag" data-step="1" data-also="5 9">    <span class="tok-key">int</span> j = i - <span class="tok-num">1</span>;</li>
+        <li class="walkline frag" data-step="2" data-hold="3" data-also="6 7 8 9">    <span class="tok-key">while</span> (j &gt;= <span class="tok-num">0</span> &amp;&amp; data[j] &gt; unsorted) {</li>
+        <li class="walkline frag" data-step="2" data-hold="3" data-also="6 7 8 9">        data[j + <span class="tok-num">1</span>] = data[j];</li>
+        <li class="walkline frag" data-step="2" data-hold="3" data-also="6 7 8 9">        j--;</li>
+        <li class="walkline frag" data-step="2" data-hold="3" data-also="6 7 8 9">    }</li>
+        <li class="walkline frag" data-step="4" data-also="8 10">    data[j + <span class="tok-num">1</span>] = unsorted;</li>
+        <li>}</li>
+      </ol>
+    </div>
+
+    <div class="is__right">
+      <p class="is__call">insertInOrder(data, <span class="is__cv"><span class="is__cv__v is__cv__v--0">1</span><span class="is__cv__v is__cv__v--1"><span class="sr-only">now </span>2</span><span class="is__cv__v is__cv__v--2"><span class="sr-only">now </span>3</span><span class="is__cv__v is__cv__v--3"><span class="sr-only">now </span>4</span></span>)</p>
+      <div class="is__counts">
+        <div class="moves">
+          <p class="moves__label">compares</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="2">1</p><p class="heap-val frag" data-step="2">2</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="3">2</p><p class="heap-val frag" data-step="3">3</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="6">3</p><p class="heap-val frag" data-step="6">4</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="7">4</p><p class="heap-val frag" data-step="7">5</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="8">5</p><p class="heap-val frag" data-step="8">6</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="9">6</p><p class="heap-val frag" data-step="9">10</p></div>
+          </div>
+        </div>
+        <div class="moves">
+          <p class="moves__label">shifts</p>
+          <div class="moves__stack">
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="2">1</p><p class="heap-val frag" data-step="2">2</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="3">2</p><p class="heap-val frag" data-step="3">3</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="6">3</p><p class="heap-val frag" data-step="6">4</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="7">4</p><p class="heap-val frag" data-step="7">5</p></div>
+            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="9">5</p><p class="heap-val frag" data-step="9">9</p></div>
+          </div>
+        </div>
+      </div>
+      <svg class="is__fig" viewBox="0 0 732 348" role="img" aria-label="The five-slot array as slide 04 left it, 25, 64, 12, 22 and 11, with the i pill and the dashed unsorted cell above slot 1; during the walk 12, 22 and 11 each rise into the dashed cell, the larger entries move right one slot at a time, and each held value drops into its place, ending at 11, 12, 22, 25, 64">
+        <g class="is__cells"><rect class="c0" x="148" y="164" width="96" height="96" rx="10"/><rect class="c1" x="256" y="164" width="96" height="96" rx="10"/><rect class="c2" x="364" y="164" width="96" height="96" rx="10"/><rect class="c3" x="472" y="164" width="96" height="96" rx="10"/><rect class="c4" x="580" y="164" width="96" height="96" rx="10"/></g>
+        <g class="is__idx"><text class="is__neg" x="88" y="290">&minus;1</text><text x="196" y="290">0</text><text x="304" y="290">1</text><text x="412" y="290">2</text><text x="520" y="290">3</text><text x="628" y="290">4</text></g>
+        <g class="held"><rect x="256" y="56" width="96" height="96" rx="10"/><text x="242" y="112">unsorted</text></g>
+        <g class="pill pi"><rect x="216" y="0" width="176" height="40" rx="20"/><text x="304" y="30">i</text><path d="M296 40 L312 40 L304 48 Z"/></g>
+        <g class="pill pj"><rect x="216" y="304" width="176" height="40" rx="20"/><text x="304" y="334">j</text><path d="M296 304 L312 304 L304 294 Z"/></g>
+        <g class="is__vals"><text class="mv m25" x="196" y="224">25</text><text class="mv m64" x="304" y="224">64</text><text class="mv m12" x="412" y="224">12</text><text class="mv m22" x="520" y="224">22</text><text class="mv m11" x="628" y="224">11</text></g>
+      </svg>
+      <div class="codewalk__caps">
+        <p class="walkcap cap--1 frag" data-step="1">In the call for i = 2, unsorted = data[2] holds 12, and j is 1.</p>
+        <p class="walkcap cap--2 frag" data-step="2">64 &gt; 12, so 64 is copied into slot 2, and j becomes 0.</p>
+        <p class="walkcap cap--3 frag" data-step="3">25 &gt; 12, so 25 is copied into slot 1, and j becomes &minus;1.</p>
+        <p class="walkcap cap--4 frag" data-step="4">j &gt;= 0 is false, so data[0] = unsorted puts 12 in slot 0. The array reads 12 25 64 22 11.</p>
+        <p class="walkcap cap--5 frag" data-step="5">In the call for i = 3, unsorted holds 22, and j is 2.</p>
+        <p class="walkcap cap--6 frag" data-step="6">64 &gt; 22, so 64 is copied into slot 3, and j becomes 1.</p>
+        <p class="walkcap cap--7 frag" data-step="7">25 &gt; 22, so 25 is copied into slot 2, and j becomes 0.</p>
+        <p class="walkcap cap--8 frag" data-step="8">12 &gt; 22 is false, so the loop ends and data[1] = unsorted puts 22 in slot 1. The array reads 12 22 25 64 11.</p>
+        <p class="walkcap cap--9 frag" data-step="9">For i = 4, unsorted holds 11. 64, 25, 22 and 12 are all larger than 11, so each is copied one slot right, and j ends at &minus;1.</p>
+        <p class="walkcap cap--10 frag" data-step="10">data[0] = unsorted puts 11 in slot 0. The array reads 11 12 22 25 64.</p>
+        <p class="walkcap walkcap--plant cap--11 frag" data-step="11">Ten compares and nine shifts in all. Each pass compares the held value with the sorted entries to its left, starting from the right, until it reaches one that is not larger.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number"></div>
+  <aside class="notes">The same code, the three remaining calls. The counters start where slide 04 ended, at one compare and one shift. Step 1: i is 2. 12 is held, and j starts at 1. Steps 2 and 3: 64 and 25 are both larger than 12, so each is copied one slot right. Step 4: j is &minus;1, so the loop test fails at j &gt;= 0 without a compare, and 12 goes into slot 0. Step 5: i is 3, and 22 is held. Steps 6 and 7: 64 and 25 move right. Step 8: 12 is not larger than 22. That compare is counted, and it ends the loop, so 22 goes into slot j + 1, which is slot 1. Step 9: i is 4, and 11 is smaller than everything to its left, so all four sorted entries are compared and shifted. Step 10: 11 goes into slot 0. Step 11: ten compares and nine shifts. A pass compares from the right end of the sorted part and stops at the first entry that is not larger. Write down the array after each call: 25 64 12 22 11, then 12 25 64 22 11, then 12 22 25 64 11, then 11 12 22 25 64. Vote 1 shows rows like these. The next slide runs the same code on an array that is already sorted.</aside>
+
+  <style>
+    /* Slide-local: slide 04's layout and strip (see 04's comment): the editor
+       at --t-code (900 px) beside a 732 px column with the call, two .moves
+       counters, the strip in one SVG at 1:1 (cells 96 px on a 108 px pitch,
+       held cell one pitch above slot i, i pill above, j pill below) and the
+       captions. A value is one plain text that really moves: up by 108 into
+       the held cell, right by 108 per shift, diagonally down into slot j + 1.
+       Each value's rules hold its cumulative position in step order; within a
+       press, transition delays put the compare edge first, the shift second
+       and the j pill last (step 9 staggers four shifts 0.45 s apart). The
+       pills and the held cell are drawn at slot 1 and move by whole pitches;
+       the j pill appears at its first slot, so it never slides while it fades.
+       Compared cell maroon, written cell blue (for their step only), sorted
+       prefix washed blue. All values from tokens; used by this slide only. */
+    #slide-04b .is { display: grid; grid-template-columns: 900px minmax(0, 1fr); column-gap: var(--s-4); align-items: start; }
+    #slide-04b .is__right { display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-04b .is__call, #slide-04b .is__meta { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); }
+    #slide-04b .is__meta { color: var(--fg-1); }
+    #slide-04b .is__counts { display: flex; column-gap: var(--s-6); }
+    #slide-04b .is__fig { display: block; width: 732px; height: 348px; overflow: visible; }
+
+    #slide-04b .is__cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; transition: stroke .3s ease, fill .4s ease; }
+    #slide-04b .is__idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-04b .is__idx .is__neg { fill: var(--stone); }
+    #slide-04b .held rect { fill: none; stroke: var(--stone); stroke-width: 3; stroke-dasharray: 10 8; }
+    #slide-04b .held text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: end; }
+    #slide-04b .held, #slide-04b .pill { transition: transform .7s var(--ease-smooth), opacity .3s ease; }
+    #slide-04b .pill rect, #slide-04b .pill path { fill: var(--accent-2); }
+    #slide-04b .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-04b .is__vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04b .mv, #slide-04b .up, #slide-04b .dn { transition: transform .6s var(--ease-smooth); }
+    #slide-04b .codewalk__caps { min-height: 146px; }
+    #slide-04b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    /* ---- states, in step order ---- */
+    #slide-04b .pj { opacity: 0; }
+    #slide-04b .c0, #slide-04b .c1 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04b .slide__body:has(.cap--1:not(.is-pending)) .pi { transform: translateX(108px); }
+    #slide-04b .slide__body:has(.cap--1:not(.is-pending)) .held { transform: translateX(108px); }
+    #slide-04b .slide__body:has(.cap--1:not(.is-pending)) .m12 { transform: translate(0px, -108px); transition-delay: 0.7s; }
+    #slide-04b .slide__body:has(.cap--1:not(.is-pending)) .pj { opacity: 1; transition-delay: .7s; }
+    #slide-04b .slide__body:has(.cap--1.is-current) .c2 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.7s; }
+    #slide-04b .slide__body:has(.cap--2.is-current) .c1 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--2.is-current) .c2 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.3s; }
+    #slide-04b .slide__body:has(.cap--2:not(.is-pending)) .m64 { transform: translate(108px, 0px); }
+    #slide-04b .slide__body:has(.cap--2:not(.is-pending)) .pj { transform: translateX(-108px); transition-delay: 0.5s; }
+    #slide-04b .slide__body:has(.cap--3.is-current) .c0 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--3.is-current) .c1 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.3s; }
+    #slide-04b .slide__body:has(.cap--3:not(.is-pending)) .m25 { transform: translate(108px, 0px); }
+    #slide-04b .slide__body:has(.cap--3:not(.is-pending)) .pj { transform: translateX(-216px); transition-delay: 0.5s; }
+    #slide-04b .slide__body:has(.cap--4.is-current) .c0 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--4:not(.is-pending)) .m12 { transform: translate(-216px, 0px); }
+    #slide-04b .slide__body:has(.cap--4:not(.is-pending)) .c2 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04b .slide__body:has(.cap--5:not(.is-pending)) .pi { transform: translateX(216px); }
+    #slide-04b .slide__body:has(.cap--5:not(.is-pending)) .held { transform: translateX(216px); }
+    #slide-04b .slide__body:has(.cap--5:not(.is-pending)) .m22 { transform: translate(0px, -108px); transition-delay: 0.7s; }
+    #slide-04b .slide__body:has(.cap--5:not(.is-pending)) .pj { transform: translateX(108px); }
+    #slide-04b .slide__body:has(.cap--5.is-current) .c3 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.7s; }
+    #slide-04b .slide__body:has(.cap--6.is-current) .c2 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--6.is-current) .c3 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.3s; }
+    #slide-04b .slide__body:has(.cap--6:not(.is-pending)) .m64 { transform: translate(216px, 0px); }
+    #slide-04b .slide__body:has(.cap--6:not(.is-pending)) .pj { transform: translateX(0px); transition-delay: 0.5s; }
+    #slide-04b .slide__body:has(.cap--7.is-current) .c1 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--7.is-current) .c2 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.3s; }
+    #slide-04b .slide__body:has(.cap--7:not(.is-pending)) .m25 { transform: translate(216px, 0px); }
+    #slide-04b .slide__body:has(.cap--7:not(.is-pending)) .pj { transform: translateX(-108px); transition-delay: 0.5s; }
+    #slide-04b .slide__body:has(.cap--8.is-current) .c0 { stroke: var(--accent-1); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--8.is-current) .c1 { stroke: var(--accent-2); stroke-width: 5; transition-delay: 0.5s; }
+    #slide-04b .slide__body:has(.cap--8:not(.is-pending)) .m22 { transform: translate(-216px, 0px); transition-delay: 0.5s; }
+    #slide-04b .slide__body:has(.cap--8:not(.is-pending)) .c3 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .pi { transform: translateX(324px); }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .held { transform: translateX(324px); }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .m11 { transform: translate(0px, -108px); transition-delay: 0.7s; }
+    #slide-04b .slide__body:has(.cap--9.is-current) .c3 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.2s; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .m64 { transform: translate(324px, 0px); transition-delay: 1.2s; }
+    #slide-04b .slide__body:has(.cap--9.is-current) .c2 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 1.65s; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .m25 { transform: translate(324px, 0px); transition-delay: 1.65s; }
+    #slide-04b .slide__body:has(.cap--9.is-current) .c1 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 2.1s; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .m22 { transform: translate(-108px, 0px); transition-delay: 2.1s; }
+    #slide-04b .slide__body:has(.cap--9.is-current) .c0 { stroke: var(--accent-1); stroke-width: 5; transition-delay: 2.55s; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .m12 { transform: translate(-108px, 0px); transition-delay: 2.55s; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .pj { transform: translateX(-216px); transition-delay: 3.1s; }
+    #slide-04b .slide__body:has(.cap--10.is-current) .c0 { stroke: var(--accent-2); stroke-width: 5; }
+    #slide-04b .slide__body:has(.cap--10:not(.is-pending)) .m11 { transform: translate(-432px, 0px); }
+    #slide-04b .slide__body:has(.cap--10:not(.is-pending)) .c4 { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04b .is__cv { display: inline-grid; vertical-align: baseline; }
+    #slide-04b .is__cv__v { grid-area: 1 / 1; color: var(--fg-0); transition: opacity .3s ease; }
+    #slide-04b .is__cv__v--1, #slide-04b .is__cv__v--2, #slide-04b .is__cv__v--3 { opacity: 0; }
+    #slide-04b .slide__body:has(.cap--1:not(.is-pending)) .is__cv__v--0 { opacity: 0; }
+    #slide-04b .slide__body:has(.cap--1:not(.is-pending)) .is__cv__v--1 { opacity: 1; transition-delay: .25s; }
+    #slide-04b .slide__body:has(.cap--5:not(.is-pending)) .is__cv__v--1 { opacity: 0; }
+    #slide-04b .slide__body:has(.cap--5:not(.is-pending)) .is__cv__v--2 { opacity: 1; transition-delay: .25s; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .is__cv__v--2 { opacity: 0; }
+    #slide-04b .slide__body:has(.cap--9:not(.is-pending)) .is__cv__v--3 { opacity: 1; transition-delay: .25s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04b .is__cells rect, #slide-04b .held, #slide-04b .pill, #slide-04b .mv, #slide-04b .up, #slide-04b .dn, #slide-04b .is__xv__v, #slide-04b .is__jv__v, #slide-04b .is__cv__v { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

@@ -1,0 +1,67 @@
+<section class="slide slide--warmup" id="slide-11" data-sid="11-cost-table:1">
+  <header class="slide__head" data-sid="11-cost-table:2">
+    <h2 data-sid="11-cost-table:3">Composition over a linked list walks the chain for every getEntry</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="11-cost-table:4">A cost table with three design columns: from scratch on a chain, composition over an array list, and composition over a linked list. It is built one row per press. Row one, add of newEntry: O of n, O of n, and O of n squared in maroon. Row two, contains and getPosition: O of n, O of n, and O of n squared in maroon. Step three: a caption says that getPosition calls getEntry up to n times, and on a linked list each getEntry walks from firstNode, the sum from Week 10's Vote 1. Step four: a maroon line says that on an array the order also allows a search that halves the range each step, binary search, O of log n, in Week 14.</p>
+
+  <!-- Part 3: the cost of three designs, from the textbook's Figure 16-9
+       (composition over a list: add, getPosition and contains are O(n) on
+       an array-based list and O(n²) on a linked list, because getPosition
+       calls getEntry up to n times) and the from-scratch chain of W11D1 07b
+       (getNodeBefore walks once, O(n)). W5D1 12's cost-table grammar: mono
+       entries, the expensive entries in maroon. The header is static; the
+       rows fade in one per press; the caption and the Week 14 line stay.
+       step 1: add · 2: contains / getPosition · 3: why · 4: binary search -->
+  <div class="slide__body ct" data-sid="11-cost-table:5">
+    <div class="ct__table" role="table" aria-label="Cost of add, and of contains and getPosition, in three designs of a sorted list" data-sid="11-cost-table:6">
+      <div class="ct__row ct__row--head" role="row" data-sid="11-cost-table:7">
+        <span class="ct__m" role="columnheader" data-sid="11-cost-table:8">method</span>
+        <span class="ct__h" role="columnheader" data-sid="11-cost-table:9">from scratch, chain</span>
+        <span class="ct__h" role="columnheader" data-sid="11-cost-table:10">composition, array list</span>
+        <span class="ct__h" role="columnheader" data-sid="11-cost-table:11">composition, linked list</span>
+      </div>
+      <div class="ct__row frag" data-step="1" role="row" data-sid="11-cost-table:12">
+        <span class="ct__m" role="rowheader" data-sid="11-cost-table:13">add(newEntry)</span>
+        <span class="ct__c" role="cell" data-sid="11-cost-table:14">O(n)</span>
+        <span class="ct__c" role="cell" data-sid="11-cost-table:15">O(n)</span>
+        <span class="ct__c ct__c--bad" role="cell" data-sid="11-cost-table:16">O(n&sup2;)</span>
+      </div>
+      <div class="ct__row frag" data-step="2" role="row" data-sid="11-cost-table:17">
+        <span class="ct__m" role="rowheader" data-sid="11-cost-table:18">contains / getPosition</span>
+        <span class="ct__c" role="cell" data-sid="11-cost-table:19">O(n)</span>
+        <span class="ct__c" role="cell" data-sid="11-cost-table:20">O(n)</span>
+        <span class="ct__c ct__c--bad" role="cell" data-sid="11-cost-table:21">O(n&sup2;)</span>
+      </div>
+    </div>
+    <p class="ct__cap frag" data-step="3" data-sid="11-cost-table:22">getPosition calls getEntry up to n times. On a linked list each getEntry walks from firstNode, which gives the sum from Week 10&rsquo;s Vote 1.</p>
+    <p class="ct__plant frag" data-step="4" data-sid="11-cost-table:23">On an array the order also allows a search that halves the range each step. That search is binary search, O(log n), in Week 14.</p>
+  </div>
+  <div class="slide__number" data-sid="11-cost-table:24"></div>
+  <aside class="notes" data-sid="11-cost-table:25">This is the cost of three of the designs from last week&rsquo;s Vote 2, from the textbook&rsquo;s Figure 16-9. Step 1: add(newEntry). Written from scratch on a chain, add walks once with getNodeBefore, so it is O(n). With composition over an array-based list, getPosition is O(n) because each getEntry is O(1), and the add that shifts entries is O(n), so add is O(n). With composition over a linked list, getPosition calls getEntry up to n times and each getEntry walks from firstNode, so add is O(n&sup2;). Step 2: contains and getPosition have the same costs for the same reason. Step 3: that walk is Week 10&rsquo;s Vote 1: get(0), get(1) and so on, each from firstNode, 1 + 2 + &hellip; + n visits. Composition takes the least new code, and on a linked list it is the slowest. Step 4: on an array, the order also makes a faster search possible. Binary search looks at the middle entry and keeps the half where the entry must be. That is Week 14. Next is the calendar for Day 2.</aside>
+
+  <style data-sid="11-cost-table:26">
+    /* Slide-local: a cost table as a four-column grid (method 560 px, then
+       three equal design columns), W5D1 12's grammar: method names in mono
+       --t-small, the header in the body face at --t-small, entries in mono
+       --t-body, the O(n²) entries in maroon (the cost), a hairline under
+       each row. Under it the caption at --t-small and the Week 14 line in
+       display maroon. Motion: rows fade in one per press (FadeIn); the
+       caption and the last line fade in and stay. Used by this slide only,
+       all values from tokens. */
+    #slide-11 .ct { display: grid; row-gap: var(--s-5); align-content: start; }
+    #slide-11 .ct__table { display: grid; }
+    #slide-11 .ct__row { display: grid; grid-template-columns: 560px repeat(3, minmax(0, 1fr)); column-gap: var(--s-3); align-items: center; padding: var(--s-3) 0; border-bottom: 2px solid color-mix(in srgb, var(--stone) 35%, var(--bg-0)); transition: opacity .4s ease; }
+    #slide-11 .ct__row--head { align-items: end; border-bottom: 3px solid var(--fg-1); }
+    #slide-11 .ct__m { font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
+    #slide-11 .ct__row--head .ct__m { font-family: var(--font-body); color: var(--fg-1); }
+    #slide-11 .ct__h { font-family: var(--font-body); font-size: var(--t-small); line-height: 1.25; color: var(--fg-1); text-align: center; }
+    #slide-11 .ct__c { font-family: var(--font-mono); font-size: var(--t-body); color: var(--fg-0); text-align: center; }
+    #slide-11 .ct__c--bad { color: var(--accent-1); font-weight: 700; }
+    #slide-11 .slide__body p.ct__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-11 .slide__body p.ct__plant { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .4s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-11 .ct__row, #slide-11 .ct__cap, #slide-11 .ct__plant { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

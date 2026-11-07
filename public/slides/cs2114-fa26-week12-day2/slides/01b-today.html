@@ -1,0 +1,130 @@
+<section class="slide" id="slide-01b" data-sid="01b-today:1">
+  <header class="slide__head" data-sid="01b-today:2">
+    <h2 data-sid="01b-today:3">Today</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="01b-today:4">Three chapters, each appearing in turn as a numbered column with a drawing of what the chapter is about. One, insertion sort shifts entries right to make room: a row of four array cells holding 12, an empty cell, 64 and 22, with a box holding 25 and an orange edge raised above the empty cell. Two, selection sort finds the smallest and swaps it into place: a row of four cells holding 64, 25, 12 and 11, the first and last with orange edges, and two arrows that cross between them, one above the row and one below it. Three, what the two sorts cost: a small table of three rows, reading n squared, n squared and n log n.</p>
+
+  <!-- The agenda has one picture per part (W11D1 01b's grammar): a strip with
+       one value raised over the gap it left (insertion sort holds a value
+       while larger entries shift right), a strip whose first and last values
+       exchange places along two crossing arcs (selection sort's swap), and a
+       three-row cost table (Part 3's slide 11). The orange edge marks the
+       values the algorithm is moving. Each column's caption is the title of
+       the divider for that part.
+       step 1: the raised value.  step 2: the swap.  step 3: the table. -->
+  <div class="slide__body" data-sid="01b-today:5">
+    <ol class="grid ag" data-sid="01b-today:6">
+      <li class="ag__ch frag" data-step="1" data-sid="01b-today:7">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A row of four array cells holding 12, an empty cell, 64 and 22, with a box holding 25 and an orange edge raised above the empty cell" data-sid="01b-today:8">
+          <g class="ink" data-sid="01b-today:9">
+            <rect x="20" y="150" width="72" height="56" rx="8" data-sid="01b-today:10"/>
+            <rect x="188" y="150" width="72" height="56" rx="8" data-sid="01b-today:11"/>
+            <rect x="272" y="150" width="72" height="56" rx="8" data-sid="01b-today:12"/>
+          </g>
+          <g class="gap" data-sid="01b-today:13"><rect x="104" y="150" width="72" height="56" rx="8" data-sid="01b-today:14"/></g>
+          <g class="edge" data-sid="01b-today:15"><rect x="104" y="58" width="72" height="56" rx="8" data-sid="01b-today:16"/></g>
+          <g class="ink" data-sid="01b-today:17"><path d="M140 122 V 138 M132 130 L140 140 L148 130" data-sid="01b-today:18"/></g>
+          <g class="val" data-sid="01b-today:19">
+            <text x="56" y="188" data-sid="01b-today:20">12</text>
+            <text x="224" y="188" data-sid="01b-today:21">64</text>
+            <text x="308" y="188" data-sid="01b-today:22">22</text>
+            <text x="140" y="96" data-sid="01b-today:23">25</text>
+          </g>
+          <g class="stone" data-sid="01b-today:24"><path d="M20 232h320" data-sid="01b-today:25"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:26">01</p>
+        <h3 data-sid="01b-today:27">Insertion sort shifts entries right to make room</h3>
+      </li>
+      <li class="ag__ch frag" data-step="2" data-sid="01b-today:28">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A row of four cells holding 64, 25, 12 and 11, the first and last with orange edges, and two arrows that cross between them, one above the row and one below it" data-sid="01b-today:29">
+          <g class="ink" data-sid="01b-today:30">
+            <rect x="104" y="100" width="72" height="56" rx="8" data-sid="01b-today:31"/>
+            <rect x="188" y="100" width="72" height="56" rx="8" data-sid="01b-today:32"/>
+          </g>
+          <g class="edge" data-sid="01b-today:33">
+            <rect x="20" y="100" width="72" height="56" rx="8" data-sid="01b-today:34"/>
+            <rect x="272" y="100" width="72" height="56" rx="8" data-sid="01b-today:35"/>
+          </g>
+          <g class="ink" data-sid="01b-today:36">
+            <path d="M56 92 C 56 40, 308 40, 308 84" data-sid="01b-today:37"/><path d="M299 76 L308 88 L317 76" data-sid="01b-today:38"/>
+            <path d="M308 164 C 308 216, 56 216, 56 172" data-sid="01b-today:39"/><path d="M47 180 L56 168 L65 180" data-sid="01b-today:40"/>
+          </g>
+          <g class="val" data-sid="01b-today:41">
+            <text x="56" y="138" data-sid="01b-today:42">64</text>
+            <text x="140" y="138" data-sid="01b-today:43">25</text>
+            <text x="224" y="138" data-sid="01b-today:44">12</text>
+            <text x="308" y="138" data-sid="01b-today:45">11</text>
+          </g>
+          <g class="stone" data-sid="01b-today:46"><path d="M20 232h320" data-sid="01b-today:47"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:48">02</p>
+        <h3 data-sid="01b-today:49">Selection sort finds the smallest and swaps it into place</h3>
+      </li>
+      <li class="ag__ch frag" data-step="3" data-sid="01b-today:50">
+        <svg viewBox="0 0 360 240" preserveAspectRatio="xMidYMax meet" role="img" aria-label="A small table of three rows, reading n squared, n squared and n log n" data-sid="01b-today:51">
+          <g class="ink" data-sid="01b-today:52">
+            <path d="M30 64 H 330 M30 120 H 330 M30 176 H 330" data-sid="01b-today:53"/>
+            <path d="M50 92 H 150 M50 148 H 130 M50 204 H 160" data-sid="01b-today:54"/>
+          </g>
+          <g class="val val--l" data-sid="01b-today:55">
+            <text x="210" y="102" data-sid="01b-today:56">n&sup2;</text>
+            <text x="210" y="158" data-sid="01b-today:57">n&sup2;</text>
+            <text x="210" y="214" data-sid="01b-today:58">n log n</text>
+          </g>
+          <g class="stone" data-sid="01b-today:59"><path d="M20 232h320" data-sid="01b-today:60"/></g>
+        </svg>
+        <p class="ag__n" data-sid="01b-today:61">03</p>
+        <h3 data-sid="01b-today:62">What the two sorts cost</h3>
+      </li>
+    </ol>
+  </div>
+  <div class="slide__number" data-sid="01b-today:63"></div>
+  <aside class="notes" data-sid="01b-today:64">There are three parts, and both sorts run on the same five numbers, 64, 25, 12, 22 and 11. Step 1: Part 1 is insertion sort. It holds one value aside, shifts the larger entries one slot to the right, and puts the held value in the gap. We walk it on the five entries, and then Vote 1 asks which sort produced a given trace. Step 2: Part 2 is selection sort. It finds the smallest entry in the unsorted part and swaps it into place. We walk it on the same entries, and then Vote 2 asks what it requires. Step 3: Part 3 puts the counts from both walks in one table, and then we look at next week. Next is the calendar.</aside>
+
+  <style data-sid="01b-today:65">
+    /* Slide-local: the agenda as three columns, W11D1 01b's tab grammar (a
+       rule across the top, a display numeral in the tabs' orange, the
+       caption as the title) with the drawing of what the chapter is about
+       above the rule. The drawing box is a fixed 360 px so the rules line up;
+       every viewBox has the box's 3:2 proportions and is bottom-anchored, so
+       all three render at one scale (about 1.45, so the micro values render
+       at about 40 px). Pen inks: neutral for the cells and arrows, orange for
+       the values being moved, a dashed stone cell for the gap, stone for the
+       ground lines. The captions are 50 to 57 characters at --t-body and
+       wrap to two lines in the 512 px columns. Columns grow from centre.
+       Used by this slide only, all values from tokens. */
+    #slide-01b .ag {
+      grid-template-columns: repeat(3, 1fr);
+      list-style: none; padding: 0; margin: 0;
+    }
+    #slide-01b .ag__ch { display: flex; flex-direction: column; margin: 0; }
+    #slide-01b .ag__ch svg { display: block; flex: 0 0 auto; width: 100%; height: 360px; margin-bottom: var(--s-3); }
+    #slide-01b .ag__n {
+      margin: 0 0 var(--s-1); padding-top: var(--s-3);
+      border-top: 4px solid var(--accent-1);
+      font-family: var(--font-display); font-size: var(--t-h3); line-height: 1; color: var(--accent-3);
+    }
+    #slide-01b .ag__ch h3 { flex: 0 0 auto; font-size: var(--t-body); line-height: 1.15; margin-bottom: 0; }
+
+    #slide-01b .ag .ink,
+    #slide-01b .ag .stone,
+    #slide-01b .ag .gap,
+    #slide-01b .ag .edge { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    #slide-01b .ag .ink { stroke: var(--fg-1); }
+    #slide-01b .ag .stone { stroke: var(--stone); }
+    #slide-01b .ag .gap { stroke: var(--stone); stroke-dasharray: 10 8; }
+    #slide-01b .ag .edge { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    #slide-01b .ag .val { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-01b .ag .val--l { text-anchor: start; }
+
+    #slide-01b .ag__ch {
+      transform-origin: 50% 50%;
+      transition: opacity .25s ease, transform .5s var(--ease-smooth);
+    }
+    #slide-01b .frag.ag__ch.is-pending { opacity: 0; transform: scale(0.4); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-01b .ag__ch { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

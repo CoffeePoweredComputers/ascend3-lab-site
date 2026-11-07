@@ -1,0 +1,122 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-stop:1">
+  <header class="slide__head" data-sid="02c-bridge-stop:2">
+    <p class="slide__kicker" data-sid="02c-bridge-stop:3">FROM WEEK 11 TO WEEK 12</p>
+    <h2 data-sid="02c-bridge-stop:4">Last week&rsquo;s add stopped at the first larger node</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-stop:5">A bridge from Week 11 to Week 12, shown in three steps. Step one: on the left, last week's sorted chain 3, 7, 12, 20 with firstNode on 3, and a node holding 10 waiting under the gap between 7 and 12. A blue ring for currentNode appears on 3 and moves to 7 and then to 12. The caption says that last week getNodeBefore stopped on 12, the first node larger than 10, and 10 went in before it. Step two: on the right, the same values in a four-cell array, 3, 7, 12 and 20 in slots 0 to 3, and a card that reads contains of 10. The caption says that an array can hold the same order, and that the List contains loop from Week 3 does not use it. Step three: a question in maroon: does contains of 10 have to look past 12?</p>
+
+  <!-- Bridge from Week 11 (the sorted chain and add(newEntry), W11D1 06b:
+       getNodeBefore walks while newEntry is larger and stops on the first
+       larger node) to Week 12's Vote 1 (a sorted contains that stops early).
+       The structural link: the stop that last week's add relied on is the
+       stop that a sorted contains can use. One SVG in canvas px (1664 × 260):
+       left, W11D1 06b's chain (Link boxes 130 × 76 on a 156 px pitch) with
+       the currentNode ring that really moves two pitches (312 px); right,
+       the same values in the deck's array strip (96 px cells on a 108 px
+       pitch) and a stone card with the call. Nothing on the slide answers the
+       question; Vote 1 asks it.
+       step 1: the chain, 10 waiting, the ring moves 3 → 7 → 12.
+       step 2: the strip and the card.
+       step 3: the question for Vote 1. -->
+  <div class="slide__body bs" data-sid="02c-bridge-stop:6">
+    <svg class="bs__fig" viewBox="0 0 1664 260" role="img" aria-label="Left, the sorted chain 3, 7, 12, 20 with firstNode on 3, a node holding 10 under the gap between 7 and 12, and a blue ring for currentNode that moves from 3 to 12. Right, the same four values in an array and a card that reads contains of 10" data-sid="02c-bridge-stop:7">
+      <defs data-sid="02c-bridge-stop:8">
+        <marker id="w12d1-02c-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02c-bridge-stop:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02c-bridge-stop:10"/></marker>
+      </defs>
+
+      <!-- Week 11: the sorted chain and getNodeBefore(10) -->
+      <g class="bs__left frag" data-step="1" data-sid="02c-bridge-stop:11">
+        <g class="pill" data-sid="02c-bridge-stop:12"><rect x="6" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-stop:13"/><text x="94" y="31" data-sid="02c-bridge-stop:14">firstNode</text></g>
+        <path class="ref" d="M91 44 C 91 52, 91 54, 91 60" data-sid="02c-bridge-stop:15"/>
+        <g class="lg" data-sid="02c-bridge-stop:16"><rect class="lg__sw" x="460" y="8" width="40" height="28" rx="6" data-sid="02c-bridge-stop:17"/><text class="lg__t" x="512" y="32" data-sid="02c-bridge-stop:18">currentNode</text></g>
+        <g class="nd" data-sid="02c-bridge-stop:19"><rect class="nd__box" x="26" y="64" width="130" height="76" rx="10" data-sid="02c-bridge-stop:20"/><path class="nd__div" d="M82 64v76" data-sid="02c-bridge-stop:21"/><text class="nd__v" x="54" y="114" data-sid="02c-bridge-stop:22">3</text></g>
+        <g class="nd" data-sid="02c-bridge-stop:23"><rect class="nd__box" x="182" y="64" width="130" height="76" rx="10" data-sid="02c-bridge-stop:24"/><path class="nd__div" d="M238 64v76" data-sid="02c-bridge-stop:25"/><text class="nd__v" x="210" y="114" data-sid="02c-bridge-stop:26">7</text></g>
+        <g class="nd" data-sid="02c-bridge-stop:27"><rect class="nd__box" x="338" y="64" width="130" height="76" rx="10" data-sid="02c-bridge-stop:28"/><path class="nd__div" d="M394 64v76" data-sid="02c-bridge-stop:29"/><text class="nd__v" x="366" y="114" data-sid="02c-bridge-stop:30">12</text></g>
+        <g class="nd" data-sid="02c-bridge-stop:31"><rect class="nd__box" x="494" y="64" width="130" height="76" rx="10" data-sid="02c-bridge-stop:32"/><path class="nd__div" d="M550 64v76" data-sid="02c-bridge-stop:33"/><text class="nd__v" x="522" y="114" data-sid="02c-bridge-stop:34">20</text><text class="nd__nl" x="587" y="112" data-sid="02c-bridge-stop:35">null</text></g>
+        <path class="lnk" d="M119 102 H 178" data-sid="02c-bridge-stop:36"/>
+        <path class="lnk" d="M275 102 H 334" data-sid="02c-bridge-stop:37"/>
+        <path class="lnk" d="M431 102 H 490" data-sid="02c-bridge-stop:38"/>
+        <g class="nd nd--wait" data-sid="02c-bridge-stop:39"><rect class="nd__box" x="260" y="176" width="130" height="76" rx="10" data-sid="02c-bridge-stop:40"/><path class="nd__div" d="M316 176v76" data-sid="02c-bridge-stop:41"/><text class="nd__v" x="288" y="226" data-sid="02c-bridge-stop:42">10</text></g>
+        <g class="ring" data-sid="02c-bridge-stop:43"><rect x="20" y="56" width="142" height="92" rx="14" data-sid="02c-bridge-stop:44"/></g>
+      </g>
+
+      <!-- Week 12: the same order in an array, and the call Vote 1 is about -->
+      <g class="bs__right frag" data-step="2" data-sid="02c-bridge-stop:45">
+        <g class="cells" data-sid="02c-bridge-stop:46">
+          <rect x="880" y="64" width="96" height="96" rx="10" data-sid="02c-bridge-stop:47"/><rect x="988" y="64" width="96" height="96" rx="10" data-sid="02c-bridge-stop:48"/><rect x="1096" y="64" width="96" height="96" rx="10" data-sid="02c-bridge-stop:49"/><rect x="1204" y="64" width="96" height="96" rx="10" data-sid="02c-bridge-stop:50"/>
+        </g>
+        <g class="vals" data-sid="02c-bridge-stop:51"><text x="928" y="124" data-sid="02c-bridge-stop:52">3</text><text x="1036" y="124" data-sid="02c-bridge-stop:53">7</text><text x="1144" y="124" data-sid="02c-bridge-stop:54">12</text><text x="1252" y="124" data-sid="02c-bridge-stop:55">20</text></g>
+        <g class="idx" data-sid="02c-bridge-stop:56"><text x="928" y="194" data-sid="02c-bridge-stop:57">0</text><text x="1036" y="194" data-sid="02c-bridge-stop:58">1</text><text x="1144" y="194" data-sid="02c-bridge-stop:59">2</text><text x="1252" y="194" data-sid="02c-bridge-stop:60">3</text></g>
+        <rect class="card" x="1352" y="64" width="300" height="96" rx="18" data-sid="02c-bridge-stop:61"/>
+        <text class="card__code" x="1502" y="124" data-sid="02c-bridge-stop:62">contains(10)</text>
+      </g>
+    </svg>
+
+    <div class="bs__caps" data-sid="02c-bridge-stop:63">
+      <p class="bs__cap cap--1 frag" data-step="1" data-sid="02c-bridge-stop:64">Last week getNodeBefore stopped on 12, the first node larger than 10, and 10 went in before it.</p>
+      <p class="bs__cap bs__cap--keep cap--2 frag" data-step="2" data-sid="02c-bridge-stop:65">An array can hold the same order. The List contains loop from Week 3 does not use it.</p>
+    </div>
+    <p class="bs__q frag" data-step="3" data-sid="02c-bridge-stop:66">Does contains(10) have to look past 12?</p>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-stop:67"></div>
+  <aside class="notes" data-sid="02c-bridge-stop:68">Last week we put a sorted list on a chain. Step 1. This is the chain from Week 11, 3, 7, 12, 20, and the call add(10). getNodeBefore starts with currentNode at firstNode and moves on while the new entry is larger than currentNode&rsquo;s data. 10 is larger than 3 and than 7, and not larger than 12, so the walk stops on 12 and 10 goes in before it. The add relied on the order to know where to stop. Step 2. An array can hold the same four values in the same order. The contains loop the class wrote in Week 3, which is the List contains in today&rsquo;s vote, compares every entry until it finds a match. It never looks at whether an entry is larger. Step 3. Do not answer the question yet. Vote 1 asks it. Next is Part 1.</aside>
+
+  <style data-sid="02c-bridge-stop:69">
+    /* Slide-local: a bridge from Week 11 to Week 12, in W10D1 02c's grammar.
+       One SVG at 1:1 (1664 × 260): left, W11D1 06b's sorted chain (Link
+       boxes 130 × 76 on a 156 px pitch, 6 px inside the body edge) with a
+       key for the blue currentNode ring and the new node 10 under the gap;
+       right, the deck's array strip (96 px cells, 108 px pitch) with the
+       same values and a stone card with the call. Labels at --t-micro,
+       values and the card at --t-small. Under it two captions (the second
+       replaces the first and stays) and the question in display maroon, all
+       at --t-small. Motion: the chain and the strip GrowFromCenter on their
+       presses; the ring travels 3 → 12 by translateX after the chain is in
+       (a real move). Used by this slide only, all values from tokens. */
+    #slide-02c .bs { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-02c .bs__fig { display: block; width: 1664px; height: 260px; overflow: visible; }
+
+    #slide-02c .pill rect { fill: var(--accent-2); }
+    #slide-02c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-02c .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd--wait .nd__box { stroke: var(--accent-3); fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); }
+    #slide-02c .nd--wait .nd__div { stroke: var(--accent-3); }
+    #slide-02c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02c .lnk, #slide-02c .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w12d1-02c-head); }
+    #slide-02c .ref { stroke-width: 5; }
+    #slide-02c .lg__sw { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-02c .lg__t { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); }
+
+    #slide-02c .ring rect { fill: none; stroke: var(--accent-2); stroke-width: 5; }
+    #slide-02c .ring { transition: transform 1.4s var(--ease-smooth); }
+
+    #slide-02c .cells rect { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-02c .vals text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .idx text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); text-anchor: middle; }
+    #slide-02c .card { fill: var(--bg-1); stroke: var(--stone); stroke-width: 3; }
+    #slide-02c .card__code { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+
+    /* GrowFromCenter: the chain and the strip */
+    #slide-02c .bs__left, #slide-02c .bs__right { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.bs__left.is-pending, #slide-02c .frag.bs__right.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-02c .bs:has(.cap--1:not(.is-pending)) .ring { transform: translateX(312px); transition-delay: .7s; }
+
+    /* narration: caption 1 is replaced by caption 2, which stays */
+    #slide-02c .bs__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02c .bs__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.bs__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.bs__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.bs__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02c .frag.bs__cap--keep.is-past { opacity: 1; }
+    #slide-02c .slide__body p.bs__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .bs__left, #slide-02c .bs__right, #slide-02c .ring,
+      #slide-02c .bs__cap, #slide-02c .bs__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
