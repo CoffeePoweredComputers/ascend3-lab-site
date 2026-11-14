@@ -39,18 +39,7 @@
     }
   ],
   "masters": [],
-  "highschool": [
-    {
-      "id": "hudson",
-      "name": "Hudson Mitchell-Pullman",
-      "role": "High School Dropout, Emergent Ventures",
-      "photo": "/assets/people/hudson.jpg",
-      "bio": "Human–AI interaction in CS education, focusing on end-user programming and behavior-driven specification.",
-      "website": null,
-      "email": null,
-      "institution": "San Francisco, CA"
-    }
-  ],
+  "highschool": [],
   "undergrad": [
     {
       "id": "ben",
