@@ -2,7 +2,7 @@
   <header class="slide__head" data-sid="04-walk-words:2">
     <h2 data-sid="04-walk-words:3">A tree is built from a root, edges, parents and children</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="04-walk-words:4">The course&rsquo;s example tree built in the centre of the slide, with each term written on the part of the tree it names and one sentence under the tree per press. Step one: a circle labelled A appears with the word root above it; A is the root and has no parent. Step two: edges draw down from A to B on the left and C on the right; the word edge points to the line from A to B, the word parent is beside A and the word child is beside B and beside C. Step three: a dashed blue line joins B and C under the word siblings. Step four: D and E appear under B; B is a child of A and also the parent of D and E. Step five: H appears as C&rsquo;s right child, and C is outlined; C has one child, and a binary tree node has 0, 1 or 2 children. Step six: F and G appear under E. Step seven: D, F, G and H take a pale blue fill and the word leaf appears under each of them. Step eight: A, B, C and E take an orange outline, and the words inner node appear beside C. Step nine: a dashed blue box is drawn round B, D, E, F and G, labelled A&rsquo;s left subtree; it is itself a binary tree. Step ten, in maroon: a binary tree is a root with a left subtree and a right subtree, either of which may be empty.</p>
+  <p class="sr-only slide__desc" data-sid="04-walk-words:4">The course&rsquo;s example tree built in the centre of the slide, with each term written on the part of the tree it names and one sentence under the tree per press. Each term is shown for its own press and fades on the next. Step one: a circle labelled A appears with the word root above it; A is the root and has no parent. Step two: edges draw down from A to B on the left and C on the right; the word edge points to the line from A to B, the word parent is beside A and the word child is beside B and beside C. Step three: a dashed blue line joins B and C under the word siblings. Step four: D and E appear under B; B is a child of A and also the parent of D and E. Step five: H appears as C&rsquo;s right child, and C is outlined; C has one child, and a binary tree node has 0, 1 or 2 children. Step six: F and G appear under E. Step seven: D, F, G and H take a pale blue fill and the word leaf appears under each of them. Step eight: A, B, C and E take an orange outline, and the words inner node appear beside C. Step nine: a dashed blue box is drawn round B, D, E, F and G, labelled A&rsquo;s left subtree; it is itself a binary tree. Step ten, in maroon: a binary tree is a root with a left subtree and a right subtree, either of which may be empty.</p>
 
   <!-- The 13.2 module's vocabulary (root, parent, child, edge, siblings,
        leaf, inner node, subtree), built one term per press on the course's
@@ -105,6 +105,11 @@
     #slide-04 .tl--mid { text-anchor: middle; }
     #slide-04 .tl--end { text-anchor: end; }
     #slide-04 .frag.tl.g.is-current { transition-delay: .6s; }
+    /* a term stays for its own press only, then fades with its leader and
+       the sibling line, so the tree does not fill up with words */
+    #slide-04 .frag.tl.is-past,
+    #slide-04 .frag.tw__lead.is-past,
+    #slide-04 .frag.tw__sib.is-past { opacity: 0; transition-delay: 0s; }
 
     /* Create, then GrowFromCenter */
     #slide-04 .p { stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
