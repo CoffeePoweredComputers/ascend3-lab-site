@@ -1,0 +1,95 @@
+<section class="slide slide--warmup" id="slide-10" data-sid="10-ce13-strings:1">
+  <header class="slide__head" data-sid="10-ce13-strings:2">
+    <h2 data-sid="10-ce13-strings:3">CE 13 writes each traversal as a string with parentheses</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10-ce13-strings:4">How Challenge Exercise 13 writes a traversal, built in five presses on a three-node tree: A with left child B and right child C. Press one: the string (B) appears under B. Press two: (C) appears under C. Press three: copies of (B) and (C) travel up into a row labelled inorder, and parentheses and A fill in around them, so the row reads ((B)A(C)). Press four: two more rows appear, preorder (A(B)(C)) and postorder ((B)(C)A). Press five: a card says that size() is Day 1&rsquo;s count of nodes, 3 for this tree, and that height() counts levels, so a leaf is 1 and this tree is 2; the caption says that CE 13 asks for the three traversal strings, the size and the height.</p>
+
+  <!-- CE 13 (Lab 13 Binary Tree) on the smallest tree with both children, in
+       the shared circle grammar. A leaf's string is its letter in parentheses;
+       a node's string wraps its children's strings and its own letter in one
+       more pair, in the order of the traversal. The inorder row is built by
+       moving copies of (B) and (C) from under their nodes into place (a real
+       move; mono at --t-small, 21.6 px a character, so each piece's slot is
+       exact), with the new parentheses and A fading in after; the other two
+       rows fade in whole.
+       step 1: (B).  step 2: (C).  step 3: inorder.  step 4: preorder and
+       postorder.  step 5: size and height card; plant. -->
+  <div class="slide__body cs" data-sid="10-ce13-strings:5">
+    <svg class="cs__fig" viewBox="0 0 1664 360" role="img" aria-label="A three-node tree, A with children B and C, with the strings (B) and (C) under the two leaves, and three rows to the right: inorder ((B)A(C)), preorder (A(B)(C)) and postorder ((B)(C)A)" data-sid="10-ce13-strings:6">
+      <path class="ed" d="M194.5 85.5 L135.5 164.5" data-sid="10-ce13-strings:7"/>
+      <path class="ed" d="M245.5 85.5 L304.5 164.5" data-sid="10-ce13-strings:8"/>
+      <g class="nd" data-sid="10-ce13-strings:9"><circle cx="220" cy="60" r="36" data-sid="10-ce13-strings:10"/><text x="220" y="72" data-sid="10-ce13-strings:11">A</text></g>
+      <g class="nd" data-sid="10-ce13-strings:12"><circle cx="110" cy="190" r="36" data-sid="10-ce13-strings:13"/><text x="110" y="202" data-sid="10-ce13-strings:14">B</text></g>
+      <g class="nd" data-sid="10-ce13-strings:15"><circle cx="330" cy="190" r="36" data-sid="10-ce13-strings:16"/><text x="330" y="202" data-sid="10-ce13-strings:17">C</text></g>
+      <text class="str frag" data-step="1" x="77.6" y="290" data-sid="10-ce13-strings:18">(B)</text>
+      <text class="str frag" data-step="2" x="297.6" y="290" data-sid="10-ce13-strings:19">(C)</text>
+
+      <text class="row__lab row__lab--in" x="560" y="118" data-sid="10-ce13-strings:20">inorder</text>
+      <text class="str cp cp--b" x="77.6" y="290" data-sid="10-ce13-strings:21">(B)</text>
+      <text class="str cp cp--c" x="297.6" y="290" data-sid="10-ce13-strings:22">(C)</text>
+      <g class="wrap" data-sid="10-ce13-strings:23">
+        <text class="str" x="800" y="120" data-sid="10-ce13-strings:24">(</text>
+        <text class="str str--own" x="886.4" y="120" data-sid="10-ce13-strings:25">A</text>
+        <text class="str" x="972.8" y="120" data-sid="10-ce13-strings:26">)</text>
+      </g>
+
+      <g class="more frag" data-step="4" data-sid="10-ce13-strings:27">
+        <text class="row__lab" x="560" y="218" data-sid="10-ce13-strings:28">preorder</text>
+        <text class="str" x="800" y="220" data-sid="10-ce13-strings:29">(<tspan class="str--own" data-sid="10-ce13-strings:30">A</tspan>(B)(C))</text>
+        <text class="row__lab" x="560" y="318" data-sid="10-ce13-strings:31">postorder</text>
+        <text class="str" x="800" y="320" data-sid="10-ce13-strings:32">((B)(C)<tspan class="str--own" data-sid="10-ce13-strings:33">A</tspan>)</text>
+      </g>
+    </svg>
+
+    <div class="cs__card frag" data-step="5" data-sid="10-ce13-strings:34">
+      <p class="cs__line" data-sid="10-ce13-strings:35"><code data-sid="10-ce13-strings:36">size()</code> is Day 1&rsquo;s count of nodes, 3 for this tree.</p>
+      <p class="cs__line" data-sid="10-ce13-strings:37"><code data-sid="10-ce13-strings:38">height()</code> counts levels, so a leaf is 1 and this tree is 2.</p>
+    </div>
+
+    <div class="cs__caps" data-sid="10-ce13-strings:39">
+      <p class="cs__cap cap--1 frag" data-step="1" data-sid="10-ce13-strings:40">CE 13 writes a leaf as its letter in parentheses, so B&rsquo;s string is (B).</p>
+      <p class="cs__cap cap--2 frag" data-step="2" data-sid="10-ce13-strings:41">C is also a leaf, so its string is (C).</p>
+      <p class="cs__cap cap--3 frag" data-step="3" data-sid="10-ce13-strings:42">A&rsquo;s inorder string puts the left string, then A, then the right string, all inside one more pair of parentheses.</p>
+      <p class="cs__cap cap--4 frag" data-step="4" data-sid="10-ce13-strings:43">The preorder string puts A first, and the postorder string puts A last.</p>
+      <p class="cs__cap cs__cap--plant cap--5 frag" data-step="5" data-sid="10-ce13-strings:44">CE 13 asks for the three traversal strings, the size and the height.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10-ce13-strings:45"></div>
+  <aside class="notes" data-sid="10-ce13-strings:46">Challenge Exercise 13, Binary Tree, is due Friday Nov 20. In CE 13 the BinaryTree class is its own node: getElement, getLeft and getRight. It asks for size(), height(), and three string methods, toPreOrderString, toInOrderString and toPostOrderString, which write the traversal with parentheses. Step 1: a leaf is its letter in parentheses, (B). Step 2: (C). Step 3: the inorder string of A puts B&rsquo;s string, then A, then C&rsquo;s string, and wraps the lot in one more pair: ((B)A(C)). Every call does the same with its children&rsquo;s strings, so the method has the same shape as the inorder walk on slide 04b, with the visit replaced by adding the letter. Step 4: preorder, (A(B)(C)), and postorder, ((B)(C)A): the same pieces, with the letter moved to the front or to the back, as on slides 04 and 04c. Step 5: size() is the count from Day 1, the node plus the sizes of its two subtrees. height() counts levels, as the votes did: a leaf is 1. The module&rsquo;s ProgrammingTrees slide counts edges instead, where a leaf is 0; CE 13 uses levels. Check the exact format against the CE 13 instructions in Eclipse before writing it [the strings here are the brief&rsquo;s examples from the lab; the empty-tree string is not shown]. Next we look at what comes after Thanksgiving.</aside>
+
+  <style data-sid="10-ce13-strings:47">
+    /* Slide-local: one 1664 x 360 SVG at 1:1 (the shared circle grammar, the
+       strings in mono at --t-small, row labels at --t-micro), a stone card at
+       --t-small and a one-line caption row under it. The inorder copies are
+       moved by translate keyed to the caption frags (real moves; the copy
+       appears over its original with no fade, so nothing fades while it
+       travels); the wrapping characters fade in after the copies land. Used by
+       this slide only, all values from tokens. */
+    #slide-10 .cs { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-10 .cs__fig { display: block; width: 1664px; height: 360px; overflow: visible; }
+    #slide-10 .ed { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-10 .nd circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-10 .nd text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-10 .str { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); }
+    #slide-10 .str--own { fill: var(--accent-3); }
+    #slide-10 .row__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-10 .row__lab--in { opacity: 0; transition: opacity .3s ease; }
+    #slide-10 .cp { opacity: 0; transition: transform .7s var(--ease-smooth), opacity 0s; }
+    #slide-10 .wrap { opacity: 0; transition: opacity .3s ease; }
+    #slide-10 .cs:has(.cap--3:not(.is-pending)) .row__lab--in { opacity: 1; }
+    #slide-10 .cs:has(.cap--3:not(.is-pending)) .cp { opacity: 1; }
+    #slide-10 .cs:has(.cap--3:not(.is-pending)) .cp--b { transform: translate(744px, -170px); }
+    #slide-10 .cs:has(.cap--3:not(.is-pending)) .cp--c { transform: translate(610.4px, -170px); }
+    #slide-10 .cs:has(.cap--3:not(.is-pending)) .wrap { opacity: 1; transition-delay: .6s; }
+    #slide-10 .cs__card { justify-self: start; padding: var(--s-3) var(--s-4); border: 3px solid var(--stone); border-radius: var(--r-3); background: var(--bg-1); }
+    #slide-10 .slide__body p.cs__line { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); }
+    #slide-10 .cs__line code { font-family: var(--font-mono); font-size: .9em; color: var(--accent-1); }
+    #slide-10 .cs__caps { display: grid; min-height: 49px; align-content: start; }
+    #slide-10 .slide__body p.cs__cap { grid-area: 1 / 1; margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .4s ease; }
+    #slide-10 .frag.cs__cap.is-pending, #slide-10 .frag.cs__cap.is-past { opacity: 0; }
+    #slide-10 .slide__body p.cs__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10 .cp, #slide-10 .wrap, #slide-10 .row__lab, #slide-10 .cs__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

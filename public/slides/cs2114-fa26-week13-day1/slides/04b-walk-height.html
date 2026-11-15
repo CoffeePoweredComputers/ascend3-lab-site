@@ -1,0 +1,129 @@
+<section class="slide slide--warmup" id="slide-04b" data-sid="04b-walk-height:1">
+  <header class="slide__head" data-sid="04b-walk-height:2">
+    <h2 data-sid="04b-walk-height:3">The height of a tree is its number of levels</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04b-walk-height:4">The course&rsquo;s example tree from the last slide on the left, measured level by level. Steps one to four: a grey band washes across each level in turn, labelled level 1 to level 4; level 1 holds A, level 2 holds B and C, level 3 holds D, E and H, and level 4 holds F and G. Step five: an orange path draws on from A through B and E to F, and a card under the drawing reads: height equals the number of levels, which equals 1 plus the edges from the root to the deepest node. The path has three edges, so the height is 4. Step six: on the right a second tree grows in, J, K, L and M, each the right child of the one above, one per level; it also has height 4. Step seven: at the top right a single node in a card; a single node is a tree of height 1, and CE 13&rsquo;s height method counts this way. Step eight, in maroon: height counts levels, and two trees of the same height can hold very different numbers of nodes.</p>
+
+  <!-- How the course counts height: levels (root alone = 1, null = 0), as the
+       votes, the module checkpoints and CE 13's height() count it. The
+       ProgrammingTrees slide's getHeight counts edges (a leaf is 0); the
+       notes say so and the screen uses levels only. One SVG at 1:1
+       (1664 x 516): the A-H tree shifted 170 px right to make room for the
+       level labels, four stone bands that wipe across the full width (so the
+       second tree on the right sits on the same levels), the orange
+       root-to-deepest path (W9D2 11b's .tree__hot), a right-leaning chain J K
+       L M, and a one-node card. No counts of nodes are added up anywhere on
+       this slide.
+       steps 1-4: bands; 5: the path and the convention card; 6: the chain;
+       7: the single node; 8: the plant. -->
+  <div class="slide__body hw" data-sid="04b-walk-height:5">
+    <svg class="hw__fig" viewBox="0 0 1664 516" role="img" aria-label="Four grey bands, one per level, across the example tree A to H, with an orange path from A through B and E to F; on the right a chain J, K, L, M, each the right child of the one above, on the same four levels, and a single node in a card at the top right" data-sid="04b-walk-height:6">
+      <rect class="band frag bar" data-step="1" x="0" y="4" width="1664" height="112" rx="14" data-sid="04b-walk-height:7"/>
+      <rect class="band frag bar" data-step="2" x="0" y="134" width="1664" height="112" rx="14" data-sid="04b-walk-height:8"/>
+      <rect class="band frag bar" data-step="3" x="0" y="264" width="1664" height="112" rx="14" data-sid="04b-walk-height:9"/>
+      <rect class="band frag bar" data-step="4" x="0" y="394" width="1664" height="112" rx="14" data-sid="04b-walk-height:10"/>
+      <text class="band__lab frag label" data-step="1" x="16" y="70" data-sid="04b-walk-height:11">level 1</text>
+      <text class="band__lab frag label" data-step="2" x="16" y="200" data-sid="04b-walk-height:12">level 2</text>
+      <text class="band__lab frag label" data-step="3" x="16" y="330" data-sid="04b-walk-height:13">level 3</text>
+      <text class="band__lab frag label" data-step="4" x="16" y="460" data-sid="04b-walk-height:14">level 4</text>
+      <path class="te" d="M519.8 79.6 L380.2 170.4" data-sid="04b-walk-height:15"/>
+      <path class="te" d="M580.2 79.6 L719.8 170.4" data-sid="04b-walk-height:16"/>
+      <path class="te" d="M328.1 218.5 L271.9 291.5" data-sid="04b-walk-height:17"/>
+      <path class="te" d="M371.9 218.5 L428.1 291.5" data-sid="04b-walk-height:18"/>
+      <path class="te" d="M771.9 218.5 L828.1 291.5" data-sid="04b-walk-height:19"/>
+      <path class="te" d="M437.1 353.6 L412.9 416.4" data-sid="04b-walk-height:20"/>
+      <path class="te" d="M462.9 353.6 L487.1 416.4" data-sid="04b-walk-height:21"/>
+      <path class="hot" pathLength="100" d="M550 60 L350 190 L450 320 L400 450" data-sid="04b-walk-height:22"/>
+      <g class="tn" data-sid="04b-walk-height:23"><circle cx="550" cy="60" r="36" data-sid="04b-walk-height:24"/><text x="550" y="72" data-sid="04b-walk-height:25">A</text></g>
+      <g class="tn" data-sid="04b-walk-height:26"><circle cx="350" cy="190" r="36" data-sid="04b-walk-height:27"/><text x="350" y="202" data-sid="04b-walk-height:28">B</text></g>
+      <g class="tn" data-sid="04b-walk-height:29"><circle cx="750" cy="190" r="36" data-sid="04b-walk-height:30"/><text x="750" y="202" data-sid="04b-walk-height:31">C</text></g>
+      <g class="tn" data-sid="04b-walk-height:32"><circle cx="250" cy="320" r="36" data-sid="04b-walk-height:33"/><text x="250" y="332" data-sid="04b-walk-height:34">D</text></g>
+      <g class="tn" data-sid="04b-walk-height:35"><circle cx="450" cy="320" r="36" data-sid="04b-walk-height:36"/><text x="450" y="332" data-sid="04b-walk-height:37">E</text></g>
+      <g class="tn" data-sid="04b-walk-height:38"><circle cx="850" cy="320" r="36" data-sid="04b-walk-height:39"/><text x="850" y="332" data-sid="04b-walk-height:40">H</text></g>
+      <g class="tn" data-sid="04b-walk-height:41"><circle cx="400" cy="450" r="36" data-sid="04b-walk-height:42"/><text x="400" y="462" data-sid="04b-walk-height:43">F</text></g>
+      <g class="tn" data-sid="04b-walk-height:44"><circle cx="500" cy="450" r="36" data-sid="04b-walk-height:45"/><text x="500" y="462" data-sid="04b-walk-height:46">G</text></g>
+      <g class="hw__chain frag" data-step="6" data-sid="04b-walk-height:47">
+        <path class="te p" pathLength="100" style="--i: 0" d="M1121.9 88.5 L1178.1 161.5" data-sid="04b-walk-height:48"/>
+        <path class="te p" pathLength="100" style="--i: 1" d="M1221.9 218.5 L1278.1 291.5" data-sid="04b-walk-height:49"/>
+        <path class="te p" pathLength="100" style="--i: 2" d="M1321.9 348.5 L1378.1 421.5" data-sid="04b-walk-height:50"/>
+        <g class="tn g" style="--i: 0" data-sid="04b-walk-height:51"><circle cx="1100" cy="60" r="36" data-sid="04b-walk-height:52"/><text x="1100" y="72" data-sid="04b-walk-height:53">J</text></g>
+        <g class="tn g" style="--i: 1" data-sid="04b-walk-height:54"><circle cx="1200" cy="190" r="36" data-sid="04b-walk-height:55"/><text x="1200" y="202" data-sid="04b-walk-height:56">K</text></g>
+        <g class="tn g" style="--i: 2" data-sid="04b-walk-height:57"><circle cx="1300" cy="320" r="36" data-sid="04b-walk-height:58"/><text x="1300" y="332" data-sid="04b-walk-height:59">L</text></g>
+        <g class="tn g" style="--i: 3" data-sid="04b-walk-height:60"><circle cx="1400" cy="450" r="36" data-sid="04b-walk-height:61"/><text x="1400" y="462" data-sid="04b-walk-height:62">M</text></g>
+      </g>
+      <g class="hw__one frag" data-step="7" data-sid="04b-walk-height:63">
+        <rect class="hw__card" x="1526" y="4" width="128" height="112" rx="14" data-sid="04b-walk-height:64"/>
+        <g class="tn" data-sid="04b-walk-height:65"><circle cx="1590" cy="60" r="36" data-sid="04b-walk-height:66"/><text x="1590" y="72" data-sid="04b-walk-height:67">N</text></g>
+      </g>
+    </svg>
+    <p class="hw__rule frag" data-step="5" data-sid="04b-walk-height:68">height = number of levels = 1 + edges from the root to the deepest node</p>
+    <div class="hw__caps" data-sid="04b-walk-height:69">
+      <p class="hw__cap cap--1 frag" data-step="1" data-sid="04b-walk-height:70">Level 1 holds the root, A.</p>
+      <p class="hw__cap cap--2 frag" data-step="2" data-sid="04b-walk-height:71">Level 2 holds the root&rsquo;s children, B and C.</p>
+      <p class="hw__cap cap--3 frag" data-step="3" data-sid="04b-walk-height:72">Level 3 holds D, E and H.</p>
+      <p class="hw__cap cap--4 frag" data-step="4" data-sid="04b-walk-height:73">Level 4 holds F and G, so the tree has four levels.</p>
+      <p class="hw__cap cap--5 frag" data-step="5" data-sid="04b-walk-height:74">The path from the root to the deepest node, F, has three edges. The height is one more than that, 4, which is the number of levels.</p>
+      <p class="hw__cap cap--6 frag" data-step="6" data-sid="04b-walk-height:75">This tree has four nodes on four levels, each the right child of the one above it, so it also has height 4.</p>
+      <p class="hw__cap cap--7 frag" data-step="7" data-sid="04b-walk-height:76">A single node is a tree of height 1, which is how CE 13&rsquo;s height() counts.</p>
+      <p class="hw__cap hw__cap--plant cap--8 frag" data-step="8" data-sid="04b-walk-height:77">Height counts levels, and two trees of the same height can hold very different numbers of nodes.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04b-walk-height:78"></div>
+  <aside class="notes" data-sid="04b-walk-height:79">This is how the votes, the module checkpoints and CE 13 count height. Steps 1 to 4: count the levels. Level 1 is the root, A. Level 2 is B and C. Level 3 is D, E and H. Level 4 is F and G. Step 5: the deepest node is F (G is as deep). The path from A to F has three edges, and the height is one more than the number of edges, 4. That is the same as the number of levels, and it is the wording the votes use: the height of a tree is 1 more than the number of edges from the root to the deepest node. Step 6: a tree that leans all the way to the right, J, K, L, M, also has four levels and height 4. Step 7: a single node is a tree of height 1, and an empty tree, null, has height 0. CE 13&rsquo;s height() counts the same way, a leaf is 1. One caution: the ProgrammingTrees slide in the module has a getHeight that counts edges instead, so a leaf is 0 there and this tree would be 3. The votes, the checkpoints and CE 13 all count levels, and so does this deck. Step 8: height alone does not say how many nodes a tree has; the two trees here have the same height and different numbers of nodes. Next is Part 2, a shape where the height does fix the number of nodes.</aside>
+
+  <style data-sid="04b-walk-height:80">
+    /* Slide-local: one SVG at 1:1 (1664 x 516) in the shared circle-tree
+       grammar (r 36, stroke 4, mono --t-small letters, level pitch 130):
+       four stone bands (12 % stone on the ground, 112 tall) with level
+       labels at --t-micro, the root-to-deepest path in W9D2 11b's
+       .tree__hot ink (accent-3, 7 px, under the circles), the J-M chain and
+       a one-node card. Under it the convention as a stone card at --t-small
+       and the narration, one sentence per press at --t-small, the last in
+       display maroon. Motion: a band wipes from the left, its label fades in
+       after it; the path is Created; the chain's edges are Created and its
+       nodes GrowFromCenter, staggered down the levels; the single node
+       GrowsFromCenter; the card fades in. Used by this slide only, all values
+       from tokens. */
+    #slide-04b .hw { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-3); align-content: start; }
+    #slide-04b .hw__fig { display: block; width: 1664px; height: 516px; overflow: visible; }
+
+    #slide-04b .band { fill: color-mix(in srgb, var(--stone) 12%, var(--bg-0)); }
+    #slide-04b .band__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-04b .tn circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-04b .tn text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04b .te { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-04b .hot { fill: none; stroke: var(--accent-3); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .8s var(--ease-smooth); }
+    #slide-04b .hw__card { fill: none; stroke: var(--stone); stroke-width: 3; }
+
+    /* wipe: a band fills from its left end; its label fades in behind it */
+    #slide-04b .bar { clip-path: inset(0 0 0 0); transition: clip-path .6s var(--ease-smooth); }
+    #slide-04b .frag.bar.is-pending { opacity: 1; clip-path: inset(0 100% 0 0); }
+    #slide-04b .frag.label.is-current, #slide-04b .frag.label.is-past { transition-delay: .45s; }
+    /* the chain: edges Created, nodes GrowFromCenter, one level after another */
+    #slide-04b .frag.hw__chain.is-pending { opacity: 1; }
+    #slide-04b .g { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); transition-delay: calc(var(--i) * .5s); }
+    #slide-04b .hw__chain.is-pending .g { opacity: 0; transform: scale(0.4); transition-delay: 0s; }
+    #slide-04b .p { stroke-dasharray: 100; stroke-dashoffset: 0; transition: stroke-dashoffset .4s var(--ease-smooth); transition-delay: calc(.3s + var(--i) * .5s); }
+    #slide-04b .hw__chain.is-pending .p { stroke-dashoffset: 100; transition-delay: 0s; }
+    #slide-04b .hw__one { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04b .frag.hw__one.is-pending { opacity: 0; transform: scale(0.4); }
+
+    #slide-04b .slide__body p.hw__rule { margin: 0; justify-self: start; padding: var(--s-1) var(--s-3); border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1); font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); transition: opacity .4s ease; }
+
+    /* ---- states, in step order ---- */
+    #slide-04b .hw:has(.cap--5:not(.is-pending)) .hot { stroke-dashoffset: 0; }
+
+    /* narration: one sentence at a time in one cell */
+    #slide-04b .hw__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-04b .hw__caps > * { grid-area: 1 / 1; }
+    #slide-04b .slide__body p.hw__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-04b .frag.hw__cap.is-current { transition-delay: .3s; }
+    #slide-04b .frag.hw__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-04b .slide__body p.hw__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04b .bar, #slide-04b .band__lab, #slide-04b .hot, #slide-04b .g, #slide-04b .p,
+      #slide-04b .hw__one, #slide-04b .hw__rule, #slide-04b .hw__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

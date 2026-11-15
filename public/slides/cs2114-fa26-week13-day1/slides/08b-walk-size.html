@@ -1,0 +1,121 @@
+<section class="slide slide--warmup" id="slide-08b" data-sid="08b-walk-size:1">
+  <header class="slide__head" data-sid="08b-walk-size:2">
+    <p class="slide__kicker" data-sid="08b-walk-size:3">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="08b-walk-size:4">Seven levels of this shape hold 1 + 2 + &hellip; + 64 = 127 nodes</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="08b-walk-size:5">The answer to Vote 2, built in twelve presses. Top left, a six-line loop under a program-counter bar: int count equals 1; int total equals 0; for level from 1 to 7, total plus-equals count, then count equals 2 times count. Top right, a large counter labelled nodes so far. Under both, the levels drawn as rows of small discs, one row per level, each labelled with its level and its count. Steps one to seven: one row per press, with 1, 2, 4, 8, 16, 32 and 64 discs, and the counter reads 1, 3, 7, 15, 31, 63 and 127; after level 7 the loop ends. Step eight: a dashed maroon outline round all seven rows; Option Option B, 128, is 2 to the 7, one more than the seven levels hold. Step nine: an outline round row 7 alone; F, 64, is the leaves without the levels above them. Step ten: an outline round rows 1 to 6; E, 63, is a tree of height 6. Step eleven: outlines round rows 1 to 5 and round row 6; C, 31, is height 5, and D, 32, is level 6 alone. Step twelve: the six options, with B, C, D, E and F struck through and A, 127, left standing.</p>
+
+  <!-- The answer to Vote 2 (key A, 127). The deck's own loop (the course
+       has no such code; the notes say so) under the PC bar at --t-code: the
+       three loop lines are one block held for steps 1-7 (data-hold), and the
+       closing brace takes the bar when the loop ends. The level-rows drawing
+       (shared with Day 2's 06b): row k holds 2^(k-1) discs. DEVIATION from
+       the brief's 24 px pitch: discs r 8 on a 22 px pitch, so that row 7's
+       64 discs (1,408 px) and the "level 7 &middot; 64" label (202 px) fit
+       the 1,664 px body together; at 24 px they need 1,754. Each option the
+       class may have picked is then shown as the rows it counts, a maroon
+       outline for one press each (C and D share a press, both one level
+       short).
+       steps 1-7: one level per press, the counter rolls (it counts).
+       8: B.  9: F.  10: E.  11: C and D.  12: verdict. -->
+  <div class="slide__body codewalk code-mid ls" data-sid="08b-walk-size:6">
+    <div class="editor ls__editor" data-sid="08b-walk-size:7">
+      <p class="editor__bar" data-sid="08b-walk-size:8">adding up the levels (the deck&rsquo;s loop)</p>
+      <div class="editor__pc" data-sid="08b-walk-size:9"></div>
+      <ol class="editor__code" data-sid="08b-walk-size:10">
+        <li data-sid="08b-walk-size:11"><span class="tok-key" data-sid="08b-walk-size:12">int</span> count = <span class="tok-num" data-sid="08b-walk-size:13">1</span>;</li>
+        <li data-sid="08b-walk-size:14"><span class="tok-key" data-sid="08b-walk-size:15">int</span> total = <span class="tok-num" data-sid="08b-walk-size:16">0</span>;</li>
+        <li class="walkline frag" data-step="1" data-hold="7" data-sid="08b-walk-size:17"><span class="tok-key" data-sid="08b-walk-size:18">for</span> (<span class="tok-key" data-sid="08b-walk-size:19">int</span> level = <span class="tok-num" data-sid="08b-walk-size:20">1</span>; level &lt;= <span class="tok-num" data-sid="08b-walk-size:21">7</span>; level++) {</li>
+        <li class="walkline frag" data-step="1" data-hold="7" data-sid="08b-walk-size:22">  total += count;</li>
+        <li class="walkline frag" data-step="1" data-hold="7" data-sid="08b-walk-size:23">  count = <span class="tok-num" data-sid="08b-walk-size:24">2</span> * count;</li>
+        <li class="walkline frag" data-step="8" data-hold="12" data-sid="08b-walk-size:25">}</li>
+      </ol>
+    </div>
+    <div class="ls__right" data-sid="08b-walk-size:26">
+      <div class="moves" data-sid="08b-walk-size:27">
+        <p class="moves__label" data-sid="08b-walk-size:28">nodes so far</p>
+        <div class="moves__stack" data-sid="08b-walk-size:29">
+            <div class="heap-obj__field" data-sid="08b-walk-size:30"><p class="heap-val heap-val--old frag" data-step="1" data-sid="08b-walk-size:31">0</p><p class="heap-val frag" data-step="1" data-sid="08b-walk-size:32">1</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-size:33"><p class="heap-val heap-val--old frag" data-step="2" data-sid="08b-walk-size:34">1</p><p class="heap-val frag" data-step="2" data-sid="08b-walk-size:35">3</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-size:36"><p class="heap-val heap-val--old frag" data-step="3" data-sid="08b-walk-size:37">3</p><p class="heap-val frag" data-step="3" data-sid="08b-walk-size:38">7</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-size:39"><p class="heap-val heap-val--old frag" data-step="4" data-sid="08b-walk-size:40">7</p><p class="heap-val frag" data-step="4" data-sid="08b-walk-size:41">15</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-size:42"><p class="heap-val heap-val--old frag" data-step="5" data-sid="08b-walk-size:43">15</p><p class="heap-val frag" data-step="5" data-sid="08b-walk-size:44">31</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-size:45"><p class="heap-val heap-val--old frag" data-step="6" data-sid="08b-walk-size:46">31</p><p class="heap-val frag" data-step="6" data-sid="08b-walk-size:47">63</p></div>
+            <div class="heap-obj__field" data-sid="08b-walk-size:48"><p class="heap-val heap-val--old frag" data-step="7" data-sid="08b-walk-size:49">63</p><p class="heap-val frag" data-step="7" data-sid="08b-walk-size:50">127</p></div>
+        </div>
+      </div>
+      <div class="codewalk__caps ls__caps" data-sid="08b-walk-size:51">
+          <p class="walkcap cap--1 frag" data-step="1" data-sid="08b-walk-size:52">When level is 1 the loop adds the root, so total is 1 and count doubles to 2.</p>
+          <p class="walkcap cap--2 frag" data-step="2" data-sid="08b-walk-size:53">When level is 2 the loop adds the 2 nodes of level 2, which makes 3 so far.</p>
+          <p class="walkcap cap--3 frag" data-step="3" data-sid="08b-walk-size:54">Level 3 adds 4 more, which makes 7.</p>
+          <p class="walkcap cap--4 frag" data-step="4" data-sid="08b-walk-size:55">Level 4 adds 8 more, which makes 15.</p>
+          <p class="walkcap cap--5 frag" data-step="5" data-sid="08b-walk-size:56">Level 5 adds 16 more, which makes 31.</p>
+          <p class="walkcap cap--6 frag" data-step="6" data-sid="08b-walk-size:57">Level 6 adds 32 more, which makes 63.</p>
+          <p class="walkcap cap--7 frag" data-step="7" data-sid="08b-walk-size:58">Level 7 adds 64 more, which makes 127, and the loop ends.</p>
+          <p class="walkcap cap--8 frag" data-step="8" data-sid="08b-walk-size:59">Option Option B, 128, is 2<sup data-sid="08b-walk-size:60">7</sup>, one more than the seven levels hold.</p>
+          <p class="walkcap cap--9 frag" data-step="9" data-sid="08b-walk-size:61">Option F, 64, counts level 7 alone, the leaves without the levels above them.</p>
+          <p class="walkcap cap--10 frag" data-step="10" data-sid="08b-walk-size:62">Option E, 63, is the total after six levels, which is a tree of height 6.</p>
+          <p class="walkcap cap--11 frag" data-step="11" data-sid="08b-walk-size:63">Option C, 31, is the total for height 5, and option D, 32, is level 6 alone.</p>
+          <ol class="verdict frag ls__verdict" data-step="12" data-sid="08b-walk-size:64">
+            <li class="verdict__opt verdict__opt--right" data-sid="08b-walk-size:65"><span class="verdict__txt" data-sid="08b-walk-size:66">127</span></li>
+            <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="08b-walk-size:67"><span class="verdict__txt" data-sid="08b-walk-size:68">128 = 2<sup data-sid="08b-walk-size:69">7</sup></span></li>
+            <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="08b-walk-size:70"><span class="verdict__txt" data-sid="08b-walk-size:71">31, height 5</span></li>
+            <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="08b-walk-size:72"><span class="verdict__txt" data-sid="08b-walk-size:73">32, level 6</span></li>
+            <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="08b-walk-size:74"><span class="verdict__txt" data-sid="08b-walk-size:75">63, height 6</span></li>
+            <li class="verdict__opt verdict__opt--wrong" style="--i: 4" data-sid="08b-walk-size:76"><span class="verdict__txt" data-sid="08b-walk-size:77">64, level 7</span></li>
+          </ol>
+      </div>
+    </div>
+    <svg class="ls__fig" viewBox="0 0 1664 258" role="img" aria-label="Seven rows of small discs, one row per level, with 1, 2, 4, 8, 16, 32 and 64 discs, each labelled with its level and its count; maroon outlines mark the rows that each wrong option counts" data-sid="08b-walk-size:78">
+      <text class="rw__lab frag" data-step="1" x="6" y="29" data-sid="08b-walk-size:79">level 1 &middot; 1</text><text class="rw__lab frag" data-step="2" x="6" y="65" data-sid="08b-walk-size:80">level 2 &middot; 2</text><text class="rw__lab frag" data-step="3" x="6" y="101" data-sid="08b-walk-size:81">level 3 &middot; 4</text><text class="rw__lab frag" data-step="4" x="6" y="137" data-sid="08b-walk-size:82">level 4 &middot; 8</text><text class="rw__lab frag" data-step="5" x="6" y="173" data-sid="08b-walk-size:83">level 5 &middot; 16</text><text class="rw__lab frag" data-step="6" x="6" y="209" data-sid="08b-walk-size:84">level 6 &middot; 32</text><text class="rw__lab frag" data-step="7" x="6" y="245" data-sid="08b-walk-size:85">level 7 &middot; 64</text>
+      <g class="rw frag" data-step="1" data-sid="08b-walk-size:86"><circle cx="944" cy="20" r="8" data-sid="08b-walk-size:87"/></g><g class="rw frag" data-step="2" data-sid="08b-walk-size:88"><circle cx="933" cy="56" r="8" data-sid="08b-walk-size:89"/><circle cx="955" cy="56" r="8" data-sid="08b-walk-size:90"/></g><g class="rw frag" data-step="3" data-sid="08b-walk-size:91"><circle cx="911" cy="92" r="8" data-sid="08b-walk-size:92"/><circle cx="933" cy="92" r="8" data-sid="08b-walk-size:93"/><circle cx="955" cy="92" r="8" data-sid="08b-walk-size:94"/><circle cx="977" cy="92" r="8" data-sid="08b-walk-size:95"/></g><g class="rw frag" data-step="4" data-sid="08b-walk-size:96"><circle cx="867" cy="128" r="8" data-sid="08b-walk-size:97"/><circle cx="889" cy="128" r="8" data-sid="08b-walk-size:98"/><circle cx="911" cy="128" r="8" data-sid="08b-walk-size:99"/><circle cx="933" cy="128" r="8" data-sid="08b-walk-size:100"/><circle cx="955" cy="128" r="8" data-sid="08b-walk-size:101"/><circle cx="977" cy="128" r="8" data-sid="08b-walk-size:102"/><circle cx="999" cy="128" r="8" data-sid="08b-walk-size:103"/><circle cx="1021" cy="128" r="8" data-sid="08b-walk-size:104"/></g><g class="rw frag" data-step="5" data-sid="08b-walk-size:105"><circle cx="779" cy="164" r="8" data-sid="08b-walk-size:106"/><circle cx="801" cy="164" r="8" data-sid="08b-walk-size:107"/><circle cx="823" cy="164" r="8" data-sid="08b-walk-size:108"/><circle cx="845" cy="164" r="8" data-sid="08b-walk-size:109"/><circle cx="867" cy="164" r="8" data-sid="08b-walk-size:110"/><circle cx="889" cy="164" r="8" data-sid="08b-walk-size:111"/><circle cx="911" cy="164" r="8" data-sid="08b-walk-size:112"/><circle cx="933" cy="164" r="8" data-sid="08b-walk-size:113"/><circle cx="955" cy="164" r="8" data-sid="08b-walk-size:114"/><circle cx="977" cy="164" r="8" data-sid="08b-walk-size:115"/><circle cx="999" cy="164" r="8" data-sid="08b-walk-size:116"/><circle cx="1021" cy="164" r="8" data-sid="08b-walk-size:117"/><circle cx="1043" cy="164" r="8" data-sid="08b-walk-size:118"/><circle cx="1065" cy="164" r="8" data-sid="08b-walk-size:119"/><circle cx="1087" cy="164" r="8" data-sid="08b-walk-size:120"/><circle cx="1109" cy="164" r="8" data-sid="08b-walk-size:121"/></g><g class="rw frag" data-step="6" data-sid="08b-walk-size:122"><circle cx="603" cy="200" r="8" data-sid="08b-walk-size:123"/><circle cx="625" cy="200" r="8" data-sid="08b-walk-size:124"/><circle cx="647" cy="200" r="8" data-sid="08b-walk-size:125"/><circle cx="669" cy="200" r="8" data-sid="08b-walk-size:126"/><circle cx="691" cy="200" r="8" data-sid="08b-walk-size:127"/><circle cx="713" cy="200" r="8" data-sid="08b-walk-size:128"/><circle cx="735" cy="200" r="8" data-sid="08b-walk-size:129"/><circle cx="757" cy="200" r="8" data-sid="08b-walk-size:130"/><circle cx="779" cy="200" r="8" data-sid="08b-walk-size:131"/><circle cx="801" cy="200" r="8" data-sid="08b-walk-size:132"/><circle cx="823" cy="200" r="8" data-sid="08b-walk-size:133"/><circle cx="845" cy="200" r="8" data-sid="08b-walk-size:134"/><circle cx="867" cy="200" r="8" data-sid="08b-walk-size:135"/><circle cx="889" cy="200" r="8" data-sid="08b-walk-size:136"/><circle cx="911" cy="200" r="8" data-sid="08b-walk-size:137"/><circle cx="933" cy="200" r="8" data-sid="08b-walk-size:138"/><circle cx="955" cy="200" r="8" data-sid="08b-walk-size:139"/><circle cx="977" cy="200" r="8" data-sid="08b-walk-size:140"/><circle cx="999" cy="200" r="8" data-sid="08b-walk-size:141"/><circle cx="1021" cy="200" r="8" data-sid="08b-walk-size:142"/><circle cx="1043" cy="200" r="8" data-sid="08b-walk-size:143"/><circle cx="1065" cy="200" r="8" data-sid="08b-walk-size:144"/><circle cx="1087" cy="200" r="8" data-sid="08b-walk-size:145"/><circle cx="1109" cy="200" r="8" data-sid="08b-walk-size:146"/><circle cx="1131" cy="200" r="8" data-sid="08b-walk-size:147"/><circle cx="1153" cy="200" r="8" data-sid="08b-walk-size:148"/><circle cx="1175" cy="200" r="8" data-sid="08b-walk-size:149"/><circle cx="1197" cy="200" r="8" data-sid="08b-walk-size:150"/><circle cx="1219" cy="200" r="8" data-sid="08b-walk-size:151"/><circle cx="1241" cy="200" r="8" data-sid="08b-walk-size:152"/><circle cx="1263" cy="200" r="8" data-sid="08b-walk-size:153"/><circle cx="1285" cy="200" r="8" data-sid="08b-walk-size:154"/></g><g class="rw frag" data-step="7" data-sid="08b-walk-size:155"><circle cx="251" cy="236" r="8" data-sid="08b-walk-size:156"/><circle cx="273" cy="236" r="8" data-sid="08b-walk-size:157"/><circle cx="295" cy="236" r="8" data-sid="08b-walk-size:158"/><circle cx="317" cy="236" r="8" data-sid="08b-walk-size:159"/><circle cx="339" cy="236" r="8" data-sid="08b-walk-size:160"/><circle cx="361" cy="236" r="8" data-sid="08b-walk-size:161"/><circle cx="383" cy="236" r="8" data-sid="08b-walk-size:162"/><circle cx="405" cy="236" r="8" data-sid="08b-walk-size:163"/><circle cx="427" cy="236" r="8" data-sid="08b-walk-size:164"/><circle cx="449" cy="236" r="8" data-sid="08b-walk-size:165"/><circle cx="471" cy="236" r="8" data-sid="08b-walk-size:166"/><circle cx="493" cy="236" r="8" data-sid="08b-walk-size:167"/><circle cx="515" cy="236" r="8" data-sid="08b-walk-size:168"/><circle cx="537" cy="236" r="8" data-sid="08b-walk-size:169"/><circle cx="559" cy="236" r="8" data-sid="08b-walk-size:170"/><circle cx="581" cy="236" r="8" data-sid="08b-walk-size:171"/><circle cx="603" cy="236" r="8" data-sid="08b-walk-size:172"/><circle cx="625" cy="236" r="8" data-sid="08b-walk-size:173"/><circle cx="647" cy="236" r="8" data-sid="08b-walk-size:174"/><circle cx="669" cy="236" r="8" data-sid="08b-walk-size:175"/><circle cx="691" cy="236" r="8" data-sid="08b-walk-size:176"/><circle cx="713" cy="236" r="8" data-sid="08b-walk-size:177"/><circle cx="735" cy="236" r="8" data-sid="08b-walk-size:178"/><circle cx="757" cy="236" r="8" data-sid="08b-walk-size:179"/><circle cx="779" cy="236" r="8" data-sid="08b-walk-size:180"/><circle cx="801" cy="236" r="8" data-sid="08b-walk-size:181"/><circle cx="823" cy="236" r="8" data-sid="08b-walk-size:182"/><circle cx="845" cy="236" r="8" data-sid="08b-walk-size:183"/><circle cx="867" cy="236" r="8" data-sid="08b-walk-size:184"/><circle cx="889" cy="236" r="8" data-sid="08b-walk-size:185"/><circle cx="911" cy="236" r="8" data-sid="08b-walk-size:186"/><circle cx="933" cy="236" r="8" data-sid="08b-walk-size:187"/><circle cx="955" cy="236" r="8" data-sid="08b-walk-size:188"/><circle cx="977" cy="236" r="8" data-sid="08b-walk-size:189"/><circle cx="999" cy="236" r="8" data-sid="08b-walk-size:190"/><circle cx="1021" cy="236" r="8" data-sid="08b-walk-size:191"/><circle cx="1043" cy="236" r="8" data-sid="08b-walk-size:192"/><circle cx="1065" cy="236" r="8" data-sid="08b-walk-size:193"/><circle cx="1087" cy="236" r="8" data-sid="08b-walk-size:194"/><circle cx="1109" cy="236" r="8" data-sid="08b-walk-size:195"/><circle cx="1131" cy="236" r="8" data-sid="08b-walk-size:196"/><circle cx="1153" cy="236" r="8" data-sid="08b-walk-size:197"/><circle cx="1175" cy="236" r="8" data-sid="08b-walk-size:198"/><circle cx="1197" cy="236" r="8" data-sid="08b-walk-size:199"/><circle cx="1219" cy="236" r="8" data-sid="08b-walk-size:200"/><circle cx="1241" cy="236" r="8" data-sid="08b-walk-size:201"/><circle cx="1263" cy="236" r="8" data-sid="08b-walk-size:202"/><circle cx="1285" cy="236" r="8" data-sid="08b-walk-size:203"/><circle cx="1307" cy="236" r="8" data-sid="08b-walk-size:204"/><circle cx="1329" cy="236" r="8" data-sid="08b-walk-size:205"/><circle cx="1351" cy="236" r="8" data-sid="08b-walk-size:206"/><circle cx="1373" cy="236" r="8" data-sid="08b-walk-size:207"/><circle cx="1395" cy="236" r="8" data-sid="08b-walk-size:208"/><circle cx="1417" cy="236" r="8" data-sid="08b-walk-size:209"/><circle cx="1439" cy="236" r="8" data-sid="08b-walk-size:210"/><circle cx="1461" cy="236" r="8" data-sid="08b-walk-size:211"/><circle cx="1483" cy="236" r="8" data-sid="08b-walk-size:212"/><circle cx="1505" cy="236" r="8" data-sid="08b-walk-size:213"/><circle cx="1527" cy="236" r="8" data-sid="08b-walk-size:214"/><circle cx="1549" cy="236" r="8" data-sid="08b-walk-size:215"/><circle cx="1571" cy="236" r="8" data-sid="08b-walk-size:216"/><circle cx="1593" cy="236" r="8" data-sid="08b-walk-size:217"/><circle cx="1615" cy="236" r="8" data-sid="08b-walk-size:218"/><circle cx="1637" cy="236" r="8" data-sid="08b-walk-size:219"/></g>
+      <rect class="hl hl--b" x="233" y="3" width="1422" height="250" rx="12" data-sid="08b-walk-size:220"/>
+      <rect class="hl hl--f" x="233" y="219" width="1422" height="34" rx="12" data-sid="08b-walk-size:221"/>
+      <rect class="hl hl--e" x="585" y="3" width="718" height="214" rx="12" data-sid="08b-walk-size:222"/>
+      <rect class="hl hl--c" x="761" y="3" width="366" height="178" rx="12" data-sid="08b-walk-size:223"/>
+      <rect class="hl hl--d" x="585" y="183" width="718" height="34" rx="12" data-sid="08b-walk-size:224"/>
+    </svg>
+  </div>
+  <div class="slide__number" data-sid="08b-walk-size:225"></div>
+  <aside class="notes" data-sid="08b-walk-size:226">Answer: A &mdash; 127 [key from the PrairieLearn twin tree_formula_nodes; confirm in Runestone&rsquo;s results view]. The loop is the deck&rsquo;s own; the course has no code for this. count is the number of nodes on the current level, and total the number so far. Steps 1 to 7: each pass adds one level and doubles count for the next. 1, then 3, 7, 15, 31, 63, and after level 7, 127. With Vote 1&rsquo;s formula that is 2^7 &minus; 1 = 127. Step 8: Option Option B, 128, is 2^7 itself, one more than the tree holds; it leaves out the &minus; 1. Step 9: F, 64, is the bottom level alone, the 64 leaves. Step 10: E, 63, is all levels but the last, which is a tree of height 6; it comes from counting edges instead of levels, since the votes&rsquo; height is one more than the edges. Step 11: C, 31, and D, 32, are one level further down, height 5 and level 6. Step 12: A, 127. Next is Part 3, the same counting done by a recursive method on a real tree.</aside>
+
+  <style data-sid="08b-walk-size:227">
+    /* Slide-local: the editor at --t-code (900 px: the for line is 42
+       characters, 42 x 19.2 + 70 = 876, plus the 2% WebKit margin) beside a
+       column with the counter (deck.css .moves, maroon, it counts) and the
+       narration, whose cell the verdict takes last; under both, one SVG at
+       1:1 (1664 x 258) with the level rows: discs r 8 on a 22 px pitch,
+       --fg-1 outline on the leaf tint, rows 36 px apart and centred on
+       x 944, labels at --t-micro at the left. Motion: a row GrowsFromCenter
+       on its press and its label fades in; an option's outline fades in for
+       its press only. All states keyed to the caption frags with :has().
+       Used by this slide only, all values from tokens. */
+    #slide-08b .ls { display: grid; grid-template-columns: 900px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--s-5); row-gap: var(--s-4); align-content: start; align-items: start; }
+    #slide-08b .ls__editor { grid-column: 1; grid-row: 1; width: 900px; }
+    #slide-08b .ls__right { grid-column: 2; grid-row: 1; display: grid; row-gap: var(--s-2); align-content: start; }
+    #slide-08b .ls__fig { grid-column: 1 / -1; grid-row: 2; display: block; width: 1664px; height: 258px; overflow: visible; }
+    #slide-08b .ls__caps { min-height: 147px; }
+    #slide-08b .ls__verdict { grid-area: 1 / 1; align-self: start; font-family: var(--font-mono); font-size: var(--t-small); }
+    #slide-08b sup { font-size: var(--t-micro); line-height: 0; }
+
+    #slide-08b .rw circle { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-08b .rw__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-08b .rw { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-08b .frag.rw.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-08b .frag.rw__lab.is-current, #slide-08b .frag.rw__lab.is-past { transition-delay: .45s; }
+
+    #slide-08b .hl { fill: none; stroke: var(--accent-1); stroke-width: 5; opacity: 0; transition: opacity .3s ease; }
+    #slide-08b .hl--b { stroke-dasharray: 14 10; }
+
+    /* ---- states, in step order ---- */
+    #slide-08b .ls:has(.cap--8.is-current) .hl--b,
+    #slide-08b .ls:has(.cap--9.is-current) .hl--f,
+    #slide-08b .ls:has(.cap--10.is-current) .hl--e,
+    #slide-08b .ls:has(.cap--11.is-current) .hl--c,
+    #slide-08b .ls:has(.cap--11.is-current) .hl--d { opacity: 1; transition-delay: .2s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-08b .rw, #slide-08b .rw__lab, #slide-08b .hl { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

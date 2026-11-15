@@ -1,0 +1,120 @@
+<section class="slide slide--warmup" id="slide-04" data-sid="04-walk-words:1">
+  <header class="slide__head" data-sid="04-walk-words:2">
+    <h2 data-sid="04-walk-words:3">A tree is built from a root, edges, parents and children</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="04-walk-words:4">The course&rsquo;s example tree built one word at a time, with a growing list of the words on the right and one sentence under them per press. Step one: a circle labelled A appears; it is the root and has no parent. Step two: edges draw down from A to B on the left and C on the right; an edge joins a parent to a child, and B and C are A&rsquo;s children. Step three: B and C are outlined in blue; they are siblings, with the same parent. Step four: D and E appear under B; B is a child of A and also the parent of D and E. Step five: H appears as C&rsquo;s right child, and C is outlined; C has one child, and a binary tree node has 0, 1 or 2 children. Step six: F and G appear under E. Step seven: D, F, G and H take a pale blue fill; a leaf has no children. Step eight: A, B, C and E take an orange outline; they are the inner nodes. Step nine: a dashed blue box is drawn round B, D, E, F and G; that is A&rsquo;s left subtree, and it is itself a binary tree. Step ten, in maroon: a binary tree is a root with a left subtree and a right subtree, either of which may be empty.</p>
+
+  <!-- The 13.2 module's vocabulary (root, parent, children, edge, siblings,
+       inner node, leaf, subtree; "binary tree: nodes with 0, 1 or 2
+       children"), built one term per press on the course's example tree from
+       IntroToTraversals (A; B, C; D, E under B; H, C's right child; F, G under
+       E), in the shared circle-tree grammar at 1:1 (760 x 500). Each new term
+       lands as a mono chip in the list on the right; one sentence per press
+       under it. Steps 4 and 6 add nodes without a new chip. The outline's
+       plant is a tenth press so that each press changes one thing.
+       steps 1-6: the tree grows; 7: leaves tinted; 8: inner nodes outlined;
+       9: the left subtree boxed; 10: the plant. -->
+  <div class="slide__body tw" data-sid="04-walk-words:5">
+    <svg class="tw__fig" viewBox="0 0 760 500" role="img" aria-label="The course's example tree: A at the top, B and C under it, D and E under B, H as C's right child, and F and G under E; the leaves D, F, G and H are tinted, the inner nodes A, B, C and E are outlined in orange, and a dashed box surrounds B and everything under it" data-sid="04-walk-words:6">
+      <rect class="tw__sub frag" data-step="9" x="26" y="128" width="358" height="364" rx="24" data-sid="04-walk-words:7"/>
+      <path class="te frag p" data-step="2" pathLength="100" d="M349.8 69.6 L210.2 160.4" data-sid="04-walk-words:8"/>
+        <path class="te frag p" data-step="2" pathLength="100" d="M410.2 69.6 L549.8 160.4" data-sid="04-walk-words:9"/>
+        <path class="te frag p" data-step="4" pathLength="100" d="M158.1 208.5 L101.9 281.5" data-sid="04-walk-words:10"/>
+        <path class="te frag p" data-step="4" pathLength="100" d="M201.9 208.5 L258.1 281.5" data-sid="04-walk-words:11"/>
+        <path class="te frag p" data-step="5" pathLength="100" d="M601.9 208.5 L658.1 281.5" data-sid="04-walk-words:12"/>
+        <path class="te frag p" data-step="6" pathLength="100" d="M267.1 343.6 L242.9 406.4" data-sid="04-walk-words:13"/>
+        <path class="te frag p" data-step="6" pathLength="100" d="M292.9 343.6 L317.1 406.4" data-sid="04-walk-words:14"/>
+      <g class="tn tn--a tn--inner frag g" data-step="1" data-sid="04-walk-words:15"><circle cx="380" cy="50" r="36" data-sid="04-walk-words:16"/><text x="380" y="62" data-sid="04-walk-words:17">A</text></g>
+        <g class="tn tn--b tn--inner frag g" data-step="2" data-sid="04-walk-words:18"><circle cx="180" cy="180" r="36" data-sid="04-walk-words:19"/><text x="180" y="192" data-sid="04-walk-words:20">B</text></g>
+        <g class="tn tn--c tn--inner frag g" data-step="2" data-sid="04-walk-words:21"><circle cx="580" cy="180" r="36" data-sid="04-walk-words:22"/><text x="580" y="192" data-sid="04-walk-words:23">C</text></g>
+        <g class="tn tn--d tn--leaf frag g" data-step="4" data-sid="04-walk-words:24"><circle cx="80" cy="310" r="36" data-sid="04-walk-words:25"/><text x="80" y="322" data-sid="04-walk-words:26">D</text></g>
+        <g class="tn tn--e tn--inner frag g" data-step="4" data-sid="04-walk-words:27"><circle cx="280" cy="310" r="36" data-sid="04-walk-words:28"/><text x="280" y="322" data-sid="04-walk-words:29">E</text></g>
+        <g class="tn tn--h tn--leaf frag g" data-step="5" data-sid="04-walk-words:30"><circle cx="680" cy="310" r="36" data-sid="04-walk-words:31"/><text x="680" y="322" data-sid="04-walk-words:32">H</text></g>
+        <g class="tn tn--f tn--leaf frag g" data-step="6" data-sid="04-walk-words:33"><circle cx="230" cy="440" r="36" data-sid="04-walk-words:34"/><text x="230" y="452" data-sid="04-walk-words:35">F</text></g>
+        <g class="tn tn--g tn--leaf frag g" data-step="6" data-sid="04-walk-words:36"><circle cx="330" cy="440" r="36" data-sid="04-walk-words:37"/><text x="330" y="452" data-sid="04-walk-words:38">G</text></g>
+    </svg>
+    <div class="tw__right" data-sid="04-walk-words:39">
+      <ul class="tw__chips" data-sid="04-walk-words:40">
+        <li class="tw__chip frag" data-step="1" data-sid="04-walk-words:41">root</li>
+        <li class="tw__chip frag" data-step="2" data-sid="04-walk-words:42">edge</li>
+        <li class="tw__chip frag" data-step="2" data-sid="04-walk-words:43">parent</li>
+        <li class="tw__chip frag" data-step="2" data-sid="04-walk-words:44">child</li>
+        <li class="tw__chip frag" data-step="3" data-sid="04-walk-words:45">siblings</li>
+        <li class="tw__chip frag" data-step="5" data-sid="04-walk-words:46">0, 1 or 2 children</li>
+        <li class="tw__chip frag" data-step="7" data-sid="04-walk-words:47">leaf</li>
+        <li class="tw__chip frag" data-step="8" data-sid="04-walk-words:48">inner node</li>
+        <li class="tw__chip frag" data-step="9" data-sid="04-walk-words:49">subtree</li>
+      </ul>
+      <div class="tw__caps" data-sid="04-walk-words:50">
+        <p class="tw__cap cap--1 frag" data-step="1" data-sid="04-walk-words:51">A is the root, the one node that has no parent.</p>
+        <p class="tw__cap cap--2 frag" data-step="2" data-sid="04-walk-words:52">An edge joins a parent to a child. B and C are A&rsquo;s children.</p>
+        <p class="tw__cap cap--3 frag" data-step="3" data-sid="04-walk-words:53">B and C are siblings, because they have the same parent.</p>
+        <p class="tw__cap cap--4 frag" data-step="4" data-sid="04-walk-words:54">D and E are B&rsquo;s children, so B is both a child of A and the parent of D and E.</p>
+        <p class="tw__cap cap--5 frag" data-step="5" data-sid="04-walk-words:55">C has only one child; a node in a binary tree may have 0, 1 or 2 children.</p>
+        <p class="tw__cap cap--6 frag" data-step="6" data-sid="04-walk-words:56">F and G are E&rsquo;s children.</p>
+        <p class="tw__cap cap--7 frag" data-step="7" data-sid="04-walk-words:57">A leaf is a node with no children, so D, F, G and H are leaves.</p>
+        <p class="tw__cap cap--8 frag" data-step="8" data-sid="04-walk-words:58">The other nodes, A, B, C and E, each have at least one child and are called inner nodes.</p>
+        <p class="tw__cap cap--9 frag" data-step="9" data-sid="04-walk-words:59">B with everything under it is A&rsquo;s left subtree, and it is itself a binary tree.</p>
+        <p class="tw__cap tw__cap--plant cap--10 frag" data-step="10" data-sid="04-walk-words:60">A binary tree is a root with a left subtree and a right subtree, either of which may be empty.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="04-walk-words:61"></div>
+  <aside class="notes" data-sid="04-walk-words:62">The words come from the 13.2 module; the tree is the course&rsquo;s example tree from the traversal video, which Day 2 walks again. Step 1: A is the root, the one node with no parent. Step 2: an edge joins a parent to a child. A is the parent of B and C, and B and C are A&rsquo;s children. Step 3: B and C are siblings, because they have the same parent. Step 4: D and E are B&rsquo;s children, so B is both a child, of A, and a parent, of D and E. Step 5: H hangs on C&rsquo;s right, and C has no left child. In a binary tree every node has 0, 1 or 2 children, and each child is either the left child or the right child. Step 6: F and G are E&rsquo;s children. Step 7: a leaf is a node with no children: D, F, G and H. Step 8: every other node is an inner node, A, B, C and E. Step 9: B with everything under it, B, D, E, F and G, is A&rsquo;s left subtree. It is a binary tree in its own right with B as its root. C and H are A&rsquo;s right subtree. Step 10: that is the recursive description the code in Part 3 relies on. A binary tree is a root with a left subtree and a right subtree, and either subtree may be empty. Next we measure how tall this tree is.</aside>
+
+  <style data-sid="04-walk-words:63">
+    /* Slide-local: the shared circle tree at 1:1 (760 x 500: r 36, stroke 4
+       --fg-1 on --bg-1, letters mono --t-small, edges 4 px --fg-1, level
+       pitch 130) on the left; on the right (840 px) the terms as mono chips
+       at --t-small in a wrapping list (three rows), and the narration under
+       them, one sentence per press at --t-small, the last in display maroon.
+       Motion: an edge is Created from the parent, then the child
+       GrowsFromCenter; a chip GrowsFromCenter; the node a sentence is about
+       takes a blue outline for that press only; leaves take the deck's leaf
+       tint (blue 10 %) and inner nodes the orange outline, and both stay; the
+       subtree box fades in. All states keyed to the caption frags with
+       :has(), so back-steps reverse. Used by this slide only, all values from
+       tokens. */
+    #slide-04 .tw { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+    #slide-04 .tw__fig { display: block; width: 760px; height: 500px; overflow: visible; }
+    #slide-04 .tw__right { display: grid; row-gap: var(--s-5); align-content: start; }
+
+    #slide-04 .tn circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; transition: fill .4s ease, stroke .3s ease, stroke-width .3s ease; }
+    #slide-04 .tn text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-04 .te { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-04 .tw__sub { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-dasharray: 14 10; transition: opacity .4s ease; }
+
+    /* Create, then GrowFromCenter */
+    #slide-04 .p { stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
+    #slide-04 .frag.p.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-04 .g { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04 .frag.g.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-04 .frag.g.is-current { transition-delay: .35s; }
+    #slide-04 .tn--a.frag.g.is-current { transition-delay: 0s; }
+
+    /* the terms */
+    #slide-04 .tw__chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+    #slide-04 .tw__chip { margin: 0; padding: var(--s-1) var(--s-3); border: 3px solid var(--stone); border-radius: var(--r-2); background: var(--bg-1); font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.3; color: var(--fg-0); transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-04 .frag.tw__chip.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* ---- states, in step order ---- */
+    #slide-04 .tw:has(.cap--3.is-current) .tn--b circle,
+    #slide-04 .tw:has(.cap--3.is-current) .tn--c circle,
+    #slide-04 .tw:has(.cap--5.is-current) .tn--c circle { stroke: var(--accent-2); stroke-width: 6; }
+    #slide-04 .tw:has(.cap--7:not(.is-pending)) .tn--leaf circle { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-04 .tw:has(.cap--8:not(.is-pending)) .tn--inner circle { stroke: var(--accent-3); stroke-width: 5; }
+
+    /* narration: one sentence at a time in one cell; the plant stays */
+    #slide-04 .tw__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-04 .tw__caps > * { grid-area: 1 / 1; }
+    #slide-04 .slide__body p.tw__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-04 .frag.tw__cap.is-current { transition-delay: .3s; }
+    #slide-04 .frag.tw__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-04 .slide__body p.tw__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-04 .p, #slide-04 .g, #slide-04 .tn circle, #slide-04 .tw__sub,
+      #slide-04 .tw__chip, #slide-04 .tw__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

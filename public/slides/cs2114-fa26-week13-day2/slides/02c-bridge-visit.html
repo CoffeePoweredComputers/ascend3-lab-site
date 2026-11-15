@@ -1,0 +1,77 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-visit:1">
+  <header class="slide__head" data-sid="02c-bridge-visit:2">
+    <p class="slide__kicker" data-sid="02c-bridge-visit:3">FROM DAY 1 TO DAY 2</p>
+    <h2 data-sid="02c-bridge-visit:4">On Day 1 we counted the nodes, and today we visit them in an order</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-visit:5">A bridge from Day 1 to Day 2, built in three presses. Press one: on the left, Day 1&rsquo;s tree: A at the root with children B and C, D and E under B, F and G under E, and H as C&rsquo;s right child. The caption says that On Day 1 we counted this tree&rsquo;s nodes and measured its height with one recursive call per node. Press two: on the right, an empty white plate labelled output grows in, and the caption says that today each call also visits its node, and the plate shows the order. Press three: the question for today, in maroon: if every call visits its own node before its children, which letter is printed last?</p>
+
+  <!-- Bridge from Day 1 (counting nodes and measuring height with one call
+       per node) to Day 2 (the same calls, each visiting its node). Day 1's
+       drawing at 1:1 (the shared grammar: the A-H tree in a 760 x 490 box,
+       circles r 36, level pitch 130) on the left of one 1664 x 480 SVG; on the
+       right the output plate that today's walks print into, empty. No counts
+       and no heights are written on the tree.
+       step 1: Day 1's tree.  step 2: the empty plate.  step 3: the question. -->
+  <div class="slide__body bv" data-sid="02c-bridge-visit:6">
+    <svg class="bv__fig" viewBox="0 0 1664 480" role="img" aria-label="Left, the tree with root A: A has children B and C, B has children D and E, E has children F and G, and C has only a right child, H. Right, an empty output plate" data-sid="02c-bridge-visit:7">
+      <g class="bv__left frag" data-step="1" data-sid="02c-bridge-visit:8">
+        <path class="ed" pathLength="100" d="M349.8 69.6 L210.2 160.4" data-sid="02c-bridge-visit:9"/>
+        <path class="ed" pathLength="100" d="M410.2 69.6 L549.8 160.4" data-sid="02c-bridge-visit:10"/>
+        <path class="ed" pathLength="100" d="M158.1 208.5 L101.9 281.5" data-sid="02c-bridge-visit:11"/>
+        <path class="ed" pathLength="100" d="M201.9 208.5 L258.1 281.5" data-sid="02c-bridge-visit:12"/>
+        <path class="ed" pathLength="100" d="M601.9 208.5 L658.1 281.5" data-sid="02c-bridge-visit:13"/>
+        <path class="ed" pathLength="100" d="M267.1 343.6 L242.9 406.4" data-sid="02c-bridge-visit:14"/>
+        <path class="ed" pathLength="100" d="M292.9 343.6 L317.1 406.4" data-sid="02c-bridge-visit:15"/>
+        <g class="nd nd--A" data-sid="02c-bridge-visit:16"><circle cx="380" cy="50" r="36" data-sid="02c-bridge-visit:17"/><text x="380" y="62" data-sid="02c-bridge-visit:18">A</text></g>
+        <g class="nd nd--B" data-sid="02c-bridge-visit:19"><circle cx="180" cy="180" r="36" data-sid="02c-bridge-visit:20"/><text x="180" y="192" data-sid="02c-bridge-visit:21">B</text></g>
+        <g class="nd nd--C" data-sid="02c-bridge-visit:22"><circle cx="580" cy="180" r="36" data-sid="02c-bridge-visit:23"/><text x="580" y="192" data-sid="02c-bridge-visit:24">C</text></g>
+        <g class="nd nd--D" data-sid="02c-bridge-visit:25"><circle cx="80" cy="310" r="36" data-sid="02c-bridge-visit:26"/><text x="80" y="322" data-sid="02c-bridge-visit:27">D</text></g>
+        <g class="nd nd--E" data-sid="02c-bridge-visit:28"><circle cx="280" cy="310" r="36" data-sid="02c-bridge-visit:29"/><text x="280" y="322" data-sid="02c-bridge-visit:30">E</text></g>
+        <g class="nd nd--H" data-sid="02c-bridge-visit:31"><circle cx="680" cy="310" r="36" data-sid="02c-bridge-visit:32"/><text x="680" y="322" data-sid="02c-bridge-visit:33">H</text></g>
+        <g class="nd nd--F" data-sid="02c-bridge-visit:34"><circle cx="230" cy="440" r="36" data-sid="02c-bridge-visit:35"/><text x="230" y="452" data-sid="02c-bridge-visit:36">F</text></g>
+        <g class="nd nd--G" data-sid="02c-bridge-visit:37"><circle cx="330" cy="440" r="36" data-sid="02c-bridge-visit:38"/><text x="330" y="452" data-sid="02c-bridge-visit:39">G</text></g>
+      </g>
+      <g class="bv__right frag" data-step="2" data-sid="02c-bridge-visit:40">
+        <text class="lbl" x="960" y="196" data-sid="02c-bridge-visit:41">each call now visits its node</text>
+        <rect class="out__plate" x="960" y="220" width="640" height="110" rx="12" data-sid="02c-bridge-visit:42"/>
+        <text class="out__lab" x="988" y="286" data-sid="02c-bridge-visit:43">output</text>
+      </g>
+    </svg>
+    <div class="bv__caps" data-sid="02c-bridge-visit:44">
+      <p class="bv__cap frag" data-step="1" data-sid="02c-bridge-visit:45">On Day 1 we counted this tree&rsquo;s nodes and measured its height with one recursive call per node.</p>
+      <p class="bv__cap bv__cap--keep frag" data-step="2" data-sid="02c-bridge-visit:46">Today each call also visits its node, and the plate records the order in which the visits happen.</p>
+    </div>
+    <p class="bv__q frag" data-step="3" data-sid="02c-bridge-visit:47">If every call visits its own node before its children, which letter is printed last?</p>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-visit:48"></div>
+  <aside class="notes" data-sid="02c-bridge-visit:49">Day 1 was about the shape of a binary tree. Step 1: this is the tree from the module video. On Day 1, getNumberOfNodes made one call per node, and each call added up what its children reported; the height method did the same with a maximum. Step 2: today the calls are the same, but each one also visits its node, which here means printing its letter. Where the visit sits among the two recursive calls decides the order in which the letters come out. Step 3: ask the room for a guess, with no discussion yet: if every call prints its own letter before it calls on its children, which letter comes out last? Part 1 answers it on the first walk.</aside>
+
+  <style data-sid="02c-bridge-visit:50">
+    /* Slide-local: a bridge from Day 1 to Day 2. One SVG at 1:1 (1664 x 480)
+       with Day 1's tree on the left and today's empty output plate on the right
+       (W7D2 10b's paper plate, label at --t-micro), the narration under it
+       (two captions, the second stays) and the question in display maroon at
+       --t-small. Motion: each half GrowsFromCenter on its press; the captions
+       crossfade in one grid cell. Used by this slide only, all values from tokens. */
+    #slide-02c .bv { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-3); align-content: start; }
+    #slide-02c .bv__fig { display: block; width: 1664px; height: 480px; overflow: visible; }
+    #slide-02c .ed { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-02c .nd circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .lbl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-02c .out__plate { fill: var(--paper); stroke: var(--stone); stroke-width: 2; }
+    #slide-02c .out__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-02c .bv__left, #slide-02c .bv__right { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.bv__left.is-pending, #slide-02c .frag.bv__right.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-02c .bv__caps { display: grid; min-height: 49px; align-content: start; }
+    #slide-02c .bv__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.bv__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.bv__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.bv__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02c .frag.bv__cap--keep.is-past { opacity: 1; }
+    #slide-02c .slide__body p.bv__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .bv__left, #slide-02c .bv__right, #slide-02c .bv__cap, #slide-02c .bv__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

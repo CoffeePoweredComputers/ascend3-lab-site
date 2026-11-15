@@ -2,7 +2,7 @@
   <header class="slide__head" data-sid="02-course-info:2">
     <h2 data-sid="02-course-info:3">Week 12 and 13 overview</h2>
   </header>
-  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted band labelled now over Monday and Tuesday, the two lecture days. First a bracket is drawn across both weeks: the calendar on Canvas, Week 12 this week, Week 13 next week, and Week 14 beyond the right-hand edge. Then a blue bar runs from Monday to a pole on Friday: the Week 12 homework, Mid-Semester Review, three problems with the best two counting. Then a caption says there is no challenge exercise and no project deliverable this week. Then a blue bar for the 13.1 and 13.2 modules runs from Monday to a pole at Sunday, the end of Week 12. Then two bars run across Week 13 to a pole on its Friday: a blue bar for the Week 13 homework, Semester Review, and a maroon bar for CE 13, Binary Tree. Then a blue Project 3 bar, solid on the Monday of Week 13 and fading across Tuesday to Friday, with a range line under the axis marked your Week 13 lab: Deliverable 4, the second prototype with tests, is due at the start of your lab session, whichever day it meets. Last, two tiles are drawn above the axis, a home-page icon labelled Home page and a calendar icon labelled Canvas calendar. A one-sentence caption under the axis changes with each step.</p>
+  <p class="sr-only slide__desc" data-sid="02-course-info:4">A two-week axis with a highlighted band labelled now over Monday and Tuesday, the two lecture days. First a bracket is drawn across both weeks: the calendar on Canvas, Week 12 this week, Week 13 next week, and Week 14 beyond the right-hand edge. Then a blue bar runs from Monday to a pole on Friday: the Week 12 homework, Mid-Semester Review, three problems with the best two counting. Then a blue Project 3 bar for Deliverable 3, the first prototype, fades across the week over a range line marked your lab day, with a caption that there is no challenge exercise. Then a blue bar for the 13.1 and 13.2 modules runs from Monday to a pole at Sunday, the end of Week 12. Then two bars run across Week 13 to a pole on its Friday: a blue bar for the Week 13 homework, Semester Review, and a maroon bar for CE 13, Binary Tree. Then a blue Project 3 bar, solid on the Monday of Week 13 and fading across Tuesday to Friday, with a range line under the axis marked your Week 13 lab: Deliverable 4, the second prototype with tests, is due at the start of your lab session, whichever day it meets. Last, two tiles are drawn above the axis, a home-page icon labelled Home page and a calendar icon labelled Canvas calendar. A one-sentence caption under the axis changes with each step.</p>
 
   <!-- W11D1's clock moved one week (the W9D2 layout of a two-week clock with
        deadlines in both weeks). Geometry is day 2's keep-up grammar: 14 day
@@ -27,7 +27,7 @@
        Bars wipe from where they start, poles draw up by dashoffset.
        step 1: the Canvas calendar; the two-week bracket draws on.
        step 2: the Week 12 homework, solid, ending at the Friday pole.
-       step 3: caption only: no CE and no project deliverable this week.
+       step 3: caption only: no CE and Project 3 Deliverable 3 at the lab this week.
        step 4: the 13.1 + 13.2 modules, Monday to the Sunday pole at x 960.
        step 5: Week 13: homework (blue) and CE 13 (maroon) to Friday Nov 20.
        step 6: Project 3, Deliverable 4, solid Monday, fading Tue..Fri, with
@@ -72,7 +72,12 @@
       <text class="wk__label frag" data-step="2" data-anim="fade" x="154" y="601" data-sid="02-course-info:29">Week 12: Mid-Semester Review</text>
       <path class="wk__pole wk__ink--a4 frag" data-step="2" pathLength="100" d="M722 790 V568" data-sid="02-course-info:30"/>
 
-      <!-- step 3: caption only; the CE and project rows of Week 12 stay empty -->
+      <!-- step 3: Project 3 Deliverable 3 at your lab this week (instructor, 2026-11-09); the CE row stays empty -->
+      <path class="wk__bar wk__ink--p3 frag" data-step="3" d="M152 712 H247 V760 H152 a24 24 0 0 1 0 -48 Z" data-sid="02-course-info:58"/>
+      <path class="wk__bar wk__bar--tail wk__ink--p3 frag" data-step="3" d="M247 712 H698 a24 24 0 0 1 0 48 H247 Z" data-sid="02-course-info:59"/>
+      <text class="wk__label wk__label--tail frag" data-step="3" data-anim="fade" x="270" y="745" data-sid="02-course-info:60">Project 3 &middot; Deliverable 3</text>
+      <path class="wk__pole wk__ink--p3 wk__range frag" data-step="3" pathLength="100" d="M247 818 H722" data-sid="02-course-info:61"/>
+      <text class="wk__axislabel wk__axislabel--lab3 frag" data-step="3" data-anim="fade" x="583" y="854" data-sid="02-course-info:62">your lab day</text>
 
       <!-- step 4: the 13.1 + 13.2 modules, Week 12's Monday to Sunday Nov 15 -->
       <rect class="wk__bar wk__ink--pl frag" data-step="4" x="128" y="496" width="832" height="48" rx="24" data-sid="02-course-info:31"/>
@@ -103,7 +108,7 @@
            the 1,664 px body -->
       <text class="wk__cap frag" data-step="1" x="960" y="940" data-sid="02-course-info:48">Weeks 12 and 13 are both on the Canvas calendar.</text>
       <text class="wk__cap frag" data-step="2" x="960" y="940" data-sid="02-course-info:49">The Week 12 homework, three problems with the best two counting, is due Friday at 11:59 PM.</text>
-      <text class="wk__cap frag" data-step="3" x="960" y="940" data-sid="02-course-info:50">There is no challenge exercise and no project deliverable this week.</text>
+      <text class="wk__cap frag" data-step="3" x="960" y="940" data-sid="02-course-info:50">Project 3 Deliverable 3, the first prototype, is due at the start of your lab this week. There is no challenge exercise.</text>
       <text class="wk__cap frag" data-step="4" x="960" y="940" data-sid="02-course-info:51">The 13.1 Cloning and 13.2 Trees modules are due Sunday Nov 15 at 11:59 PM.</text>
       <text class="wk__cap frag" data-step="5" x="960" y="940" data-sid="02-course-info:52">The Week 13 homework and CE 13, Binary Tree, are both due Friday Nov 20.</text>
       <text class="wk__cap frag" data-step="6" x="960" y="940" data-sid="02-course-info:53">Project 3 Deliverable 4, the second prototype with tests, is due at the start of your Week 13 lab.</text>
@@ -112,7 +117,7 @@
     </svg>
   </div>
   <div class="slide__number" data-sid="02-course-info:55"></div>
-  <aside class="notes" data-sid="02-course-info:56">This is the calendar for Weeks 12 and 13, with now on Monday Nov 9 and Tuesday Nov 10. Next class is Day 2, sorting an array: Wednesday Nov 11 for MW and Thursday Nov 12 for TR. Step 1. Canvas has Weeks 12 and 13 on the calendar. Week 14 is past the right-hand edge. Step 2. The homework, &ldquo;Week 12: Mid-Semester Review &mdash; Coding Practice&rdquo; on PrairieLearn, is due Friday Nov 13 at 11:59 PM. It has three problems, and your best two count. Step 3. There is no challenge exercise and no project deliverable this week. Week 12 is team project work. Step 4. The 13.1 Cloning and 13.2 Trees modules are due Sunday Nov 15 at 11:59 PM. Step 5. In Week 13, Nov 16 to Nov 20, the homework &ldquo;Week 13: Semester Review &mdash; Coding Practice&rdquo; is due Friday Nov 20 at 11:59 PM. It has ten problems from the whole semester, and your best five count. CE 13, Binary Tree, is also due Friday Nov 20. Step 6. Project 3 Deliverable 4, the second prototype with tests, is due at the start of your Week 13 lab, whichever day it meets. Step 7. Due dates are on the course home page and the Canvas calendar. Next is a bridge from last week's sorted add.</aside>
+  <aside class="notes" data-sid="02-course-info:56">This is the calendar for Weeks 12 and 13, with now on Monday Nov 9 and Tuesday Nov 10. Next class is Day 2, sorting an array: Wednesday Nov 11 for MW and Thursday Nov 12 for TR. Step 1. Canvas has Weeks 12 and 13 on the calendar. Week 14 is past the right-hand edge. Step 2. The homework, &ldquo;Week 12: Mid-Semester Review &mdash; Coding Practice&rdquo; on PrairieLearn, is due Friday Nov 13 at 11:59 PM. It has three problems, and your best two count. Step 3. Project 3 Deliverable 3, the first prototype, is due at the start of your lab this week, whichever day it meets. There is no challenge exercise this week. Step 4. The 13.1 Cloning and 13.2 Trees modules are due Sunday Nov 15 at 11:59 PM. Step 5. In Week 13, Nov 16 to Nov 20, the homework &ldquo;Week 13: Semester Review &mdash; Coding Practice&rdquo; is due Friday Nov 20 at 11:59 PM. It has ten problems from the whole semester, and your best five count. CE 13, Binary Tree, is also due Friday Nov 20. Step 6. Project 3 Deliverable 4, the second prototype with tests, is due at the start of your Week 13 lab, whichever day it meets. Step 7. Due dates are on the course home page and the Canvas calendar. Next is a bridge from last week's sorted add.</aside>
 
   <style data-sid="02-course-info:57">
     /* Slide-local: the week clock, Week 12's version. The axis, bars, poles

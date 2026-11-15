@@ -1,0 +1,77 @@
+<section class="slide slide--warmup" id="slide-07c" data-sid="07c-walk-height-others:1">
+  <header class="slide__head" data-sid="07c-walk-height-others:2">
+    <p class="slide__kicker" data-sid="07c-walk-height-others:3">VOTE 1 &middot; THE OTHER OPTIONS</p>
+    <h2 data-sid="07c-walk-height-others:4">The other five options give the wrong height for 7 and 15 nodes</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="07c-walk-height-others:5">The other options of Vote 1, each tried on the two trees from the last slide. A card on the right says what they need: n equals 7 has height 3, and n equals 15 has height 4. Step one, a card for option A, log base 2 of n: for n equals 7 it gives about 2.8, and for 15 about 3.9; neither is a whole number, because n is one short of a power of 2. Step two, a card for option B, log base 2 of n minus 1: about 2.6 and about 3.8; inside the log, n minus 1 is two short of a power of 2. Step three, one card for options C, E and F, 2n plus 1, 2n minus 1 and 2n: for n equals 7 they give 15, 13 and 14, and for n equals 15 they give 31, 29 and 30; they grow as fast as n does, and a 7-node tree is 3 levels high, not 13 to 15. Step four: the six options, with A, B, C, E and F struck through and D, log base 2 of n plus 1, left standing.</p>
+
+  <!-- W12D1 06c's option-card grammar: one card per press, crossfading in
+       one grid cell, each with the option's maroon letter disc, its formula
+       in mono, and what it gives for n = 7 and n = 15 (the two trees of
+       07b). The three linear options share one card because they fail for
+       the same reason. A reference card on the right names the heights the
+       options must produce. Values: log2(7) = 2.807, log2(15) = 3.907,
+       log2(6) = 2.585, log2(14) = 3.807, written to one decimal.
+       step 1: A.  step 2: B.  step 3: C, E, F.  step 4: verdict. -->
+  <div class="slide__body ox" data-sid="07c-walk-height-others:6">
+    <div class="ox__cards" data-sid="07c-walk-height-others:7">
+      <div class="ox__card frag" data-step="1" data-sid="07c-walk-height-others:8"><p class="ox__h" data-sid="07c-walk-height-others:9"><span class="ox__k" data-sid="07c-walk-height-others:10">A</span><span class="ox__f" data-sid="07c-walk-height-others:11">log<sub data-sid="07c-walk-height-others:12">2</sub>(n)</span></p><p class="ox__row" data-sid="07c-walk-height-others:13"><span class="ox__n" data-sid="07c-walk-height-others:14">n = 7</span>log<sub data-sid="07c-walk-height-others:15">2</sub>(7) &asymp; 2.8</p><p class="ox__row" data-sid="07c-walk-height-others:16"><span class="ox__n" data-sid="07c-walk-height-others:17">n = 15</span>log<sub data-sid="07c-walk-height-others:18">2</sub>(15) &asymp; 3.9</p></div>
+      <div class="ox__card frag" data-step="2" data-sid="07c-walk-height-others:19"><p class="ox__h" data-sid="07c-walk-height-others:20"><span class="ox__k" data-sid="07c-walk-height-others:21">B</span><span class="ox__f" data-sid="07c-walk-height-others:22">log<sub data-sid="07c-walk-height-others:23">2</sub>(n-1)</span></p><p class="ox__row" data-sid="07c-walk-height-others:24"><span class="ox__n" data-sid="07c-walk-height-others:25">n = 7</span>log<sub data-sid="07c-walk-height-others:26">2</sub>(6) &asymp; 2.6</p><p class="ox__row" data-sid="07c-walk-height-others:27"><span class="ox__n" data-sid="07c-walk-height-others:28">n = 15</span>log<sub data-sid="07c-walk-height-others:29">2</sub>(14) &asymp; 3.8</p></div>
+      <div class="ox__card ox__card--keep frag" data-step="3" data-sid="07c-walk-height-others:30"><p class="ox__h" data-sid="07c-walk-height-others:31"><span class="ox__k" data-sid="07c-walk-height-others:32">C</span><span class="ox__f" data-sid="07c-walk-height-others:33">2n+1</span><span class="ox__k" data-sid="07c-walk-height-others:34">E</span><span class="ox__f" data-sid="07c-walk-height-others:35">2n-1</span><span class="ox__k" data-sid="07c-walk-height-others:36">F</span><span class="ox__f" data-sid="07c-walk-height-others:37">2n</span></p><p class="ox__row" data-sid="07c-walk-height-others:38"><span class="ox__n" data-sid="07c-walk-height-others:39">n = 7</span>15, 13, 14</p><p class="ox__row" data-sid="07c-walk-height-others:40"><span class="ox__n" data-sid="07c-walk-height-others:41">n = 15</span>31, 29, 30</p></div>
+    </div>
+    <div class="ox__need" data-sid="07c-walk-height-others:42">
+      <p class="ox__lab" data-sid="07c-walk-height-others:43">the trees of slide 07b</p>
+      <p class="ox__row" data-sid="07c-walk-height-others:44"><span class="ox__n" data-sid="07c-walk-height-others:45">n = 7</span>h = 3</p>
+      <p class="ox__row" data-sid="07c-walk-height-others:46"><span class="ox__n" data-sid="07c-walk-height-others:47">n = 15</span>h = 4</p>
+    </div>
+    <div class="ox__caps" data-sid="07c-walk-height-others:48">
+        <p class="ox__cap cap--1 frag" data-step="1" data-sid="07c-walk-height-others:49">A gives log<sub data-sid="07c-walk-height-others:50">2</sub>(7) &asymp; 2.8 and log<sub data-sid="07c-walk-height-others:51">2</sub>(15) &asymp; 3.9. Neither is a whole number, because n is one short of a power of 2.</p>
+        <p class="ox__cap cap--2 frag" data-step="2" data-sid="07c-walk-height-others:52">B gives log<sub data-sid="07c-walk-height-others:53">2</sub>(6) &asymp; 2.6 and log<sub data-sid="07c-walk-height-others:54">2</sub>(14) &asymp; 3.8. Inside the log, n &minus; 1 is two short of a power of 2.</p>
+        <p class="ox__cap cap--3 frag" data-step="3" data-sid="07c-walk-height-others:55">C, E and F grow as fast as n itself, but a 7-node tree is only 3 levels high, not 13, 14 or 15.</p>
+        <ol class="verdict frag ox__verdict" data-step="4" data-sid="07c-walk-height-others:56">
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 0" data-sid="07c-walk-height-others:57"><span class="verdict__txt" data-sid="07c-walk-height-others:58">log<sub data-sid="07c-walk-height-others:59">2</sub>(n) is not whole</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 1" data-sid="07c-walk-height-others:60"><span class="verdict__txt" data-sid="07c-walk-height-others:61">log<sub data-sid="07c-walk-height-others:62">2</sub>(n-1) is not whole</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 2" data-sid="07c-walk-height-others:63"><span class="verdict__txt" data-sid="07c-walk-height-others:64">2n+1 grows with n</span></li>
+          <li class="verdict__opt verdict__opt--right" data-sid="07c-walk-height-others:65"><span class="verdict__txt" data-sid="07c-walk-height-others:66">log<sub data-sid="07c-walk-height-others:67">2</sub>(n+1) gives 3 and 4</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 3" data-sid="07c-walk-height-others:68"><span class="verdict__txt" data-sid="07c-walk-height-others:69">2n-1 grows with n</span></li>
+          <li class="verdict__opt verdict__opt--wrong" style="--i: 4" data-sid="07c-walk-height-others:70"><span class="verdict__txt" data-sid="07c-walk-height-others:71">2n grows with n</span></li>
+        </ol>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="07c-walk-height-others:72"></div>
+  <aside class="notes" data-sid="07c-walk-height-others:73">Answer: D. Each other option tried on the two trees from the last slide, 7 nodes with height 3 and 15 nodes with height 4. Step 1: A, log2(n). log2(7) is about 2.8 and log2(15) about 3.9. A height is a whole number of levels, and these come out just short, because n is always one less than a power of 2 in this shape. Step 2: B, log2(n &minus; 1), is further off, about 2.6 and 3.8. Step 3: C, E and F are linear in n. For 7 nodes they give 15, 13 and 14, for 15 nodes 31, 29 and 30. They grow as fast as the number of nodes, but each new level doubles the nodes and adds only 1 to the height, so the height must grow far more slowly than n. Students who chose these may have mixed up the node count with the height; note that the PL version of this question writes them as powers of 2, which is the formula for the node count turned the wrong way round. Step 4: D is the only option that gives 3 and 4. Next is Vote 2.</aside>
+
+  <style data-sid="07c-walk-height-others:74">
+    /* Slide-local: the option cards on the left (1,040 px, crossfading in
+       one cell, the last one stays), the reference card on the right, the
+       narration and then the verdict under both in one cell. Card text in
+       mono at --t-small with the letter disc at 56 px (W12D1 06c). Motion:
+       cards and captions crossfade one per press; the verdict strikes in
+       from deck.css. Used by this slide only, all values from tokens. */
+    #slide-07c .ox { display: grid; grid-template-columns: 1040px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: var(--s-6); row-gap: var(--s-5); align-content: start; align-items: start; }
+    #slide-07c .ox__cards { grid-column: 1; grid-row: 1; display: grid; }
+    #slide-07c .ox__need { grid-column: 2; grid-row: 1; display: grid; row-gap: var(--s-2); padding: var(--s-3); border: 3px solid var(--stone); border-radius: var(--r-3); }
+    #slide-07c .ox__caps { grid-column: 1 / -1; grid-row: 2; display: grid; min-height: 98px; align-content: start; }
+    #slide-07c .ox__caps > * { grid-area: 1 / 1; }
+
+    #slide-07c .ox__card { grid-area: 1 / 1; display: grid; row-gap: var(--s-2); padding: var(--s-3); border: 3px solid var(--stone); border-radius: var(--r-3); background: var(--bg-1); transition: opacity .4s ease; }
+    #slide-07c .frag.ox__card.is-past { opacity: 0; }
+    #slide-07c .frag.ox__card--keep.is-past { opacity: 1; }
+    #slide-07c .slide__body p.ox__h { margin: 0 0 var(--s-1); display: flex; align-items: center; gap: var(--s-3); }
+    #slide-07c .ox__k { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--accent-1); color: var(--paper); font-family: var(--font-display); font-size: var(--t-small); flex: 0 0 auto; }
+    #slide-07c .ox__f { margin-right: var(--s-4); font-family: var(--font-mono); font-size: var(--t-small); color: var(--fg-0); }
+    #slide-07c .slide__body p.ox__row { margin: 0; font-family: var(--font-mono); font-size: var(--t-small); line-height: 1.35; color: var(--fg-0); white-space: nowrap; }
+    #slide-07c .ox__n { display: inline-block; width: 220px; color: var(--fg-1); }
+    #slide-07c .slide__body p.ox__lab { margin: 0; font-family: var(--font-mono); font-size: var(--t-micro); color: var(--fg-1); }
+    #slide-07c sub { font-size: var(--t-micro); line-height: 0; }
+
+    #slide-07c .slide__body p.ox__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-07c .frag.ox__cap.is-current { transition-delay: .3s; }
+    #slide-07c .frag.ox__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-07c .ox__verdict { font-family: var(--font-mono); font-size: var(--t-small); align-self: start; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-07c .ox__card, #slide-07c .ox__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

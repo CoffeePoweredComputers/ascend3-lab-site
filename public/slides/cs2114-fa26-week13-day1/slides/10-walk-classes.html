@@ -1,0 +1,93 @@
+<section class="slide slide--warmup" id="slide-10" data-sid="10-walk-classes:1">
+  <header class="slide__head" data-sid="10-walk-classes:2">
+    <h2 data-sid="10-walk-classes:3">A BinaryTree keeps one reference to its root, and each BinaryNode keeps two to its children</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10-walk-classes:4">The two classes from the module, fields only, under a program-counter bar on the left, and the five-value tree drawn as node boxes on the right. The code: class BinaryNode of T with the fields private T data and private BinaryNode of T leftChild, rightChild; and class BinaryTree of T with the one field private BinaryNode of T root. Step one: the bar is on BinaryNode&rsquo;s fields; a node holds its data and two references. Step two: the bar moves to BinaryTree&rsquo;s field, and a blue pill labelled root appears at the top right. Step three: a node box holding 10 grows in under the pill, with an arrow from root to it. Step four: a box holding 3 grows in down to the left, with an arrow from the left part of 10. Step five: a box holding 12 grows in down to the right, with an arrow from the right part of 10. Step six: boxes holding 7, the right child of 3, and 20, the right child of 12, grow in with their arrows, and the word null appears in grey under every other reference. Step seven, in maroon: the tree keeps one reference, root, and every other node is reached through leftChild and rightChild.</p>
+
+  <!-- The ProgrammingTrees slide's two classes, fields only, as written there;
+       the one declaration of leftChild and rightChild is broken after the
+       comma (continuation aligned under leftChild) so that the editor fits in
+       760 px at --t-code beside the drawing. The drawing is W12D2 16's node
+       box at 240 x 76 (left | data | right, dividers at 60 and 180, blue dots
+       on the reference cells) on a 150 px level pitch, holding the five-value
+       tree from the bridge slide (10; 3, 12; 7 under 3's right; 20 under
+       12's right). Null references are the word null in stone under their
+       cell, shown on step 6.
+       step 1: node fields.  2: tree field, root pill.  3: root box 10.
+       4: 3.  5: 12.  6: 7 and 20, nulls.  7: plant. -->
+  <div class="slide__body codewalk code-mid bt" data-sid="10-walk-classes:5">
+    <div class="editor bt__editor" data-sid="10-walk-classes:6">
+      <p class="editor__bar" data-sid="10-walk-classes:7">fields from the module&rsquo;s ProgrammingTrees slides</p>
+      <div class="editor__pc" data-sid="10-walk-classes:8"></div>
+      <ol class="editor__code" data-sid="10-walk-classes:9">
+        <li data-sid="10-walk-classes:10"><span class="tok-key" data-sid="10-walk-classes:11">class</span> BinaryNode&lt;T&gt; {</li>
+        <li class="walkline frag" data-step="1" data-sid="10-walk-classes:12">  <span class="tok-key" data-sid="10-walk-classes:13">private</span> T data;</li>
+        <li class="walkline frag" data-step="1" data-also="4 6" data-sid="10-walk-classes:14">  <span class="tok-key" data-sid="10-walk-classes:15">private</span> BinaryNode&lt;T&gt; leftChild,</li>
+        <li class="walkline frag" data-step="1" data-also="5 6" data-sid="10-walk-classes:16">                        rightChild;</li>
+        <li data-sid="10-walk-classes:17">}</li>
+        <li data-sid="10-walk-classes:18"><span class="tok-key" data-sid="10-walk-classes:19">class</span> BinaryTree&lt;T&gt; {</li>
+        <li class="walkline frag" data-step="2" data-also="3 7" data-sid="10-walk-classes:20">  <span class="tok-key" data-sid="10-walk-classes:21">private</span> BinaryNode&lt;T&gt; root;</li>
+        <li data-sid="10-walk-classes:22">}</li>
+      </ol>
+    </div>
+    <div class="bt__right" data-sid="10-walk-classes:23">
+      <svg class="bt__fig" viewBox="0 0 856 500" role="img" aria-label="A blue root pill with an arrow to a node box holding 10; from its left part an arrow to a box holding 3 and from its right part an arrow to a box holding 12; 7 hangs from the right part of 3 and 20 from the right part of 12; every other reference reads null" data-sid="10-walk-classes:24">
+        <defs data-sid="10-walk-classes:25">
+          <marker id="w13d1-10-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="10-walk-classes:26"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="10-walk-classes:27"/></marker>
+        </defs>
+        <g class="pill frag" data-step="2" data-sid="10-walk-classes:28"><rect x="368" y="0" width="120" height="44" rx="8" data-sid="10-walk-classes:29"/><text x="428" y="31" data-sid="10-walk-classes:30">root</text></g>
+        <path class="lnk frag" data-step="3" data-anim="fade" d="M428 44 V 86" data-sid="10-walk-classes:31"/>
+        <path class="lnk frag" data-step="4" data-anim="fade" d="M338 128 C 338 190, 160 184, 160 236" data-sid="10-walk-classes:32"/><path class="lnk frag" data-step="5" data-anim="fade" d="M518 128 C 518 190, 696 184, 696 236" data-sid="10-walk-classes:33"/><path class="lnk frag" data-step="6" data-anim="fade" d="M250 278 C 250 340, 340 334, 340 386" data-sid="10-walk-classes:34"/><path class="lnk frag" data-step="6" data-anim="fade" d="M786 278 C 786 340, 720 334, 720 386" data-sid="10-walk-classes:35"/>
+        <g class="bx g frag" data-step="3" data-sid="10-walk-classes:36"><rect class="nd__box" x="308" y="90" width="240" height="76" rx="10" data-sid="10-walk-classes:37"/><path class="nd__div" d="M368 90v76M488 90v76" data-sid="10-walk-classes:38"/><text class="nd__v" x="428" y="140" data-sid="10-walk-classes:39">10</text></g><g class="bx g g--d frag" data-step="4" data-sid="10-walk-classes:40"><rect class="nd__box" x="40" y="240" width="240" height="76" rx="10" data-sid="10-walk-classes:41"/><path class="nd__div" d="M100 240v76M220 240v76" data-sid="10-walk-classes:42"/><text class="nd__v" x="160" y="290" data-sid="10-walk-classes:43">3</text></g><g class="bx g g--d frag" data-step="5" data-sid="10-walk-classes:44"><rect class="nd__box" x="576" y="240" width="240" height="76" rx="10" data-sid="10-walk-classes:45"/><path class="nd__div" d="M636 240v76M756 240v76" data-sid="10-walk-classes:46"/><text class="nd__v" x="696" y="290" data-sid="10-walk-classes:47">12</text></g><g class="bx g g--d frag" data-step="6" data-sid="10-walk-classes:48"><rect class="nd__box" x="220" y="390" width="240" height="76" rx="10" data-sid="10-walk-classes:49"/><path class="nd__div" d="M280 390v76M400 390v76" data-sid="10-walk-classes:50"/><text class="nd__v" x="340" y="440" data-sid="10-walk-classes:51">7</text></g><g class="bx g g--d frag" data-step="6" data-sid="10-walk-classes:52"><rect class="nd__box" x="600" y="390" width="240" height="76" rx="10" data-sid="10-walk-classes:53"/><path class="nd__div" d="M660 390v76M780 390v76" data-sid="10-walk-classes:54"/><text class="nd__v" x="720" y="440" data-sid="10-walk-classes:55">20</text></g>
+        <circle class="nd__dot frag" data-step="4" data-anim="fade" cx="338" cy="128" r="7" data-sid="10-walk-classes:56"/><circle class="nd__dot frag" data-step="5" data-anim="fade" cx="518" cy="128" r="7" data-sid="10-walk-classes:57"/><circle class="nd__dot frag" data-step="6" data-anim="fade" cx="250" cy="278" r="7" data-sid="10-walk-classes:58"/><circle class="nd__dot frag" data-step="6" data-anim="fade" cx="786" cy="278" r="7" data-sid="10-walk-classes:59"/>
+        <g class="nulls frag" data-step="6" data-sid="10-walk-classes:60"><text class="nd__nl" x="70" y="344" data-sid="10-walk-classes:61">null</text><text class="nd__nl" x="606" y="344" data-sid="10-walk-classes:62">null</text><text class="nd__nl" x="250" y="494" data-sid="10-walk-classes:63">null</text><text class="nd__nl" x="430" y="494" data-sid="10-walk-classes:64">null</text><text class="nd__nl" x="630" y="494" data-sid="10-walk-classes:65">null</text><text class="nd__nl" x="810" y="494" data-sid="10-walk-classes:66">null</text></g>
+      </svg>
+      <div class="codewalk__caps" data-sid="10-walk-classes:67">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="10-walk-classes:68">A BinaryNode holds its data and two references, leftChild and rightChild.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="10-walk-classes:69">A BinaryTree has one field, root, a reference to the top node.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="10-walk-classes:70">root refers to the node that holds 10.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="10-walk-classes:71">The leftChild of 10 refers to the node that holds 3.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="10-walk-classes:72">The rightChild of 10 refers to the node that holds 12.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="10-walk-classes:73">7 is the rightChild of 3, and 20 is the rightChild of 12. Every other reference is null.</p>
+        <p class="walkcap walkcap--plant cap--7 frag" data-step="7" data-sid="10-walk-classes:74">The tree itself keeps only one reference, root, and every other node is reached through leftChild and rightChild.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10-walk-classes:75"></div>
+  <aside class="notes" data-sid="10-walk-classes:76">These are the fields from the ProgrammingTrees slides in the 13.2 module; the methods come next. Step 1: a BinaryNode holds its data and two references to other BinaryNodes, leftChild and rightChild. A list node had only one, next. Step 2: a BinaryTree has one field, root. Step 3: root refers to the top node, here the node holding 10. Step 4: 10&rsquo;s leftChild refers to the node holding 3. Step 5: its rightChild refers to 12. Step 6: 7 is 3&rsquo;s right child and 20 is 12&rsquo;s right child; every other reference is null, so 3 has no left child, 12 has no left child, and 7 and 20 are leaves. Step 7: the tree object keeps only root. To reach 7 the code must go root, then leftChild, then rightChild; there is no array and no index. CE 13 uses a different design in which a BinaryTree is its own node, with getElement, getLeft and getRight; the idea is the same. Next we count the nodes with one recursive call per node.</aside>
+
+  <style data-sid="10-walk-classes:77">
+    /* Slide-local: the editor at --t-code (760 px: 35 characters x 19.2 +
+       70 = 742, plus the 2% WebKit margin) beside a column with the drawing
+       (one SVG at 1:1, 856 x 500) and the narration under it. Boxes in
+       W12D2 16's ink: --bg-1 with a 4 px --fg-1 outline and dividers, values
+       in mono at --t-small, blue dots and blue reference arrows with a
+       w13d1-10 marker, the root pill in the deck's blue, null in stone at
+       --t-micro. Motion: the pill and the boxes GrowFromCenter; an arrow and
+       its dot fade in with the box they point at, the box grows after them;
+       the nulls fade in. Used by this slide only, all values from tokens. */
+    #slide-10 .bt { display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-10 .bt__editor { width: 760px; }
+    #slide-10 .bt__right { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-10 .bt__fig { display: block; width: 856px; height: 500px; overflow: visible; }
+    #slide-10 .codewalk__caps { min-height: 98px; }
+    #slide-10 .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    #slide-10 .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-10 .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-10 .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-10 .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-10 .nd__dot { fill: var(--accent-2); }
+    #slide-10 .lnk { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w13d1-10-head); }
+    #slide-10 .pill rect { fill: var(--accent-2); }
+    #slide-10 .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+
+    #slide-10 .g, #slide-10 .pill { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-10 .frag.g.is-pending, #slide-10 .frag.pill.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-10 .frag.g--d.is-current, #slide-10 .frag.g--d.is-past { transition-delay: .35s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10 .g, #slide-10 .pill { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

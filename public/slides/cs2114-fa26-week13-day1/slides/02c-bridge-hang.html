@@ -1,0 +1,109 @@
+<section class="slide slide--warmup" id="slide-02c" data-sid="02c-bridge-hang:1">
+  <header class="slide__head" data-sid="02c-bridge-hang:2">
+    <p class="slide__kicker" data-sid="02c-bridge-hang:3">FROM WEEK 12 TO WEEK 13</p>
+    <h2 data-sid="02c-bridge-hang:4">A list node holds one next reference, and a tree node holds two</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="02c-bridge-hang:5">A bridge from Week 12 to Week 13, shown in three steps. Step one: on the left, a sorted chain of five nodes, 3, 7, 10, 12 and 20, with firstNode on 3, each node&rsquo;s next arrow pointing at the node after it and the last next null. The caption says that every node of the chain refers to one next node, so there is one way through it. Step two: on the right, the same five values drawn as circles in a tree. 10 is at the top; 3 hangs to its left and 12 to its right; 7 hangs to the right of 3 and 20 to the right of 12. The edges draw on from the top down. The caption says that the same values can also hang from one node, that each node can have a left child and a right child, and that where each value should go is the question for Week 14. Step three: a question in maroon: how many nodes can a tree of a given height hold?</p>
+
+  <!-- Bridge from Week 12 (sorted lists on a chain, W11D1 06b's Link boxes)
+       to Week 13 (trees). The structural link: a chain node has one next
+       reference, a tree node has two, so the same five values can hang from
+       one node in two directions. One SVG at 1:1 (1664 x 344): left, the
+       chain 3 7 10 12 20 (130 x 76 boxes on a 156 px pitch, 6 px inside the
+       body edge) with firstNode; right, the shared circle-tree grammar (r 36,
+       level pitch 130) for the five-value tree 10 / 3, 12 / 7, 20 that Part 3
+       and Day 2 reuse. The SVG is 344 tall, not the outline's 300, because
+       three levels at the shared 130 px pitch need 2 x 130 + 2 x 36 + stroke.
+       The drawing happens to be a search tree; the slide says so only as the
+       Week 14 pointer. Nothing here counts nodes; the question is Part 2's.
+       step 1: the chain grows in.
+       step 2: the tree: circles grow and edges draw on, level by level.
+       step 3: the question in maroon. -->
+  <div class="slide__body bh" data-sid="02c-bridge-hang:6">
+    <svg class="bh__fig" viewBox="0 0 1664 344" role="img" aria-label="Left, the sorted chain 3, 7, 10, 12, 20 with firstNode on 3 and the last next null. Right, the same five values as a tree: 10 at the top, 3 to its left and 12 to its right, 7 to the right of 3 and 20 to the right of 12" data-sid="02c-bridge-hang:7">
+      <defs data-sid="02c-bridge-hang:8">
+        <marker id="w13d1-02c-head" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto" data-sid="02c-bridge-hang:9"><path d="M0 0 L12 6 L0 12 Z" style="fill: var(--accent-2)" data-sid="02c-bridge-hang:10"/></marker>
+      </defs>
+
+      <!-- Week 12: the sorted chain -->
+      <g class="bh__left frag" data-step="1" data-sid="02c-bridge-hang:11">
+        <g class="pill" data-sid="02c-bridge-hang:12"><rect x="6" y="0" width="176" height="44" rx="8" data-sid="02c-bridge-hang:13"/><text x="94" y="31" data-sid="02c-bridge-hang:14">firstNode</text></g>
+        <path class="ref" d="M34 44 C 34 52, 34 56, 34 68" data-sid="02c-bridge-hang:15"/>
+        <g class="nd" data-sid="02c-bridge-hang:16"><rect class="nd__box" x="6" y="72" width="130" height="76" rx="10" data-sid="02c-bridge-hang:17"/><path class="nd__div" d="M62 72v76" data-sid="02c-bridge-hang:18"/><text class="nd__v" x="34" y="122" data-sid="02c-bridge-hang:19">3</text></g><g class="nd" data-sid="02c-bridge-hang:20"><rect class="nd__box" x="162" y="72" width="130" height="76" rx="10" data-sid="02c-bridge-hang:21"/><path class="nd__div" d="M218 72v76" data-sid="02c-bridge-hang:22"/><text class="nd__v" x="190" y="122" data-sid="02c-bridge-hang:23">7</text></g><g class="nd" data-sid="02c-bridge-hang:24"><rect class="nd__box" x="318" y="72" width="130" height="76" rx="10" data-sid="02c-bridge-hang:25"/><path class="nd__div" d="M374 72v76" data-sid="02c-bridge-hang:26"/><text class="nd__v" x="346" y="122" data-sid="02c-bridge-hang:27">10</text></g><g class="nd" data-sid="02c-bridge-hang:28"><rect class="nd__box" x="474" y="72" width="130" height="76" rx="10" data-sid="02c-bridge-hang:29"/><path class="nd__div" d="M530 72v76" data-sid="02c-bridge-hang:30"/><text class="nd__v" x="502" y="122" data-sid="02c-bridge-hang:31">12</text></g><g class="nd" data-sid="02c-bridge-hang:32"><rect class="nd__box" x="630" y="72" width="130" height="76" rx="10" data-sid="02c-bridge-hang:33"/><path class="nd__div" d="M686 72v76" data-sid="02c-bridge-hang:34"/><text class="nd__v" x="658" y="122" data-sid="02c-bridge-hang:35">20</text><text class="nd__nl" x="723" y="120" data-sid="02c-bridge-hang:36">null</text></g>
+        <path class="lnk" d="M99 110 H 158" data-sid="02c-bridge-hang:37"/><path class="lnk" d="M255 110 H 314" data-sid="02c-bridge-hang:38"/><path class="lnk" d="M411 110 H 470" data-sid="02c-bridge-hang:39"/><path class="lnk" d="M567 110 H 626" data-sid="02c-bridge-hang:40"/>
+      </g>
+
+      <!-- Week 13: the same values hung from one node -->
+      <g class="bh__right frag" data-step="2" data-sid="02c-bridge-hang:41">
+        <path class="te p" pathLength="100" style="--i: 0" d="M1279.8 61.6 L1140.2 152.4" data-sid="02c-bridge-hang:42"/>
+        <path class="te p" pathLength="100" style="--i: 0" d="M1340.2 61.6 L1479.8 152.4" data-sid="02c-bridge-hang:43"/>
+        <path class="te p" pathLength="100" style="--i: 1" d="M1131.9 200.5 L1188.1 273.5" data-sid="02c-bridge-hang:44"/>
+        <path class="te p" pathLength="100" style="--i: 1" d="M1531.9 200.5 L1588.1 273.5" data-sid="02c-bridge-hang:45"/>
+        <g class="tn g" style="--i: 0" data-sid="02c-bridge-hang:46"><circle cx="1310" cy="42" r="36" data-sid="02c-bridge-hang:47"/><text x="1310" y="54" data-sid="02c-bridge-hang:48">10</text></g>
+        <g class="tn g" style="--i: 1" data-sid="02c-bridge-hang:49"><circle cx="1110" cy="172" r="36" data-sid="02c-bridge-hang:50"/><text x="1110" y="184" data-sid="02c-bridge-hang:51">3</text></g>
+        <g class="tn g" style="--i: 1" data-sid="02c-bridge-hang:52"><circle cx="1510" cy="172" r="36" data-sid="02c-bridge-hang:53"/><text x="1510" y="184" data-sid="02c-bridge-hang:54">12</text></g>
+        <g class="tn g" style="--i: 2" data-sid="02c-bridge-hang:55"><circle cx="1210" cy="302" r="36" data-sid="02c-bridge-hang:56"/><text x="1210" y="314" data-sid="02c-bridge-hang:57">7</text></g>
+        <g class="tn g" style="--i: 2" data-sid="02c-bridge-hang:58"><circle cx="1610" cy="302" r="36" data-sid="02c-bridge-hang:59"/><text x="1610" y="314" data-sid="02c-bridge-hang:60">20</text></g>
+      </g>
+    </svg>
+
+    <div class="bh__caps" data-sid="02c-bridge-hang:61">
+      <p class="bh__cap cap--1 frag" data-step="1" data-sid="02c-bridge-hang:62">Every node of the chain refers to one next node, so there is one way through it.</p>
+      <p class="bh__cap bh__cap--keep cap--2 frag" data-step="2" data-sid="02c-bridge-hang:63">The same values can also hang from one node, and each node can have a left child and a right child. Where each value should go is the question for Week 14.</p>
+    </div>
+    <p class="bh__q frag" data-step="3" data-sid="02c-bridge-hang:64">How many nodes can a tree of a given height hold?</p>
+  </div>
+  <div class="slide__number" data-sid="02c-bridge-hang:65"></div>
+  <aside class="notes" data-sid="02c-bridge-hang:66">Last week we kept a sorted list in an array and in a chain. Step 1. This is a sorted chain of five nodes. Each node has one next reference, so from firstNode there is exactly one way to walk it: 3, 7, 10, 12, 20, then null. Step 2. A tree node has two references, a left and a right. The same five values can hang from 10: 3 on its left and 12 on its right, then 7 on the right of 3 and 20 on the right of 12. From 10 there are now two ways to go. The values happen to be placed so that smaller values sit to the left and larger to the right; that is the binary search tree of Week 14, and today we do not use it. Step 3. Leave the question unanswered for now. Part 2 builds the shape that both votes ask about, and the votes ask how its height and its number of nodes relate. Next is Part 1.</aside>
+
+  <style data-sid="02c-bridge-hang:67">
+    /* Slide-local: a bridge from Week 12 to Week 13, in W12D1 02c's grammar.
+       One SVG at 1:1 (1664 x 344): left, the chain in W11D1 06b's Link boxes
+       (130 x 76, 156 px pitch) with the blue firstNode pill; right, the
+       shared circle tree (r 36, stroke 4 --fg-1 on --bg-1, values in mono at
+       --t-small, level pitch 130, edges 4 px --fg-1). Under it two captions
+       (the second replaces the first and stays) and the question in display
+       maroon, all at --t-small. Motion: the chain GrowsFromCenter; on step 2
+       the circles GrowFromCenter and the edges are Created, both staggered by
+       level (--i) so the tree hangs from the top down. Used by this slide
+       only, all values from tokens. */
+    #slide-02c .bh { display: grid; grid-template-rows: auto auto auto; row-gap: var(--s-4); align-content: start; }
+    #slide-02c .bh__fig { display: block; width: 1664px; height: 344px; overflow: visible; }
+
+    #slide-02c .pill rect { fill: var(--accent-2); }
+    #slide-02c .pill text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--bg-0); text-anchor: middle; }
+    #slide-02c .nd__box { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__div { fill: none; stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .nd__v { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .nd__nl { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); text-anchor: middle; }
+    #slide-02c .lnk, #slide-02c .ref { fill: none; stroke: var(--accent-2); stroke-width: 4; stroke-linecap: round; marker-end: url(#w13d1-02c-head); }
+
+    #slide-02c .tn circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-02c .tn text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-02c .te { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+
+    /* GrowFromCenter: the chain as a whole; the tree's circles one by one */
+    #slide-02c .bh__left { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-02c .frag.bh__left.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-02c .frag.bh__right.is-pending { opacity: 1; }
+    #slide-02c .g { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); transition-delay: calc(var(--i) * .7s); }
+    #slide-02c .bh__right.is-pending .g { opacity: 0; transform: scale(0.4); transition-delay: 0s; }
+    /* Create: the edges of each level draw on after the level above has grown */
+    #slide-02c .p { stroke-dasharray: 100; stroke-dashoffset: 0; transition: stroke-dashoffset .5s var(--ease-smooth); transition-delay: calc(.35s + var(--i) * .7s); }
+    #slide-02c .bh__right.is-pending .p { stroke-dashoffset: 100; transition-delay: 0s; }
+
+    /* narration: caption 1 is replaced by caption 2, which stays */
+    #slide-02c .bh__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-02c .bh__caps > * { grid-area: 1 / 1; }
+    #slide-02c .slide__body p.bh__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-02c .frag.bh__cap.is-current { transition-delay: .3s; }
+    #slide-02c .frag.bh__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-02c .frag.bh__cap--keep.is-past { opacity: 1; }
+    #slide-02c .slide__body p.bh__q { margin: 0; font-family: var(--font-display); font-size: var(--t-small); line-height: 1.35; color: var(--accent-1); transition: opacity .3s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-02c .bh__left, #slide-02c .g, #slide-02c .p,
+      #slide-02c .bh__cap, #slide-02c .bh__q { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

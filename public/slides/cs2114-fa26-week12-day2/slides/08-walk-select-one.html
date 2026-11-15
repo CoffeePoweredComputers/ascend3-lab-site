@@ -1,8 +1,8 @@
-<section class="slide slide--warmup" id="slide-08">
-  <header class="slide__head">
-    <h2>findSmallest keeps the smallest so far, then one swap puts it in slot 0</h2>
+<section data-sid="08-walk-select-one:1" class="slide slide--warmup" id="slide-08">
+  <header data-sid="08-walk-select-one:2" class="slide__head">
+    <h2 data-sid="08-walk-select-one:3">findSmallest keeps the smallest so far, then one swap puts it in slot 0</h2>
   </header>
-  <p class="sr-only slide__desc">A walkthrough of selection sort's first pass under a program-counter bar. The editor holds selectionSort, whose loop runs lh from 0, sets rh to findSmallest of a, lh and a dot length, and calls swapElements of a, lh and rh; and findSmallest, which sets smallestIndex to p1, then for i from p1 plus 1 below p2 sets smallestIndex to i if a at i is less than a at smallestIndex, and returns smallestIndex. On the right, the call findSmallest of a, 0 and 5, two large counters labelled compares and swaps, and a five-slot array holding 64, 25, 12, 22 and 11, with an lh pill above slot 0 and a dashed cell labelled temp above slot 0. Step one: a smallestIndex pill appears under slot 0. Steps two to five: the bar stays on the loop; slots 1 to 4 in turn take a maroon edge as they are compared, compares rolls from 1 to 4, and the smallestIndex pill moves to slot 1, then slot 2, stays at slot 2 for 22, and moves to slot 4 for 11. Step six: findSmallest returns 4 and the pill under slot 4 becomes rh. Step seven: 64 rises into the temp cell, travels right and drops into slot 4, while 11 dips under the array, travels left and rises into slot 0; swaps rolls to 1. Step eight: the lh pill moves to slot 1 and slot 0 is washed blue; the caption says four compares and one swap, and the array reads 11, 25, 12, 22, 64.</p>
+  <p data-sid="08-walk-select-one:4" class="sr-only slide__desc">A walkthrough of selection sort's first pass under a program-counter bar. The editor holds selectionSort, whose loop runs lh from 0, sets rh to findSmallest of a, lh and a dot length, and calls swapElements of a, lh and rh; and findSmallest, which sets smallestIndex to p1, then for i from p1 plus 1 below p2 sets smallestIndex to i if a at i is less than a at smallestIndex, and returns smallestIndex. On the right, the call findSmallest of a, 0 and 5, two large counters labelled compares and swaps, and a five-slot array holding 64, 25, 12, 22 and 11, with an lh pill above slot 0 and a dashed cell labelled temp above slot 0. Step one: a smallestIndex pill appears under slot 0. Steps two to five: the bar stays on the loop; slots 1 to 4 in turn take a maroon edge as they are compared, compares rolls from 1 to 4, and the smallestIndex pill moves to slot 1, then slot 2, stays at slot 2 for 22, and moves to slot 4 for 11. Step six: findSmallest returns 4 and the pill under slot 4 becomes rh. Step seven: 64 rises into the temp cell, travels right and drops into slot 4, while 11 dips under the array, travels left and rises into slot 0; swaps rolls to 1. Step eight: the lh pill moves to slot 1 and slot 0 is washed blue; the caption says four compares and one swap, and the array reads 11, 25, 12, 22, 64.</p>
 
   <!-- Selection sort, walk 1 of 2. The course's SelectionSort slides:
        selectionSort and findSmallest with the statements as written; the
@@ -18,43 +18,43 @@
        far is 12, so the compare is 11 < 12.
        step 1: smallestIndex = p1 · 2-5: i = 1 to 4 · 6: return · 7: the swap
        · 8: lh++ and the plant -->
-  <div class="slide__body codewalk code-mid ss">
-    <div class="editor">
-      <p class="editor__bar">selection sort, array named a</p>
-      <div class="editor__pc"></div>
-      <ol class="editor__code">
-        <li><span class="tok-key">void</span> selectionSort(<span class="tok-key">int</span>[] a) {</li>
-        <li class="walkline frag" data-step="8">  <span class="tok-key">for</span> (<span class="tok-key">int</span> lh = <span class="tok-num">0</span>; lh &lt; a.length; lh++) {</li>
-        <li>    <span class="tok-key">int</span> rh = findSmallest(a, lh, a.length);</li>
-        <li class="walkline frag" data-step="7">    swapElements(a, lh, rh);</li>
-        <li>  }</li>
-        <li>}</li>
-        <li><span class="tok-key">int</span> findSmallest(<span class="tok-key">int</span>[] a, <span class="tok-key">int</span> p1, <span class="tok-key">int</span> p2) {</li>
-        <li class="walkline frag" data-step="1">  <span class="tok-key">int</span> smallestIndex = p1;</li>
-        <li class="walkline frag" data-step="2" data-hold="5">  <span class="tok-key">for</span> (<span class="tok-key">int</span> i = p1 + <span class="tok-num">1</span>; i &lt; p2; i++)</li>
-        <li class="walkline frag" data-step="2" data-hold="5">    <span class="tok-key">if</span> (a[i] &lt; a[smallestIndex])</li>
-        <li class="walkline frag" data-step="2" data-hold="5">      smallestIndex = i;</li>
-        <li class="walkline frag" data-step="6">  <span class="tok-key">return</span> smallestIndex;</li>
-        <li>}</li>
+  <div data-sid="08-walk-select-one:5" class="slide__body codewalk code-mid ss">
+    <div data-sid="08-walk-select-one:6" class="editor">
+      <p data-sid="08-walk-select-one:7" class="editor__bar">selection sort, array named a</p>
+      <div data-sid="08-walk-select-one:8" class="editor__pc"></div>
+      <ol data-sid="08-walk-select-one:9" class="editor__code">
+        <li data-sid="08-walk-select-one:10"><span class="tok-key">void</span> selectionSort(<span class="tok-key">int</span>[] a) {</li>
+        <li data-sid="08-walk-select-one:11" class="walkline frag" data-step="8">  <span class="tok-key">for</span> (<span class="tok-key">int</span> lh = <span class="tok-num">0</span>; lh &lt; a.length; lh++) {</li>
+        <li data-sid="08-walk-select-one:12">    <span class="tok-key">int</span> rh = findSmallest(a, lh, a.length);</li>
+        <li data-sid="08-walk-select-one:13" class="walkline frag" data-step="7">    swapElements(a, lh, rh);</li>
+        <li data-sid="08-walk-select-one:14">  }</li>
+        <li data-sid="08-walk-select-one:15">}</li>
+        <li data-sid="08-walk-select-one:16"><span class="tok-key">int</span> findSmallest(<span class="tok-key">int</span>[] a, <span class="tok-key">int</span> p1, <span class="tok-key">int</span> p2) {</li>
+        <li data-sid="08-walk-select-one:17" class="walkline frag" data-step="1">  <span class="tok-key">int</span> smallestIndex = p1;</li>
+        <li data-sid="08-walk-select-one:18" class="walkline frag" data-step="2" data-hold="5">  <span class="tok-key">for</span> (<span class="tok-key">int</span> i = p1 + <span class="tok-num">1</span>; i &lt; p2; i++)</li>
+        <li data-sid="08-walk-select-one:19" class="walkline frag" data-step="2" data-hold="5">    <span class="tok-key">if</span> (a[i] &lt; a[smallestIndex])</li>
+        <li data-sid="08-walk-select-one:20" class="walkline frag" data-step="2" data-hold="5">      smallestIndex = i;</li>
+        <li data-sid="08-walk-select-one:21" class="walkline frag" data-step="6">  <span class="tok-key">return</span> smallestIndex;</li>
+        <li data-sid="08-walk-select-one:22">}</li>
       </ol>
     </div>
 
-    <div class="ss__right">
-      <p class="ss__call">findSmallest(a, 0, 5)</p>
-      <div class="ss__counts">
-        <div class="moves">
-          <p class="moves__label">compares</p>
-          <div class="moves__stack">
-            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="2">0</p><p class="heap-val frag" data-step="2">1</p></div>
-            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="3">1</p><p class="heap-val frag" data-step="3">2</p></div>
-            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="4">2</p><p class="heap-val frag" data-step="4">3</p></div>
-            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="5">3</p><p class="heap-val frag" data-step="5">4</p></div>
+    <div data-sid="08-walk-select-one:23" class="ss__right">
+      <p data-sid="08-walk-select-one:24" class="ss__call">findSmallest(a, 0, 5)</p>
+      <div data-sid="08-walk-select-one:25" class="ss__counts">
+        <div data-sid="08-walk-select-one:26" class="moves">
+          <p data-sid="08-walk-select-one:27" class="moves__label">compares</p>
+          <div data-sid="08-walk-select-one:28" class="moves__stack">
+            <div data-sid="08-walk-select-one:29" class="heap-obj__field"><p data-sid="08-walk-select-one:30" class="heap-val heap-val--old frag" data-step="2">0</p><p data-sid="08-walk-select-one:31" class="heap-val frag" data-step="2">1</p></div>
+            <div data-sid="08-walk-select-one:32" class="heap-obj__field"><p data-sid="08-walk-select-one:33" class="heap-val heap-val--old frag" data-step="3">1</p><p data-sid="08-walk-select-one:34" class="heap-val frag" data-step="3">2</p></div>
+            <div data-sid="08-walk-select-one:35" class="heap-obj__field"><p data-sid="08-walk-select-one:36" class="heap-val heap-val--old frag" data-step="4">2</p><p data-sid="08-walk-select-one:37" class="heap-val frag" data-step="4">3</p></div>
+            <div data-sid="08-walk-select-one:38" class="heap-obj__field"><p data-sid="08-walk-select-one:39" class="heap-val heap-val--old frag" data-step="5">3</p><p data-sid="08-walk-select-one:40" class="heap-val frag" data-step="5">4</p></div>
           </div>
         </div>
-        <div class="moves moves--ok">
-          <p class="moves__label">swaps</p>
-          <div class="moves__stack">
-            <div class="heap-obj__field"><p class="heap-val heap-val--old frag" data-step="7">0</p><p class="heap-val frag" data-step="7">1</p></div>
+        <div data-sid="08-walk-select-one:41" class="moves moves--ok">
+          <p data-sid="08-walk-select-one:42" class="moves__label">swaps</p>
+          <div data-sid="08-walk-select-one:43" class="moves__stack">
+            <div data-sid="08-walk-select-one:44" class="heap-obj__field"><p data-sid="08-walk-select-one:45" class="heap-val heap-val--old frag" data-step="7">0</p><p data-sid="08-walk-select-one:46" class="heap-val frag" data-step="7">1</p></div>
           </div>
         </div>
       </div>
@@ -67,20 +67,20 @@
         <g class="pill rh rh0"><rect x="496" y="352" width="176" height="40" rx="20"/><text x="584" y="382">rh</text><path d="M576 352 L592 352 L584 342 Z"/></g>
         <g class="ss__vals"><g class="sx x64"><g class="s1 a64"><g class="s2 b64"><text x="152" y="224">64</text></g></g></g><g class="sx x25"><g class="s1 a25"><g class="s2 b25"><text x="260" y="224">25</text></g></g></g><g class="sx x12"><g class="s1 a12"><g class="s2 b12"><text x="368" y="224">12</text></g></g></g><g class="sx x22"><g class="s1 a22"><g class="s2 b22"><text x="476" y="224">22</text></g></g></g><g class="sx x11"><g class="s1 a11"><g class="s2 b11"><text x="584" y="224">11</text></g></g></g></g>
       </svg>
-      <div class="codewalk__caps">
-        <p class="walkcap cap--1 frag" data-step="1">findSmallest(a, 0, 5) starts with smallestIndex = 0, the slot that lh names.</p>
-        <p class="walkcap cap--2 frag" data-step="2">With i = 1, a[1] &lt; a[0] compares 25 with 64. 25 is smaller, so smallestIndex becomes 1.</p>
-        <p class="walkcap cap--3 frag" data-step="3">With i = 2, 12 &lt; 25 is true, so smallestIndex becomes 2.</p>
-        <p class="walkcap cap--4 frag" data-step="4">With i = 3, 22 &lt; 12 is false, so smallestIndex stays 2.</p>
-        <p class="walkcap cap--5 frag" data-step="5">With i = 4, 11 &lt; 12 is true, so smallestIndex becomes 4.</p>
-        <p class="walkcap cap--6 frag" data-step="6">The loop ends at i = 5. findSmallest returns 4, so rh is 4.</p>
-        <p class="walkcap cap--7 frag" data-step="7">swapElements(a, 0, 4) copies 64 into temp, 11 into slot 0, and temp into slot 4.</p>
-        <p class="walkcap walkcap--plant cap--8 frag" data-step="8">Four compares and one swap. lh++ makes lh 1. 11 is in its final slot, and the array reads 11 25 12 22 64.</p>
+      <div data-sid="08-walk-select-one:47" class="codewalk__caps">
+        <p data-sid="08-walk-select-one:48" class="walkcap cap--1 frag" data-step="1">findSmallest(a, 0, 5) starts with smallestIndex = 0, the slot that lh names.</p>
+        <p data-sid="08-walk-select-one:49" class="walkcap cap--2 frag" data-step="2">With i = 1, a[1] &lt; a[0] compares 25 with 64. 25 is smaller, so smallestIndex becomes 1.</p>
+        <p data-sid="08-walk-select-one:50" class="walkcap cap--3 frag" data-step="3">With i = 2, 12 &lt; 25 is true, so smallestIndex becomes 2.</p>
+        <p data-sid="08-walk-select-one:51" class="walkcap cap--4 frag" data-step="4">With i = 3, 22 &lt; 12 is false, so smallestIndex stays 2.</p>
+        <p data-sid="08-walk-select-one:52" class="walkcap cap--5 frag" data-step="5">With i = 4, 11 &lt; 12 is true, so smallestIndex becomes 4.</p>
+        <p data-sid="08-walk-select-one:53" class="walkcap cap--6 frag" data-step="6">The loop ends at i = 5. findSmallest returns 4, so rh is 4.</p>
+        <p data-sid="08-walk-select-one:54" class="walkcap cap--7 frag" data-step="7">swapElements(a, 0, 4) copies 64 into temp, 11 into slot 0, and temp into slot 4.</p>
+        <p data-sid="08-walk-select-one:55" class="walkcap walkcap--plant cap--8 frag" data-step="8">Four compares and one swap. lh++ makes lh 1. 11 is in its final slot, and the array reads 11 25 12 22 64.</p>
       </div>
     </div>
   </div>
-  <div class="slide__number"></div>
-  <aside class="notes">The selection sort from the course&rsquo;s SelectionSort slides. lh, the left hand, is the slot being filled; rh, the right hand, is the index of the smallest entry from lh to the end, which findSmallest returns. The array is named a here so that the lines fit. swapElements is three lines: temp = a[p1]; a[p1] = a[p2]; a[p2] = temp. Step 1: findSmallest starts by assuming the smallest is at p1, slot 0. Steps 2 to 5: i runs from 1 to 4. Each press is one compare, a[i] with the smallest found so far. 25 is smaller than 64, 12 is smaller than 25, 22 is not smaller than 12, and 11 is smaller than 12. Four compares. Step 6: the loop ends and findSmallest returns 4; that is rh. Step 7: one swap. 64 goes to temp, 11 to slot 0, temp to slot 4. Step 8: lh moves to 1. Slot 0 holds 11, the smallest entry, and nothing will move it again. Ask: how many compares will the pass for lh = 1 make? The next slide runs the remaining passes.</aside>
+  <div data-sid="08-walk-select-one:56" class="slide__number"></div>
+  <aside data-sid="08-walk-select-one:57" class="notes">The selection sort from the course&rsquo;s SelectionSort slides. lh, the left hand, is the slot being filled; rh, the right hand, is the index of the smallest entry from lh to the end, which findSmallest returns. The array is named a here so that the lines fit. swapElements is three lines: temp = a[p1]; a[p1] = a[p2]; a[p2] = temp. Step 1: findSmallest starts by assuming the smallest is at p1, slot 0. Steps 2 to 5: i runs from 1 to 4. Each press is one compare, a[i] with the smallest found so far. 25 is smaller than 64, 12 is smaller than 25, 22 is not smaller than 12, and 11 is smaller than 12. Four compares. Step 6: the loop ends and findSmallest returns 4; that is rh. Step 7: one swap. 64 goes to temp, 11 to slot 0, temp to slot 4. Step 8: lh moves to 1. Slot 0 holds 11, the smallest entry, and nothing will move it again. Ask: how many compares will the pass for lh = 1 make? The next slide runs the remaining passes.</aside>
 
   <style>
     /* Slide-local: the editor at --t-code (916 px: 43 characters x 19.2 + 70,

@@ -1,9 +1,9 @@
-<section class="slide slide--warmup" id="slide-09b">
-  <header class="slide__head">
-    <p class="slide__kicker">VOTE 2 &middot; THE ANSWER</p>
-    <h2>Selection sort compares inside the unsorted part and swaps once per pass</h2>
+<section data-sid="09b-walk-selection:1" class="slide slide--warmup" id="slide-09b">
+  <header data-sid="09b-walk-selection:2" class="slide__head">
+    <p data-sid="09b-walk-selection:3" class="slide__kicker">VOTE 2 &middot; THE ANSWER</p>
+    <h2 data-sid="09b-walk-selection:4">Selection sort compares inside the unsorted part and swaps once per pass</h2>
   </header>
-  <p class="sr-only slide__desc">The answer to Vote 2, built in six presses. On the left, the array as slide 08 left it, 11, 25, 12, 22, 64, with slot 0 washed blue as sorted and the lh pill above slot 1. Press one: three maroon arcs draw on, from 25 to 12, from 12 to 22 and from 12 to 64, the compares that findSmallest makes, and the caption says B is right. Press two: a dashed temp cell appears, 25 and 12 exchange places, and slot 1 is washed as sorted; the caption says D is right. Press three: a dashed arc from 25 back to 11 appears and is crossed out in maroon; the caption says A is wrong, because no unsorted entry is compared with the sorted part. Press four: the caption says C is wrong, because comparing with the neighbor is insertInOrder's inner loop. Press five: on the right, an inset from slide 04 grows in, two cells labelled j and j plus 1, and 64 moves from the first into the second; the caption says E is wrong, because shifting sorted items is insertion sort's shift. Press six: the five options, with A, C and E struck through and B and D in maroon.</p>
+  <p data-sid="09b-walk-selection:5" class="sr-only slide__desc">The answer to Vote 2, built in six presses. On the left, the array as slide 08 left it, 11, 25, 12, 22, 64, with slot 0 washed blue as sorted and the lh pill above slot 1. Press one: three maroon arcs draw on, from 25 to 12, from 12 to 22 and from 12 to 64, the compares that findSmallest makes, and the caption says B is right. Press two: a dashed temp cell appears, 25 and 12 exchange places, and slot 1 is washed as sorted; the caption says D is right. Press three: a dashed arc from 25 back to 11 appears and is crossed out in maroon; the caption says A is wrong, because no unsorted entry is compared with the sorted part. Press four: the caption says C is wrong, because comparing with the neighbor is insertInOrder's inner loop. Press five: on the right, an inset from slide 04 grows in, two cells labelled j and j plus 1, and 64 moves from the first into the second; the caption says E is wrong, because shifting sorted items is insertion sort's shift. Press six: the five options, with A, C and E struck through and B and D in maroon.</p>
 
   <!-- The answer walk for Vote 2, on 08's strip at the start of 08b (no
        editor: the slide points back at 08 and 08b). One option per press.
@@ -15,8 +15,8 @@
        slide 04's shift, two cells at the same pitch.
        step 1: B · 2: D · 3: A struck · 4: C struck · 5: E struck ·
        6: verdict -->
-  <div class="slide__body wb">
-    <div class="wb__figs">
+  <div data-sid="09b-walk-selection:6" class="slide__body wb">
+    <div data-sid="09b-walk-selection:7" class="wb__figs">
       <svg class="ss__fig" viewBox="0 0 716 396" role="img" aria-label="The array 11, 25, 12, 22, 64 with slot 0 washed as sorted and the lh pill above slot 1; three maroon arcs mark the compares of findSmallest, 25 and 12 exchange places, and a dashed arc from 25 back to 11 is crossed out">
         <g class="ss__cells"><rect class="c0" x="104" y="164" width="96" height="96" rx="10"/><rect class="c1" x="212" y="164" width="96" height="96" rx="10"/><rect class="c2" x="320" y="164" width="96" height="96" rx="10"/><rect class="c3" x="428" y="164" width="96" height="96" rx="10"/><rect class="c4" x="536" y="164" width="96" height="96" rx="10"/></g>
         <g class="ss__idx"><text x="152" y="290">0</text><text x="260" y="290">1</text><text x="368" y="290">2</text><text x="476" y="290">3</text><text x="584" y="290">4</text></g>
@@ -37,23 +37,23 @@
         </g>
       </svg>
     </div>
-    <div class="wb__caps">
-      <p class="wb__cap cap--1 frag" data-step="1">B is right. findSmallest compares each unsorted entry with the smallest so far to pick the next sorted entry. Here that is three compares, 12 &lt; 25, 22 &lt; 12 and 64 &lt; 12, and the pick is 12.</p>
-      <p class="wb__cap cap--2 frag" data-step="2">D is right. The pick is swapped straight into slot lh, its final slot, and 25 goes where 12 was.</p>
-      <p class="wb__cap cap--3 frag" data-step="3">A is wrong. No unsorted entry is compared with the sorted part, so 25 is never compared with 11.</p>
-      <p class="wb__cap cap--4 frag" data-step="4">C is wrong. Comparing with the neighbor until the destination is found is insertInOrder&rsquo;s inner loop (slide 04b).</p>
-      <p class="wb__cap cap--5 frag" data-step="5">E is wrong. Shifting sorted items above the insertion point is data[j + 1] = data[j], insertion sort&rsquo;s shift (slide 04).</p>
-      <ol class="verdict frag wb__verdict" data-step="6">
-        <li class="verdict__opt verdict__opt--wrong" style="--i: 0"><span class="verdict__txt">compares with all sorted items</span></li>
-        <li class="verdict__opt verdict__opt--right"><span class="verdict__txt">compares to pick the next sorted item</span></li>
-        <li class="verdict__opt verdict__opt--wrong" style="--i: 1"><span class="verdict__txt">compares with neighbors until the destination</span></li>
-        <li class="verdict__opt verdict__opt--right"><span class="verdict__txt">swaps the item into its final destination</span></li>
-        <li class="verdict__opt verdict__opt--wrong" style="--i: 2"><span class="verdict__txt">shifts sorted items above the insertion point</span></li>
+    <div data-sid="09b-walk-selection:8" class="wb__caps">
+      <p data-sid="09b-walk-selection:9" class="wb__cap cap--1 frag" data-step="1">B is right. findSmallest compares each unsorted entry with the smallest so far to pick the next sorted entry. Here that is three compares, 12 &lt; 25, 22 &lt; 12 and 64 &lt; 12, and the pick is 12.</p>
+      <p data-sid="09b-walk-selection:10" class="wb__cap cap--2 frag" data-step="2">D is right. The pick is swapped straight into slot lh, its final slot, and 25 goes where 12 was.</p>
+      <p data-sid="09b-walk-selection:11" class="wb__cap cap--3 frag" data-step="3">A is wrong. No unsorted entry is compared with the sorted part, so 25 is never compared with 11.</p>
+      <p data-sid="09b-walk-selection:12" class="wb__cap cap--4 frag" data-step="4">C is wrong. Comparing with the neighbor until the destination is found is insertInOrder&rsquo;s inner loop (slide 04b).</p>
+      <p data-sid="09b-walk-selection:13" class="wb__cap cap--5 frag" data-step="5">E is wrong. Shifting sorted items above the insertion point is data[j + 1] = data[j], insertion sort&rsquo;s shift (slide 04).</p>
+      <ol data-sid="09b-walk-selection:14" class="verdict frag wb__verdict" data-step="6">
+        <li data-sid="09b-walk-selection:15" class="verdict__opt verdict__opt--wrong" style="--i: 0"><span class="verdict__txt">compares with all sorted items</span></li>
+        <li data-sid="09b-walk-selection:16" class="verdict__opt verdict__opt--right"><span class="verdict__txt">compares to pick the next sorted item</span></li>
+        <li data-sid="09b-walk-selection:17" class="verdict__opt verdict__opt--wrong" style="--i: 1"><span class="verdict__txt">compares with neighbors until the destination</span></li>
+        <li data-sid="09b-walk-selection:18" class="verdict__opt verdict__opt--right"><span class="verdict__txt">swaps the item into its final destination</span></li>
+        <li data-sid="09b-walk-selection:19" class="verdict__opt verdict__opt--wrong" style="--i: 2"><span class="verdict__txt">shifts sorted items above the insertion point</span></li>
       </ol>
     </div>
   </div>
-  <div class="slide__number"></div>
-  <aside class="notes">Answer: B and D [keys from the PrairieLearn twin sorting/u12q06_b; confirm in Runestone&rsquo;s results view]. The array is the one slide 08 left, at the start of the pass for lh = 1. Step 1: B. findSmallest compares each entry of the unsorted part with the smallest found so far: 12 with 25, then 22 with 12, then 64 with 12. That is how it determines the next sorted item. Step 2: D. One swap puts the pick, 12, into slot lh. It never moves again, so that is its final destination. Step 3: A. Selection sort never compares an unsorted entry with the sorted part; 11 is not looked at again. Comparing an unsorted item with the sorted items is what insertion sort does. Step 4: C. Comparing with the neighbor, one step at a time, until the destination is found is insertInOrder&rsquo;s while loop. Step 5: E. Moving sorted items up to open the insertion point is data[j + 1] = data[j], the shift from slide 04. C and E describe insertion sort; that is the distinction both votes test. Step 6: B and D. Next is Part 3, what the two sorts cost.</aside>
+  <div data-sid="09b-walk-selection:20" class="slide__number"></div>
+  <aside data-sid="09b-walk-selection:21" class="notes">Answer: B and D [keys from the PrairieLearn twin sorting/u12q06_b; confirm in Runestone&rsquo;s results view]. The array is the one slide 08 left, at the start of the pass for lh = 1. Step 1: B. findSmallest compares each entry of the unsorted part with the smallest found so far: 12 with 25, then 22 with 12, then 64 with 12. That is how it determines the next sorted item. Step 2: D. One swap puts the pick, 12, into slot lh. It never moves again, so that is its final destination. Step 3: A. Selection sort never compares an unsorted entry with the sorted part; 11 is not looked at again. Comparing an unsorted item with the sorted items is what insertion sort does. Step 4: C. Comparing with the neighbor, one step at a time, until the destination is found is insertInOrder&rsquo;s while loop. Step 5: E. Moving sorted items up to open the insertion point is data[j + 1] = data[j], the shift from slide 04. C and E describe insertion sort; that is the distinction both votes test. Step 6: B and D. Next is Part 3, what the two sorts cost.</aside>
 
   <style>
     /* Slide-local: the strip in one SVG at 1:1 (716 x 396, slide 08's

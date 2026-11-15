@@ -1,0 +1,179 @@
+<section class="slide slide--warmup" id="slide-10b" data-sid="10b-walk-count:1">
+  <header class="slide__head" data-sid="10b-walk-count:2">
+    <h2 data-sid="10b-walk-count:3">getNumberOfNodes adds 1 to the counts of the two subtrees</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="10b-walk-count:4">A walkthrough of getNumberOfNodes on the five-value tree, under a program-counter bar. The method sets leftNumber and rightNumber to 0; if the node&rsquo;s left child is not null, leftNumber becomes getNumberOfNodes of the left child; if the right child is not null, rightNumber becomes getNumberOfNodes of the right child; it returns 1 plus leftNumber plus rightNumber. On the right, the tree 10, with 3 on its left and 12 on its right, 7 under 3 on the right and 20 under 12 on the right; a blue ring marks the node of the running call. Under the tree, the call stack, one box per call, and a counter labelled nodes counted. Step one: the call on 10 starts. Step two: 10 has a left child, so the call on 3 begins and the call on 10 waits on line 5. Step three: 3 has no left child; the call on its right child, 7, begins. Step four: 7 has no children and returns 1 in a blue pill; the counter reads 1. Step five: the call on 7 is removed, the 1 becomes rightNumber in the call on 3, and 3 returns 2; the counter reads 2. Step six: the call on 3 is removed, the 2 becomes leftNumber in the call on 10, and the call on 12 begins. Step seven: 12 has no left child; the call on 20 begins and returns 1; the counter reads 3. Step eight: 12 returns 2; the counter reads 4. Step nine: 10 returns 1 plus 2 plus 2, which is 5; the counter reads 5. Step ten, in maroon: each call counts itself and adds what its children report.</p>
+
+  <!-- getNumberOfNodes as on the ProgrammingTrees slides (13.2):
+       leftNumber and rightNumber start at 0, recurse on the non-null
+       children, return 1 + leftNumber + rightNumber. The two long
+       assignments are broken after the = (continuation indented two more)
+       so that the editor fits 954 px at --t-code; nothing else is changed.
+       Right: the five-value tree in the circle grammar with the horizontal
+       spacing narrowed to fit 420 px (levels still 130 apart), the running
+       call's r 46 ring moved by translate(x, y); under it W7D2 10b's stack
+       (frames 440 x 88 on a 96 px pitch, running = orange tint, waiting =
+       ink with "waiting on line N") with W7D1 09b's blue return pills,
+       which move one pitch down into the caller when a frame is removed;
+       the counter beside the stack.
+       1 call 10 · 2 call 3 · 3 call 7 · 4 7 returns 1 · 5 3 returns 2 ·
+       6 call 12 · 7 20 returns 1 · 8 12 returns 2 · 9 10 returns 5 ·
+       10 plant -->
+  <div class="slide__body codewalk code-mid cn" data-sid="10b-walk-count:5">
+    <div class="cn__left" data-sid="10b-walk-count:6">
+      <div class="editor cn__editor" data-sid="10b-walk-count:7">
+        <p class="editor__bar" data-sid="10b-walk-count:8">getNumberOfNodes from the ProgrammingTrees slides</p>
+        <div class="editor__pc" data-sid="10b-walk-count:9"></div>
+        <ol class="editor__code" data-sid="10b-walk-count:10">
+          <li data-sid="10b-walk-count:11"><span class="tok-key" data-sid="10b-walk-count:12">int</span> getNumberOfNodes(BinaryNode&lt;T&gt; node) {</li>
+          <li class="walkline frag" data-step="1" data-sid="10b-walk-count:13">  <span class="tok-key" data-sid="10b-walk-count:14">int</span> leftNumber = <span class="tok-num" data-sid="10b-walk-count:15">0</span>, rightNumber = <span class="tok-num" data-sid="10b-walk-count:16">0</span>;</li>
+          <li class="walkline frag" data-step="2" data-sid="10b-walk-count:17">  <span class="tok-key" data-sid="10b-walk-count:18">if</span> (node.getLeftChild() != <span class="tok-key" data-sid="10b-walk-count:19">null</span>)</li>
+          <li class="walkline frag" data-step="2" data-sid="10b-walk-count:20">    leftNumber =</li>
+          <li class="walkline frag" data-step="2" data-sid="10b-walk-count:21">      getNumberOfNodes(node.getLeftChild());</li>
+          <li class="walkline frag" data-step="3" data-also="6" data-sid="10b-walk-count:22">  <span class="tok-key" data-sid="10b-walk-count:23">if</span> (node.getRightChild() != <span class="tok-key" data-sid="10b-walk-count:24">null</span>)</li>
+          <li class="walkline frag" data-step="3" data-also="6" data-sid="10b-walk-count:25">    rightNumber =</li>
+          <li class="walkline frag" data-step="3" data-also="6" data-sid="10b-walk-count:26">      getNumberOfNodes(node.getRightChild());</li>
+          <li class="walkline frag" data-step="4" data-also="5 7 8 9" data-sid="10b-walk-count:27">  <span class="tok-key" data-sid="10b-walk-count:28">return</span> <span class="tok-num" data-sid="10b-walk-count:29">1</span> + leftNumber + rightNumber;</li>
+          <li class="walkline frag" data-step="10" data-sid="10b-walk-count:30">}</li>
+        </ol>
+      </div>
+      <div class="codewalk__caps" data-sid="10b-walk-count:31">
+        <p class="walkcap cap--1 frag" data-step="1" data-sid="10b-walk-count:32">getNumberOfNodes(10) starts with leftNumber and rightNumber at 0.</p>
+        <p class="walkcap cap--2 frag" data-step="2" data-sid="10b-walk-count:33">10 has a left child, so the call on 3 begins. The call on 10 waits on line 5.</p>
+        <p class="walkcap cap--3 frag" data-step="3" data-sid="10b-walk-count:34">3 has no left child, so leftNumber stays 0. Its right child is 7, so the call on 7 begins.</p>
+        <p class="walkcap cap--4 frag" data-step="4" data-sid="10b-walk-count:35">7 has no children. It returns 1 + 0 + 0 = 1, and one node has been counted.</p>
+        <p class="walkcap cap--5 frag" data-step="5" data-sid="10b-walk-count:36">The 1 becomes rightNumber in the call on 3, which returns 1 + 0 + 1 = 2.</p>
+        <p class="walkcap cap--6 frag" data-step="6" data-sid="10b-walk-count:37">The 2 becomes leftNumber in the call on 10. Its right child is 12, so the call on 12 begins.</p>
+        <p class="walkcap cap--7 frag" data-step="7" data-sid="10b-walk-count:38">12 has no left child. The call on its right child, 20, returns 1.</p>
+        <p class="walkcap cap--8 frag" data-step="8" data-sid="10b-walk-count:39">The call on 12 returns 1 + 0 + 1 = 2.</p>
+        <p class="walkcap cap--9 frag" data-step="9" data-sid="10b-walk-count:40">The call on 10 returns 1 + 2 + 2 = 5, the number of nodes in the tree.</p>
+        <p class="walkcap walkcap--plant cap--10 frag" data-step="10" data-sid="10b-walk-count:41">Each call counts itself and adds what its children report.</p>
+      </div>
+    </div>
+    <div class="cn__right" data-sid="10b-walk-count:42">
+      <svg class="cn__tree" viewBox="0 0 420 340" role="img" aria-label="The tree 10, with 3 on its left and 12 on its right, 7 as the right child of 3 and 20 as the right child of 12; a blue ring marks the node of the running call" data-sid="10b-walk-count:43">
+        <path class="te" d="M185.6 66.5 L114.4 143.5" data-sid="10b-walk-count:44"/><path class="te" d="M234.4 66.5 L305.6 143.5" data-sid="10b-walk-count:45"/><path class="te" d="M105.1 202.7 L134.9 267.3" data-sid="10b-walk-count:46"/><path class="te" d="M342.9 203.6 L367.1 266.4" data-sid="10b-walk-count:47"/>
+        <g class="tn" data-sid="10b-walk-count:48"><circle cx="210" cy="40" r="36" data-sid="10b-walk-count:49"/><text x="210" y="52" data-sid="10b-walk-count:50">10</text></g><g class="tn" data-sid="10b-walk-count:51"><circle cx="90" cy="170" r="36" data-sid="10b-walk-count:52"/><text x="90" y="182" data-sid="10b-walk-count:53">3</text></g><g class="tn" data-sid="10b-walk-count:54"><circle cx="330" cy="170" r="36" data-sid="10b-walk-count:55"/><text x="330" y="182" data-sid="10b-walk-count:56">12</text></g><g class="tn" data-sid="10b-walk-count:57"><circle cx="150" cy="300" r="36" data-sid="10b-walk-count:58"/><text x="150" y="312" data-sid="10b-walk-count:59">7</text></g><g class="tn" data-sid="10b-walk-count:60"><circle cx="380" cy="300" r="36" data-sid="10b-walk-count:61"/><text x="380" y="312" data-sid="10b-walk-count:62">20</text></g>
+        <circle class="ring" cx="210" cy="40" r="46" data-sid="10b-walk-count:63"/>
+      </svg>
+      <div class="cn__low" data-sid="10b-walk-count:64">
+        <svg class="cn__stack" viewBox="0 0 440 292" role="img" aria-label="The call stack, one box per call of getNumberOfNodes with the node it was called on; a waiting call is plain and says which line it waits on, the running call is orange, and a returned value is a blue pill" data-sid="10b-walk-count:65">
+          <path class="sk__base" d="M0 288H440" data-sid="10b-walk-count:66"/>
+          <g class="fr fr--f10 frag" data-step="1" data-sid="10b-walk-count:67"><rect class="fr__box" x="0" y="192" width="440" height="88" rx="12" data-sid="10b-walk-count:68"/><text class="fr__call" x="20" y="230" data-sid="10b-walk-count:69">getNumberOfNodes</text><text class="fr__wait fr__wait--a" x="20" y="266" data-sid="10b-walk-count:70">waiting on line 5</text><text class="fr__wait fr__wait--b" x="20" y="266" data-sid="10b-walk-count:71">waiting on line 8</text><circle class="fr__nd" cx="410" cy="236" r="22" data-sid="10b-walk-count:72"/><text class="fr__ndv" x="410" y="246" data-sid="10b-walk-count:73">10</text></g><g class="fr fr--f3 frag" data-step="2" data-sid="10b-walk-count:74"><rect class="fr__box" x="0" y="96" width="440" height="88" rx="12" data-sid="10b-walk-count:75"/><text class="fr__call" x="20" y="134" data-sid="10b-walk-count:76">getNumberOfNodes</text><text class="fr__wait fr__wait--a" x="20" y="170" data-sid="10b-walk-count:77">waiting on line 8</text><circle class="fr__nd" cx="410" cy="140" r="22" data-sid="10b-walk-count:78"/><text class="fr__ndv" x="410" y="150" data-sid="10b-walk-count:79">3</text></g><g class="fr fr--f7 frag" data-step="3" data-sid="10b-walk-count:80"><rect class="fr__box" x="0" y="0" width="440" height="88" rx="12" data-sid="10b-walk-count:81"/><text class="fr__call" x="20" y="38" data-sid="10b-walk-count:82">getNumberOfNodes</text><circle class="fr__nd" cx="410" cy="44" r="22" data-sid="10b-walk-count:83"/><text class="fr__ndv" x="410" y="54" data-sid="10b-walk-count:84">7</text></g><g class="fr fr--f12 frag" data-step="6" data-sid="10b-walk-count:85"><rect class="fr__box" x="0" y="96" width="440" height="88" rx="12" data-sid="10b-walk-count:86"/><text class="fr__call" x="20" y="134" data-sid="10b-walk-count:87">getNumberOfNodes</text><text class="fr__wait fr__wait--a" x="20" y="170" data-sid="10b-walk-count:88">waiting on line 8</text><circle class="fr__nd" cx="410" cy="140" r="22" data-sid="10b-walk-count:89"/><text class="fr__ndv" x="410" y="150" data-sid="10b-walk-count:90">12</text></g><g class="fr fr--f20 frag" data-step="7" data-sid="10b-walk-count:91"><rect class="fr__box" x="0" y="0" width="440" height="88" rx="12" data-sid="10b-walk-count:92"/><text class="fr__call" x="20" y="38" data-sid="10b-walk-count:93">getNumberOfNodes</text><circle class="fr__nd" cx="410" cy="44" r="22" data-sid="10b-walk-count:94"/><text class="fr__ndv" x="410" y="54" data-sid="10b-walk-count:95">20</text></g>
+          <g class="rv rv--p7 frag" data-step="4" data-sid="10b-walk-count:96"><rect x="312" y="22" width="64" height="44" rx="22" data-sid="10b-walk-count:97"/><text x="344" y="54" data-sid="10b-walk-count:98">1</text></g><g class="rv rv--p3 frag" data-step="5" data-sid="10b-walk-count:99"><rect x="312" y="118" width="64" height="44" rx="22" data-sid="10b-walk-count:100"/><text x="344" y="150" data-sid="10b-walk-count:101">2</text></g><g class="rv rv--p20 frag" data-step="7" data-sid="10b-walk-count:102"><rect x="312" y="22" width="64" height="44" rx="22" data-sid="10b-walk-count:103"/><text x="344" y="54" data-sid="10b-walk-count:104">1</text></g><g class="rv rv--p12 frag" data-step="8" data-sid="10b-walk-count:105"><rect x="312" y="118" width="64" height="44" rx="22" data-sid="10b-walk-count:106"/><text x="344" y="150" data-sid="10b-walk-count:107">2</text></g><g class="rv rv--p10 frag" data-step="9" data-sid="10b-walk-count:108"><rect x="312" y="214" width="64" height="44" rx="22" data-sid="10b-walk-count:109"/><text x="344" y="246" data-sid="10b-walk-count:110">5</text></g>
+        </svg>
+        <div class="moves" data-sid="10b-walk-count:111">
+          <p class="moves__label" data-sid="10b-walk-count:112">nodes counted</p>
+          <div class="moves__stack" data-sid="10b-walk-count:113">
+            <div class="heap-obj__field" data-sid="10b-walk-count:114"><p class="heap-val heap-val--old frag" data-step="4" data-sid="10b-walk-count:115">0</p><p class="heap-val frag" data-step="4" data-sid="10b-walk-count:116">1</p></div>
+            <div class="heap-obj__field" data-sid="10b-walk-count:117"><p class="heap-val heap-val--old frag" data-step="5" data-sid="10b-walk-count:118">1</p><p class="heap-val frag" data-step="5" data-sid="10b-walk-count:119">2</p></div>
+            <div class="heap-obj__field" data-sid="10b-walk-count:120"><p class="heap-val heap-val--old frag" data-step="7" data-sid="10b-walk-count:121">2</p><p class="heap-val frag" data-step="7" data-sid="10b-walk-count:122">3</p></div>
+            <div class="heap-obj__field" data-sid="10b-walk-count:123"><p class="heap-val heap-val--old frag" data-step="8" data-sid="10b-walk-count:124">3</p><p class="heap-val frag" data-step="8" data-sid="10b-walk-count:125">4</p></div>
+            <div class="heap-obj__field" data-sid="10b-walk-count:126"><p class="heap-val heap-val--old frag" data-step="9" data-sid="10b-walk-count:127">4</p><p class="heap-val frag" data-step="9" data-sid="10b-walk-count:128">5</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="10b-walk-count:129"></div>
+  <aside class="notes" data-sid="10b-walk-count:130">getNumberOfNodes is the method from the ProgrammingTrees slides in 13.2; only the line breaks are new. Each call starts both counts at 0, makes a recursive call only for a child that exists, and returns itself, the 1, plus what its two calls returned. Step 1: the call on 10. Step 2: 10 has a left child, 3, so the call on 3 begins, and the call on 10 waits on line 5 for the answer. Step 3: 3 has no left child, so its leftNumber stays 0; it has a right child, 7, so the call on 7 begins. Step 4: 7 has no children; neither if runs and it returns 1 + 0 + 0 = 1. That is the first node counted. Step 5: the call on 7 is finished and removed. Its 1 goes to the call on 3 as rightNumber, and 3 returns 1 + 0 + 1 = 2. Step 6: the call on 3 is removed and its 2 becomes the leftNumber of 10. 10 has a right child, so the call on 12 begins. Step 7: 12 has no left child; the call on 20 returns 1. Step 8: 12 returns 1 + 0 + 1 = 2. Step 9: 10 returns 1 + 2 + 2 = 5. Step 10: every node was visited by exactly one call, and each call counts only itself; the children&rsquo;s calls count the rest. CE 13&rsquo;s size() works the same way. Next, the same recursion measures the height.</aside>
+
+  <style data-sid="10b-walk-count:131">
+    /* Slide-local: left, the editor at --t-code (954 px: the longest line is
+       45 characters, 45 x 19.2 + 70 = 934, plus the 2% WebKit margin) with
+       the narration under it; right, the tree (420 x 340 at 1:1) over the
+       call stack (440 x 292) and the counter beside the stack (deck.css
+       .moves, maroon, it counts; its label may wrap to two lines). Frames:
+       running = orange 18 % tint with an orange stroke, waiting = --bg-1 with
+       an --fg-1 stroke and a stone note at --t-micro; the call name in mono
+       at --t-micro, the node's value in a small circle. Motion: a frame
+       GrowsFromCenter on its call and fades on its return; a return pill
+       GrowsFromCenter and moves one pitch down (96 px) into the caller when
+       the frame is removed, then fades once its value is used; the ring
+       moves by translate (a real move). Every state is a :has(.cap--k) rule
+       in step order, so back-steps reverse. Used by this slide only, all
+       values from tokens. */
+    #slide-10b .cn { display: grid; grid-template-columns: 954px minmax(0, 1fr); column-gap: var(--s-5); align-items: start; }
+    #slide-10b .cn__left { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-10b .cn__editor { width: 954px; }
+    #slide-10b .codewalk__caps { min-height: 98px; }
+    #slide-10b .walkcap--plant { font-family: var(--font-display); color: var(--accent-1); }
+    #slide-10b .cn__right { display: grid; row-gap: var(--s-3); align-content: start; }
+    #slide-10b .cn__tree { display: block; width: 420px; height: 340px; overflow: visible; }
+    #slide-10b .cn__low { display: grid; grid-template-columns: 440px minmax(0, 1fr); column-gap: var(--s-3); align-items: end; }
+    #slide-10b .cn__stack { display: block; width: 440px; height: 292px; overflow: visible; }
+    #slide-10b .cn__low .moves { grid-template-columns: max-content; row-gap: var(--s-1); }
+    #slide-10b .cn__low .moves__label { max-width: 150px; }
+
+    #slide-10b .tn circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-10b .tn text { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: middle; }
+    #slide-10b .te { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-10b .ring { fill: none; stroke: var(--accent-2); stroke-width: 5; opacity: 0; transition: transform .6s var(--ease-smooth), opacity .3s ease; }
+    #slide-10b .sk__base { fill: none; stroke: var(--stone); stroke-width: 4; stroke-linecap: round; }
+
+    /* frames: running by default */
+    #slide-10b .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); stroke-width: 4; transition: fill .3s ease, stroke .3s ease; }
+    #slide-10b .fr__call { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); }
+    #slide-10b .fr__wait { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--stone); opacity: 0; transition: opacity .3s ease; }
+    #slide-10b .fr__nd { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 3; }
+    #slide-10b .fr__ndv { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-0); text-anchor: middle; }
+    #slide-10b .fr { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-10b .frag.fr.is-pending { opacity: 0; transform: scale(0.4); }
+
+    /* return pills */
+    #slide-10b .rv rect { fill: var(--bg-0); stroke: var(--accent-2); stroke-width: 4; }
+    #slide-10b .rv text { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--accent-2); text-anchor: middle; }
+    #slide-10b .rv { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .6s var(--ease-smooth); }
+    #slide-10b .frag.rv.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-10b .frag.rv--p20.is-current { transition-delay: .5s; }
+    #slide-10b .frag.rv--p3.is-current, #slide-10b .frag.rv--p12.is-current, #slide-10b .frag.rv--p10.is-current { transition-delay: .9s; }
+
+    /* ---- states, in step order ---- */
+    /* the ring follows the running call */
+    #slide-10b .cn:has(.cap--1:not(.is-pending)) .ring { opacity: 1; }
+    #slide-10b .cn:has(.cap--2:not(.is-pending)) .ring { transform: translate(-120px, 130px); }
+    #slide-10b .cn:has(.cap--3:not(.is-pending)) .ring { transform: translate(-60px, 260px); }
+    #slide-10b .cn:has(.cap--4:not(.is-pending)) .ring { transform: translate(-60px, 260px); }
+    #slide-10b .cn:has(.cap--5:not(.is-pending)) .ring { transform: translate(-120px, 130px); }
+    #slide-10b .cn:has(.cap--6:not(.is-pending)) .ring { transform: translate(120px, 130px); }
+    #slide-10b .cn:has(.cap--7:not(.is-pending)) .ring { transform: translate(170px, 260px); }
+    #slide-10b .cn:has(.cap--8:not(.is-pending)) .ring { transform: translate(120px, 130px); }
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .ring { transform: translate(0px, 0px); }
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .ring { transform: translate(0px, 0px); }
+
+    /* waiting frames: ink, with the line they wait on */
+    #slide-10b .cn:has(.cap--2:not(.is-pending)) .fr--f10 .fr__box,
+    #slide-10b .cn:has(.cap--3:not(.is-pending)) .fr--f3 .fr__box,
+    #slide-10b .cn:has(.cap--7:not(.is-pending)) .fr--f12 .fr__box { fill: var(--bg-1); stroke: var(--fg-1); }
+    #slide-10b .cn:has(.cap--2:not(.is-pending)) .fr--f10 .fr__wait--a,
+    #slide-10b .cn:has(.cap--3:not(.is-pending)) .fr--f3 .fr__wait--a,
+    #slide-10b .cn:has(.cap--6:not(.is-pending)) .fr--f10 .fr__wait--b,
+    #slide-10b .cn:has(.cap--7:not(.is-pending)) .fr--f12 .fr__wait--a { opacity: 1; }
+    #slide-10b .cn:has(.cap--6:not(.is-pending)) .fr--f10 .fr__wait--a { opacity: 0; }
+    /* running again once the call above returns */
+    #slide-10b .cn:has(.cap--5:not(.is-pending)) .fr--f3 .fr__box,
+    #slide-10b .cn:has(.cap--8:not(.is-pending)) .fr--f12 .fr__box,
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .fr--f10 .fr__box { fill: color-mix(in srgb, var(--accent-3) 18%, var(--bg-0)); stroke: var(--accent-3); }
+    #slide-10b .cn:has(.cap--5:not(.is-pending)) .fr--f3 .fr__wait--a,
+    #slide-10b .cn:has(.cap--8:not(.is-pending)) .fr--f12 .fr__wait--a,
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .fr--f10 .fr__wait--b { opacity: 0; }
+    /* a finished call is removed */
+    #slide-10b .cn:has(.cap--5:not(.is-pending)) .fr--f7,
+    #slide-10b .cn:has(.cap--6:not(.is-pending)) .fr--f3,
+    #slide-10b .cn:has(.cap--8:not(.is-pending)) .fr--f20,
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .fr--f12 { opacity: 0; }
+    /* a returned value moves down into its caller, then is used up */
+    #slide-10b .cn:has(.cap--5:not(.is-pending)) .rv--p7,
+    #slide-10b .cn:has(.cap--6:not(.is-pending)) .rv--p3,
+    #slide-10b .cn:has(.cap--8:not(.is-pending)) .rv--p20,
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .rv--p12 { transform: translateY(96px); }
+    #slide-10b .cn:has(.cap--5:not(.is-pending)) .rv--p7,
+    #slide-10b .cn:has(.cap--8:not(.is-pending)) .rv--p20,
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .rv--p12,
+    #slide-10b .cn:has(.cap--9:not(.is-pending)) .rv--p3 { opacity: 0; transition: opacity .3s ease .6s, transform .6s var(--ease-smooth); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-10b .ring, #slide-10b .fr, #slide-10b .fr__box, #slide-10b .fr__wait, #slide-10b .rv { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>

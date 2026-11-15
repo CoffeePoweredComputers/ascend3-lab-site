@@ -1,0 +1,81 @@
+<section class="slide slide--warmup" id="slide-06" data-sid="06-walk-levels:1">
+  <header class="slide__head" data-sid="06-walk-levels:2">
+    <h2 data-sid="06-walk-levels:3">When every node has 0 or 2 children, each level holds twice as many nodes as the one above</h2>
+  </header>
+  <p class="sr-only slide__desc" data-sid="06-walk-levels:4">The shape that both votes ask about, built one level per press across the full width. Step one: a single circle at the top, the root, labelled level 1; every node has 0 or 2 children, and the root takes two. Step two: two edges draw down to two children on level 2; level 2 holds 2 nodes. Step three: each level-2 node takes two children, and four pale blue leaves appear on level 3; every leaf is on level 3, so the height is 3. Step four: at the right end of each level a count appears: 1 node, 2 nodes, 4 nodes; each level holds twice as many nodes as the level above. Step five, in maroon: in the words of the votes, this tree has nodes that either have 0 or 2 children and all leaves on the same level.</p>
+
+  <!-- Part 2's set-up for both votes. The votes' shape ("nodes that either
+       have 0 or 2 children and all leaves on the same level"; the slides
+       never name it full or perfect) built a level at a time on a height-3
+       tree, with the count of each level only. HARD CONSTRAINT (instructor,
+       2026-11-14): this slide must not give the votes away, so it never adds
+       the levels up, never writes a formula, and never states the tree's
+       total. The per-level counts and the doubling are allowed. One SVG at
+       1:1 (1664 x 360) in the shared circle-tree grammar (r 36, level pitch
+       130), nodes on 800 / 400 / 200 px spacings so that every level is
+       centred; the leaves take the deck's leaf tint.
+       step 1: the root.  step 2: level 2.  step 3: level 3 (leaves).
+       step 4: the per-level counts.  step 5: the votes' phrase. -->
+  <div class="slide__body lv" data-sid="06-walk-levels:5">
+    <svg class="lv__fig" viewBox="0 0 1664 360" role="img" aria-label="A tree of three levels: one root, two children on level 2 and four leaves on level 3, every node with two children or none; at the right end of the levels the counts 1 node, 2 nodes and 4 nodes" data-sid="06-walk-levels:6">
+      <text class="lv__lab frag" data-step="1" x="6" y="60" data-sid="06-walk-levels:7">level 1</text>
+      <text class="lv__lab frag" data-step="2" x="6" y="190" data-sid="06-walk-levels:8">level 2</text>
+      <text class="lv__lab frag" data-step="3" x="6" y="320" data-sid="06-walk-levels:9">level 3</text>
+      <path class="te frag p" data-step="2" style="--i: 0" pathLength="100" d="M765.8 61.1 L434.2 168.9" data-sid="06-walk-levels:10"/><path class="te frag p" data-step="2" style="--i: 1" pathLength="100" d="M834.2 61.1 L1165.8 168.9" data-sid="06-walk-levels:11"/><path class="te frag p" data-step="3" style="--i: 0" pathLength="100" d="M369.8 199.6 L230.2 290.4" data-sid="06-walk-levels:12"/><path class="te frag p" data-step="3" style="--i: 1" pathLength="100" d="M430.2 199.6 L569.8 290.4" data-sid="06-walk-levels:13"/><path class="te frag p" data-step="3" style="--i: 2" pathLength="100" d="M1169.8 199.6 L1030.2 290.4" data-sid="06-walk-levels:14"/><path class="te frag p" data-step="3" style="--i: 3" pathLength="100" d="M1230.2 199.6 L1369.8 290.4" data-sid="06-walk-levels:15"/>
+      <g class="tn frag g" data-step="1" style="--i: 0" data-sid="06-walk-levels:16"><circle cx="800" cy="50" r="36" data-sid="06-walk-levels:17"/></g><g class="tn frag g" data-step="2" style="--i: 0" data-sid="06-walk-levels:18"><circle cx="400" cy="180" r="36" data-sid="06-walk-levels:19"/></g><g class="tn frag g" data-step="2" style="--i: 1" data-sid="06-walk-levels:20"><circle cx="1200" cy="180" r="36" data-sid="06-walk-levels:21"/></g><g class="tn tn--leaf frag g" data-step="3" style="--i: 0" data-sid="06-walk-levels:22"><circle cx="200" cy="310" r="36" data-sid="06-walk-levels:23"/></g><g class="tn tn--leaf frag g" data-step="3" style="--i: 1" data-sid="06-walk-levels:24"><circle cx="600" cy="310" r="36" data-sid="06-walk-levels:25"/></g><g class="tn tn--leaf frag g" data-step="3" style="--i: 2" data-sid="06-walk-levels:26"><circle cx="1000" cy="310" r="36" data-sid="06-walk-levels:27"/></g><g class="tn tn--leaf frag g" data-step="3" style="--i: 3" data-sid="06-walk-levels:28"><circle cx="1400" cy="310" r="36" data-sid="06-walk-levels:29"/></g>
+      <text class="lv__n frag" data-step="4" style="--i: 0" x="1656" y="62" data-sid="06-walk-levels:30">1 node</text>
+      <text class="lv__n frag" data-step="4" style="--i: 1" x="1656" y="192" data-sid="06-walk-levels:31">2 nodes</text>
+      <text class="lv__n frag" data-step="4" style="--i: 2" x="1656" y="322" data-sid="06-walk-levels:32">4 nodes</text>
+    </svg>
+    <div class="lv__caps" data-sid="06-walk-levels:33">
+      <p class="lv__cap cap--1 frag" data-step="1" data-sid="06-walk-levels:34">Every node has 0 or 2 children, so the root, which is not a leaf, takes two.</p>
+      <p class="lv__cap cap--2 frag" data-step="2" data-sid="06-walk-levels:35">Level 2 therefore holds 2 nodes.</p>
+      <p class="lv__cap cap--3 frag" data-step="3" data-sid="06-walk-levels:36">Each level-2 node takes two children, so level 3 holds 4. Every leaf is on level 3, so the height is 3.</p>
+      <p class="lv__cap cap--4 frag" data-step="4" data-sid="06-walk-levels:37">Each level holds twice as many nodes as the level above.</p>
+      <p class="lv__cap lv__cap--plant cap--5 frag" data-step="5" data-sid="06-walk-levels:38">In the words of the votes, this tree has nodes that either have 0 or 2 children and all leaves on the same level.</p>
+    </div>
+  </div>
+  <div class="slide__number" data-sid="06-walk-levels:39"></div>
+  <aside class="notes" data-sid="06-walk-levels:40">This is the shape that both votes describe. Step 1: start from a root. Every node in this shape has 0 or 2 children, never 1, so the root takes two. Step 2: level 2 holds 2 nodes. Step 3: each of those takes two children, so level 3 holds 4. The votes also require all leaves on the same level; here every leaf is on level 3, so nothing grows under any of them and the height is 3, counting levels as on the last slide. Step 4: each level holds twice as many nodes as the level above, because every node on a level has exactly two children on the next one. Step 5: this is the phrase the votes use. Do not add the levels up, and do not write a formula on the board; that is what the two votes ask the groups to work out. Next is the voting routine.</aside>
+
+  <style data-sid="06-walk-levels:41">
+    /* Slide-local: one SVG at 1:1 (1664 x 360) in the shared circle-tree
+       grammar (r 36, stroke 4 --fg-1 on --bg-1, edges 4 px --fg-1, level
+       pitch 130) with level labels at --t-micro on the left and the
+       per-level counts at --t-small, right-anchored at the body's right
+       edge; the narration under it, one sentence per press at --t-small, the
+       last in display maroon. Nodes carry no letters: the votes speak of
+       the shape, not of named nodes. Motion: edges are Created from the
+       parent, then the children GrowFromCenter, staggered left to right
+       (--i); labels and counts fade in. Used by this slide only, all values
+       from tokens. */
+    #slide-06 .lv { display: grid; grid-template-rows: auto auto; row-gap: var(--s-5); align-content: start; }
+    #slide-06 .lv__fig { display: block; width: 1664px; height: 360px; overflow: visible; }
+    #slide-06 .tn circle { fill: var(--bg-1); stroke: var(--fg-1); stroke-width: 4; }
+    #slide-06 .tn--leaf circle { fill: color-mix(in srgb, var(--accent-2) 10%, var(--bg-1)); }
+    #slide-06 .te { fill: none; stroke: var(--fg-1); stroke-width: 4; stroke-linecap: round; }
+    #slide-06 .lv__lab { font-family: var(--font-mono); font-size: var(--t-micro); fill: var(--fg-1); }
+    #slide-06 .lv__n { font-family: var(--font-mono); font-size: var(--t-small); fill: var(--fg-0); text-anchor: end; }
+
+    /* Create, then GrowFromCenter, staggered */
+    #slide-06 .p { stroke-dasharray: 100; transition: stroke-dashoffset .5s var(--ease-smooth); }
+    #slide-06 .frag.p.is-pending { opacity: 1; stroke-dashoffset: 100; }
+    #slide-06 .frag.p.is-current, #slide-06 .frag.p.is-past { transition-delay: calc(var(--i) * .15s); }
+    #slide-06 .g { transform-box: fill-box; transform-origin: 50% 50%; transition: opacity .25s ease, transform .5s var(--ease-smooth); }
+    #slide-06 .frag.g.is-pending { opacity: 0; transform: scale(0.4); }
+    #slide-06 .frag.g.is-current, #slide-06 .frag.g.is-past { transition-delay: calc(.35s + var(--i) * .15s); }
+    #slide-06 .frag.lv__n.is-current, #slide-06 .frag.lv__n.is-past { transition-delay: calc(var(--i) * .3s); }
+
+    /* narration: one sentence at a time in one cell */
+    #slide-06 .lv__caps { display: grid; min-height: 98px; align-content: start; }
+    #slide-06 .lv__caps > * { grid-area: 1 / 1; }
+    #slide-06 .slide__body p.lv__cap { margin: 0; font-size: var(--t-small); line-height: 1.35; color: var(--fg-1); transition: opacity .3s ease; }
+    #slide-06 .frag.lv__cap.is-current { transition-delay: .3s; }
+    #slide-06 .frag.lv__cap.is-past { opacity: 0; transition-delay: 0s; }
+    #slide-06 .slide__body p.lv__cap--plant { font-family: var(--font-display); color: var(--accent-1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      #slide-06 .p, #slide-06 .g, #slide-06 .lv__lab, #slide-06 .lv__n, #slide-06 .lv__cap { transition-duration: 0s !important; transition-delay: 0s !important; }
+    }
+  </style>
+</section>
